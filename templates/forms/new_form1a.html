@@ -1,0 +1,992 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Form 1A {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+
+.table_data {
+  display: none;
+}
+
+.container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.td_style {
+  /* color: #000000;*/
+  color: #0057e7;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+
+{% for data in init_data %}
+
+	<h1 class="page-header">Forms <small>New Service and Monitoring(Form 1A)  <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+	<!-- begin col-12 -->
+    <div class="col-md-12">
+    	<!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> Form 1A Details </h4>
+            </div>
+            <div class="panel-body">
+            	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard-f1a" id="new_f1a">
+                	{% csrf_token %}
+					<div id="wizard-f1a">
+						<ol>
+							<li>
+							    Assessment
+							    <small>Assessment details</small>
+							</li>
+							<li>
+							    Services 
+							    <small>Services details</small>
+							</li>
+							<li>
+							    Priority Need(s)
+							    <small>Priority need details.</small>
+							</li>
+							<li>
+							    Critical Event(s)
+							    <small>Critical events details</small>
+							</li>							
+						</ol>
+
+						<!-- begin wizard step-1 -->
+						<div class="wizard-step-1">
+                            <fieldset> 
+                                <!-- begin col-6 -->
+                                <table id="assessment_manager_table" class="table">
+                                    <thead>
+                                        <tr id="id_inputHeaders1">
+                                        	<td width="5%"></td>
+                                        	<th width="15%"><h6><b>Domain</b></h6></th>
+                                            <th width="20%"><h6><b>Core Service(s)</b></h6></th>
+                                            <th width="25%"><h6><b>Core Service(s) Status</b></h6></th>
+                                            <th width="5%"><h6><b>Actions</b></h6></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="id_inputElements1">
+                                        	<td></td>
+                                        	<td width="15%">
+                                        		{{ form.olmis_assessment_domain }}
+                                        		<div id="olmis_assessment_domain_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                        	</td>
+                                            <td width="20%">
+                                            	{{ form.olmis_assessment_coreservice }}
+                                            	<div id="olmis_assessment_coreservice_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="15%">
+                                            	{{ form.olmis_assessment_coreservice_status }}
+                                            	<h6><span id="sel_olmis_assessment_coreservice_status"></span></h6>
+                                            	<!-- <input id='holmis_assessment_coreservice_status' type='hidden'> -->
+                                            	<div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>                                         
+                                            <td width="5%">
+                                            <h6><b>
+	                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(1)">
+	                                                <i class="fa fa-plus"></i>  Add
+	                                            </button>
+                                            	</b></h6>
+                                            </td>
+                                        </tr>		                                        
+                                    </tbody>
+                                    {{ form.olmis_assessment_provided_list }}
+                                </table>
+							    <!-- end col-6 -->                                
+							</fieldset>
+						</div>
+						<!-- end wizard step-1 -->  
+
+						<!-- begin wizard step-2 -->
+						<div class="wizard-step-2">
+							<div class="panel-body">
+								<table id="services_manager_table" class="table">
+                                    <thead>
+                                        <tr id="id_inputHeaders">
+                                        	<td width="2%"></td>
+                                        	<th width="15%"><h6><b>Domain</b></h6></th>
+                                            <th width="20%"><h6><b>Service(s)</b></h6></th>
+                                            <th width="15%"><h6><b>Date Of Service</b></h6></th>
+                                            <!-- <th width="20%"><h6><b>Service(s) Provider</b></h6></th> 
+                                            <th width="20%"><h6><b>Place Of Service</b></h6></th>-->
+                                            <th width="5%"><h6><b>Actions</b></h6></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="id_inputElements13">
+                                        	<td width="2%"></td>
+                                        	<td width="15%">
+                                        		{{ form.olmis_domain }}
+                                        		<div id="olmis_domain_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                        	</td>
+                                            <td width="20%">
+                                            	{{ form.olmis_service }}
+                                            	<div id="olmis_service_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="15%">
+                                            	{{ form.olmis_service_date }}
+                                            	<div id="olmis_service_date_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <!--
+                                            <td width="20%">
+                                            	{{ form.olmis_service_provider }}
+                                            	<div id="olmis_service_provider_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            
+                                            <td width="20%">
+                                            	{{ form.olmis_place_of_service }}
+                                            	<div id="olmis_place_of_service_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            -->
+                                            <td width="5%">
+                                            <h6><b>
+	                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(2)">
+	                                                <i class="fa fa-plus"></i>  Add
+	                                            </button>
+                                            	</b></h6>
+                                            </td>
+                                        </tr>		                                        
+                                    </tbody>
+                                    {{ form.olmis_service_provided_list }}
+                                </table>								
+							</div>
+						</div> 
+						<!-- end wizard step-2 -->
+
+						<!-- begin wizard step-3 -->
+						<div class="wizard-step-3">
+                            <div class="panel-body">  
+                                <table id="priority_manager_table" class="table">
+                                    <thead>
+                                        <tr id="id_inputHeaders">
+                                            <td width="2%"></td>
+                                            <td width="10%"><h6><b>Domain</b></h6></td>
+                                            <td width="15%"><h6><b>Priority Need(s)</b></h6></td>
+                                            <th width="5%"><h6><b>Actions</b></h6></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="id_inputElements14">
+                                            <td width="2%">#</td>
+                                            <td width="10%">
+                                                {{ form.olmis_priority_domain }}
+                                                <div id="olmis_priority_domain_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="15%">
+                                                {{ form.olmis_priority_service }}
+                                                <h6><span id="sel_olmis_priority_service"></span></h6>
+                                                <div id="olmis_priority_service_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>                                              
+                                            </td>
+                                            <td width="5%">
+                                            <h6><b>
+                                                <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(3)">
+                                                    <i class="fa fa-plus"></i>  Add
+                                                </button>
+                                                </b></h6>
+                                            </td>
+                                            
+                                        </tr>                               
+                                    </tbody>                                            
+                                </table>
+                                {{ form.olmis_priority_service_provided_list }}
+                            </div>
+                            <div align="right">
+                                <button id="btnClearGrid" type="button" class="btn btn-sm btn-danger m-r-5" style="display:none;" onClick="RemoveRow(3)">
+                                    <i class="fa fa-trash"></i>  Clear Grid
+                                </button>                               
+                            </div>
+                        </div>
+						<!-- end wizard step-3 --> 
+
+						<!-- begin wizard step-4 -->
+						<div class="wizard-step-4">
+							<div class="panel-body"> 
+								<div class="form-group">
+									<label class="control-label col-md-2 col-sm-2" for="critical_events">Critical Event(s) : <span class="asteriskField">* </label>
+									<div class="col-md-8 col-sm-8">
+										{{ form.olmis_critical_event }}
+										<h6><span id="sel_olmis_critical_event"></span></h6>
+									</div>
+									<a href="#" data-toggle="tooltip" title="Describe critical events"><i class="fa fa-info-circle fa-sm"></i></a>
+								</div>								
+							</div>
+						</div> 
+						<!-- end wizard step-4 -->                          
+					</div>
+
+                    <label class="control-label col-md-4 col-sm-4" for="csi_qs">Date of Service(s)/Monitoring : <span class="asteriskField">* </label>
+                    <div class="col-md-6 col-sm-6">
+                        {{ form.date_of_form1a }}
+                    </div>  
+
+					<div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4"></label>
+							<div class="col-md-6 col-sm-6">
+								<button id="mysubmit-f1a" type="submit" class="btn btn-primary">Submit</button>
+								<a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+							</div>
+						</div>
+                    </div>
+
+				</form>
+            </div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>	
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script>
+jQuery(document).ready(function() 
+{
+	 //multi selects
+    $('#olmis_assessment_domain, #olmis_assessment_coreservice, #olmis_assessment_coreservice_status, #olmis_domain, #olmis_service_provider, #olmis_service, #olmis_priority_service, #olmis_priority_domain, #olmis_priority_health, #olmis_priority_education, #olmis_priority_shelter, #olmis_priority_protection, #olmis_priority_pss, #olmis_priority_hes, #olmis_critical_event').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        buttonClass: 'btn btn-white'
+    });
+
+    // populate CSI Services Priority
+    getServices(4, 'DHNU')
+    getServices(4, 'DSHC')
+    getServices(4, 'DPRO')
+    getServices(4, 'DEDU')
+    getServices(4, 'DPSS')
+    getServices(4, 'DHES')
+
+	$('html,body').scrollTop(0);
+	FormWizardValidation.init();
+});
+</script>
+
+<script>
+function getServices(x, domain)
+{
+	var multiselect_data = [];
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var index = 0;
+    var multiselect_id = ''
+
+    if(x==1)
+    { 
+    	index = 2;
+    	multiselect_id = '#olmis_assessment_coreservice' 
+    } 
+
+    if(x==2) 
+    { 
+    	index = 3;
+    	multiselect_id = '#olmis_assessment_coreservice_status'
+    } 
+
+    if(x==3) 
+    { 
+    	index = 1;
+    	multiselect_id = '#olmis_service'
+    } 
+
+    if(x == 4) 
+    { 
+    	index = 1;
+    	if(domain=='DHNU') { multiselect_id = '#olmis_priority_health'; }
+    	if(domain=='DSHC') { multiselect_id = '#olmis_priority_shelter'; }
+    	if(domain=='DPRO') { multiselect_id = '#olmis_priority_protection'; }
+    	if(domain=='DEDU') { multiselect_id = '#olmis_priority_education'; }
+    	if(domain=='DPSS') { multiselect_id = '#olmis_priority_pss'; }
+    	if(domain=='DHES') { multiselect_id = '#olmis_priority_hes'; }
+    	 
+	}
+
+    if(x == 5) 
+    {
+        index = 1;
+        multiselect_id = '#olmis_priority_service'
+    }
+
+    var values = { 
+                    'csrfmiddlewaretoken': csrftoken,
+                    'domain_id': domain,
+                    'index': index
+                 };
+
+    // do an ajax_call
+    $.ajax({
+				url: '{% url 'manage_service_category' %}',
+				dataType: 'json',
+				method: 'POST',
+				contentType: 'application/x-www-form-urlencoded',
+				data: values,
+				success: function(result)
+				{ 
+					var status;
+					var item_sub_category_id;
+					var item_sub_category;
+					var multiselect_dict = {};
+
+		            multiselect_data.push({label: 'Please Select', value: ''});
+
+		            $.each(result, function(i, val) 
+		            {
+		                item_sub_category_id = val.item_sub_category_id;
+		                item_sub_category = val.item_sub_category;
+		                status = val.status;
+
+		                var multiselect_dict = { label: item_sub_category, value: item_sub_category_id };
+		                multiselect_data.push(multiselect_dict);
+		            });		            
+
+		            //add multi-select data
+		            $('' + multiselect_id + '').multiselect('destroy');
+		            $('' + multiselect_id + '').multiselect({
+			                selectAllValue: 'multiselect-all',
+			                enableCaseInsensitiveFiltering: true,
+			                numberDisplayed: 1,
+			                maxHeight: 300,
+			                buttonWidth: '100%',
+			                buttonClass: 'btn btn-white',
+			                nonSelectedText: 'Please Select'
+			            });
+		            $('' + multiselect_id + '').empty();
+		            $('' + multiselect_id + '').multiselect('dataprovider', multiselect_data);
+
+		            // if no subcategories found . . .
+		            if(status == 0)
+		            {
+		            	$("" + multiselect_id + " option[value='" + item_sub_category_id + "']").prop("selected", true);
+		            }
+
+		            // refresh multiselect
+		            $('' + multiselect_id + '').multiselect("refresh");
+				},
+				error: function(xhr, status, error)
+				{
+					console.log(error);
+				}
+
+            });        
+}
+
+function AddRow(x)
+{
+	if(x==1)
+	{
+		var OlmisAssessmentData = new Array();
+        var olmis_assessment_domain = $("#olmis_assessment_domain").val();
+        var olmis_assessment_coreservice = $("#olmis_assessment_coreservice").val();
+        var olmis_assessment_coreservice_status = $("#olmis_assessment_coreservice_status").val();
+        var csrftoken = $.cookie('csrftoken');        
+        var values = {  
+            'csrfmiddlewaretoken': csrftoken
+        };
+
+        // Validation and Ajax
+        if(olmis_assessment_domain)
+		{
+			if(olmis_assessment_coreservice)
+			{
+				if(olmis_assessment_coreservice_status)
+				{
+					// Find a <table> element with id="myTable":
+                    var table = $('#assessment_manager_table')[0]; 
+
+                    // Create an empty <tr> element with id and add it to the 1st position of the table:
+                    var rows_length = table.rows.length;
+                    var row = table.insertRow(rows_length);
+                    var index = rows_length - 2;
+                    row_id = 'rowid_' + index;
+                    row.id = row_id;
+                    var btnRemoveSvcId = 'btnRemoveSvc' + index;
+
+                    // Insert new cells (<td> elements) of the "new" <tr> element:
+                    var cell0 = row.insertCell(0);
+                    var cell1 = row.insertCell(1);
+                    var cell2 = row.insertCell(2);
+                    var cell3 = row.insertCell(3);
+                    var cell4 = row.insertCell(4);
+
+                    var holmis_assessment_domain= "<input id='holmis_assessment_domain' type='hidden' value='"+olmis_assessment_domain+"'>"
+                    var holmis_assessment_coreservice = "<input id='holmis_assessment_coreservice' type='hidden' value='"+olmis_assessment_coreservice+"'>"
+                    var holmis_assessment_coreservice_status = "<input id='holmis_assessment_coreservice_status' type='hidden' value='"+olmis_assessment_coreservice_status+"'>"
+                    var holmis_assessment_status= "<input id='holmis_assessment_status' type='hidden' value='new'>"
+
+                    cell0.innerHTML = '<h6 class="td_style">#</h6>';        
+                    cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_domain") + holmis_assessment_domain + '</h6>';
+                    cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_coreservice") + holmis_assessment_coreservice + '</h6>';
+                    cell3.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_coreservice_status") + holmis_assessment_coreservice_status + '</h6>';
+                    cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-sm btn-link m-r-5 href='#'>Remove</a>" + '</h6>';
+
+                    // AddClick Event To Remove Button
+                    $("#" + btnRemoveSvcId + "").click(function(e)
+                    {
+                        RemoveRow(1, '', row_id);
+                    });
+
+                    // Reset Input Elements/Error Divs
+                    $("#olmis_assessment_domain").multiselect("clearSelection");
+                    $("#olmis_assessment_domain").multiselect("refresh");
+                    $("#olmis_assessment_coreservice").multiselect("clearSelection");
+                    $("#olmis_assessment_coreservice").multiselect("refresh");
+                    $("#olmis_assessment_coreservice_status").multiselect("clearSelection");
+                    $("#olmis_assessment_coreservice_status").multiselect("refresh");
+                    $('#sel_olmis_assessment_coreservice_status').html('');                    
+
+                    $('#assessment_manager_table tr').each(function(row, tr)
+                    {                            
+                        var olmis_assessment_domain = $(tr).find('input[id="holmis_assessment_domain"]').val();
+                        var olmis_assessment_coreservice = $(tr).find('input[id="holmis_assessment_coreservice"]').val();
+                        var olmis_assessment_coreservice_status = $(tr).find('input[id="holmis_assessment_coreservice_status"]').val();
+
+                        OlmisAssessmentData[row]= {
+                            "olmis_assessment_domain" : olmis_assessment_domain,
+                            "olmis_assessment_coreservice" : olmis_assessment_coreservice,
+                            "olmis_assessment_coreservice_status" : olmis_assessment_coreservice_status
+                            }                                
+                        
+                    });
+                    
+                    OlmisAssessmentData.shift(); //remove first row(headers stuff)
+                    OlmisAssessmentData.shift(); //remove second row(controls stuff)
+                    OlmisAssessmentData = JSON.stringify(OlmisAssessmentData); 
+
+                    // Set olmis_assessment_provided_list
+                    $('#olmis_assessment_provided_list').val(OlmisAssessmentData);
+
+                    console.log(OlmisAssessmentData)
+				}
+				else
+				{
+					$("#olmis_assessment_coreservice_status_errormsg").css({ 'display': "block" });
+				}
+			}
+			else
+			{
+				$("#olmis_assessment_coreservice_errormsg").css({ 'display': "block" });
+			}
+		}
+		else
+		{
+			$("#olmis_assessment_domain_errormsg").css({ 'display': "block" });
+		}
+	}
+	if(x==2)
+	{
+		var OlmisServiceData = new Array();
+        var olmis_domain = $("#olmis_domain").val();
+        var olmis_service = $("#olmis_service").val();
+        var olmis_service_date = $("#olmis_service_date").val();
+        // var olmis_service_provider = $("#olmis_service_provider").val();
+        // var olmis_place_of_service = $("#olmis_place_of_service").val();
+        var csrftoken = $.cookie('csrftoken');        
+        var values = {  
+            'csrfmiddlewaretoken': csrftoken
+        };
+
+        // Validation and Ajax
+        if(olmis_domain)
+		{
+			if(olmis_service)
+			{
+				var table = $('#services_manager_table')[0]; 
+
+                // Create an empty <tr> element with id and add it to the 1st position of the table:
+                var rows_length = table.rows.length;
+                var row = table.insertRow(rows_length);
+                var index = rows_length - 2;
+                row_id = 'rowid_' + index;
+                row.id = row_id;
+                var btnRemoveSvcId = 'btnRemoveSvc' + index;
+
+                // Insert new cells (<td> elements) of the "new" <tr> element:
+                var cell0 = row.insertCell(0);
+                var cell1 = row.insertCell(1);
+                var cell2 = row.insertCell(2);
+                var cell3 = row.insertCell(3);
+                var cell4 = row.insertCell(4);
+
+                var holmis_domain= "<input id='holmis_domain' type='hidden' value='"+olmis_domain+"'>"
+                var holmis_service = "<input id='holmis_service' type='hidden' value='"+olmis_service+"'>"
+                var holmis_service_status= "<input id='holmis_service_status' type='hidden' value='new'>"
+                var olmis_service_date = $('#olmis_service_date').val();
+                if (!olmis_service_date) { olmis_service_date = 'None'; }
+
+                cell0.innerHTML = '<h6 class="td_style">#</h6>';        
+                cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_domain") + holmis_domain + '</h6>';
+                cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_service") + holmis_service + '</h6>';
+                cell3.innerHTML = '<h6 class="td_style">' + olmis_service_date + '</h6>';
+                cell4.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-sm btn-link m-r-5 href='#'>Remove</a>" + '</h6>';
+
+                // AddClick Event To Remove Button
+                $("#" + btnRemoveSvcId + "").click(function(e)
+                {
+                    RemoveRow(2, '', row_id);
+                });
+
+                // Reset Input Elements/Error Divs
+                $("#olmis_domain").multiselect("clearSelection");
+                $("#olmis_domain").multiselect("refresh");
+                $("#olmis_service").multiselect("clearSelection");
+                $("#olmis_service").multiselect("refresh");
+                $('#olmis_service_date').val('');
+
+                $('#services_manager_table tr').each(function(row, tr)
+                {                            
+                    var olmis_domain = $(tr).find('input[id="holmis_domain"]').val();
+                    var olmis_service = $(tr).find('input[id="holmis_service"]').val();
+                    var olmis_service_date = $(tr).find('td:eq(3)').text();
+                    var olmis_service_status = $(tr).find('input[id="holmis_service_status"]').val();
+
+                    OlmisServiceData[row]= {
+                        "olmis_domain" : olmis_domain,
+                        "olmis_service" : olmis_service,
+                        "olmis_service_date" : olmis_service_date,
+                        "olmis_service_status" : olmis_service_status
+                        }                                
+                    
+                });
+                
+                OlmisServiceData.shift(); //remove first row(headers stuff)
+                OlmisServiceData.shift(); //remove second row(controls stuff)
+                OlmisServiceData = JSON.stringify(OlmisServiceData);
+
+                // Set service_provided_list
+                $('#olmis_service_provided_list').val(OlmisServiceData);
+
+                console.log(OlmisServiceData)
+			}
+			else
+			{
+			    $("#olmis_service_errormsg").css({ 'display': "block" }); 
+			} 
+		}
+		else
+		{
+		    $("#olmis_domain_errormsg").css({ 'display': "block" }); 
+		} 
+	}
+	if(x==3)
+	{
+        var OlmisPriorityServiceData = new Array();     
+        var olmis_priority_domain = $("#olmis_priority_domain").val();
+        var olmis_priority_service = $("#olmis_priority_service").val();        
+        var csrftoken = $.cookie('csrftoken');        
+        var values = {  
+            'csrfmiddlewaretoken': csrftoken
+        };
+
+        // Validation and Ajax
+        if(olmis_priority_domain)
+        {
+            if(olmis_priority_service)
+            {
+                // Find a <table> element with id="myTable":
+                var table = $('#priority_manager_table')[0]; 
+
+                // Create an empty <tr> element with id and add it to the 1st position of the table:
+                var rows_length = table.rows.length;
+                var row = table.insertRow(rows_length);
+                // var index = rows_length - 2;
+                // row_id = 'rowid_' + index;
+                row_id = 'rowid_' + (rows_length-2);
+                row.id = row_id;
+                var btnRemoveSvcId = 'btnRemoveSvc' + index;
+
+                // Insert new cells (<td> elements) of the "new" <tr> element:
+                var cell0 = row.insertCell(0);
+                var cell1 = row.insertCell(1);
+                var cell2 = row.insertCell(2);
+                var cell3 = row.insertCell(3);
+
+                var holmis_priority_domain= "<input id='holmis_priority_domain' type='hidden' value='"+olmis_priority_domain+"'>"
+                var holmis_priority_service = "<input id='holmis_priority_service' type='hidden' value='"+olmis_priority_service+"'>"
+                var holmis_priority_service_status= "<input id='holmis_priority_service_status' type='hidden' value='new'>"
+
+                cell0.innerHTML = '<h6 class="td_style"></h6>';        
+                cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_domain") + holmis_priority_domain + '</h6>';
+                cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_service") + holmis_priority_service + '</h6>';
+                cell3.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_priority_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-sm btn-link m-r-5 href='#'>Remove</a>" + '</h6>';
+
+                // AddClick Event To Remove Button
+                $("#" + btnRemoveSvcId + "").click(function(e)
+                {
+                    RemoveRow(3, '', row_id);
+                });
+                
+
+                //Show ClearGridOption
+                // $("#btnClearGrid").css({'display': 'block'})
+
+                // Reset Input Elements/Error Divs
+                $("#olmis_priority_domain").multiselect("clearSelection");
+                $("#olmis_priority_domain").multiselect("refresh");
+                $("#olmis_priority_service").multiselect("clearSelection");
+                $("#olmis_priority_service").multiselect("refresh");
+                $("#sel_olmis_priority_service").html('');
+                $(".alert").hide();                
+
+                $('#priority_manager_table tr').each(function(row, tr)
+                {                            
+                    var olmis_priority_domain = $(tr).find('input[id="holmis_priority_domain"]').val();
+                    var olmis_priority_service = $(tr).find('input[id="holmis_priority_service"]').val();
+
+                    OlmisPriorityServiceData[row]= {
+                        "olmis_priority_domain" : olmis_priority_domain,
+                        "olmis_priority_service" : olmis_priority_service
+                        } 
+                });
+                
+                OlmisPriorityServiceData.shift(); //remove first row(headers stuff)
+                OlmisPriorityServiceData.shift(); //remove second row(controls stuff)
+                OlmisPriorityServiceData = JSON.stringify(OlmisPriorityServiceData); 
+
+                // Set olmis_priority_service_provided_list
+                $('#olmis_priority_service_provided_list').val(OlmisPriorityServiceData);
+            }
+            else
+            {
+                $("#olmis_priority_service_errormsg").css({ 'display': "block" });
+            }
+        }
+        else
+        {
+            $("#olmis_priority_domain_errormsg").css({ 'display': "block" });
+        }
+	}
+}
+
+function RemoveRow(index, uuid, tr_id)
+{
+	if(index == 1)
+    {
+        // Delete Table Row
+        $("#" + tr_id).remove();
+
+        var OlmisAssessmentData = new Array();
+        $('#assessment_manager_table tr').each(function(row, tr)
+        {                            
+            var olmis_assessment_domain = $(tr).find('input[id="holmis_assessment_domain"]').val();
+            var olmis_assessment_coreservice = $(tr).find('input[id="holmis_assessment_coreservice"]').val();
+            var olmis_assessment_coreservice_status = $(tr).find('input[id="holmis_assessment_coreservice_status"]').val();
+
+            OlmisAssessmentData[row]= {
+                "olmis_assessment_domain" : olmis_assessment_domain,
+                "olmis_assessment_coreservice" : olmis_assessment_coreservice,
+                "olmis_assessment_coreservice_status" : olmis_assessment_coreservice_status
+                }                                
+            
+        });
+        
+        OlmisAssessmentData.shift(); //remove first row(headers stuff)
+        OlmisAssessmentData.shift(); //remove second row(controls stuff)
+        OlmisAssessmentData = JSON.stringify(OlmisAssessmentData); 
+
+        // Set olmis_assessment_provided_list
+        $('#olmis_assessment_provided_list').val(OlmisAssessmentData);
+    }
+
+    if(index == 2)
+    {
+    	// Delete Table Row
+        $("#" + tr_id).remove();
+
+        var OlmisServiceData = new Array();
+        $('#services_manager_table tr').each(function(row, tr)
+        {                            
+            var olmis_domain = $(tr).find('input[id="holmis_domain"]').val();
+            var olmis_service = $(tr).find('input[id="holmis_service"]').val();
+            var olmis_service_date = $(tr).find('td:eq(3)').text();
+            var olmis_service_status = $(tr).find('input[id="holmis_service_status"]').val();
+
+            OlmisServiceData[row]= {
+                "olmis_domain" : olmis_domain,
+                "olmis_service" : olmis_service,
+                "olmis_service_date" : olmis_service_date,
+                "olmis_service_status" : olmis_service_status
+                }                                
+            
+        });
+        
+        OlmisServiceData.shift(); //remove first row(headers stuff)
+        OlmisServiceData.shift(); //remove second row(controls stuff)
+        OlmisServiceData = JSON.stringify(OlmisServiceData);
+
+        // Set service_provided_list
+        $('#olmis_service_provided_list').val(OlmisServiceData);
+    }
+
+    if(index == 3)
+    {
+        // $('#priority_manager_table').find("tr:gt(1)").remove();
+        // $("#btnClearGrid").css({ 'display': "none" });
+
+        // Delete Table Row
+        $("#" + tr_id).remove();
+
+        var OlmisPriorityServiceData = new Array();
+        $('#priority_manager_table tr').each(function(row, tr)
+        {                            
+            var olmis_priority_domain = $(tr).find('input[id="holmis_priority_domain"]').val();
+            var olmis_priority_service = $(tr).find('input[id="holmis_priority_service"]').val();
+
+            OlmisPriorityServiceData[row]= {
+                "olmis_priority_domain" : olmis_priority_domain,
+                "olmis_priority_service" : olmis_priority_service
+                }                                
+            
+        });
+        
+        OlmisPriorityServiceData.shift(); //remove first row(headers stuff)
+        OlmisPriorityServiceData.shift(); //remove second row(controls stuff)
+        OlmisPriorityServiceData = JSON.stringify(OlmisPriorityServiceData); 
+
+        // Set olmis_priority_service_provided_list
+        $('#olmis_priority_service_provided_list').val(OlmisPriorityServiceData);
+    }
+}
+
+function displayVals(x, value)
+{
+	var selections = [];
+	var hselections = [];
+	if(x == 1)
+	{
+	    $("#" + value + " option:selected").each(function () 
+	    {
+	       var $this = $(this);
+	       if ($this.length)
+	       {
+	            var selText = $this.text();
+	            selections.push(selText);
+	       }
+	    });
+	    $( "#sel_"+value ).html(selections.join( ", " ) );		
+	}
+	if(x==2)
+	{
+	    $("#" + value + " option:selected").each(function () 
+	    {
+	       var $this = $(this);
+	       if ($this.length)
+	       {
+	            var selText = $this.text();
+	            selections.push(selText);
+	            //console.log(selText);
+	       }
+	    });
+	    
+	    return selections.join( ", <br>" );
+	} 
+	if(x == 3)
+	{
+	    $("#" + value + " option:selected").each(function () 
+	    {
+	       var $this = $(this);
+	       if ($this.length)
+	       {
+	            var selValue = $this.val();
+	            hselections.push(selValue);
+	       }
+	    });
+        
+	    var selections = hselections.join( ", " );
+
+	    $("#holmis_assessment_coreservice_status").val(selections);		
+	}   
+}
+
+$("#olmis_assessment_domain").change(function(event) 
+{ 
+	var olmis_assessment_domain = $("#olmis_assessment_domain").val();
+	
+	$("#olmis_assessment_domain_errormsg").css({ 'display': "none" });
+
+    $('#olmis_assessment_coreservice').multiselect("clearSelection");
+    $('#olmis_assessment_coreservice').multiselect("refresh");
+    $('#olmis_assessment_coreservice').trigger("change");
+    $("#olmis_assessment_coreservice_errormsg").css({ 'display': "none" });
+    getServices(1, olmis_assessment_domain);
+});
+
+$("#olmis_assessment_coreservice").change(function(event) 
+{ 
+	var olmis_assessment_coreservice = $("#olmis_assessment_coreservice").val();
+	getServices(2, olmis_assessment_coreservice);
+
+    $('#olmis_assessment_coreservice_status').multiselect("clearSelection");
+    $('#olmis_assessment_coreservice_status').multiselect('refresh');
+	$("#olmis_assessment_coreservice_status_errormsg").css({ 'display': "none" });
+	$('#sel_olmis_assessment_coreservice_status').html('');
+});
+
+$("#olmis_assessment_coreservice_status").change(function(event) 
+{ 
+	var olmis_assessment_coreservice = $("#olmis_assessment_coreservice").val();	
+	displayVals(1, 'olmis_assessment_coreservice_status');
+	$("#olmis_assessment_coreservice_status_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_domain").change(function(event) 
+{ 
+	var olmis_domain = $("#olmis_domain").val();
+	getServices(3, olmis_domain);
+	$("#olmis_domain_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_priority_domain").change(function(event) 
+{ 
+    var olmis_priority_domain = $("#olmis_priority_domain").val();
+
+    getServices(5, olmis_priority_domain);
+    $("#olmis_priority_domain_errormsg").css({ 'display': "none" });
+    $("#sel_olmis_priority_service").html('');
+
+});
+
+// -----------------------------------------------------------------------------------------
+
+$("#olmis_service").change(function(event) 
+{ 
+	$("#olmis_service_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_service_date").change(function(event) 
+{
+	$("#olmis_service_date_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_service_provider").change(function(event) 
+{
+	$("#olmis_service_provider_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_place_of_service").change(function(event) 
+{ 
+	$("#olmis_place_of_service_errormsg").css({ 'display': "none" });
+});
+
+// -----------------------------------------------------------------------------------------
+
+$("#olmis_priority_health").change(function(event) 
+{ 
+	displayVals(1, 'olmis_priority_health');	
+});
+
+$("#olmis_priority_shelter").change(function(event) 
+{ 
+	displayVals(1, 'olmis_priority_shelter');	
+});
+
+$("#olmis_priority_protection").change(function(event) 
+{ 
+	displayVals(1, 'olmis_priority_protection');	
+});
+
+$("#olmis_priority_pss").change(function(event) 
+{ 
+	displayVals(1, 'olmis_priority_pss');	
+});
+
+$("#olmis_priority_education").change(function(event) 
+{
+	displayVals(1, 'olmis_priority_education');	
+});
+
+$("#olmis_priority_hes").change(function(event) 
+{ 
+	displayVals(1, 'olmis_priority_hes');
+});
+
+$("#olmis_critical_event").change(function(event) 
+{ 
+	displayVals(1, 'olmis_critical_event');
+});
+</script>	
+{% endblock %}

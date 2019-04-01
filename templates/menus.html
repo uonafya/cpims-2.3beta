@@ -1,0 +1,129 @@
+{% load app_class %}
+<ul class="nav">
+	<li class="nav-header">Navigation</li>
+	<li class="has-sub {{ request.path|get_class:'/' }}">
+		<a href="{% url 'home' %}">
+		    <i class="fa fa-laptop"></i>
+		    <span>Home</span>
+	    </a>
+	</li>
+	
+	<li class="has-sub {{ request.path|get_class:'registry' }}">
+		<a href="#">
+		    <b class="caret pull-right"></b>
+		    <i class="fa fa-suitcase"></i>
+		    <span>Registry</span> 
+		</a>
+		<ul class="sub-menu">
+			<li><a href="{% url 'registry' %}">Organizational Units</a></li>
+			<li><a href="{% url 'search_persons' %}">Persons Registry</a></li>
+		</ul>
+	</li>
+	
+	<li class="has-sub {{ request.path|get_class:'forms' }}">
+		<a href="#">
+		    <b class="caret pull-right"></b>
+		    <i class="fa fa-file-o"></i>
+		    <span>Forms</span>
+		</a>
+	    <ul class="sub-menu">
+			<li><a href="{% url 'case_record_sheet' %}">Case Record Sheet</a></li>
+			<li><a href="{% url 'residential_placement' %}">Institutional Placement</a></li>
+			<li><a href="{% url 'alternative_family_care' %}">Alternative Family Care</a></li>
+			<li><a href="{% url 'background_details' %}">School and Bursary</a></li>
+			<li><a href="{% url 'forms_registry' %}">Follow-ups</a></li>
+			<li><a href="{% url 'documents_manager' %}">Documents Manager</a></li>
+			<li><a href="{% url 'ovc_home' %}">OVC Care</a></li>
+		</ul>
+		
+	</li>					
+	
+	<li class="has-sub {{ request.path|get_class:'reports' }}">
+	    <a href="#">
+		    <b class="caret pull-right"></b>
+	        <i class="fa fa-area-chart"></i>
+		    <span>Reports</span>
+		</a>
+		<ul class="sub-menu">
+		    <li><a href="{% url 'caseload_reports' %}">Case Load Report</a></li>
+		    <li><a href="{% url 'cpims_reports' id=1 %}">KNBS Report</a></li>
+		    <li><a href="{% url 'cpims_reports' id=3 %}">Institutions Population Returns Report </a></li>
+		    <li><a href="{% url 'cpims_reports' id=4 %}">Health Report </a></li>
+		    <li><a href="{% url 'cpims_reports' id=5 %}">Ad Hoc Report </a></li>
+		    <li><a href="{% url 'pivot_reports' %}">Ad Hoc Pivot Report </a></li>
+		    <li><a href="{% url 'document_reports' %}">Document Templates </a></li>
+		    <li class="has-sub">
+				<a href="#">
+				    <b class="caret pull-right"></b>
+				    <i class="fa fa-align-left"></i> 
+				    <span>OVC Reports</span>
+				</a>
+				<ul class="sub-menu">
+					<li><a href="{% url 'pivot_ovc_reports' %}">DATIM</a></li>
+					<li><a href="{% url 'pivot_ovc_pepfar' %}">Services by Domain (PEPFAR Summary)</a></li>
+					<li><a href="{% url 'pivot_ovc_kpi' %}">Key Performance Indicator</a></li>
+					<li><a href="{% url 'reports_ovc' id=1 %}">Registration List</a></li>
+					<li><a href="{% url 'reports_ovc' id=2 %}">Registration by HH</a></li>
+					<li><a href="{% url 'reports_ovc' id=3 %}">CSI</a></li>
+					<li><a href="{% url 'reports_ovc' id=4 %}">CHV monthly RR</a></li>
+					<li><a href="{% url 'reports_ovc' id=5 %}">List of OVC not served</a></li>
+					<li><a href="{% url 'reports_ovc' id=12 %}">List of OVC served</a></li>
+					<li><a href="{% url 'reports_ovc' id=14 %}">List of OVC Assessed</a></li>
+					<li><a href="{% url 'reports_ovc' id=6 %}">PEPFAR Summary</a></li>
+					<li><a href="{% url 'reports_ovc' id=7 %}">Registration by CHV</a></li>
+					<li><a href="{% url 'reports_ovc' id=8 %}">Beneficiary list</a></li>
+					<li><a href="{% url 'reports_ovc' id=9 %}">Form1A summary</a></li>
+					<li><a href="{% url 'reports_ovc' id=11 %}">Form1B summary</a></li>
+					<li><a href="{% url 'reports_ovc' id=10 %}">Needs vs Served by domain</a></li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+
+	<li class="has-sub {{ request.path|get_class:'settings' }}">
+	    <a href="#">
+		    <b class="caret pull-right"></b>
+	        <i class="fa fa-cogs"></i>
+		    <span>Maintenance</span>
+		</a>
+		<ul class="sub-menu">
+		    <li><a href="{% url 'settings_reports' %}">Reports</a></li>
+		    <li><a href="#">Schools &amp; Facilities</a></li>
+		    <li><a href="#">System Settings</a></li>
+		</ul>
+	</li>
+	
+	<li class="has-sub {{ request.path|get_class:'gis' }}">
+	    <a href="#">
+	        <b class="caret pull-right"></b>
+	        <i class="fa fa-map-marker"></i>
+	        <span>GIS Module</span>
+	    </a>
+		<ul class="sub-menu">
+			<li><a href="{% url 'gis_home' %}" >Map</a></li>
+		</ul>
+	</li>
+	<li class="has-sub">
+	    <a href="#">
+		    <b class="caret pull-right"></b>
+		    <i class="fa fa-camera"></i>
+		    <span>Gallery</span>
+		</a>
+	    <ul class="sub-menu">
+	        <li><a href="#">Gallery One</a></li>
+	        <li><a href="#">Gallery Two</a></li>
+	    </ul>
+	</li>			
+	
+	<li class="has-sub">
+	    <a href="#">
+	        <i class="fa fa-medkit"></i>
+	        <span>Help and Documentation</span>
+	    </a>
+	</li>
+    <!-- begin sidebar minify button -->
+	<li><a href="#" class="sidebar-minify-btn" data-click="sidebar-minify">
+	    <i class="fa fa-angle-double-left"></i></a>
+	</li>
+    <!-- end sidebar minify button -->
+</ul>

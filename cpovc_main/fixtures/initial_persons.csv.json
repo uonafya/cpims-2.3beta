@@ -1,0 +1,707 @@
+[
+ {
+   "pk": 2,
+      "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Philip",
+         "other_names": "K.",
+         "surname": "Wapopa",
+         "email": "philwapopa@hotmail.com",
+         "des_phone_number": 721931615,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }   
+   },
+ {
+   "pk": 3,
+      "model": "cpovc_registry.RegPerson",
+      "fields": {
+          "designation": "DPCO",
+          "first_name": "Duncan",
+          "other_names": "K.",
+          "surname": "Ngeno",
+          "email": "duncanngeno0@gmail.com",
+          "des_phone_number": 728290640,
+          "sex_id": "SMAL",
+          "is_void": "False",
+          "created_by_id": 1
+      }
+ },
+ {
+   "pk": 4,
+      "model": "cpovc_registry.RegPerson",
+      "fields": {
+          "designation": "DPCO",
+          "first_name": "Matthew",
+          "other_names": "Maube",
+          "surname": "Nabakwe",
+          "email": "nabakwem@yahoo.com",
+          "des_phone_number": 728529011,
+          "sex_id": "SMAL",
+          "is_void": "False",
+          "created_by_id": 1
+      }
+ },
+ {
+   "pk": 5,
+   "model": "cpovc_registry.RegPerson",
+     "fields": {
+        "designation": "DPCO",
+        "first_name": "Aston",
+        "other_names": "Obadiah",
+        "surname": "Maungu",
+        "email": "aamaston@yahoo.com",
+        "des_phone_number": 729873802,
+        "sex_id": "SMAL",
+        "is_void": "False",
+        "created_by_id": 1
+      }
+ },
+ {
+   "pk": 6,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Richard",
+         "other_names": "J.",
+         "surname": "Mugata",
+         "email": "cccelgeyomarakwet@gmail.com",
+         "des_phone_number": 720470515,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 7,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Paul",
+         "other_names": "Mutuku",
+         "surname": "Kisavi",
+         "email": "pcoeastern2011@yahoo.com",
+         "des_phone_number": 721659990,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 8,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Mohamed",
+         "other_names": "Abdi",
+         "surname": "Hussein",
+         "email": "mowaly2009@yahoo.com",
+         "des_phone_number": 736512710,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 9,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "John",
+         "other_names": "Alal",
+         "surname": "Olale",
+         "email": "olalealal@yahoo.com",
+         "des_phone_number": 721566437,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 10,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Thomas",
+         "other_names": "Mugo",
+         "surname": "Njeru",
+         "email": "cccisiolocounty@yahoo.com",
+         "des_phone_number": 722559300,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 11,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Ruth",
+         "other_names": "Areri",
+         "surname": "Mboya",
+         "email": "cccskajiado@gmail.com",
+         "des_phone_number": 722691898,
+         "sex_id": "SFEM",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 12,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Richard",
+         "other_names": "Wasike",
+         "surname": "Masika",
+         "email": "richmasika@gmail.com",
+         "des_phone_number": 726018528,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 13,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Jane",
+         "other_names": "Chepkemboi",
+         "surname": "Rono",
+         "email": "childcountykericho@gmail.com",
+         "des_phone_number": 722445337,
+         "sex_id": "SFEM",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 14,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Mong�are",
+         "other_names": "",
+         "surname": "Mwambi",
+         "email": "ccckiambu@gmail.com",
+         "des_phone_number": 722376472,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 15,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "George",
+         "other_names": "",
+         "surname": "Migosi",
+         "email": "gimigosi@yahoo.com",
+         "des_phone_number": 722633178,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 16,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Kamwila",
+         "other_names": "",
+         "surname": "Ngeke",
+         "email": "ccckirinyaga@yahoo.com",
+         "des_phone_number": 727403902,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 17,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Beatrice",
+         "other_names": "M.",
+         "surname": "Obutu",
+         "email": "ccckisiicounty@gmail.com",
+         "des_phone_number": 72712513,
+         "sex_id": "SFEM",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 18,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Humphrey",
+         "other_names": "Onyango",
+         "surname": "Wandeo",
+         "email": "pconyanza@yahoo.com",
+         "des_phone_number": 722777602,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 19,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Philip",
+         "other_names": "Ngoiya",
+         "surname": "Nzenge",
+         "email": "zegphi@gmail.com",
+         "des_phone_number": 721532244,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 20,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Stephen",
+   "other_names": "Gitahi",
+   "surname": "Gitau",
+   "email": "kwalecountychildrens@gmail.com",
+   "des_phone_number": 721238558,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 21,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Ezekiel",
+   "other_names": "",
+   "surname": "Omwansa",
+   "email": "cdcslaikipia@gmail.com",
+   "des_phone_number": 721514841,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+       }
+ },
+ {
+   "pk": 22,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Maxwell",
+   "other_names": "",
+   "surname": "Maxwell",
+   "email": "",
+   "des_phone_number": 721250594,
+   "sex_id": "",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 23,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Salome",
+   "other_names": "Wambua",
+   "surname": "Muthama",
+   "email": "salmuthama@gmail.com",
+   "des_phone_number": 722820506,
+   "sex_id": "SFEM",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 24,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "George",
+   "other_names": "Kingoo",
+   "surname": "Nthuka",
+   "email": "cccmakueni@yahoo.com",
+   "des_phone_number": 726802894,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 25,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Abdikadir",
+   "other_names": "Abdinoor",
+   "surname": "Haji",
+   "email": "akanh72@gmail.com",
+   "des_phone_number": 717337030,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 26,
+   "model": "cpovc_registry.RegPerson",
+       "fields": {
+           "designation": "DPCO",
+   "first_name": "Simeon",
+   "other_names": "",
+   "surname": "Ogao",
+   "email": "simeonogao@yahoo.com",
+   "des_phone_number": 71780471,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 27,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Eliud",
+   "other_names": "Festus",
+   "surname": "Mutwiri",
+   "email": "eliudmutwiri@gmail.com",
+   "des_phone_number": 722279035,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 28,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "John",
+   "other_names": "O.",
+   "surname": "Odinya",
+   "email": "odinyaoj@yahoo.com",
+   "des_phone_number": 722690101,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 29,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Adema",
+   "other_names": "Elizabeth",
+   "surname": "Mbuka",
+   "email": "pchildrensofficercoast@yahoo.com",
+   "des_phone_number": 723317726,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 30,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+           "designation": "DPCO",
+   "first_name": "Ruth",
+   "other_names": "",
+   "surname": "Makadara",
+   "email": "cccmuranga@yahoo.com",
+   "des_phone_number": 70047573,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 31,
+   "model": "cpovc_registry.RegPerson",
+       "fields": {
+           "designation": "DPCO",
+   "first_name": "Maurice",
+   "other_names": "Mumbetsa",
+   "surname": "Tsuma",
+   "email": "pdcsnairobi@yahoo.com",
+   "des_phone_number": 722653187,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 32,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Abdi",
+   "other_names": "Sheikh",
+   "surname": "Yusuf",
+   "email": "pcoriftvalley@yahoo.com",
+   "des_phone_number": 72257304,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 33,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Hellen",
+   "other_names": "Wekesa",
+   "surname": "Wanyama",
+   "email": "wakasahellen@yahoo.com",
+   "des_phone_number": 733791798,
+   "sex_id": "SFEM",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 34,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Fred",
+   "other_names": "W.",
+   "surname": "Simi",
+   "email": "fredsimi@yahoo.co.uk",
+   "des_phone_number": 717180352,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 35,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Samwel",
+   "other_names": "",
+   "surname": "Masese",
+   "email": "cconyamira@yahoo.com",
+   "des_phone_number": 720325497,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+       }
+ },
+ {
+   "pk": 36,
+   "model": "cpovc_registry.RegPerson",
+       "fields": {
+           "designation": "DPCO",
+   "first_name": "George",
+   "other_names": "Gachuhi",
+   "surname": "Kibuku",
+   "email": "nyandaruachildren@yahoo.com",
+   "des_phone_number": 722335137,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+  "pk": 37,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "John",
+   "other_names": "Kungu",
+   "surname": "Mwaniki",
+   "email": "ccnyericounty@yahoo.com",
+   "des_phone_number": 722508663,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 38,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Peter",
+   "other_names": "GK",
+   "surname": "Kabuagi",
+   "email": "cccsamburu@yahoo.com",
+   "des_phone_number": 721361122,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+       }
+ },
+ {
+   "pk": 39,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Jemin",
+   "other_names": "",
+   "surname": "Konyango",
+   "email": "wandeoh@yahoo.com",
+   "des_phone_number": 721412883,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+       }
+ },
+ {
+  "pk": 40,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Mwasiwa",
+   "other_names": "Juma",
+   "surname": "Boga",
+   "email": "rashboga@yahoo.com",
+   "des_phone_number": 711287804,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 41,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Daniel",
+   "other_names": "",
+   "surname": "Waiti",
+   "email": "danielwachira63@yahoo.com",
+   "des_phone_number": 721282543,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 42,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Julius",
+   "other_names": "K.",
+   "surname": "Wachira",
+   "email": "tharakanithichildren@gmail.com",
+   "des_phone_number": 788584480,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 43,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Esther",
+   "other_names": "",
+   "surname": "Wasige",
+   "email": "estherwasige@gmail.com",
+   "des_phone_number": 722455146,
+   "sex_id": "SFEM",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 44,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Charles",
+   "other_names": "",
+   "surname": "Kiprono",
+   "email": "lachakimeci@yahoo.com",
+   "des_phone_number": 725319176,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 45,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Julius",
+   "other_names": "Kemboi",
+   "surname": "Yator",
+   "email": "cccuasingishu@yahoo.com",
+   "des_phone_number": 725982702,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 46,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+            "designation": "DPCO",
+   "first_name": "Aggrey",
+   "other_names": "JO",
+   "surname": "Ambwaya",
+   "email": "ambwayaaggrey@yahoo.com",
+   "des_phone_number": 722665422,
+   "sex_id": "SMAL",
+   "is_void": "False",
+   "created_by_id": 1
+      }
+ },
+ {
+   "pk": 47,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Sheikh",
+         "other_names": "Mohamed",
+         "surname": "Abdinoor",
+         "email": "abdinoor.sheikh57@gmail.com",
+         "des_phone_number": 720938187,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ },
+ {
+   "pk": 48,
+   "model": "cpovc_registry.RegPerson",
+      "fields": {
+         "designation": "DPCO",
+         "first_name": "Patrick",
+         "other_names": "Matebo",
+         "surname": "Mugun",
+         "email": "cccwestpokot@gmail.com",
+         "des_phone_number": 721615964,
+         "sex_id": "SMAL",
+         "is_void": "False",
+         "created_by_id": 1
+      }
+ }
+]

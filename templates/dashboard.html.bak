@@ -1,0 +1,513 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Dashboard {% endblock %}
+
+{% block style_code %}
+<link href="{% static 'plugins/datatables/css/jquery.dataTables.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/datatables/css/buttons.dataTables.min.css' %}" rel="stylesheet" />
+{% endblock style_code%}
+
+<style>
+	a.svg: {
+		text-decoration: none;
+	}
+	a.svg:hover {
+		text-decoration: none;
+	}
+	a.svg:after {
+	  content: "";
+	  position: absolute;
+	  top: 0;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+
+	}
+
+
+
+</style>
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Dashboard</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header" id="phead">
+{% if request.session.ou_primary_name %}
+{{ request.session.ou_primary_name }}
+{% else %} 
+National
+{% endif %} - Dashboard <small>Application data and usage summary</small>
+ </h1>
+<!-- end page-header -->
+
+<!-- begin row -->
+<div class="row">
+    <!-- Start content area -->
+    <!-- begin row -->
+    {% if request.session.reg_ovc %}
+    <div class="row">
+		<!-- begin col-3 -->
+		<div class="col-md-3 col-sm-4">
+			<div class="widget widget-stats bg-green">
+				<div class="stats-icon"><i class="fa fa-child"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_1">OVC - ACTIVE / EVER REGISTERED</h4>
+					<p>{{ ovc.children }} / {{ ovc.children_all }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_1">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-blue">
+				<div class="stats-icon"><i class="fa fa-users"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_2">CAREGIVERS / GUARDIANS</h4>
+					<p>{{ ovc.guardians }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_2">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-purple">
+				<div class="stats-icon"><i class="fa fa-user"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_3">WORKFORCE MEMBERS</h4>
+					<p>{{ ovc.workforce }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_3">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-aqua">
+				<div class="stats-icon"><i class="fa fa-institution"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_4">ORG UNITS / CBOs</h4>
+					<p>{{ ovc.org_units }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_4">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-3 col-sm-4">
+			<div class="widget widget-stats bg-red">
+				<div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_5">HOUSEHOLDS</h4>
+					<p>{{ ovc.household }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_5">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+
+	</div>
+	<!-- end row -->
+
+    {% else %}
+	<div class="row">
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-green">
+				<div class="stats-icon"><i class="fa fa-child"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_11">CHILDREN / OVC</h4>
+					<p>{{ data.children }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_11">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-blue">
+				<div class="stats-icon"><i class="fa fa-users"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_12">CAREGIVERS / GUARDIANS</h4>
+					<p>{{ data.guardians }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_12">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-purple">
+				<div class="stats-icon"><i class="fa fa-user"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_13">WORKFORCE MEMBERS</h4>
+					<p>{{ data.workforce }}
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_13">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-aqua">
+				<div class="stats-icon"><i class="fa fa-institution"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_14">ORGANISATION UNITS</h4>
+					<p>{{ data.org_units }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_14">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-red">
+				<div class="stats-icon"><i class="fa fa-chain-broken"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_15">CASE RECORDS</h4>
+					<p>{{ data.cases }}</p>
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_15">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+		<!-- begin col-3 -->
+		<div class="col-md-2 col-sm-3">
+			<div class="widget widget-stats bg-grey">
+				<div class="stats-icon"><i class="fa fa-clock-o"></i></div>
+				<div class="stats-info">
+					<h4 id="rpt_16">PENDING CASES</h4>
+					<p>{{ data.pending }}</p>
+					{% for hiv_stats in data.hiv_status %}
+						<input type="hidden"  name="ovc_unknown_count" value={{hiv_stats.ovc_unknown_count}}/>
+						<input type="hidden"  name="on_art" value={{hiv_stats.on_art}}/>
+						<input type="hidden"  name="ovc_HSTP" value={{hiv_stats.ovc_HSTP}}/>
+						<input type="hidden"  name="ovc_HSTN" value={{hiv_stats.ovc_HSTN}}/>
+						<input type="hidden"  name="not_on_art" value={{hiv_stats.not_on_art}}/>
+						<input type="hidden"  name="suppresed" value={{hiv_stats.suppresed}}/>
+						<input type="hidden"  name="not_suppresed" value={{hiv_stats.not_suppresed}}/>
+						<!--<div id="test-flot" style="width: 200px;height: 70px"></div>-->
+					{% endfor %}
+				</div>
+				<div class="stats-link">
+					<a href="#" class="dash_details" id="dt_16">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
+				</div>
+			</div>
+		</div>
+		<!-- end col-3 -->
+	</div>
+	<!-- end row -->
+	<!-- end row -->
+	{% endif %}
+	<!-- begin row -->
+	<div class="row">
+		<!-- begin col-8 -->
+		<div class="col-md-6">
+			<div class="panel panel-inverse" data-sortable-id="index-1">
+				<div class="panel-heading">
+					<div class="panel-heading-btn">
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+					</div>
+					<h4 class="panel-title">Case Management (Last 21 Days)</h4>
+				</div>
+				<div class="panel-body">
+					<div id="interactive-chart" class="height-sm"></div>
+				</div>
+			</div>
+        </div>
+        <div class="col-md-4">
+	        <div class="panel panel-inverse" data-sortable-id="index-7">
+				<div class="panel-heading">
+					<div class="panel-heading-btn">
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+					</div>
+					{% if request.session.reg_ovc or request.user.is_superuser %}
+					<h4 class="panel-title">IP / LIP Case Load Summary (Last 30 Days)</h4>
+					{% else %}
+					<h4 class="panel-title">Case categories (Top 5)</h4>
+					{% endif %}
+				</div>
+				<div class="panel-body">
+					{% if request.session.reg_ovc or request.user.is_superuser %}
+					<div id="stacked-chart" class="height-sm"></div>
+					<!--<div id="donut-chart" class="height-sm"></div>-->
+					{% else %}
+					<!--<div id="stacked-chart" class="height-sm"></div>-->
+					<div id="donut-chart" class="height-sm"></div>
+
+					{% endif %}	
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-2">
+	        <div class="panel panel-inverse" data-sortable-id="index-7">
+				<div class="panel-heading">
+					<div class="panel-heading-btn">
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+					</div>
+					<h4 class="panel-title">Cacade 90-90-90</h4>
+				</div>
+				<div class="panel-body">
+					{% if request.session.reg_ovc or request.user.is_superuser %}
+					<div id="test-flot" class="height-sm"></div>
+					<!--<div id="donut-chart" class="height-sm"></div>-->
+					{% else %}
+					<!--<div id="stacked-chart" class="height-sm"></div>-->
+					<div id="donut-chart" class="height-sm"></div>
+
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+    </div>
+
+	<!-- End content area -->
+<div class="modal fade" id="modal-reports">
+    <div class="modal-dialog">
+        <div class="modal-content form-horizontal form-bordered">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Reports details - <span id="sdetails"></span></h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                        <table id="mydata" class="display" width="100%" cellspacing="0">
+						    <thead>
+						        <tr>
+						            <th>#</th>
+						            <th>Name</th>
+						            <th>Date Last Modified</th>
+						            <th>Details</th>
+						        </tr>
+						    </thead>
+						    <tfoot>
+						        <tr>
+						            <th>#</th>
+						            <th>Name</th>
+						            <th>Date Last Modified</th>
+						            <th>Details</th>
+						        </tr>
+						    </tfoot>
+						</table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div id="test-flot"  style="width:300px;height:300px"></div>-->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+    <script src="{% static 'plugins/flot/jquery.flot.min.js' %}"></script>
+    <script src="{% static 'plugins/flot/jquery.flot.pie.min.js' %}"></script>
+	<script src="{% static 'plugins/flot/jquery.flot.stack.min.js' %}"></script>
+    <script src="{% static 'js/curvedLines.js' %}"></script>
+    <script>
+        var Kdata = [{% autoescape off %}{{ kvals }}{% endautoescape %}];
+        var Cdata = [{% autoescape off %}{{ cvals }}{% endautoescape %}];
+        var Odata = [{% autoescape off %}{{ ovals }}{% endautoescape %}];
+        var xLabel = [{% autoescape off %}{{ dates }}{% endautoescape %}];
+        var dData = [{% autoescape off %}{{ dvals }}{% endautoescape %}];
+        var OMdata = [{% autoescape off %}{{ omvals }}{% endautoescape %}];
+        var OFdata = [{% autoescape off %}{{ ofvals }}{% endautoescape %}];
+    </script>
+    <script src="{% static 'js/dashboard.js' %}"></script>
+    <script src="{% static 'plugins/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static 'js/buttons.html5.min.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			Dashboard.init();
+
+		    $('a.dash_details').click(function() {
+
+		       var rid = $(this).attr('id');
+		       var rrid = rid.replace('dt_', '');
+		       var rname = $('#rpt_'+rrid).html();
+		       {% if request.session.ou_primary_name %}
+				    var heading = '{{ request.session.ou_primary_name }} - ';
+				{% else %} 
+				    var heading = 'National - ';
+				{% endif %}
+		       $('#modal-reports').modal('show');
+		       $(document).prop('title', 'CPIMS Dashboard - '+ heading + rname);
+		       $('#sdetails').html(heading + rname);
+
+		       var buttonCommon = {
+		        exportOptions: {
+		            format: {
+		                body: function ( data, row, column, node ) {
+		                    // Strip $ from salary column to make it numeric
+		                    return data;
+		                }
+		            }
+		        }
+		    };
+		    $('#mydata').DataTable( {
+		        ajax:{"url": "{% url 'dashboard_details' %}",
+			          "data": function ( d ) {
+			                d.report_id = rrid;
+			         }
+			     },
+		        columns: [
+		            { data: 'id' },
+		            { data: 'name' },
+		            { data: 'create_date' },
+		            { data: 'action' }
+		        ],
+		        dom: 'Bfrtip',
+		        destroy: true,
+		        buttons: [
+		            $.extend( true, {}, buttonCommon, {
+		                extend: 'copyHtml5'
+		            } ),
+		            $.extend( true, {}, buttonCommon, {
+		                extend: 'excelHtml5'
+		            } ),
+		            $.extend( true, {}, buttonCommon, {
+		                extend: 'pdfHtml5'
+		            } )
+		        ]
+		    } );
+		       return false;
+		    });
+		});
+
+	add_ovc_HST_stats();
+	function add_ovc_HST_stats(){
+			// Add  hiv stats to dashboard
+
+			var ticksLabel = [
+				[0, "Known <br/>Status"], [1, "ART <br/>Status"], [2, "Viral <br/>Load"]
+			];
+
+			var options = {
+				xaxis: {  tickColor: 'transparent',  ticks: ticksLabel},
+				grid: {
+					hoverable: true,
+					tickColor: "#ccc",
+					borderWidth: 0,
+					borderColor: 'rgba(0,0,0,0.2)'
+				},
+				series: {
+					stack: true,
+					lines: { show: false, fill: false, steps: false },
+					bars: {
+						show: true,
+						align: 'center',
+						fillColor: null,
+						barWidth: 0.5
+					},
+					highlightColor: 'rgba(0,0,0,0.8)'
+				},
+				legend: {
+					show: false
+				 }
+			};
+
+			ov2=$('[name="ovc_unknown_count"]').val();
+			var known_count= parseInt( $('[name="ovc_HSTP"]').val() ) + parseInt( $('[name="ovc_HSTN"]').val());
+			ov4=$('[name="on_art"]').val();
+			ov5=$('[name="not_on_art"]').val();
+
+			var suppresed = [[2, parseInt($('[name="suppresed"]').val())]] ;
+			var not_suppresed = [[2, parseInt($('[name="not_suppresed"]').val())]] ;
+
+			var ovc_HSTN = [[0, parseInt($('[name="ovc_HSTN"]').val())]] ;
+			var ovc_HSTP = [[0, parseInt($('[name="ovc_HSTP"]').val())]] ;
+			var unknown_count  = [[0, parseInt(ov2)]] ;
+			var known_count = [[0, parseInt(known_count)]] ;
+			var on_art = [[1, parseInt(ov4)]] ;
+			var not_on_art = [[1, parseInt(ov5)]] ;
+
+			var data3= [
+
+						{data: ovc_HSTP, color: blueDark, label: 'Positive', bars: { fillColor: blueDark } } ,
+						{ data: ovc_HSTN, color: '#0d4a73', label: 'Negative', bars: { fillColor: '#0d4a73' } },
+						{ data: unknown_count, color: red, label: 'Unknown Status', bars: { fillColor: red } },
+						{data: on_art, color: blueDark, label: 'On ART', bars: { fillColor: blueDark } } ,
+						{ data: not_on_art, color: red, label: 'Not on ART', bars: { fillColor: red } },
+						{ data: suppresed, color: red, label: 'Suppressed', bars: { fillColor: blueDark } },
+						{ data: not_suppresed, color: red, label: 'Not Suppressed', bars: { fillColor: red } }
+					];
+
+			$.plot($("#test-flot"), data3, options);
+
+			var previousXValue = null;
+			var previousYValue = null;
+
+			$("#test-flot").bind("plothover", function (event, pos, item) {
+				if (item) {
+					var y = item.datapoint[1] - item.datapoint[2];
+
+					if (previousXValue != item.series.label || y != previousYValue) {
+						previousXValue = item.series.label;
+						previousYValue = y;
+						$("#tooltip").remove();
+
+						showTooltip2(item.pageX, item.pageY, y + " " + item.series.label);
+					}
+				}
+				else {
+					$("#tooltip").remove();
+					previousXValue = null;
+					previousYValue = null;
+				}
+			});
+	}
+
+	function showTooltip2(x, y, contents) {
+        $('<div id="tooltip" class="flot-tooltip">' + contents + '</div>').css( {
+            top: y,
+				left: x
+			}).appendTo("body").fadeIn(200);
+		}
+
+</script>
+{% endblock %}

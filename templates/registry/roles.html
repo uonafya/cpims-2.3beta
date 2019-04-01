@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Permissions and Roles {% endblock %}
+
+{% load app_filters %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Roles</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Registry <small>Allocate Roles</small></h1>
+<!-- end page-header -->
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% if message %}
+    <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+        <p class="invalid-form-message"> {{ message }}</p>
+    </div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+<!-- Start content area -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard" id="new_org_unit">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Workforce / user details</h4>
+            </div>
+            <div class="panel-body">
+                <table width="100%" class="table table-profile">
+                    <tbody>
+                        <tr>
+                            <td class="field">Workforce ID</td>
+                            <td>{{ person.workforce_id }}</td>
+                            <td class="field">First Name</td>
+                            <td>{{ person.first_name }}</td>
+                            <td class="field">Sex</td>
+                            <td>{{ person.sex_id|gen_value:vals }}</td>
+                        </tr>
+                        <tr>
+                            <td class="field">National ID</td>
+                            <td>{{ person.national_id }}</td>
+                            <td class="field">Surname</td>
+                            <td>{{ person.surname }}</td>
+                            <td class="field">DOB</td>
+                            <td>{{ person.date_of_birth }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Roles in Organisational unit</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Organisation Unit</th>
+                            <th>Primary parent</th>
+                            <th>Registration assistant</th>
+                            <th>Data supervisor</th>
+                            <th>Capture site data entry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {% for result in person.org_units %}
+                        <tr>
+                            <td>{{ result.org_unit_id.org_unit_name}}</td>
+                            <td>Yes</td>
+                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox"></td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Roles non-restricted</h4>
+            </div>
+            <div class="panel-body">
+                <p><input type="checkbox"> System Configuration</p>
+                <p><input type="checkbox"> Registry Manager</p>
+                <p><input type="checkbox"> Access Manager</p>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">General system access</h4>
+            </div>
+            <div class="panel-body">
+                <p><input type="checkbox"> Reset Password</p>
+                <p><input type="radio"> Activate</p>
+                <p><input type="radio"> Deactivate</p>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Role in geographical area</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sub-county</th>
+                            <th>Area child services</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for geo in person.geos %}
+                        <tr>
+                            <td> {{ geo.person.surname }} </td>
+                            <td><input type="checkbox"></td>
+                        </tr>
+                        {% endfor %}    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>      
+    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+        <div class="panel-body panel-form">
+            <div class="form-group">
+                <label class="control-label col-md-4 col-sm-4"></label>
+                <div class="col-md-6 col-sm-6">
+                    <p></p>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="cancel" class="btn btn-default">Cancel</button>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+<!-- End content area -->
+
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+
+{% endblock %}

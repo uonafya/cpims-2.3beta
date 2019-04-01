@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Manage Roles and Permissions {% endblock %}
+
+{% load app_filters %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Roles</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Registry <small>Manage Roles</small></h1>
+<!-- end page-header -->
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% if message %}
+    <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+        <p class="invalid-form-message"> {{ message }}</p>
+    </div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+<!-- Start content area -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard" id="roles">
+        {% csrf_token %}
+        {{ form.user_id }}
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Workforce / user details</h4>
+            </div>
+            <div class="panel-body">
+                <table width="100%" class="table table-profile">
+                    <tbody>
+                        <tr>
+                            <td class="field">Workforce ID</td>
+                            <td>{{ person.workforce_id }}</td>
+                            <td class="field">First Name</td>
+                            <td>{{ person.first_name }}</td>
+                            <td class="field">Sex</td>
+                            <td>{{ person.sex_id|gen_value:vals }}</td>
+                        </tr>
+                        <tr>
+                            <td class="field">National ID</td>
+                            <td>{{ person.national_id }}</td>
+                            <td class="field">Surname</td>
+                            <td>{{ person.surname }}</td>
+                            <td class="field">DOB</td>
+                            <td>{{ person.date_of_birth }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+        <!-- begin panel -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Roles in Organisational unit</h4>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Organisation Unit</th>
+                            <th>Primary parent</th>
+                            <th>Registration assistant</th>
+                            <th>Document upload</th>
+                            <th>Data supervisor</th>
+                            <th>Capture site data entry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for form in formset %}
+                        <tr>
+                            <td>
+                            {{ form.org_unit_id }}
+                            {{ form.org_unit_name.value }}
+                            </td>
+                            <td>{{ form.org_unit_primary.value }}</td>
+                            <td>{{ form.group_RGU }}</td>
+                            <td>{{ form.group_DUU }}</td>
+                            <td>{{ form.group_DSU }}</td>
+                            <td>{{ form.group_DEC }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    {% if request.user|has_group:"ACM" or request.user|has_group:"RGU" %}
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Role in geographical area</h4>
+            </div>
+            <div class="panel-body">
+                {% if gformset.forms %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Sub-county</th>
+                            <th>Area child services</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td><input type="checkbox" id="selecctall"/> Select All</td>
+                        </tr>
+                        {% for gform in gformset %}
+                        <tr>
+                            <td>{{ gform.area_id }} {{ gform.sub_county.value }}</td>
+                            <td>{{ gform.area_welfare }}</td>
+                        </tr>
+                        {% endfor %}    
+                    </tbody>
+                </table>
+                {% else %}
+                    <p>National level workforce</p>
+                {% endif %}
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    {% endif %}
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">General system access</h4>
+            </div>
+            <div class="panel-body">
+                <p>{{ form.reset_password }} Reset Password</p>
+                {{ form.activate_choice }}
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <div class="col-md-4">
+        <!-- begin panel -->
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>
+                <h4 class="panel-title">Roles non-restricted</h4>
+            </div>
+            <div class="panel-body roles_non_restricted">
+                {% if request.user|has_group:"ACM" and not gformset.forms %}
+                <p>{{ form.group_SCM }} {{ form.group_SCM.label|safe }}</p>
+                <p>{{ form.group_RGM }} {{ form.group_RGM.label|safe }}</p>
+                <p>{{ form.group_ACM }} {{ form.group_ACM.label|safe }}</p>
+                {% endif %}
+                <p>{{ form.group_STD }} {{ form.group_STD.label|safe }}</p>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div> 
+    <div class="col-md-12">   
+        <div class="panel panel-inverse">
+            <div class="panel-body panel-form">
+                <div class="form-group">
+                    <label class="control-label col-md-4 col-sm-4"></label>
+                    <div class="col-md-6 col-sm-6">
+                        <p></p>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <a href="{% url 'search_persons' %}">
+                        <button type="button" class="btn btn-default">Cancel</button>
+                        </a>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+<!-- End content area -->
+
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        //$('.roles_non_restricted').addClass('collapse').removeClass('in');
+        $('#id_group_SCM, #id_group_ACM, #id_group_RGM').change(function() {
+        var id = $(this).attr('id');
+        // Modal to be called here
+        confirm_dialogue(id);
+        });
+
+        $("#selecctall").change(function(){
+            $(".area_check").prop('checked', $(this).prop("checked"));
+        });
+    });
+
+    function confirm_dialogue(id){
+        if (!$('#dataConfirmModal').length) {
+            $('body').append('<div id="dataConfirmModal" class="modal fade" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content form-horizontal form-bordered"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h3 id="dataConfirmLabel"></h3></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button><a class="btn btn-primary" id="dataConfirmOK">OK</a></div></div></div></div>');
+        }
+        var id_label = id.split("_")[2];
+        var details = $( "a#id_"+ id_label ).attr( "data-original-title" );
+        $('#dataConfirmModal').find('.modal-body').text(details);
+        if($('#'+ id).is(':checked')) {
+            var txt = ' Please confirm assignment of role';
+            var check_val = true;
+            var check_val_rev = false;
+        }else{
+            var txt = ' Please confirm revoking of role';
+            var check_val = false;
+            var check_val_rev = true;
+        }
+
+        $('#dataConfirmModal').find('#dataConfirmLabel').html(txt);
+        $('#'+id).prop('checked', check_val_rev);
+        $('#dataConfirmOK').click(function(event) {
+            $('#'+id).prop('checked', check_val);
+            $('#dataConfirmModal').modal('hide');
+            return true;
+        });
+        $('#dataConfirmModal').modal({show:true});
+        return false;
+    }
+</script>
+
+{% endblock %}

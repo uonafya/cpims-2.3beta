@@ -1,0 +1,46 @@
+{% extends 'base_home.html' %}
+{% load staticfiles %}
+
+{% block page_title %} {{block.super}} Bad request {% endblock page_title%}    
+
+{% block primary %}
+<!-- begin right-content -->
+<div class="right-content">
+    <!-- begin register-header -->
+    <div class="register-header">
+        <h4 class="brand shome">Department of Children Services (DCS)</h4>
+    </div>
+    <h1 class="register-header">
+        <small>There was an error while processing your request.</small>
+    </h1>
+    <!-- end register-header -->  
+    <!-- begin register-content -->
+    <div class="register-content"> 
+
+        <div class="m-t-40 m-b-40">
+            <p><strong>You may not be able to find the page you were after because of:</strong></p>
+			<ol type="a">
+			<li>An <strong>out-of-date bookmark/favorite</strong></li>
+			<li>A search engine that has an <strong>out-of-date listing for us</strong></li>
+			<li>A <strong>mis-typed address or page</strong></li>
+			</ol>
+		</div>
+		<div class="m-t-20 m-b-20">
+	        Please visit our <a href="{% url 'home' %}" class="text-success">home page</a> or 
+	        <a href="{% url 'login' %}" class="text-success">login page</a> or contact administrator at cpims @ labour dot go.ke
+	    </div>
+	        <span class="promo m-t-40">
+	            <p>
+	                <img src="{% static 'img/logo.jpg' %}" height="60"> &nbsp;&nbsp; | &nbsp;&nbsp;
+                        <img src="{% static 'img/usaid.jpg' %}" height="60">
+                        <img src="{% static 'img/pima.jpg' %}" height="58">
+	            </span>
+	            <hr />
+	            <p class="text-center text-inverse">
+	                &copy; {% now "Y" %} Department of Children Services (DCS). All Rights Reserved.
+	            </p>
+    </div>
+    <!-- end register-content -->
+</div>
+<!-- end right-content -->
+{% endblock primary %}

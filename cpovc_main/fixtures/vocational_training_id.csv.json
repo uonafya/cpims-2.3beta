@@ -1,0 +1,18 @@
+[
+    {
+        "pk": 41811, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 27, 
+            "user_configurable": "False", 
+            "field_name": "class_level_id", 
+            "item_id": "ACVT", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Vocational Training", 
+            "sms_keyword": "False", 
+            "item_description": "Vocational Training", 
+            "item_category": "Education/Class"
+        }
+    }
+]

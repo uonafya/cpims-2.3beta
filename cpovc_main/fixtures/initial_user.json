@@ -1,0 +1,325 @@
+[
+    {
+        "pk": 1, 
+        "model": "cpovc_registry.RegPerson", 
+        "fields": {
+            "designation": "ADMIN", 
+            "first_name": "CPIMS", 
+            "other_names": "System", 
+            "surname": "Administrator", 
+            "email": "cpims@childprotection.go.ke",
+            "des_phone_number": "0700000000",
+            "date_of_birth": "1900-01-01",
+            "sex_id": "SMAL",
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000018", 
+            "org_unit_name": "Ministry of Labour and East African Affairs", 
+            "org_unit_type_id": "TNGN", 
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000026", 
+            "org_unit_name": "Department of Children Services (DCS)", 
+            "org_unit_type_id": "TNGN",
+            "parent_org_unit_id": 1,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 1, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Principal Secretary - Social Security and Services", 
+            "org_unit_id": 1,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 2, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "NSSF Building, Block C, 5th Floor", 
+            "org_unit_id": 1,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Director of Children Services", 
+            "org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 4, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "NSSF Building, Block C, 3rd Floor", 
+            "org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 3, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000028", 
+            "org_unit_name": "Buckner Kenya Adoption Services", 
+            "org_unit_type_id": "TNSA",
+            "parent_org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 4, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000029", 
+            "org_unit_name": "Kenya Childrens Home", 
+            "org_unit_type_id": "TNSA",
+            "parent_org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 5, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000030", 
+            "org_unit_name": "Child Welfare Society of Kenya", 
+            "org_unit_type_id": "TNSA",
+            "parent_org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 6, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000031", 
+            "org_unit_name": "Kenyans to Kenyans Peace Initiative", 
+            "org_unit_type_id": "TNSA",
+            "parent_org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 7, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000032", 
+            "org_unit_name": "Little Gems Agency", 
+            "org_unit_type_id": "TNSA",
+            "parent_org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 8, 
+        "model": "cpovc_registry.RegOrgUnit", 
+        "fields": {
+            "org_unit_id_vis": "U000033", 
+            "org_unit_name": "Little Angels Network", 
+            "org_unit_type_id": "TNSA",
+            "parent_org_unit_id": 2,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 5, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Administrator", 
+            "org_unit_id": 3,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 6, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "Off Lenana Road, Plot No. 10, Hurlingham, Nairobi", 
+            "org_unit_id": 3,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 7, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CEMA", 
+            "contact_detail": "adoptions@bucknerkenya.org", 
+            "org_unit_id": 3,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 8, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Administrator", 
+            "org_unit_id": 4,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 9, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "Langata Road, Nairobi", 
+            "org_unit_id": 4,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 10, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CEMA", 
+            "contact_detail": "info@kch.or.ke", 
+            "org_unit_id": 4,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 11, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Administrator", 
+            "org_unit_id": 5,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 12, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "Child Welfare Building, Langata Road", 
+            "org_unit_id": 5,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 13, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CEMA", 
+            "contact_detail": "cwsktoto@childwelfaremail.co.ke", 
+            "org_unit_id": 5,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 14, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Administrator", 
+            "org_unit_id": 6,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 15, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "Kogo Star Plaza, Suite 14, Maai Mahiu Road, Nairobi", 
+            "org_unit_id": 6,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 16, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CEMA", 
+            "contact_detail": "info@kkpiadoptionsociety.co.ke", 
+            "org_unit_id": 6,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 17, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Administrator", 
+            "org_unit_id": 7,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 18, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "North Kinangop, Nyandarua County", 
+            "org_unit_id": 7,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 19, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CEMA", 
+            "contact_detail": "", 
+            "org_unit_id": 7,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 20, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPCP", 
+            "contact_detail": "Administrator", 
+            "org_unit_id": 8,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 21, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CPHA", 
+            "contact_detail": "Wood Avenue-Kindaruma Rd Junction, Nairobi", 
+            "org_unit_id": 8,
+            "is_void": "False"
+        }
+    },
+    {
+        "pk": 22, 
+        "model": "cpovc_registry.RegOrgUnitContact", 
+        "fields": {
+            "contact_detail_type_id": "CEMA", 
+            "contact_detail": "info@littleangelsnetwork.org", 
+            "org_unit_id": 8,
+            "is_void": "False"
+        }
+    }
+]
+

@@ -1,0 +1,646 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Case Record Sheet {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+
+{% for data in init_data %}
+	<h1 class="page-header">Forms <small>View Case Record Sheet  <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+
+
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>Case Details</b></h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard3" id="new_case_record">
+                	{% csrf_token %}
+					<div id="wizard3">
+						<!--<ol>
+							<li>
+							    Case Reporting 
+							    <small>Reporter and additional details.</small>
+
+							</li>
+							<li>
+							    About the Child 
+							    <small>Name and additional details.</small>
+
+							</li>
+							<li>
+							    Medical
+							    <small>Medical history and additional details.</small>
+							</li>
+							<li>
+							    Case Data
+							    <small>Case type and additional details.</small>
+							</li>
+							
+							<li>
+							    Referrals / Interventions
+							    <small>Case referrals/interventions and additional details.</small>
+							</li>
+							
+						</ol>-->
+
+						<!-- begin wizard step-1 -->
+						<div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">Case Reporting</legend>
+                                <div class="row"> 
+                                	<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="case_originator">Case Reporter/Originator * :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ ovccr.case_reporter|gen_value:vals }}
+										</div>
+									</div>
+
+									{% if ovccr.court_name %}
+									<!-- Court Reported -->
+									<div id="div_court_name" class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="court_name">Court Name * :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ ovccr.court_name }}
+										</div>
+									</div>
+									<div id="div_court_number" class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="court_number">Court/File Number * :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ ovccr.court_number }}
+										</div>
+									</div>
+									{% endif %}
+
+									{% if ovccr.police_station %}
+									<!-- Police Reported -->
+									<div id="div_police_station" class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="police_station">Police Station * :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ ovccr.police_station }}
+										</div>
+									</div>
+									<div id="div_ob_number" class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="ob_number">OB Number * :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ ovccr.ob_number }}
+										</div>
+									</div>
+									{% endif %}
+
+									{% if ovccr.case_reporter_first_name %}
+                                    <div id="div_reporter_names" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="case_reporter_first_name">Reporter Name(s) :</label>
+                                        <div class="col-md-2 col-sm-6">
+                                                {{ ovccr.case_reporter_first_name }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-6">
+                                                {{ ovccr.case_reporter_other_names }}
+                                        </div>  
+                                        <div class="col-md-2 col-sm-6">
+                                                {{ ovccr.case_reporter_surname }}
+                                        </div>
+                                    </div> 
+									{% endif %} 
+                                    <!--                                    
+									<div class="form-group"> 
+										<label class="control-label col-md-4 col-sm-4" for="self_reporter">Self-Reported :</label>
+										<div class="col-md-6 col-sm-6">
+				                            <label>
+				                                {{ ovccr.is_self_reporter }} <span id="checkbox_text">(Please check if self-reported)</span>
+				                            </label>
+				                        </div>   
+                                        <a href="#" data-toggle="tooltip" title="Check this for self-reporting"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div> 
+                                    -->   
+                                    {% if ovccr.case_reporter_contacts %}                                          
+                                    <div id="div_reporter_contacts" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="case_reporter_contacts">Reporter PhoneNumber :</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ ovccr.case_reporter_contacts }}
+                                        </div>
+                                    </div>
+									{% endif %}
+                                    <!--
+                                    <div id="div_reporter_relationship_to_child" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="case_reporter_relationship_to_child">Reporter Relationship To Child :</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ ovccr.case_reporter_relationship_to_child }}
+                                        </div>
+                                    </div> 
+                                    -->
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="geolocs">Place Of Occurence  :</label>
+										<div class="col-md-2 col-sm-2">
+                                            <b>Sub County : </b>{{ ovcgeo.occurence_subcounty.area_id|gen_areaname }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                            <b>Ward : </b>{{ ovcgeo.occurence_ward|gen_areaname }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                        	<b>Village/Estate : </b>{{ ovcgeo.occurence_village }}
+                                        </div>
+									</div> 
+                                    <div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="geolocs">Place Of Reporting  :</label>
+										<div class="col-md-4 col-sm-4">
+                                            <b>Sub County : </b>{{ ovcgeo.report_subcounty.area_id|gen_areaname }}
+                                        </div>
+                                        <div class="col-md-4 col-sm-4">
+                                            <b>Organization Unit : </b>{{ ovcgeo.report_orgunit }}
+                                        </div>
+                                        <!--
+                                        <div class="col-md-2 col-sm-2">
+                                            <b>Ward : </b>{{ ovcgeo.report_ward|gen_areaname }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                        	<b>Village/Estate :  </b> {{ ovcgeo.report_village }}
+                                        </div>
+                                        -->
+									</div> 
+									<div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="date_case_opened">Date Case Reported : </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ ovccr.date_case_opened }}
+                                        </div>
+                                    </div>                                                 
+                                </div>
+                                <!-- end row -->
+							</fieldset>
+						</div>
+						<!-- end wizard step-1 -->
+
+						<!-- begin wizard step-2 -->
+						<div class="wizard-step-2">
+                            <fieldset>
+                                <legend class="pull-left width-full">About the Child</legend>
+                                <div class="row"> 
+									<div class="form-group">
+									    {{ form.person }}
+										<label class="control-label col-md-4 col-sm-4" for="init_data">Initial Details :</label>
+										<div class="col-md-6 col-sm-6">
+												
+												{% for data in init_data %}
+		                                			<p><b>CHILD NAMES: </b><i>{{ data.first_name }} {{ data.surname }}</i></p>
+				                                    <p><b>DATE OF BIRTH: </b><i>{{ data.date_of_birth }}</i></p>
+				                                    <p><b>SEX: </b><i>{{ data.sex_id|gen_value:vals }}</i></p>
+				                                    <p>
+				                                    <b>AGE: </b>
+												        <i>
+												            {% if data.date_of_birth|gen_age == 0 %}
+												                UNDER 1 YEAR
+												            {% else %}
+												                {{ data.date_of_birth|gen_age }} YRS 
+												            {% endif %}
+												         </i>
+				                                    </p>
+		                                		{% endfor %}
+												
+										</div>
+									</div>	
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="init_data">Siblings Details :</label>
+										<div class="col-md-6 col-sm-6">
+											<div class="table-responsive">
+								                <table id="siblings-data-table" class="table">
+								                    {% if init_data.siblingpersons|length %}
+								                    <thead>
+								                        <tr>
+								                            <th>Sibling ID</th>
+								                            <th>Firstname</th>
+								                            <th>Surname</th>
+								                            <th>Sex</th> 
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+									                    	{% for result in init_data.siblingpersons %}
+									                    	<tr>
+		                    									<td>{{ result.id }}</a></td>
+										                        <td>{{ result.first_name }}</td>
+										                        <td>{{ result.surname }}</td>
+										                        <td>{{ result.sex_id|gen_value:vals }}</td>
+		                    								</tr>
+		                    								{% endfor %}
+								                    </tbody>
+                    								{% else %}
+								                    <div>No siblings found</div>
+                    								{% endif %}
+								                </table>
+								            </div>
+										</div>
+									</div>							
+                                    <div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="household_economics">House economic status :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ ovcd.household_economic_status|gen_value:vals }}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="family_status">Family status :</label>
+										<div class="col-md-6 col-sm-6">
+											<ol>
+												{% for ovcf in ovcfam %}										
+													<li>{{ ovcf.family_status|gen_value:vals }}</li>
+												{% endfor %}	
+											</ol>
+										</div>	
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4">Close Friends :</label>
+										<div class="col-md-6 col-sm-6">
+											<ol>
+												{% for ovcfrnd in ovcfrnds %}
+													{% if not ovcfrnd.friend_other_names == 'XXXX' %}
+														<li>{{ovcfrnd.friend_firstname}} {{ovcfrnd.friend_other_names}}</li>	
+													{% else %}
+														<li>{{ovcfrnd.friend_firstname}}</li>
+													{% endif %}
+												{% endfor %}	
+											</ol>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4">Hobbies :</label>
+										<div class="col-md-6 col-sm-6">
+											<ol>
+												{% for ovchob in ovchobs %}													
+													<li>{{ovchob.hobby}}</li>	
+												{% endfor %}	
+											</ol>
+										</div>
+									</div>
+									
+                                </div>
+                                <!-- end row -->
+							</fieldset>
+						</div>
+						<!-- end wizard step-2 -->
+
+						<!-- begin wizard step-3 -->
+						<div class="wizard-step-3">
+							<fieldset>
+                                <legend class="pull-left width-full">Medical</legend>
+                                <div class="row">
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="child_in_school">Mental condition :</label>
+										<div class="col-md-6 col-sm-6">
+											<div>{{ ovcmed.mental_condition|gen_value:vals }}</div>
+											<br>
+											<div id="div_mental_subcondition">
+												<ol>
+													{% for ovcmentmed in ovcmentmeds %}													
+														<li>{{ovcmentmed.medical_subcondition|gen_value:vals}}</li>	
+													{% endfor %}	
+												</ol>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="school_category">Physical condition :</label>
+										<div class="col-md-6 col-sm-6">
+											<div>{{ ovcmed.physical_condition|gen_value:vals }}</div>
+											<br>
+											<div id="div_physical_subcondition">
+												<ol>
+													{% for ovcphymed in ovcphymeds %}													
+														<li>{{ovcphymed.medical_subcondition|gen_value:vals}}</li>	
+													{% endfor %}	
+												</ol>
+											</div>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="school_category">Other condition :</label>
+										<div class="col-md-6 col-sm-6">
+											<div>{{ ovcmed.other_condition|gen_value:vals }}</div>
+											<br>
+											<div  id="div_other_subcondition">
+												<ol>
+													{% for ovcothermed in ovcothermeds %}												
+														<li>{{ovcothermed.medical_subcondition|gen_value:vals}}</li>	
+													{% endfor %}	
+												</ol>
+											</div>
+										</div>
+									</div>
+                                </div>
+							</fieldset>
+						</div>
+						<!-- end wizard step-3 -->						
+
+						<!-- begin wizard step-4 -->
+					    <div class="wizard-step-4">
+						    <fieldset>
+                                <!-- end row -->
+								<legend class="pull-left width-full">Case Data</legend>
+                                <!-- begin row -->
+                                <div class="row">
+                                	<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="serial_number">Case Serial Number :</label>
+										<div class="col-md-6 col-sm-6">
+												{{ ovccr.case_serial }}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="perpetrator_known">Alleged Perpetrator/Offender Known? * :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ ovccr.perpetrator_status|gen_value:vals }}
+										</div>
+									</div>	
+
+									{% if perpetrator_first_name %}								
+	                            	<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="perpetrator_first_name">Alleged Perpetrator/Offender Name(s) :</label>
+										<div class="col-md-2 col-sm-6">
+												Firstname: {{ ovccr.perpetrator_first_name }}
+										</div>
+										<div class="col-md-2 col-sm-6">
+												Middle Name: {{ ovccr.perpetrator_other_names }}
+										</div>
+										<div class="col-md-2 col-sm-6">
+												Surname: {{ ovccr.perpetrator_surname }}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="perpetrator_relationship">Alleged Relationship to Child :</label>
+										<div class="col-md-6 col-sm-6">
+												{{ ovccr.perpetrator_relationship_type|gen_value:vals }}
+										</div>
+									</div>
+									{% endif %}
+
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="case_category">Case Category (s) :</label>
+										<div class="col-md-6 col-sm-6">
+											<table id="casecategory_manager_table" class="table">
+			                                    <thead>
+			                                        <tr id="id_inputHeaders">
+			                                            <th></th>
+			                                            <th><i>Case Category(s)</i></th>
+			                                            <th><i>Case SubCategory(s)</i></th>
+			                                            <th><i>Date Of Event</i></th>
+			                                            <th><i>Place Of Event</i></th>
+			                                            <th><i>Case Nature</i></th>
+			                                        </tr>
+			                                    </thead>
+			                                    <tbody>
+			                                        {% for resultset in resultsets %}
+					                                	{% regroup resultset by case_grouping_id as case_grouping_id_list %}
+						                                	{% for case_grouping_id in case_grouping_id_list %}	                        	
+								                                <tr id="id_inputElements">
+								                                	<td>
+								                                	{{ forloop.counter }}
+								                                	</td>
+
+								                                	<td>
+								                                	{% for item in case_grouping_id.list %}
+								                                		{{ item.case_category|gen_value2 }}<br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                                <td>
+									                            	{% for item in case_grouping_id.list %}
+								                                		{{ item.case_subcategorys }}
+								                                		<br>
+									                            	{% endfor %}
+									                            	 </td>
+
+									                                <td>
+									                                {{ case_grouping_id.list|gen_date_of_event }}
+									                            	</td>
+
+									                            	<td>
+								                                	{% for item in case_grouping_id.list %}
+								                                		{{ item.place_of_event|gen_value2 }}
+								                                		<br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                            	<td>
+								                                	{% for item in case_grouping_id.list %}
+								                                		{{ item.case_nature|gen_value2 }}
+								                                		<br>
+									                            	{% endfor %}
+									                            	</td>
+									                            <tr>
+								                            {% endfor %}
+							                        {% endfor %}
+			                                    </tbody>
+			                                </table>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="risk_level">Risk Level :</label>
+										<div class="col-md-6 col-sm-6">
+												{{ ovccr.risk_level|gen_value:vals }}
+										</div>
+									</div> 
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="risk_level">Immediate Needs :</label>
+										<div class="col-md-6 col-sm-6">
+											<ol>
+												{% for ovcneed in ovcneeds %}
+													{% if ovcneed.need_type == 'IMMEDIATE'%}											
+														<li>{{ ovcneed.need_description|gen_value:vals }}</li>
+													{% endif %}	
+												{% endfor %}	
+											</ol>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="risk_level">Future Needs :</label>
+										<div class="col-md-6 col-sm-6">
+											<ol>
+												{% for ovcneed in ovcneeds %}
+													{% if ovcneed.need_type == 'FUTURE'%}											
+														<li>{{ ovcneed.need_description|gen_value:vals }}</li>
+													{% endif %}	
+												{% endfor %}	
+											</ol>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="referral_present"> Referral Present? :</label>
+										<div class="col-md-6 col-sm-6">
+										{{ ovccr.referral_present|gen_value:vals }} 
+										</div>
+									</div>
+
+									{% if ovccr.referral_present == 'AYES' %}
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="case_category">Referrals & Actors : </label>
+										<div class="col-md-6 col-sm-6">
+											<table id="referralactors_manager_table" class="table">
+			                                    <thead>
+			                                        <tr id="id_inputHeaders">
+			                                        	<th></th>
+			                                            <th>Referral Actor</th>
+			                                            <th>Specify</th>
+			                                            <th>Reason</th>
+			                                        </tr>
+			                                    </thead>
+			                                    <tbody>
+			                                        {% for resultset in resultsets2 %}
+					                                	{% regroup resultset by referral_grouping_id as referral_grouping_id_list %}
+						                                	{% for referral_grouping_id in referral_grouping_id_list %}	              	
+								                                <tr id="id_inputElements">
+								                                	<td>
+								                                	{{ forloop.counter }}
+								                                	</td>
+
+								                                	<td>
+								                                	{% for item in referral_grouping_id.list %}
+								                                		{{ item.refferal_actor_type|gen_value2 }}<br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                                <td>
+									                                {% for item in referral_grouping_id.list %}
+									                                	{{  item.refferal_actor_specify }}
+									                                {% endfor %}
+									                            	</td>
+
+									                            	<td>
+								                                	{% for item in referral_grouping_id.list %}
+								                                		{{ item.refferal_to|gen_value2 }}<br>
+									                            	{% endfor %}
+									                            	</td>
+									                            <tr>
+								                            {% endfor %}
+							                        {% endfor %}
+			                                    </tbody>
+			                                </table>
+										</div>
+									</div>
+									{% else %}
+					                    <div>No referrals found</div>
+	                                {% endif %}
+
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="risk_level"> Summon Issued / Date Of Summon :</label>
+										<div class="col-md-6 col-sm-6">
+											{% if ovccr.date_of_summon %}
+											Yes  <br><br> <i>Date: </i>{{ ovccr.date_of_summon }} 
+											{% else %}
+						                    No Summons Issued
+						                    {% endif %}
+										</div>
+									</div> 
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="risk_level"> Summon Status :</label>
+										<div class="col-md-6 col-sm-6">
+											{% if ovccr.summon_status %}
+												Summon Honoured
+											{% else %}											 
+												{% if ovccr.summon_status != None %}
+													Pending Summon
+												{% else %}
+													No Summons Issued
+												{% endif %}
+											{% endif %}
+										</div>
+									</div> 						
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="risk_level"> Case Remarks :</label>
+										<div class="col-md-6 col-sm-6">
+												{{ ovccr.case_remarks }}
+										</div>
+									</div> 
+                                </div>
+                            </fieldset>
+                        </div>
+						<!-- end wizard step-4 -->
+					</div>
+
+					<!-- begin panel -->
+	                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+	                    <div class="panel-body panel-form">
+							<div class="form-group">
+								<label class="control-label col-md-4 col-sm-4"></label>
+								<div class="col-md-6 col-sm-6">
+								    <p></p>
+									<!--<button id="mysubmit_update" type="submit" class="btn btn-primary">Print PDF</button>-->
+									<a href="javascript:history.go(-1)" class="btn btn-primary">Back</a>
+									<p></p>
+								</div>
+							</div>
+	                    </div>
+	                </div>
+        			<!-- end panel -->
+				</form>
+            </div>
+        </div>
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+<!-- End content area -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+	<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>	
+	<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+	<script src="{% static 'js/apps.js' %}"></script>
+	<script src="{% static 'js/form-wizards.js' %}"></script>
+	<script src="{% static 'js/tag-it.js' %}"></script>
+	<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+	<script type="text/javascript">	
+	jQuery(document).ready(function() 
+	{		
+		/* Get Case Owner
+	    var pfirst_name = localStorage.getItem("person_fname");
+	    var psurname = localStorage.getItem("person_sname");
+	    var person_name = pfirst_name + ' ' + psurname;
+	    $('#person_name')[0].innerHTML = person_name;*/
+	});
+	</script>
+{% endblock %}

@@ -1,0 +1,9028 @@
+[
+{
+	"model":"cpovc_main.SetupList",
+	"pk":1,
+	"fields":{
+		"item_id":"TNRS"
+		,"item_description":"Residential institution with children"
+		,"item_description_short":"Residential institution"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":1
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":2,
+	"fields":{
+		"item_id":"TNCB"
+		,"item_description":"Community based organisation including community level faith based organisations"
+		,"item_description_short":"CBO"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":2
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":3,
+	"fields":{
+		"item_id":"TNCW"
+		,"item_description":"CWAC - community welfare assistance committee"
+		,"item_description_short":"CWAC"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":3
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":4,
+	"fields":{
+		"item_id":"TNCM"
+		,"item_description":"Sub-district level committee (excluding CWACs)"
+		,"item_description_short":"Committee - community"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":4
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":5,
+	"fields":{
+		"item_id":"TNGS"
+		,"item_description":"Sub-district unit of Government institution"
+		,"item_description_short":"Government - sub-district"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":5
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":6,
+	"fields":{
+		"item_id":"TNND"
+		,"item_description":"NGO/private unit covering one district or part of one district"
+		,"item_description_short":"NGO/private - low level"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":6
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":7,
+	"fields":{
+		"item_id":"TNCD"
+		,"item_description":"District level committee"
+		,"item_description_short":"Committee - district"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":7
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":8,
+	"fields":{
+		"item_id":"TNGD"
+		,"item_description":"District office of Government institution"
+		,"item_description_short":"Government - district"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":8
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":9,
+	"fields":{
+		"item_id":"TNNM"
+		,"item_description":"NGO/private unit not HQ but covering multiple districts"
+		,"item_description_short":"NGO/private - mid level"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":9
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":10,
+	"fields":{
+		"item_id":"TNCP"
+		,"item_description":"Provincial level committee"
+		,"item_description_short":"Committee - province"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":10
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":11,
+	"fields":{
+		"item_id":"TNGP"
+		,"item_description":"Provincial office of Government institution"
+		,"item_description_short":"Government - province"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":11
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":12,
+	"fields":{
+		"item_id":"TNNH"
+		,"item_description":"NGO/private national HQ unit"
+		,"item_description_short":"NGO/private - national"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":12
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":13,
+	"fields":{
+		"item_id":"TNGN"
+		,"item_description":"National level Government institution"
+		,"item_description_short":"Government - national"
+		,"item_category":"Organisational unit type"
+		,"field_name":"org_unit_type_id"
+		,"the_order":13
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":14,
+	"fields":{
+		"item_id":"INGO"
+		,"item_description":"NGO registration number"
+		,"item_category":"Organisational unit ID - external"
+		,"field_name":"identifier_type_id"
+		,"the_order":1
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":15,
+	"fields":{
+		"item_id":"ICOM"
+		,"item_description":"Company registration number"
+		,"item_category":"Organisational unit ID - external"
+		,"field_name":"identifier_type_id"
+		,"the_order":2
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":16,
+	"fields":{
+		"item_id":"ITRU"
+		,"item_description":"Trust registration number"
+		,"item_category":"Organisational unit ID - external"
+		,"field_name":"identifier_type_id"
+		,"the_order":3
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":17,
+	"fields":{
+		"item_id":"CPHL"
+		,"item_description":"Phone number - landline"
+		,"item_category":"Contact detail"
+		,"field_name":"contact_detail_type_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":18,
+	"fields":{
+		"item_id":"CPHM"
+		,"item_description":"Phone number - mobile"
+		,"item_category":"Contact detail"
+		,"field_name":"contact_detail_type_id"
+		,"the_order":2
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":19,
+	"fields":{
+		"item_id":"CEMA"
+		,"item_description":"Email address"
+		,"item_category":"Contact detail"
+		,"field_name":"contact_detail_type_id"
+		,"the_order":3
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":20,
+	"fields":{
+		"item_id":"CPOA"
+		,"item_description":"Postal address"
+		,"item_category":"Contact detail"
+		,"field_name":"contact_detail_type_id"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":21,
+	"fields":{
+		"item_id":"CPHA"
+		,"item_description":"Physical address"
+		,"item_category":"Contact detail"
+		,"field_name":"contact_detail_type_id"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":22,
+	"fields":{
+		"item_id":"GDIS"
+		,"item_description":"District"
+		,"item_category":"Geographical area type"
+		,"field_name":"area_type_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":23,
+	"fields":{
+		"item_id":"GWRD"
+		,"item_description":"Ward"
+		,"item_category":"Geographical area type"
+		,"field_name":"area_type_id"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":24,
+	"fields":{
+		"item_id":"SMAL"
+		,"item_description":"Male"
+		,"item_category":"Sex"
+		,"field_name":"sex_id"
+		,"the_order":1
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":25,
+	"fields":{
+		"item_id":"SFEM"
+		,"item_description":"Female"
+		,"item_category":"Sex"
+		,"field_name":"sex_id"
+		,"the_order":2
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":26,
+	"fields":{
+		"item_id":"TWNE"
+		,"item_description":"NGO/private sector employee"
+		,"item_category":"Person type (user/workforce member)"
+		,"field_name":"person_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":27,
+	"fields":{
+		"item_id":"TWGE"
+		,"item_description":"Government employee"
+		,"item_category":"Person type (user/workforce member)"
+		,"field_name":"person_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":28,
+	"fields":{
+		"item_id":"GENY"
+		,"item_description":"Yes"
+		,"item_category":"General YesNo"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":29,
+	"fields":{
+		"item_id":"GENN"
+		,"item_description":"No"
+		,"item_category":"General YesNo"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":30,
+	"fields":{
+		"item_id":"TWVL"
+		,"item_description":"Volunteer"
+		,"item_category":"Person type (user/workforce member)"
+		,"field_name":"person_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":31,
+	"fields":{
+		"item_id":"PHVP"
+		,"item_description":"is HIV positive"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":1
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":32,
+	"fields":{
+		"item_id":"PILL"
+		,"item_description":"is chronically ill"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":2
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":33,
+	"fields":{
+		"item_id":"PCIL"
+		,"item_description":"primary caregiver is chronically ill"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":3
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":34,
+	"fields":{
+		"item_id":"PCDS"
+		,"item_description":"primary caregiver is disabled"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":4
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":35,
+	"fields":{
+		"item_id":"PCOL"
+		,"item_description":"primary caregiver is more than 60 years old"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":5
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":36,
+	"fields":{
+		"item_id":"PCCH"
+		,"item_description":"living in child-headed household (no adult caregiver)"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":6
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":37,
+	"fields":{
+		"item_id":"PPOR"
+		,"item_description":"living in poor household"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":7
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":38,
+	"fields":{
+		"item_id":"PORM"
+		,"item_description":"is orphan - mother has died"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":8
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":39,
+	"fields":{
+		"item_id":"PORF"
+		,"item_description":"is orphan - father has died"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":9
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":40,
+	"fields":{
+		"item_id":"PLRI"
+		,"item_description":"living in residential institution without family care"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":10
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":41,
+	"fields":{
+		"item_id":"PLCI"
+		,"item_description":"living in correctional institution"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":11
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":42,
+	"fields":{
+		"item_id":"PLST"
+		,"item_description":"living on street or in public place"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":12
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":43,
+	"fields":{
+		"item_id":"PDSV"
+		,"item_description":"has a visual disability"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":13
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":44,
+	"fields":{
+		"item_id":"PDSM"
+		,"item_description":"has a mental illness or disability"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":17
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":45,
+	"fields":{
+		"item_id":"PDSH"
+		,"item_description":"has a hearing disability"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":14
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":46,
+	"fields":{
+		"item_id":"PDSA"
+		,"item_description":"has an albinism disability"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":16
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":47,
+	"fields":{
+		"item_id":"PDSP"
+		,"item_description":"has a physical disability"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":15
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":48,
+	"fields":{
+		"item_id":"POSC"
+		,"item_description":"is of school age but not in school"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":19
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":49,
+	"fields":{
+		"item_id":"PSTG"
+		,"item_description":"is marginalised, stigmatised or discriminated against"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":20
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":50,
+	"fields":{
+		"item_id":"PCLB"
+		,"item_description":"is involved in child labour as defined by Child Labour Policy"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":21
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":51,
+	"fields":{
+		"item_id":"PREN"
+		,"item_description":"is exposed to risky environment such as sex work, sale of drugs/illicit beer"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":22
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":52,
+	"fields":{
+		"item_id":"PSBA"
+		,"item_description":"engages in alcohol abuse or substance abuse"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":23
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":53,
+	"fields":{
+		"item_id":"PCSB"
+		,"item_description":"caregiver engages in alcohol abuse or substance abuse"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":24
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":54,
+	"fields":{
+		"item_id":"PCCL"
+		,"item_description":"is a child in conflict with the law"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":25
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":55,
+	"fields":{
+		"item_id":"PCPR"
+		,"item_description":"parent(s) in prison"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":26
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":56,
+	"fields":{
+		"item_id":"PLCP"
+		,"item_description":"living with parent in prison"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":27
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":57,
+	"fields":{
+		"item_id":"PPRG"
+		,"item_description":"is pregnant"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":28
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":58,
+	"fields":{
+		"item_id":"PGVB"
+		,"item_description":"is a child who has given birth"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":29
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":59,
+	"fields":{
+		"item_id":"PPCH"
+		,"item_description":"is a child whose parent(s) are children"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":30
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":60,
+	"fields":{
+		"item_id":"PMAR"
+		,"item_description":"is a child who has been married early"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":31
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":61,
+	"fields":{
+		"item_id":"PTRF"
+		,"item_description":"is a child who is trafficked to/from other places"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":32
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":62,
+	"fields":{
+		"item_id":"PASA"
+		,"item_description":"has been sexually abused"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":33
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":63,
+	"fields":{
+		"item_id":"PASE"
+		,"item_description":"has been sexually exploited"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":34
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":64,
+	"fields":{
+		"item_id":"PAEM"
+		,"item_description":"has been emotionally abused"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":35
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":65,
+	"fields":{
+		"item_id":"PAPH"
+		,"item_description":"has been physically abused"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":36
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":66,
+	"fields":{
+		"item_id":"PANG"
+		,"item_description":"has been abused through neglect"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":37
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":67,
+	"fields":{
+		"item_id":"PTRN"
+		,"item_description":"has experienced trauma from involvement in natural disaster"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":38
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":68,
+	"fields":{
+		"item_id":"PTRV"
+		,"item_description":"has experienced trauma from involvement in war, riots or violence"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":39
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":69,
+	"fields":{
+		"item_id":"ISCG"
+		,"item_description":"Caregiver ID in STEPS OVC program"
+		,"item_category":"Person ID type - external"
+		,"field_name":"identifier_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":70,
+	"fields":{
+		"item_id":"IMAN"
+		,"item_description":"Government employee MAN number"
+		,"item_category":"Person ID type - external"
+		,"field_name":"identifier_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":71,
+	"fields":{
+		"item_id":"IPCS"
+		,"item_description":"Police call sign number"
+		,"item_category":"Person ID type - external"
+		,"field_name":"identifier_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":72,
+	"fields":{
+		"item_id":"IDTS"
+		,"item_description":"Teaching service ID number"
+		,"item_category":"Person ID type - external"
+		,"field_name":"identifier_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":73,
+	"fields":{
+		"item_id":"CPHD"
+		,"item_description":"Phone number - designated mobile"
+		,"item_category":"Contact detail"
+		,"field_name":"contact_detail_type_id"
+		,"the_order":6
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":74,
+	"fields":{
+		"item_id":"TBVC"
+		,"item_description":"OVC"
+		,"item_category":"Person type (beneficiary)"
+		,"field_name":"person_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":75,
+	"fields":{
+		"item_id":"TBGR"
+		,"item_description":"OVC guardian"
+		,"item_category":"Person type (beneficiary)"
+		,"field_name":"person_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":76,
+	"fields":{
+		"item_id":"REGB"
+		,"item_description":"Register new beneficiary"
+		,"item_category":"SMS Command"
+		,"field_name":"transaction_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":77,
+	"fields":{
+		"item_id":"REGU"
+		,"item_description":"Register new organisational unit"
+		,"item_category":"SMS Command"
+		,"field_name":"transaction_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":78,
+	"fields":{
+		"item_id":"REGS"
+		,"item_description":"Register new user"
+		,"item_category":"Command"
+		,"field_name":"transaction_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":79,
+	"fields":{
+		"item_id":"REGW"
+		,"item_description":"Register new workforce member"
+		,"item_category":"SMS Command"
+		,"field_name":"transaction_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":80,
+	"fields":{
+		"item_id":"UPDB"
+		,"item_description":"Update beneficiary file"
+		,"item_category":"SMS Command"
+		,"field_name":"transaction_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":81,
+	"fields":{
+		"item_id":"UPDU"
+		,"item_description":"Update organisational unit file"
+		,"item_category":"SMS Command"
+		,"field_name":"transaction_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":82,
+	"fields":{
+		"item_id":"UPDS"
+		,"item_description":"Update user file"
+		,"item_category":"Command"
+		,"field_name":"transaction_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":83,
+	"fields":{
+		"item_id":"UPDW"
+		,"item_description":"Update workforce member file"
+		,"item_category":"SMS Command"
+		,"field_name":"transaction_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":84,
+	"fields":{
+		"item_id":"INTC"
+		,"item_description":"Capture application interface"
+		,"item_category":"Interfaces"
+		,"field_name":"interface_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":85,
+	"fields":{
+		"item_id":"INTS"
+		,"item_description":"SMS interface"
+		,"item_category":"Interfaces"
+		,"field_name":"interface_id"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":86,
+	"fields":{
+		"item_id":"INTW"
+		,"item_description":"Web interface"
+		,"item_category":"Interfaces"
+		,"field_name":"interface_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":87,
+	"fields":{
+		"item_id":"DAYT"
+		,"item_description":"Today"
+		,"item_category":"SMS keyword"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":88,
+	"fields":{
+		"item_id":"ATMS"
+		,"item_description":"Multi select"
+		,"item_category":"Answer type"
+		,"field_name":"answer_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":89,
+	"fields":{
+		"item_id":"ATNM"
+		,"item_description":"Numeric - integer"
+		,"item_category":"Answer type"
+		,"field_name":"answer_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":90,
+	"fields":{
+		"item_id":"ATSS"
+		,"item_description":"Single select"
+		,"item_category":"Answer type"
+		,"field_name":"answer_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":91,
+	"fields":{
+		"item_id":"ATTX"
+		,"item_description":"Text"
+		,"item_category":"Answer type"
+		,"field_name":"answer_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":92,
+	"fields":{
+		"item_id":"RECS"
+		,"item_description":"Record services, referrals and/or adverse conditions"
+		,"item_category":"SMS Command"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":93,
+	"fields":{
+		"item_id":"CS6A"
+		,"item_description":"Performance"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":94,
+	"fields":{
+		"item_id":"CS5B"
+		,"item_description":"Social Behaviour"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":95,
+	"fields":{
+		"item_id":"CS5A"
+		,"item_description":"Emotional Health"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":96,
+	"fields":{
+		"item_id":"CS4B"
+		,"item_description":"Health Care Services"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":97,
+	"fields":{
+		"item_id":"CS1A"
+		,"item_description":"Food security"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":98,
+	"fields":{
+		"item_id":"CS4A"
+		,"item_description":"Wellness"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":99,
+	"fields":{
+		"item_id":"CS3B"
+		,"item_description":"Legal protection"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":100,
+	"fields":{
+		"item_id":"CS2B"
+		,"item_description":"Care"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":101,
+	"fields":{
+		"item_id":"CS3A"
+		,"item_description":"Abuse and Exploitation"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":102,
+	"fields":{
+		"item_id":"CS2A"
+		,"item_description":"Shelter"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":103,
+	"fields":{
+		"item_id":"CS1B"
+		,"item_description":"Nutrition and Growth"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":104,
+	"fields":{
+		"item_id":"CS6B"
+		,"item_description":"Education and Work"
+		,"item_category":"CSI domain"
+		,"field_name":"domain_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":105,
+	"fields":{
+		"item_id":"DSLT"
+		,"item_description":"Lists"
+		,"item_category":"Download section"
+		,"field_name":"section_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":106,
+	"fields":{
+		"item_id":"DSSS"
+		,"item_description":"Security setup"
+		,"item_category":"Download section"
+		,"field_name":"section_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":107,
+	"fields":{
+		"item_id":"DSPR"
+		,"item_description":"Person registry"
+		,"item_category":"Download section"
+		,"field_name":"section_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":108,
+	"fields":{
+		"item_id":"DSOR"
+		,"item_description":"Organisational unit registry"
+		,"item_category":"Download section"
+		,"field_name":"section_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":109,
+	"fields":{
+		"item_id":"DSPA"
+		,"item_description":"Person access"
+		,"item_category":"Download section"
+		,"field_name":"section_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":110,
+	"fields":{
+		"item_id":"EELS"
+		,"item_description":"Encountered elsewhere"
+		,"item_category":"Encounter type"
+		,"field_name":"encounter_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":111,
+	"fields":{
+		"item_id":"EHOM"
+		,"item_description":"Visit to home of beneficiary"
+		,"item_category":"Encounter type"
+		,"field_name":"encounter_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":112,
+	"fields":{
+		"item_id":"EWRK"
+		,"item_description":"Beneficiary came to workplace"
+		,"item_category":"Encounter type"
+		,"field_name":"encounter_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":113,
+	"fields":{
+		"item_id":"FT3e"
+		,"item_description":"Form 3e - Basic service/referral"
+		,"item_category":"Form type"
+		,"field_name":"form_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":114,
+	"fields":{
+		"item_id":"FT3d"
+		,"item_description":"Form 3d - OVC assessment"
+		,"item_category":"Form type"
+		,"field_name":"form_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":115,
+	"fields":{
+		"item_id":"FT2d"
+		,"item_description":"Form 2d - Workforce training"
+		,"item_category":"Form type"
+		,"field_name":"form_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":116,
+	"fields":{
+		"item_id":"FT2c"
+		,"item_description":"Form 2c - Workforce member assessment"
+		,"item_category":"Form type"
+		,"field_name":"form_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":118,
+	"fields":{
+		"item_id":"FT1f"
+		,"item_description":"Form 1f - Residential institution"
+		,"item_category":"Form type"
+		,"field_name":"form_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":120,
+	"fields":{
+		"item_id":"FT1e"
+		,"item_description":"Form 1e - Community outreach / public sensitization"
+		,"item_category":"Form type"
+		,"field_name":"form_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":121,
+	"fields":{
+		"item_id":"FT3f"
+		,"item_description":"Form 3f - Child in conflict with the law"
+		,"item_category":"Form type"
+		,"field_name":"form_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":122,
+	"fields":{
+		"item_id":"GCON"
+		,"item_description":"Constituency"
+		,"item_category":"Geographical area type"
+		,"field_name":"area_type_id"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":123,
+	"fields":{
+		"item_id":"GPRV"
+		,"item_description":"Province"
+		,"item_category":"Geographical area type"
+		,"field_name":"area_type_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":124,
+	"fields":{
+		"item_id":"ISOV"
+		,"item_description":"OVC ID in STEPS OVC program"
+		,"item_category":"Person ID type - external"
+		,"field_name":"identifier_type_id"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":125,
+	"fields":{
+		"item_id":"LGEO"
+		,"item_description":"Ward or District ID prefix"
+		,"item_category":"SMS keyword - prefix to ID"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":126,
+	"fields":{
+		"item_id":"X"
+		,"item_description":"Password prefix"
+		,"item_category":"Prefix to password"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":127,
+	"fields":{
+		"item_id":"RCFP"
+		,"item_description":"Referral to family planning services"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":1
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":128,
+	"fields":{
+		"item_id":"RCPL"
+		,"item_description":"Referral to police"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":2
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":129,
+	"fields":{
+		"item_id":"RCSG"
+		,"item_description":"Referral to victim support group"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":3
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":130,
+	"fields":{
+		"item_id":"RCVS"
+		,"item_description":"Referral to victim support unit"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":4
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":131,
+	"fields":{
+		"item_id":"RCLS"
+		,"item_description":"Referral to legal services"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":5
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":132,
+	"fields":{
+		"item_id":"RCCT"
+		,"item_description":"Referral to HIV care and treatment services in health facility"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":6
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":133,
+	"fields":{
+		"item_id":"RCHF"
+		,"item_description":"Referral to health facility"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":7
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":134,
+	"fields":{
+		"item_id":"RCHT"
+		,"item_description":"Referral to HIV testing"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":8
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":135,
+	"fields":{
+		"item_id":"RCPP"
+		,"item_description":"Referral to PEP in health facility"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":9
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":136,
+	"fields":{
+		"item_id":"RCCG"
+		,"item_description":"Referral to community group/club"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":10
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":137,
+	"fields":{
+		"item_id":"RCCP"
+		,"item_description":"Referral to professional counselling"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":11
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":138,
+	"fields":{
+		"item_id":"RCSC"
+		,"item_description":"Referral to school"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":12
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":139,
+	"fields":{
+		"item_id":"RCTR"
+		,"item_description":"Referral to training or education program"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":13
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":140,
+	"fields":{
+		"item_id":"RCAE"
+		,"item_description":"Referral to agricultural extension services"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":14
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":141,
+	"fields":{
+		"item_id":"RCES"
+		,"item_description":"Referral to economic strengthening program/project/savings and credit scheme"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":15
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":142,
+	"fields":{
+		"item_id":"RCWS"
+		,"item_description":"Referral to water and sanitation services"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":16
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":143,
+	"fields":{
+		"item_id":"RCHL"
+		,"item_description":"Referral to hotline"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":17
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":144,
+	"fields":{
+		"item_id":"RCSO"
+		,"item_description":"Referral to OVC program (NGO)"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":18
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":145,
+	"fields":{
+		"item_id":"RCSS"
+		,"item_description":"Referral to professional social services (social worker)"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":20
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":146,
+	"fields":{
+		"item_id":"RMFP"
+		,"item_description":"Referral to family planning services"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":1
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":147,
+	"fields":{
+		"item_id":"RMPL"
+		,"item_description":"Referral to police"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":2
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":148,
+	"fields":{
+		"item_id":"RMSG"
+		,"item_description":"Referral to victim support group"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":3
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":149,
+	"fields":{
+		"item_id":"RMVS"
+		,"item_description":"Referral to victim support unit"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":4
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":150,
+	"fields":{
+		"item_id":"RMLS"
+		,"item_description":"Referral to legal services"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":5
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":151,
+	"fields":{
+		"item_id":"RMCT"
+		,"item_description":"Referral to HIV care and treatment services in health facility"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":6
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":152,
+	"fields":{
+		"item_id":"RMHF"
+		,"item_description":"Referral to health facility"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":7
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":153,
+	"fields":{
+		"item_id":"RMHT"
+		,"item_description":"Referral to HIV testing"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":8
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":154,
+	"fields":{
+		"item_id":"RMPP"
+		,"item_description":"Referral to PEP in health facility"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":9
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":155,
+	"fields":{
+		"item_id":"RMCG"
+		,"item_description":"Referral to community group/club"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":10
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":156,
+	"fields":{
+		"item_id":"RMCP"
+		,"item_description":"Referral to professional counselling"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":11
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":157,
+	"fields":{
+		"item_id":"RMSC"
+		,"item_description":"Referral to school"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":12
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":158,
+	"fields":{
+		"item_id":"RMTR"
+		,"item_description":"Referral to training or education program"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":13
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":159,
+	"fields":{
+		"item_id":"RMAE"
+		,"item_description":"Referral to agricultural extension services"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":14
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":160,
+	"fields":{
+		"item_id":"RMES"
+		,"item_description":"Referral to economic strengthening program/project/savings and credit scheme"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":15
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":161,
+	"fields":{
+		"item_id":"RMWS"
+		,"item_description":"Referral to water and sanitation services"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":16
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":162,
+	"fields":{
+		"item_id":"RMHL"
+		,"item_description":"Referral to hotline"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":17
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":163,
+	"fields":{
+		"item_id":"RMSO"
+		,"item_description":"Referral to OVC program (NGO)"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":18
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":164,
+	"fields":{
+		"item_id":"RMSS"
+		,"item_description":"Referral to professional social services (social worker)"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":20
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":165,
+	"fields":{
+		"item_id":"STNT"
+		,"item_description":"Measurement to assess nutritional status"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":1
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":166,
+	"fields":{
+		"item_id":"SCBN"
+		,"item_description":"Basic counselling - nutrition"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":2
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":167,
+	"fields":{
+		"item_id":"SGFD"
+		,"item_description":"Provided with food"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":3
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":168,
+	"fields":{
+		"item_id":"SGFS"
+		,"item_description":"Provided with artificial food supplement"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":4
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":169,
+	"fields":{
+		"item_id":"SSRP"
+		,"item_description":"Home repaired/renovated"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":5
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":170,
+	"fields":{
+		"item_id":"SPRS"
+		,"item_description":"Admitted in residential care institution"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":6
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":171,
+	"fields":{
+		"item_id":"SGBN"
+		,"item_description":"Provided with other basic need (eg clothes, blanket, bicycle, soap etc)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":7
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":172,
+	"fields":{
+		"item_id":"SCBC"
+		,"item_description":"Basic counselling - couples (for guardians)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":8
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":173,
+	"fields":{
+		"item_id":"SCBF"
+		,"item_description":"Basic counselling on family planning (for guardians)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":9
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":174,
+	"fields":{
+		"item_id":"SCBU"
+		,"item_description":"Basic counselling - substance abuse"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":10
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":175,
+	"fields":{
+		"item_id":"SPAD"
+		,"item_description":"Placed for adoption"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":11
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":176,
+	"fields":{
+		"item_id":"SPFM"
+		,"item_description":"Placed with family member (separated or institutionalised child)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":12
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":177,
+	"fields":{
+		"item_id":"SPFS"
+		,"item_description":"Placed in foster care"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":13
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":178,
+	"fields":{
+		"item_id":"SGTR"
+		,"item_description":"Provided with transport for repatriation"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":14
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":179,
+	"fields":{
+		"item_id":"SPHM"
+		,"item_description":"Making contact with home or relatives (separated or institutionalised child)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":15
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":180,
+	"fields":{
+		"item_id":"SCPA"
+		,"item_description":"professional assessment for potential abuse"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":16
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":181,
+	"fields":{
+		"item_id":"SCPV"
+		,"item_description":"Professional counselling for child victim of abuse or violence"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":17
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":182,
+	"fields":{
+		"item_id":"SRPA"
+		,"item_description":"Arrest of perpetrator of abuse/violence to child"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":18
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":183,
+	"fields":{
+		"item_id":"SRPC"
+		,"item_description":"Perpetrator of abuse/violence to child brought to court"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":19
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":184,
+	"fields":{
+		"item_id":"SRCL"
+		,"item_description":"Removed from child labour"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":20
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":185,
+	"fields":{
+		"item_id":"SRDG"
+		,"item_description":"Rescue from danger (eg situation of abuse)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":21
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":186,
+	"fields":{
+		"item_id":"SRTR"
+		,"item_description":"Rescue from trafficking"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":22
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":187,
+	"fields":{
+		"item_id":"SLBR"
+		,"item_description":"Support with birth registration"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":23
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":188,
+	"fields":{
+		"item_id":"SLSC"
+		,"item_description":"Support with wills and succession planning"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":24
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":189,
+	"fields":{
+		"item_id":"STHV"
+		,"item_description":"HIV testing"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":25
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":190,
+	"fields":{
+		"item_id":"SCBA"
+		,"item_description":"Basic counselling on ART adherence"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":26
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":191,
+	"fields":{
+		"item_id":"SCBH"
+		,"item_description":"Basic counselling on HIV prevention"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":27
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":192,
+	"fields":{
+		"item_id":"SCBM"
+		,"item_description":"Basic counselling on malaria prevention"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":28
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":193,
+	"fields":{
+		"item_id":"SCBO"
+		,"item_description":"Basic counselling on other health issues"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":29
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":194,
+	"fields":{
+		"item_id":"SSMS"
+		,"item_description":"Home sprayed for mosquitos"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":30
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":195,
+	"fields":{
+		"item_id":"SGHL"
+		,"item_description":"Provided with health care supplies (medicine, health care appliance)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":31
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":196,
+	"fields":{
+		"item_id":"SGMN"
+		,"item_description":"Provided with mosquito net"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":32
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":197,
+	"fields":{
+		"item_id":"SCBB"
+		,"item_description":"Basic counselling - bereavement"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":33
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":198,
+	"fields":{
+		"item_id":"SCBP"
+		,"item_description":"Basic counselling - psychosocial"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":34
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":199,
+	"fields":{
+		"item_id":"SCBS"
+		,"item_description":"Basic counselling - spiritual"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":35
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":200,
+	"fields":{
+		"item_id":"SCPW"
+		,"item_description":"Professional counselling for child witness to crime"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":36
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":201,
+	"fields":{
+		"item_id":"STRB"
+		,"item_description":"Non-formal training or education provided"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":37
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":202,
+	"fields":{
+		"item_id":"SGSF"
+		,"item_description":"Provided with school fees / bursary"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":38
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":203,
+	"fields":{
+		"item_id":"SGSR"
+		,"item_description":"Provided with school supplies or books"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":39
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":204,
+	"fields":{
+		"item_id":"SCBE"
+		,"item_description":"Basic advice on economic strengthening"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":40
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":205,
+	"fields":{
+		"item_id":"SSEC"
+		,"item_description":"Assisted with economic activity (eg farming, income generation)"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":41
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":206,
+	"fields":{
+		"item_id":"SGFP"
+		,"item_description":"Provided with agricultural inputs - food security pack"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":42
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":207,
+	"fields":{
+		"item_id":"SGIG"
+		,"item_description":"Provided with equipment or inputs for economic strengthening"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":43
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":208,
+	"fields":{
+		"item_id":"SGCT"
+		,"item_description":"Provided with cash transfer"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":44
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":209,
+	"fields":{
+		"item_id":"SCPO"
+		,"item_description":"Professional counselling for child offender"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":45
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":210,
+	"fields":{
+		"item_id":"SPCO"
+		,"item_description":"Child offender compulsory supervision and aftercare"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":46
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":211,
+	"fields":{
+		"item_id":"SRCO"
+		,"item_description":"Child offender professional representation/advocacy"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":47
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":212,
+	"fields":{
+		"item_id":"SCPD"
+		,"item_description":"Professional services for child with disability"
+		,"item_category":"Service type"
+		,"field_name":"core_item_id"
+		,"the_order":48
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":213,
+	"fields":{
+		"item_id":"B"
+		,"item_description":"Beneficiary ID prefix"
+		,"item_category":"SMS keyword - prefix to ID"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":214,
+	"fields":{
+		"item_id":"BBRN"
+		,"item_description":"Beneficiary birth certificate number prefix"
+		,"item_category":"SMS keyword - prefix to ID"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":215,
+	"fields":{
+		"item_id":"BNRC"
+		,"item_description":"Beneficiary NRC prefix"
+		,"item_category":"SMS keyword - prefix to ID"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":216,
+	"fields":{
+		"item_id":"W"
+		,"item_description":"Workforce member ID prefix"
+		,"item_category":"SMS keyword - prefix to ID"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":217,
+	"fields":{
+		"item_id":"WNRC"
+		,"item_description":"Workforce member NRC prefix"
+		,"item_category":"SMS keyword - prefix to ID"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":218,
+	"fields":{
+		"item_id":"U"
+		,"item_description":"Organisational unit ID prefix"
+		,"item_category":"SMS keyword - prefix to ID"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":219,
+	"fields":{
+		"item_id":"RSRS"
+		,"item_description":"Resident in institution"
+		,"item_category":"Residential status"
+		,"field_name":"residential_status_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":220,
+	"fields":{
+		"item_id":"RSRI"
+		,"item_description":"Was resident in institution, now re-integrated"
+		,"item_category":"Residential status"
+		,"field_name":"residential_status_id"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":221,
+	"fields":{
+		"item_id":"RSNV"
+		,"item_description":"Receiving services from residential institution, but was never resident"
+		,"item_category":"Residential status"
+		,"field_name":"residential_status_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":222,
+	"fields":{
+		"item_id":"RSTR"
+		,"item_description":"Was resident in institution, now transferred to another institution"
+		,"item_category":"Residential status"
+		,"field_name":"residential_status_id"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":223,
+	"fields":{
+		"item_id":"RSLF"
+		,"item_description":"Was resident in institution, escaped or ran away"
+		,"item_category":"Residential status"
+		,"field_name":"residential_status_id"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":224,
+	"fields":{
+		"item_id":"RSRU"
+		,"item_description":"Relatives unknown (including dumped babies)"
+		,"item_category":"Family status"
+		,"field_name":"family_status_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":225,
+	"fields":{
+		"item_id":"RSRR"
+		,"item_description":"Relatives known, but unsuitable/unable/unwilling to provide care"
+		,"item_category":"Family status"
+		,"field_name":"family_status_id"
+		,"the_order":99
+		,"is_void":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":226,
+	"fields":{
+		"item_id":"RSYA"
+		,"item_description":"Relatives known and in regular contact but not yet assessed for placement"
+		,"item_category":"Family status"
+		,"field_name":"family_status_id"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":227,
+	"fields":{
+		"item_id":"RSNA"
+		,"item_description":"Placed in institution for reform (child in conflict with the law)"
+		,"item_category":"Family status"
+		,"field_name":"family_status_id"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":228,
+	"fields":{
+		"item_id":"RWHD"
+		,"item_description":"Head of institution"
+		,"item_category":"Position in residential institution"
+		,"field_name":"position_id"
+		,"the_order":1
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":229,
+	"fields":{
+		"item_id":"RWCG"
+		,"item_description":"General caregiver"
+		,"item_category":"Position in residential institution"
+		,"field_name":"position_id"
+		,"the_order":2
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":230,
+	"fields":{
+		"item_id":"RWTC"
+		,"item_description":"Teacher"
+		,"item_category":"Position in residential institution"
+		,"field_name":"position_id"
+		,"the_order":3
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":231,
+	"fields":{
+		"item_id":"RWSP"
+		,"item_description":"Specialist professional"
+		,"item_category":"Position in residential institution"
+		,"field_name":"position_id"
+		,"the_order":4
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":232,
+	"fields":{
+		"item_id":"RWAD"
+		,"item_description":"Administrative"
+		,"item_category":"Position in residential institution"
+		,"field_name":"position_id"
+		,"the_order":5
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":233,
+	"fields":{
+		"item_id":"RWAC"
+		,"item_description":"Activity or sport leader"
+		,"item_category":"Position in residential institution"
+		,"field_name":"position_id"
+		,"the_order":6
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":234,
+	"fields":{
+		"item_id":"EMFT"
+		,"item_description":"Full time employee"
+		,"item_category":"Employment status"
+		,"field_name":"employment_status_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":235,
+	"fields":{
+		"item_id":"EMPT"
+		,"item_description":"Part time employee"
+		,"item_category":"Employment status"
+		,"field_name":"employment_status_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":236,
+	"fields":{
+		"item_id":"EMVL"
+		,"item_description":"Volunteer"
+		,"item_category":"Employment status"
+		,"field_name":"employment_status_id"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":237,
+	"fields":{
+		"item_id":"EMRT"
+		,"item_description":"No longer works here"
+		,"item_category":"Employment status"
+		,"field_name":"employment_status_id"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":238,
+	"fields":{
+		"item_id":"FINU"
+		,"item_description":"Lookup/find an organisational unit"
+		,"item_category":"SMS Command"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":239,
+	"fields":{
+		"item_id":"FINW"
+		,"item_description":"Lookup/find a workforce member"
+		,"item_category":"SMS Command"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":240,
+	"fields":{
+		"item_id":"FINB"
+		,"item_description":"Lookup/find a beneficiary"
+		,"item_category":"SMS Command"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":241,
+	"fields":{
+		"item_id":"FINK"
+		,"item_description":"Lookup/find a keyword"
+		,"item_category":"SMS Command"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":242,
+	"fields":{
+		"item_id":"XCHG"
+		,"item_description":"Change password"
+		,"item_category":"SMS Command"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":243,
+	"fields":{
+		"item_id":"AGEY"
+		,"item_description":"Age in years"
+		,"item_category":"SMS keyword"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":244,
+	"fields":{
+		"item_id":"ICMT"
+		,"item_description":"Committee reference number"
+		,"item_category":"Organisational unit ID - external"
+		,"field_name":"identifier_type_id"
+		,"the_order":4
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":245,
+	"fields":{
+		"item_id":"RMYP"
+		,"item_description":"Referral to youth program (for graduating OVC)"
+		,"item_category":"Referral made"
+		,"field_name":"core_item_id"
+		,"the_order":19
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":246,
+	"fields":{
+		"item_id":"RCYP"
+		,"item_description":"Referral to youth program (for graduating OVC)"
+		,"item_category":"Referral completed"
+		,"field_name":"core_item_id"
+		,"the_order":19
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":247,
+	"fields":{
+		"item_id":"PDSL"
+		,"item_description":"has a learning disability"
+		,"item_category":"Adverse condition"
+		,"field_name":"adverse_condition_id"
+		,"the_order":18
+		,"user_configurable":"True"
+		,"sms_keyword":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":248,
+	"fields":{
+		"item_id":"DTLW"
+		,"item_description":"Law / by-law / regulation / legal notice"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":1
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":249,
+	"fields":{
+		"item_id":"DTPO"
+		,"item_description":"Policy document"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":2
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":250,
+	"fields":{
+		"item_id":"DTPL"
+		,"item_description":"Planning document"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":3
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":251,
+	"fields":{
+		"item_id":"DTPR"
+		,"item_description":"Proposal / concept note"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":4
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":252,
+	"fields":{
+		"item_id":"DTPJ"
+		,"item_description":"Project overview"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":5
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":253,
+	"fields":{
+		"item_id":"DTRS"
+		,"item_description":"Research or study"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":6
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":254,
+	"fields":{
+		"item_id":"DTCP"
+		,"item_description":"Conference poster / abstract / proceedings"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":7
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":255,
+	"fields":{
+		"item_id":"DTSA"
+		,"item_description":"Situation analysis / needs assessment"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":8
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":256,
+	"fields":{
+		"item_id":"DTER"
+		,"item_description":"Evaluation report / intervention review / impact stories"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":9
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":257,
+	"fields":{
+		"item_id":"DTAR"
+		,"item_description":"Organisation annual report"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":10
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":258,
+	"fields":{
+		"item_id":"DTDA"
+		,"item_description":"Data presentation / analysis / interpretation"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":11
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":259,
+	"fields":{
+		"item_id":"DTTL"
+		,"item_description":"Tool"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":12
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":260,
+	"fields":{
+		"item_id":"DTGS"
+		,"item_description":"Guidelines / protocol / SOP / standards"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":13
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":261,
+	"fields":{
+		"item_id":"DTTM"
+		,"item_description":"Training material"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":14
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":262,
+	"fields":{
+		"item_id":"DTIC"
+		,"item_description":"Information, education, communication (IEC) material"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":15
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":263,
+	"fields":{
+		"item_id":"DTPM"
+		,"item_description":"Press release / media article"
+		,"item_category":"Document type"
+		,"field_name":"document_tag_id"
+		,"the_order":16
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":264,
+	"fields":{
+		"item_id":"TPFN"
+		,"item_description":"Food and nutrition"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":1
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":265,
+	"fields":{
+		"item_id":"TPET"
+		,"item_description":"Education and vocational training"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":2
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":266,
+	"fields":{
+		"item_id":"TPPS"
+		,"item_description":"Psychosocial support"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":3
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":267,
+	"fields":{
+		"item_id":"TPSC"
+		,"item_description":"Shelter and care"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":4
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":268,
+	"fields":{
+		"item_id":"TPCP"
+		,"item_description":"Child protection"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":5
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":269,
+	"fields":{
+		"item_id":"TPHL"
+		,"item_description":"Health"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":6
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":270,
+	"fields":{
+		"item_id":"TPES"
+		,"item_description":"Economic strengthening"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":7
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":271,
+	"fields":{
+		"item_id":"TPWS"
+		,"item_description":"Water and sanitation"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":8
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":272,
+	"fields":{
+		"item_id":"TPDS"
+		,"item_description":"Disablility"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":9
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":273,
+	"fields":{
+		"item_id":"TPCC"
+		,"item_description":"Coordination of care"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":10
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":274,
+	"fields":{
+		"item_id":"TPME"
+		,"item_description":"Monitoring and evaluation"
+		,"item_category":"Topic"
+		,"field_name":"document_tag_id"
+		,"the_order":11
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":275,
+	"fields":{
+		"item_id":"GRIN"
+		,"item_description":"International"
+		,"item_category":"Geographic relevancy"
+		,"field_name":"geographic_relevancy_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":276,
+	"fields":{
+		"item_id":"GRNT"
+		,"item_description":"National (Zambia)"
+		,"item_category":"Geographic relevancy"
+		,"field_name":"geographic_relevancy_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":277,
+	"fields":{
+		"item_id":"GRPR"
+		,"item_description":"Selected provinces"
+		,"item_category":"Geographic relevancy"
+		,"field_name":"geographic_relevancy_id"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":278,
+	"fields":{
+		"item_id":"GRDS"
+		,"item_description":"Selected districts"
+		,"item_category":"Geographic relevancy"
+		,"field_name":"geographic_relevancy_id"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":279,
+	"fields":{
+		"item_id":"GRWD"
+		,"item_description":"Selected wards"
+		,"item_category":"Geographic relevancy"
+		,"field_name":"geographic_relevancy_id"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":280,
+	"fields":{
+		"item_id":"DSWP"
+		,"item_description":"Work in progress"
+		,"item_category":"Document stage"
+		,"field_name":"stage_id"
+		,"the_order":1
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":281,
+	"fields":{
+		"item_id":"DSDR"
+		,"item_description":"Draft"
+		,"item_category":"Document stage"
+		,"field_name":"stage_id"
+		,"the_order":2
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":282,
+	"fields":{
+		"item_id":"DSFN"
+		,"item_description":"Final document"
+		,"item_category":"Document stage"
+		,"field_name":"stage_id"
+		,"the_order":3
+		,"user_configurable":"True"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":283,
+	"fields":{
+		"item_id":"DRUP"
+		,"item_description":"Uploaded"
+		,"item_category":"Document role"
+		,"field_name":"document_role_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":284,
+	"fields":{
+		"item_id":"DRAT"
+		,"item_description":"Lead author"
+		,"item_category":"Document role"
+		,"field_name":"document_role_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":285,
+	"fields":{
+		"item_id":"DRCT"
+		,"item_description":"Contributor"
+		,"item_category":"Document role"
+		,"field_name":"document_role_id"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":286,
+	"fields":{
+		"item_id":"DAPB"
+		,"item_description":"Available to public"
+		,"item_category":"Document availability"
+		,"field_name":"availability_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":287,
+	"fields":{
+		"item_id":"DALI"
+		,"item_description":"Available to all logged in users"
+		,"item_category":"Document availability"
+		,"field_name":"availability_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":288,
+	"fields":{
+		"item_id":"DACO"
+		,"item_description":"Available to users in contributing organisations"
+		,"item_category":"Document availability"
+		,"field_name":"availability_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":289,
+	"fields":{
+		"item_id":"CTOR"
+		,"item_description":"Organised"
+		,"item_category":"Contribution"
+		,"field_name":"contribution_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":290,
+	"fields":{
+		"item_id":"CTRT"
+		,"item_description":"Recruited participants"
+		,"item_category":"Contribution"
+		,"field_name":"contribution_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":291,
+	"fields":{
+		"item_id":"CTPF"
+		,"item_description":"Provided funding"
+		,"item_category":"Contribution"
+		,"field_name":"contribution_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":292,
+	"fields":{
+		"item_id":"CTFC"
+		,"item_description":"Provided facilitation"
+		,"item_category":"Contribution"
+		,"field_name":"contribution_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":293,
+	"fields":{
+		"item_id":"CTEC"
+		,"item_description":"Provided expertise or content"
+		,"item_category":"Contribution"
+		,"field_name":"contribution_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":294,
+	"fields":{
+		"item_id":"PTFL"
+		,"item_description":"Full participation"
+		,"item_category":"Participation level"
+		,"field_name":"participation_level_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":295,
+	"fields":{
+		"item_id":"PTPT"
+		,"item_description":"Partial participation"
+		,"item_category":"Participation level"
+		,"field_name":"participation_level_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":296,
+	"fields":{
+		"item_id":"EINT"
+		,"item_description":"Interview in relation to the beneficiary's case"
+		,"item_category":"Encounter type with notes"
+		,"field_name":"encounter_type_id"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":297,
+	"fields":{
+		"item_id":"ECTS"
+		,"item_description":"Subordinate court case in relation to beneficiary"
+		,"item_description_short":"Sub-ordinate court"
+		,"item_category":"Encounter type with notes - court"
+		,"field_name":"encounter_type_id"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":298,
+	"fields":{
+		"item_id":"ECTH"
+		,"item_description":"High court case in relation to beneficiary"
+		,"item_description_short":"High court"
+		,"item_category":"Encounter type with notes - court"
+		,"field_name":"encounter_type_id"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":299,
+	"fields":{
+		"item_id":"ATDT"
+		,"item_description":"Date"
+		,"item_category":"Answer type"
+		,"field_name":"answer_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":300,
+	"fields":{
+		"item_id":"ATDC"
+		,"item_description":"Numeric - decimal"
+		,"item_category":"Answer type"
+		,"field_name":"answer_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":301,
+	"fields":{
+		"item_id":"NTWI"
+		,"item_description":"Who interviewed"
+		,"item_category":"Encounter note type"
+		,"field_name":"note_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":302,
+	"fields":{
+		"item_id":"NTNT"
+		,"item_description":"Notes"
+		,"item_category":"Encounter note type"
+		,"field_name":"note_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":303,
+	"fields":{
+		"item_id":"NTRC"
+		,"item_description":"Recommendations"
+		,"item_category":"Encounter note type"
+		,"field_name":"note_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":304,
+	"fields":{
+		"item_id":"NTJM"
+		,"item_description":"Name of judge or magistrate"
+		,"item_category":"Encounter note type"
+		,"field_name":"note_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":305,
+	"fields":{
+		"item_id":"NTIO"
+		,"item_description":"Investigations ordered"
+		,"item_category":"Encounter note type"
+		,"field_name":"note_type_id"
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":306,
+	"fields":{
+		"item_id":"SORG"
+		,"item_description":"Set of organisational units"
+		,"item_category":"Report sets"
+		,"field_name":"set_type_id"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":307,
+	"fields":{
+		"item_id":"RSNC"
+		,"item_description":"Relatives known but not in regular contact with child"
+		,"item_category":"Family status"
+		,"field_name":"family_status_id"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":308,
+	"fields":{
+		"item_id":"RSNW"
+		,"item_description":"Relatives known and in regular contact with child, but unwilling/unable to provide care in home"
+		,"item_category":"Family status"
+		,"field_name":"family_status_id"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.SetupList",
+	"pk":309,
+	"fields":{
+		"item_id":"RSRK"
+		,"item_description":"Relatives known but unsuitable to provide care (eg risk of abuse)"
+		,"item_category":"Family status"
+		,"field_name":"family_status_id"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":1,
+	"fields":{
+		"question_code":"Q001"
+		,"question_text":"Source(s) of information / people interviewed for this assessment"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":1
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":2,
+	"fields":{
+		"question_code":"Q002"
+		,"question_text":"Source(s) of information / people interviewed for this assessment - other specify"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATTX"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":3,
+	"fields":{
+		"question_code":"Q003"
+		,"question_text":"Primary living arrangements"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":2
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":4,
+	"fields":{
+		"question_code":"Q004"
+		,"question_text":"Number of household members who are children aged < 18 (including this OVC)"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATNM"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":5,
+	"fields":{
+		"question_code":"Q005"
+		,"question_text":"Number of adult household members aged 18-59"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATNM"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":6,
+	"fields":{
+		"question_code":"Q006"
+		,"question_text":"Number of adult household members aged 60+"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATNM"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":7,
+	"fields":{
+		"question_code":"Q007"
+		,"question_text":"Main income sources for this household"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":3
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":8,
+	"fields":{
+		"question_code":"Q008"
+		,"question_text":"Did this household incur any unexpected household expenses, such a as a house repair or urgent medical treatment, in the last 12 months?"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":9,
+	"fields":{
+		"question_code":"Q009"
+		,"question_text":"Was this household able to pay for these unexpected expenses?"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":10,
+	"fields":{
+		"question_code":"Q010"
+		,"question_text":"Details of how the household dealt with the unexpected financial need / expense"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATTX"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":11,
+	"fields":{
+		"question_code":"Q011"
+		,"question_text":"Highest school grade attained by anyone in this household"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATNM"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":12,
+	"fields":{
+		"question_code":"Q012"
+		,"question_text":"Mid-upper arm circumference in cm"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATDC"
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":13,
+	"fields":{
+		"question_code":"Q013"
+		,"question_text":"Birth registration status"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":5
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":14,
+	"fields":{
+		"question_code":"Q014"
+		,"question_text":"Birth certificate number"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATTX"
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":15,
+	"fields":{
+		"question_code":"Q015"
+		,"question_text":"At any time in the last 2 weeks, has this child been too sick to participate in daily activities?"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":15
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":16,
+	"fields":{
+		"question_code":"Q016"
+		,"question_text":"The child slept under an insecticide-treated mosquito net last night"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":16
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":17,
+	"fields":{
+		"question_code":"Q017"
+		,"question_text":"Child is fully immunized (has all immunizations due for their age)"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":17
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":18,
+	"fields":{
+		"question_code":"Q018"
+		,"question_text":"Has this child ever been tested to see if he/she has the AIDS virus?"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":18
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":19,
+	"fields":{
+		"question_code":"Q019"
+		,"question_text":"All household members know their HIV status (incl. infants, children and adolescents)"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":19
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":20,
+	"fields":{
+		"question_code":"Q020"
+		,"question_text":"The HIV+ child has a follow-up appointment at an HIV clinic at the health facility"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":6
+		,"the_order":20
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":21,
+	"fields":{
+		"question_code":"Q021"
+		,"question_text":"The HIV+ child is on ART"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":6
+		,"the_order":21
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":22,
+	"fields":{
+		"question_code":"Q022"
+		,"question_text":"Household has soap"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":22
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":23,
+	"fields":{
+		"question_code":"Q023"
+		,"question_text":"If school-age, the child is currently enrolled in school"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":6
+		,"the_order":23
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":24,
+	"fields":{
+		"question_code":"Q024"
+		,"question_text":"Type of school/education enrolled in"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":7
+		,"the_order":24
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":25,
+	"fields":{
+		"question_code":"Q025"
+		,"question_text":"School grade"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATNM"
+		,"the_order":25
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":26,
+	"fields":{
+		"question_code":"Q026"
+		,"question_text":"During the last school week, did this child miss any school days for any reason?"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":6
+		,"the_order":26
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":27,
+	"fields":{
+		"question_code":"Q027"
+		,"question_text":"Child or guardian linked to community support groups"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":4
+		,"the_order":27
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":28,
+	"fields":{
+		"question_code":"Q028"
+		,"question_text":"In the past 3 days, did any  household member over 15 years of age engage in any of the stimulating activities with the child"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":6
+		,"the_order":28
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":29,
+	"fields":{
+		"question_code":"Q029"
+		,"question_text":"Description of the activities the household member engaged in with the child"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATTX"
+		,"the_order":29
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":30,
+	"fields":{
+		"question_code":"Q030"
+		,"question_text":"General comments on this child's well being"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATTX"
+		,"the_order":30
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":31,
+	"fields":{
+		"question_code":"Q031"
+		,"question_text":"Assessor's recommendations for support or services needed"
+		,"form_type_id":"FT3d"
+		,"answer_type_id":"ATTX"
+		,"the_order":31
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":32,
+	"fields":{
+		"question_code":"Q032"
+		,"question_text":"Reported by"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":8
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":33,
+	"fields":{
+		"question_code":"Q033"
+		,"question_text":"Residential institution type"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":9
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":34,
+	"fields":{
+		"question_code":"Q034"
+		,"question_text":"Mission of institution"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":35,
+	"fields":{
+		"question_code":"Q035"
+		,"question_text":"Minimum age of enrolment"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":36,
+	"fields":{
+		"question_code":"Q036"
+		,"question_text":"Maximum age of enrolment"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":37,
+	"fields":{
+		"question_code":"Q037"
+		,"question_text":"Institutional capacity"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":38,
+	"fields":{
+		"question_code":"Q038"
+		,"question_text":"Cooking and dining facilities"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":23
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":39,
+	"fields":{
+		"question_code":"Q039"
+		,"question_text":"Water and hygiene"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":40,
+	"fields":{
+		"question_code":"Q040"
+		,"question_text":"Toilet facilities"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":41,
+	"fields":{
+		"question_code":"Q041"
+		,"question_text":"Recreation facilities"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":47
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":42,
+	"fields":{
+		"question_code":"Q042"
+		,"question_text":"Home security"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":34
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":43,
+	"fields":{
+		"question_code":"Q043"
+		,"question_text":"Fire safety"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":35
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":44,
+	"fields":{
+		"question_code":"Q044"
+		,"question_text":"Ventilation"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":36
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":46,
+	"fields":{
+		"question_code":"Q046"
+		,"question_text":"Mental games"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":48
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":47,
+	"fields":{
+		"question_code":"Q047"
+		,"question_text":"Physical games"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":49
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":48,
+	"fields":{
+		"question_code":"Q048"
+		,"question_text":"Indoor games"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":50
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":49,
+	"fields":{
+		"question_code":"Q049"
+		,"question_text":"Outdoor games"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":51
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":50,
+	"fields":{
+		"question_code":"Q050"
+		,"question_text":"Notes on recreational facilities/activities"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":53
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":51,
+	"fields":{
+		"question_code":"Q051"
+		,"question_text":"Informal educational/rehabilitation programmes offered"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":12
+		,"the_order":56
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":52,
+	"fields":{
+		"question_code":"Q052"
+		,"question_text":"Notes on education / rehabilitation programmes"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":57
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":53,
+	"fields":{
+		"question_code":"Q053"
+		,"question_text":"Dietary chart"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":24
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":54,
+	"fields":{
+		"question_code":"Q054"
+		,"question_text":"Variety in diet (cereals, fruits, eggs etc)"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":25
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":55,
+	"fields":{
+		"question_code":"Q055"
+		,"question_text":"Under five cards for children aged 5 and below"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":26
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":56,
+	"fields":{
+		"question_code":"Q056"
+		,"question_text":"Number of meals provided per day"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":27
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":57,
+	"fields":{
+		"question_code":"Q057"
+		,"question_text":"Workplan"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":58
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":58,
+	"fields":{
+		"question_code":"Q058"
+		,"question_text":"Child protection policy"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":37
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":59,
+	"fields":{
+		"question_code":"Q059"
+		,"question_text":"Administrative records"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":59
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":60,
+	"fields":{
+		"question_code":"Q060"
+		,"question_text":"Bank account"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":11
+		,"the_order":60
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":61,
+	"fields":{
+		"question_code":"Q061"
+		,"question_text":"Notes on administration"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":61
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":62,
+	"fields":{
+		"question_code":"Q062"
+		,"question_text":"Sources of income"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":13
+		,"the_order":62
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":63,
+	"fields":{
+		"question_code":"Q063"
+		,"question_text":"Notes on sources of income"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":63
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":64,
+	"fields":{
+		"question_code":"Q064"
+		,"question_text":"General remarks on institution"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":64
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":65,
+	"fields":{
+		"question_code":"Q065"
+		,"question_text":"Recommendations by inspector"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":65
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":66,
+	"fields":{
+		"question_code":"Q066"
+		,"question_text":"Is the institution adhering to minimum standards?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":66
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":67,
+	"fields":{
+		"question_code":"Q067"
+		,"question_text":"Workforce member's current job title or role"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATTX"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":68,
+	"fields":{
+		"question_code":"Q068"
+		,"question_text":"Has read and signed their organisation's policy on child protection"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":15
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":69,
+	"fields":{
+		"question_code":"Q069"
+		,"question_text":"Has read and signed confidentiality policy"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":15
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":70,
+	"fields":{
+		"question_code":"Q070"
+		,"question_text":"Criminal record clearance"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":16
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":71,
+	"fields":{
+		"question_code":"Q071"
+		,"question_text":"Criminal record details"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATTX"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":72,
+	"fields":{
+		"question_code":"Q072"
+		,"question_text":"Literacy level"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":17
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":73,
+	"fields":{
+		"question_code":"Q073"
+		,"question_text":"Mentor or paired worker"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATTX"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":74,
+	"fields":{
+		"question_code":"Q074"
+		,"question_text":"Highest school education level attained (school grade)"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATNM"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":75,
+	"fields":{
+		"question_code":"Q075"
+		,"question_text":"Further qualifications attained, tertiary education"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATTX"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":76,
+	"fields":{
+		"question_code":"Q076"
+		,"question_text":"Childcare specific training received"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATTX"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":77,
+	"fields":{
+		"question_code":"Q077"
+		,"question_text":"Number of years' experience in social work or working with children or vulnerable families"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATDC"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":78,
+	"fields":{
+		"question_code":"Q078"
+		,"question_text":"Details of experience in social work or working with children or vulnerable families"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATTX"
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":79,
+	"fields":{
+		"question_code":"Q079"
+		,"question_text":"Training needs assessment"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATTX"
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":80,
+	"fields":{
+		"question_code":"Q080"
+		,"question_text":"Priority areas for training needs"
+		,"form_type_id":"FT2c"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":18
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":81,
+	"fields":{
+		"question_code":"Q081"
+		,"question_text":"Duration of training in days"
+		,"form_type_id":"FT2d"
+		,"answer_type_id":"ATDC"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":82,
+	"fields":{
+		"question_code":"Q082"
+		,"question_text":"Duration of training in hours"
+		,"form_type_id":"FT2d"
+		,"answer_type_id":"ATDC"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":84,
+	"fields":{
+		"question_code":"Q084"
+		,"question_text":"Training description"
+		,"form_type_id":"FT2d"
+		,"answer_type_id":"ATTX"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":85,
+	"fields":{
+		"question_code":"Q085"
+		,"question_text":"Topics covered"
+		,"form_type_id":"FT2d"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":18
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":86,
+	"fields":{
+		"question_code":"Q086"
+		,"question_text":"Duration of event in days"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATDC"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":87,
+	"fields":{
+		"question_code":"Q087"
+		,"question_text":"Duration of event in hours"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATDC"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":89,
+	"fields":{
+		"question_code":"Q089"
+		,"question_text":"Geographical focus"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":19
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":90,
+	"fields":{
+		"question_code":"Q090"
+		,"question_text":"Type of event"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":20
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":91,
+	"fields":{
+		"question_code":"Q091"
+		,"question_text":"Topics covered"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":21
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":92,
+	"fields":{
+		"question_code":"Q092"
+		,"question_text":"Description of event"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATTX"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":93,
+	"fields":{
+		"question_code":"Q093"
+		,"question_text":"Number of people reached - adult male"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATNM"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":94,
+	"fields":{
+		"question_code":"Q094"
+		,"question_text":"Number of people reached - adult female"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATNM"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":95,
+	"fields":{
+		"question_code":"Q095"
+		,"question_text":"Number of people reached - children male"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATNM"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":96,
+	"fields":{
+		"question_code":"Q096"
+		,"question_text":"Number of people reached - children female"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATNM"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":97,
+	"fields":{
+		"question_code":"Q097"
+		,"question_text":"Number of people reached - total estimate"
+		,"form_type_id":"FT1e"
+		,"answer_type_id":"ATNM"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":98,
+	"fields":{
+		"question_code":"Q098"
+		,"question_text":"Highest school education level attained (school grade)"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATNM"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":99,
+	"fields":{
+		"question_code":"Q099"
+		,"question_text":"Date of arrest"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATDT"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":100,
+	"fields":{
+		"question_code":"Q100"
+		,"question_text":"Referring police station"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATTX"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":101,
+	"fields":{
+		"question_code":"Q101"
+		,"question_text":"Police station call sign number"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATNM"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":102,
+	"fields":{
+		"question_code":"Q102"
+		,"question_text":"Police case docket number"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATTX"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":103,
+	"fields":{
+		"question_code":"Q103"
+		,"question_text":"Date of alleged offense - start date"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATDT"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":104,
+	"fields":{
+		"question_code":"Q104"
+		,"question_text":"Date of alleged offense - end date"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATDT"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":105,
+	"fields":{
+		"question_code":"Q105"
+		,"question_text":"Type of alleged offense"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":22
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":106,
+	"fields":{
+		"question_code":"Q106"
+		,"question_text":"Notes on alleged offense"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATTX"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":107,
+	"fields":{
+		"question_code":"Q107"
+		,"question_text":"Received bail/police bond"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":108,
+	"fields":{
+		"question_code":"Q108"
+		,"question_text":"Notes on detention, bail, police bond"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATTX"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":109,
+	"fields":{
+		"question_code":"Q109"
+		,"question_text":"Method of disposal by police"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":23
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":110,
+	"fields":{
+		"question_code":"Q110"
+		,"question_text":"Court case number"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATTX"
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":111,
+	"fields":{
+		"question_code":"Q111"
+		,"question_text":"Outcome"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":24
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":112,
+	"fields":{
+		"question_code":"Q112"
+		,"question_text":"Notes on outcome"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATTX"
+		,"the_order":15
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":113,
+	"fields":{
+		"question_code":"Q113"
+		,"question_text":"Date case disposed"
+		,"form_type_id":"FT3f"
+		,"answer_type_id":"ATDT"
+		,"the_order":16
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":115,
+	"fields":{
+		"question_code":"Q115"
+		,"question_text":"Who owns the building?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":25
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":116,
+	"fields":{
+		"question_code":"Q116"
+		,"question_text":"Hygiene standard in the institution"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":26
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":117,
+	"fields":{
+		"question_code":"Q117"
+		,"question_text":"Is the water source within the institution"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":118,
+	"fields":{
+		"question_code":"Q118"
+		,"question_text":"What is the primary water source"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":27
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":119,
+	"fields":{
+		"question_code":"Q119"
+		,"question_text":"Approximately how far away is the water source (in metres)"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":120,
+	"fields":{
+		"question_code":"Q120"
+		,"question_text":"Does the primary water source service the institution on a daily basis?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":121,
+	"fields":{
+		"question_code":"Q121"
+		,"question_text":"How many toilets specifically for boys?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":122,
+	"fields":{
+		"question_code":"Q122"
+		,"question_text":"How many toilets specifically for girls?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":123,
+	"fields":{
+		"question_code":"Q123"
+		,"question_text":"How many toilets in total?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":124,
+	"fields":{
+		"question_code":"Q124"
+		,"question_text":"Do boys and girls share the same toilets?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":28
+		,"the_order":15
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":125,
+	"fields":{
+		"question_code":"Q125"
+		,"question_text":"What types of toilets do children in the institution use?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":29
+		,"the_order":16
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":126,
+	"fields":{
+		"question_code":"Q126"
+		,"question_text":"How many bathrooms specifically for boys?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":17
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":127,
+	"fields":{
+		"question_code":"Q127"
+		,"question_text":"How many bathrooms specifically for girls?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":18
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":128,
+	"fields":{
+		"question_code":"Q128"
+		,"question_text":"How many bathrooms in total?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":19
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":129,
+	"fields":{
+		"question_code":"Q129"
+		,"question_text":"Do boys and girls share the same bathrooms?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":28
+		,"the_order":20
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":130,
+	"fields":{
+		"question_code":"Q130"
+		,"question_text":"What types of bathrooms do children in the institution use?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":30
+		,"the_order":21
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":131,
+	"fields":{
+		"question_code":"Q131"
+		,"question_text":"Notes on water, hygiene and sanitation"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":22
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":132,
+	"fields":{
+		"question_code":"Q132"
+		,"question_text":"Sleeping facilities"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":10
+		,"the_order":28
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":133,
+	"fields":{
+		"question_code":"Q133"
+		,"question_text":"Are there separate sleeping facilities for boys and girls?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":28
+		,"the_order":29
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":134,
+	"fields":{
+		"question_code":"Q134"
+		,"question_text":"How many children per bed on average?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATDC"
+		,"the_order":30
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":135,
+	"fields":{
+		"question_code":"Q135"
+		,"question_text":"How many children sleep on the floor on mats?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":31
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":136,
+	"fields":{
+		"question_code":"Q136"
+		,"question_text":"Are there mosquito nets on beds and windows?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":32
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":137,
+	"fields":{
+		"question_code":"Q137"
+		,"question_text":"Notes on sleeping facilities"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":33
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":138,
+	"fields":{
+		"question_code":"Q138"
+		,"question_text":"Is there a first aid box?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":38
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":139,
+	"fields":{
+		"question_code":"Q139"
+		,"question_text":"Quality of contents of first aid box"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":34
+		,"the_order":39
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":140,
+	"fields":{
+		"question_code":"Q140"
+		,"question_text":"Is there a sick bay?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":40
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":141,
+	"fields":{
+		"question_code":"Q141"
+		,"question_text":"Trained medical personnel in sick bay?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":41
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":142,
+	"fields":{
+		"question_code":"Q142"
+		,"question_text":"Condition of sick bay"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":34
+		,"the_order":42
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":143,
+	"fields":{
+		"question_code":"Q143"
+		,"question_text":"Where are the children taken when they are in need of medical treatment?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":31
+		,"the_order":43
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":144,
+	"fields":{
+		"question_code":"Q144"
+		,"question_text":"Approximate distance to nearest medical facility in metres"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":44
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":145,
+	"fields":{
+		"question_code":"Q145"
+		,"question_text":"How are children transported to medical facility?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":32
+		,"the_order":45
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":146,
+	"fields":{
+		"question_code":"Q146"
+		,"question_text":"Notes on safety"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATTX"
+		,"the_order":46
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":147,
+	"fields":{
+		"question_code":"Q147"
+		,"question_text":"Are games and toys age appropriate?"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATSS"
+		,"answer_set_id":14
+		,"the_order":52
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":148,
+	"fields":{
+		"question_code":"Q148"
+		,"question_text":"Formal educational programmes offered"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATMS"
+		,"answer_set_id":33
+		,"the_order":54
+	}
+},
+{
+	"model":"cpovc_main.ListQuestions",
+	"pk":149,
+	"fields":{
+		"question_code":"Q149"
+		,"question_text":"Highest grade offered"
+		,"form_type_id":"FT1f"
+		,"answer_type_id":"ATNM"
+		,"the_order":55
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":1,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Child"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":2,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Parent/Guardian"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":3,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Relative"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":4,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Neighbour"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":5,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Teacher"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":6,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Family friend"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":7,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Community worker"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":8,
+	"fields":{
+		"answer_set_id":1
+		,"answer":"Other"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":9,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"With biological parent(s)"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":10,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"With other (adult) relative(s)"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":11,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"With non-relative adoptive parent(s)"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":12,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"With non-relative foster parent(s)"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":13,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"With adult neighbour(s)/community member(s)"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":14,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"In child headed household"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":15,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"In residential institution"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":16,
+	"fields":{
+		"answer_set_id":2
+		,"answer":"Street / public place"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":17,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Formal Employment"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":18,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Casual labour"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":19,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Formal registered business"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":20,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Informal Business"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":21,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Assets/investments"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":22,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Agriculture on own land"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":23,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Social Cash Transfer from Government"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":24,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Transfers from other organisations"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":25,
+	"fields":{
+		"answer_set_id":3
+		,"answer":"Transfers/ Remittances from family members outside the household"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":26,
+	"fields":{
+		"answer_set_id":4
+		,"answer":"Yes"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":27,
+	"fields":{
+		"answer_set_id":4
+		,"answer":"No"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":28,
+	"fields":{
+		"answer_set_id":4
+		,"answer":"Unknown"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":29,
+	"fields":{
+		"answer_set_id":5
+		,"answer":"Registered and has certificate number"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":30,
+	"fields":{
+		"answer_set_id":5
+		,"answer":"Was registered but certificate not available"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":31,
+	"fields":{
+		"answer_set_id":5
+		,"answer":"Not registered"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":32,
+	"fields":{
+		"answer_set_id":6
+		,"answer":"Yes"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":33,
+	"fields":{
+		"answer_set_id":6
+		,"answer":"No"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":34,
+	"fields":{
+		"answer_set_id":6
+		,"answer":"Unknown"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":35,
+	"fields":{
+		"answer_set_id":6
+		,"answer":"N/A"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":36,
+	"fields":{
+		"answer_set_id":7
+		,"answer":"ECCDE Centre / pre-primary"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":37,
+	"fields":{
+		"answer_set_id":7
+		,"answer":"Primary"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":38,
+	"fields":{
+		"answer_set_id":7
+		,"answer":"Secondary"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":39,
+	"fields":{
+		"answer_set_id":7
+		,"answer":"Vocational training"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":40,
+	"fields":{
+		"answer_set_id":7
+		,"answer":"College"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":41,
+	"fields":{
+		"answer_set_id":8
+		,"answer":"Report by institution"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":42,
+	"fields":{
+		"answer_set_id":8
+		,"answer":"Inspection report by external inspector"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":43,
+	"fields":{
+		"answer_set_id":9
+		,"answer":"Orphanage"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":44,
+	"fields":{
+		"answer_set_id":9
+		,"answer":"Residential home for children with special needs"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":45,
+	"fields":{
+		"answer_set_id":9
+		,"answer":"Safe home (for children not safe or at risk in their family home)"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":46,
+	"fields":{
+		"answer_set_id":9
+		,"answer":"Foster home (eg SOS village)"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":47,
+	"fields":{
+		"answer_set_id":9
+		,"answer":"Correctional/detention/reform institution for children in conflict with the law"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":48,
+	"fields":{
+		"answer_set_id":9
+		,"answer":"Other"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":49,
+	"fields":{
+		"answer_set_id":10
+		,"answer":"Excellent"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":50,
+	"fields":{
+		"answer_set_id":10
+		,"answer":"Good"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":51,
+	"fields":{
+		"answer_set_id":10
+		,"answer":"Fair"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":52,
+	"fields":{
+		"answer_set_id":10
+		,"answer":"Poor"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":53,
+	"fields":{
+		"answer_set_id":11
+		,"answer":"Present"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":54,
+	"fields":{
+		"answer_set_id":11
+		,"answer":"Absent"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":56,
+	"fields":{
+		"answer_set_id":12
+		,"answer":"Carpentary"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":57,
+	"fields":{
+		"answer_set_id":12
+		,"answer":"Tailoring"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":58,
+	"fields":{
+		"answer_set_id":12
+		,"answer":"Driving"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":59,
+	"fields":{
+		"answer_set_id":12
+		,"answer":"Gardening / horticulture"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":60,
+	"fields":{
+		"answer_set_id":12
+		,"answer":"Livestock / poultry"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":61,
+	"fields":{
+		"answer_set_id":12
+		,"answer":"Other programme"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":62,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Government"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":63,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Membership fees"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":64,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Affiliation fees"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":65,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Individual/private donations - cash"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":66,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Individual/private donations - in kind"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":67,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Donor funding"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":68,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Income generating activities"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":69,
+	"fields":{
+		"answer_set_id":13
+		,"answer":"Other"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":70,
+	"fields":{
+		"answer_set_id":14
+		,"answer":"Yes"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":71,
+	"fields":{
+		"answer_set_id":14
+		,"answer":"No"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":72,
+	"fields":{
+		"answer_set_id":9
+		,"answer":"Street children residential centre"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":73,
+	"fields":{
+		"answer_set_id":15
+		,"answer":"Yes"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":74,
+	"fields":{
+		"answer_set_id":15
+		,"answer":"No"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":75,
+	"fields":{
+		"answer_set_id":15
+		,"answer":"Organisation does not have such a policy"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":76,
+	"fields":{
+		"answer_set_id":16
+		,"answer":"Not yet cleared"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":77,
+	"fields":{
+		"answer_set_id":16
+		,"answer":"Cleared"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":78,
+	"fields":{
+		"answer_set_id":16
+		,"answer":"Has criminal record"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":79,
+	"fields":{
+		"answer_set_id":17
+		,"answer":"Fully literate in English"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":80,
+	"fields":{
+		"answer_set_id":17
+		,"answer":"Basic reading and writing in English"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":81,
+	"fields":{
+		"answer_set_id":17
+		,"answer":"Basic reading and writing in local language(s) only"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":82,
+	"fields":{
+		"answer_set_id":17
+		,"answer":"Illiterate"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":83,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Childcare"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":84,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Child development"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":85,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"OVC care"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":86,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Basic care and support "
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":87,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Assessment, planning and follow-up (eg child status index)"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":88,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Basic literacy training"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":89,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Record keeping, data management"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":90,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Book keeping"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":91,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Financial management"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":92,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Monitoring and evaluation"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":93,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"PWAS guidelines"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":94,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Minimum standards of care"
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":95,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Psychosocial care and support"
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":96,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Community health"
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":97,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Malaria control and management"
+		,"the_order":15
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":98,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"HIV prevention"
+		,"the_order":16
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":99,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"HIV counselling and testing"
+		,"the_order":17
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":100,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Sexuality"
+		,"the_order":18
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":101,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Family planning"
+		,"the_order":19
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":102,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Water sanitation and hygiene"
+		,"the_order":20
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":103,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Nutrition"
+		,"the_order":21
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":104,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Child protection"
+		,"the_order":22
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":105,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Para-legal support"
+		,"the_order":23
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":106,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Economic empowerment methods"
+		,"the_order":24
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":107,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Child participation methods"
+		,"the_order":25
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":108,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Community based work for children and youth"
+		,"the_order":26
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":109,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Community mobilisation"
+		,"the_order":27
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":110,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Referral systems"
+		,"the_order":28
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":111,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Counseling methods"
+		,"the_order":29
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":112,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Parenting skills"
+		,"the_order":30
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":113,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Communication skills"
+		,"the_order":31
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":114,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Ethics and ethical frameworks"
+		,"the_order":32
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":115,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Child policy"
+		,"the_order":33
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":116,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Child rights"
+		,"the_order":34
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":117,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Advocacy"
+		,"the_order":35
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":118,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Social protection"
+		,"the_order":36
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":119,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Zambian social work context"
+		,"the_order":37
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":120,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Participatory learning approaches"
+		,"the_order":38
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":121,
+	"fields":{
+		"answer_set_id":18
+		,"answer":"Other"
+		,"the_order":39
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":122,
+	"fields":{
+		"answer_set_id":19
+		,"answer":"National level or covering multiple districts"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":123,
+	"fields":{
+		"answer_set_id":19
+		,"answer":"District level or covering multiple wards"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":124,
+	"fields":{
+		"answer_set_id":19
+		,"answer":"Ward or community level"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":125,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Public Meeting"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":126,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Public event"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":127,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Community event"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":128,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Arts/drama event"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":129,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Radio broadcast"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":130,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"TV broadcast"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":131,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Newspaper article"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":132,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Internet based event/content"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":133,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Beneficiary training/sensitisation"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":134,
+	"fields":{
+		"answer_set_id":20
+		,"answer":"Other"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":135,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child rights"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":136,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child related laws and policies"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":137,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"birth registration"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":138,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other general topic"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":139,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child abuse - emotional"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":140,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child abuse - sexual"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":141,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child abuse - neglect"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":142,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child abuse - physical"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":143,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"violence against children"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":144,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"harmful traditional practises"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":145,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"early marriage"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":146,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child labour"
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":147,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other child protection topic"
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":148,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"importance of education"
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":149,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"importance of girls education"
+		,"the_order":15
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":150,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"rights of special needs children"
+		,"the_order":16
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":151,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other education topic"
+		,"the_order":17
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":152,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"health in pregnancy"
+		,"the_order":18
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":153,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"mother to child transmission of HIV"
+		,"the_order":19
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":154,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"immunization"
+		,"the_order":20
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":155,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"sanitation and water borne disease"
+		,"the_order":21
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":156,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"malaria prevention"
+		,"the_order":22
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":157,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other health topic"
+		,"the_order":23
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":158,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child psychosocial needs"
+		,"the_order":24
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":159,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"child development"
+		,"the_order":25
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":160,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other psychosocial topic"
+		,"the_order":26
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":161,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"quality of shelter and housing"
+		,"the_order":27
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":162,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"property ownership and succession"
+		,"the_order":28
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":163,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other shelter and housing topic"
+		,"the_order":29
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":164,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"nutrition"
+		,"the_order":30
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":165,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"food safety"
+		,"the_order":31
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":166,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"breastfeeding and weaning"
+		,"the_order":32
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":167,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other food and nutrition topic"
+		,"the_order":33
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":168,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"economic strengthening opportunities"
+		,"the_order":34
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":169,
+	"fields":{
+		"answer_set_id":21
+		,"answer":"other economic strengthening topic"
+		,"the_order":35
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":170,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Theft"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":171,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Theft by servant"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":172,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"House-breaking and theft"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":173,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Burglary and theft"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":174,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Stock theft"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":175,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Store-breaking"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":176,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Unlawful wounding"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":177,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Common assault"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":178,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Assault OABH"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":179,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Indecent assault"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":180,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Breaking into a building"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":181,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Entry and theft"
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":182,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Aggravated robbery"
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":183,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Infanticide"
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":184,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Rape"
+		,"the_order":15
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":185,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Murder "
+		,"the_order":16
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":186,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Manslaughter"
+		,"the_order":17
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":187,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Unlawful possession of drugs"
+		,"the_order":18
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":188,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Obtaining money by false pretense"
+		,"the_order":19
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":189,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Malicious damage"
+		,"the_order":20
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":190,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Criminal trespass"
+		,"the_order":21
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":191,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Escape from lawful custody"
+		,"the_order":22
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":192,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Wearing unauthorized & use of uniform"
+		,"the_order":23
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":193,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Altering false document"
+		,"the_order":24
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":194,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Concealing of birth"
+		,"the_order":25
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":195,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Trafficking in psychotropic substances"
+		,"the_order":26
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":196,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Failing to account for property"
+		,"the_order":27
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":197,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Unlawful possession of petroleum product"
+		,"the_order":28
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":198,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Unlawful possession of examination papers"
+		,"the_order":29
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":199,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Escape from approved school"
+		,"the_order":30
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":200,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Defilement"
+		,"the_order":31
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":201,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Child desertion"
+		,"the_order":32
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":202,
+	"fields":{
+		"answer_set_id":22
+		,"answer":"Other"
+		,"the_order":33
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":203,
+	"fields":{
+		"answer_set_id":23
+		,"answer":"Withdrawn"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":204,
+	"fields":{
+		"answer_set_id":23
+		,"answer":"Reconciled"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":205,
+	"fields":{
+		"answer_set_id":23
+		,"answer":"Warning"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":206,
+	"fields":{
+		"answer_set_id":23
+		,"answer":"Court"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":207,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Probation order"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":208,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Approved school order"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":209,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Reformatory order"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":210,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Imprisonment"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":211,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Conditional discharge"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":212,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Absolute discharge"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":213,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Suspended sentence"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":214,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Acquitted"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":215,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Withdrawn"
+		,"the_order":9
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":216,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Reconciled"
+		,"the_order":10
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":217,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Community service"
+		,"the_order":11
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":218,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Extended approved school order"
+		,"the_order":12
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":219,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Police supervision"
+		,"the_order":13
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":220,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Counselling"
+		,"the_order":14
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":221,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Fined"
+		,"the_order":15
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":222,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Diversion / Mediation by social welfare "
+		,"the_order":16
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":223,
+	"fields":{
+		"answer_set_id":24
+		,"answer":"Other "
+		,"the_order":17
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":224,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"Organisation"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":225,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"Head of organisation"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":226,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"Church"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":227,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"Mosque"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":228,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"Rented"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":229,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"Community"
+		,"the_order":6
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":230,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"GRZ"
+		,"the_order":7
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":231,
+	"fields":{
+		"answer_set_id":25
+		,"answer":"Other"
+		,"the_order":8
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":232,
+	"fields":{
+		"answer_set_id":26
+		,"answer":"Very clean"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":233,
+	"fields":{
+		"answer_set_id":26
+		,"answer":"Clean"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":234,
+	"fields":{
+		"answer_set_id":26
+		,"answer":"Not clean"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":235,
+	"fields":{
+		"answer_set_id":27
+		,"answer":"Local water utility company"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":236,
+	"fields":{
+		"answer_set_id":27
+		,"answer":"Bore hole"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":237,
+	"fields":{
+		"answer_set_id":27
+		,"answer":"Well"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":238,
+	"fields":{
+		"answer_set_id":27
+		,"answer":"Other"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":239,
+	"fields":{
+		"answer_set_id":28
+		,"answer":"Yes"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":240,
+	"fields":{
+		"answer_set_id":28
+		,"answer":"No"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":241,
+	"fields":{
+		"answer_set_id":28
+		,"answer":"N/A"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":242,
+	"fields":{
+		"answer_set_id":29
+		,"answer":"Flush"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":243,
+	"fields":{
+		"answer_set_id":29
+		,"answer":"Pit latrine"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":244,
+	"fields":{
+		"answer_set_id":29
+		,"answer":"Other"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":245,
+	"fields":{
+		"answer_set_id":30
+		,"answer":"Shower/bathtub"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":246,
+	"fields":{
+		"answer_set_id":30
+		,"answer":"Bucket, inside"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":247,
+	"fields":{
+		"answer_set_id":30
+		,"answer":"Outside"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":248,
+	"fields":{
+		"answer_set_id":30
+		,"answer":"Other"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":249,
+	"fields":{
+		"answer_set_id":31
+		,"answer":"Organisation has clinic"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":250,
+	"fields":{
+		"answer_set_id":31
+		,"answer":"Nearest GRZ clinic"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":251,
+	"fields":{
+		"answer_set_id":31
+		,"answer":"Private clinic"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":252,
+	"fields":{
+		"answer_set_id":31
+		,"answer":"District hospital / UTH"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":253,
+	"fields":{
+		"answer_set_id":31
+		,"answer":"Other"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":254,
+	"fields":{
+		"answer_set_id":32
+		,"answer":"Organisation vehicle"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":255,
+	"fields":{
+		"answer_set_id":32
+		,"answer":"Hired vehicle"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":256,
+	"fields":{
+		"answer_set_id":32
+		,"answer":"Support from well wishers"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":257,
+	"fields":{
+		"answer_set_id":33
+		,"answer":"ECCDE"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":258,
+	"fields":{
+		"answer_set_id":33
+		,"answer":"Primary education"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":259,
+	"fields":{
+		"answer_set_id":33
+		,"answer":"Secondary education"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":260,
+	"fields":{
+		"answer_set_id":34
+		,"answer":"Excellent"
+		,"the_order":1
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":261,
+	"fields":{
+		"answer_set_id":34
+		,"answer":"Good"
+		,"the_order":2
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":262,
+	"fields":{
+		"answer_set_id":34
+		,"answer":"Fair"
+		,"the_order":3
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":263,
+	"fields":{
+		"answer_set_id":34
+		,"answer":"Poor"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":264,
+	"fields":{
+		"answer_set_id":34
+		,"answer":"N/A"
+		,"the_order":5
+	}
+},
+{
+	"model":"cpovc_main.ListAnswers",
+	"pk":265,
+	"fields":{
+		"answer_set_id":32
+		,"answer":"Other"
+		,"the_order":4
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":1,
+	"fields":{
+		"report_code":"REPORTING_PERFORMANCE"
+		,"report_title_short":"Reporting performance"
+		,"report_title_long":"Reporting performance of organisational units - number of reports of each type submitted"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":2,
+	"fields":{
+		"report_code":"OVC_DEMOGRAPHICS"
+		,"report_title_short":"OVC demographics"
+		,"report_title_long":"Numbers of OVC by age and sex"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":3,
+	"fields":{
+		"report_code":"OVC_BY_GEO_AREA"
+		,"report_title_short":"OVC by geographical area"
+		,"report_title_long":"Numbers of OVC living in or receiving services in each ward, constituency, district, or province"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":4,
+	"fields":{
+		"report_code":"OVC_ADVERSE_COND"
+		,"report_title_short":"OVC adverse conditions"
+		,"report_title_long":"Numbers of OVC who have experienced each adverse condition"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":5,
+	"fields":{
+		"report_code":"OVC_EXP_ADVERSE_COND"
+		,"report_title_short":"OVC experiencing a particular adverse condition"
+		,"report_title_long":"Numbers of OVC by age and sex who have experienced a particular adverse condition"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":6,
+	"fields":{
+		"report_code":"OVC_MIGRATION"
+		,"report_title_short":"OVC migration"
+		,"report_title_long":"Numbers of OVC migrating into or out of geographical areas"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":7,
+	"fields":{
+		"report_code":"GUARDIAN_DEATH"
+		,"report_title_short":"Guardian death"
+		,"report_title_long":"Numbers of OVC experiencing the death of a guardian (by age and sex)"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":8,
+	"fields":{
+		"report_code":"SERVICES_PROVIDED"
+		,"report_title_short":"Services provided"
+		,"report_title_long":"Number of times each service was provided, and number of distinct OVC receiving each service"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":9,
+	"fields":{
+		"report_code":"BEN_RECV_SERVICE"
+		,"report_title_short":"Beneficiaries receiving a selected service"
+		,"report_title_long":"Number of beneficiaries (OVC and guardians) receiving a selected service by sex and age"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":10,
+	"fields":{
+		"report_code":"ORG_UNIT_PROVIDING_SERVICE"
+		,"report_title_short":"Organisational units providing a selected service"
+		,"report_title_long":"Number of times selected service was provided by each organisational unit, and number of distinct beneficiaries of selected service by organisational unit"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":11,
+	"fields":{
+		"report_code":"WFC_BEN_RATIO_BY_ORG_UNIT"
+		,"report_title_short":"Workforce beneficiary ratio by organisational unit"
+		,"report_title_long":"Number of workforce members and number of beneficiaries of each organisational unit"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":12,
+	"fields":{
+		"report_code":"REFFERALS_MADE"
+		,"report_title_short":"Referrals made and completed"
+		,"report_title_long":"Number of referrals made and number of referrals completed by referral type"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":13,
+	"fields":{
+		"report_code":"OVC_ASSESSMENT"
+		,"report_title_short":"OVC assessments"
+		,"report_title_long":"Number of each response to an individual question on OVC assessment form"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":14,
+	"fields":{
+		"report_code":"OVC_ASSESSMENT_CSI"
+		,"report_title_short":"OVC assessments - CSI"
+		,"report_title_long":"Number with each each score in each domain on OVC assessment form"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":15,
+	"fields":{
+		"report_code":"OVC_ASSESSMENT_OVERTIME"
+		,"report_title_short":"OVC assessments - change over time"
+		,"report_title_long":"Number of OVC whose response to an individual question changes over time in different ways"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":16,
+	"fields":{
+		"report_code":"OVC_ASSESSMENT_CSI_OVERTIME"
+		,"report_title_short":"OVC assessments - change over time - CSI scores"
+		,"report_title_long":"Number of OVC whose score in an individual domain changes over time in different ways"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":17,
+	"fields":{
+		"report_code":"RESIDENTIAL_CHILD_STATUS_SUMMARY"
+		,"report_title_short":"Residential institutions - status of children"
+		,"report_title_long":"Number of children living in or previously lived in residential institutions, by residential and family status"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":18,
+	"fields":{
+		"report_code":"RESIDENTIAL_CHILD_STATUS_BY_INSTITUTION"
+		,"report_title_short":"Residential institutions - status of children - by institution"
+		,"report_title_long":"Number of children living in or previously lived in each residential institution, by residential and family status"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":19,
+	"fields":{
+		"report_code":"RESIDENTIAL_DEMOGRAPHICS"
+		,"report_title_short":"Residential institutions - resident children - demographics"
+		,"report_title_long":"Numbers of children in residential institutions by age and sex"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":20,
+	"fields":{
+		"report_code":"RESIDENTIAL_ADVERSE_COND"
+		,"report_title_short":"Residential institution children - adverse conditions ever experienced"
+		,"report_title_long":"Number of children in residential institutions who ever experienced each adverse condition"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":21,
+	"fields":{
+		"report_code":"RESIDENTIAL_REINTEGRATION_DEMOG"
+		,"report_title_short":"Residential institutions - reintegrated children - demographics"
+		,"report_title_long":"Number of children re-integrated into community from residential institutions by age and sex"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":22,
+	"fields":{
+		"report_code":"RESIDENTIAL_REINTEGRATION_BY_ORG"
+		,"report_title_short":"Residential institutions - reintegrated children - by institution"
+		,"report_title_long":"Number of children re-integrated into community from each residential institution"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":23,
+	"fields":{
+		"report_code":"RESIDENTIAL_ASSESSMENT"
+		,"report_title_short":"Residential institutions - assessment"
+		,"report_title_long":"Number of each response to an individual question on the residential institution form"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":24,
+	"fields":{
+		"report_code":"CICWL_ASSESSMENT"
+		,"report_title_short":"Children in conflict with law - questions"
+		,"report_title_long":"Number of each response to an individual question on the child in conflict with law form"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":25,
+	"fields":{
+		"report_code":"CICWL_DEMOGRAPHICS"
+		,"report_title_short":"Children in conflict with law - demographics"
+		,"report_title_long":"Number of arrested children by age and sex"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":26,
+	"fields":{
+		"report_code":"WORKFORCE_ACTIVE_BY_GEO"
+		,"report_title_short":"Active workforce members by geographical area"
+		,"report_title_long":"Number of active Government employees, NGO employees and volunteers by geographical area"
+	}
+},
+{
+	"model":"cpovc_main.ListReports",
+	"pk":27,
+	"fields":{
+		"report_code":"WORKFORCE_ASSESSMENT"
+		,"report_title_short":"Workforce member assessments"
+		,"report_title_long":"Number of each response to an individual question on workforce assessment form"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":1,
+	"fields":{
+		"report":1
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":2,
+	"fields":{
+		"report":1
+		,"parameter":"item_id"
+		,"filter":"organisational unit type"
+		,"initially_visible":"True"
+		,"label":"Reported by organisational units of type"
+		,"tip":"Leave blank to include all organisational unit types"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":3,
+	"fields":{
+		"report":1
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":4,
+	"fields":{
+		"report":1
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"Reported by organisational unit"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":5,
+	"fields":{
+		"report":1
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"Reported by organisational units in set:"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":6,
+	"fields":{
+		"report":2
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Living in area"
+		,"tip":"Leave blank for all OVC nationally"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":7,
+	"fields":{
+		"report":2
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"Ever received services from organisational unit"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":8,
+	"fields":{
+		"report":2
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"Ever received services from organisational units in set:"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":9,
+	"fields":{
+		"report":3
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":10,
+	"fields":{
+		"report":3
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":11,
+	"fields":{
+		"report":3
+		,"parameter":"item_id"
+		,"filter":"geographical area type"
+		,"initially_visible":"True"
+		,"label":"List areas of type*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":12,
+	"fields":{
+		"report":3
+		,"parameter":"area_id"
+		,"filter":"see business rules"
+		,"label":"List areas within"
+		,"tip":"To list all districts in the country, choose 'districts' and leave this blank"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":13,
+	"fields":{
+		"report":4
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Living in area"
+		,"tip":"Leave blank for all OVC nationally"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":14,
+	"fields":{
+		"report":4
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"Experienced by OVC who have ever received services from organisational unit"
+		,"tip":"Leave blank to include all OVC"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":15,
+	"fields":{
+		"report":4
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"Experienced by OVC who have ever received services from organisational units in set:"
+		,"tip":"Leave blank to include all OVC"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":16,
+	"fields":{
+		"report":5
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Living in area"
+		,"tip":"Leave blank for all OVC nationally"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":17,
+	"fields":{
+		"report":5
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"Experienced by OVC who have ever received services from organisational unit"
+		,"tip":"Leave blank to include all OVC"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":18,
+	"fields":{
+		"report":5
+		,"parameter":"item_id"
+		,"filter":"adverse condition"
+		,"initially_visible":"True"
+		,"label":"Adverse condition*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":19,
+	"fields":{
+		"report":6
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":20,
+	"fields":{
+		"report":6
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":21,
+	"fields":{
+		"report":6
+		,"parameter":"item_id"
+		,"filter":"geographical area type"
+		,"initially_visible":"True"
+		,"label":"List areas of type*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":22,
+	"fields":{
+		"report":6
+		,"parameter":"area_id"
+		,"filter":"see business rules"
+		,"label":"List areas within"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":23,
+	"fields":{
+		"report":7
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":24,
+	"fields":{
+		"report":7
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":25,
+	"fields":{
+		"report":7
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"OVCs ever received services from organisational unit"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":26,
+	"fields":{
+		"report":7
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"OVCs ever received services from organisational units in set:"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":27,
+	"fields":{
+		"report":7
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Living in area"
+		,"tip":"Leave blank for all OVC nationally"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":28,
+	"fields":{
+		"report":8
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":29,
+	"fields":{
+		"report":8
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":30,
+	"fields":{
+		"report":8
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"Provided by organisational unit"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":31,
+	"fields":{
+		"report":8
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"Provided by organisational units in set:"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":32,
+	"fields":{
+		"report":8
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Provided in area"
+		,"tip":"Leave blank for services provided anywhere"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":33,
+	"fields":{
+		"report":9
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":34,
+	"fields":{
+		"report":9
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":35,
+	"fields":{
+		"report":9
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"Provided by organisational unit"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":36,
+	"fields":{
+		"report":9
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"Provided by organisational units in set:"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":37,
+	"fields":{
+		"report":9
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Provided in area"
+		,"tip":"Leave blank for services provided anywhere"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":38,
+	"fields":{
+		"report":9
+		,"parameter":"item_id"
+		,"filter":"service"
+		,"initially_visible":"True"
+		,"label":"Service*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":39,
+	"fields":{
+		"report":10
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":40,
+	"fields":{
+		"report":10
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":41,
+	"fields":{
+		"report":10
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Provided in area"
+		,"tip":"Leave blank for services provided anywhere"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":42,
+	"fields":{
+		"report":10
+		,"parameter":"item_id"
+		,"filter":"service"
+		,"initially_visible":"True"
+		,"label":"Service*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":43,
+	"fields":{
+		"report":11
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":44,
+	"fields":{
+		"report":11
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":45,
+	"fields":{
+		"report":11
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Provided in area"
+		,"tip":"Leave blank for services provided anywhere"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":46,
+	"fields":{
+		"report":12
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":47,
+	"fields":{
+		"report":12
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":48,
+	"fields":{
+		"report":12
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"Provided by organisational unit"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":49,
+	"fields":{
+		"report":12
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"Provided by organisational units in set:"
+		,"tip":"Leave blank to include all organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":50,
+	"fields":{
+		"report":12
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Provided in area"
+		,"tip":"Leave blank for services provided anywhere"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":58,
+	"fields":{
+		"report":13
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":59,
+	"fields":{
+		"report":13
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":63,
+	"fields":{
+		"report":13
+		,"parameter":"question_id"
+		,"filter":"Form type FT3d and answer_type_id ATSS or ATMS"
+		,"initially_visible":"True"
+		,"label":"Form question*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":67,
+	"fields":{
+		"report":13
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"OVCs ever received services from organisational unit"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":68,
+	"fields":{
+		"report":13
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"OVCs ever received services from organisational units in set"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":69,
+	"fields":{
+		"report":13
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Living in area"
+		,"tip":"Leave blank for all OVC nationally"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":70,
+	"fields":{
+		"report":15
+		,"parameter":"question_id"
+		,"filter":"Form type FT3d and answer_type_id ATSS"
+		,"initially_visible":"True"
+		,"label":"Form question*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":72,
+	"fields":{
+		"report":15
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"Start of first period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":73,
+	"fields":{
+		"report":15
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"End of first period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":74,
+	"fields":{
+		"report":15
+		,"parameter":"from_date_comp"
+		,"initially_visible":"True"
+		,"label":"Start of second period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":75,
+	"fields":{
+		"report":15
+		,"parameter":"to_date_comp"
+		,"initially_visible":"True"
+		,"label":"End of second period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":76,
+	"fields":{
+		"report":16
+		,"parameter":"item_id"
+		,"filter":"CSI domain"
+		,"initially_visible":"True"
+		,"label":"Form question*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":78,
+	"fields":{
+		"report":16
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"Start of first period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":79,
+	"fields":{
+		"report":16
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"End of first period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":80,
+	"fields":{
+		"report":16
+		,"parameter":"from_date_comp"
+		,"initially_visible":"True"
+		,"label":"Start of second period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":81,
+	"fields":{
+		"report":16
+		,"parameter":"to_date_comp"
+		,"initially_visible":"True"
+		,"label":"End of second period*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":82,
+	"fields":{
+		"report":14
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":83,
+	"fields":{
+		"report":14
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":85,
+	"fields":{
+		"report":14
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"OVCs ever received services from organisational unit"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":86,
+	"fields":{
+		"report":14
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"OVCs ever received services from organisational units in set"
+		,"tip":"Leave blank to include all OVC regardless of which organisational units have served them"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":87,
+	"fields":{
+		"report":14
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Living in area"
+		,"tip":"Leave blank for all OVC nationally"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":88,
+	"fields":{
+		"report":19
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"As of date*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":89,
+	"fields":{
+		"report":19
+		,"parameter":"org_unit_id"
+		,"filter":"org_unit_type_id TNRS"
+		,"initially_visible":"True"
+		,"label":"In residential institution"
+		,"tip":"Leave blank for all residential institutions"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":90,
+	"fields":{
+		"report":20
+		,"parameter":"org_unit_id"
+		,"filter":"org_unit_type_id TNRS"
+		,"initially_visible":"True"
+		,"label":"In residential institution"
+		,"tip":"Leave blank for all residential institutions"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":92,
+	"fields":{
+		"report":21
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":93,
+	"fields":{
+		"report":21
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":94,
+	"fields":{
+		"report":22
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":95,
+	"fields":{
+		"report":22
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":96,
+	"fields":{
+		"report":24
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":97,
+	"fields":{
+		"report":24
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":98,
+	"fields":{
+		"report":24
+		,"parameter":"area_id"
+		,"filter":"area_type_id GPRV, GDIS"
+		,"initially_visible":"True"
+		,"label":"Arrested in area"
+		,"tip":"Leave blank for children arrested anywhere"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":100,
+	"fields":{
+		"report":25
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":101,
+	"fields":{
+		"report":25
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":107,
+	"fields":{
+		"report":26
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":108,
+	"fields":{
+		"report":26
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":109,
+	"fields":{
+		"report":26
+		,"parameter":"area_id"
+		,"initially_visible":"True"
+		,"label":"Active in area"
+		,"tip":"Leave blank for workforce members active anywhere"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":110,
+	"fields":{
+		"report":26
+		,"parameter":"item_id"
+		,"filter":"service or referral made"
+		,"initially_visible":"True"
+		,"label":"Service or referral made"
+		,"tip":"Leave blank for all services"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":111,
+	"fields":{
+		"report":27
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":112,
+	"fields":{
+		"report":27
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":113,
+	"fields":{
+		"report":27
+		,"parameter":"question_id"
+		,"filter":"Form type FT2c and answer_type_id ATSS or ATMS"
+		,"initially_visible":"True"
+		,"label":"Form question*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":114,
+	"fields":{
+		"report":27
+		,"parameter":"org_unit_id"
+		,"initially_visible":"True"
+		,"label":"In organisational unit"
+		,"tip":"Leave blank to include workforce members in all  organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":115,
+	"fields":{
+		"report":27
+		,"parameter":"set_id"
+		,"initially_visible":"True"
+		,"label":"In organisational unit set"
+		,"tip":"Leave blank to include workforce members in all  organisational units"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":116,
+	"fields":{
+		"report":23
+		,"parameter":"from_date"
+		,"initially_visible":"True"
+		,"label":"From*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":117,
+	"fields":{
+		"report":23
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"To*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":118,
+	"fields":{
+		"report":23
+		,"parameter":"question_id"
+		,"filter":"Form type FT1f and answer_type_id ATSS or ATMS"
+		,"initially_visible":"True"
+		,"label":"Form question*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":119,
+	"fields":{
+		"report":17
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"As of date*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":120,
+	"fields":{
+		"report":18
+		,"parameter":"to_date"
+		,"initially_visible":"True"
+		,"label":"As of date*"
+		,"required":"True"
+	}
+},
+{
+	"model":"cpovc_main.ListReportsParameters",
+	"pk":121,
+	"fields":{
+		"report":24
+		,"parameter":"question_id"
+		,"filter":"Form type FT3f and answer_type_id ATSS or ATMS"
+		,"initially_visible":"True"
+		,"label":"Form question*"
+		,"required":"True"
+	}
+}
+]

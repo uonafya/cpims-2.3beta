@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Organization Unit Search {% endblock %}
+
+{% load app_filters %}
+
+{% block style_code %}
+    <link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/datatables/css/data-table.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Registry</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Registry <small>Organizational Unit Look Up</small></h1>
+<!-- end page-header -->
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+</div>
+{% endif %}
+{% if message %}
+	<div id="messages" class="alert alert-success fade in">
+	    <span class="close" data-dismiss="alert">×</span>
+	    <i class="fa fa-check fa-2x pull-left"></i>
+	    <p class="invalid-form-message"> {{ message }}</p>
+	</div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+    <!-- Start content area -->
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse" data-sortable-id="form-stuff-5">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                    </div>
+                    <h4 class="panel-title">Organization unit search</h4>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" action="{% url 'registry' %}" method="POST" data-parsley-validate="true">
+                       {% csrf_token %}
+                       <div class="form-group m-r-10">
+                            {{ form.org_type }}
+                        </div>
+						<div class="form-group m-r-10">
+							{{ form.org_unit_name }}
+						</div>
+
+						<div class="checkbox m-r-10">
+							<label>
+								{{ form.org_closed }} <span>Check closed units</span>
+							</label>
+						</div>
+						<button type="submit" class="btn btn-sm btn-default">Search</button>
+						<a href="{% url 'registry/new' %}">
+						<button type="button" class="btn btn-sm btn-primary m-r-5">Register New</button></a>
+					</form>						
+                </div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-6 -->
+    </div>
+    <!-- end row -->
+    {% if results|length %}
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="data-table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Org Unit ID</th>
+                        <th>Org Unit Name</th>
+                        <th>Unit Type</th>
+                        <th>Primary Parent</th>
+                        <th>Geo Links</th>
+                        <th>Edit / Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr class="{% cycle 'even' 'odd' %}">
+                        <td><a href="{% url 'registry' %}{{ result.pk }}">{{ result.org_unit_id_vis }}</a></td>
+                        <td>{{ result.org_unit_name }}</td>
+                        <td>{{ result.org_unit_type_id|gen_value:vals }}</td>
+                        <td>{{ result.parent_org_unit_id|gen_value:vals }}</td>
+                        <td>-</td>
+                        <td><a href="{% url 'registry' %}{{ result.pk }}">Edit</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- end panel -->
+{% else %}
+	<div class="norecords">No records found.</div>
+{% endif %}
+ 
+<!-- End content area -->
+
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+	<script src="{% static 'js/apps.js' %}"></script>
+	<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+	<script src="{% static 'plugins/datatables/js/jquery.dataTables.js' %}"></script>
+	<script src="{% static 'js/table-manage-default.demo.min.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			App.init();
+			TableManageDefault.init();
+		});
+	</script>
+{% endblock %}

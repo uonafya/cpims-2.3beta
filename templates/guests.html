@@ -1,0 +1,26 @@
+<!-- begin breadcrumb -->
+{% load staticfiles %}
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">{{ request.get_full_path }}</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">CPIMS <small>Coming soon page</small></h1>
+<!-- end page-header -->
+
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title">Guest details</h4>
+            </div>
+            <div class="panel-body">
+                <img align="center" src="{% static 'img/under_construction.png' %}">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end row -->

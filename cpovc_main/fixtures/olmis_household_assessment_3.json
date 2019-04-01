@@ -1,0 +1,2962 @@
+[
+{
+"pk": 30156,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA5R",
+"item_description_short": "River",
+"sms_keyword": "False",
+"item_description": "River",
+"the_order": 1
+}
+},
+{
+"pk": 30157,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA5S",
+"item_description_short": "Stream",
+"sms_keyword": "False",
+"item_description": "Stream",
+"the_order": 2
+}
+},
+{
+"pk": 30158,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA5P",
+"item_description_short": "Pond",
+"sms_keyword": "False",
+"item_description": "Pond",
+"the_order": 3
+}
+},
+{
+"pk": 30159,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA5L",
+"item_description_short": "Lake",
+"sms_keyword": "False",
+"item_description": "Lake",
+"the_order": 4
+}
+},
+{
+"pk": 30160,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA5B",
+"item_description_short": "Borehole",
+"sms_keyword": "False",
+"item_description": "Borehole",
+"the_order": 5
+}
+},
+{
+"pk": 30161,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA5D",
+"item_description_short": "Ditch",
+"sms_keyword": "False",
+"item_description": "Ditch",
+"the_order": 6
+}
+},
+{
+"pk": 30162,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HARC",
+"item_description_short": "Rainwater collection",
+"sms_keyword": "False",
+"item_description": "Rainwater collection",
+"the_order": 7
+}
+},
+{
+"pk": 30163,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAPP",
+"item_description_short": "Purchase water (pipe)",
+"sms_keyword": "False",
+"item_description": "Purchase water (pipe)",
+"the_order": 8
+}
+},
+{
+"pk": 30164,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha5_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAPT",
+"item_description_short": "Purchase water (tap)",
+"sms_keyword": "False",
+"item_description": "Purchase water (tap)",
+"the_order": 9
+}
+},
+{
+"pk": 30165,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha6_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA6B",
+"item_description_short": "Boiling",
+"sms_keyword": "False",
+"item_description": "Boiling",
+"the_order": 1
+}
+},
+{
+"pk": 30166,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha6_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA6N",
+"item_description_short": "None",
+"sms_keyword": "False",
+"item_description": "None",
+"the_order": 2
+}
+},
+{
+"pk": 30167,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha6_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA6T",
+"item_description_short": "Treatment",
+"sms_keyword": "False",
+"item_description": "Treatment",
+"the_order": 3
+}
+},
+{
+"pk": 30168,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha7_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAPL",
+"item_description_short": "Pit latrine",
+"sms_keyword": "False",
+"item_description": "Pit latrine",
+"the_order": 1
+}
+},
+{
+"pk": 30169,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha7_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAFT",
+"item_description_short": "Flush toilet",
+"sms_keyword": "False",
+"item_description": "Flush toilet",
+"the_order": 2
+}
+},
+{
+"pk": 30170,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha7_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HARP",
+"item_description_short": "Rubbish pit",
+"sms_keyword": "False",
+"item_description": "Rubbish pit",
+"the_order": 3
+}
+},
+{
+"pk": 30171,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha7_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAOD",
+"item_description_short": "Open defecation",
+"sms_keyword": "False",
+"item_description": "Open defecation",
+"the_order": 4
+}
+},
+{
+"pk": 30172,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha8_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAYS",
+"item_description_short": "Yes",
+"sms_keyword": "False",
+"item_description": "Yes",
+"the_order": 1
+}
+},
+{
+"pk": 30173,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Water, Sanitation & Hygiene",
+"user_configurable": "False",
+"field_name": "olmis_ha8_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HANO",
+"item_description_short": "No",
+"sms_keyword": "False",
+"item_description": "No",
+"the_order": 2
+}
+},
+{
+"pk": 30174,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha9_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAGL",
+"item_description_short": "Good based on local std",
+"sms_keyword": "False",
+"item_description": "Good based on local std",
+"the_order": 1
+}
+},
+{
+"pk": 30175,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha9_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAFL",
+"item_description_short": "Fair based on local std",
+"sms_keyword": "False",
+"item_description": "Fair based on local std",
+"the_order": 2
+}
+},
+{
+"pk": 30176,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha9_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HADP",
+"item_description_short": "Dilapitated",
+"sms_keyword": "False",
+"item_description": "Dilapitated",
+"the_order": 3
+}
+},
+{
+"pk": 30177,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_type_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAMA",
+"item_description_short": "Matress",
+"sms_keyword": "False",
+"item_description": "Matress",
+"the_order": 1
+}
+},
+{
+"pk": 30178,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_type_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HABL",
+"item_description_short": "Blankets",
+"sms_keyword": "False",
+"item_description": "Blankets",
+"the_order": 2
+}
+},
+{
+"pk": 30500,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_type_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HARM",
+"item_description_short": "Reed Mat",
+"sms_keyword": "False",
+"item_description": "Reed Mat",
+"the_order": 7
+}
+},
+{
+"pk": 30179,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_type_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HASA",
+"item_description_short": "Sack",
+"sms_keyword": "False",
+"item_description": "Sack",
+"the_order": 3
+}
+},
+{
+"pk": 30180,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_type_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HABO",
+"item_description_short": "Boxes",
+"sms_keyword": "False",
+"item_description": "Boxes",
+"the_order": 4
+}
+},
+{
+"pk": 30181,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_type_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAHS",
+"item_description_short": "Hide/Skin",
+"sms_keyword": "False",
+"item_description": "Hide/Skin",
+"the_order": 5
+}
+},
+{
+"pk": 30182,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_type_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAOC",
+"item_description_short": "Old clothes",
+"sms_keyword": "False",
+"item_description": "Old clothes",
+"the_order": 6
+}
+},
+{
+"pk": 30600,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_condition_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAWO",
+"item_description_short": "Worn Out",
+"sms_keyword": "False",
+"item_description": "Worn Out",
+"the_order": 1
+}
+},
+{
+"pk": 30601,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Shelter and Care",
+"user_configurable": "False",
+"field_name": "olmis_ha10_condition_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAGD",
+"item_description_short": "Good",
+"sms_keyword": "False",
+"item_description": "Good",
+"the_order": 2
+}
+},
+{
+"pk": 30183,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Food, Security and Nutrition",
+"user_configurable": "False",
+"field_name": "olmis_ha11_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA1D",
+"item_description_short": "1 meal a day",
+"sms_keyword": "False",
+"item_description": "1 meal a day",
+"the_order": 1
+}
+},
+{
+"pk": 30184,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Food, Security and Nutrition",
+"user_configurable": "False",
+"field_name": "olmis_ha11_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA2D",
+"item_description_short": "2 meals a day",
+"sms_keyword": "False",
+"item_description": "2 meals a day",
+"the_order": 2
+}
+},
+{
+"pk": 30185,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Food, Security and Nutrition",
+"user_configurable": "False",
+"field_name": "olmis_ha11_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HA3D",
+"item_description_short": "3 meals a day",
+"sms_keyword": "False",
+"item_description": "3 meals a day",
+"the_order": 3
+}
+},
+{
+"pk": 30186,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Food, Security and Nutrition",
+"user_configurable": "False",
+"field_name": "olmis_ha12_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAOF",
+"item_description_short": "Own farm",
+"sms_keyword": "False",
+"item_description": "Own farm",
+"the_order": 1
+}
+},
+{
+"pk": 30187,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Food, Security and Nutrition",
+"user_configurable": "False",
+"field_name": "olmis_ha12_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HAMP",
+"item_description_short": "Market (purchased)",
+"sms_keyword": "False",
+"item_description": "Market (purchased)",
+"the_order": 2
+}
+},
+{
+"pk": 30188,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Food, Security and Nutrition",
+"user_configurable": "False",
+"field_name": "olmis_ha12_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HALS",
+"item_description_short": "Livestock",
+"sms_keyword": "False",
+"item_description": "Livestock",
+"the_order": 3
+}
+},
+{
+"pk": 30189,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Food, Security and Nutrition",
+"user_configurable": "False",
+"field_name": "olmis_ha12_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HADN",
+"item_description_short": "Donations",
+"sms_keyword": "False",
+"item_description": "Donations",
+"the_order": 4
+}
+},
+{
+"pk": 30190,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HICF",
+"item_description_short": "Crop farming",
+"sms_keyword": "False",
+"item_description": "Crop farming",
+"the_order": 1
+}
+},
+{
+"pk": 30191,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HILR",
+"item_description_short": "Livestock rearing",
+"sms_keyword": "False",
+"item_description": "Livestock rearing",
+"the_order": 2
+}
+},
+{
+"pk": 30192,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIFF",
+"item_description_short": "Fishing",
+"sms_keyword": "False",
+"item_description": "Fishing",
+"the_order": 3
+}
+},
+{
+"pk": 30193,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIBB",
+"item_description_short": "Begging",
+"sms_keyword": "False",
+"item_description": "Begging",
+"the_order": 4
+}
+},
+{
+"pk": 30194,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HICT",
+"item_description_short": "Cash transfer",
+"sms_keyword": "False",
+"item_description": "Cash transfer",
+"the_order": 5
+}
+},
+{
+"pk": 30195,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIDD",
+"item_description_short": "Donations",
+"sms_keyword": "False",
+"item_description": "Donations",
+"the_order": 6
+}
+},
+{
+"pk": 30196,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIBK",
+"item_description_short": "Bee keeping",
+"sms_keyword": "False",
+"item_description": "Bee keeping",
+"the_order": 7
+}
+},
+{
+"pk": 30197,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HICL",
+"item_description_short": "Casual Labour",
+"sms_keyword": "False",
+"item_description": "Casual Labour",
+"the_order": 8
+}
+},
+{
+"pk": 30198,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HISB",
+"item_description_short": "Small business",
+"sms_keyword": "False",
+"item_description": "Small business",
+"the_order": 9
+}
+},
+{
+"pk": 30199,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha13_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIFE",
+"item_description_short": "Formal Employment",
+"sms_keyword": "False",
+"item_description": "Formal Employment",
+"the_order": 10
+}
+},
+{
+"pk": 30200,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha14_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HISO",
+"item_description_short": "Self/Owned",
+"sms_keyword": "False",
+"item_description": "Self/Owned",
+"the_order": 1
+}
+},
+{
+"pk": 30201,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha14_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HILR",
+"item_description_short": "Landlord (rented)",
+"sms_keyword": "False",
+"item_description": "Landlord (rented)",
+"the_order": 2
+}
+},
+{
+"pk": 30202,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha14_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIFM",
+"item_description_short": "Family member",
+"sms_keyword": "False",
+"item_description": "Family member",
+"the_order": 3
+}
+},
+{
+"pk": 30203,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HILS",
+"item_description_short": "Livestock",
+"sms_keyword": "False",
+"item_description": "Livestock",
+"the_order": 1
+}
+},
+{
+"pk": 30204,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HICP",
+"item_description_short": "Cellphones",
+"sms_keyword": "False",
+"item_description": "Cellphones",
+"the_order": 2
+}
+},
+{
+"pk": 30205,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIBC",
+"item_description_short": "Bicycle",
+"sms_keyword": "False",
+"item_description": "Bicycle",
+"the_order": 3
+}
+},
+{
+"pk": 30206,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIGL",
+"item_description_short": "Gas lamp",
+"sms_keyword": "False",
+"item_description": "Gas lamp",
+"the_order": 4
+}
+},
+{
+"pk": 30207,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HILN",
+"item_description_short": "Lantern",
+"sms_keyword": "False",
+"item_description": "Lantern",
+"the_order": 5
+}
+},
+{
+"pk": 30208,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIRR",
+"item_description_short": "Radio",
+"sms_keyword": "False",
+"item_description": "Radio",
+"the_order": 6
+}
+},
+{
+"pk": 30209,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HILA",
+"item_description_short": "Land",
+"sms_keyword": "False",
+"item_description": "Land",
+"the_order": 7
+}
+},
+{
+"pk": 30210,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIJJ",
+"item_description_short": "Jiko",
+"sms_keyword": "False",
+"item_description": "Jiko",
+"the_order": 8
+}
+},
+{
+"pk": 30211,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIST",
+"item_description_short": "Stove",
+"sms_keyword": "False",
+"item_description": "Stove",
+"the_order": 9
+}
+},
+{
+"pk": 30212,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIFN",
+"item_description_short": "Furniture",
+"sms_keyword": "False",
+"item_description": "Furniture",
+"the_order": 10
+}
+},
+{
+"pk": 30213,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha15_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HICA",
+"item_description_short": "Car",
+"sms_keyword": "False",
+"item_description": "Car",
+"the_order": 11
+}
+},
+{
+"pk": 30214,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha16_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIFW",
+"item_description_short": "Firewood",
+"sms_keyword": "False",
+"item_description": "Firewood",
+"the_order": 1
+}
+},
+{
+"pk": 30215,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha16_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIPF",
+"item_description_short": "Paraffin",
+"sms_keyword": "False",
+"item_description": "Paraffin",
+"the_order": 2
+}
+},
+{
+"pk": 30216,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha16_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HICO",
+"item_description_short": "Charcoal",
+"sms_keyword": "False",
+"item_description": "Charcoal",
+"the_order": 3
+}
+},
+{
+"pk": 30217,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha16_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIGA",
+"item_description_short": "Gas",
+"sms_keyword": "False",
+"item_description": "Gas",
+"the_order": 4
+}
+},
+{
+"pk": 30218,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha17_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIL1",
+"item_description_short": "<1000",
+"sms_keyword": "False",
+"item_description": "<1000",
+"the_order": 1
+}
+},
+{
+"pk": 30219,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha17_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIG3",
+"item_description_short": ">3001",
+"sms_keyword": "False",
+"item_description": ">3001",
+"the_order": 2
+}
+},
+{
+"pk": 30220,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha17_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HI13",
+"item_description_short": "1001-3000",
+"sms_keyword": "False",
+"item_description": "1001-3000",
+"the_order": 3
+}
+},
+{
+"pk": 30221,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha18_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HL1H",
+"item_description_short": "<100",
+"sms_keyword": "False",
+"item_description": "<100",
+"the_order": 1
+}
+},
+{
+"pk": 30222,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha18_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "H5T1",
+"item_description_short": "501-1000",
+"sms_keyword": "False",
+"item_description": "501-1000",
+"the_order": 2
+}
+},
+{
+"pk": 30223,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha18_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "H1T5",
+"item_description_short": "101-500",
+"sms_keyword": "False",
+"item_description": "101-500",
+"the_order": 3
+}
+},
+{
+"pk": 30224,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha18_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HGT1",
+"item_description_short": ">1001",
+"sms_keyword": "False",
+"item_description": ">1001",
+"the_order": 4
+}
+},
+{
+"pk": 30225,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha19_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIFD",
+"item_description_short": "Food",
+"sms_keyword": "False",
+"item_description": "Food",
+"the_order": 1
+}
+},
+{
+"pk": 30226,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha19_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIRN",
+"item_description_short": "Rent",
+"sms_keyword": "False",
+"item_description": "Rent",
+"the_order": 2
+}
+},
+{
+"pk": 30227,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha19_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HICL",
+"item_description_short": "Clothing",
+"sms_keyword": "False",
+"item_description": "Clothing",
+"the_order": 3
+}
+},
+{
+"pk": 30228,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha19_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIMB",
+"item_description_short": "Medical bills",
+"sms_keyword": "False",
+"item_description": "Medical bills",
+"the_order": 4
+}
+},
+{
+"pk": 30229,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha19_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HISF",
+"item_description_short": "School fees",
+"sms_keyword": "False",
+"item_description": "School fees",
+"the_order": 5
+}
+},
+{
+"pk": 30230,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha19_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIET",
+"item_description_short": "Entertainment",
+"sms_keyword": "False",
+"item_description": "Entertainment",
+"the_order": 6
+}
+},
+{
+"pk": 30231,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha19_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HITF",
+"item_description_short": "Transport (fare)",
+"sms_keyword": "False",
+"item_description": "Transport (fare)",
+"the_order": 7
+}
+},
+{
+"pk": 30232,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha20_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIYY",
+"item_description_short": "Yes",
+"sms_keyword": "False",
+"item_description": "Yes",
+"the_order": 1
+}
+},
+{
+"pk": 30233,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha20_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HINN",
+"item_description_short": "No",
+"sms_keyword": "False",
+"item_description": "No",
+"the_order": 2
+}
+},
+{
+"pk": 30234,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha21_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HITD",
+"item_description_short": "Title deed",
+"sms_keyword": "False",
+"item_description": "Title deed",
+"the_order": 1
+}
+},
+{
+"pk": 30235,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha21_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIWI",
+"item_description_short": "Will",
+"sms_keyword": "False",
+"item_description": "Will",
+"the_order": 2
+}
+},
+{
+"pk": 30236,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha21_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HISP",
+"item_description_short": "Succession plan",
+"sms_keyword": "False",
+"item_description": "Succession plan",
+"the_order": 3
+}
+},
+{
+"pk": 30237,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha21_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIDC",
+"item_description_short": "Death certificate",
+"sms_keyword": "False",
+"item_description": "Death certificate",
+"the_order": 4
+}
+},
+{
+"pk": 30238,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha21_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIPN",
+"item_description_short": "None",
+"sms_keyword": "False",
+"item_description": "None",
+"the_order": 5
+}
+},
+{
+"pk": 30239,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha21_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIPO",
+"item_description_short": "Others",
+"sms_keyword": "False",
+"item_description": "Others",
+"the_order": 6
+}
+},
+{
+"pk": 30240,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Income and property",
+"user_configurable": "False",
+"field_name": "olmis_ha21_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HIPO",
+"item_description_short": "Others",
+"sms_keyword": "False",
+"item_description": "Others",
+"the_order": 6
+}
+},
+{
+"pk": 30241,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha22_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSPH",
+"item_description_short": "Public hospital",
+"sms_keyword": "False",
+"item_description": "Public hospital",
+"the_order": 1
+}
+},
+{
+"pk": 30242,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha22_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HPRH",
+"item_description_short": "Private hospital",
+"sms_keyword": "False",
+"item_description": "Private hospital",
+"the_order": 2
+}
+},
+{
+"pk": 30243,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha22_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSRL",
+"item_description_short": "Religious leaders",
+"sms_keyword": "False",
+"item_description": "Religious leaders",
+"the_order": 3
+}
+},
+{
+"pk": 30244,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha22_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSTH",
+"item_description_short": "Traditional healers",
+"sms_keyword": "False",
+"item_description": "Traditional healers",
+"the_order": 4
+}
+},
+{
+"pk": 30245,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha24_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSYY",
+"item_description_short": "Yes",
+"sms_keyword": "False",
+"item_description": "Yes",
+"the_order": 1
+}
+},
+{
+"pk": 30246,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha24_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSNN",
+"item_description_short": "No",
+"sms_keyword": "False",
+"item_description": "No",
+"the_order": 2
+}
+},
+{
+"pk": 30247,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha24_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSNH",
+"item_description_short": "NHIF",
+"sms_keyword": "False",
+"item_description": "NHIF",
+"the_order": 3
+}
+},
+{
+"pk": 30248,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha23_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSL5",
+"item_description_short": "Less than 5km",
+"sms_keyword": "False",
+"item_description": "Less than 5km",
+"the_order": 1
+}
+},
+{
+"pk": 30249,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha23_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "H5TT",
+"item_description_short": "Between 5-20km",
+"sms_keyword": "False",
+"item_description": "Between 5-20km",
+"the_order": 2
+}
+},
+{
+"pk": 30250,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha23_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HMT2",
+"item_description_short": "More than 20km",
+"sms_keyword": "False",
+"item_description": "More than 20km",
+"the_order": 3
+}
+},
+{
+"pk": 30251,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha25_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HMNY",
+"item_description_short": "Yes",
+"sms_keyword": "False",
+"item_description": "Yes",
+"the_order": 1
+}
+},
+{
+"pk": 30252,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha25_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HMNN",
+"item_description_short": "No",
+"sms_keyword": "False",
+"item_description": "No",
+"the_order": 2
+}
+},
+{
+"pk": 30253,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha26_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HKHM",
+"item_description_short": "Male",
+"sms_keyword": "False",
+"item_description": "Male",
+"the_order": 1
+}
+},
+{
+"pk": 30254,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha26_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HKHF",
+"item_description_short": "Female",
+"sms_keyword": "False",
+"item_description": "Female",
+"the_order": 2
+}
+},
+{
+"pk": 30255,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha27_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HKAM",
+"item_description_short": "Male",
+"sms_keyword": "False",
+"item_description": "Male",
+"the_order": 1
+}
+},
+{
+"pk": 30256,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household Services and health seeking behaviors",
+"user_configurable": "False",
+"field_name": "olmis_ha27_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HKAF",
+"item_description_short": "Female",
+"sms_keyword": "False",
+"item_description": "Female",
+"the_order": 2
+}
+},
+{
+"pk": 30257,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLPP",
+"item_description_short": "Police",
+"sms_keyword": "False",
+"item_description": "Police",
+"the_order": 1
+}
+},
+{
+"pk": 30258,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLCD",
+"item_description_short": "Children's department",
+"sms_keyword": "False",
+"item_description": "Children's department",
+"the_order": 2
+}
+},
+{
+"pk": 30259,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLPT",
+"item_description_short": "Teacher",
+"sms_keyword": "False",
+"item_description": "Teacher",
+"the_order": 3
+}
+},
+{
+"pk": 30260,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLRL",
+"item_description_short": "Religious leader",
+"sms_keyword": "False",
+"item_description": "Religious leader",
+"the_order": 4
+}
+},
+{
+"pk": 30261,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLPR",
+"item_description_short": "Relative",
+"sms_keyword": "False",
+"item_description": "Relative",
+"the_order": 5
+}
+},
+{
+"pk": 30262,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLNC",
+"item_description_short": "NGO/CBO/FBO",
+"sms_keyword": "False",
+"item_description": "NGO/CBO/FBO",
+"the_order": 6
+}
+},
+{
+"pk": 30263,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLPP",
+"item_description_short": "Paralegals",
+"sms_keyword": "False",
+"item_description": "Paralegals",
+"the_order": 7
+}
+},
+{
+"pk": 30264,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLPC",
+"item_description_short": "Chief",
+"sms_keyword": "False",
+"item_description": "Chief",
+"the_order": 8
+}
+},
+{
+"pk": 30265,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLPL",
+"item_description_short": "Lawyer",
+"sms_keyword": "False",
+"item_description": "Lawyer",
+"the_order": 9
+}
+},
+{
+"pk": 30265,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Protection",
+"user_configurable": "False",
+"field_name": "olmis_ha28_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HLPL",
+"item_description_short": "None",
+"sms_keyword": "False",
+"item_description": "None",
+"the_order": 10
+}
+},
+{
+"pk": 30266,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha29_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSSG",
+"item_description_short": "Government",
+"sms_keyword": "False",
+"item_description": "Government",
+"the_order": 1
+}
+},
+{
+"pk": 30267,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha29_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSSN",
+"item_description_short": "NGO",
+"sms_keyword": "False",
+"item_description": "NGO",
+"the_order": 2
+}
+},
+{
+"pk": 30268,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha29_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSSC",
+"item_description_short": "CBO",
+"sms_keyword": "False",
+"item_description": "CBO",
+"the_order": 3
+}
+},
+{
+"pk": 30269,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha29_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSSF",
+"item_description_short": "FBO",
+"sms_keyword": "False",
+"item_description": "FBO",
+"the_order": 4
+}
+},
+{
+"pk": 30270,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha29_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "HSNO",
+"item_description_short": "None",
+"sms_keyword": "False",
+"item_description": "None",
+"the_order": 5
+}
+},
+{
+"pk": 30271,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSBL",
+"item_description_short": "Blankets",
+"sms_keyword": "False",
+"item_description": "Blankets",
+"the_order": 1
+}
+},
+{
+"pk": 30271,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSMA",
+"item_description_short": "Mattress",
+"sms_keyword": "False",
+"item_description": "Mattress",
+"the_order": 2
+}
+},
+{
+"pk": 30272,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSHI",
+"item_description_short": "Info on health insurance",
+"sms_keyword": "False",
+"item_description": "Information about health insurance",
+"the_order": 3
+}
+},
+{
+"pk": 30273,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSHI",
+"item_description_short": "health insurance plan",
+"sms_keyword": "False",
+"item_description": "Register in a health insurance plan",
+"the_order": 4
+}
+},
+{
+"pk": 30274,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSTP",
+"item_description_short": "Water treatment kit",
+"sms_keyword": "False",
+"item_description": "Water treatment kit",
+"the_order": 5
+}
+},
+{
+"pk": 30275,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSWF",
+"item_description_short": "Handwashing facility",
+"sms_keyword": "False",
+"item_description": "Handwashing facility",
+"the_order": 6
+}
+},
+{
+"pk": 30276,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSNE",
+"item_description_short": "nutrition education",
+"sms_keyword": "False",
+"item_description": "Health and nutrition education",
+"the_order": 7
+}
+},
+{
+"pk": 30277,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSIT",
+"item_description_short": "Farm inputs",
+"sms_keyword": "False",
+"item_description": "Farm inputs including seedings, tools, kits",
+"the_order": 8
+}
+},
+{
+"pk": 30278,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSSS",
+"item_description_short": "Small stock",
+"sms_keyword": "False",
+"item_description": "Small stock",
+"the_order": 9
+}
+},
+{
+"pk": 30279,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSFA",
+"item_description_short": "Food aid",
+"sms_keyword": "False",
+"item_description": "Food aid",
+"the_order": 10
+}
+},
+{
+"pk": 30280,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSIH",
+"item_description_short": "Information on hygiene",
+"sms_keyword": "False",
+"item_description": "Information on hygiene, education and water treatment",
+"the_order": 11
+}
+},
+{
+"pk": 30281,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSTC",
+"item_description_short": "Transport to care",
+"sms_keyword": "False",
+"item_description": "Transport to care and treatment services",
+"the_order": 12
+}
+},
+{
+"pk": 30282,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSEC",
+"item_description_short": "Escort to care",
+"sms_keyword": "False",
+"item_description": "Escort to care and treatment",
+"the_order": 13
+}
+},
+{
+"pk": 30283,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSAC",
+"item_description_short": "Access care and treatment",
+"sms_keyword": "False",
+"item_description": "Access care and treatment without transport/escort support",
+"the_order": 14
+}
+},
+{
+"pk": 30284,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSTC",
+"item_description_short": "Training on child abuse",
+"sms_keyword": "False",
+"item_description": "Training on child abuse and parenting skills",
+"the_order": 15
+}
+},
+{
+"pk": 30285,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSIC",
+"item_description_short": "Information on child abuse",
+"sms_keyword": "False",
+"item_description": "Information on child abuse and neglect",
+"the_order": 16
+}
+},
+{
+"pk": 30286,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSES",
+"item_description_short": "social protection",
+"sms_keyword": "False",
+"item_description": "Enroll in social protection programme",
+"the_order": 17
+}
+},
+{
+"pk": 30287,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSLD",
+"item_description_short": "legal documents",
+"sms_keyword": "False",
+"item_description": "Information on importance of legal documents",
+"the_order": 18
+}
+},
+{
+"pk": 30288,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSCC",
+"item_description_short": "counselling",
+"sms_keyword": "False",
+"item_description": "counselling",
+"the_order": 19
+}
+},
+{
+"pk": 30289,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSAC",
+"item_description_short": "Adherence to care",
+"sms_keyword": "False",
+"item_description": "Adherence to care and treatment counselling",
+"the_order": 20
+}
+},
+{
+"pk": 30290,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSAL",
+"item_description_short": "Adult literacy classes",
+"sms_keyword": "False",
+"item_description": "Adult literacy classes",
+"the_order": 21
+}
+},
+{
+"pk": 30291,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSES",
+"item_description_short": "SILC, GSL, VSL, IGA",
+"sms_keyword": "False",
+"item_description": "Engage in either SILC, GSL, VSL, IGA, table banking group",
+"the_order": 22
+}
+},
+{
+"pk": 30292,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSFL",
+"item_description_short": "JIFANIKISHE",
+"sms_keyword": "False",
+"item_description": "Engage in financial literacy and education training (JIFANIKISHE)",
+"the_order": 23
+}
+},
+{
+"pk": 30293,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSBS",
+"item_description_short": "Business skills training",
+"sms_keyword": "False",
+"item_description": "Business skills training",
+"the_order": 24
+}
+},
+{
+"pk": 30294,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OSLM",
+"item_description_short": "Link to MFI",
+"sms_keyword": "False",
+"item_description": "Link to MFI",
+"the_order": 25
+}
+},
+{
+"pk": 30295,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLTM",
+"item_description_short": "Link to market",
+"sms_keyword": "False",
+"item_description": "Link to market",
+"the_order": 26
+}
+},
+{
+"pk": 30296,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLTM",
+"item_description_short": "Link to UWEZO",
+"sms_keyword": "False",
+"item_description": "Link to UWEZO and other Enterprise Funds",
+"the_order": 27
+}
+},
+{
+"pk": 30297,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Other services",
+"user_configurable": "False",
+"field_name": "olmis_ha30_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLES",
+"item_description_short": "Economic assets",
+"sms_keyword": "False",
+"item_description": "Economic strengthening assets (greenhouse, beehive)",
+"the_order": 28
+}
+},
+{
+"pk": 30298,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLHN",
+"item_description_short": "Health education",
+"sms_keyword": "False",
+"item_description": "Health and nutrition education",
+"the_order": 1
+}
+},
+{
+"pk": 30299,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLTC",
+"item_description_short": "Transport to care",
+"sms_keyword": "False",
+"item_description": "Transport to care and treatment services",
+"the_order": 2
+}
+},
+{
+"pk": 30300,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLAC",
+"item_description_short": "Access care and treatment",
+"sms_keyword": "False",
+"item_description": "Access care and treatment without transport/escort support",
+"the_order": 3
+}
+},
+{
+"pk": 30301,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLBS",
+"item_description_short": "Business skills training",
+"sms_keyword": "False",
+"item_description": "Business skills training",
+"the_order": 4
+}
+},
+{
+"pk": 30302,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLTI",
+"item_description_short": "Treated for illness",
+"sms_keyword": "False",
+"item_description": "Treated for illness",
+"the_order": 5
+}
+},
+{
+"pk": 30303,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLMN",
+"item_description_short": "Mosquito net",
+"sms_keyword": "False",
+"item_description": "Mosquito net",
+"the_order": 6
+}
+},
+{
+"pk": 30304,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLTH",
+"item_description_short": "Testing for HIV",
+"sms_keyword": "False",
+"item_description": "Testing for HIV",
+"the_order": 7
+}
+},
+{
+"pk": 30305,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLDT",
+"item_description_short": "Deworming tablets",
+"sms_keyword": "False",
+"item_description": "Deworming tablets",
+"the_order": 8
+}
+},
+{
+"pk": 30306,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLEC",
+"item_description_short": "Escorted to care",
+"sms_keyword": "False",
+"item_description": "Escorted to care and treatment",
+"the_order": 9
+}
+},
+{
+"pk": 30307,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLSF",
+"item_description_short": "Supplementary feeding",
+"sms_keyword": "False",
+"item_description": "Supplementary feeding",
+"the_order": 10
+}
+},
+{
+"pk": 30308,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLVA",
+"item_description_short": "Vitamin A",
+"sms_keyword": "False",
+"item_description": "Vitamin A",
+"the_order": 11
+}
+},
+{
+"pk": 30309,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLMA",
+"item_description_short": "Mattress",
+"sms_keyword": "False",
+"item_description": "Mattress",
+"the_order": 12
+}
+},
+{
+"pk": 30310,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLSH",
+"item_description_short": "Shoes",
+"sms_keyword": "False",
+"item_description": "Shoes",
+"the_order": 13
+}
+},
+{
+"pk": 30311,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLBL",
+"item_description_short": "Blanket",
+"sms_keyword": "False",
+"item_description": "Blanket",
+"the_order": 14
+}
+},
+{
+"pk": 30312,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLHR",
+"item_description_short": "Household repair",
+"sms_keyword": "False",
+"item_description": "Household repair",
+"the_order": 15
+}
+},
+{
+"pk": 30313,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLBC",
+"item_description_short": "Birth certificate",
+"sms_keyword": "False",
+"item_description": "Birth certificate",
+"the_order": 16
+}
+},
+{
+"pk": 30314,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLRA",
+"item_description_short": "abusive environment",
+"sms_keyword": "False",
+"item_description": "Rescued from an abusive environment",
+"the_order": 17
+}
+},
+{
+"pk": 30315,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLRF",
+"item_description_short": "re-united with family",
+"sms_keyword": "False",
+"item_description": "Has been re-united with family",
+"the_order": 18
+}
+},
+{
+"pk": 30316,
+"model": "cpovc_main.SetupList",
+"fields": {
+"item_category": "Household priorities",
+"user_configurable": "False",
+"field_name": "olmis_ha31_id",
+"item_sub_category": "",
+"is_void": "False",
+"item_id": "OLAA",
+"item_description_short": "Age appropriate info",
+"sms_keyword": "False",
+"item_description": "Age appropriate information on rights/responsibilities",
+"the_order": 19
+}
+},
+{
+"pk": 30317,
+"model": "cpovc_main.SetupList",
+"fields": {
+ "item_category": "Household priorities",
+ "user_configurable": "False",
+ "field_name": "olmis_ha31_id",
+ "item_sub_category": "",
+ "is_void": "False",
+ "item_id": "OLLA",
+ "item_description_short": "Legal assistance",
+ "sms_keyword": "False",
+ "item_description": "Legal assistance in case of abuse",
+ "the_order": 20
+}
+},
+{
+"pk": 30318,
+"model": "cpovc_main.SetupList",
+"fields": {
+  "item_category": "Household priorities",
+  "user_configurable": "False",
+  "field_name": "olmis_ha31_id",
+  "item_sub_category": "",
+  "is_void": "False",
+  "item_id": "OLMO",
+  "item_description_short": "Mentored",
+  "sms_keyword": "False",
+  "item_description": "Mentored by older or responsible person",
+  "the_order": 21
+}
+},
+{
+"pk": 30319,
+"model": "cpovc_main.SetupList",
+"fields": {
+   "item_category": "Household priorities",
+   "user_configurable": "False",
+   "field_name": "olmis_ha31_id",
+   "item_sub_category": "",
+   "is_void": "False",
+   "item_id": "OLSG",
+   "item_description_short": "Linked to support",
+   "sms_keyword": "False",
+   "item_description": "Linked to support group or peer club",
+   "the_order": 22
+}
+},
+{
+"pk": 30320,
+"model": "cpovc_main.SetupList",
+"fields": {
+    "item_category": "Household priorities",
+    "user_configurable": "False",
+    "field_name": "olmis_ha31_id",
+    "item_sub_category": "",
+    "is_void": "False",
+    "item_id": "OLLS",
+    "item_description_short": "Life skills",
+    "sms_keyword": "False",
+    "item_description": "Life skills",
+    "the_order": 23
+}
+},
+{
+ "pk": 30321,
+ "model": "cpovc_main.SetupList",
+ "fields": {
+     "item_category": "Household priorities",
+     "user_configurable": "False",
+     "field_name": "olmis_ha31_id",
+     "item_sub_category": "",
+     "is_void": "False",
+     "item_id": "OLBC",
+     "item_description_short": "Basic counselling",
+     "sms_keyword": "False",
+     "item_description": "Basic counselling to address needs",
+     "the_order": 24
+ }
+},
+{
+  "pk": 30322,
+  "model": "cpovc_main.SetupList",
+  "fields": {
+      "item_category": "Household priorities",
+      "user_configurable": "False",
+      "field_name": "olmis_ha31_id",
+      "item_sub_category": "",
+      "is_void": "False",
+      "item_id": "OLES",
+      "item_description_short": "Enrolled back to school",
+      "sms_keyword": "False",
+      "item_description": "Enrolled back to school",
+      "the_order": 25
+  }
+},
+{
+   "pk": 30323,
+   "model": "cpovc_main.SetupList",
+   "fields": {
+       "item_category": "Household priorities",
+       "user_configurable": "False",
+       "field_name": "olmis_ha31_id",
+       "item_sub_category": "",
+       "is_void": "False",
+       "item_id": "OLSF",
+       "item_description_short": "School fees",
+       "sms_keyword": "False",
+       "item_description": "School fees",
+       "the_order": 26
+   }
+},
+{
+    "pk": 30324,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Household priorities",
+        "user_configurable": "False",
+        "field_name": "olmis_ha31_id",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "OLSL",
+        "item_description_short": "School levies",
+        "sms_keyword": "False",
+        "item_description": "School levies",
+        "the_order": 27
+    }
+},
+{
+     "pk": 30325,
+     "model": "cpovc_main.SetupList",
+     "fields": {
+         "item_category": "Household priorities",
+         "user_configurable": "False",
+         "field_name": "olmis_ha31_id",
+         "item_sub_category": "",
+         "is_void": "False",
+         "item_id": "OLSU",
+         "item_description_short": "School uniform",
+         "sms_keyword": "False",
+         "item_description": "School uniform",
+         "the_order": 28
+     }
+ },
+ {
+      "pk": 30326,
+      "model": "cpovc_main.SetupList",
+      "fields": {
+          "item_category": "Household priorities",
+          "user_configurable": "False",
+          "field_name": "olmis_ha31_id",
+          "item_sub_category": "",
+          "is_void": "False",
+          "item_id": "OLSM",
+          "item_description_short": "Scholastic material",
+          "sms_keyword": "False",
+          "item_description": "Scholastic material",
+          "the_order": 29
+      }
+  },
+  {
+       "pk": 30327,
+       "model": "cpovc_main.SetupList",
+       "fields": {
+           "item_category": "Household priorities",
+           "user_configurable": "False",
+           "field_name": "olmis_ha31_id",
+           "item_sub_category": "",
+           "is_void": "False",
+           "item_id": "OLSP",
+           "item_description_short": "Sanitary pads",
+           "sms_keyword": "False",
+           "item_description": "Sanitary pads",
+           "the_order": 30
+       }
+   },
+   {
+        "pk": 30328,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Household priorities",
+            "user_configurable": "False",
+            "field_name": "olmis_ha31_id",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "OLVT",
+            "item_description_short": "Vocational training",
+            "sms_keyword": "False",
+            "item_description": "Vocational training",
+            "the_order": 31
+        }
+    },
+    {
+         "pk": 30329,
+         "model": "cpovc_main.SetupList",
+         "fields": {
+             "item_category": "Household priorities",
+             "user_configurable": "False",
+             "field_name": "olmis_ha31_id",
+             "item_sub_category": "",
+             "is_void": "False",
+             "item_id": "OLVT",
+             "item_description_short": "Start-up kit",
+             "sms_keyword": "False",
+             "item_description": "Start-up kit",
+             "the_order": 32
+         }
+     },
+     {
+          "pk": 30330,
+          "model": "cpovc_main.SetupList",
+          "fields": {
+              "item_category": "Household priorities",
+              "user_configurable": "False",
+              "field_name": "olmis_ha31_id",
+              "item_sub_category": "",
+              "is_void": "False",
+              "item_id": "OLFE",
+              "item_description_short": "Financial education",
+              "sms_keyword": "False",
+              "item_description": "Financial education and literacy training (LIFE POA)",
+              "the_order": 33
+          }
+      },
+      {
+           "pk": 30331,
+           "model": "cpovc_main.SetupList",
+           "fields": {
+               "item_category": "Household priorities",
+               "user_configurable": "False",
+               "field_name": "olmis_ha31_id",
+               "item_sub_category": "",
+               "is_void": "False",
+               "item_id": "OLJO",
+               "item_description_short": "Link to a job opportunity",
+               "sms_keyword": "False",
+               "item_description": "Link to a job opportunity",
+               "the_order": 34
+           }
+       },
+       {
+            "pk": 30332,
+            "model": "cpovc_main.SetupList",
+            "fields": {
+                "item_category": "Household priorities",
+                "user_configurable": "False",
+                "field_name": "olmis_ha31_id",
+                "item_sub_category": "",
+                "is_void": "False",
+                "item_id": "OLSR",
+                "item_description_short": "Shelter repaired",
+                "sms_keyword": "False",
+                "item_description": "Shelter repaired",
+                "the_order": 35
+            }
+        },
+        {
+             "pk": 30333,
+             "model": "cpovc_main.SetupList",
+             "fields": {
+                 "item_category": "Household priorities",
+                 "user_configurable": "False",
+                 "field_name": "olmis_ha31_id",
+                 "item_sub_category": "",
+                 "is_void": "False",
+                 "item_id": "OLAC",
+                 "item_description_short": "Linked to adult caregiver",
+                 "sms_keyword": "False",
+                 "item_description": "Linked to adult caregiver",
+                 "the_order": 36
+             }
+         },
+         {
+              "pk": 30334,
+              "model": "cpovc_main.SetupList",
+              "fields": {
+                  "item_category": "Household priorities",
+                  "user_configurable": "False",
+                  "field_name": "olmis_ha31_id",
+                  "item_sub_category": "",
+                  "is_void": "False",
+                  "item_id": "OLST",
+                  "item_description_short": "Job market skill training",
+                  "sms_keyword": "False",
+                  "item_description": "Job market skill training",
+                  "the_order": 37
+              }
+          },
+          {
+               "pk": 30335,
+               "model": "cpovc_main.SetupList",
+               "fields": {
+                   "item_category": "Household priorities",
+                   "user_configurable": "False",
+                   "field_name": "olmis_ha31_id",
+                   "item_sub_category": "",
+                   "is_void": "False",
+                   "item_id": "OLHC",
+                   "item_description_short": "Clothes",
+                   "sms_keyword": "False",
+                   "item_description": "Clothes",
+                   "the_order": 38
+               }
+           }
+]

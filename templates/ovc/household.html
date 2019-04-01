@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} OVC Care HouseHold Management {% endblock %}
+
+{% load app_filters %}
+
+{% block style_code %}
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">OVC Care</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>HouseHold Management</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>                      
+                <h4 class="panel-title">HouseHold details</h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <div class="row">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Surname</th>
+                                <th>Age</th>
+                                <th>Type</th>
+                                <th>Telephone</th>
+                                <th>Alive</th>
+                                <th>HIV Status</th>
+                                <th>Head</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for hhmember in hhmembers %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ hhmember.person.first_name }}</td>
+                                <td>{{ hhmember.person.surname }}</td>
+                                <td>{{ hhmember.person.years }}</td>
+                                <td>
+                                {% if hhmember.member_type == 'TBVC' %}
+                                   Sibling
+                                {% elif hhmember.member_type == 'TOVC' %}
+                                   Index OVC
+                                {% else %}
+                                   Parent/Guardian
+                                {% endif %}
+                                </td>
+                                <td>{{ hhmember.person.des_phone_number }}</td>
+                                <td>
+                                    {% if hhmember.person.date_of_death %}
+                                No
+                            {% else %}
+                                Yes
+                            {% endif %}
+                                </td>
+                                <td>
+                                {% if hhmember.hiv_status %}
+                                    {{ hhmember.hiv_status|gen_value:vals }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                                </td>
+                                <td>
+                                {% if not hhmember.hh_head %}
+                                    No
+                                {% else %}
+                                    Yes
+                                {% endif %}
+                                </td>
+                                <td>
+                                {% if hhmember.member_type == 'TBVC' %}
+                                {% if hhmember.hiv_status %}
+                                <a href="{% url 'ovc_view' id=hhmember.person_id %}"><button type="button" class="btn btn-primary"> <i class="fa fa-file"></i> View</button></a>
+                                {% else %}
+                                <a href="{% url 'ovc_register' id=hhmember.person_id %}"><button type="button" class="btn btn-danger m-r-5"> <i class="fa fa-pencil"></i> Finish Registration</button></a>
+                                {% endif %}
+                                {% elif hhmember.member_type == 'TOVC' %}
+                                <a href="{% url 'ovc_view' id=hhmember.person_id %}"><button type="button" class="btn btn-primary"> <i class="fa fa-file"></i> View</button></a>
+                                {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row" id="form_actions">
+                    <center>
+                        <button onclick="goBack()" type="button" class="btn btn-sm btn-primary"><i class="fa fa-arrow-left"></i> &nbsp;<b>Back</b>&nbsp; </button>
+                    <p></p>
+                    </center>
+                </div>
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- end panel -->  
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+
+{% endblock %}

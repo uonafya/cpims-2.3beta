@@ -1,0 +1,59 @@
+{% extends 'base_home.html' %}
+{% load staticfiles %}
+
+{% block page_title %} {{block.super}} Log in {% endblock page_title%}    
+
+{% block primary %}
+<!-- begin right-content -->
+<div class="right-content">
+    <!-- begin register-header -->
+    <div class="register-header">
+        <h4 class="brand shome">Department of Children Services (DCS)</h4>
+    </div>
+    <h1 class="register-header">
+        <small>{{ term_title }}</small>
+    </h1>
+    <!-- end register-header -->
+    
+    <!-- begin register-content -->
+    <div class="register-content">
+        {% if messages %}
+            {% for message in messages %}
+            {% if 'error' in message.tags %}
+                <div id="messages" class="alert alert-danger fade in m-b-15">
+                <span class="close" data-dismiss="alert">×</span>
+                <i class="fa fa-info fa-2x pull-left"></i>
+            {% else %}
+                <div id="messages" class="alert alert-success fade in">
+                <span class="close" data-dismiss="alert">×</span>
+                <i class="fa fa-check fa-2x pull-left"></i>
+            {% endif %}    
+                <p>{{ message }}</p>
+            </div>
+           {% endfor %}
+        {% endif %}
+            <div data-scrollbar="true" data-height="280px" class="bg-white terms-text">
+                 {{ term_detail|safe }}
+            </div>
+
+            <div class="m-t-10 m-b-10 p-b-10">
+                Also read our <a href="{% url 'terms' id=1 %}">Terms</a> and our <a href="{% url 'terms' id=2 %}">Data Policy</a>, including our <a href="{% url 'terms' id=3 %}">Cookie Use</a><br/><br/>
+                Not registered yet? Click <a href="{% url 'access' %}" class="text-success">here</a> to request for access<br/>
+                Have account? Click <a href="{% url 'login' %}" class="text-success">here</a> to login
+            </div>
+                <span class="promo">
+                    <p>
+                        <img src="{% static 'img/logo_public.jpg' %}" height="80">
+                    </p>
+                    </span>
+                    <hr />
+                    <p class="text-center text-inverse">
+                        &copy; {% now "Y" %} Department of Children Services (DCS). All Rights Reserved.
+                    </p>
+    </div>
+    <!-- end register-content -->
+</div>
+<!-- end right-content -->
+{% endblock primary %}
+
+{% block lazy_javascript_code %}{% endblock lazy_javascript_code %}

@@ -1,0 +1,424 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Residential Placement {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+
+<!-- begin page-header -->
+{% for data in init_data %}
+    <h1 class="page-header">Forms <small>New Placement | {{ data.first_name }} {{ data.surname }}  <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>Placement</b></h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="{% url 'save_placement' %}" method="POST" data-parsley-validate="true"
+                name="form-wizard-placement" id="new_placement">
+                    {% csrf_token %}
+                    <div id="wizard_placement">
+                        <ol>
+                            <li>
+                                About the Child 
+                                <small>Name and additional details.</small>
+                            </li>
+                            <li>
+                                Institution & Admission Data 
+                                <small>Admitting institution and details.</small>
+                            </li>
+                            <li>
+                                Placement Data 
+                                <small>Placement data and details.</small>
+                            </li>                            
+                        </ol>
+
+                        {{ form.placement_type }}
+                        {{ form.person_id }}
+
+                        <!-- begin wizard step-1 -->
+                            <div class="wizard-step-1">
+                                <fieldset>
+                                    <legend class="pull-left width-full">About the Child</legend>
+                                    <div class="row">                                         
+
+                                    {% if init_data %}
+                                    <div align="left" id="div_childbasicdetails_msg" class="col-md-8 col-sm-8">
+                                        {% for data in init_data %}
+                                        <!-- <h4>Child Basic Details Not Required For Normal Placement</h4> -->
+                                            <h6> CHILD NAMES :     <b>{{ data.first_name }} {{ data.surname }}</b></h6>
+                                            <h6> DATE OF BIRTH :    <b>{{ data.date_of_birth }}</b></h6>
+                                            <h6> SEX :     <b>{{ data.sex_id|gen_value:vals }}</b></h6>
+                                            <h6> AGE :     <b>{{ data.date_of_birth|gen_age }} YRS (APPROX)</b></h6>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                                                               
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->
+
+                        <!-- begin wizard step-2 -->
+                        <div class="wizard-step-2">
+                            <fieldset>
+                                <legend class="pull-left width-full">Institution & Admission Data</legend>
+                                <div class="row"> 
+                                    <!--
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Case Category : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.case_category }}
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Name of Institution : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.residential_institution_name }}
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Type of Institution : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.residential_institution_type }}
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Type of Admission : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.admission_type }}
+                                        </div>
+                                    </div>
+                                    <div id="div_transfer_from" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Transfered From : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.transfer_from }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Date of Admission : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.admission_date }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Reason Of Admission : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.admission_reason }}
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-2 -->
+
+                        <!-- begin wizard step-3 -->
+                        <div class="wizard-step-3">
+                            <fieldset>
+                                <legend class="pull-left width-full">Placement Data</legend>
+                                <div class="row"> 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Holding Period(days) : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.holding_period }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Court Committal Order? : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.has_court_committal_order }}
+                                        </div>
+                                    </div>
+                                    <div id="div_court_order_number" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Court Order Number : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.court_order_number }}
+                                        </div>
+                                    </div>
+                                    <div id="div_court_order_issue_date" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Court Order Issue Date : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.court_order_issue_date }}
+                                        </div>
+                                    </div>
+                                    <div id="div_committing_court" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Committing Court : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.committing_court }}
+                                        </div>
+                                    </div>
+                                    <div id="div_committing_period" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Committing Period : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.committing_period }}
+                                        </div>
+                                    </div>
+                                    <div id="div_ob_number" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">OB Number : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.ob_number }}
+                                        </div>
+                                    </div>
+                                    <div div id="div_free_for_adoption" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Free for Adoption? : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.free_for_adoption }}
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Officer In Charge : <span class="asteriskField">*  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.workforce_member_plcmnt }}
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Placement Notes :</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.placement_notes }}
+                                        </div>
+                                    </div>                            
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-3 -->
+                                         
+
+                    </div>
+
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                        <div class="panel-body panel-form">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4"></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <p></p>
+                                    <button id="mysubmit10" type="submit" class="btn btn-primary">Submit</button>
+                                    <button class="btn btn-default">Cancel</button>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script>
+jQuery(document).ready(function() 
+{
+    //multi selects
+    $('#residential_institution_name, #transfer_from').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        buttonClass: 'btn btn-white'
+    }); 
+
+    /* 
+       1. Get Placement Type
+       2. Display/Hide Relevant divs
+    */
+    var placement_type = sessionStorage.getItem("placement_type");
+    var person_id = sessionStorage.getItem("person_id");
+    $('#span_placement_type').text(placement_type);
+    $('#placement_type').val(placement_type);
+    $('#person_id').val(person_id);
+    if(placement_type == 'Normal')
+    {
+        $('#div_childbasicdetails0').css({'display': 'none'})
+        $('#div_childbasicdetails1').css({'display': 'none'})
+        $('#div_childbasicdetails2').css({'display': 'none'})
+        $('#div_free_for_adoption').css({'display': 'block'})
+        // $('#div_childbasicdetails_msg').css({'display': 'block'})
+
+        $('#child_firstname').attr('data-parsley-required', 'false');
+        $('#child_surname').attr('data-parsley-required', 'false');
+        $('#child_gender').attr('data-parsley-required', 'false');
+        $('#child_dob').attr('data-parsley-required', 'false');
+        $('#free_for_adoption').attr('data-parsley-required', 'true');
+    }
+    else
+    {
+        $('#div_childbasicdetails0').css({'display': 'block'})
+        $('#div_childbasicdetails1').css({'display': 'block'})
+        $('#div_childbasicdetails2').css({'display': 'block'})
+        $('#div_free_for_adoption').css({'display': 'none'})
+        // $('#div_childbasicdetails_msg').css({'display': 'none'})
+
+        $('#child_firstname').attr('data-parsley-required', 'true');
+        $('#child_surname').attr('data-parsley-required', 'true');
+        $('#child_gender').attr('data-parsley-required', 'true');
+        $('#child_dob').attr('data-parsley-required', 'true');
+        $('#free_for_adoption').attr('data-parsley-required', 'false');
+    }
+
+    // Handling Court divs Show/Hide
+    var has_court_committal_order = $("#has_court_committal_order").val();
+    if(has_court_committal_order == 'AYES')
+    {
+        $('#div_court_order_issue_date').css({'display': 'block'})
+        $('#div_court_order_number').css({'display': 'block'})
+        $('#div_committing_court').css({'display': 'block'})
+        $('#div_committing_period').css({'display': 'block'})
+        $('#div_ob_number').css({'display': 'none'});
+
+        $('#court_order_issue_date').attr('data-parsley-required', 'true');
+        $('#court_order_number').attr('data-parsley-required', 'true');
+        $('#committing_court').attr('data-parsley-required', 'true');
+        $('#committing_period').attr('data-parsley-required', 'true');
+        $('#ob_number').attr('data-parsley-required', 'false');
+        $('#ob_number').val('');
+    }
+    if(has_court_committal_order == 'ANNO')
+    {
+        $('#div_court_order_issue_date').css({'display': 'none'})
+        $('#div_court_order_number').css({'display': 'none'})
+        $('#div_committing_court').css({'display': 'none'})
+        $('#div_committing_period').css({'display': 'none'})   
+        $('#div_ob_number').css({'display': 'block'});
+
+        $('#court_order_issue_date').attr('data-parsley-required', 'false');
+        $('#court_order_number').attr('data-parsley-required', 'false');
+        $('#committing_court').attr('data-parsley-required', 'false');
+        $('#committing_period').attr('data-parsley-required', 'false');
+        $('#ob_number').attr('data-parsley-required', 'true');
+    }
+
+    // handling div_transfer_from hide/show
+    var admission_type = $("#admission_type").val();
+    if(admission_type == 'TRIN')
+    {
+        $('#div_transfer_from').css({'display': 'block'});
+        $('#transfer_from').attr('data-parsley-required', 'true');
+    }
+    else
+    {
+        $('#div_transfer_from').css({'display': 'none'});
+        $('#transfer_from').attr('data-parsley-required', 'false');
+        $('#transfer_from').multiselect("clearSelection");
+        $('#transfer_from').multiselect("refresh");
+    }
+
+    $('html,body').scrollTop(0);
+    FormWizardValidation.init();
+});
+</script>
+
+<script type="text/javascript">
+
+// Handling Court divs Show/Hide
+$("#has_court_committal_order").change(function(event) 
+{ 
+    var has_court_committal_order = $("#has_court_committal_order").val();
+    if(has_court_committal_order == 'AYES')
+    {
+        $('#div_court_order_issue_date').css({'display': 'block'})
+        $('#div_court_order_number').css({'display': 'block'})
+        $('#div_committing_court').css({'display': 'block'})
+        $('#div_committing_period').css({'display': 'block'})
+        $('#div_ob_number').css({'display': 'none'});
+
+        $('#court_order_issue_date').attr('data-parsley-required', 'true');
+        $('#court_order_number').attr('data-parsley-required', 'true');
+        $('#committing_court').attr('data-parsley-required', 'true');
+        $('#committing_period').attr('data-parsley-required', 'true');
+        $('#ob_number').attr('data-parsley-required', 'false');
+        $('#ob_number').val('');
+    }
+    if(has_court_committal_order == 'ANNO')
+    {
+        $('#div_court_order_issue_date').css({'display': 'none'})
+        $('#div_court_order_number').css({'display': 'none'})
+        $('#div_committing_court').css({'display': 'none'})
+        $('#div_committing_period').css({'display': 'none'})   
+        $('#div_ob_number').css({'display': 'block'});
+
+        $('#court_order_issue_date').attr('data-parsley-required', 'false');
+        $('#court_order_number').attr('data-parsley-required', 'false');
+        $('#committing_court').attr('data-parsley-required', 'false');
+        $('#committing_period').attr('data-parsley-required', 'false');
+        $('#ob_number').attr('data-parsley-required', 'true');
+    }
+});
+$('#has_court_committal_order').trigger('change');
+
+$("#admission_type").change(function(event) 
+{ 
+    var admission_type = $("#admission_type").val();
+    if(admission_type == 'TRIN')
+    {
+        $('#div_transfer_from').css({'display': 'block'});
+        $('#transfer_from').attr('data-parsley-required', 'true');
+    }
+    else
+    {
+        $('#div_transfer_from').css({'display': 'none'});
+        $('#transfer_from').attr('data-parsley-required', 'false');
+        $('#transfer_from').multiselect("clearSelection");
+        $('#transfer_from').multiselect("refresh");
+    }
+});
+</script>
+{% endblock %}

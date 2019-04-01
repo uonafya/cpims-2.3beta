@@ -1,0 +1,426 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} OVC Care View Child details {% endblock %}
+
+{% load app_filters %}
+
+{% block style_code %}
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">OVC Care</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>
+Registration details | {{ child.first_name }} {{ child.surname }} | {{ child.age }}
+{% if creg.is_active %}
+<span class="label label-primary">Active</span>
+{% else %}
+<span class="label label-danger">Exited {{ creg.exit_date }}</span>
+{% endif %}
+</small></h1>
+<!-- end page-header -->
+{% if messages %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div id="messages" class="alert alert-danger fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-info fa-2x pull-left"></i>
+    {% else %}
+        <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+    {% endif %}    
+        <p>{{ message }}</p>
+    </div>
+   {% endfor %}
+{% endif %}
+    <div id="message" class="alert alert-success fade in" style="display: none">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+  
+        <span id="response"></span>
+    </div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>  
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-success btn-xs">Action</button>
+                    <button type="button" class="btn btn-success btn-xs dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" id="checkin">Check in</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#" id="checkins">My Check ins</a></li>
+                    </ul>
+                </div>                    
+                <h4 class="panel-title">Registration details &nbsp; </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <form action="." method="post" name="ovcreg_form" id="ovcreg_form" data-parsley-validate="true">
+                {% csrf_token %}
+                <input type="hidden" name="ovc_id" id="ovc_id" value="{{ creg.person_id }}">
+                <table width="100%" class="table table-profile">
+                    <tbody>
+                        <tr>
+                            <td class="field" style="width: 150px">First Name</td>
+                            <td>{{ child.first_name }}</td>
+                            <td class="field">Surname</td>
+                            <td>{{ child.surname }}</td>
+                            <td class="field">Other Names</td>
+                            <td>{{ child.other_names }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="field">DOB</td>
+                            <td>{{ child.date_of_birth }}
+                            ({{ child.age }})
+                            </td>
+                            <td class="field">CBO</td>
+                            <td>{{ creg.child_cbo.org_unit_name }}</td>
+                            <td class="field">CHV</td>
+                            <td>{{ creg.child_chv.full_name }}</td>
+                        </tr>
+                        <tr>
+                            <td class="field">Registration Date</td>
+                            <td>{{ creg.registration_date }}</td>
+                            <td class="field">Has BCert</td>
+                            <td>{% if creg.has_bcert %}
+                            Yes
+                            {% else %}
+                            No
+                            {% endif %}
+                            </td>
+                            <td class="field">Birth Cert No.</td>
+                            <td>
+                            {% if params.ISOV %}
+                               {{ params.ISOV }}
+                            {% else %}
+                               N/A
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="field">Child ID</td>
+                            <td>{{ creg.org_unique_id }}</td>
+                            <td class="field">Is Disabled</td>
+                            <td>
+                            {% if creg.is_disabled %}
+                            Yes
+                            {% else %}
+                            No
+                            {% endif %}
+                            </td>
+                            <td class="field">NCPWD No.</td>
+                            <td>
+                            {% if params.ISDN %}
+                               {{ params.ISDN }}
+                            {% else %}
+                               N/A
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="field">CSI</td>
+                            <td>{{ services.fcsi }}</td>
+                            <td class="field">HHVA</td>
+                            <td>{{ services.fhva }}</td>
+                            <td class="field">Form1A</td>
+                            <td>{{ services.f1a }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                 <fieldset>
+                <legend class="pull-left width-full">Health and Education details</legend>
+                <!-- begin row -->
+                 <div class="row">
+                    <table width="100%" class="table table-profile">
+                    <tbody>
+                        <tr>
+                            <td class="field">Immunization</td>
+                            <td>{{ creg.immunization_status|gen_value:vals }}</td>
+                            <td class="field">School Level</td>
+                            <td>{{ creg.school_level|gen_value:vals }}</td>
+                            <td class="field">HIV Status</td>
+                            <td>{{ creg.hiv_status|gen_value:vals }}</td>
+                            <td class="field">Suppressed</td>
+                            <td>
+                                {% if creg.hiv_status == 'HSTP' %}
+                                   {{ suppression }}
+                                {% else %}
+                                    N/A
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if creg.hiv_status == 'HSTP' %}
+                        <tr>
+                            <td class="field">Facility</td>
+                            <td>{{ health.facility.facility_name }}</td>
+                            <td class="field">ART Status</td>
+                            <td>{{ health.art_status|gen_value:vals }}</td>
+                            <td class="field">Date of Linkage</td>
+                            <td>{{ health.date_linked }}</td>
+                            <td class="field">CCC No.</td>
+                            <td>{{ health.ccc_number }}</td>
+                        </tr>
+                        {% endif %}
+                         {% if creg.school_level != 'SLNS' %}
+                        <tr>
+                            <td class="field">School Name</td>
+                            <td>{{ school.school.school_name }}</td>
+                            <td class="field">Class</td>
+                            <td>{{ school.school_class|gen_value:vals }}</td>
+                            <td class="field">Boarding / Day</td>
+                            <td>{{ school.admission_type|gen_value:vals }}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                    </table>
+                </div>
+                </fieldset>
+
+                <fieldset>
+                <legend class="pull-left width-full">HouseHold Members details</legend>
+                <!-- begin row -->
+                 <div class="row">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>First Name</th>
+                                    <th>Surname</th>
+                                    <th>Age</th>
+                                    <th>Type</th>
+                                    <th>Telephone</th>
+                                    <th>Alive</th>
+                                    <th>HIV Status</th>
+                                    <th>Head</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for hhmember in hhmembers %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ hhmember.person.first_name }}</td>
+                                    <td>{{ hhmember.person.surname }}</td>
+                                    <td>{{ hhmember.person.years }}</td>
+                                    <td>
+                                    {% if hhmember.member_type == 'TBVC' %}
+                                       Sibling
+                                    {% elif hhmember.member_type == 'TOVC' %}
+                                       Enrolled OVC
+                                    {% else %}
+                                       Parent/Guardian
+                                    {% endif %}
+                                    </td>
+                                    <td>{{ hhmember.person.des_phone_number }}</td>
+                                    <td>
+                                        {% if hhmember.member_alive == 'AYES' %}
+                                    Yes
+                                {% else %}
+                                    No
+                                {% endif %}
+                                    </td>
+                                    <td>
+                                    {% if hhmember.hiv_status %}
+                                        {{ hhmember.hiv_status|gen_value:vals }}
+                                    {% else %}
+                                        N/A
+                                    {% endif %}
+                                    </td>
+                                    <td>
+                                    {% if not hhmember.hh_head %}
+                                        {% if hhmember.member_type == 'TBVC' or hhmember.member_type == 'TOVC' %}
+                                       N/A
+                                    {% else %}
+                                       No
+                                    {% endif %}
+                                    {% else %}
+                                        Yes ({{ hhold.house_hold.head_identifier }})
+                                    {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>                    
+                    </div>
+                </div>
+                </fieldset>
+
+               
+                <div class="row" id="form_actions">
+                    <center>
+                        <button onclick="goBack()" type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-arrow-left"></i> &nbsp;<b>Back to search</b>&nbsp; </button>
+
+                        {% if allow_edit %}
+
+                        <a href="{% url 'ovc_edit' id=creg.person_id %}"><button type="button" class="btn btn-primary"> <i class="fa fa-child"></i> Edit OVC</button></a>
+                        
+                        <a href="{% url 'new_csi' id=creg.person_id %}">
+                        <button type="button" class="btn btn-primary" value="submit"> <i class="fa fa-file-text"></i> CSI </button>
+                        </a>
+
+                        <a href="{% url 'new_hhva' id=creg.person_id %}">
+                        <button type="button" class="btn btn-primary" value="submit"> <i class="fa fa-file-text-o"></i> HHVA </button></a>
+
+                        <a href="{% url 'form1a_events' id=creg.person_id %}">
+                        <button type="button" class="btn btn-primary" value="submit"> <i class="fa fa-file-text"></i> Form 1A</button>
+                        </a>
+
+                        <a href="{% url 'new_form1b' id=creg.person_id %}">
+                        <button type="button" class="btn btn-primary" value="submit"> <i class="fa fa-file-text-o"></i> Form 1B </button></a>
+
+                        <a href="{% url 'hh_manage' hhid=hhold.house_hold.id %}">
+                        <button type="button" class="btn btn-primary"> <i class="fa fa-users"></i> Manage HH </button>
+                        </a>
+                        {% endif %}
+                    <p></p>
+                    </center>
+                </div>
+            <!-- end panel body -->
+        </div>
+        <!-- end panel -->  
+    </div>
+    <!-- end col-12 -->
+</div>
+</div>
+<!-- end row -->
+<!-- #modal-dialog -->
+      <div class="modal fade" id="modal-checkins">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              <h4 class="modal-title">My Check ins</h4>
+            </div>
+            <div class="modal-body">
+                <div id="msg"></div>
+                <div class="form-horizontal row">
+                  <div class="form-group">
+                      <div class="col-md-12">
+                          <table width="100%" id="mycheckins" class="table table-striped table-bordered"></table>
+                      </div>
+                  </div>
+                </div>  
+            </div>
+            <div class="modal-footer">
+              <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- #modal-dialog -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>  
+<script type="text/javascript">
+
+    $('#checkin').click(function() {
+        $('#message').show();
+        $.ajax({
+               type: "POST",
+               url: "{{ request.get_full_path }}",
+               dataType: "json",
+               data: $("#ovcreg_form").serialize() + "&id=1",
+               success: function(data)
+               {
+                   var status = data.status;
+                   if (status == 0){
+                       $("#message").addClass( "alert alert-success fade in" );
+                       $('#response').html(data.message);
+                    }else{
+                       $("#message").addClass( "alert alert-danger fade in" );
+                       $('#response').html(data.message);
+                    }
+               },
+                error: function(){
+                    $("#message").addClass( "alert alert-danger fade in" );
+                    $('#response').html("Error checking in. Please try again.");
+                }
+             });
+    });
+    $('#checkins').click(function() {
+        $('#modal-checkins').modal('toggle');
+        $('#mycheckins').bootstrapTable({
+            url: '{{ request.get_full_path }}',
+            method: 'get',
+            queryParams: function (p) {
+                return { 'id': 2, 'limit': p.limit, 'offset': p.offset };
+            },
+            columns: [{
+                field: 'ovc_id',
+                title: 'OVC ID'
+            }, {
+                field: 'ovc_name',
+                title: 'OVC Name'
+            }, {
+                field: 'ctime',
+                title: 'Time'
+            }, {
+                field: 'caction',
+                title: 'Action'
+            }, ],
+            search: 'true',
+            sortable: 'true',
+            locale: 'en-US',
+            pagination: 'true',
+            pageNumber: 1,
+            pageSize: 10,
+            showRefresh: true,
+            showToggle: true,
+            singleSelect: true,
+            clickToSelect:true,
+            maintainSelected: true
+        });
+    });
+
+    $("#mycheckins").delegate(".removecheckin", "click", function() {
+        var ovcid = $(this).attr('id');
+        $.ajax({
+               type: "POST",
+               url: "{{ request.get_full_path }}",
+               dataType: "json",
+               data: $("#ovcreg_form").serialize() + "&id=3&ovc_out_id="+ovcid,
+               success: function(data)
+               {
+                   var status = data.status;
+                   if (status == 0){
+                       $("#msg").addClass( "alert alert-success fade in" );
+                       $('#msg').html(data.message);
+                       $("#mycheckins").bootstrapTable('refresh');
+                    }else{
+                       $("#msg").addClass( "alert alert-danger fade in" );
+                       $('#msg').html(data.message);
+                    }
+               },
+                error: function(){
+                    $("#msg").addClass( "alert alert-danger fade in" );
+                    $('#msg').html("Error getting check ins. Please try again.");
+                }
+             });
+    });
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,306 @@
+[
+    {
+        "pk": 1125, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 1, 
+            "user_configurable": "False", 
+            "field_name": "immunization_status_id", 
+            "item_id": "IMKN", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Not Known", 
+            "sms_keyword": "False", 
+            "item_description": "Not Known", 
+            "item_category": "Immunization Status"
+        }
+    },
+    {
+        "pk": 1126, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 2, 
+            "user_configurable": "False", 
+            "field_name": "immunization_status_id", 
+            "item_id": "IMNC", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Not Completed", 
+            "sms_keyword": "False", 
+            "item_description": "Not Completed", 
+            "item_category": "Immunization Status"
+        }
+    },
+    {
+        "pk": 1127, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 3, 
+            "user_configurable": "False", 
+            "field_name": "immunization_status_id", 
+            "item_id": "IMNI", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Not Immunized", 
+            "sms_keyword": "False", 
+            "item_description": "Not Immunized", 
+            "item_category": "Immunization Status"
+        }
+    },
+    {
+        "pk": 1128, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 4, 
+            "user_configurable": "False", 
+            "field_name": "immunization_status_id", 
+            "item_id": "IMFI", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Fully Immunized", 
+            "sms_keyword": "False", 
+            "item_description": "Fully Immunized", 
+            "item_category": "Immunization Status"
+        }
+    },
+    {
+        "pk": 1129, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 1, 
+            "user_configurable": "False", 
+            "field_name": "hiv_status_id", 
+            "item_id": "HSKN", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Not Known", 
+            "sms_keyword": "False", 
+            "item_description": "Not Known", 
+            "item_category": "HIV Status"
+        }
+    },
+    {
+        "pk": 1130, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 2, 
+            "user_configurable": "False", 
+            "field_name": "hiv_status_id", 
+            "item_id": "HSTP", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "+Ve", 
+            "sms_keyword": "False", 
+            "item_description": "Positive", 
+            "item_category": "HIV Status"
+        }
+    },
+    {
+        "pk": 1131, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 3, 
+            "user_configurable": "False", 
+            "field_name": "hiv_status_id", 
+            "item_id": "HSTN", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "-Ve", 
+            "sms_keyword": "False", 
+            "item_description": "Negative", 
+            "item_category": "HIV Status"
+        }
+    },
+    {
+        "pk": 1132, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 1, 
+            "user_configurable": "False", 
+            "field_name": "school_level_id", 
+            "item_id": "SLNS", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Not in School", 
+            "sms_keyword": "False", 
+            "item_description": "Not in School", 
+            "item_category": "School Level"
+        }
+    },
+    {
+        "pk": 1133, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 2, 
+            "user_configurable": "False", 
+            "field_name": "school_level_id", 
+            "item_id": "SLEC", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "ECDE", 
+            "sms_keyword": "False", 
+            "item_description": "ECDE", 
+            "item_category": "School Level"
+        }
+    },
+    {
+        "pk": 1134, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 3, 
+            "user_configurable": "False", 
+            "field_name": "school_level_id", 
+            "item_id": "SLPR", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Primary", 
+            "sms_keyword": "False", 
+            "item_description": "Primary", 
+            "item_category": "School Level"
+        }
+    },
+    {
+        "pk": 1135, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 4, 
+            "user_configurable": "False", 
+            "field_name": "school_level_id", 
+            "item_id": "SLSE", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Secondary", 
+            "sms_keyword": "False", 
+            "item_description": "Secondary", 
+            "item_category": "School Level"
+        }
+    },
+    {
+        "pk": 1136, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 5, 
+            "user_configurable": "False", 
+            "field_name": "school_level_id", 
+            "item_id": "SLUN", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "University", 
+            "sms_keyword": "False", 
+            "item_description": "University", 
+            "item_category": "School Level"
+        }
+    },
+    {
+        "pk": 1137, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 6, 
+            "user_configurable": "False", 
+            "field_name": "school_level_id", 
+            "item_id": "SLTV", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Tertiary / Vocational", 
+            "sms_keyword": "False", 
+            "item_description": "Tertiary / Vocational", 
+            "item_category": "School Level"
+        }
+    },
+    {
+        "pk": 1138, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 1, 
+            "user_configurable": "False", 
+            "field_name": "art_status_id", 
+            "item_id": "ARAR", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "ARV", 
+            "sms_keyword": "False", 
+            "item_description": "ARV Treatment", 
+            "item_category": "ART Status"
+        }
+    },
+{
+        "pk": 1139, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 2, 
+            "user_configurable": "False", 
+            "field_name": "art_status_id", 
+            "item_id": "ARPR", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Prophylaxis", 
+            "sms_keyword": "False", 
+            "item_description": "Prophylaxis", 
+            "item_category": "ART Status"
+        }
+    },
+{
+        "pk": 1140, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 3, 
+            "user_configurable": "False", 
+            "field_name": "art_status_id", 
+            "item_id": "ARUK", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Unknown", 
+            "sms_keyword": "False", 
+            "item_description": "Unknown", 
+            "item_category": "ART Status"
+        }
+    },
+    {
+        "pk": 1141, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 7, 
+            "user_configurable": "False", 
+            "field_name": "organisation_type_id", 
+            "item_id": "TNHF", 
+            "is_void": "False", 
+            "item_sub_category": "health_unit_type_id", 
+            "item_description_short": "HF", 
+            "sms_keyword": "False", 
+            "item_description": "Health Facility", 
+            "item_category": "Organisation Type"
+        }
+    },
+    {
+        "pk": 1142, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 1, 
+            "user_configurable": "False", 
+            "field_name": "health_unit_type_id", 
+            "item_id": "HFGU", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Government HF", 
+            "sms_keyword": "False", 
+            "item_description": "Government Health Facility", 
+            "item_category": "Health Facility Type"
+        }
+    }, 
+    {
+        "pk": 1143, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "the_order": 2, 
+            "user_configurable": "False", 
+            "field_name": "health_unit_type_id", 
+            "item_id": "HFPR", 
+            "is_void": "False", 
+            "item_sub_category": "", 
+            "item_description_short": "Private HF", 
+            "sms_keyword": "False", 
+            "item_description": "Private Health Facility", 
+            "item_category": "Health Facility Type"
+        }
+    }
+]

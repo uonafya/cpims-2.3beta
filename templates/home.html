@@ -1,0 +1,183 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>CPIMS | Child Protection Information Management System</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="{% static 'plugins/jquery-ui/themes/base/minified/jquery-ui.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/style.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/theme/default.css' %}" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body class="pace-top bg-white">
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+	    <!-- begin register -->
+        <div class="register register-with-news-feed">
+            <!-- begin news-feed -->
+            <div class="news-feed">
+                <div class="news-image">
+                    <img src="{% static 'img/dcs.jpg' %}" alt="" height="100%" />
+                </div>
+                <div class="news-caption">
+                    <h4 class="caption-title"><img src="{% static 'img/logo_gok.png' %}" height="80"> Child Protection Information Management System</h4>
+                    <p>
+                        The National Council for Children's Services (NCCS) and the Department of Children Services (DCS)  are  charged  with  implementing  and  enforcing  the  provisions  of  Section  53  of  the Constitution  and  the  Children  Act,  2001.
+                    </p>
+                </div>
+            </div>
+            <!-- end news-feed -->
+            <!-- begin right-content -->
+            <div class="right-content">
+                <!-- begin login-header -->
+                <div class="register-header">
+                    <h4 class="brand shome">Department of Children Services (DCS)</h4>
+                </div>
+                <!-- end login-header -->
+                <!-- begin register-header -->
+                <h1 class="register-header">
+                    <small>Fill the form below to request for access.</small>
+                </h1>
+                <!-- end register-header -->
+                <!-- begin register-content -->
+                <div class="register-content">
+                    <div id="messages">
+                        <span class="close" data-dismiss="alert">×</span>
+                        <i class="fa fa-check fa-2x pull-left"></i> 
+                        <p class="form-message"></p>
+                    </div>
+                    <form action="." id="req_access" method="POST" class="margin-bottom-0" data-parsley-validate="true">
+                        {% csrf_token %}
+                        <label class="control-label">Name</label>
+                        <div class="row row-space-10">
+                            <div class="col-md-6 m-b-15">
+                                <input type="text" name="fname" class="form-control" placeholder="First name" data-parsley-required="true" />
+                            </div>
+                            <div class="col-md-6 m-b-15">
+                                <input type="text" name="lname" class="form-control" placeholder="Last name" data-parsley-required="true" />
+                            </div>
+                        </div>
+                        <label class="control-label">Email</label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="text" name="email" class="form-control" placeholder="Email address" data-parsley-required="true" data-parsley-type="email" />
+                            </div>
+                        </div>
+                        <label class="control-label">Telephone Number</label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <input type="text" name="tel" class="form-control" placeholder="Mobile Number" data-parsley-required="true" data-parsley-type="number" data-parsley-length="[9, 15]"/>
+                            </div>
+                        </div>                      
+                        
+                        <div class="checkbox m-b-30">
+                            <label>
+                                <input type="checkbox" name="tnc" data-parsley-required="true" data-parsley-error-message="Please agree to our terms and conditions." /> By clicking Sign Up, you agree to our <a href="{% url 'terms' id=1 %}">Terms</a> and that you have read our <a href="{% url 'terms' id=2 %}">Data Policy</a>, including our <a href="{% url 'terms' id=3 %}">Cookie Use</a>.
+                            </label>
+                        </div>
+                        <div class="register-buttons">
+                            <button type="submit" id="asubmit" class="btn btn-primary btn-block btn-lg">Submit</button>
+                        </div>
+                        <div class="m-t-20 m-b-10 p-b-10">
+                            Already a registered user? Click <a href="{% url 'login' %}">here</a> to login.
+                        </div>
+                        <span class="promo">
+                        <p>
+                            <img src="{% static 'img/logo_public.jpg' %}" height="80">
+                        </p>
+                        </span>
+                        <hr />
+                        <p class="text-center text-inverse">
+                            &copy; {% now "Y" %} Department of Children Services (DCS). All Rights Reserved.
+                        </p>
+                    </form>
+                </div>
+                <!-- end register-content -->
+            </div>
+            <!-- end right-content -->
+        </div>
+        <!-- end register -->
+        
+	</div>
+	<!-- end page container -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/jquery/jquery-1.9.1.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery/jquery-migrate-1.1.0.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-ui/ui/minified/jquery-ui.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="{% static 'crossbrowserjs/html5shiv.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/respond.min.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	<script src="{% static 'js/apps.js' %}"></script>
+	<!-- ================== END PAGE LEVEL JS ================== -->
+
+	<script>
+		$(document).ready(function() {
+			App.init();
+
+            $('#messages').hide();
+            $('#req_access').on('submit', function(e) {
+                e.preventDefault();
+                $('#asubmit').prop("disabled", false);
+                $("#messages").removeClass( "alert alert-danger fade in" );
+                $("#messages").removeClass( "alert alert-success fade in" );
+                if ( $(this).parsley().isValid() ) {
+                    $.ajax({
+                       type: "POST",
+                       url: "{{ request.get_full_path  }}",
+                       data: $("#req_access").serialize(),
+                       success: function(data)
+                       {
+                           var msg = data.message;
+                           var status_code = data.status;
+                           if (status_code == 0){
+                               $("#messages").addClass( "alert alert-success fade in" );
+                           }else{
+                            $("#messages").addClass( "alert alert-danger fade in" );
+                           }
+                           $('.form-message').html(msg);
+                           $('#messages').show();
+                           $('#asubmit').prop("disabled",true);
+                       },
+                        error: function(){
+                            $('#s1').hide();
+                            $("#messages").addClass( "alert alert-danger fade in" );
+                            $('.form-message').html("Error saving your details.");
+                            $('#messages').show();
+                        }
+                     });
+                }else{
+                    $('#messages').hide();
+                }
+            });
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} Case load reports {% endblock page_title%}
+
+{% load staticfiles %}
+
+{% block style_code%}
+
+{% endblock style_code%}
+
+
+{% block javascript_code%}
+
+{% endblock javascript_code%}
+
+{% block primary%}
+<h1 class="page-header">Case Load Report</h1>
+
+{% if messages %}
+<div id="messages" class="alert alert-danger fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.error %} class="{{ message.danger }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<!-- begin row -->
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>                        
+                <h4 class="panel-title">Report details and parameters</h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="{% url 'caseload_reports' %}" method="POST" data-parsley-validate="true" id="case_load_report">
+                   {% csrf_token %}
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4">Report Region :</label>
+                        <div class="col-md-6 col-sm-6">
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_0" name="report_region" class="report_region" type="radio" value="1" checked="checked" /> National</label>
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_1" name="report_region" class="report_region" type="radio" value="2" /> County</label>
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_2" name="report_region" class="report_region" type="radio" value="3" /> Sub-county</label>
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_3" name="report_region" class="report_region" type="radio" value="4" /> Organisation Unit</label>
+                            <div id="type_error"></div>
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select report type."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group" id="report_county">
+                        <label class="control-label col-md-4 col-sm-4">County :</label>
+                        <div class="col-md-6 col-sm-6">
+                            {{ form.county }}
+                            <div id="county_error"></div>
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select one county."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group" id="report_sub_county">
+                        <label class="control-label col-md-4 col-sm-4">Sub-county :</label>
+                        <div class="col-md-6 col-sm-6">
+                            {{ form.sub_county }}
+                            <div id="sub_county_error"></div>
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select one sub-county."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group" id="report_reg_unit">
+                        <label class="control-label col-md-4 col-sm-4">Organisation Unit :</label>
+                        <div class="col-md-6 col-sm-6">
+                            {{ form.org_unit }}
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select Organisation Unit."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4">Reporting period :</label>
+                        <div class="col-md-2 col-sm-2">
+                            {{ form.report_type }}
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                        {{ form.report_period }}
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                        {{ form.report_year }}
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select report type."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+				
+                    <div class="panel-body panel-form">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <button type="submit" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-check-square-o"></i> View </button>
+                            </div>
+                        </div>
+                    </div>
+				</form>
+			</div>
+        </div>
+        <!-- end panel -->
+        <center><div id="report_results"></div></center>
+        <br/>
+        <div id="report_html"><div id="report_vhtml"></div></div>
+        
+        
+    </div>
+    <!-- end col-12 -->       
+</div>
+<!-- end row -->
+
+{% endblock primary%}
+
+{% block lazy_javascript_code %}
+<script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script>
+jQuery(document).ready(function() {
+    $('#sub_county, #county, #id_org_unit').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        disableIfEmpty: true,
+        enableClickableOptGroups: true,
+        nonSelectedText: 'Please select sub-county',
+        buttonClass: 'btn btn-white'
+    });
+    $('#case_load_report').on('submit', function(event){
+        event.preventDefault();
+        $('#report_results').html("Processing Report...");
+        $('#report_vhtml').empty();
+        var oname = $("#id_org_unit option:selected").text();
+        $.ajax({
+            url : "{% url 'caseload_reports' %}",
+            type : "POST",
+            dataType: "json",
+            data: $("#case_load_report").serialize() + "&org_unit_name="+oname,
+            // handle a successful response
+            success : function(response) {
+                var file_name = response.file_name;
+                var status = response.status;
+                var message = response.message;
+                var url = '<a href="{% url "download_reports" file_name="0000" %}">';
+                // PDF
+                var pdf = url.replace('0000', file_name+'.pdf');
+                pdf += '<button type="button" class="btn btn-danger m-r-5 m-b-5">';
+                pdf += '<i class="fa fa-file-pdf-o"></i> PDF</button></a>';
+                // Excel
+                var xlsx = url.replace('0000', file_name+'.xlsx');
+                xlsx += '<button type="button" class="btn btn-success m-r-5 m-b-5">';
+                xlsx += '<i class="fa fa-file-excel-o"></i> Excel</button></a>';
+                var prnt = '<button type="button" class="btn btn-success m-r-5 m-b-5" onclick="printReport()"><i class="fa fa-print"></i> Print report</button>';
+                if (status == 0){
+                    $('#report_results').html(prnt + xlsx);//pdf + xlsx
+                }else{
+                    $('#report_results').html(message);                
+                }
+                $('#report_vhtml').html(response.report);  
+            },
+            // handle a non-successful response
+            error : function(xhr, errmsg, err) {
+                msg = errmsg + '. Check if you are still logged in.'
+                $('#report_results').html("Oops! We have encountered an error: " + errmsg);
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+    // Hide some stuff by default
+    $("#report_type_0").prop("checked", true);
+    $('#report_county').hide();
+    $('#county').attr('data-parsley-required', 'false');
+    $('#report_sub_county').hide();
+    $('#sub_county').attr('data-parsley-required', 'false');
+    $('#report_reg_unit').hide();
+
+    
+    $(".report_region").click(function(e) {
+        var res = $('input[name=report_region]:checked', '#case_load_report').val();
+        if (res == '1'){
+            $('#report_reg_unit').hide();
+            $('#id_org_unit').attr('data-parsley-required', 'false');
+            $('#id_org_unit').val('');
+            $('#report_county').hide();
+            $('#county').attr('data-parsley-required', 'false');
+
+            $('#report_sub_county').hide();
+            $('#sub_county').attr('data-parsley-required', 'false');
+        }else if (res == '2'){
+            $('#report_reg_unit').hide();
+            $('#id_org_unit').attr('data-parsley-required', 'false');
+            $('#id_org_unit').val('');
+            $('#report_county').show();
+            $('#county').attr('data-parsley-required', 'true');
+            $('#county').val('');
+            $('#county').multiselect('rebuild');
+
+            $('#report_sub_county').hide();
+            $('#sub_county').attr('data-parsley-required', 'false');
+        }else if (res == '3'){
+            $('#report_reg_unit').hide();
+            $('#id_org_unit').attr('data-parsley-required', 'false');
+            $('#id_org_unit').val('');
+            $('#report_county').show();
+            $('#county').attr('data-parsley-required', 'true');
+            $('#county').val('');
+            $('#county').multiselect('rebuild');
+
+            $('#report_sub_county').show();
+            $('#sub_county').attr('data-parsley-required', 'true');
+            $('#sub_county').empty();
+            $('#sub_county').multiselect('rebuild');
+        }else if (res == '4'){
+            $('#report_reg_unit').show();
+            $('#id_org_unit').attr('data-parsley-required', 'true');
+
+            $('#report_county').hide();
+            $('#county').attr('data-parsley-required', 'false');
+
+            $('#report_sub_county').hide();
+            $('#sub_county').attr('data-parsley-required', 'false');
+        }
+    });
+
+    // Cascading drop down
+    $("#county").change(function(e) {
+        var county = $("#county").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': 0,
+                      'county': county, 'action': 6,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#sub_county').empty();
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                $('#sub_county').html("<option value=''>Please Select</option>");           
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    $('#sub_county')
+                        .append($("<option></option>")
+                        .attr("value", ward_attribs[0])
+                        .text(ward_attribs[1]));
+                 });
+                 $('#sub_county').multiselect('rebuild');
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    });
+
+    M = new Array('January','February','March','April','May','June',
+                  'July','August','September','October','November','December');
+    Q = new Array('Qtr1','Qtr2','Qtr3','Qtr4');
+    Y = new Array('Financial');
+
+    populateSelect();
+
+    $(function() {
+        $('#id_report_type').change(function(){
+            populateSelect();
+        });
+    });
+
+
+    function populateSelect(){
+        cat = $('#id_report_type').val();
+        $('#id_report_period').html('');
+
+        if (cat != ''){
+            eval(cat).forEach(function(t) { 
+                $('#id_report_period').append('<option>'+t+'</option>');
+            });
+        }else{
+             $('#id_report_period').append('<option></option>'); 
+        }
+    }
+
+});
+function PrintElem(elem)
+    {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) 
+    {
+        var lscape = '<style type="text/css" media="print">@page { size: landscape; }</style>';
+        var bstrap = '<link href="{% static "plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" />';
+        var mywindow = window.open('', 'report_html', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>Case Load Report</title>');
+        mywindow.document.write(bstrap);
+        mywindow.document.write('<link href="{% static "css/style.css" %}" rel="stylesheet" />');
+        mywindow.document.write(lscape);
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+        // IE Handlers
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+        // Other browsers handlers
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+function printReport() {
+      var body               = $('body');
+      var reportContainer       = $('#report_vhtml');
+      var reportContainerParent = reportContainer.parent();
+      var printContainer     = $('<div>');
+      var inithtml = $('#report_vhtml').html();
+
+      printContainer
+        .addClass('print-container')
+        .css('width', '100%')
+        .css('height', '800px')
+        .height(reportContainer.height())
+        .append(reportContainer)
+        .prependTo(body);
+
+      var content = body
+        .children()
+        .not('script')
+        .not(printContainer)
+        .detach();
+      
+
+      var patchedStyle = $('<style>')
+        .attr('media', 'print')
+        .text('img { max-width: auto !important; }' +
+              'a[href]:after { content: ""; }')
+        .appendTo('head');
+
+      window.print();
+
+      body.prepend(content);
+      reportContainerParent.prepend(reportContainer);
+
+      printContainer.remove();
+      patchedStyle.remove();
+      //Rewrite the html back to the page
+      $('#report_html').hide();
+      $('#report_vhtml').html(inithtml);
+      $('#report_html').show();
+}
+
+</script>
+{% endblock lazy_javascript_code %}

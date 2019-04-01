@@ -1,0 +1,1603 @@
+[
+    {
+        "pk": 2,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNCB",
+            "item_description_short": "CBO",
+            "field_name": "org_unit_type_id",
+            "item_description": "Community based organisation including community level faith based organisations",
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 4,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNCM",
+            "item_description_short": "Committee - community",
+            "field_name": "org_unit_type_id",
+            "item_description": "Local level committee",
+            "the_order": 17
+        }
+    },
+    {
+        "pk": 5,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNGS",
+            "item_description_short": "Government - local",
+            "field_name": "org_unit_type_id",
+            "item_description": "Local unit of Government institution (below sub-county)",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 6,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNND",
+            "item_description_short": "NGO/private - low level",
+            "field_name": "org_unit_type_id",
+            "item_description": "NGO/FBO/private unit covering one sub-county or part of one sub-county",
+            "the_order": 10
+        }
+    },
+    {
+        "pk": 7,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNCD",
+            "item_description_short": "Committee - sub-county",
+            "field_name": "org_unit_type_id",
+            "item_description": "Sub-county level committee",
+            "the_order": 16
+        }
+    },
+    {
+        "pk": 8,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNGD",
+            "item_description_short": "Government - sub-county",
+            "field_name": "org_unit_type_id",
+            "item_description": "Sub-county office of Government institution",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 9,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNNM",
+            "item_description_short": "NGO/private - mid level",
+            "field_name": "org_unit_type_id",
+            "item_description": "NGO/FBO/private unit not HQ but covering multiple sub-counties",
+            "the_order": 9
+        }
+    },
+    {
+        "pk": 10,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNCP",
+            "item_description_short": "Committee - county",
+            "field_name": "org_unit_type_id",
+            "item_description": "County level committee / council",
+            "the_order": 14
+        }
+    },
+    {
+        "pk": 11,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNGP",
+            "item_description_short": "Government - county",
+            "field_name": "org_unit_type_id",
+            "item_description": "County office of Government institution",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 12,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNNH",
+            "item_description_short": "NGO/private - national",
+            "field_name": "org_unit_type_id",
+            "item_description": "NGO/FBO/private national HQ unit",
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 13,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNGN",
+            "item_description_short": "Government - national",
+            "field_name": "org_unit_type_id",
+            "item_description": "National level Government institution",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 14,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit ID - external",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "INGO",
+            "item_description_short": "",
+            "field_name": "identifier_type_id",
+            "item_description": "NGO registration number",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 15,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit ID - external",
+            "user_configurable": "True",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ICOM",
+            "item_description_short": "",
+            "field_name": "identifier_type_id",
+            "item_description": "Company registration number",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 16,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit ID - external",
+            "user_configurable": "True",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ITRU",
+            "item_description_short": "",
+            "field_name": "identifier_type_id",
+            "item_description": "Trust registration number",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 17,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CPHL",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Phone number - landline",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 18,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CPHM",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Phone number - mobile",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 19,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CEMA",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Email address",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CPOA",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Postal address",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 21,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CPHA",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Physical address",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 22,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Geographical area type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "GDIS",
+            "item_description_short": "",
+            "field_name": "area_type_id",
+            "item_description": "Sub-county",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 23,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Geographical area type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "GWRD",
+            "item_description_short": "",
+            "field_name": "area_type_id",
+            "item_description": "Ward",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 24,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Sex",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "SMAL",
+            "item_description_short": "",
+            "field_name": "sex_id",
+            "item_description": "Male",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 25,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Sex",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "SFEM",
+            "item_description_short": "",
+            "field_name": "sex_id",
+            "item_description": "Female",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 26,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person type (user/workforce member)",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TWNE",
+            "item_description_short": "",
+            "field_name": "person_type_id",
+            "item_description": "NGO/private sector employee"
+        }
+    },
+    {
+        "pk": 27,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person type (user/workforce member)",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TWGE",
+            "item_description_short": "",
+            "field_name": "person_type_id",
+            "item_description": "Government employee"
+        }
+    },
+    {
+        "pk": 28,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "General YesNo",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "GENY",
+            "item_description_short": "",
+            "field_name": "",
+            "item_description": "Yes",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 29,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "General YesNo",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "GENN",
+            "item_description_short": "",
+            "field_name": "",
+            "item_description": "No",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 30,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person type (user/workforce member)",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TWVL",
+            "item_description_short": "",
+            "field_name": "person_type_id",
+            "item_description": "Volunteer"
+        }
+    },
+    {
+        "pk": 73,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CPHD",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Phone number - designated mobile",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 74,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person type (beneficiary)",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TBVC",
+            "item_description_short": "",
+            "field_name": "person_type_id",
+            "item_description": "Child"
+        }
+    },
+    {
+        "pk": 75,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person type (beneficiary)",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TBGR",
+            "item_description_short": "",
+            "field_name": "person_type_id",
+            "item_description": "Caregiver"
+        }
+    },
+    {
+        "pk": 76,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "REGB",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Register new beneficiary",
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 77,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "REGU",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Register new organisational unit",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 78,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "REGS",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Register new user",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 79,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "REGW",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Register new workforce member",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 80,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "UPDB",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Update beneficiary file",
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 81,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "UPDU",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Update organisational unit file",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 82,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "UPDS",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Update user file",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 83,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Transaction type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "UPDW",
+            "item_description_short": "",
+            "field_name": "transaction_type_id",
+            "item_description": "Update workforce member file",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 84,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Interfaces",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "INTC",
+            "item_description_short": "",
+            "field_name": "interface_id",
+            "item_description": "Capture application interface",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 86,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Interfaces",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "INTW",
+            "item_description_short": "",
+            "field_name": "interface_id",
+            "item_description": "Web interface",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 88,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Answer type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ATMS",
+            "item_description_short": "",
+            "field_name": "answer_type_id",
+            "item_description": "Multi select"
+        }
+    },
+    {
+        "pk": 89,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Answer type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ATNM",
+            "item_description_short": "",
+            "field_name": "answer_type_id",
+            "item_description": "Numeric - integer"
+        }
+    },
+    {
+        "pk": 90,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Answer type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ATSS",
+            "item_description_short": "",
+            "field_name": "answer_type_id",
+            "item_description": "Single select"
+        }
+    },
+    {
+        "pk": 91,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Answer type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ATTX",
+            "item_description_short": "",
+            "field_name": "answer_type_id",
+            "item_description": "Text"
+        }
+    },
+    {
+        "pk": 110,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "EELS",
+            "item_description_short": "",
+            "field_name": "encounter_type_id",
+            "item_description": "Encountered elsewhere",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 111,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "EHOM",
+            "item_description_short": "",
+            "field_name": "encounter_type_id",
+            "item_description": "Visit to home of child or caregiver",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 112,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter type",
+            "user_configurable": "False",
+            "sms_keyword": "True",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "EWRK",
+            "item_description_short": "",
+            "field_name": "encounter_type_id",
+            "item_description": "Child or caregiver came to workplace",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 113,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "FT3e",
+            "item_description_short": "",
+            "field_name": "form_type_id",
+            "item_description": "Basic service and referral",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 123,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Geographical area type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "GPRV",
+            "item_description_short": "",
+            "field_name": "area_type_id",
+            "item_description": "County",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 219,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Residential status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSRS",
+            "item_description_short": "",
+            "field_name": "residential_status_id",
+            "item_description": "Resident in institution",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 220,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Residential status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSRI",
+            "item_description_short": "",
+            "field_name": "residential_status_id",
+            "item_description": "Exited institution, now re-integrated",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 221,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Residential status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSNV",
+            "item_description_short": "",
+            "field_name": "residential_status_id",
+            "item_description": "Receiving services from residential institution, but was never resident",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 222,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Residential status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSTR",
+            "item_description_short": "",
+            "field_name": "residential_status_id",
+            "item_description": "Exited institution, now transferred to another institution",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 223,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Residential status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSLF",
+            "item_description_short": "",
+            "field_name": "residential_status_id",
+            "item_description": "Exited institution, escaped or ran away",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 224,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Family status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSRU",
+            "item_description_short": "",
+            "field_name": "family_status_id",
+            "item_description": "Relatives unknown (including dumped babies)",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 226,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Family status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSYA",
+            "item_description_short": "",
+            "field_name": "family_status_id",
+            "item_description": "Relatives known and in regular contact but not yet assessed for placement",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 227,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Family status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSNA",
+            "item_description_short": "",
+            "field_name": "family_status_id",
+            "item_description": "Child in conflict with the law",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 296,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "EINT",
+            "item_description_short": "",
+            "field_name": "encounter_type_id",
+            "item_description": "Encounter in relation to case",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 299,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Answer type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ATDT",
+            "item_description_short": "",
+            "field_name": "answer_type_id",
+            "item_description": "Date"
+        }
+    },
+    {
+        "pk": 300,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Answer type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ATDC",
+            "item_description_short": "",
+            "field_name": "answer_type_id",
+            "item_description": "Numeric - decimal"
+        }
+    },
+    {
+        "pk": 301,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter note type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "NTWI",
+            "item_description_short": "",
+            "field_name": "note_type_id",
+            "item_description": "Who interviewed"
+        }
+    },
+    {
+        "pk": 302,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter note type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "NTNT",
+            "item_description_short": "",
+            "field_name": "note_type_id",
+            "item_description": "Notes"
+        }
+    },
+    {
+        "pk": 307,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Family status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSNC",
+            "item_description_short": "",
+            "field_name": "family_status_id",
+            "item_description": "Relatives known but not in regular contact with child",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 308,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Family status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSNW",
+            "item_description_short": "",
+            "field_name": "family_status_id",
+            "item_description": "Relatives known and in regular contact with child, but unwilling/unable to provide care in home",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 309,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Family status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSRK",
+            "item_description_short": "",
+            "field_name": "family_status_id",
+            "item_description": "Relatives known but unsuitable to provide care (eg risk of abuse)",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 310,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Residential status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSDD",
+            "item_description_short": "",
+            "field_name": "residential_status_id",
+            "item_description": "Died while resident in institution",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 311,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Geographical link type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "GLTW",
+            "item_description_short": "",
+            "field_name": "geo_link_type_id",
+            "item_description": "Working in"
+        }
+    },
+    {
+        "pk": 312,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Geographical link type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "GLTL",
+            "item_description_short": "",
+            "field_name": "geo_link_type_id",
+            "item_description": "Living in"
+        }
+    },
+    {
+        "pk": 313,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Family status",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RSMI",
+            "item_description_short": "",
+            "field_name": "family_status_id",
+            "item_description": "In institution with mother (has child mother)",
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 1001,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNRL",
+            "item_description_short": "Institution - SI - CICWL",
+            "field_name": "org_unit_type_id",
+            "item_description": "Statutory institution - remand/rehab/borstal (residential)",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 1002,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNRR",
+            "item_description_short": "Institution - SI - Rescue",
+            "field_name": "org_unit_type_id",
+            "item_description": "Statutory institution - rescue home (residential)",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 1003,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNRC",
+            "item_description_short": "Institution - CCI",
+            "field_name": "org_unit_type_id",
+            "item_description": "Charitable Children Institution (residential)",
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 1004,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNCN",
+            "item_description_short": "Committee - national",
+            "field_name": "org_unit_type_id",
+            "item_description": "National level committee / council",
+            "the_order": 13
+        }
+    },
+    {
+        "pk": 1005,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CPLG",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Longitude",
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 1006,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Contact detail",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CPLT",
+            "item_description_short": "",
+            "field_name": "contact_detail_type_id",
+            "item_description": "Latitude",
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 1007,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Child caregiver relationship type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RLPR",
+            "item_description_short": "",
+            "field_name": "relationship_type_id",
+            "item_description": "Parent",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 1008,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Child caregiver relationship type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RLRL",
+            "item_description_short": "",
+            "field_name": "relationship_type_id",
+            "item_description": "Other relative",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 1009,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Child caregiver relationship type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RLFS",
+            "item_description_short": "",
+            "field_name": "relationship_type_id",
+            "item_description": "Non-relative foster parent",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 1010,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Child caregiver relationship type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RLAD",
+            "item_description_short": "",
+            "field_name": "relationship_type_id",
+            "item_description": "Non-relative adoptive parent",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 1011,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "FT3g",
+            "item_description_short": "",
+            "field_name": "form_type_id",
+            "item_description": "Child background details",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 1012,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "FT3h",
+            "item_description_short": "",
+            "field_name": "form_type_id",
+            "item_description": "Child protection case",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 1013,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "FT3i",
+            "item_description_short": "",
+            "field_name": "form_type_id",
+            "item_description": "Children resident in institution",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 1014,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ECRT",
+            "item_description_short": "",
+            "field_name": "encounter_type_id",
+            "item_description": "Court session",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 1015,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Encounter type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ERES",
+            "item_description_short": "",
+            "field_name": "encounter_type_id",
+            "item_description": "Encounter within residential institution",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 1016,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Organisational unit type",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "TNAC",
+            "item_description_short": "Committee - sub-county",
+            "field_name": "org_unit_type_id",
+            "item_description": "Area advisory council",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1017,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "SUBO",
+            "item_description_short": "SUB OFF",
+            "field_name": "cadre_type_id",
+            "item_description": "Subordinate Officer",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1018,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "VCO",
+            "item_description_short": "VCO",
+            "field_name": "cadre_type_id",
+            "item_description": "Volunteer Children Officer",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1019,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CLO",
+            "item_description_short": "CLOF",
+            "field_name": "cadre_type_id",
+            "item_description": "Clerical Officer",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1020,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CDO1",
+            "item_description_short": "CHDOF1",
+            "field_name": "cadre_type_id",
+            "item_description": "Children Officer I",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1021,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CDO2",
+            "item_description_short": "CHDOF2",
+            "field_name": "cadre_type_id",
+            "item_description": "Children Officer II",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1022,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "SCHD",
+            "item_description_short": "SENCHDOF",
+            "field_name": "cadre_type_id",
+            "item_description": "Senior Children Officer",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1023,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "CCHD",
+            "item_description_short": "CCHDOF",
+            "field_name": "cadre_type_id",
+            "item_description": "Chief Children Officer",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1024,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "PCHD",
+            "item_description_short": "PCHDOF",
+            "field_name": "cadre_type_id",
+            "item_description": "Principal Children Officer",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1025,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ASD",
+            "item_description_short": "ASSDIR",
+            "field_name": "cadre_type_id",
+            "item_description": "Assistant Director",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1026,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "SASD",
+            "item_description_short": "SASSDIR",
+            "field_name": "cadre_type_id",
+            "item_description": "Senior Assistant Director",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1027,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "DCHD",
+            "item_description_short": "DIRCHDS",
+            "field_name": "cadre_type_id",
+            "item_description": "Director of Children Services",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1028,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Employee Designation",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ITO",
+            "item_description_short": "ITOF",
+            "field_name": "cadre_type_id",
+            "item_description": "IT Officer",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1029,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person Search Criteria",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "NAME",
+            "item_description_short": "NAME",
+            "field_name": "psearch_criteria_type_id",
+            "item_description": "Names",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1031,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person Search Criteria",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "ORG",
+            "item_description_short": "ORGU",
+            "field_name": "psearch_criteria_type_id",
+            "item_description": "OrgUnit",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 1032,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Person Search Criteria",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_sub_category": "",
+            "is_void": "False",
+            "item_id": "RES",
+            "item_description_short": "RESIDE",
+            "field_name": "psearch_criteria_type_id",
+            "item_description": "Residence",
+            "the_order": 15
+        }
+    }
+]

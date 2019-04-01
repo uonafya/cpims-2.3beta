@@ -1,0 +1,381 @@
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} Register {% endblock page_title%}
+
+{% load staticfiles %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+{% endblock style_code%}
+
+    
+{% block primary %}  
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+<li><a href="#">Home</a></li>
+<li class="active">Persons</li>
+</ol>
+<!-- end breadcrumb -->
+
+    <!-- begin row -->
+        <div class="row">
+            <!-- begin col-6 -->
+            <div class="col-12">
+                <h3 class="register-header">
+                Persons Registry <small>New Child/Caregiver/Government or NGO employee.</small>
+                </h3>
+                <!-- begin panel -->
+                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>                        
+                        <h4 class="panel-title"><b>Create Person &nbsp<i class="fa fa-male"></i></b> <span id="person_name"></span></h4>
+                    </div>
+
+                    <div class="panel-body panel-form">
+                        <form class="form-horizontal form-bordered" action="{% url 'new_person' %}" method="POST" data-parsley-validate="true" name="demo-form" >
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="person_type">Person Type * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.person_type }}<b>
+                                </div>
+                            </div>
+                            <div  id="cadre_type_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="cadre_type">Designation * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.cadre_type }}<b>
+                                </div>
+                            </div>
+                            <div  id="first_name" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="first_name">First Name * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.first_name }}<b>
+                                </div>
+                            </div>
+                            <div  id="other_names" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="other_names">Other Names :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.other_names}}</b>
+                                </div>
+                            </div>
+                            <div id="surname" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="surname">Surname * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.surname }}<b>
+                                </div>
+                            </div>
+                            <div id="sex_id" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="sex_id">Sex * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.sex_id }}<b>
+                                </div>
+                            </div>
+                            <div id="des_phone_number" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="des_phone_number">Phone Number :</label>
+                                <div class="col-md-6 col-sm-6">
+                                   <b>{{ form.des_phone_number }}<b>
+                                </div>
+                            </div>                            
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="date_of_birth">Date Of Birth * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.date_of_birth }}<b>
+                                </div>
+                            </div>
+                            <div id="email" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="email">Email Address :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.email }}<b>
+                                </div>
+                            </div>    
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="living_in">Living in * : </label>
+                                <div class="col-md-6 col-sm-6 data-maxOptions=1" >
+                                    <b>{{ form.living_in }}<b>
+                                </div>
+                            </div>                            
+                            <div id="org_unit_id_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="org_unit_id">Organizational Unit(s) * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.org_unit_id  }}</b>
+                                </div>
+                            </div>
+                            <div id="national_id_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="national_id">National ID * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.national_id }}<b>
+                                </div>
+                            </div>
+                            <div id="staff_id_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="staff_id">Staff Number :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.staff_id }}<b>
+                                </div>
+                            </div>
+                            <div id="birth_reg_id_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="birth_reg_id">Birth Reg ID :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.birth_reg_id }}<b>
+                                </div>
+                            </div>
+                            <div id="caregiver_id_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="caregiver_id">Caregiver ID :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.caregiver_id }}<b>
+                                </div>
+                            </div>
+                            <div id="relationship_type_id_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="relationship_type_id">Relationship * :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.relationship_type_id }}<b>
+                                </div>
+                            </div>
+                            <div id="date_of_death_div" class="form-group">
+                                <label class="control-label col-md-4 col-sm-4" for="date_of_death">Date Of Death :</label>
+                                <div class="col-md-6 col-sm-6">
+                                    <b>{{ form.date_of_death }}<b>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4"></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- end panel -->
+            </div>
+            <!-- end col-6 -->
+            
+        </div>
+        <!-- end row -->
+{% endblock primary %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'js/custom_js.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script>
+$(document).ready(function()
+{ 
+    window.onload = function(e)
+    { 
+        //Hide these <divs> on page_load()
+        $('#national_id_div').hide();
+        $('#national_id').attr('data-parsley-required', 'false');
+
+        $('#staff_id_div').hide();
+        $('#staff_id').attr('data-parsley-required', 'false');
+
+        $('#birth_reg_id_div').hide(); 
+        $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+        $('#caregiver_id_div').hide();
+        $('#caregiver_id').attr('data-parsley-required', 'false');
+
+        $('#relationship_type_id_div').hide(); 
+        $('#relationship_type_id').attr('data-parsley-required', 'false');
+
+        $('#org_unit_id_div').hide();
+        $('#org_unit_id').attr('data-parsley-required', 'false');
+
+        $('#date_of_death_div').hide();
+        $('#date_of_death').attr('data-parsley-required', 'false'); 
+
+        $('#cadre_type_div').hide(); 
+        $('#cadre_type').attr('data-parsley-required', 'false'); 
+    }
+
+    $('#org_unit_id').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            numberDisplayed: 1,
+            maxHeight: 300,
+            buttonWidth: '100%'
+      });
+
+    $('#person_type').on('change', function() {
+        var selected = new Array();
+        var person_type = document.getElementById('person_type');
+        
+        for(j = 0; j < person_type.options.length; j++)
+        { 
+            if(person_type.options[j].selected) 
+            { 
+                _person_type = person_type.options[j].value
+                selected.push(_person_type);
+            } 
+        }
+
+        //Child
+        if ( $.inArray('TBVC', selected) > -1 )
+        {
+            $('#national_id_div').hide();
+            $('#national_id').attr('data-parsley-required', 'false');
+
+            $('#staff_id_div').hide();
+            $('#staff_id').attr('data-parsley-required', 'false');
+
+            $('#birth_reg_id_div').show(); 
+            $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+            $('#caregiver_id_div').hide();
+            $('#caregiver_id').attr('data-parsley-required', 'false');
+
+            $('#relationship_type_id_div').show(); 
+            $('#relationship_type_id').attr('data-parsley-required', 'true');
+
+            $('#org_unit_id_div').show();
+            $('#org_unit_id').attr('data-parsley-required', 'true');
+
+            $('#date_of_death_div').hide();
+            $('#date_of_death').attr('data-parsley-required', 'false'); 
+
+            $('#cadre_type_div').hide(); 
+            $('#cadre_type').attr('data-parsley-required', 'false');
+        }
+
+        //Caregiver
+        if ( $.inArray('TBGR', selected) > -1 )
+        {
+            //Hide these <divs> on page_load()
+            $('#national_id_div').show();
+            $('#national_id').attr('data-parsley-required', 'true');
+
+            $('#staff_id_div').hide();
+            $('#staff_id').attr('data-parsley-required', 'false');
+
+            $('#birth_reg_id_div').hide(); 
+            $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+            $('#caregiver_id_div').hide();
+            $('#caregiver_id').attr('data-parsley-required', 'false');
+
+            $('#relationship_type_id_div').hide(); 
+            $('#relationship_type_id').attr('data-parsley-required', 'false');
+
+            $('#org_unit_id_div').hide();
+            $('#org_unit_id').attr('data-parsley-required', 'false');
+
+            $('#date_of_death_div').hide();
+            $('#date_of_death').attr('data-parsley-required', 'false'); 
+
+            $('#cadre_type_div').hide(); 
+            $('#cadre_type').attr('data-parsley-required', 'false'); 
+        }
+
+        //Volunteer
+        if ( $.inArray('TWVL', selected) > -1 ) {
+            //Hide these <divs> on page_load()
+            $('#national_id_div').show();
+            $('#national_id').attr('data-parsley-required', 'true');
+
+            $('#staff_id_div').show();
+            $('#staff_id').attr('data-parsley-required', 'true');
+
+            $('#birth_reg_id_div').hide(); 
+            $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+            $('#caregiver_id_div').hide();
+            $('#caregiver_id').attr('data-parsley-required', 'false');
+
+            $('#relationship_type_id_div').hide(); 
+            $('#relationship_type_id').attr('data-parsley-required', 'false');
+
+            $('#org_unit_id_div').show();
+            $('#org_unit_id').attr('data-parsley-required', 'true');
+
+            $('#date_of_death_div').hide();
+            $('#date_of_death').attr('data-parsley-required', 'false'); 
+
+            $('#cadre_type_div').show(); 
+            $('#cadre_type').attr('data-parsley-required', 'false'); 
+        }
+
+        //Government Employee
+        if ( $.inArray('TWGE', selected) > -1 ) {
+            $('#national_id_div').show();
+            $('#national_id').attr('data-parsley-required', 'true');
+
+            $('#staff_id_div').show();
+            $('#staff_id').attr('data-parsley-required', 'true');
+
+            $('#birth_reg_id_div').hide(); 
+            $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+            $('#caregiver_id_div').hide();
+            $('#caregiver_id').attr('data-parsley-required', 'false');
+
+            $('#relationship_type_id_div').hide(); 
+            $('#relationship_type_id').attr('data-parsley-required', 'false');
+
+            $('#org_unit_id_div').show();
+            $('#org_unit_id').attr('data-parsley-required', 'true');
+
+            $('#date_of_death_div').hide();
+            $('#date_of_death').attr('data-parsley-required', 'false'); 
+
+            $('#cadre_type_div').show(); 
+            $('#cadre_type').attr('data-parsley-required', 'true'); 
+        }
+
+        //NGO/private sector employee
+        if ( $.inArray('TWNE', selected) > -1 ) {
+            $('#national_id_div').show();
+            $('#national_id').attr('data-parsley-required', 'true');
+
+            $('#staff_id_div').show();
+            $('#staff_id').attr('data-parsley-required', 'true');
+
+            $('#birth_reg_id_div').hide(); 
+            $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+            $('#caregiver_id_div').hide();
+            $('#caregiver_id').attr('data-parsley-required', 'false');
+
+            $('#relationship_type_id_div').hide(); 
+            $('#relationship_type_id').attr('data-parsley-required', 'false');
+
+            $('#org_unit_id_div').show();
+            $('#org_unit_id').attr('data-parsley-required', 'true');
+
+            $('#date_of_death_div').hide();
+            $('#date_of_death').attr('data-parsley-required', 'false'); 
+
+            $('#cadre_type_div').show(); 
+            $('#cadre_type').attr('data-parsley-required', 'true'); 
+        }
+    });
+
+    $('#relationship_type_id').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            numberDisplayed: 0,
+            maxHeight: 300,
+            checked: false,
+            deselectAll: true,
+            buttonWidth: '100%'
+      });
+
+    $('#living_in').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            maxHeight: 300,
+            checked: false,
+            deselectAll: true,
+            buttonWidth: '100%'
+            });
+
+   
+});
+</script>
+{% endblock lazy_javascript_code %}

@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Organisation units {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Registry</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Registry <small>Update Organisational Unit</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+<!-- begin row -->
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title">Organization Unit details</h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard" id="edit_org_unit">
+                {% csrf_token %}
+		        <input type='radio' class="edit_org" name='edit_org' value="1" checked="checked" id="edit_org_1"> Update Organization Unit registration details
+		        <div class="separator"><p></p></div>
+		        <div id="edit_part">
+					<div id="wizard">
+						<ol>
+							<li>
+							    About the Organisation 
+							    <small>Name and registration date.</small>
+							</li>
+							<li>
+							    Organisation Type
+							    <small>Organisation type and registration details.</small>
+							</li>
+							<li>
+							    Location
+							    <small>Where located / Providing services.</small>
+							</li>
+							<li>
+							    Contact
+							    <small>Organisation Unit contact details.</small>
+							</li>
+						</ol>
+						<!-- begin wizard step-1 -->
+						<div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">About the Organisation</legend>
+                                <!-- begin row -->
+                                <div class="row">
+                                    <div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="org_unit_name">Name of Organisation Unit * :</label>
+										<div class="col-md-6 col-sm-6">
+												{{ form.org_unit_name }}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="date_reg">Date when the organisation Unit was set up or became operational * :</label>
+										<div class="col-md-6 col-sm-6">
+			                                {{ form.reg_date }}
+										</div>
+									</div>
+                                </div>
+                                <!-- end row -->
+							</fieldset>
+						</div>
+						<!-- end wizard step-1 -->
+						<!-- begin wizard step-2 -->
+						<div class="wizard-step-2">
+							<fieldset>
+								<legend class="pull-left width-full">Organisation Type</legend>
+                                <!-- begin row -->
+                                <div class="row">
+                                    <!-- begin col-6 -->
+                                    <div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="org_unit_type">Type of organisation Unit :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ form.org_unit_type }}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="legal_reg_type">Legal Registration type :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ form.org_reg_type }}
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="legal_reg_number">Legal Registration Number :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ form.legal_reg_number }}
+										</div>
+									</div>
+			                        <div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="parent_unit">Parent Unit :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ form.parent_org_unit }}
+										</div>
+									</div>
+                                    <!-- end col-6 -->
+                                </div>
+                                <!-- end row -->
+							</fieldset>
+						</div>
+						<!-- end wizard step-2 -->
+						<!-- begin wizard step-3 -->
+						<div class="wizard-step-3">
+							<fieldset>
+								<legend class="pull-left width-full">Location</legend>
+                                <!-- begin row -->
+                                <div class="row">
+                                    <!-- begin col-4 -->
+                                    <div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="sub_county">County :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ form.county }}
+											<span id="sel_county" class="showlist"></span>
+										</div>
+									</div>
+                                    <div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="sub_county">Sub County :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ form.sub_county }}
+											<span id="sel_sub_county" class="showlist"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-4 col-sm-4" for="wards">Wards :</label>
+										<div class="col-md-6 col-sm-6">
+											{{ form.ward }}
+											<span id="sel_ward" class="showlist"></span>
+										</div>
+									</div>
+			                        <!-- end col-6 -->
+                                </div>
+                                <!-- end row -->
+                            </fieldset>
+						</div>
+						<!-- end wizard step-3 -->
+						<!-- begin wizard step-4 -->
+					    <div class="wizard-step-4">
+						    <fieldset>
+								<legend class="pull-left width-full">Contacts</legend>
+                                <!-- begin row -->
+                                <div class="row">
+	                                    {% crispy cform %}
+                                </div>
+                                <!-- end row -->
+                            </fieldset>
+                        </div>
+						<!-- end wizard step-4 -->
+					</div>
+					
+	                </div><!-- end view part -->
+		            <!-- end panel -->
+		            <input type='radio' class="edit_org" name='edit_org' value="2"> Organization Unit closed / No longer functional.
+		            <!-- begin panel -->
+	                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+	                    <div id="cdate" class="panel-body panel-form">
+							<div class="form-group">
+								<label class="control-label col-md-4 col-sm-4" for="parent_unit">Date closed :</label>
+								<div class="col-md-6 col-sm-6">
+									{{ form.close_date }}
+								</div>
+							</div>
+	                    </div>
+	                </div>
+	                <!-- end panel -->
+		            <input type='radio' class="edit_org" name='edit_org' value="3"> Organization Unit never existed. (Registration mistake or duplicate.)
+		            <!-- begin panel -->
+	                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+	                    <div class="panel-body panel-form">
+							<div class="form-group">
+								<label class="control-label col-md-4 col-sm-4"></label>
+								<div class="col-md-6 col-sm-6">
+								    <p></p>
+									<button type="submit" class="btn btn-primary">Update</button>
+									<button type="submit" class="btn btn-default">Cancel</button>
+									<p></p>
+								</div>
+							</div>
+	                    </div>
+	                </div>
+	                <!-- end panel -->
+				</form>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+<!-- End content area -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+	<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+	<script src="{% static 'js/form-wizards.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+	<script type="text/javascript">
+		window.Parsley
+		  .addValidator('isngo', {
+		    requirementType: 'string',
+		    validateString: function(value, requirement) {
+		      var refs = $(requirement).val();
+		      var reff = $(requirement);
+		      var vals = ["TNND", "TNNM", "TNNH"];
+		      if (reff.length){
+                if($.inArray(refs, vals) > -1){
+                	if (value != '') return true; else return false;
+                }else{
+                	return true;
+                }
+		      }else{
+		      	return false;
+		      }
+		    },
+		    messages: {
+		      en: 'Registration details should be provided for this unit.'
+		    }
+		  });
+		window.Parsley
+		    .addValidator('ishq', {
+		    requirementType: 'string',
+		    validateString: function(value, requirement) {
+		      var refs = $(requirement).val();
+		      var reff = $(requirement);
+		      if (reff.length){
+                if(refs != 'TNGN'){
+                	if (value != '') return true; else return false;
+                }else{
+                	return true;
+                }
+		      }else{
+		      	return false;
+		      }
+		    },
+		    messages: {
+		      en: 'Parent organization unit must be provided.'
+		    }
+		  });
+		</script>
+	<script>
+		jQuery(document).ready(function() {
+			$('html,body').scrollTop(0);
+			FormWizardValidation.init();
+			$('#id_county, #id_sub_county, #id_ward').multiselect({
+				enableFiltering: true,
+				filterBehavior: 'both',
+				numberDisplayed: 0,
+				maxHeight: 200,
+				enableCaseInsensitiveFiltering: true
+			});
+			$("#id_sub_county").change(function(e) {
+				var county = $("#id_county").val();
+				var sub_county = $("#id_sub_county").val();
+				var ward = $("#id_ward").val();
+		        var csrftoken = $.cookie('csrftoken');
+                var values = {'sub_county': sub_county,
+                              'county': county,
+                              'ward': ward, 'action': 1,
+                              'csrfmiddlewaretoken': csrftoken };
+                $('#id_ward').empty();
+				$.ajax({
+					type: "POST",
+					data: values,
+					dataType: "json",
+					url: "{% url 'reg_lookup' %}",
+					success: function(data){
+						var wards = data.wards;
+						//$('#id_ward').html("<option value=''>Select One</option>");			
+						$.each(wards, function(i, record) {
+							var ward_attribs = wards[i].split(",");
+                            $('#id_ward')
+			            		.append($("<option></option>")
+			            		.attr("value", ward_attribs[0])
+			            		.text(ward_attribs[1]));
+                         });
+						var selects = data.selects;
+						$.each(selects.split(","), function(i,e){
+						    $("#id_ward option[value='" + e + "']").prop("selected", true);
+						});
+						$('#id_ward').multiselect('rebuild');
+					},
+			        error: function(){
+			        	$('#messages').html("Error")
+			        }
+		        });
+            });
+            $("#id_county").change(function(e) {
+				var county = $("#id_county").val();
+				var sub_county = $("#id_sub_county").val();
+				var ward = $("#id_ward").val();
+		        var csrftoken = $.cookie('csrftoken');
+                var values = {'sub_county': sub_county, 'ward': ward,
+                              'county': county, 'action': 2,
+                              'csrfmiddlewaretoken': csrftoken };
+                $('#id_sub_county').empty();
+				$.ajax({
+					type: "POST",
+					data: values,
+					dataType: "json",
+					url: "{% url 'reg_lookup' %}",
+					success: function(data){
+						var wards = data.wards;
+						//$('#id_sub_county').html("<option value=''>Select One</option>");			
+						$.each(wards, function(i, record) {
+							var ward_attribs = wards[i].split(",");
+                            $('#id_sub_county')
+			            		.append($("<option></option>")
+			            		.attr("value", ward_attribs[0])
+			            		.text(ward_attribs[1]));
+                         });
+						var selects = data.selects;
+						$.each(selects.split(","), function(i,e){
+						    $("#id_sub_county option[value='" + e + "']").prop("selected", true);
+						});
+						$('#id_sub_county').multiselect('rebuild');
+					},
+			        error: function(){
+			        	$('#messages').html("Error")
+			        }
+		        });
+            });
+			$("#cdate").hide();
+			$("#edit_org_1").prop("checked", true);
+			$(".edit_org").click(function(e) {
+				var res = $('input[name=edit_org]:checked', '#edit_org_unit').val();
+				if (res == '2'){
+			       $("#edit_part").hide();
+			       $("#cdate").show();
+			       $("#editdate").prop("readonly", false);
+			    }else if (res == '1'){
+			       $("#edit_part").show();
+			       $("#cdate").hide();
+			       $("#editdate").prop("readonly", true);
+			    }else{
+			       $("#edit_part").hide();
+			       $("#cdate").hide();
+			       $("#editdate").prop("readonly", true);
+			   }
+		    });
+		});
+	</script>
+
+    <script type="text/javascript">
+		$(function () {
+		  $('#new_org_unit').parsley().on('form:validate', function (formInstance) {
+		    var ok = formInstance.isValid('primary', true);
+		    $(".alert").show();
+		    $('.invalid-form-message')
+		      .html(ok ? '' : 'You must correctly fill the mandatory fields.')
+		      .toggleClass('filled', !ok);
+		    if (!ok){
+		      formInstance.validationResult = false;
+		    }else{
+		    	$(".alert").hide();
+		    }
+		  });
+		});
+		function displayVals(area_value) {
+		  var area_name = [];
+		  //var multipleValues = $( "#id_sub_county" ).val() || [];
+		  //var multipleValues = $("#id_sub_county option:selected").text() || [];
+		  $("#id_"+area_value+" option:selected").each(function () {
+			   var $this = $(this);
+			   if ($this.length) {
+			    var selText = $this.text();
+			    area_name.push(selText);
+			    //console.log(selText);
+			   }
+			});
+
+		  $( "#sel_"+area_value ).html(area_name.join( ", " ) );
+		}
+		 
+		//$( "#id_sub_county" ).change( displayVals );
+		$("#id_sub_county").change(function(event) { 
+			displayVals("sub_county");
+        });
+        $("#id_ward").change(function(event) { 
+			displayVals("ward");
+        });
+        displayVals("sub_county");
+		displayVals("ward");
+	</script>
+{% endblock %}

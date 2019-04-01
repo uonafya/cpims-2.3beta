@@ -1,0 +1,3596 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Residential Placement Followup {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+.divider{
+    margin-left: 2px;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+    <h1 class="page-header">Forms <small> Residential Placement Followup <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+<div id="placementfollowup_msgs" style="display:none;">
+    <span class="close" data-dismiss="alert">×</span>
+    <ul class="messages">
+       <i></i>
+       <h6><p></p></h6>
+    </ul>
+</div>
+
+<div id="messages2" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>    
+    <p class="invalid-form-message"></p>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>Placement Followup</b></h4>
+            </div>
+            <div class="panel-body">
+
+                 <form id="wizard_placementfollowup_form" class="form-horizontal form-bordered" name="form-wizard-placementfollowup" id="new_placementfollowup">
+                 
+                    {% csrf_token %}
+
+                    {{ form.person }}
+
+                    {{ form.placement_id }}
+
+                    {{ form.child_age }}
+                    
+                    <div id="wizard_placementfollowup">
+                        <ul>
+                            <li>
+                                <!-- ITP | Tracing | Case Conferencing | Home Environment Adjustment Visit -->
+                                Child Assessment And Encounters
+                                <small>Child Assessment and Encounters and additional details.</small>
+                            </li>
+                            <li>
+                                Education 
+                                <small>Education and additional details.</small>
+                            </li> 
+                            <li>
+                                Court Session(s) 
+                                <small>Court Session(s) and additional details.</small>
+                            </li> 
+                            <li>
+                                Adverse Event(s) 
+                                <small>Adverse Event(s) and additional details.</small>
+                            </li>                              
+                            <li>
+                                Discharge
+                                <small>Discharge and additional details.</small>
+                            </li>                      
+                        </ul>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">Child Assessment And Encounters </legend>
+                                    <div class="row"> 
+                                        <table id="placement_followup_table" class="table table-striped table-bordered">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="display:none;">{{ form.placementfollowup_id }} </td>
+                                                    <td width="2%">#</td>
+                                                    <td width="20%">
+                                                        {{ form.placementfollowup_type }}
+                                                        <div id="div_placementfollowup_type" style="display:none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td width="20%">
+                                                        {{ form.placementfollowup_date }}
+                                                        <div id="div_placementfollowup_date" style="display:none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+
+                                                    <td width="40%">
+                                                        {{ form.placementfollowup_outcome }}
+                                                        <div id="div_placementfollowup_outcome" style="display:none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+
+                                                    <!--
+                                                    <td width="25%">
+                                                        {{ form.placementfollowup_details }}
+                                                        <div id="div_placementfollowup_details" style="display:none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+                                                    -->
+
+                                                    <td width="25%">
+                                                        <div id="div_placementfollowup_buttons">
+                                                            <button id="div_btnSaveFFFF" type="button" class="btn btn-sm btn-primary m-r-5" onClick="saveFunction('FFFF')"><b>Save</b></button>
+                                                            <button id="div_btnUpdateFFFF" style="display:none;" type="button" class="btn btn-sm btn-inverse m-r-5" onClick="updateFunction('FFFF')"><b>Update</b></button>
+                                                            <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="cancelFunction('ITP')"><b>Cancel</b></button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->
+                        
+
+                        <!-- begin wizard step-2 -->
+                        <div class="wizard-step-2">
+                            <fieldset>
+                                <legend class="pull-left width-full">Education </legend>
+                                <div class="row"> 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Admitted to School : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.admmitted_to_school }}
+                                                <div id="div_admmitted_to_school_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Select if admitted to school"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_not_in_school_reason" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Out of School Reason : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.not_in_school_reason }}
+                                                <div id="div_not_in_school_reason_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter reason out of school"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_name_of_school" class="form-group" style="display:none"> 
+                                        <label class="control-label col-md-4 col-sm-4">Name of School : <span class="asteriskField">*</label>
+                                        <div class="col-md-4 col-sm-4">
+                                            {{ form.name_of_school }}
+                                        </div>
+                                        <div class="col-md-1 col-sm-1">
+                                            <a href="#" class="btn  btn-sm btn-inverse" onClick="fnOpenDialog()">
+                                                <b>New School</b>
+                                            </a>
+                                        </div>
+                                    </div>
+
+
+                                    <div id="div_admmission_type" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Admission Type : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.admmission_type }}
+                                                <div id="div_admmission_type_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter admission type"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_admmission_date" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Admission Date : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.admmission_to_school_date }}
+                                                <div id="div_admmission_date_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter admission date"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_admmission_class" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Admission Class/Level : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.admmission_class }}
+                                                <span id="sel_admmission_class"></span>
+                                                <div id="div_admmission_class_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                                <br>
+                                                <div id="div_admmission_subclass" style="display:none">
+                                                    <h6>Specify Vocational Training: </h6>{{ form.admmission_subclass }}
+                                                    <div id="div_admmission_subclass_" style="display:none;">
+                                                        <span><p class="dialog_paragraph">This value is required</p></span>
+                                                    </div>
+                                                </div>
+
+                                                <br>
+                                                <div id="div_admmission_subclass_other" style="display:none">
+                                                    <h6>Specify Other Vocational Training: </h6>{{ form.admmission_subclass_other }}
+                                                    <div id="div_admmission_subclass_other_" style="display:none;">
+                                                        <span><p class="dialog_paragraph">This value is required</p></span>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Select admission class/level"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Education Comments : </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.education_comments }}
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter education comments"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <br><br>
+                                    <div align="center">
+                                        <button id='div_btnSaveEducation' type="button" class="btn btn-sm btn-primary m-r-5" onClick="saveFunction('EDU')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Save</b></button>
+                                        <button id='div_btnUpdateEducation' type="button" class="btn btn-sm btn-primary m-r-5"  style="display:none;" onClick="updateFunction('EDU')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Update</b></button>
+                                        <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="cancelFunction('EDU')"><i class="fa fa-close"></i>&nbsp; <b>Cancel</b></button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-2 -->
+
+                        <!-- begin wizard step-3 -->
+                        <div class="wizard-step-3">
+                            <fieldset>
+                                <legend class="pull-left width-full">Court Session(s) </legend>
+                                <div class="row"> 
+
+                                    <div id="div_court_session_case" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Case Category(s) : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.court_session_case }}
+                                                <div id="div_court_session_case_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Select case category"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Date Of Court Session : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.date_of_court_event }}
+                                                <div id="div_date_of_court_event_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter date of court session"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_court_session_type" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Court Session Type: <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.court_session_type }}
+                                                <div id="div_court_session_type_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter session type"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_plea_taken" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Plea Taken : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.plea_taken }}
+                                                <div id="div_plea_taken_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter plea taken"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_next_mention_date" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Date of Next Mention: <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.next_mention_date }}
+                                                <div id="div_next_mention_date_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter date of next mention"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_application_outcome" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Application Outcome : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.application_outcome }}
+                                                <div id="div_application_outcome_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter application outcome"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_court_outcome" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Court Outcome : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.court_outcome }}
+                                                <span id="sel_court_outcome"></span>
+                                                <div id="div_court_outcome_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter court outcome"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_next_hearing_date" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Date of Next Hearing : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.next_hearing_date }}
+                                                <div id="div_next_hearing_date_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter date of next court session"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <div id="div_court_order" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Court Order(s) : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.court_order }}
+                                                <div id="div_court_order_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                                <span id="sel_court_order"></span>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter court orders"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <!--
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Workforce Member/SCCO Name : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.workforce_member_court }}
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter workforce member"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <br><br>
+                                    -->                                    
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Court Session Notes : </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.court_notes }}
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter court session notes"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <br>                                    
+                                    <div align="center">
+                                        <button id='div_btnSaveCourt' type="button" class="btn btn-sm btn-primary m-r-5" onClick="saveFunction('COT')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Save</b></button>
+                                        <button id='div_btnUpdateCourt' type="button" class="btn btn-sm btn-primary m-r-5"  style="display:none;" onClick="updateFunction('COT')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Update</b></button>
+                                        <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="cancelFunction('COT')"><i class="fa fa-close"></i>&nbsp; <b>Cancel</b></button>
+                                    </div>
+                                </div> 
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-3 -->
+
+                        <!-- begin wizard step-4 -->
+                        <div class="wizard-step-4">
+                            <fieldset>
+                                <legend class="pull-left width-full">Adverse Event(s)  </legend>
+                                <div class="row"> 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Adverse Event : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                <div>
+                                                    {{ form.adverse_events }}
+                                                    <div id="div_adverse_events_" style="display:none;">
+                                                        <span><p class="dialog_paragraph">This value is required</p></span>
+                                                    </div>
+                                                </div>
+                                                <br>
+                                                <div id="div_adverse_offences" style="display:none">
+                                                    <label>Please Specify : <span class="asteriskField">*   </label>
+                                                        {{ form.adverse_offences }}
+                                                        <span id="sel_adverse_offences"></span>
+                                                        <div id="div_adverse_offences_" style="display:none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>                                                   
+                                                </div>                                                
+                                                <br>
+                                                <div id="div_adverse_medical_events" style="display:none">
+                                                    <label>Please Specify : <span class="asteriskField">*   </label>
+                                                        {{ form.adverse_medical_events }} 
+                                                        <span id="sel_adverse_medical_events"></span>
+                                                        <div id="div_adverse_medical_events_" style="display:none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>                                                   
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Select adverse event condition"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_attendance_type" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Attendance Type : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.attendance_type }}
+                                                <div id="div_attendance_type_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter type of of attendance"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+                                    <div id="div_hospital_referral_type" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4">Treatment Referral Type : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.hospital_referral_type }}
+                                                <div id="div_hospital_referral_type_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter type of treatment referral type"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Adverse Event Date : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.adverse_event_date }}
+                                                <div id="div_adverse_event_date_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter type of discharge"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <div align="center">
+                                        <button id='div_btnSaveAdverse' type="button" class="btn btn-sm btn-primary m-r-5" onClick="saveFunction('ADV')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Save</b></button>
+                                        <button id='div_btnUpdateAdverse' type="button" class="btn btn-sm btn-primary m-r-5"  style="display:none;" onClick="updateFunction('ADV')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Update</b></button>
+                                        <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="cancelFunction('ADV')"><i class="fa fa-close"></i>&nbsp; <b>Cancel</b></button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-4 -->
+
+                        <!-- begin wizard step-5 -->
+                        <div class="wizard-step-5">
+                            <fieldset>
+                                <legend class="pull-left width-full">Discharge</legend>
+                                <div class="row"> 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Type of Discharge : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.discharge_type }}
+                                                <div id="div_discharge_type_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter type of discharge"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <div id="div_expected_return_date" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Expected Return Date : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.expected_return_date }}
+                                                <div id="div_expected_return_date_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter expected return date"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <div id="div_discharge_destination" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-4 col-sm-4"> Destination (Specify) : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.name_of_school }}
+                                                <span id="sel_discharge_destination"></span>
+                                                <div id="div_discharge_destination_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter discharge destination"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Date of Discharge : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.discharge_date }}
+                                                <div id="div_discharge_date_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter date of discharge"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Reason for Discharge : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.discharge_reason }}
+                                                <div id="div_discharge_reason_" style="display:none;">
+                                                    <span><p class="dialog_paragraph">This value is required</p></span>
+                                                </div>
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter reason for discharge"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <!--
+                                    <div id="div_actual_return_date" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Actual Return Date : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.actual_return_date }}
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter actual return date"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    -->
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Discharge Comments : </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.discharge_comments }}
+                                            </div>
+                                            <a href="#" data-toggle="tooltip" title="Enter discharge comments"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <br><br>
+                                    <div align="center">
+                                        <button id='div_btnSaveDischarge' type="button" class="btn btn-sm btn-primary m-r-5" onClick="saveFunction('DIS')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Save</b></button>
+                                        <button id='div_btnUpdateDischarge' type="button" class="btn btn-sm btn-primary m-r-5"  style="display:none;" onClick="updateFunction('DIS')"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp; <b>Update</b></button>
+                                        <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="cancelFunction('DIS')"><i class="fa fa-close"></i>&nbsp; <b>Cancel</b></button>
+                                    </div>
+                                </div>
+                                   
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-5 -->
+                    </div>
+
+                    <!-- #new-school-dialog -->
+                    <div class="modal fade" id="new-school-dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title">
+                                            <p>New School</i></p>
+                                    </h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div id="school_msgs" class="alert alert-danger fade in" style="display:none;">
+                                        <span class="close" data-dismiss="alert">×</span>
+                                        <i class="fa fa-close fa-2x pull-left"></i>
+                                        <ul class="messages">
+                                            <small><p></p></small>
+                                        </ul>
+                                    </div>
+
+                                <div class="form-group">
+                                    <h6><label class="control-label col-md-3 col-sm-3">Name of School :<span class="asteriskField"> *</span></label></h6>
+                                    <div class="col-md-8 col-sm-8">
+                                        {{ form.school_name }}
+                                        <div id="school_msgs1" style="display:none;">
+                                            <small><span><p class="dialog_paragraph">This value is required</p></span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <h6><label class="control-label col-md-3 col-sm-3">Type of School :<span class="asteriskField"> *</span></label></h6>
+                                    <div class="col-md-8 col-sm-8">
+                                        {{ form.type_of_school }}
+                                        <div id="school_msgs2" style="display:none;">
+                                            <small><span><p class="dialog_paragraph">This value is required</p></span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <h6><label class="control-label col-md-3 col-sm-3">Sub-County :<span class="asteriskField"> *</span></label></h6>
+                                    <div class="col-md-8 col-sm-8">
+                                        {{ form.school_subcounty }}
+                                        <div id="school_msgs3" style="display:none;">
+                                            <small><span><p class="dialog_paragraph">This value is required</p></span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <h6><label class="control-label col-md-3 col-sm-3">Ward :<span class="asteriskField"> *</span></label></h6>
+                                    <div class="col-md-8 col-sm-8">
+                                        {{ form.school_ward }}
+                                        <div id="school_msgs4" style="display:none;">
+                                            <small><span><p class="dialog_paragraph">This value is required</p></span></small>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="modal-footer" >
+                                    <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Cancel</a>
+                                    <a href="#" id="btn_save_school" class="btn btn-sm btn-success" onClick="fnSaveSchool()">Save</a>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- #end new-school-dialog -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+            <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+        </div>
+        <h4 class="panel-title"><b>Placement Followup History</b></h4>
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="placementfollowup_data_table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Child ID</th>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Outcome</th>
+                        <th>Details</th>  
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>                
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script>
+jQuery(document).ready(function() 
+{
+    /*
+    1. get Casecategorys of this child
+    2. set court_session_case to found Casecategorys
+    3. set court_session_case to 'EMERGENCY [EMGY]' for all emergency placements
+    */
+    getJsonObject001();
+
+
+    /* Load PlacementFollowup Events/History */
+    LoadPlacementEvents();
+
+    /* LoadSchools() */
+    LoadSchools();
+
+    //multi selects
+    $('#admmission_class, #discharge_destination, #court_session_case, #court_session_type, #adverse_medical_events, #adverse_offences, #court_order, #court_outcome, #name_of_school, #school_subcounty, #school_ward').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        buttonClass: 'btn btn-white'
+    }); 
+
+    var admmitted_to_school = $('#admmitted_to_school').val();
+    if(admmitted_to_school == 'AYES')
+    {
+        $('#div_name_of_school').css({'display': 'block'});
+        $('#div_admmission_type').css({'display': 'block'});
+        $('#div_admmission_date').css({'display': 'block'});
+        $('#div_admmission_class').css({'display': 'block'});
+        $('#div_not_in_school_reason').css({'display': 'none'});
+        $('#not_in_school_reason').val('');
+    }
+    else if(admmitted_to_school == 'ANNO')
+    {
+        $('#div_name_of_school').css({'display': 'none'});
+        $('#name_of_school').multiselect('clearSelection');
+        $('#name_of_school').multiselect('refresh');
+
+        $('#div_not_in_school_reason').css({'display': 'block'});
+        $('#not_in_school_reason').val('');
+
+        $('#div_admmission_type').css({'display': 'none'});
+        $('#admmission_type').val('');
+
+        $('#div_admmission_date').css({'display': 'none'});
+        $('#admmission_to_school_date').val('');
+
+        $('#div_admmission_class').css({'display': 'none'});
+        $('#admmission_class').multiselect('clearSelection');
+        $('#admmission_class').multiselect('refresh');
+        $('#admmission_class').trigger('change');
+    }
+    else
+    {
+        $('#div_name_of_school').css({'display': 'none'});
+        $('#name_of_school').multiselect('clearSelection');
+        $('#name_of_school').multiselect('refresh');
+
+        $('#div_not_in_school_reason').css({'display': 'none'});
+        $('#not_in_school_reason').val('');
+
+        $('#div_admmission_type').css({'display': 'none'});
+        $('#admmission_type').val('');
+
+        $('#div_admmission_date').css({'display': 'none'});
+        $('#admmission_to_school_date').val('');
+
+        $('#div_admmission_class').css({'display': 'none'});
+        $('#admmission_class').multiselect('clearSelection');
+        $('#admmission_class').multiselect('refresh');
+    }
+
+    var adverse_event = $('#adverse_events').val();
+    if(adverse_event == 'AEMC')
+    {
+        $('#div_adverse_medical_events').css({'display': 'block'});
+
+        $('#div_adverse_offences').css({'display': 'none'});
+        $("#adverse_offences").multiselect("clearSelection");
+        $("#adverse_offences").multiselect("refresh");
+        $("#sel_adverse_offences").html("");
+
+    }
+    else if(adverse_event == 'AECO')
+    {
+        $('#div_adverse_offences').css({'display': 'block'});
+
+        $('#div_adverse_medical_events').css({'display': 'none'});
+        $("#adverse_medical_events").multiselect("clearSelection");
+        $("#adverse_medical_events").multiselect("refresh");
+        $("#sel_adverse_medical_events").html("");
+    }
+    else
+    {
+        $('#div_adverse_offences').css({'display': 'none'});
+        $("#adverse_offences").multiselect("clearSelection");
+        $("#adverse_offences").multiselect("refresh");
+
+        $('#div_adverse_medical_events').css({'display': 'none'});
+        $("#adverse_medical_events").multiselect("clearSelection");
+        $("#adverse_medical_events").multiselect("refresh");
+
+        $("#sel_adverse_offences").html("");
+        $("#sel_adverse_medical_events").html("");
+    }   
+
+    var discharge_type = $('#discharge_type').val();
+    if(discharge_type == 'TDTR')
+    {
+        $('#div_actual_return_date').css({'display': 'block'});
+        $('#div_expected_return_date').css({'display': 'block'});    
+    }
+    else
+    {
+        $('#div_actual_return_date').css({'display': 'none'});
+        $('#actual_return_date').val('');
+        $('#div_expected_return_date').css({'display': 'none'});
+        $('#expected_return_date').val('');
+    }
+
+    var court_outcome = $('#court_outcome').val();
+    if(court_outcome == 'CADJ')
+    {
+        $('#div_court_order').css({'display': 'none'}); 
+        $('#court_order').val('');
+        $('#div_next_hearing_date').css({'display': 'block'});
+    }
+    else if(court_outcome == 'CRUL'||court_outcome == 'CRJD'||court_outcome == 'CRCT')
+    {
+        $('#div_court_order').css({'display': 'block'}); 
+        $('#div_next_hearing_date').css({'display': 'none'});  
+        $('#next_hearing_date').val('');
+    }
+
+    $('html,body').scrollTop(0);
+    FormWizardValidation.init();
+});
+</script>
+
+
+<script type="text/javascript">
+// New School
+function fnOpenDialog()
+{
+    $('#new-school-dialog').modal('show');
+}
+
+function fnSaveSchool()
+{
+    var crudMsg = 'School Saved Successfully.';
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var values = { 'csrfmiddlewaretoken': csrftoken };
+
+    var school_name = $('#school_name').val();
+    var type_of_school = $('#type_of_school').val();
+    var school_subcounty = $('#school_subcounty').val();
+    var school_ward = $('#school_ward').val();
+
+    // values['action'] = action;
+    values['school_name'] = school_name;
+    values['type_of_school'] = type_of_school;
+    values['school_subcounty'] = school_subcounty;
+    values['school_ward'] = school_ward;
+
+    if(school_name)
+    {
+        if(type_of_school)
+        {        
+            if(school_subcounty)
+            {
+                if(school_ward)
+                {
+                    $.ajax({
+                        url: '{% url 'new_school' %}',
+                        dataType: 'text',
+                        method: 'POST',
+                        contentType: 'application/x-www-form-urlencoded',
+                        data: values,
+                        success: function(result)
+                        {
+                            // Reset form elements
+                            $('#school_name').val('')
+                            $('#type_of_school').val('')
+                            $('#school_subcounty').multiselect('clearSelection')
+                            $('#school_subcounty').multiselect('refresh')
+                            $('#school_ward').multiselect('clearSelection')
+                            $('#school_ward').multiselect('refresh')
+
+                            // Hide divs/dialogs
+                            $('#school_msgs4').css({ 'display': "none" });
+                            $('#school_msgs3').css({ 'display': "none" });
+                            $('#school_msgs2').css({ 'display': "none" });
+                            $('#school_msgs1').css({ 'display': "none" });
+                            $('#school_msgs').css({ 'display': "none" });
+                            $('#schoolsave_msgs').css({ 'display': "block" });
+                            $('#schoolsave_msgs p').html('New school added to list');
+
+                            //close delete-dialog
+                            $('#new-school-dialog').modal('hide');
+
+                            // Reload List
+                            LoadSchools();
+                        },
+                        error: function(xhr, status, error)
+                        {
+                            //console.log(error);
+                            // alert(error);
+                            $('#schoolsave_msgs').css({ 'display': "block" });
+                            $('#schoolsave_msgs p').html('Error saving school' + error);
+                        }
+                    });  
+                }
+                else
+                {
+                    $('#school_msgs4').css({ 'display': "block" });
+                    $('#school_msgs').css({ 'display': "block" });
+                    $('#school_msgs p').html('Please fill the missing values');
+                    return false;
+                }  
+            }
+            else
+            {
+                $('#school_msgs3').css({ 'display': "block" });
+                $('#school_msgs').css({ 'display': "block" });
+                $('#school_msgs p').html('Please fill the missing values');
+                return false;
+            }            
+        }
+        else
+        {
+            $('#school_msgs2').css({ 'display': "block" });
+            $('#school_msgs').css({ 'display': "block" });
+            $('#school_msgs p').html('Please fill the missing values');
+            return false;
+        }
+    }
+    else
+    {
+        $('#school_msgs1').css({ 'display': "block" });
+        $('#school_msgs').css({ 'display': "block" });
+        $('#school_msgs p').html('Please fill the missing values');
+        return false;
+    }
+}
+
+function fnEditSchool()
+{
+}
+
+function fnViewSchool()
+{
+}
+
+function LoadSchools()
+{
+    var csrftoken = $.cookie('csrftoken');
+    var values = { 'csrfmiddlewaretoken': csrftoken };
+
+    var multiselect_data = [];
+    $.ajax({
+                url: '{% url 'manage_schools' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    console.log(result);
+                    var multiselect_dict = {};
+                    var multiselect_dict_initial = { label:'Please Select', value:''};
+                    multiselect_data.push(multiselect_dict_initial);
+
+                    $.each(result, function(i, val) {
+                        var school_id = val.pk;
+                        var school_name = val.school_name;
+                        var school_subcounty = val.school_subcounty;
+                        var school_ward = val.school_ward;
+                        // var area_name = String(school_subcounty + '|' + school_ward);
+                        var multiselect_dict = { label: school_name + ' ('  + school_subcounty + ')', value: school_id };
+                        multiselect_data.push(multiselect_dict);
+                    }); 
+
+                    // Reload SchoolNames
+                    $("#name_of_school").multiselect({
+                        selectMultiple: false,
+                        selectAllValue: 'multiselect-all',
+                        includeSelectAllOption: true,
+                        enableCaseInsensitiveFiltering: true,
+                        numberDisplayed: 1,
+                        maxHeight: 300,
+                        buttonWidth: '100%',
+                        buttonClass: 'btn btn-white'
+                    }); 
+                    $("#name_of_school").multiselect('dataprovider', multiselect_data);
+                    $("#name_of_school").multiselect('refresh');                       
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+            });  
+}
+
+$('#school_name').keyup(function() {
+    if($(this).val()) // get the current value of the input field    
+    {
+        $("#school_msgs1").css({ 'display': "none" }); 
+    }
+});
+
+$("#type_of_school").change(function(event) 
+{ 
+    $("#school_msgs2").css({ 'display': "none" }); 
+});
+
+// Cascading drop down for school in sub-county
+$("#school_subcounty").change(function(e) {
+    var sub_county = $("#school_subcounty").val();
+    var csrftoken = $.cookie('csrftoken');
+    var values = {'sub_county': sub_county,
+                  'county': 0, 'action': 4,
+                  'csrfmiddlewaretoken': csrftoken };
+    $('#school_ward').empty();
+    $.ajax({
+        type: "POST",
+        data: values,
+        dataType: "json",
+        url: "{% url 'reg_lookup' %}",
+        success: function(data){
+            var wards = data.wards;
+            
+            console.log('data.wards : ' +data.wards)
+            // Default Option - Please Select
+            $('#school_ward')
+                    .append($("<option></option>")
+                    .attr("value", '')
+                    .text('Please Select')); 
+
+            $.each(wards, function(i, record) {
+                var ward_attribs = wards[i].split(",");
+                $('#school_ward')
+                    .append($("<option></option>")
+                    .attr("value", ward_attribs[0])
+                    .text(ward_attribs[1]));
+             });
+             $('#school_ward').multiselect('rebuild');
+        },
+        error: function(){
+            $('#messages').html("Error")
+        }
+    });
+    $('#school_msgs3').css({ 'display': "none" });
+});
+
+$("#school_ward").change(function(e) {
+    $('#school_msgs4').css({ 'display': "none" });
+});
+// -- School --/
+function LoadPlacementEvents()
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person = $('#person').val();
+    var values = {  
+                    'person' : person,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+    $.ajax({
+                url: '{% url 'manage_placementfollowup' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    // Clear <tbody>
+                    $("#placementfollowup_data_table tbody").html('');
+
+                    $.each(result, function(i, val) {
+
+                        // Data from json
+                        var person_id = val.person_id;
+                        var followup_type = val.followup_type;
+                        var followup_date = val.followup_date;
+                        var followup_details = val.followup_details;
+                        var followup_outcome = val.followup_outcome;
+
+                        // Buttons
+                        var btnView = 'btnView' + i;
+                        var btnEdit = 'btnEdit' + i;
+                        var btnRemove = 'btnRemove' + i;
+                        var tableRowId = 'tableRowId' + i;
+
+                        // Append rows to table rows
+                        $("#placementfollowup_data_table tbody").append('<tr id=' + tableRowId + '>' + 
+                            '<td width="10%"><h6>' + person_id + '</h6></td>' +
+                            '<td width="15%"><h6>' + followup_type + '</h6></td>' + 
+                            '<td width="10%"><h6>' + followup_date +'</h6></td>' + 
+                            '<td width="20%"><h6>' + followup_outcome + '</h6></td>' +
+                            '<td width="25%"><h6>' + followup_details + '</h6></td>' +
+                            '<td width="20%">' + 
+                            '<button id=' + btnRemove + ' class="btn  btn-sm btn-danger m-r-5"><i class="fa fa-trash"></i></button>' +
+                            '<button  id=' + btnView + ' class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-binoculars"></i></button>' +
+                            '</td></tr>'
+                            );
+
+                        // Add Click Event To Buttons
+                        $("#" + btnView + "").click(function(e)
+                        {
+                            viewFunction(followup_type, val.pk);
+                            $('#placementfollowup_id').val(val.pk);
+                        }); 
+
+                        $("#" + btnEdit + "").click(function(e)
+                        {
+                            editFunction(val.pk);
+                        });
+
+                        $("#" + btnRemove + "").click(function(e)
+                        {
+                            deleteFunction(followup_type, val.pk);
+                        }); 
+                    });
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+
+            });
+}
+
+function deleteFunction(followup_type, value)
+{
+    msgOk  = ' delete successful'
+    msgError  = ' delete error'
+
+    var data = new Array();
+    var pk = value;
+    var action = action;
+    var person = $('#person').val();
+    var csrftoken = $.cookie('csrftoken');
+    var values = {  
+                    'pk' : pk,
+                    'person' : person,
+                    'followup_type' : followup_type,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+    
+
+    $.ajax({
+        url: '{% url 'delete_placementfollowup' %}',
+        dataType: 'text',
+        method: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        data: values,
+        success: function(result)
+        {
+            // Refresh grid
+            LoadPlacementEvents();
+
+            // display success msgs
+            $('#placementfollowup_msgs p').html(result + msgOk);
+            $("#placementfollowup_msgs").css({ 'display': "block" });
+            $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+            $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+        },
+        error: function(xhr, status, error)
+        {
+            // display error msgs
+            $('#placementfollowup_msgs p').html(result + msgError);
+            $("#placementfollowup_msgs").css({ 'display': "block" });
+            $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+            $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+        }
+    });
+}
+
+function updateFunction(followup_type)
+{
+    msgOk  = ' update successful'
+    msgError  = ' update error'
+
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person = $('#person').val();    
+    var placementfollowup_id = $('#placementfollowup_id').val();
+    var values = {  
+                    'person' : person,
+                    'csrfmiddlewaretoken': csrftoken,   
+                    'placementfollowup_id': placementfollowup_id
+                 };
+    var action;
+
+    /* ---- FIRST FOUR FOLLOWUPS ----*/
+    if(followup_type == 'FFFF')
+    { 
+        action='FFFF'; 
+        var placementfollowup_type = $('#placementfollowup_type').val();
+        var placementfollowup_details = 'placementfollowup_details'
+        var placementfollowup_outcome = $('#placementfollowup_outcome').val();
+        var placementfollowup_date = $('#placementfollowup_date').val(); 
+        var followup_type = $('#placementfollowup_type').val();
+        if(placementfollowup_type)
+        {
+            if(placementfollowup_date)
+            { 
+                if(placementfollowup_outcome)
+                {  
+                    if(placementfollowup_details)
+                    {        
+                        values['placementfollowup_type'] = placementfollowup_type; 
+                        // values['placementfollowup_details'] = placementfollowup_details;
+                        values['placementfollowup_outcome'] = placementfollowup_outcome;
+                        values['placementfollowup_date'] = placementfollowup_date;         
+                        values['followup_type'] = followup_type; 
+                        values['action'] = action;  
+                        
+                        $.ajax({
+                            url: '{% url 'edit_placementfollowup' %}',
+                            dataType: 'text',
+                            method: 'POST',
+                            contentType: 'application/x-www-form-urlencoded',
+                            data: values,
+                            success: function(result)
+                            {
+                                cancelFunction('ITP');
+                                // messagingFunction(followup_type)
+                                LoadPlacementEvents();
+
+                                // display success msgs
+                                $('#placementfollowup_msgs p').html(result + msgOk);
+                                $("#placementfollowup_msgs").css({ 'display': "block" });
+                                $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                                $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                            },
+                            error: function(xhr, status, error)
+                            {
+                                // display error msgs
+                                $('#placementfollowup_msgs p').html(result + msgError);
+                                $("#placementfollowup_msgs").css({ 'display': "block" });
+                                $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                                $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                            }
+                        }); 
+                    }
+                    else
+                    { 
+                        $("#div_placementfollowup_details").css({ 'display': "block" });
+                        return false;
+                    };
+                } 
+                else
+                { 
+                    $("#div_placementfollowup_outcome").css({ 'display': "block" });
+                    return false;
+                };
+            }
+            else
+            { 
+                $("#div_placementfollowup_date").css({ 'display': "block" });
+                return false;
+            };
+        } 
+        else
+        { 
+            $("#div_placementfollowup_type").css({ 'display': "block" });
+            return false;
+        };
+    }
+
+    /* ---- EDUCATION FOLLOWUP ----*/
+    if(followup_type == 'EDU')
+    {
+        action='EDU'; 
+        var name_of_school = $('#name_of_school').val(); 
+        var admmitted_to_school = $('#admmitted_to_school').val(); 
+        var not_in_school_reason = $('#not_in_school_reason').val(); 
+        var admmission_type = $('#admmission_type').val(); 
+        var name_of_school = $('#name_of_school').val(); 
+        var admmission_class = $('#admmission_class').val();
+        var admmission_subclass = $('#admmission_subclass').val();
+        var admmission_to_school_date = $('#admmission_to_school_date').val();
+        var education_comments = $('#education_comments').val();
+
+        if(admmitted_to_school)
+        {
+            if(admmitted_to_school == 'AYES')
+            {
+                if(admmission_to_school_date)
+                {
+                    if(admmission_class)
+                    {
+                        var arr = admmission_class;
+                        var check = ['TVC1', 'TVC2', 'TVC3', 'TVC4', 'TVC5'];
+                        var found = false;
+                        for (var i = 0; i < check.length; i++) {
+                            if (arr.indexOf(check[i]) > -1) {
+                                found = true;
+                                break;
+                            }
+                        }
+
+                        if(found)
+                        {
+                            if(admmission_subclass)
+                            { values['admmission_subclass'] = admmission_subclass }
+                            else
+                            {
+                                $("#div_admmission_subclass_").css({ 'display': "block" });
+                                return false;
+                            }                             
+                        }
+                                               
+
+                        // Save Education
+                        values['name_of_school'] = name_of_school
+                        values['admmitted_to_school'] = admmitted_to_school
+                        values['admmission_type'] = admmission_type
+                        values['admmission_class'] = admmission_class.toString();
+                        values['admmission_subclass'] = null
+                        values['admmission_to_school_date'] = admmission_to_school_date
+                        values['education_comments'] = education_comments 
+                        values['action'] = action;
+
+                        $.ajax({
+                            url: '{% url 'edit_placementfollowup' %}',
+                            dataType: 'text',
+                            method: 'POST',
+                            contentType: 'application/x-www-form-urlencoded',
+                            data: values,
+                            success: function(result)
+                            {
+                                cancelFunction('EDU');
+                                // messagingFunction(followup_type)
+                                LoadPlacementEvents();
+                                $('#admmitted_to_school').trigger('change');
+
+                                // display success msgs
+                                $('#placementfollowup_msgs p').html(result + msgOk);
+                                $("#placementfollowup_msgs").css({ 'display': "block" });
+                                $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                                $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                            },
+                            error: function(xhr, status, error)
+                            {
+                                // display error msgs
+                                $('#placementfollowup_msgs p').html(result + msgError);
+                                $("#placementfollowup_msgs").css({ 'display': "block" });
+                                $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                                $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    $("#div_admmission_to_school_date_").css({ 'display': "block" });
+                    return false;
+                }                
+            }
+            if(admmitted_to_school == 'ANNO')
+            {
+                values['admmitted_to_school'] = admmitted_to_school
+                values['admmission_class'] = null
+                values['admmission_subclass'] = null
+                values['admmission_to_school_date'] = null
+                values['not_in_school_reason'] = not_in_school_reason
+                values['education_comments'] = education_comments 
+                values['action'] = action;                
+            }
+
+            // Update Education
+            $.ajax({
+                        url: '{% url 'edit_placementfollowup' %}',
+                        dataType: 'text',
+                        method: 'POST',
+                        contentType: 'application/x-www-form-urlencoded',
+                        data: values,
+                        success: function(result)
+                        {
+                            cancelFunction('EDU');
+                            // messagingFunction(followup_type)
+                            LoadPlacementEvents();
+                            $('#admmitted_to_school').trigger('change');
+
+                            // display success msgs
+                            $('#placementfollowup_msgs p').html(result + msgOk);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                        },
+                        error: function(xhr, status, error)
+                        {
+                            // display error msgs
+                            $('#placementfollowup_msgs p').html(result + msgError);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                        }
+                    });
+        } 
+        else
+        {
+            $("#div_admmitted_to_school_").css({ 'display': "block" });
+            return false;
+        }
+    }
+
+    /* ---- ADVERSE EVENTS FOLLOWUP ----*/ 
+    if(followup_type == 'ADV')
+    {
+        action='ADV';
+        var adverse_events = $('#adverse_events').val();
+        var adverse_medical_events = $('#adverse_medical_events').val();
+        var adverse_offences = $('#adverse_offences').val();
+        var adverse_event_date = $('#adverse_event_date').val();
+        var attendance_type = $('#attendance_type').val();
+        var hospital_referral_type = $('#hospital_referral_type').val();
+
+        if(adverse_events)
+        {
+            if(adverse_events == 'AEMC')
+            {
+                if(adverse_medical_events)
+                {
+                    values['adverse_medical_events'] = adverse_medical_events.toString();
+                }
+                else
+                {
+                    $("#div_adverse_medical_events_").css({ 'display': "block" });
+                    return false;
+                }  
+
+                if(attendance_type)
+                {
+                    values['attendance_type'] =attendance_type;
+                }
+                else
+                {
+                    $("#div_attendance_type_").css({ 'display': "block" });
+                    return false;
+                } 
+
+                if(hospital_referral_type)
+                {
+                    values['hospital_referral_type'] = hospital_referral_type;
+                }
+                else
+                {
+                    $("#div_hospital_referral_type_").css({ 'display': "block" });
+                    return false;
+                }                
+            }
+
+            if(adverse_events == 'AECO')
+            {
+                if(adverse_offences)
+                {
+                    values['adverse_offences'] = adverse_offences.toString();
+                }
+                else
+                {
+                    $("#div_adverse_offences_").css({ 'display': "block" });
+                    return false;
+                }                
+            }
+
+            if(adverse_event_date)
+            {
+                values['action'] = action;
+                values['adverse_events'] = adverse_events;
+                values['adverse_event_date'] = adverse_event_date;
+
+                // Save Adverse Events
+                $.ajax({
+                        url: '{% url 'edit_placementfollowup' %}',
+                        dataType: 'text',
+                        method: 'POST',
+                        contentType: 'application/x-www-form-urlencoded',
+                        data: values,
+                        success: function(result)
+                        {
+                            cancelFunction('ADV');
+                            // messagingFunction(followup_type)
+                            LoadPlacementEvents();
+                            $('#adverse_events').trigger('change');
+
+                            // display success msgs
+                            $('#placementfollowup_msgs p').html(result + msgOk);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                        },
+                        error: function(xhr, status, error)
+                        {
+                            // display error msgs
+                            $('#placementfollowup_msgs p').html(result + msgError);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                        }
+                    });
+            }
+            else
+            {
+                $("#div_adverse_event_date_").css({ 'display': "block" });
+                return false;
+            } 
+        }
+        else
+        {
+            $("#div_adverse_events_").css({ 'display': "block" });
+            return false;
+        }
+    }
+
+    /* ---- DISCHARGE FOLLOWUP ----*/
+    if(followup_type == 'DIS')
+    {
+        var action = 'DIS';
+        var discharge_type = $('#discharge_type').val();
+        var discharge_destination = $('#discharge_destination').val();
+        var discharge_date = $('#discharge_date').val();
+        var discharge_reason = $('#discharge_reason').val();
+        var expected_return_date = $('#expected_return_date').val();
+        // var actual_return_date = $('#actual_return_date').val();
+        var discharge_comments = $('#discharge_comments').val();
+
+        if(discharge_type)
+        {
+            if(discharge_type == 'TDTR')
+            {
+                if(expected_return_date)
+                {
+                    values['expected_return_date'] = expected_return_date;
+                }
+                else
+                {
+                    $("#div_expected_return_date_").css({ 'display': "block" });
+                    return false;
+                }
+            }
+
+            if(discharge_type == 'DTSI')
+            {
+                if(discharge_destination)
+                {
+                    values['discharge_destination'] = discharge_destination;
+                }
+                else
+                {
+                    $("#div_discharge_destination_").css({ 'display': "block" });
+                    return false;
+                }
+            }
+
+            if(discharge_reason)
+            {
+                // Save Discharge
+                values['action'] = action;
+                values['discharge_type'] = discharge_type;
+                values['discharge_date'] = discharge_date;
+                values['discharge_reason'] = discharge_reason;
+                values['discharge_comments'] = discharge_comments;
+
+                $.ajax({
+                    url: '{% url 'edit_placementfollowup' %}',
+                    dataType: 'text',
+                    method: 'POST',
+                    contentType: 'application/x-www-form-urlencoded',
+                    data: values,
+                    success: function(result)
+                    {
+                        cancelFunction('DIS');
+                        // messagingFunction(followup_type)
+                        LoadPlacementEvents();
+                        $('#discharge_type').trigger('change');
+
+                        // display success msgs
+                        $('#placementfollowup_msgs p').html(result + msgOk);
+                        $("#placementfollowup_msgs").css({ 'display': "block" });
+                        $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                        $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                    },
+                    error: function(xhr, status, error)
+                    {
+                        // display error msgs
+                        $('#placementfollowup_msgs p').html(result + msgError);
+                        $("#placementfollowup_msgs").css({ 'display': "block" });
+                        $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                        $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                    }
+                });
+            }
+            else
+            {
+                $("#div_discharge_reason_").css({ 'display': "block" });
+                return false;
+            }
+        }
+        else
+        {
+            $("#div_discharge_type_").css({ 'display': "block" });
+            return false;
+        }
+    }
+
+    /* ---- COURT FOLLOWUP ----*/
+    if(followup_type == 'COT')
+    {
+        var action = 'COT';
+        var court_session_case = $('#court_session_case').val();
+        var date_of_court_event = $('#date_of_court_event').val();
+        var court_session_type = $('#court_session_type').val();
+        var court_outcome = $('#court_outcome').val();
+        var application_outcome = $('#application_outcome').val();
+        var next_hearing_date = $('#next_hearing_date').val();
+        var next_mention_date = $('#next_mention_date').val();
+        var plea_taken = $('#plea_taken').val();
+        var application_outcome = $('#application_outcome').val();
+        var court_order = $('#court_order').val();
+        var court_notes = $('#court_notes').val();
+
+        values['action'] = action;
+        values['court_notes'] = court_notes;
+
+        if(court_session_case)
+        {
+            values['court_session_case'] = court_session_case;
+        }
+        else
+        {
+            $("#div_court_session_case_").css({ 'display': "block" });
+            return false;
+        }
+
+        if(date_of_court_event)
+        {
+            values['date_of_court_event'] = date_of_court_event;
+        }
+        else
+        {
+            $("#div_date_of_court_event_").css({ 'display': "block" });
+            return false;
+        }
+
+        if(court_session_type)
+        {
+            values['court_session_type'] = court_session_type;
+            if(court_session_type == 'STHR')
+            {
+                if(court_outcome)
+                {
+                    values['court_outcome'] = court_outcome;
+                    if(court_outcome == 'CRUL'||court_outcome == 'CRJD'||court_outcome == 'CRCT')
+                    {
+                        if(court_order)
+                        {
+                            values['court_order'] = court_order.toString();
+                        }
+                        else
+                        {
+                            $("#div_court_order_").css({ 'display': "block" });
+                            return false;
+                        }  
+                    }  
+                    if(court_outcome == 'CADJ')
+                    {
+                        if(next_hearing_date)
+                        {
+                            values['next_hearing_date'] = next_hearing_date;
+                        }
+                        else
+                        {
+                            $("#div_next_hearing_date_").css({ 'display': "block" });
+                            return false;
+                        }
+                    }                    
+                }
+                else
+                {
+                    $("#div_court_outcome_").css({ 'display': "block" });
+                    return false;
+                } 
+            }
+            
+            if(court_session_type == 'STMN'||court_session_type == 'STPL'||court_session_type == 'STAP')
+            {
+                if(court_session_type=='STMN')
+                {
+                    if(next_mention_date)
+                    {
+                        values['next_mention_date'] = next_mention_date;
+                    }
+                    else
+                    {
+                        $("#div_next_mention_date_").css({ 'display': "block" });
+                        return false;
+                    }                    
+                }
+
+                if(court_session_type=='STPL')
+                {
+                    if(next_mention_date)
+                    {
+                        values['next_mention_date'] = next_mention_date;
+                    }
+                    else
+                    {
+                        $("#div_next_mention_date_").css({ 'display': "block" });
+                        return false;
+                    }    
+
+                    if(plea_taken)
+                    {
+                        values['plea_taken'] = plea_taken;
+                    }
+                    else
+                    {
+                        $("#div_plea_taken_").css({ 'display': "block" });
+                        return false;
+                    }                    
+                }
+
+                if(court_session_type=='STAP')
+                {
+                    if(application_outcome)
+                    {
+                        values['application_outcome'] = application_outcome;
+
+                        if(application_outcome == 'APGR')
+                        {
+                            if(court_outcome)
+                            {
+                                values['court_outcome'] = court_outcome;
+                                if(court_outcome == 'CRUL'||court_outcome == 'CRJD'||court_outcome == 'CRCT')
+                                {
+                                    if(court_order)
+                                    {
+                                        values['court_order'] = court_order.toString();
+                                    }
+                                    else
+                                    {
+                                        $("#div_court_order_").css({ 'display': "block" });
+                                        return false;
+                                    }  
+                                }  
+                                if(court_outcome == 'CADJ')
+                                {
+                                    if(next_hearing_date)
+                                    {
+                                        values['next_hearing_date'] = next_hearing_date;
+                                    }
+                                    else
+                                    {
+                                        $("#div_next_hearing_date_").css({ 'display': "block" });
+                                        return false;
+                                    }
+                                }                    
+                            }
+                            else
+                            {
+                                $("#div_court_outcome_").css({ 'display': "block" });
+                                return false;
+                            } 
+                        }
+                    }
+                    else
+                    {
+                        $("#div_application_outcome_").css({ 'display': "block" });
+                        return false;
+                    }                    
+                }
+                
+            }
+        }
+        else
+        {
+            $("#div_court_session_type_").css({ 'display': "block" });
+            return false;
+        }    
+
+        // Edit Placement
+        $.ajax({
+                url: '{% url 'edit_placementfollowup' %}',
+                dataType: 'text',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    cancelFunction('COT');
+                    // messagingFunction(followup_type)
+                    LoadPlacementEvents();
+                    // $('#court_outcome').trigger('change');
+
+                    // display success msgs
+                    $('#placementfollowup_msgs p').html(result + msgOk);
+                    $("#placementfollowup_msgs").css({ 'display': "block" });
+                    $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                    $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                },
+                error: function(xhr, status, error)
+                {
+                    // display error msgs
+                    $('#placementfollowup_msgs p').html(result + msgError);
+                    $("#placementfollowup_msgs").css({ 'display': "block" });
+                    $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                    $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                }
+            });
+    }        
+}
+
+function saveFunction(value)
+{
+    msgOk  = ' save successful'
+    msgError  = ' save error'
+
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person = $('#person').val();
+    var placement_id = $('#placement_id').val();
+    var values = {  
+                    'person' : person,
+                    'placement_id': placement_id,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+    var action;
+
+    /* ---- FIRST FOUR FOLLOWUPS ----*/
+    if(value == 'FFFF')
+    { 
+        action='FFFF'; 
+        var placementfollowup_type = $('#placementfollowup_type').val();
+        // var placementfollowup_details = $('#placementfollowup_details').val();
+        var placementfollowup_outcome = $('#placementfollowup_outcome').val();
+        var placementfollowup_date = $('#placementfollowup_date').val(); 
+        var followup_type = $('#placementfollowup_type').val();
+        if(placementfollowup_type)
+        {
+            if(placementfollowup_date)
+            { 
+                if(placementfollowup_outcome)
+                {           
+                    values['placementfollowup_type'] = placementfollowup_type 
+                    // values['placementfollowup_details'] = placementfollowup_details;
+                    values['placementfollowup_outcome'] = placementfollowup_outcome;
+                    values['placementfollowup_date'] = placementfollowup_date;         
+                    values['followup_type'] = followup_type; 
+                    values['action'] = action;  
+                    
+                    $.ajax({
+                        url: '{% url 'save_placementfollowup' %}',
+                        dataType: 'text',
+                        method: 'POST',
+                        contentType: 'application/x-www-form-urlencoded',
+                        data: values,
+                        success: function(result)
+                        {
+                            cancelFunction('ITP');
+                            // messagingFunction(followup_type)
+                            LoadPlacementEvents();
+
+                            // display success msgs
+                            $('#placementfollowup_msgs p').html(result + msgOk);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                        },
+                        error: function(xhr, status, error)
+                        {
+                            // display error msgs
+                            $('#placementfollowup_msgs p').html(result + msgError);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                        }
+                    });
+                } 
+                else
+                { 
+                    $("#div_placementfollowup_outcome").css({ 'display': "block" });
+                    return false;
+                };
+            }
+            else
+            { 
+                $("#div_placementfollowup_date").css({ 'display': "block" });
+                return false;
+            };
+        } 
+        else
+        { 
+            $("#div_placementfollowup_type").css({ 'display': "block" });
+            return false;
+        };
+    }
+
+    /* ---- EDUCATION FOLLOWUP ----*/
+    if(value == 'EDU')
+    {
+        action='EDU'; 
+        var admmitted_to_school = $('#admmitted_to_school').val(); 
+        var not_in_school_reason = $('#not_in_school_reason').val(); 
+        var admmission_type = $('#admmission_type').val(); 
+        var name_of_school = $('#name_of_school').val(); 
+        var admmission_class = $('#admmission_class').val();
+        var admmission_subclass = $('#admmission_subclass').val();
+        var admmission_to_school_date = $('#admmission_to_school_date').val();
+        var education_comments = $('#education_comments').val();
+
+        if(admmitted_to_school)
+        {           
+
+            if(admmitted_to_school == 'AYES')
+            {
+                if(name_of_school)
+                {
+                    if(admmission_to_school_date)
+                    {
+                        values['admmission_to_school_date'] = admmission_to_school_date; 
+                    }
+                    else
+                    { 
+                        $("#div_admmission_to_school_date_").css({ 'display': "block" });
+                        return false;
+                    }
+
+                    if(admmission_type)
+                    {
+                        if(admmission_class)
+                        {
+                            var arr = admmission_class;
+                            var check = ['TVC1', 'TVC2', 'TVC3', 'TVC4', 'TVC5'];
+                            var found = false;
+                            console.log(arr);
+                            for (var i = 0; i < check.length; i++) {
+                                if (arr.indexOf(check[i]) > -1) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if(found)
+                            {
+                                if(admmission_subclass)
+                                {
+                                    values['admmission_subclass'] = admmission_subclass;                                
+                                }
+                                else
+                                {
+                                    $("#div_admmission_subclass_").css({ 'display': "block" });
+                                    return false;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            $("#div_admmission_class_").css({ 'display': "block" });
+                            return false;
+                        }
+
+                        values['admmitted_to_school'] = admmitted_to_school
+                        values['not_in_school_reason'] = null
+                        values['admmission_type'] = admmission_type
+                        values['name_of_school'] = name_of_school
+                        values['admmission_class'] =admmission_class.toString()
+                        values['admmission_to_school_date'] = admmission_to_school_date
+                        values['education_comments'] = education_comments 
+                        values['action'] = action;
+                    }
+                    else
+                    {
+                        $("#div_admmission_type_").css({ 'display': "block" });
+                        return false;
+                    }
+                }
+                else
+                {
+                    $("#div_name_of_school_").css({ 'display': "block" });
+                    return false;
+                }
+            }
+
+            if(admmitted_to_school == 'ANNO')
+            {
+                if(not_in_school_reason)
+                {
+                    values['admmitted_to_school'] = admmitted_to_school
+                    values['not_in_school_reason'] = not_in_school_reason
+                    values['education_comments'] = education_comments
+                }
+                else
+                {
+                    $("#div_not_in_school_reason_").css({ 'display': "block" });
+                    return false;
+                }
+
+                values['admmitted_to_school'] = admmitted_to_school
+                values['not_in_school_reason'] = not_in_school_reason
+                values['admmission_type'] = null
+                values['name_of_school'] = null
+                values['admmission_class'] =null
+                values['admmission_subclass'] = null;
+                values['admmission_to_school_date'] = null
+                values['education_comments'] = education_comments 
+                values['action'] = action;
+            }
+
+            // Save Education
+            $.ajax({
+                url: '{% url 'save_placementfollowup' %}',
+                dataType: 'text',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    cancelFunction('EDU');
+                    // messagingFunction(followup_type)
+                    LoadPlacementEvents();
+                    
+                    // display success msgs
+                    $('#placementfollowup_msgs p').html(result + msgOk);
+                    $("#placementfollowup_msgs").css({ 'display': "block" });
+                    $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                    $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                },
+                error: function(xhr, status, error)
+                {
+                    // display error msgs
+                    $('#placementfollowup_msgs p').html(result + msgError);
+                    $("#placementfollowup_msgs").css({ 'display': "block" });
+                    $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                    $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                }
+            });            
+        }
+        else
+        {
+            $("#div_admmitted_to_school_").css({ 'display': "block" });
+            return false;
+        }        
+    }
+
+    /* ---- COURT FOLLOWUP ----*/
+    if(value == 'COT')
+    {
+        action='COT';
+        var court_session_case = $('#court_session_case').val();
+        var date_of_court_event = $('#date_of_court_event').val();
+        var court_session_type = $('#court_session_type').val();
+        var court_outcome = $('#court_outcome').val();
+        var next_hearing_date = $('#next_hearing_date').val();
+        var next_mention_date = $('#next_mention_date').val();
+        var plea_taken = $('#plea_taken').val();
+        var application_outcome = $('#application_outcome').val();
+        var court_order = $('#court_order').val();
+        var court_notes = $('#court_notes').val();
+
+        values['action'] = action;
+        values['court_notes'] = court_notes;
+
+        if(court_session_case)
+        {
+            values['court_session_case'] = court_session_case;
+        }
+        else
+        {
+            $("#div_court_session_case_").css({ 'display': "block" });
+            return false;
+        }
+
+        if(date_of_court_event)
+        {
+            values['date_of_court_event'] = date_of_court_event;
+        }
+        else
+        {
+            $("#div_date_of_court_event_").css({ 'display': "block" });
+            return false;
+        }
+
+        if(court_session_type)
+        {
+            values['court_session_type'] = court_session_type;
+
+            if(court_session_type == 'STHR')
+            {
+                if(court_outcome)
+                {
+                    values['court_outcome'] = court_outcome;
+                    if(court_outcome == 'CRUL'||court_outcome == 'CRJD'||court_outcome == 'CRCT')
+                    {
+                        if(court_order)
+                        {
+                            values['court_order'] = court_order.toString();
+                        }
+                        else
+                        {
+                            $("#div_court_order_").css({ 'display': "block" });
+                            return false;
+                        }  
+                    }  
+                    if(court_outcome == 'CADJ')
+                    {
+                        if(next_hearing_date)
+                        {
+                            values['next_hearing_date'] = next_hearing_date;
+                        }
+                        else
+                        {
+                            $("#div_next_hearing_date_").css({ 'display': "block" });
+                            return false;
+                        }
+                    }                    
+                }
+                else
+                {
+                    $("#div_court_outcome_").css({ 'display': "block" });
+                    return false;
+                } 
+            }
+            if(court_session_type == 'STMN'||court_session_type == 'STPL'||court_session_type == 'STAP')
+            {
+                if(court_session_type=='STMN')
+                {
+                    if(next_mention_date)
+                    {
+                        values['next_mention_date'] = next_mention_date;
+                    }
+                    else
+                    {
+                        $("#div_next_mention_date_").css({ 'display': "block" });
+                        return false;
+                    }                    
+                }
+
+                if(court_session_type=='STPL')
+                {
+                    if(next_mention_date)
+                    {
+                        values['next_mention_date'] = next_mention_date;
+                    }
+                    else
+                    {
+                        $("#div_next_mention_date_").css({ 'display': "block" });
+                        return false;
+                    }    
+
+                    if(plea_taken)
+                    {
+                        values['plea_taken'] = plea_taken;
+                    }
+                    else
+                    {
+                        $("#div_plea_taken_").css({ 'display': "block" });
+                        return false;
+                    }                    
+                }
+
+                if(court_session_type=='STAP')
+                {
+                    if(application_outcome)
+                    {
+                        values['application_outcome'] = application_outcome;
+
+                        if(application_outcome == 'APGR')
+                        {
+                            if(court_outcome)
+                            {
+                                values['court_outcome'] = court_outcome;
+                                if(court_outcome == 'CRUL'||court_outcome == 'CRJD'||court_outcome == 'CRCT')
+                                {
+                                    if(court_order)
+                                    {
+                                        values['court_order'] = court_order.toString();
+                                    }
+                                    else
+                                    {
+                                        $("#div_court_order_").css({ 'display': "block" });
+                                        return false;
+                                    }  
+                                }  
+                                if(court_outcome == 'CADJ')
+                                {
+                                    if(next_hearing_date)
+                                    {
+                                        values['next_hearing_date'] = next_hearing_date;
+                                    }
+                                    else
+                                    {
+                                        $("#div_next_hearing_date_").css({ 'display': "block" });
+                                        return false;
+                                    }
+                                }                    
+                            }
+                            else
+                            {
+                                $("#div_court_outcome_").css({ 'display': "block" });
+                                return false;
+                            } 
+                        }
+                    }
+                    else
+                    {
+                        $("#div_application_outcome_").css({ 'display': "block" });
+                        return false;
+                    }                    
+                }
+                
+            }
+        }
+        else
+        {
+            $("#div_court_session_type_").css({ 'display': "block" });
+            return false;
+        }
+
+        
+        // Save Court
+        $.ajax({
+                url: '{% url 'save_placementfollowup' %}',
+                dataType: 'text',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    
+                    cancelFunction('COT');
+                    // messagingFunction(followup_type)
+                    LoadPlacementEvents();
+                    $('#court_session_type').trigger('change');
+
+                    // display success msgs
+                    $('#placementfollowup_msgs p').html(result + msgOk);
+                    $("#placementfollowup_msgs").css({ 'display': "block" });
+                    $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                    $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                },
+                error: function(xhr, status, error)
+                {
+                    // display error msgs
+                    $('#placementfollowup_msgs p').html(result + msgError);
+                    $("#placementfollowup_msgs").css({ 'display': "block" });
+                    $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                    $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                }
+            });     
+    }
+
+    /* ---- ADVERSE EVENTS FOLLOWUP ----*/ 
+    if(value == 'ADV')
+    {
+        action='ADV';
+        var adverse_events = $('#adverse_events').val();
+        var adverse_medical_events = $('#adverse_medical_events').val();
+        var adverse_offences = $('#adverse_offences').val();
+        var attendance_type = $('#attendance_type').val();
+        var hospital_referral_type = $('#hospital_referral_type').val();
+        var adverse_event_date = $('#adverse_event_date').val();
+
+        if(adverse_events)
+        {
+            if(adverse_events == 'AEMC')
+            {
+                if(adverse_medical_events)
+                {
+                    values['adverse_medical_events'] = adverse_medical_events.toString();
+                }
+                else
+                {
+                    $("#div_adverse_medical_events_").css({ 'display': "block" });
+                    return false;
+                } 
+
+                if(attendance_type)
+                {
+                    values['attendance_type'] =attendance_type;
+                }
+                else
+                {
+                    $("#div_attendance_type_").css({ 'display': "block" });
+                    return false;
+                } 
+
+                if(hospital_referral_type)
+                {
+                    values['hospital_referral_type'] = hospital_referral_type;
+                }
+                else
+                {
+                    $("#div_hospital_referral_type_").css({ 'display': "block" });
+                    return false;
+                }                
+            }
+
+            if(adverse_events == 'AECO')
+            {
+                if(adverse_offences)
+                {
+                    values['adverse_offences'] = adverse_offences.toString();
+                }
+                else
+                {
+                    $("#div_adverse_offences_").css({ 'display': "block" });
+                    return false;
+                }                
+            }
+
+            if(adverse_event_date)
+            {
+                values['action'] = action;
+                values['adverse_events'] = adverse_events;
+                values['adverse_event_date'] = adverse_event_date;
+
+                // Save Adverse Events
+                $.ajax({
+                        url: '{% url 'save_placementfollowup' %}',
+                        dataType: 'text',
+                        method: 'POST',
+                        contentType: 'application/x-www-form-urlencoded',
+                        data: values,
+                        success: function(result)
+                        {
+                            cancelFunction('ADV');
+                            // messagingFunction(followup_type)
+                            LoadPlacementEvents();
+                            $('#adverse_events').trigger('change');
+
+                            // display success msgs
+                            $('#placementfollowup_msgs p').html(result + msgOk);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                        },
+                        error: function(xhr, status, error)
+                        {
+                            // display error msgs
+                            $('#placementfollowup_msgs p').html(result + msgError);
+                            $("#placementfollowup_msgs").css({ 'display': "block" });
+                            $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                            $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                        }
+                    });
+            }
+            else
+            {
+                $("#div_adverse_event_date_").css({ 'display': "block" });
+                return false;
+            } 
+        }
+        else
+        {
+            $("#div_adverse_events_").css({ 'display': "block" });
+            return false;
+        }
+    }
+
+    /* ---- DISCHARGE FOLLOWUP ----*/ 
+    if(value == 'DIS')
+    {
+        action='DIS';
+        var discharge_type = $('#discharge_type').val();
+        var discharge_destination = $('#discharge_destination').val();
+        var discharge_date = $('#discharge_date').val();
+        var discharge_reason = $('#discharge_reason').val();
+        var expected_return_date = $('#expected_return_date').val();
+        // var actual_return_date = $('#actual_return_date').val();
+        var discharge_comments = $('#discharge_comments').val();
+
+        if(discharge_type)
+        {
+            if(discharge_type == 'TDTR')
+            {
+                if(expected_return_date)
+                {
+                    values['expected_return_date'] = expected_return_date;
+                }
+                else
+                {
+                    $("#div_expected_return_date_").css({ 'display': "block" });
+                    return false;
+                }
+            }
+
+            if(discharge_type == 'DTSI')
+            {
+                if(discharge_destination)
+                {
+                    values['discharge_destination'] = discharge_destination;
+                }
+                else
+                {
+                    $("#div_discharge_destination_").css({ 'display': "block" });
+                    return false;
+                }
+            }
+
+            if(discharge_reason)
+            {
+                // Save Discharge
+                values['action'] = action;
+                values['discharge_type'] = discharge_type;
+                values['discharge_date'] = discharge_date;
+                values['discharge_reason'] = discharge_reason;
+                values['discharge_comments'] = discharge_comments;
+
+                $.ajax({
+                    url: '{% url 'save_placementfollowup' %}',
+                    dataType: 'text',
+                    method: 'POST',
+                    contentType: 'application/x-www-form-urlencoded',
+                    data: values,
+                    success: function(result)
+                    {
+                        cancelFunction('DIS');
+                        // messagingFunction(followup_type)
+                        LoadPlacementEvents();
+                        $('#discharge_type').trigger('change');
+
+                        // display success msgs
+                        $('#placementfollowup_msgs p').html(result + msgOk);
+                        $("#placementfollowup_msgs").css({ 'display': "block" });
+                        $("#placementfollowup_msgs").addClass('alert alert-success fade in')
+                        $("#placementfollowup_msgs").find('i').addClass('fa fa-check fa-2x pull-left');
+                    },
+                    error: function(xhr, status, error)
+                    {
+                        // display error msgs
+                        $('#placementfollowup_msgs p').html(result + msgError);
+                        $("#placementfollowup_msgs").css({ 'display': "block" });
+                        $("#placementfollowup_msgs").addClass('alert alert-danger fade in')
+                        $("#placementfollowup_msgs").find('i').addClass('fa fa-info fa-2x pull-left');
+                    }
+                });
+            }
+            else
+            {
+                $("#div_discharge_reason_").css({ 'display': "block" });
+                return false;
+            }
+        }
+        else
+        {
+            $("#div_discharge_type_").css({ 'display': "block" });
+            return false;
+        }
+    }
+}
+
+function viewFunction(followup_type, value)
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person = $('#person').val();
+    var values = {  
+        'csrfmiddlewaretoken': csrftoken,
+        'person': person,
+        'followup_id':value
+    };
+
+    // ITP/Tracing/Case Conferencing/Home Visit
+    var first4followups = ['Individual Treatment Plan','Case Conferencing', 'Home Visit', 'Tracing', 'Individual Care Plan', 'Foster Care'] 
+    var found = $.inArray(followup_type, first4followups);
+    if(found > -1)
+    {
+        values['followup_type'] = 'FFFF';
+        $.ajax({
+            url: '{% url 'view_placementfollowup' %}',
+            dataType: 'json',
+            method: 'POST',
+            data: values,
+            success: function(result)
+            {
+                 // cancelFunction('ITP');
+                 $.each(result, function(i, val) {                
+                    // Data from json
+                    var person_id = val.person_id;
+                    var followup_type = val.followup_type;
+                    var followup_date = val.followup_date;
+                    // var followup_details = val.followup_details;
+                    var followup_outcome = val.followup_outcome;
+
+                    // LoadData 
+                    $('#placementfollowup_type').val(followup_type);
+                    $('#placementfollowup_date').val(followup_date);
+                    $('#placementfollowup_outcome').val(followup_outcome);
+                    // $('#placementfollowup_details').val(followup_details);
+                 });
+
+                // Hide SaveButton/Show Update Button
+                $('#div_btnSaveFFFF').css({ 'display': 'none' })
+                $('#div_btnUpdateFFFF').css({ 'display': 'block' })
+            },
+            error: function(xhr, status, error)
+            {
+                alert(error);
+            }
+        });        
+    }
+    else
+    {
+        /** All the other follow-ups ... **/
+        values['followup_type'] = followup_type;
+
+        // Education
+        if(followup_type == 'Education')
+        {
+            // $("#wizard_placementfollowup").bwizard({ ui.index = 0; })
+            $.ajax({
+                url: '{% url 'view_placementfollowup' %}',
+                dataType: 'json',
+                method: 'POST',
+                data: values,
+                success: function(result)
+                {
+                    // cancelFunction('EDU');
+                    $.each(result, function(i, val) { 
+
+                        // Data from json
+                        var admmitted_to_school = val.admitted_to_school; 
+                        var education_comments = val.education_comments; 
+                        var school_id = val.school_id;    
+                        var admmission_type = val.school_admission_type; 
+                        var admmission_to_school_date = val.admission_to_school_date;     
+                        var admission_level = val.admission_level;
+                        var admission_sublevel = val.admission_sublevel;          
+
+                        // LoadData 
+                        $('#admmitted_to_school').val(admmitted_to_school);
+                        $('#admmitted_to_school').trigger('change');
+                        $('#education_comments').val(education_comments); 
+
+                        if(admmitted_to_school == 'AYES'){ 
+                            $('#name_of_school').val(school_id);
+                            $('#name_of_school').multiselect('refresh');  
+                            $('#admmission_type').val(admmission_type); 
+                            $('#admmission_to_school_date').val(admmission_to_school_date);
+                            $('#admmission_class').val(admission_level);
+                            $('#admmission_class').multiselect('refresh');
+                            displayVals('admmission_class');  
+
+                            var arr = admission_level;
+                            var check = ['TVC1', 'TVC2', 'TVC3', 'TVC4', 'TVC5'];
+                            var found = false;
+                            for (var i = 0; i < check.length; i++) {
+                                if (arr.indexOf(check[i]) > -1) {
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            if(found){
+                                console.log(admission_level);
+
+                                $('#div_admmission_subclass').css({'display': 'block'}); 
+                                $('#admmission_subclass').val(admission_sublevel); 
+                            } 
+                        }
+                        else
+                        {                            
+                        }                     
+
+                     });
+
+                    // Hide SaveButton/Show Update Button
+                    $('#div_btnSaveEducation').css({ 'display': 'none' })
+                    $('#div_btnUpdateEducation').css({ 'display': 'block' })
+                },
+                error: function(xhr, status, error)
+                { 
+                    alert(error);
+                }
+            });  
+        }
+
+        // Adverse Events
+        if(followup_type == 'Adverse Events')
+        {
+            $.ajax({
+                url: '{% url 'view_placementfollowup' %}',
+                dataType: 'json',
+                method: 'POST',
+                data: values,
+                success: function(result)
+                {
+                    // cancelFunction('DIS');
+                    $.each(result, function(i, val) {                
+                        // Data from json
+                        var adverse_condition_description = val.adverse_condition_description;
+                        var adverse_event_date = val.adverse_event_date;
+                        var adverse_other_events = val.adverse_other_events; 
+                        var attendance_type = val.attendance_type;
+                        var hospital_referral_type = val.referral_type;            
+
+                        // LoadData 
+                        $('#adverse_events').val(adverse_condition_description)
+                        $('#adverse_event_date').val(adverse_event_date)
+
+                        $('#adverse_events').trigger('change');
+                        
+                        if(adverse_condition_description == 'AEMC'){
+                            $('#adverse_medical_events').val(adverse_other_events); 
+                            $('#adverse_medical_events').multiselect('refresh');
+                            displayVals('adverse_medical_events');
+
+                            $('#attendance_type').val(attendance_type); 
+                            $('#hospital_referral_type').val(hospital_referral_type); 
+                        }
+
+                        if(adverse_condition_description == 'AECO'){
+                            $('#adverse_offences').val(adverse_other_events); 
+                            $('#adverse_offences').multiselect('refresh');
+                            displayVals('adverse_offences');
+                        }
+                     });             
+                            
+                    // Hide SaveButton/Show Update Button
+                    $('#div_btnSaveAdverse').css({ 'display': 'none' })
+                    $('#div_btnUpdateAdverse').css({ 'display': 'block' })
+                },
+                error: function(xhr, status, error)
+                { 
+                    alert(error);
+                }
+            }); 
+        }
+
+        // Court
+        courtevents = ['Court Mention', 'Court Hearing', 'Court Plea', 'Court Application']
+        var found = $.inArray(followup_type, courtevents);        
+        if(found > -1)
+        {
+            $.ajax({
+                url: '{% url 'view_placementfollowup' %}',
+                dataType: 'json',
+                method: 'POST',
+                data: values,
+                success: function(result)
+                {
+                    // cancelFunction('DIS');
+                    $.each(result, function(i, val) {                
+                        // Data from json
+                        var case_event_type_id = val.case_event_type_id
+                        var date_of_event = val.date_of_event
+                        var case_event_details = val.case_event_details
+                        var case_event_notes = val.case_event_notes
+                        var case_event_outcome = val.case_event_outcome
+                        var application_outcome = val.application_outcome
+                        var next_hearing_date = val.next_hearing_date
+                        var next_mention_date = val.next_mention_date
+                        var plea_taken = val.plea_taken
+                        var application_outcome = val.application_outcome
+                        var court_order = val.court_order 
+                        var casecategories = val.case_category                       
+
+                        // LoadData 
+                        $('#court_session_case').val(casecategories)
+                        $('#court_session_case').multiselect('refresh')
+                        $('#court_session_type').val(case_event_type_id)
+                        $('#court_session_type').multiselect('refresh')
+                        $('#court_session_type').trigger('change')
+                        $('#date_of_court_event').val(date_of_event)                        
+                        // displayVals('court_outcome');
+
+                        if(case_event_type_id == 'STHR') {
+                            $('#div_court_outcome').css({'display': 'block'})
+                            $('#court_outcome').val(case_event_outcome)
+                            $('#court_outcome').multiselect('refresh')
+
+                            if(case_event_outcome == 'CADJ') {
+                                $('#div_next_hearing_date').css({'display': 'block'})
+                                $('#next_hearing_date').val(next_hearing_date)
+                            }
+                            if(case_event_outcome == 'CRUL'||case_event_outcome == 'CRJD'||case_event_outcome == 'CRCT') {
+                                $('#div_court_order').css({'display': 'block'})
+                                $('#court_order').val(court_order)
+                                $('#court_order').multiselect('refresh')
+                                displayVals('court_order');
+                            }
+                        }  
+
+                        if(case_event_type_id == 'STMN'){
+                            $('#div_next_mention_date').css({'display': 'block'})
+                            $('#next_mention_date').val(next_mention_date)
+                        } 
+
+                        if(case_event_type_id == 'STPL'){
+                            $('#div_plea_taken').css({'display': 'block'})
+                            $('#plea_taken').val(plea_taken)
+
+                            $('#div_next_mention_date').css({'display': 'block'})
+                            $('#next_mention_date').val(next_mention_date)
+                        } 
+
+                        if(case_event_type_id == 'STAP'){
+                            $('#div_application_outcome').css({'display': 'block'})
+                            $('#application_outcome').val(application_outcome)
+
+                            if(application_outcome=='APGR')
+                            {
+                                $('#div_court_outcome').css({'display': 'block'})
+                                $('#court_outcome').val(case_event_outcome)
+                                $('#court_outcome').multiselect('refresh')
+                            }                      
+
+                            if(case_event_outcome == 'CADJ') {
+                                $('#div_next_hearing_date').css({'display': 'block'})
+                                $('#next_hearing_date').val(next_hearing_date)
+                            }
+                            if(case_event_outcome == 'CRUL'||case_event_outcome == 'CRJD'||case_event_outcome == 'CRCT')
+                            {
+                                $('#div_court_order').css({'display': 'block'})
+                                $('#court_order').val(court_order)
+                                $('#court_order').multiselect('refresh')
+                                displayVals('court_order');
+                            }
+                        } 
+
+                        $('#court_notes').val(case_event_notes)
+                     });  
+
+                    // Hide Update/Show SaveButton
+                    $('#div_btnSaveCourt').css({ 'display': 'none' })
+                    $('#div_btnUpdateCourt').css({ 'display': 'block' })
+                },
+                error: function(xhr, status, error)
+                { 
+                    alert(error);
+                }
+            });  
+        }
+
+        // Discharge
+        if(followup_type == 'Discharge')
+        {
+            $.ajax({
+                url: '{% url 'view_placementfollowup' %}',
+                dataType: 'json',
+                method: 'POST',
+                data: values,
+                success: function(result)
+                {
+                    // cancelFunction('DIS');
+                    $.each(result, function(i, val) {                
+                        // Data from json
+                        var discharge_type = val.type_of_discharge;
+                        var date_of_discharge = val.date_of_discharge;
+                        var discharge_destination = val.discharge_destination;
+                        var reason_of_discharge = val.reason_of_discharge;
+                        var expected_return_date = val.expected_return_date;
+                        var actual_return_date = val.actual_return_date;
+                        var discharge_comments = val.discharge_comments;
+
+                        // LoadData 
+                        $('#discharge_type').val(discharge_type);
+                        $('#discharge_type').trigger('change');
+                        $('#discharge_date').val(date_of_discharge);
+                        if(discharge_type == 'TDTR'){
+                            $('#div_expected_return_date').css({'display': 'block'})
+                            $('#expected_return_date').val(expected_return_date);
+                        }
+                        if(discharge_type == 'DTSI'){
+                            $('#div_discharge_destination').css({'display': 'block'})
+                            $('#discharge_destination').val(discharge_destination);
+                            $('#discharge_destination').multiselect('rebuild');
+                            displayVals('discharge_destination');
+                        }
+                        $('#discharge_reason').val(reason_of_discharge);
+                        // $('#actual_return_date').val(actual_return_date);
+                        $('#discharge_comments').val(discharge_comments);
+
+                     });             
+                            
+                    // Hide SaveButton/Show Update Button
+                    $('#div_btnSaveDischarge').css({ 'display': 'none' })
+                    $('#div_btnUpdateDischarge').css({ 'display': 'block' })
+                },
+                error: function(xhr, status, error)
+                { 
+                    alert(error);
+                }
+            });  
+        }
+    }
+}
+
+function editFunction(value)
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person = $('#person').val();
+    var values = {  
+        'csrfmiddlewaretoken': csrftoken,
+        'person': person,
+        'followup_id':followup_id,
+        'followup_type':followup_type
+    };
+
+    $.ajax({
+        url: '{% url 'view_placementfollowup' %}',
+        dataType: 'json',
+        method: 'POST',
+        data: values,
+        success: function(result)
+        {
+             $.each(result, function(i, val) {
+                // Data from json
+                var person_id = val.person_id;
+                var followup_type = val.followup_type;
+                var followup_type_code = val.followup_type_code;
+                var followup_date = val.followup_date;
+                var followup_details = val.followup_details;
+                var followup_outcome = val.followup_outcome;
+
+                // LoadData 
+                $('#placementfollowup_type').val(followup_type);
+                $('#placementfollowup_date').val(followup_date);
+                $('#placementfollowup_outcome').val(followup_outcome);
+                $('#placementfollowup_details').val(followup_details);
+
+                // Hide SaveButton/Show Update Button
+                $('#div_btnSaveFFFF').css({ 'display': 'none' })
+                $('#div_btnUpdateFFFF').css({ 'display': 'block' })
+
+             });
+        },
+        error: function(xhr, status, error)
+        {
+            alert(error);
+        }
+    });
+}
+function cancelFunction(value)
+{
+    if(value == 'ITP') // 'FITP' || 'FCAC' || 'FTRA' || 'FHAV'
+    {
+        $('#placementfollowup_type').val('');
+        $('#placementfollowup_date').val('');
+        $('#placementfollowup_details').val('');
+        $('#placementfollowup_outcome').val('');
+
+        // Hide Update/Show SaveButton
+        $('#div_btnSaveFFFF').css({ 'display': 'block' })
+        $('#div_btnUpdateFFFF').css({ 'display': 'none' })
+    }
+    if(value == 'DIS')
+    {
+        $('#discharge_type').val('');
+        $('#discharge_type').trigger('change');
+        $('#discharge_destination').multiselect('clearSelection');
+        $( "#sel_discharge_destination").html('');
+        $('#discharge_date').val('');
+        $('#discharge_reason').val('');
+        $('#expected_return_date').val('');
+        // $('#actual_return_date').val('');
+        $('#discharge_comments').val('');
+
+        // Hide SaveButton/Show Update Button
+        $('#div_btnSaveDischarge').css({ 'display': 'block' })
+        $('#div_btnUpdateDischarge').css({ 'display': 'none' })
+    }
+    if(value == 'EDU')
+    {
+        $('#admmitted_to_school').val('');
+        $('#admmitted_to_school').trigger('change');
+        $('#admmission_class').val('');
+      
+        $('#admmission_to_school_date').val('');
+        $('#education_comments').val('');
+
+        $('#div_name_of_school').css({'display': 'none'});
+        $('#name_of_school').multiselect('clearSelection');
+        $('#name_of_school').multiselect('refresh');
+
+        $('#div_not_in_school_reason').css({'display': 'none'});
+        $('#not_in_school_reason').val('');
+
+        $('#div_admmission_type').css({'display': 'none'});
+        $('#admmission_type').val('');
+
+        $('#div_admission_date').css({'display': 'none'});
+        $('#admission_date').val('');
+
+        $('#div_admmission_class').css({'display': 'none'});
+        $('#admmission_class').multiselect('clearSelection');
+        $('#admmission_class').multiselect('refresh');
+        $('#admmission_class').trigger('change')
+
+        // Hide SaveButton/Show Update Button
+        $('#div_btnSaveEducation').css({ 'display': 'block' })
+        $('#div_btnUpdateEducation').css({ 'display': 'none' })
+    }
+    if(value == 'ADV')
+    {
+        $('#adverse_events').val('');
+        $("#adverse_events").trigger('change');
+
+        $('#adverse_event_date').val('');
+        $("#adverse_medical_events").multiselect("clearSelection");
+        $('#div_adverse_medical_events').css({'display': 'none'});
+        $( "#sel_adverse_medical_events").html(''); 
+
+        // Hide Update/Show SaveButton
+        $('#div_btnSaveAdverse').css({ 'display': 'block' })
+        $('#div_btnUpdateAdverse').css({ 'display': 'none' })
+    }
+    if(value == 'COT')
+    {
+        $("#court_session_case").multiselect("clearSelection");
+        $("#court_session_case").multiselect("refresh");
+
+        $('#date_of_court_event').val('');
+        $('#court_notes').val('');
+
+        $('#div_court_outcome').css({'display': 'none'}) 
+        $("#court_outcome").multiselect("clearSelection");
+        $("#court_outcome").multiselect("refresh");
+        $("#court_outcome").trigger('change');
+        $('#sel_court_outcome').html(''); 
+
+        $('#div_next_hearing_date').css({'display': 'none'}) 
+        $('#next_hearing_date').val('');
+
+        $('#div_plea_taken').css({'display': 'none'}) 
+        $('#plea_taken').val('');
+
+        $('#div_application_outcome').css({'display': 'none'}) 
+        $('#application_outcome').val('');
+
+        $('#div_court_order').css({'display': 'none'}) 
+        $('#court_order').multiselect('clearSelection');
+        $('#court_order').multiselect('refresh')
+        $('#sel_court_order').html(''); 
+        $('#workforce_member_court').val('');
+
+        $("#court_session_type").multiselect("clearSelection");
+        $("#court_session_type").multiselect("refresh");
+
+        $('#div_next_mention_date').css({'display': 'none'})  
+        $('#next_mention_date').val('');
+
+        // Hide Update/Show SaveButton
+        $('#div_btnSaveCourt').css({ 'display': 'block' })
+        $('#div_btnUpdateCourt').css({ 'display': 'none' })
+    }
+}
+function messagingFunction(value)
+{
+    $("#div_placementfollowup_msgs").css({ 'display': "block" }); 
+    if(value == 'FUIT') { $('#div_placementfollowup_msgs p').html('ITP Followup Save Successful'); } 
+    if(value == 'FUCC') { $('#div_placementfollowup_msgs p').html('Case Conferencing Followup Save Successful'); } 
+    if(value == 'FHEA') { $('#div_placementfollowup_msgs p').html('Home Environment Adjustment Visit Followup Save Successful'); } 
+    if(value == 'FUTT') { $('#div_placementfollowup_msgs p').html('Tracing Followup Save Successful'); } 
+    if(value == 'FUAP') { $('#div_placementfollowup_msgs p').html('Assessment and Placement Save Successful'); } 
+    if(value == 'FUIC') { $('#div_placementfollowup_msgs p').html('ICP Followup Save Successful'); } 
+    if(value == 'DIS') { $('#div_placementfollowup_msgs p').html('Discharge/Release Followup Save Successful'); } 
+    if(value == 'EDU') { $('#div_placementfollowup_msgs p').html('Education Followup Save Successful'); } 
+    if(value == 'ADV') { $('#div_placementfollowup_msgs p').html('Adverse Events Followup Save Successful'); } 
+    if(value == 'COT') { $('#div_placementfollowup_msgs p').html('Court Session Followup Save Successful'); } 
+}
+function displayVals(value)
+{
+    var selections = [];
+    $("#" + value + " option:selected").each(function () 
+    {
+       var $this = $(this);
+       if ($this.length)
+       {
+            var selText = $this.text();
+            selections.push(selText);
+            //console.log(selText);
+       }
+    });
+    // $( "#sel_"+value ).html(selections.join( ", <br>" ) );
+    $( "#sel_"+value ).html(selections.join( "," ) );
+}
+function getJsonObject001()
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person = $('#person').val();
+    var action = 2;
+    var values = {  
+                    'person' : person,
+                    'csrfmiddlewaretoken': csrftoken,
+                    'action': action
+                 };
+     $.ajax({
+            url: '{% url 'getJsonObject001' %}',
+            dataType: 'json',
+            method: 'POST',
+            data: values,
+            success: function(result)
+            {
+                var multiselect_data = [];
+                var multiselect_dict = {};
+                var multiselect_dict_initial = { label:'Please Select', value:''};
+                multiselect_data.push(multiselect_dict_initial);
+                $.each(result, function(i, val) {
+                    if(result)
+                    {
+                        var case_category_id = val.case_category_id;
+                        var case_category = val.case_category;
+                        var multiselect_dict = { label: case_category, value: case_category_id };
+                        // var emrgency_dict = { label: "EMERGENCY", value: ''}
+                        multiselect_data.push(multiselect_dict);
+                    }
+                }); 
+
+                //multi selects
+                $('#court_session_case').multiselect({
+                    selectAllValue: 'multiselect-all',
+                    enableCaseInsensitiveFiltering: true,
+                    numberDisplayed: 1,
+                    maxHeight: 300,
+                    buttonWidth: '100%',
+                    buttonClass: 'btn btn-white'
+                }); 
+                $("#court_session_case").multiselect("refresh");
+                $("#court_session_case").multiselect('dataprovider', multiselect_data);
+            },
+            error: function(xhr, status, error)
+            {
+                alert(error);
+            }
+        });    
+}
+
+function validateClassPlacement()
+{
+    var child_age = $('#child_age').val(); 
+    var admmission_class = $('#admmission_class').val();
+    var arr = admmission_class;
+
+    var check_ECDE = ['BABY', 'MIDC', 'PREU'];
+    var check_PRI = ['CLS1', 'CLS2', 'CLS3', 'CLS4', 'CLS5', 'CLS6', 'CLS7', 'CLS8'];
+    var check_SEC = ['FOM1', 'FOM2', 'FOM3', 'FOM4', 'FOM5', 'FOM5'];
+    var check_UNI = ['YER1', 'YER2', 'YER3', 'YER4', 'YER5'];
+
+    var ECDE_ = false;
+    var PRI_ = false;
+    var SEC_ = false;
+    var UNI_ = false;    
+
+    if(arr)
+    {
+        for (var i = 0; i < check_ECDE.length; i++) {
+            if (arr.indexOf(check_ECDE[i]) > -1) {
+                ECDE_ = true;
+                if(child_age < 3)
+                {                    
+                    $('#messages2').css({'display': 'block'});
+                    $('#messages2 p').html("You are placing a " + child_age + "year old child in ECDE.")    
+                }
+                break;
+            }
+        } 
+
+        for (var i = 0; i < check_PRI.length; i++) {
+            if (arr.indexOf(check_PRI[i]) > -1) {
+                PRI_ = true;
+                if(child_age < 6)
+                {                    
+                    $('#messages2').css({'display': 'block'});
+                    $('#messages2 p').html("You are placing a " + child_age + "year old child in Primary.")    
+                }
+                break;
+            }
+        } 
+
+        for (var i = 0; i < check_SEC.length; i++) {
+            if (arr.indexOf(check_SEC[i]) > -1) {
+                SEC_ = true;
+                if(child_age < 14)
+                {                    
+                    $('#messages2').css({'display': 'block'});
+                    $('#messages2 p').html("You are placing a " + child_age + "year old child in Secondary.")    
+                }
+                break;
+            }
+        } 
+
+        for (var i = 0; i < check_UNI.length; i++) {
+            if (arr.indexOf(check_UNI[i]) > -1) {
+                UNI_ = true;
+                if(child_age < 16)
+                {                    
+                    $('#messages2').css({'display': 'block'});
+                    $('#messages2 p').html("You are placing a " + child_age + "year old child in University.")    
+                }
+                break;
+            }
+        } 
+               
+    }
+}
+
+$("#court_session_case").change(function(event) 
+{ 
+   $('#div_court_session_case_').css({'display': 'none'});
+});
+$('#court_session_case').trigger('change');
+
+$("#court_session_type").change(function(event) 
+{ 
+    var court_session_type = $('#court_session_type').val();
+
+    if(court_session_type == 'STMN')
+    {
+        // Display
+        $('#div_next_mention_date').css({'display': 'block'});
+
+        // Hide
+        $('#div_plea_taken').css({'display': 'none'});
+        $('#plea_taken').val('');
+
+        $('#div_application_outcome').css({'display': 'none'});
+        $('#application_outcome').val('');
+
+        $('#div_next_hearing_date').css({'display': 'none'});
+        $('#next_hearing_date').val('');
+
+        $('#div_court_outcome').css({'display': 'none'});
+        $('#court_outcome').val('');
+
+        $('#div_court_order').css({'display': 'none'}) 
+        $('#court_order').multiselect('clearSelection');
+        $('#court_order').multiselect('refresh')
+        $('#sel_court_order').html(''); 
+    }
+    
+    else if(court_session_type == 'STPL')
+    {
+        // Display
+        $('#div_next_mention_date').css({'display': 'block'});
+        $('#div_plea_taken').css({'display': 'block'});
+
+        // Hide
+        $('#div_application_outcome').css({'display': 'none'});
+        $('#application_outcome').val('');
+
+        $('#div_next_hearing_date').css({'display': 'none'});
+        $('#next_hearing_date').val('');
+
+        $('#div_court_outcome').css({'display': 'none'});
+        $('#court_outcome').val('');
+
+        $('#div_court_order').css({'display': 'none'}) 
+        $('#court_order').multiselect('clearSelection');
+        $('#court_order').multiselect('refresh')
+        $('#sel_court_order').html('');
+    }
+
+    else if(court_session_type == 'STAP')
+    {
+        // Display
+        $('#div_application_outcome').css({'display': 'block'});
+
+        // Hide
+        $('#div_plea_taken').css({'display': 'none'});
+        $('#plea_taken').val('');
+
+        $('#div_next_mention_date').css({'display': 'none'});
+        $('#next_mention_date').val('');
+
+        $('#div_next_hearing_date').css({'display': 'none'});
+        $('#next_hearing_date').val('');
+
+        $('#div_court_outcome').css({'display': 'none'});
+        $('#court_outcome').multiselect('clearSelection');
+        $('#court_outcome').multiselect('refresh');
+        // $('#court_outcome').trigger('change');
+
+        $('#div_court_order').css({'display': 'none'}) 
+        $('#court_order').multiselect('clearSelection');
+        $('#court_order').multiselect('refresh')
+        $('#sel_court_order').html(''); 
+    }
+
+    else if(court_session_type == 'STHR')
+    {
+        // Display
+        $('#div_court_outcome').css({'display': 'block'});
+        // $('#div_court_outcome').multiselect('clearSelection');
+        // $('#div_court_outcome').multiselect('refresh')
+        // $('#court_outcome').trigger('change');
+
+        // Hide
+        $('#div_plea_taken').css({'display': 'none'});
+        $('#plea_taken').val('');
+
+        $('#div_application_outcome').css({'display': 'none'});
+        $('#application_outcome').val('');
+
+        $('#div_next_mention_date').css({'display': 'none'});
+        $('#next_mention_date').val('');
+
+        $('#div_next_hearing_date').css({'display': 'none'});
+        $('#next_hearing_date').val('');
+
+    }
+
+    else
+    {
+        // Hide All
+        $('#div_plea_taken').css({'display': 'none'});
+        $('#plea_taken').val('');
+
+        $('#div_application_outcome').css({'display': 'none'});
+        $('#application_outcome').val('');
+
+        $('#div_next_mention_date').css({'display': 'none'});
+        $('#next_mention_date').val('');
+
+        $('#div_next_hearing_date').css({'display': 'none'});
+        $('#next_hearing_date').val('');
+
+        $('#div_court_outcome').css({'display': 'none'});
+        $('#court_outcome').multiselect('clearSelection');
+        $('#court_outcome').multiselect('refresh');
+        // $('#court_outcome').trigger('change');
+
+        $('#div_court_order').css({'display': 'none'}) 
+        $('#court_order').multiselect('clearSelection');
+        $('#court_order').multiselect('refresh')
+        $('#sel_court_order').html('');
+    }
+    $("#div_court_session_type_").css({ 'display': "none" });
+});
+
+$("#application_outcome").change(function(event) 
+{ 
+    // if GRANTED pick Court Orders
+    var application_outcome = $('#application_outcome').val();
+    if(application_outcome == 'APGR')
+    {
+        $('#div_court_outcome').css({'display': 'block'});
+        $('#court_outcome').multiselect('clearSelection');
+        $('#court_outcome').multiselect('refresh')
+        // $('#court_outcome').trigger('change');
+    }
+    else
+    {
+        $('#div_court_outcome').css({'display': 'none'});
+        $('#court_outcome').multiselect('clearSelection');
+        $('#court_outcome').multiselect('refresh') 
+        $('#court_outcome').trigger('change') ;      
+    }
+    $("#div_application_outcome_").css({ 'display': "none" });
+});
+
+$("#date_of_court_event").change(function(event) 
+{ 
+   $('#div_date_of_court_event_').css({'display': 'none'});
+});
+$('#date_of_court_event').trigger('change');
+
+$("#court_outcome").change(function(event) 
+{ 
+    var court_outcome = $('#court_outcome').val();
+    if(court_outcome == 'CADJ')
+    {
+        $('#div_court_order').css({'display': 'none'});
+        $('#court_order').multiselect('clearSelection');
+        $('#court_order').multiselect('refresh')
+        $('#sel_court_order').html('')
+        $('#div_next_hearing_date').css({'display': 'block'}); 
+    }
+    else if(court_outcome == 'CRUL'||court_outcome == 'CRJD'||court_outcome == 'CRCT')
+    {
+        $('#div_court_order').css({'display': 'block'}); 
+        $('#div_next_hearing_date').css({'display': 'none'}); 
+        $('#next_hearing_date').val('');
+    }
+    else
+    {
+        $('#div_court_order').css({'display': 'none'});
+        $('#court_order').multiselect('clearSelection');
+        $('#court_order').multiselect('refresh')
+        $('#sel_court_order').html('')
+
+        $('#div_next_hearing_date').css({'display': 'none'}); 
+        $('#next_hearing_date').val('');
+    }
+    $("#div_court_outcome_").css({ 'display': "none" });
+});
+// $('#court_outcome').trigger('change');
+
+$("#next_hearing_date").change(function(event) 
+{ 
+   $('#div_next_hearing_date_').css({'display': 'none'});
+});
+$('#next_hearing_date').trigger('change');
+
+$("#next_mention_date").change(function(event) 
+{ 
+   $('#div_next_mention_date_').css({'display': 'none'});
+});
+$('#next_mention_date').trigger('change');
+
+$("#court_order").change(function(event) 
+{ 
+   $('#div_court_order_').css({'display': 'none'});
+});
+$('#court_order').trigger('change');
+
+$("#court_session_type").change(function(event) 
+{ 
+   $('#div_court_session_type_').css({'display': 'none'});
+});
+
+$("#admmitted_to_school").change(function(event) 
+{ 
+    var admmitted_to_school = $('#admmitted_to_school').val();
+    //console.log(admmitted_to_school);
+    if(admmitted_to_school == 'AYES')
+    {
+        $('#div_name_of_school').css({'display': 'block'});
+        $('#div_admmission_type').css({'display': 'block'});
+        $('#div_admmission_date').css({'display': 'block'});
+        $('#div_admmission_class').css({'display': 'block'});
+        $('#div_not_in_school_reason').css({'display': 'none'});
+        $('#not_in_school_reason').val('');
+    }
+    else if(admmitted_to_school == 'ANNO')
+    {
+        $('#div_name_of_school').css({'display': 'none'});
+        $('#name_of_school').multiselect('clearSelection');
+        $('#name_of_school').multiselect('refresh');
+
+        $('#div_not_in_school_reason').css({'display': 'block'});
+        $('#not_in_school_reason').val('');
+
+        $('#div_admmission_type').css({'display': 'none'});
+        $('#admmission_type').val('');
+
+        $('#div_admmission_date').css({'display': 'none'});
+        $('#admmission_to_school_date').val('');
+
+        $('#div_admmission_class').css({'display': 'none'});
+        $('#admmission_class').multiselect('clearSelection');
+        $('#admmission_class').multiselect('refresh');
+        $('#admmission_class').trigger('change');
+    }
+    else
+    {
+        $('#div_name_of_school').css({'display': 'none'});
+        $('#name_of_school').multiselect('clearSelection');
+        $('#name_of_school').multiselect('refresh');
+
+        $('#div_not_in_school_reason').css({'display': 'none'});
+        $('#not_in_school_reason').val('');
+
+        $('#div_admmission_type').css({'display': 'none'});
+        $('#admmission_type').val('');
+
+        $('#div_admmission_date').css({'display': 'none'});
+        $('#admmission_to_school_date').val('');
+
+        $('#div_admmission_class').css({'display': 'none'});
+        $('#admmission_class').multiselect('clearSelection');
+        $('#admmission_class').multiselect('refresh');
+
+        $('#div_not_in_school_reason').css({'display': 'none'});
+    }
+});
+
+$("#admmission_class").change(function(event) 
+{ 
+    validateClassPlacement();
+
+    var admmission_class = $('#admmission_class').val();
+    var arr = admmission_class;
+    var check = ['TVC1', 'TVC2', 'TVC3', 'TVC4', 'TVC5'];
+    var found = false;
+
+    if(arr)
+    {
+        for (var i = 0; i < check.length; i++) {
+            if (arr.indexOf(check[i]) > -1) {
+                found = true;
+                break;
+            }
+        }        
+    }
+
+    if(found)   
+    {
+        $('#div_admmission_subclass').css({'display': 'block'});  
+    }
+    else
+    {
+        $('#div_admmission_subclass').css({'display': 'none'}); 
+        $('#admmission_subclass').val('');
+    }
+    $('#div_admmission_class_').css({'display': 'none'}); 
+    displayVals('admmission_class');
+
+});
+// // $('#admmission_class').trigger('change');
+
+$("#admmission_subclass").change(function(event) 
+{ 
+    $('#div_admmission_subclass_').css({'display': 'none'}); 
+});
+$('#admmission_subclass').trigger('change');
+
+$("#admmission_to_school_date").change(function(event) 
+{ 
+    $('#div_admmission_to_school_date_').css({'display': 'none'});
+});
+$('#admmission_to_school_date').trigger('change');
+
+$("#not_in_school_reason").change(function(event) 
+{ 
+    $('#div_not_in_school_reason_').css({'display': 'none'});
+});
+$('#not_in_school_reason').trigger('change');
+
+$("#name_of_school").change(function(event) 
+{ 
+    $('#div_name_of_school_').css({'display': 'none'});
+});
+// $('#name_of_school').trigger('change');
+
+$("#discharge_type").change(function(event) 
+{ 
+    var discharge_type = $('#discharge_type').val();
+    if(discharge_type == 'TDTR')
+    {
+        // $('#div_actual_return_date').css({'display': 'block'});
+        $('#div_expected_return_date').css({'display': 'block'}); 
+        $('#div_discharge_destination').css({'display': 'none'}); 
+
+        // Reconfigure expected_return_date
+        $('#expected_return_date').val('');
+        $('#expected_return_date').datepicker('remove');
+        $('#expected_return_date').datepicker({ 
+            startDate: new Date(),
+            format: 'dd-M-yyyy'
+        });
+
+        // Reset discharge_destination
+        //$("#discharge_destination").multiselect("clearSelection");
+        //$("#discharge_destination").multiselect( 'refresh' );
+    }
+    else if(discharge_type == 'DTSI')
+    {
+        $( "#sel_discharge_destination").html('');
+        $('#div_discharge_destination').css({'display': 'block'}); 
+
+        $('#div_expected_return_date').css({'display': 'none'}); 
+        $('#expected_return_date').val('');
+    }
+    else
+    {
+        $('#div_discharge_destination').css({'display': 'none'});
+        // Reset discharge_destination
+        // $("#discharge_destination").multiselect("clearSelection");
+
+        $('#div_expected_return_date').css({'display': 'none'}); 
+        $('#expected_return_date').val('');
+    }
+});
+$('#discharge_type').trigger('change');
+
+$("#discharge_destination").change(function(event) 
+{ 
+    displayVals('discharge_destination');
+});
+$('#admmission_to_school_date').trigger('change');
+
+$("#adverse_events").change(function(event) 
+{
+    var adverse_event = $('#adverse_events').val();
+    if(adverse_event == 'AEMC')
+    {
+        $('#div_adverse_medical_events').css({'display': 'block'});
+        $('#div_attendance_type').css({'display': 'block'});
+        $('#div_hospital_referral_type').css({'display': 'block'});
+
+        $('#div_adverse_offences').css({'display': 'none'});
+        $("#adverse_offences").multiselect("clearSelection");
+        $("#adverse_offences").multiselect("refresh");
+        $("#sel_adverse_offences").html("");
+
+    }
+    else if(adverse_event == 'AECO')
+    {
+        $('#div_adverse_offences').css({'display': 'block'});
+
+        $('#div_adverse_medical_events').css({'display': 'none'});
+        $("#adverse_medical_events").multiselect("clearSelection");
+        $("#adverse_medical_events").multiselect("refresh");
+        $("#sel_adverse_medical_events").html("");
+
+        $('#div_attendance_type').css({'display': 'none'});
+        $("#attendance_type").val("");
+
+        $('#div_hospital_referral_type').css({'display': 'none'});
+        $("#hospital_referral_type").val("");
+    }
+    else
+    {
+        $('#div_adverse_offences').css({'display': 'none'});
+        $("#adverse_offences").multiselect("clearSelection");
+        $("#adverse_offences").multiselect("refresh");
+
+        $('#div_adverse_medical_events').css({'display': 'none'});
+        $("#adverse_medical_events").multiselect("clearSelection");
+        $("#adverse_medical_events").multiselect("refresh");
+
+        $('#div_attendance_type').css({'display': 'none'});
+        $("#attendance_type").val("");
+
+        $('#div_hospital_referral_type').css({'display': 'none'});
+        $("#hospital_referral_type").val("");
+
+        $("#sel_adverse_offences").html("");
+        $("#sel_adverse_medical_events").html("");
+    }
+    $('#div_adverse_events_').css({'display': 'none'});
+});
+// $('#adverse_events').trigger('change');
+
+$("#adverse_medical_events").change(function(event) 
+{ 
+    displayVals("adverse_medical_events");
+    $('#div_adverse_medical_events_').css({'display': 'none'});
+});
+// $('#adverse_medical_events').trigger('change');
+
+$("#adverse_offences").change(function(event) 
+{ 
+    displayVals("adverse_offences");
+    $('#div_adverse_offences_').css({'display': 'none'});
+});
+// $('#adverse_medical_events').trigger('change');
+
+$("#attendance_type").change(function(event) 
+{
+    $('#div_attendance_type_').css({'display': 'none'});
+});
+
+$("#hospital_referral_type").change(function(event) 
+{
+    $('#div_hospital_referral_type_').css({'display': 'none'});
+});
+
+$("#adverse_event_date").change(function(event) 
+{
+    $('#div_adverse_event_date_').css({'display': 'none'});
+});
+// $('#adverse_medical_events').trigger('change');
+
+$("#court_order").change(function(event) 
+{ 
+    displayVals("court_order");
+});
+$('#court_order').trigger('change');
+
+$("#placementfollowup_type").change(function(event) 
+{ 
+    $('#div_placementfollowup_type').css({'display': 'none'});
+});
+$('#placementfollowup_type').trigger('change');
+
+$("#placementfollowup_date").change(function(event) 
+{ 
+    $('#div_placementfollowup_date').css({'display': 'none'});
+});
+$('#placementfollowup_date').trigger('change');
+
+$('#placementfollowup_outcome').keyup(function() {
+    if($(this).val()) // get the current value of the input field    
+    {
+        $("#div_placementfollowup_outcome").css({ 'display': "none" }); 
+    }
+});
+$('#placementfollowup_outcome').trigger('keyup');
+
+$('#placementfollowup_details').keyup(function() {
+    if($(this).val()) // get the current value of the input field    
+    {
+        $("#div_placementfollowup_details").css({ 'display': "none" }); 
+    }
+});
+$('#placementfollowup_details').trigger('keyup');
+
+$("#date_of_court_event").change(function(event) 
+{ 
+    var date_of_court_event = $('#date_of_court_event').datepicker('getDate');
+    var new_date = date_of_court_event.getDate() + '/' 
+                                + (date_of_court_event.getMonth() + 1) + '/' 
+                                + date_of_court_event.getFullYear(); 
+
+    // Reconfigure date_of_next_hearing
+    $('#next_hearing_date').val('');
+    $('#next_hearing_date').datepicker('remove');
+    $('#next_hearing_date').datepicker({ 
+        startDate: new_date,
+        format: 'dd-M-yyyy'
+    });
+});
+</script>
+
+{% endblock %}

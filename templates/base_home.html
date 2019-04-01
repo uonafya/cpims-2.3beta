@@ -1,0 +1,86 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>CPIMS | {% block page_title %}{% endblock %}</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="{% static 'plugins/jquery-ui/themes/base/minified/jquery-ui.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/style.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/theme/default.css' %}" rel="stylesheet" id="theme" />
+	<!-- ================== END BASE CSS STYLE ================== -->
+	{% block style_code %}
+    <link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+	{% endblock style_code %}
+    {% block extra_styling %}{% endblock extra_styling %}
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+    {% block javascript_code %}{% endblock %}
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body class="pace-top bg-white">
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+	    <!-- begin register -->
+        <div class="register register-with-news-feed">
+            <!-- begin news-feed -->
+            <div class="news-feed">
+                <div class="news-image">
+                    <img src="{% static 'img/dcs.jpg' %}" alt="" height="100%" />
+                </div>
+                <div class="news-caption">
+                    <h4 class="caption-title"><img src="{% static 'img/logo_gok.png' %}" height="80"> Child Protection Information Management System</h4>
+                    <p>
+                        The National Council for Children's Services (NCCS) and the Department of Children Services (DCS)  are  charged  with  implementing  and  enforcing  the  provisions  of  Section  53  of  the Constitution  and  the  Children  Act,  2001.
+                    </p>
+                </div>
+            </div>
+            <!-- end news-feed -->
+            {% block primary %} {% endblock primary %}
+        </div>
+        <!-- end register -->
+        
+	</div>
+	<!-- end page container -->
+	
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/jquery/jquery-1.9.1.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery/jquery-migrate-1.1.0.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-ui/ui/minified/jquery-ui.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="{% static 'crossbrowserjs/html5shiv.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/respond.min.js' %}"></script>
+		<script src="{% static 'crossbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-cookie/jquery.cookie.js' %}"></script>
+    <script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+	<!-- ================== END BASE JS ================== -->
+	
+	<!-- ================== BEGIN PAGE LEVEL JS ================== -->
+	<script src="{% static 'js/apps.js' %}"></script>
+	<!-- ================== END PAGE LEVEL JS ================== -->
+    {% block lazy_javascript_code %}{% endblock lazy_javascript_code %}
+	<script>
+        jQuery(document).ready(function() {
+			App.init();
+            $("#id_email").addClass( "form-control input-lg" );
+            $('#id_email').attr('data-parsley-required', 'true');
+		});
+	</script>
+</body>
+</html>

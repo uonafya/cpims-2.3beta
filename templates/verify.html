@@ -1,0 +1,47 @@
+{% extends 'base_home.html' %}
+{% load staticfiles %}
+
+{% block page_title %} {{block.super}} Document verification {% endblock page_title%}    
+
+{% block primary %}
+<!-- begin right-content -->
+<div class="right-content">
+    <!-- begin register-header -->
+    <div class="register-header">
+        <h4 class="brand shome">Department of Children Services (DCS)</h4>
+    </div>
+    <h1 class="register-header">
+        <small>Document verification</small>
+    </h1>
+    <!-- end register-header -->  
+    <!-- begin register-content -->
+    <div class="register-content"> 
+
+        <div class="m-t-40 m-b-40">
+           {% if code == 0 %}
+                <div id="messages" class="alert alert-success fade in m-b-15">
+                <i class="fa fa-info fa-2x pull-left"></i>
+            {% else %}
+                <div id="messages" class="alert alert-danger fade in">
+                <i class="fa fa-check fa-2x pull-left"></i>
+            {% endif %} 
+            <p><strong>{{ msg }}</strong></p>
+            </div>
+		</div>
+		<div class="m-t-20 m-b-20 p-b-20">
+	        Please visit our <a href="{% url 'home' %}" class="text-success">home page</a> or 
+	        <a href="{% url 'login' %}" class="text-success">login page</a> or contact the nearest DCS office for more information.
+	    </div>
+	        <span class="promo m-t-40">
+	            <p>
+	                <img src="{% static 'img/logo_public.jpg' %}" height="80">
+	            </span>
+	            <hr />
+	            <p class="text-center text-inverse">
+	                &copy; {% now "Y" %} Department of Children Services (DCS). All Rights Reserved.
+	            </p>
+    </div>
+    <!-- end register-content -->
+</div>
+<!-- end right-content -->
+{% endblock primary %}

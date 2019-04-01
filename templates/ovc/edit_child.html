@@ -1,0 +1,1009 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} OVC Care Edit Registration {% endblock %}
+
+{% load app_filters %}
+{% load app_forms %}
+
+{% block style_code %}
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">OVC Care</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>Registration details | {{ child.first_name }} {{ child.surname }} | {{ child.age }}</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>                      
+                <h4 class="panel-title">Registration details &nbsp;</h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <form action="." method="post" name="ovcreg_form" id="ovcreg_form">
+                {% csrf_token %}
+                <input type="hidden" name="ovc_id" id="ovc_id" value="{{ child.id }}">
+
+                <div id="wizard">
+                <ol>
+                  <li>
+                      OVC Details
+                      <small>Biodata and basic details.</small>
+                  </li>
+                  <li>
+                      Health
+                      <small>Immunization and HIV information.</small>
+                  </li>
+                  <li>
+                      Education
+                      <small>Education information.</small>
+                  </li>
+                  <li>
+                      Parents / Caregiver
+                      <small>Parents and Caregiver details.</small>
+                  </li>
+                  <li>
+                     Siblings
+                      <small>Siblings details.</small>
+                  </li>        
+                </ol>
+                <!-- begin wizard step-1 -->
+    <div class="primary">
+        <fieldset>
+            <legend class="pull-left width-full">Child details</legend>
+                <table width="100%" class="table table-profile">
+                    <tbody>
+                        <tr>
+                            <td class="field">First Name</td>
+                            <td>{{ child.first_name }}</td>
+                            <td class="field">Surname</td>
+                            <td>{{ child.surname }}</td>
+                            <td class="field">Other Names</td>
+                            <td>{{ child.other_names }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="field">DOB</td>
+                            <td>{{ child.date_of_birth }}
+                            ({{ child.age }})
+                            </td>
+                            <td class="field">CBO</td>
+                            <td>{{ child.cbo }}</td>
+                            <td class="field">CHV</td>
+                            <td>{{ child.chv_name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- begin row -->
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Date of Registration</label>
+                        {{ form.reg_date }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-1 -->
+                    <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Has BCert</label>
+                        {{ form.has_bcert }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Birth Certificate No.</label>
+                        {{ form.bcert_no }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-1 -->
+                    <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Is Disabled</label>
+                        {{ form.disb }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label>NCPWD No.</label>
+                        {{ form.ncpwd_no }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Eligibility Criteria</label>
+                        {{ form.eligibility }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>CBO Child ID</label>
+                        {{ form.cbo_uid }}
+                        {{ form.cbo_uid_check }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                     <!-- begin col-1 -->
+                    <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Exit</label>
+                        {{ form.is_exited }}
+                      </div>
+                    </div>
+                    <!-- end col-1 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4" id="exit_reason_div">
+                    <div class="form-group">
+                        <label>Exit reason</label>
+                        {{ form.exit_reason }}
+                      </div>
+                    </div>
+                    <!-- end col-4 -->
+                    </div>
+            </fieldset>
+        </div>
+        <div class="primary1">
+            <fieldset>
+                <legend class="pull-left width-full">Health details</legend>
+                <!-- begin row -->
+                 {% if  not child.years > 5 %}
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Immunization Status</label>
+                        {{ form.immunization }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                {% endif %}
+                <!-- begin row -->
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>HIV Status</label>
+                        {{ form.hiv_status }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-6" id="facility_div">
+                    <div class="form-group">
+                        <label>Facility</label>
+                         {{ form.facility }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <div class="col-md-2" id="facility_id_div">
+                    <div class="form-group">
+                        <label>ID (Auto-populated)</label>
+                        {{ form.facility_id }}
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3" id="art_div">
+                    <div class="form-group">
+                        <label>ART Status</label>
+                        {{ form.art_status }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3" id="link_date_div">
+                    <div class="form-group">
+                        <label>Date of Linkage</label>
+                        {{ form.link_date }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3" id="ccc_no_div">
+                    <div class="form-group">
+                        <label>CCC Number</label>
+                        {{ form.ccc_number }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                <!-- begin row -->
+                <div class="row">
+                    <div class="col-md-1">
+                      <a href="#modal-facility" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Facility</button></a>
+                    </div>
+                    <div class="col-md-2">
+                      <a href="#modal-viralload" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Viral Load details </button></a>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="alert alert-danger fade in m-b-15">
+                                <strong>Warning!</strong>
+                                Facility details will only be saved if you provide all the details.
+                                <span class="close" data-dismiss="alert">&times;</span>
+                            </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="primary2">
+            <fieldset>
+                <legend class="pull-left width-full">Education details</legend>
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-2">
+                    <div class="form-group">
+                        <label>School Level</label>
+                        {{ form.school_level }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3" id="school_class_div">
+                    <div class="form-group">
+                        <label>Class</label>
+                        {{ form.school_class }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->  
+                    <!-- begin col-2 -->
+                    <div class="col-md-4" id="school_name_div">
+                    <div class="form-group">
+                        <label>School Name</label>
+                        {{ form.school_name }}
+                      </div>
+                    </div>
+                    <div class="col-md-1" id="school_id_div">
+                    <div class="form-group">
+                        <label>ID</label>
+                        {{ form.school_id }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-2">
+                    <div class="form-group" id="admission_type_div">
+                        <label>Boarding / Day</label>
+                        {{ form.admission_type }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                <div class="row">
+                    <div class="col-md-1">
+                      <a href="#modal-school" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> School</button></a>
+                    </div>
+                    <div class="col-md-11">
+                        <div class="alert alert-danger fade in m-b-15">
+                            <strong>Warning!</strong>
+                            School details will only be saved if you provide all the details.
+                            <span class="close" data-dismiss="alert">&times;</span>
+                        </div>
+                    </div>
+                </div>
+                </fieldset>
+            </div>
+        <div class="primary3">
+                <fieldset>
+                <legend class="pull-left width-full">Parents / Caregiver details</legend>
+                <!-- begin row -->
+                 <div class="row">
+                    <div class="col-md-12">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID Number</th>
+                            <th>First Name</th>
+                            <th>Surname</th>
+                            <th>Age</th>
+                            <th>Relation</th>
+                            <th>Telephone</th>
+                            <th>Alive</th>
+                            <th>HIV Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for guardian in hhmembers %}
+                        {% if 'OVC' not in guardian.member_type and 'TBVC' not in guardian.member_type %}
+                        {% with y=guardian.person.id|stringformat:"s" %}
+                        <tr>
+                            <td><input type="hidden" name="hh_member" value="{{ guardian.person.id }}">
+                            {% with x=y|add:"_INTL"|gen_value:extids %}
+                            {{ x }}
+                            <input type="hidden" name="cg_{{ guardian.person.id }}" value="{{ x }}">
+                            </td>
+                            <td>{{ guardian.person.first_name }}</td>
+                            <td>{{ guardian.person.surname }}</td>
+                            <td>{{ guardian.person.years }}</td>
+                            <td>{{ guardian.member_type|gen_value:vals }}
+                            <input type="hidden" name="hhr_{{ guardian.person.id }}" value="{{ guardian.member_type }}">
+                            </td>
+                            <td>{{ guardian.person.des_phone_number }}</td>
+                            <td>
+                            {% with ns="astatus_"|add:y %}
+                            {{ form|get_form:ns }}
+                            {% endwith %}
+                            <td>
+                            <div id="div_astatus_{{ y }}" {% if guardian.member_alive == 'ANNO' %} style="display: none" {% endif %}>
+                            {% with n="gstatus_"|add:y %}
+                            {{ form|get_form:n }}
+                            {% endwith %}
+                            </div>
+                            <div id="ndiv_astatus_{{ y }}" {% if guardian.member_alive == 'AYES' %} style="display: none" {% endif %}>
+                            {% with n="cstatus_"|add:y %}
+                            {{ form|get_form:n }}
+                            {% endwith %}
+                            </div>
+                            </td>                           
+                            {% endwith %}
+                        </tr>
+                        {% endwith %}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    </div>
+                    <!-- begin col-2 -->
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Primary Caretaker {{ ctaker }}</label>
+                        <select class="form-control" name="caretaker" id="caretaker"  data-parsley-required="true" >
+                            <option value="">Please Select Caretaker</option>
+                            {% for guardian in hhmembers %}
+                               {% if 'OVC' not in guardian.member_type and 'TBVC' not in guardian.member_type %}
+                               <option value="{{ guardian.person_id }}" {% if ctaker == guardian.person_id %}selected="selected"{% endif %}>{{ guardian.member_type|gen_value:vals }}</option>
+                            {% endif %}
+                            {% endfor %}
+                        </select>
+                      </div>
+                      <input type="hidden" name="hh_id" value="{{ hhold.house_hold_id }}">
+                      <p>HH Identifier : {{ hhold.house_hold.head_identifier}}</p>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+             </fieldset>
+            </div>
+        <div class="primary4">
+                <fieldset>
+                <legend class="pull-left width-full">Siblings details</legend>
+                <!-- begin row -->
+                <div class="row">
+                    <div class="col-md-12">
+                    {% if siblings %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Surname</th>
+                                <th>Age</th>
+                                <th>Relation</th>
+                                <th>Alive</th>
+                                <th>HIV Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for hh in hhmembers %}
+                        {% if 'OVC' in hh.member_type or 'TBVC' in hh.member_type %}
+                        {% with y=hh.person_id|stringformat:"s" %}
+                        <tr>
+                            <td>{{ hh.person_id }}
+                            <input type="hidden" name="hh_member" value="{{ hh.person_id }}">
+                            <input type="hidden" name="hhr_{{ hh.person_id }}" value="{{ hh.member_type }}">
+                            </td>
+                            <td>{{ hh.person.first_name }}</td>
+                            <td>{{ hh.person.surname }}</td>
+                            <td>{{ hh.person.years }}</td>
+                            <td>
+                            {% if hh.person.sex_id == 'SFEM' %}
+                                Sister
+                            {% else %}
+                                Brother
+                            {% endif %}
+                            </td>
+                            <td>
+                            {% if hh.person.date_of_death %}
+                                No
+                            {% else %}
+                                Yes
+                            {% endif %}  
+                            </td>
+                            <td>
+                            {% with n="sgstatus_"|add:y %}
+                               {{ form|get_form:n }}
+                            {% endwith %}
+                            </td>
+                        </tr>
+                        {% endwith %}
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <p>No siblings</p>
+                    {% endif %}
+                    </div>
+                </div>
+                </fieldset>
+            </div>
+            </div>
+                
+                <div class="row" id="form_actions">
+                <div class="form-group">
+                    <label class="control-label col-md-4 col-sm-4"></label>
+                    <div class="col-md-6 col-sm-6">
+                        <button type="submit" class="btn btn-primary" value="submit" id="s1">Update</button>
+                        <button type="button" class="btn btn-primary" value="exit-ovc" id="ovcexit">Exit OVC</button>
+                        <a href="{% url 'ovc_home' %}">
+                        <button type="button" class="btn btn-default">Cancel</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- end panel -->  
+    </div>
+    <!-- end col-12 -->
+    <!-- # start modal-dialog -->
+    <div class="modal fade" id="modal-facility">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">New Health Facility</h4>
+                </div>
+                <div class="modal-body">
+                    <p>To create a new Health Facility request for the addition.</p>
+                    <p>This will be added to the Master Health List.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- # end modal-dialog -->
+     <!-- # start modal-dialog -->
+    <div class="modal fade" id="modal-viralload">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Viral Load details</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="vmessage"></div>
+                    <p>New Viral load details.</p>
+                    <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" class="form-control" id="viral_date" name="viral_date" placeholder="Date" />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>LDL</label>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="ldl" id="ldl" /> Check ONLY if LDL
+                            </label>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Viral Load</label>
+                        <input type="text" class="form-control" id="viral_value" placeholder="Value" />
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-1">
+                    <div class="form-group">
+                        <label>-------------</label>
+                        <button type="button" class="form-group btn btn-primary m-r-5" id="viral_details"> Save Record</button>
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                    <p>History.</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th><th>Date</th><th>Viral Load Value</th><th>Suppressed</th>
+                            </tr>
+                            {% for vload in vloads %}
+                                <tr>
+                                    <td>{{ forloop.counter }}</td><td>{{ vload.viral_date }}</td>
+                                    <td>{% if not vload.viral_load %} LDL {% else %} {{ vload.viral_load }}{% endif %}</td>
+                                    <td>{% if vload.viral_load > 1000 %}<label class="label label-danger">No</label>
+                                         {% else %} <label class="label label-success">Yes</label>{% endif %}</td>
+                                </tr>
+                            {% endfor %}
+                        </thead>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- # end modal-dialog -->
+    <!-- # start modal-dialog -->
+    <div class="modal fade" id="modal-school">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">New School</h4>
+                </div>
+                <div class="modal-body">
+                    <p>To create a new School request for the addition.</p>
+                    <p>This will be added to the Master Schools List.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- # end modal-dialog -->
+    <!-- # start modal-dialog -->
+    <div class="modal fade" id="modal-ovc-exit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Exit OVC - {{ child.first_name }} {{ child.surname }} | {{ child.age }}</h4>
+                </div>
+                <div class="modal-body">
+                    <p>This is for handling all OVC exits.</p>
+                    <div id="exit-message"></div>
+                    <!-- begin col-4 -->
+                    <div class="primary4">
+                    <fieldset>
+                    <div class="row">
+                        <div class="col-md-4">
+                           <label>Exit reason</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form.ovc_exit_reason }}
+                            </div>
+                        <!-- end col-4 -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                           <label>Exit Date</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form.exit_date }}
+                            </div>
+                        <!-- end col-4 -->
+                        </div>
+                    </div>
+                    <div class="row" id="exit_org_div">
+                        <div class="col-md-4">
+                           <label>Organization Name</label>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                {{ form.exit_org_name }}
+                            </div>
+                        <!-- end col-4 -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" value="exit-ovc" id="oexit">Exit OVC</button>
+                            </div>
+                        <!-- end col-4 -->
+                        </div>
+                    </div>
+                    </fieldset>
+                    </div>
+                        
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- # end modal-dialog -->
+</div>
+</div>
+</form>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script>
+    $("#wizard").bwizard();
+
+    $('#ovcreg_form').submit(function(){
+        if ($('#ovcreg_form').parsley().isValid()){ 
+             $('#messages').html('Form is OK.');
+             $('#messages').show();
+        }else{
+            $('#messages').html('Please fill all the mandatory fields. Only complete records will be saved.');
+            $('#messages').show();
+            return true;
+        }
+         
+    });
+
+    $('#ovcexit').click(function() { 
+        $('#modal-ovc-exit').modal('toggle');
+    });
+
+    $('#viral_details').click(function() {
+
+        var viral_date = $('#viral_date').val();
+        var viral_value = $('#viral_value').val();
+        var ldl = $('#ldl').is(":checked");
+         var ovc_id = $('#ovc_id').val();
+        //disable_fields(ccond, 'bcert_no');
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'ovc_id': ovc_id, 'action': 3,
+                      'viral_value': viral_value,
+                      'viral_date': viral_date, 'ldl': ldl,
+                      'csrfmiddlewaretoken': csrftoken };
+        if(( ldl || viral_value) && viral_date){
+            $.ajax({
+                type: "POST",
+                data: values,
+                dataType: "json",
+                url: "{% url 'ovc_manage' %}",
+                success: function(data){
+                    $('#messages').html('Viral load update was successful' );
+                    $('#messages').show();
+                    // Redirect to view
+                    $('#modal-viralload').modal('toggle');
+                    $(location).attr('href', '{% url 'ovc_view' id=child.id %}');
+                },
+                error: function(){
+                    $('#messages').html("Error");
+                    $('#messages').show();
+                }
+            });
+        }else{
+            $('#vmessage').html('Please fill the date and LDL or Viral Load value' );
+            $("#vmessage").addClass( "alert alert-danger fade in" ); 
+        }
+
+        $('#messages').html('Viral Load added successful' );
+        $('#messages').show();
+        //$(location).attr('href', '{% url 'ovc_view' id=child.id %}');
+    });  
+    
+
+    $('#oexit').click(function() {
+        $('#ovcreg_form').parsley().validate("primary4");
+        var ovc_id = $('#ovc_id').val();
+        var ovc_exit_reason = $('#ovc_exit_reason').val();
+        var ovc_exit_date = $('#exit_date').val();
+        var ovc_exit_org = $('#exit_org_name').val();
+
+        
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'ovc_id': ovc_id, 'action': 2,
+                      'exit_reason': ovc_exit_reason,
+                      'exit_date': ovc_exit_date,
+                      'exit_org_name': ovc_exit_org,
+                      'csrfmiddlewaretoken': csrftoken };
+        //Ajax call
+        var is_allowed = true;
+        if ((ovc_exit_reason == 'ERTL' || ovc_exit_reason == 'ERFO') && ovc_exit_org == ''){
+            is_allowed = false;
+        }
+        //if ($('#ovcreg_form').parsley().isValid()){
+        if (ovc_exit_reason && ovc_exit_date && is_allowed){
+            $.ajax({
+                type: "POST",
+                data: values,
+                dataType: "json",
+                url: "{% url 'ovc_manage' %}",
+                success: function(data){
+                    $('#messages').html('Exit was successful - ' + ovc_exit_date );
+                    $('#messages').show();
+                    // Redirect to view
+                    $('#modal-ovc-exit').modal('toggle');
+                    $(location).attr('href', '{% url 'ovc_view' id=child.id %}');
+                },
+                error: function(){
+                    $('#messages').html("Error");
+                    $('#messages').show();
+                }
+            });
+        }else{
+            $('#exit-message').html("Please provide all the details.");
+            $("#exit-message").addClass( "alert alert-danger fade in" );
+        }
+
+
+    });
+    
+    var is_exit = $('#is_exited').is(":checked");
+    disable_fields(is_exit, 'exit_reason');
+
+    //Class levels
+    {% for key, values in levels.items %}
+        var {{ key }} = {{ values|safe }};
+    {% endfor %}
+
+    $('#eligibility, #exit_reason').multiselect({
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        disableIfEmpty: true,
+        enableClickableOptGroups: true,
+        buttonClass: 'btn btn-white'
+    });
+
+    $('#reg_date, #link_date, #exit_date, #viral_date').datepicker({
+        dateFormat: 'yy-mm-dd', format: 'dd-M-yyyy',
+        endDate: '+0d', enddate: '+0d', autoclose: true
+    });
+    var ccond = $('#has_bcert').is(":checked");
+    disable_fields(ccond, 'bcert_no');
+
+    var dcond = $('#disb').is(":checked");
+    disable_fields(dcond, 'ncpwd_no');
+
+    $('#is_exited').live('change', function() {
+        var is_exit = $('#is_exited').is(":checked");
+        disable_fields(is_exit, 'exit_reason');
+        $('#exit_reason').multiselect('rebuild');
+    });
+
+    $('#has_bcert').live('change', function() {
+        var cond = $('#has_bcert').is(":checked");
+        disable_fields(cond, 'bcert_no');
+    });
+    $('#disb').live('change', function() {
+        var cond = $('#disb').is(":checked");
+        disable_fields(cond, 'ncpwd_no');
+    });
+
+    $('#exit_org_div').hide();
+    var cond = $('#ovc_exit_reason').val();
+    handle_exit_org(cond);
+    $('#ovc_exit_reason').live('change', function() {
+        var cond = $('#ovc_exit_reason').val();
+        handle_exit_org(cond);
+    });
+
+    $('#caretaker').val('{{ child.caretaker }}');
+
+    var hstatus = $('#hiv_status').val();
+    var hlevel = $('#school_level').val();
+    handle_hstatus(hstatus);
+    handle_education(hlevel);
+    handle_levels(hlevel);
+
+    $('#school_class').val('{{ sch_class }}');
+
+    $('#hiv_status').change(function(){
+        handle_hstatus(this.value);
+    });
+
+    $('#school_level').change(function(){
+        handle_education(this.value);
+        handle_levels(this.value);
+    });
+
+    $('.alive').change(function(){
+        var ids = $(this).attr('id');
+        var alive = this.value;
+        var id = ids.split('_')[1];
+        if (alive == 'ANNO'){
+           $('#div_' + ids).hide();
+           $('#ndiv_' + ids).show();
+           $('#gstatus_' + id).attr("data-parsley-required", "false");
+           $('#cstatus_' + id).attr("data-parsley-required", "true");
+        }else{
+           $('#div_' + ids).show();
+           $('#ndiv_' + ids).hide();
+           $('#gstatus_' + id).attr("data-parsley-required", "true");
+           $('#cstatus_' + id).attr("data-parsley-required", "false");
+        }
+    });
+
+    //Facility query
+    $( "#facility" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+          url: "{% url 'ovc_search' %}",
+          dataType: "json",
+          data: {q: request.term, id: 1},
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 4,
+      select: function( event, ui ) {
+         $('#facility').val(ui.item.name);
+         $('#facility_id').val(ui.item.id);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+
+    //School query
+    var s_level = $('#school_level').val();
+    $( "#school_name" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+          url: "{% url 'ovc_search' %}",
+          dataType: "json",
+          data: {q: request.term, id: 2, level: $('#school_level').val()},
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 4,
+      select: function( event, ui ) {
+         $('#school_name').val(ui.item.name);
+         $('#school_id').val(ui.item.id);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+    function handle_levels(person_type){
+        var default_txt = "<option value=''>Select title</option>";
+        if (person_type != ''){
+            var person_txt = ((eval(person_type)).length == 1) ? '' : default_txt;
+        }else{
+            var person_txt = "<option value=''>Select Class</option>";
+        }
+        $('#school_class').html(person_txt);
+        if (person_type != ''){
+            eval(person_type).forEach(function(tts) {
+                var tts_attribs = tts.split(",");
+                $('#school_class')
+                    .append($("<option></option>")
+                    .attr("value", tts_attribs[0])
+                    .text(tts_attribs[1]));
+            });
+        }else{
+             $('#school_class').append('<option></option>'); 
+        }
+    }
+
+    function handle_exit_org(cond){
+        if (cond == 'ERFO' || cond == 'ERTL'){
+           $('#exit_org_div').show(); 
+           $('#exit_org_name').attr("data-parsley-required", "true");
+        }else{
+           $('#exit_org_div').hide();
+           $('#exit_org_name').attr("data-parsley-required", "false");
+        }
+    }
+
+    function handle_hstatus(hstatus){
+        if (hstatus == 'HSTP') {
+            $('#facility_div').show();
+            $('#facility_id_div').show();
+            $('#art_div').show();
+            $('#link_date_div').show();
+            $('#ccc_no_div').show();
+            $('#facility').attr("data-parsley-required", "true");
+            $('#facility_id').attr("data-parsley-required", "true");
+            $('#art_status').attr("data-parsley-required", "true");
+            $('#link_date').attr("data-parsley-required", "true");
+            $('#ccc_number').attr("data-parsley-required", "true");
+        }else{
+            $('#facility_div').hide();
+            $('#facility_id_div').hide();
+            $('#art_div').hide();
+            $('#link_date_div').hide();
+            $('#ccc_no_div').hide();
+            $('#facility').attr("data-parsley-required", "false");
+            $('#facility_id').attr("data-parsley-required", "false");
+            $('#art_status').attr("data-parsley-required", "false");
+            $('#link_date').attr("data-parsley-required", "false");
+            $('#ccc_number').attr("data-parsley-required", "false");
+        } 
+    }
+
+    function handle_education(hlevel){
+        if ((hlevel == 'SLNS') || (hlevel == '')) {
+            $('#school_name_div').hide();
+            $('#school_id_div').hide();
+            $('#school_class_div').hide();
+            $('#admission_type_div').hide();
+            $('#school_name').attr("data-parsley-required", "false");
+            $('#school_id').attr("data-parsley-required", "false");
+            $('#school_class').attr("data-parsley-required", "false");
+            $('#admission_type').attr("data-parsley-required", "false");
+        }else{
+            $('#school_name_div').show();
+            $('#school_id_div').show();
+            $('#school_class_div').show();
+            $('#admission_type_div').show();
+            $('#school_name').attr("data-parsley-required", "true");
+            $('#school_id').attr("data-parsley-required", "true");
+            $('#school_class').attr("data-parsley-required", "true");
+            $('#admission_type').attr("data-parsley-required", "true");
+        }
+
+    }
+
+    function disable_fields(cond, field_id){
+        if (cond){
+            console.log(field_id + ' 1');
+            $('#'+ field_id).prop('disabled', false);
+            $('#'+ field_id).attr("data-parsley-required", "true");  
+        }else{
+            console.log(field_id + ' 2');
+            $('#'+ field_id).prop('disabled', true);
+            $('#'+ field_id).attr("data-parsley-required", "false");
+        }
+        
+    }
+
+</script>
+
+{% endblock %}

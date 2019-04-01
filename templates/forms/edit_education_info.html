@@ -1,0 +1,385 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Child Background Details {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+
+<!-- begin page-header -->
+{% for data in init_data %}
+    <h1 class="page-header">Forms <small>Edit Child School Details  <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>Education Background</b></h4>
+            </div>
+            <div class="panel-body">
+                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard-education" id="edit_education">
+                    {% csrf_token %}
+                    <div id="wizard_education">
+                    
+                        <ol>
+                            <li>
+                                Child School Information
+                                <small>Child school details.</small>
+                            </li>
+                     
+                        </ol>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">Child School Information</legend>
+                                <div class="row">
+
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Admitted to School : : <span class="asteriskField">*</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.admmitted_to_school }}
+                                        </div>
+                                    </div>
+
+                                    <div id="div_not_in_school_reason" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Out of School Reason : <span class="asteriskField">*</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.not_in_school_reason }}
+                                        </div>
+                                    </div>
+
+                                    <div id="div_name_of_school" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Name of School : <span class="asteriskField">*</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.name_of_school }}
+                                        </div>
+                                    </div>
+
+                                    <div id="div_admmission_type" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Admission Type :  <span class="asteriskField">*</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.admmission_type }}
+                                        </div>
+                                    </div>
+
+                                    <div id="div_admission_date" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Admission Date :  <span class="asteriskField">*</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.admission_date }}
+                                        </div>
+                                    </div>
+
+                                    <div id="div_admmission_class" class="form-group" style="display:none">
+                                        <label class="control-label col-md-4 col-sm-4">Admission Class/Level : <span class="asteriskField">*  </label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.admmission_class }}
+                                                <span id="sel_admmission_class"></span>
+                                                <br>
+                                                <div id="div_admmission_subclass" style="display:none">
+                                                    <h6>Specify Vocational Training: </h6>{{ form.admmission_subclass }}
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    <div id="div_education_comments" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Education Comments : </label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ form.education_comments }}
+                                        </div>
+                                    </div>
+                                                                                                      
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->
+                          
+
+                    </div>
+
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-validation-1" align="center">
+                        <div class="panel-body panel-form">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4"></label>
+                                <div class="col-md-6 col-sm-6">
+                                    
+                                 <button id="mysubmit100" type="submit" class="btn btn-primary">Update</button>
+                                    <button class="btn btn-default">Cancel</button>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+
+<!-- end row -->
+<!-- End content area -->
+
+</script>
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script>
+jQuery(document).ready(function() 
+{ 
+    //Load Schools
+    LoadSchools();
+   
+    //multi selects
+    $('#name_of_school, #not_in_school_reason, #admmission_class').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        buttonClass: 'btn btn-white'
+    });
+
+    var admmitted_to_school = $('#admmitted_to_school').val();
+    if(admmitted_to_school == 'AYES')
+    {
+        $('#div_name_of_school').css({'display': 'block'});
+        $('#name_of_school').attr('data-parsley-required', 'true'); 
+
+        $('#div_admmission_type').css({'display': 'block'});
+        $('#admmission_type').attr('data-parsley-required', 'true'); 
+
+        $('#div_admission_date').css({'display': 'block'});
+        $('#admission_date').attr('data-parsley-required', 'true'); 
+
+        $('#div_admmission_class').css({'display': 'block'});
+        $('#admmission_class').attr('data-parsley-required', 'true'); 
+
+        $('#div_not_in_school_reason').css({'display': 'none'});
+        $('#not_in_school_reason').multiselect('clearSelection');
+        $('#not_in_school_reason').multiselect('refresh');
+        $('#not_in_school_reason').attr('data-parsley-required', 'false');
+    }
+    else
+    {
+        $('#div_name_of_school').css({'display': 'none'});
+        $('#name_of_school').multiselect('clearSelection');
+        $('#name_of_school').multiselect('refresh');
+        $('#name_of_school').attr('data-parsley-required', 'false');
+
+        $('#div_not_in_school_reason').css({'display': 'block'});
+        $('#not_in_school_reason').attr('data-parsley-required', 'true');
+
+        $('#div_admmission_type').css({'display': 'none'});
+        $('#admmission_type').val('');
+        $('#admmission_type').attr('data-parsley-required', 'false');
+
+        $('#div_admission_date').css({'display': 'none'});
+        $('#admission_date').val('');
+        $('#admission_date').attr('data-parsley-required', 'false');
+
+        $('#div_admmission_class').css({'display': 'none'});
+        $('#admmission_class').multiselect('clearSelection');
+        $('#admmission_class').multiselect('refresh');
+        $('#admmission_class').trigger('change');
+        $('#admmission_class').attr('data-parsley-required', 'false');
+    }
+
+    var admmission_class = $('#admmission_class').val();
+    if(admmission_class == 'ACVT')  
+    {
+        $('#div_admmission_subclass').css({'display': 'block'}); 
+        $('#admmission_subclass').attr('data-parsley-required', 'true'); 
+    }
+    else
+    {
+        $('#div_admmission_subclass').css({'display': 'none'}); 
+        $('#admmission_subclass').val('');
+        $('#admmission_subclass').attr('data-parsley-required', 'false');
+    }
+
+    $('html,body').scrollTop(0);
+    FormWizardValidation.init();
+});
+</script>
+<script type="text/javascript">
+$("#admmitted_to_school").change(function(event) 
+{ 
+    var admmitted_to_school = $('#admmitted_to_school').val();
+    if(admmitted_to_school == 'AYES')
+    {
+        $('#div_name_of_school').css({'display': 'block'});
+        $('#name_of_school').attr('data-parsley-required', 'true'); 
+
+        $('#div_admmission_type').css({'display': 'block'});
+        $('#admmission_type').attr('data-parsley-required', 'true'); 
+
+        $('#div_admission_date').css({'display': 'block'});
+        $('#admission_date').attr('data-parsley-required', 'true'); 
+
+        $('#div_admmission_class').css({'display': 'block'});
+        $('#admmission_class').attr('data-parsley-required', 'true'); 
+
+        $('#div_not_in_school_reason').css({'display': 'none'});
+        $('#not_in_school_reason').multiselect('clearSelection');
+        $('#not_in_school_reason').multiselect('refresh');
+        $('#not_in_school_reason').attr('data-parsley-required', 'false');
+    }
+    else
+    {
+        $('#div_name_of_school').css({'display': 'none'});
+        $('#name_of_school').multiselect('clearSelection');
+        $('#name_of_school').multiselect('refresh');
+        $('#name_of_school').attr('data-parsley-required', 'false');
+
+        $('#div_not_in_school_reason').css({'display': 'block'});
+        $('#not_in_school_reason').attr('data-parsley-required', 'true');
+
+        $('#div_admmission_type').css({'display': 'none'});
+        $('#admmission_type').val('');
+        $('#admmission_type').attr('data-parsley-required', 'false');
+
+        $('#div_admission_date').css({'display': 'none'});
+        $('#admission_date').val('');
+        $('#admission_date').attr('data-parsley-required', 'false');
+
+        $('#div_admmission_class').css({'display': 'none'});
+        $('#admmission_class').multiselect('clearSelection');
+        $('#admmission_class').multiselect('refresh');
+        $('#admmission_class').trigger('change');
+        $('#admmission_class').attr('data-parsley-required', 'false');
+    }
+});
+
+$("#admmission_class").change(function(event) 
+{ 
+    var admmission_class = $('#admmission_class').val();
+    if(admmission_class == 'ACVT')  
+    {
+        $('#div_admmission_subclass').css({'display': 'block'}); 
+        $('#admmission_subclass').attr('data-parsley-required', 'true'); 
+    }
+    else
+    {
+        $('#div_admmission_subclass').css({'display': 'none'}); 
+        $('#admmission_subclass').val('');
+        $('#admmission_subclass').attr('data-parsley-required', 'false');
+    }
+    $('#div_admmission_class_').css({'display': 'none'}); 
+});
+$("#admmission_class").trigger('change') 
+
+function displayVals(value)
+{
+    var selections = [];
+    $("#" + value + " option:selected").each(function () 
+    {
+       var $this = $(this);
+       if ($this.length)
+       {
+            var selText = $this.text();
+            selections.push(selText);
+            //console.log(selText);
+       }
+    });
+    $( "#sel_"+value ).html(selections.join( ", " ) );
+}
+
+function LoadSchools()
+{
+    var csrftoken = $.cookie('csrftoken');
+    var values = { 'csrfmiddlewaretoken': csrftoken };
+
+    var multiselect_data = [];
+    $.ajax({
+                url: '{% url 'manage_schools' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    console.log(result);
+                    var multiselect_dict = {};
+                    var multiselect_dict_initial = { label:'Please Select', value:''};
+                    multiselect_data.push(multiselect_dict_initial);
+
+                    $.each(result, function(i, val) {
+                        var school_id = val.pk;
+                        var school_name = val.school_name;
+                        var school_subcounty = val.school_subcounty;
+                        var school_ward = val.school_ward;
+                        // var area_name = String(school_subcounty + '|' + school_ward);
+                        var multiselect_dict = { label: school_name + ' ('  + school_subcounty + ')', value: school_id };
+                        multiselect_data.push(multiselect_dict);
+                    }); 
+
+                    // Reload SchoolNames
+                    $("#name_of_school").multiselect({
+                        selectMultiple: false,
+                        selectAllValue: 'multiselect-all',
+                        includeSelectAllOption: true,
+                        enableCaseInsensitiveFiltering: true,
+                        numberDisplayed: 1,
+                        maxHeight: 300,
+                        buttonWidth: '100%',
+                        buttonClass: 'btn btn-white'
+                    }); 
+                    $("#name_of_school").multiselect('dataprovider', multiselect_data);
+                    $("#name_of_school").multiselect('refresh');                       
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+            });  
+}
+</script>
+
+{% endblock %}

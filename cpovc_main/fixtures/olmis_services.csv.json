@@ -1,0 +1,1106 @@
+[
+    {
+        "pk": 20000, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Domain", 
+            "user_configurable": "False", 
+            "field_name": "olmis_domain_id", 
+            "item_sub_category": "olmis_education_service_id", 
+            "is_void": "False", 
+            "item_id": "DEDU", 
+            "item_description_short": "Education",
+            "sms_keyword": "False", 
+            "item_description": "Education", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 20001, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Domain", 
+            "user_configurable": "False", 
+            "field_name": "olmis_domain_id", 
+            "item_sub_category": "olmis_health_service_id", 
+            "is_void": "False", 
+            "item_id": "DHNU", 
+            "item_description_short": "Health & Nutrition",
+            "sms_keyword": "False", 
+            "item_description": "Health and Nutrition", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20002, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Domain", 
+            "user_configurable": "False", 
+            "field_name": "olmis_domain_id", 
+            "item_sub_category": "olmis_hes_service_id", 
+            "is_void": "False", 
+            "item_id": "DHES", 
+            "item_description_short": "HES",
+            "sms_keyword": "False", 
+            "item_description": "HouseHold Economic Strengthening", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20003, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Domain", 
+            "user_configurable": "False", 
+            "field_name": "olmis_domain_id", 
+            "item_sub_category": "olmis_protection_service_id", 
+            "is_void": "False", 
+            "item_id": "DPRO", 
+            "item_description_short": "Protection",
+            "sms_keyword": "False", 
+            "item_description": "Protection", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20004, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Domain", 
+            "user_configurable": "False", 
+            "field_name": "olmis_domain_id", 
+            "item_sub_category": "olmis_pss_service_id", 
+            "is_void": "False", 
+            "item_id": "DPSS", 
+            "item_description_short": "Psychosocial Support",
+            "sms_keyword": "False", 
+            "item_description": "Psychosocial Support", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20005, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Domain", 
+            "user_configurable": "False", 
+            "field_name": "olmis_domain_id", 
+            "item_sub_category": "olmis_shelter_service_id", 
+            "is_void": "False", 
+            "item_id": "DSHC", 
+            "item_description_short": "Shelter and Care",
+            "sms_keyword": "False", 
+            "item_description": "Shelter and Care", 
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20006, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E1s - Enrolled back to school", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 20007, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E2s - School levies", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20008, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E3s - Financial education and literacy training [LIFE POA]", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20009, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE4S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E4s - School fees", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20010, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE5S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E5s - Scholastic material", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20011, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE6S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E6s - Sanitary pads", 
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20012, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE7S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E7s - Vocational training", 
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20013, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SE8S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "E8s - School uniform", 
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 20014, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "EG1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Participate in childs education through assistance with homework", 
+            "the_order": 9
+        }
+    },
+    {
+        "pk": 20015, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_education_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "EG2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Adult Literacy classes", 
+            "the_order": 10
+        }
+    },
+    {
+        "pk": 20016, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC10", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC10s - VitaminA", 
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 20017, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC1s - Treated for illness", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20018, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC2s - Mosquito net", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20019, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC3s - Escorted to care and treatment", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20020, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC4S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC4s - Access care and treatment without transport/escort support", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20021, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC5S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC5s - Health and nutrition education", 
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20022, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC6S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC6s - Supplementary feeding", 
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20023, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC7S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC7s - Transport to care and treatment services", 
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 20024, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC8S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC8s - Testing for HIV", 
+            "the_order": 9
+        }
+    },
+    {
+        "pk": 20025, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HC9S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HC9s - Deworming tablets", 
+            "the_order": 10
+        }
+    },
+    {
+        "pk": 20068, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Information about health insurance", 
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 20026, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Register in a health insurance plan", 
+            "the_order": 12
+        }
+    },
+    {
+        "pk": 20027, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Water treatment kit", 
+            "the_order": 13
+        }
+    },
+    {
+        "pk": 20028, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG4S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Handwashing facility", 
+            "the_order": 14
+        }
+    },
+    {
+        "pk": 20029, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG6S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Farm inputs including seedlings, tools, kits", 
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 20030, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG7S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Small stock", 
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 20031, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG8S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Food aid", 
+            "the_order": 16
+        }
+    },
+    {
+        "pk": 20032, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_health_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HG9S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Information on hygiene, sanitation and water treatment", 
+            "the_order": 17
+        }
+    },
+    {
+        "pk": 20033, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HE1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HE1s - Link to a job opportunity", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 20034, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HE2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HE2s - Business Skills Training", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20035, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HE3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HE3s - Job Market Skill Training", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20036, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HE4S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "HE4s - Start-up kit", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20037, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HEG1", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Engage in either SILC, GSL, VSL, IGA, table banking group", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20038, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HEG2", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Engage in financial literacy and education training (JIFANIKISHE)", 
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20039, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HEG3", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Business skills training", 
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20040, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HEG4", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Link to MFI", 
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 20041, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HEG5", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Link to market", 
+            "the_order": 9
+        }
+    },
+    {
+        "pk": 20042, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HEG6", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Link to UWEZO and other Enterprise Funds", 
+            "the_order": 10
+        }
+    },
+    {
+        "pk": 20043, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_hes_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "HEG5", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Economic strengthening assets (greenhouse, beehives)", 
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 20044, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PG1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Information on child abuse and neglect", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 20045, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PG2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Enrol in social protection program", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20046, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PG3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Information on importance of legal documents", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20047, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PT1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PT1s - Rescued from an abusive enviroment", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20048, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PT2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PT2s - Age appropriate information on rights/responsibilities", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20049, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PT3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PT3s - Legal assistance in case of abuse", 
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20050, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PT4S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PT4s - Has been re-united with family", 
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20051, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_protection_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PT5S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PT5s - Birth certificate", 
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20052, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PS1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PS1s - Mentored by older or responsible person", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 20053, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PS2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PS2s - Linked to support group or peer club", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20054, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PS3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PS3s - Life skills", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20055, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PS4S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "PS4s - Basic counseling to address needs", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20056, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PSG1", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Counseling", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20057, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PSG2", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Support to disclosed status to child/partner", 
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20058, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PSG3", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Adherence to care and treatment counseling", 
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20059, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_pss_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PSG4", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Caregiver is an active member of a support group", 
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 20060, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SC1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "SC1s - Shelter Repaired", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 20061, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SC2S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "SC2s - Linked to Adult Caregiver", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20062, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SC3S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "SC3s - Blanket", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20063, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SC4S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "SC4s - Household repair", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20064, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SC5S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "SC5s - Mattress", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20065, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SC6S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "SC6s - Shoes", 
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20066, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SC7S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "SC7s - Clothes", 
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20067, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Service", 
+            "user_configurable": "False", 
+            "field_name": "olmis_shelter_service_id_b", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "SG1S", 
+            "item_description_short": "",
+            "sms_keyword": "False", 
+            "item_description": "Training on child care and parenting skills", 
+            "the_order": 8
+        }
+    }
+]

@@ -1,0 +1,1411 @@
+[
+  {
+     "pk":23    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Philip K. Wapopa",
+     "is_void":"False",
+     "org_unit_id":9
+  }
+  },
+  {
+     "pk":24    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"384, Kabarnet",
+     "is_void":"False",
+     "org_unit_id":9
+  }
+  },
+  {
+     "pk":25    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"philwapopa@hotmail.com",
+     "is_void":"False",
+     "org_unit_id":9
+  }
+  },
+  {
+     "pk":26    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Duncan K. Ngeno",
+     "is_void":"False",
+     "org_unit_id":10
+  }
+  },
+  {
+     "pk":27    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"358, Bomet",
+     "is_void":"False",
+     "org_unit_id":10
+  }
+  },
+  {
+     "pk":28    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"duncanngeno0@gmail.com",
+     "is_void":"False",
+     "org_unit_id":10
+  }
+  },
+  {
+     "pk":29    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Matthew Maube Nabakwe",
+     "is_void":"False",
+     "org_unit_id":11
+  }
+  },
+  {
+     "pk":30    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"393 Bungoma",
+     "is_void":"False",
+     "org_unit_id":11
+  }
+  },
+  {
+     "pk":31    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"nabakwem@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":11
+  }
+  },
+  {
+     "pk":32    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Aston Obadiah Maungu",
+     "is_void":"False",
+     "org_unit_id":12
+  }
+  },
+  {
+     "pk":33    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"204-50400 Busia",
+     "is_void":"False",
+     "org_unit_id":12
+  }
+  },
+  {
+     "pk":34    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"aamaston@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":12
+  }
+  },
+  {
+     "pk":35    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Richard J. Mugata",
+     "is_void":"False",
+     "org_unit_id":13
+  }
+  },
+  {
+     "pk":36    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"216, Iten",
+     "is_void":"False",
+     "org_unit_id":13
+  }
+  },
+  {
+     "pk":37    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccelgeyomarakwet@gmail.com",
+     "is_void":"False",
+     "org_unit_id":13
+  }
+  },
+  {
+     "pk":38    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Paul Mutuku Kisavi",
+     "is_void":"False",
+     "org_unit_id":14
+  }
+  },
+  {
+     "pk":39    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"106-60100 Embu",
+     "is_void":"False",
+     "org_unit_id":14
+  }
+  },
+  {
+     "pk":40    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"pcoeastern2011@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":14
+  }
+  },
+  {
+     "pk":41    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Mohamed Abdi Hussein",
+     "is_void":"False",
+     "org_unit_id":15
+  }
+  },
+  {
+     "pk":42    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"96 Garissa",
+     "is_void":"False",
+     "org_unit_id":15
+  }
+  },
+  {
+     "pk":43    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"mowaly2009@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":15
+  }
+  },
+  {
+     "pk":44    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"John Juma  Olale Alal",
+     "is_void":"False",
+     "org_unit_id":16
+  }
+  },
+  {
+     "pk":45    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"599-40300 Homa Bay",
+     "is_void":"False",
+     "org_unit_id":16
+  }
+  },
+  {
+     "pk":46    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"olalealal@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":16
+  }
+  },
+  {
+     "pk":47    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Thomas E. Mugo Njeru",
+     "is_void":"False",
+     "org_unit_id":17
+  }
+  },
+  {
+     "pk":48    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"120-60300 Isiolo",
+     "is_void":"False",
+     "org_unit_id":17
+  }
+  },
+  {
+     "pk":49    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccisiolocounty@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":17
+  }
+  },
+  {
+     "pk":50    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Ruth  Areri Mboya",
+     "is_void":"False",
+     "org_unit_id":18
+  }
+  },
+  {
+     "pk":51    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"139, Kajiado ",
+     "is_void":"False",
+     "org_unit_id":18
+  }
+  },
+  {
+     "pk":52    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccskajiado@gmail.com",
+     "is_void":"False",
+     "org_unit_id":18
+  }
+  },
+  {
+     "pk":53    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Richard Wasike Masika",
+     "is_void":"False",
+     "org_unit_id":19
+  }
+  },
+  {
+     "pk":54    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"689-50100 Kakamega",
+     "is_void":"False",
+     "org_unit_id":19
+  }
+  },
+  {
+     "pk":55    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"richmasika@gmail.com",
+     "is_void":"False",
+     "org_unit_id":19
+  }
+  },
+  {
+     "pk":56    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Jane Chepkemboi Rono",
+     "is_void":"False",
+     "org_unit_id":20
+  }
+  },
+  {
+     "pk":57    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"853, Kericho",
+     "is_void":"False",
+     "org_unit_id":20
+  }
+  },
+  {
+     "pk":58    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"childcountykericho@gmail.com",
+     "is_void":"False",
+     "org_unit_id":20
+  }
+  },
+  {
+     "pk":59    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Mong�are Mwambi",
+     "is_void":"False",
+     "org_unit_id":21
+  }
+  },
+  {
+     "pk":60    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"1701-00900 Kiambu",
+     "is_void":"False",
+     "org_unit_id":21
+  }
+  },
+  {
+     "pk":61    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"ccckiambu@gmail.com",
+     "is_void":"False",
+     "org_unit_id":21
+  }
+  },
+  {
+     "pk":62    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"George Migosi",
+     "is_void":"False",
+     "org_unit_id":22
+  }
+  },
+  {
+     "pk":63    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"310-80108 Kilifi",
+     "is_void":"False",
+     "org_unit_id":22
+  }
+  },
+  {
+     "pk":64    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"gimigosi@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":22
+  }
+  },
+  {
+     "pk":65    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Kamwila Ngeke",
+     "is_void":"False",
+     "org_unit_id":23
+  }
+  },
+  {
+     "pk":66    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"183-10300 Kerugoya",
+     "is_void":"False",
+     "org_unit_id":23
+  }
+  },
+  {
+     "pk":67    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"ccckirinyaga@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":23
+  }
+  },
+  {
+     "pk":68    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Beatrice M. Obutu",
+     "is_void":"False",
+     "org_unit_id":24
+  }
+  },
+  {
+     "pk":69    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"413-40200. Kisii",
+     "is_void":"False",
+     "org_unit_id":24
+  }
+  },
+  {
+     "pk":70    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"ccckisiicounty@gmail.com",
+     "is_void":"False",
+     "org_unit_id":24
+  }
+  },
+  {
+     "pk":71    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Humphrey Onyango Wandeo",
+     "is_void":"False",
+     "org_unit_id":25
+  }
+  },
+  {
+     "pk":72    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"1063-40100 Kisumu",
+     "is_void":"False",
+     "org_unit_id":25
+  }
+  },
+  {
+     "pk":73    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"pconyanza@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":25
+  }
+  },
+  {
+     "pk":74    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Philip Ngoiya Nzenge",
+     "is_void":"False",
+     "org_unit_id":26
+  }
+  },
+  {
+     "pk":75    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"735-90200 Kitui",
+     "is_void":"False",
+     "org_unit_id":26
+  }
+  },
+  {
+     "pk":76    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"zegphi@gmail.com",
+     "is_void":"False",
+     "org_unit_id":26
+  }
+  },
+  {
+     "pk":77    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Stephen Gitahi Gitau",
+     "is_void":"False",
+     "org_unit_id":27
+  }
+  },
+  {
+     "pk":78    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"115 Kwale",
+     "is_void":"False",
+     "org_unit_id":27
+  }
+  },
+  {
+     "pk":79    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"kwalecountychildrens@gmail.com",
+     "is_void":"False",
+     "org_unit_id":27
+  }
+  },
+  {
+     "pk":80    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Ezekiel Omwansa",
+     "is_void":"False",
+     "org_unit_id":28
+  }
+  },
+  {
+     "pk":81    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"620-10400 Nanyuki",
+     "is_void":"False",
+     "org_unit_id":28
+  }
+  },
+  {
+     "pk":82    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cdcslaikipia@gmail.com",
+     "is_void":"False",
+     "org_unit_id":28
+  }
+  },
+  {
+     "pk":83    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Maxwell Titima",
+     "is_void":"False",
+     "org_unit_id":29
+  }
+  },
+  {
+     "pk":84    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"106-80500 Lamu",
+     "is_void":"False",
+     "org_unit_id":29
+  }
+  },
+  {
+     "pk":85    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"ccclamu@gmail.com",
+     "is_void":"False",
+     "org_unit_id":29
+  }
+  },
+  {
+     "pk":86    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Salome Wambua Muthama",
+     "is_void":"False",
+     "org_unit_id":30
+  }
+  },
+  {
+     "pk":87    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"396-90100 Machakos",
+     "is_void":"False",
+     "org_unit_id":30
+  }
+  },
+  {
+     "pk":88    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"salmuthama@gmail.com",
+     "is_void":"False",
+     "org_unit_id":30
+  }
+  },
+  {
+     "pk":89    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"George Kingoo Nthuka",
+     "is_void":"False",
+     "org_unit_id":31
+  }
+  },
+  {
+     "pk":90    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"346-90300 Makueni",
+     "is_void":"False",
+     "org_unit_id":31
+  }
+  },
+  {
+     "pk":91    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccmakueni@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":31
+  }
+  },
+  {
+     "pk":92    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Abdikadir Abdinoor Haji",
+     "is_void":"False",
+     "org_unit_id":32
+  }
+  },
+  {
+     "pk":93    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"74-70300 Mandera",
+     "is_void":"False",
+     "org_unit_id":32
+  }
+  },
+  {
+     "pk":94    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"akanh72@gmail.com",
+     "is_void":"False",
+     "org_unit_id":32
+  }
+  },
+  {
+     "pk":95    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Simeon Ogao",
+     "is_void":"False",
+     "org_unit_id":33
+  }
+  },
+  {
+     "pk":96    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"133 Marsabit",
+     "is_void":"False",
+     "org_unit_id":33
+  }
+  },
+  {
+     "pk":97    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"simeonogao@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":33
+  }
+  },
+  {
+     "pk":98    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Eliud Festus Mutwiri",
+     "is_void":"False",
+     "org_unit_id":34
+  }
+  },
+  {
+     "pk":99    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"680-60200 Meru",
+     "is_void":"False",
+     "org_unit_id":34
+  }
+  },
+  {
+     "pk":100    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"eliudmutwiri@gmail.com",
+     "is_void":"False",
+     "org_unit_id":34
+  }
+  },
+  {
+     "pk":101    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"John O. Odinya",
+     "is_void":"False",
+     "org_unit_id":35
+  }
+  },
+  {
+     "pk":102    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"652-40400 Suna",
+     "is_void":"False",
+     "org_unit_id":35
+  }
+  },
+  {
+     "pk":103    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"odinyaoj@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":35
+  }
+  },
+  {
+     "pk":104    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Adema Elizabeth Mbuka",
+     "is_void":"False",
+     "org_unit_id":36
+  }
+  },
+  {
+     "pk":105    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"87606-80100 Mombasa",
+     "is_void":"False",
+     "org_unit_id":36
+  }
+  },
+  {
+     "pk":106    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"pchildrensofficercoast@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":36
+  }
+  },
+  {
+     "pk":107    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Rhoda Mwicha",
+     "is_void":"False",
+     "org_unit_id":37
+  }
+  },
+  {
+     "pk":108    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"169-10200 Murang�a",
+     "is_void":"False",
+     "org_unit_id":37
+  }
+  },
+  {
+     "pk":109    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccmuranga@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":37
+  }
+  },
+  {
+     "pk":110    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Maurice Mumbetsa Tsuma",
+     "is_void":"False",
+     "org_unit_id":38
+  }
+  },
+  {
+     "pk":111    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"58016-00200 Nairobi",
+     "is_void":"False",
+     "org_unit_id":38
+  }
+  },
+  {
+     "pk":112    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"pdcsnairobi@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":38
+  }
+  },
+  {
+     "pk":113    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Abdi Sheikh Yusuf",
+     "is_void":"False",
+     "org_unit_id":39
+  }
+  },
+  {
+     "pk":114    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"14407, Nakuru",
+     "is_void":"False",
+     "org_unit_id":39
+  }
+  },
+  {
+     "pk":115    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"pcoriftvalley@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":39
+  }
+  },
+  {
+     "pk":116    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Hellen Wekesa Wanyama",
+     "is_void":"False",
+     "org_unit_id":40
+  }
+  },
+  {
+     "pk":117    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"283, Kapsabet",
+     "is_void":"False",
+     "org_unit_id":40
+  }
+  },
+  {
+     "pk":118    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"wakasahellen@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":40
+  }
+  },
+  {
+     "pk":119    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Fred W. Simi",
+     "is_void":"False",
+     "org_unit_id":41
+  }
+  },
+  {
+     "pk":120    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"424, Narok",
+     "is_void":"False",
+     "org_unit_id":41
+  }
+  },
+  {
+     "pk":121    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"fredsimi@yahoo.co.uk",
+     "is_void":"False",
+     "org_unit_id":41
+  }
+  },
+  {
+     "pk":122    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Samwel Masese",
+     "is_void":"False",
+     "org_unit_id":42
+  }
+  },
+  {
+     "pk":123    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"312-40500 Nyamira",
+     "is_void":"False",
+     "org_unit_id":42
+  }
+  },
+  {
+     "pk":124    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cconyamira@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":42
+  }
+  },
+  {
+     "pk":125    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"George Gachuhi Kibuku",
+     "is_void":"False",
+     "org_unit_id":43
+  }
+  },
+  {
+     "pk":126    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"1306-10100 Nyeri",
+     "is_void":"False",
+     "org_unit_id":43
+  }
+  },
+  {
+     "pk":127    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"nyandaruachildren@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":43
+  }
+  },
+  {
+     "pk":128    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"John Kungu Mwaniki",
+     "is_void":"False",
+     "org_unit_id":44
+  }
+  },
+  {
+     "pk":129    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"1002 Nyahururu",
+     "is_void":"False",
+     "org_unit_id":44
+  }
+  },
+  {
+     "pk":130    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"ccnyericounty@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":44
+  }
+  },
+  {
+     "pk":131    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Peter G. K. Kabuagi",
+     "is_void":"False",
+     "org_unit_id":45
+  }
+  },
+  {
+     "pk":132    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"171-20600 Maralal",
+     "is_void":"False",
+     "org_unit_id":45
+  }
+  },
+  {
+     "pk":133    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccsamburu@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":45
+  }
+  },
+  {
+     "pk":134    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Jemin Konyango",
+     "is_void":"False",
+     "org_unit_id":46
+  }
+  },
+  {
+     "pk":135    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"837-40600 Siaya",
+     "is_void":"False",
+     "org_unit_id":46
+  }
+  },
+  {
+     "pk":136    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"wandeoh@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":46
+  }
+  },
+  {
+     "pk":137    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Mwasiwa Juma Boga",
+     "is_void":"False",
+     "org_unit_id":47
+  }
+  },
+  {
+     "pk":138    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"Voi",
+     "is_void":"False",
+     "org_unit_id":47
+  }
+  },
+  {
+     "pk":139    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"rashboga@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":47
+  }
+  },
+  {
+     "pk":140    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Daniel Waiti",
+     "is_void":"False",
+     "org_unit_id":48
+  }
+  },
+  {
+     "pk":141    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"102-70101 Hola",
+     "is_void":"False",
+     "org_unit_id":48
+  }
+  },
+  {
+     "pk":142    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"danielwachira63@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":48
+  }
+  },
+  {
+     "pk":143    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Julius K. Wachira",
+     "is_void":"False",
+     "org_unit_id":49
+  }
+  },
+  {
+     "pk":144    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"135 Chuka",
+     "is_void":"False",
+     "org_unit_id":49
+  }
+  },
+  {
+     "pk":145    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"tharakanithichildren@gmail.com",
+     "is_void":"False",
+     "org_unit_id":49
+  }
+  },
+  {
+     "pk":146    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Esther Wasige",
+     "is_void":"False",
+     "org_unit_id":50
+  }
+  },
+  {
+     "pk":147    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"2215, Kitale",
+     "is_void":"False",
+     "org_unit_id":50
+  }
+  },
+  {
+     "pk":148    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"estherwasige@gmail.com",
+     "is_void":"False",
+     "org_unit_id":50
+  }
+  },
+  {
+     "pk":149    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Charles Kiprono",
+     "is_void":"False",
+     "org_unit_id":51
+  }
+  },
+  {
+     "pk":150    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"151, Lodwar",
+     "is_void":"False",
+     "org_unit_id":51
+  }
+  },
+  {
+     "pk":151    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"lachakimeci@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":51
+  }
+  },
+  {
+     "pk":152    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Julius Kemboi Yator",
+     "is_void":"False",
+     "org_unit_id":52
+  }
+  },
+  {
+     "pk":153    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"3697, Eldoret",
+     "is_void":"False",
+     "org_unit_id":52
+  }
+  },
+  {
+     "pk":154    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccuasingishu@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":52
+  }
+  },
+  {
+     "pk":155    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Aggrey J. O. Ambwaya",
+     "is_void":"False",
+     "org_unit_id":53
+  }
+  },
+  {
+     "pk":156    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"1500, Maragoli",
+     "is_void":"False",
+     "org_unit_id":53
+  }
+  },
+  {
+     "pk":157    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"ambwayaaggrey@yahoo.com",
+     "is_void":"False",
+     "org_unit_id":53
+  }
+  },
+  {
+     "pk":158    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Sheikh Mohamed Abdinoor",
+     "is_void":"False",
+     "org_unit_id":54
+  }
+  },
+  {
+     "pk":159    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"156 Wajir",
+     "is_void":"False",
+     "org_unit_id":54
+  }
+  },
+  {
+     "pk":160    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"abdinoor.sheikh57@gmail.com",
+     "is_void":"False",
+     "org_unit_id":54
+  }
+  },
+  {
+     "pk":161    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPCP",
+     "contact_detail":"Patrick Matebo K. Mugun",
+     "is_void":"False",
+     "org_unit_id":55
+  }
+  },
+  {
+     "pk":162    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CPHA",
+     "contact_detail":"272, Kapenguria",
+     "is_void":"False",
+     "org_unit_id":55
+  }
+  },
+  {
+     "pk":163    
+    ,"model":"cpovc_registry.RegOrgUnitContact",
+     "fields": {
+      "contact_detail_type_id":"CEMA",
+     "contact_detail":"cccwestpokot@gmail.com",
+     "is_void":"False",
+     "org_unit_id":55
+  }
+  }]

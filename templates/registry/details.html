@@ -1,0 +1,245 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Organization Unit details {% endblock %}
+
+{% load app_filters %}
+
+{% block style_code %}
+    <link href="{% static 'plugins/datatables/css/data-table.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Registry</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Registry <small>Organizational Unit Details</small></h1>
+<!-- end page-header -->
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+</div>
+{% endif %}
+{% if message %}
+	<div id="messages" class="alert alert-success fade in">
+	    <span class="close" data-dismiss="alert">×</span>
+	    <i class="fa fa-check fa-2x pull-left"></i>
+	    <p class="invalid-form-message"> {{ message }}</p>
+	</div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+    <!-- Start content area -->
+    <!-- begin profile-container -->
+            <div class="profile-container">
+                <!-- begin profile-section -->
+                <div class="profile-section">
+                    <!-- begin profile-left -->
+                    <div class="profile-left">
+                        <!-- begin profile-image -->
+                        <div class="profile-image">
+                            <img src="/static/img/map.jpg" />
+                            <i class="fa fa-user hide"></i>
+                        </div>
+                        <!-- end profile-image -->
+                        <div class="m-b-10">
+                            <a href="#modal-dialog" class="btn btn-warning btn-block btn-sm" data-toggle="modal">Show on map</a>
+                        </div>
+                        <!-- begin profile-highlight -->
+                        <div class="profile-highlight">
+                            <h4><i class="fa fa-cog"></i> Map filter options</h4>
+                            <div class="checkbox m-b-5 m-t-0">
+                                <label><input type="checkbox" /> Show sub county</label>
+                            </div>
+                            <div class="checkbox m-b-0">
+                                <label><input type="checkbox" /> Show wards</label>
+                            </div>
+                        </div>
+                        <!-- end profile-highlight -->
+                    </div>
+                    <!-- end profile-left -->
+                    <!-- begin profile-right -->
+                    <div class="profile-right">
+                        <!-- begin profile-info -->
+                        <div class="profile-info">
+                            <!-- begin table -->
+                            <div class="table-responsive">
+                                <table class="table table-profile">
+                                    <thead>
+                                        <tr>
+                                            <th width="30%"></th>
+                                            <th>
+                                                <h4>{{ org_details.org_unit_name }} <small>
+                                                {% if org_details.date_closed == None %}
+                                                    Operational
+                                                {% else %}
+                                                    Closed on {{ org_details.date_closed }}
+                                                {% endif %}
+
+                                                </small></h4>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="highlight">
+                                            <td class="field">Unit ID</td>
+                                            <td>{{ org_details.org_unit_id_vis}}</td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Unit Name</td>
+                                            <td>{{ org_details.org_unit_name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Unit Type</td>
+                                            <td>{{ org_details.org_unit_type_id|gen_value:vals }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Parent Unit</td>
+                                            <td>{{ org_details.parent_org_unit_id|gen_value:vals}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Date Operational</td>
+                                            <td>{{ org_details.date_operational}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Legal registration type</td>
+                                            <td>{{ org_details.registration_type|gen_value:vals}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Legal registration No.</td>
+                                            <td>{{ org_details.registration_number}}</td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr class="highlight">
+                                            <td class="field">Location</td>
+                                            <td><a href="#">Edit</a></td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Sub Counties</td>
+                                            <td>{{ org_details.sub_county}}</td>
+                                        </tr>
+                                         <tr>
+                                            <td class="field">Wards</td>
+                                            <td>{{ org_details.wards}}</td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr class="highlight">
+                                            <td class="field">Contact Details</td>
+                                            <td><a href="#">Edit</a></td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        
+                                        {% for contact in org_details.contacts %}
+                                        <tr>
+                                            <td class="field">{{ contact.contact_detail_type_id|gen_value:vals }}</td>
+                                            <td>{{ contact.contact_detail }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end table -->
+                        </div>
+                        <!-- end profile-info -->
+                    </div>
+                    <!-- end profile-right -->
+                </div>
+                <!-- end profile-section -->
+                <!-- begin profile-section -->
+                <div class="profile-section">
+                    <!-- begin row -->
+                    <div class="row">
+                        <!-- begin col-4 -->
+                        <div class="col-md-4">
+                            <h4 class="title">Message <small>0 messages</small></h4>
+                            <!-- begin scrollbar -->
+                            <div data-scrollbar="true" data-height="280px" class="bg-silver">
+                                <!-- begin chats -->
+                                
+                                <!-- end chats -->
+                            </div>
+                            <!-- end scrollbar -->
+                        </div>
+                        <!-- end col-4 -->
+                        <!-- begin col-4 -->
+                        <div class="col-md-4">
+                            <h4 class="title">Other details <small>0 incomplete</small></h4>
+                            <!-- begin scrollbar -->
+                            <div data-scrollbar="true" data-height="280px" class="bg-silver">
+                                <!-- begin table -->
+                                
+                                <!-- end table -->
+                            </div>
+                            <!-- end scrollbar -->
+                        </div>
+                        <!-- end col-4 -->
+                        <!-- begin col-4 -->
+                        <div class="col-md-4">
+                            <h4 class="title">Fields <small>0 pending</small></h4>
+                            <!-- begin scrollbar -->
+                            <div data-scrollbar="true" data-height="280px" class="bg-silver">
+                                <!-- begin todolist -->
+                                
+                                <!-- end todolist -->
+                            </div>
+                            <!-- end scrollbar -->
+                        </div>
+                        <!-- end col-4 -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end profile-section -->
+            </div>
+            <!-- end profile-container -->
+            <!-- #modal-dialog -->
+                            <div class="modal fade" id="modal-dialog">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title">{{ org_details.org_unit_name }}</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            County map will be displayed in here.
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                                            <a href="#" class="btn btn-sm btn-success">Action</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+    <!-- End content area -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+	<script src="{% static 'js/apps.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			App.init();
+		});
+	</script>
+{% endblock %}

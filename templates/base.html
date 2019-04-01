@@ -1,0 +1,229 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<title>CPIMS | {% block page_title %}{% endblock %}</title>
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+	<meta content="" name="description" />
+	<meta content="" name="author" />
+	<link rel="shortcut icon" type="image/png" href="{% static 'img/favicon.ico' %}"/>
+	<!-- ================== BEGIN BASE CSS STYLE ================== -->
+	<link href="{% static 'plugins/jquery-ui/themes/base/minified/jquery-ui.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/style.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/style-responsive.min.css' %}" rel="stylesheet" />
+	<link href="{% static 'css/theme/default.css' %}" rel="stylesheet" id="theme" />
+	<link href="{% static 'plugins/jquery-countdown/css/style.css' %}" rel="stylesheet" />
+	{% block style_code %}{% endblock %}
+	{% block extra_styling %}
+    {% endblock extra_styling %}
+	<!-- ================== END BASE CSS STYLE ================== -->
+	<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+	<!-- ================== BEGIN BASE JS ================== -->
+	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+	{% block javascript_code %}{% endblock %}
+	<!-- ================== END BASE JS ================== -->
+</head>
+<body>
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->
+	
+	<!-- begin #page-container -->
+	<div id="page-container" class="page-container fade page-sidebar-fixed page-header-fixed show active page-with-light-sidebar">
+		<!-- begin #header -->
+		<div id="header" class="header navbar navbar-default navbar-fixed-top">
+			<!-- begin container-fluid -->
+			<div class="container-fluid">
+				<!-- begin mobile sidebar expand / collapse button -->
+				<div class="navbar-header">
+					<a href="{% url 'home' %}" class="navbar-brand"><span class="navbar-logo"></span> CPIMS - Kenya</a>
+					<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<!-- end mobile sidebar expand / collapse button -->
+				<div class="collapse navbar-collapse pull-left" id="top-navbar"></div>
+				
+				<!-- begin header navigation right -->
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+					<li class="dropdown" id="session_status"></li>
+					<li class="dropdown navbar-user">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="{% static 'img/user-2.jpg' %}" alt="" /> 
+							<span class="hidden-xs">
+							{% if request.session.names %}
+							    {{ request.session.names }}
+							{% else %}
+							    {{ request.user.username }}
+							{% endif %}
+							</span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li><a href="{% url 'view_person' id=request.user.reg_person_id %}">View My Profile</a></li>
+							<li><a href="{% url 'password_change' %}">Change Password</a></li>
+							<li><a href="#"><span class="badge badge-danger pull-right">2</span> Messages</a></li>
+							<li class="divider"></li>
+							<li><a href="{% url 'cluster' %}">Clusters</a></li>
+							<li class="divider"></li>
+							{% if request.user.is_staff %}
+							    <li><a href="/admin/">Administration</a></li>
+							{% endif %}
+							<li><a href="{% url 'logout' %}">Log Out</a></li>
+						</ul>
+					</li>
+					{% else %}
+					<li class="dropdown navbar-user">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<img src="{% static 'img/user-2.jpg' %}" alt="" /> 
+							<span class="hidden-xs">CPMIS Guest</span> <b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu animated fadeInLeft">
+							<li class="arrow"></li>
+							<li class="divider"></li>
+							<li><a href="{% url 'login' %}">Log in</a></li>
+						</ul>
+					</li>
+					{% endif %}
+				</ul>
+				<!-- end header navigation right -->
+			</div>
+			<!-- end container-fluid -->
+		</div>
+		<!-- end #header -->
+		
+		<!-- begin #sidebar -->
+		<div id="sidebar" class="sidebar">
+			<!-- begin sidebar scrollbar -->
+			<div data-scrollbar="true" data-height="100%">
+				<!-- begin sidebar nav -->
+				{% include "menus.html" %}
+				<!-- end sidebar nav -->
+			</div>
+			<!-- end sidebar scrollbar -->
+		</div>
+		<div class="sidebar-bg"></div>
+		<!-- end #sidebar -->
+		
+		<!-- begin #content -->
+		<div id="content" class="content">
+		    {% if user.is_authenticated %}
+			    {% block primary %} {% endblock %}
+			{% else %}
+			    {% if request.path == '/login/' or request.path == '/cpims/login/' %}
+                    {% block secondary %} {% endblock %}
+                {%else %}
+                    {% include "guests.html" %}
+                {% endif %}
+			{% endif %}
+		</div>
+		<!-- end #content -->
+		<div id="footer" class="footer"> {{ status }} &nbsp; &copy; {% now "Y" %}. All Rights Reserved. Version: 
+        2.0.0
+        <span class="promo"><img src="{% static 'img/logo_private.png' %}" height="60"></span>
+		</div>
+        <div class="modal fade" id="modal-session">
+            <div class="modal-dialog">
+                <div class="modal-content form-horizontal form-bordered">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">CPIMS inactivity warning</h4>
+                    </div>
+                    <div class="modal-body">
+                    <p>You are about to be logged out in <div class='timer' data-seconds-left=120></div></p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                    </div>
+                </div>
+            </div>
+        </div>        
+		
+		<!-- begin scroll to top btn -->
+		<a href="#" class="btn btn-icon btn-circle btn-success btn-scroll-to-top fade" data-click="scroll-top"><i class="fa fa-angle-up"></i></a>
+		<!-- end scroll to top btn -->
+	</div>
+	<!-- end page container -->
+	
+	<!-- ================== BEGIN LAZY BASE JS ================== -->
+	<script src="{% static 'plugins/jquery/jquery-1.9.1.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery/jquery-migrate-1.1.0.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-ui/ui/minified/jquery-ui.min.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
+	<!--[if lt IE 9]>
+		<script src="{% static 'xbrowserjs/html5shiv.js' %}"></script>
+		<script src="{% static 'xbrowserjs/respond.min.js' %}"></script>
+		<script src="{% static 'xbrowserjs/excanvas.min.js' %}"></script>
+	<![endif]-->
+	<script src="{% static 'plugins/slimscroll/jquery.slimscroll.min.js' %}"></script>
+	<script src="{% static 'plugins/jquery-cookie/jquery.cookie.js' %}"></script>
+	<script src="{% static 'plugins/sparkline/jquery.sparkline.js' %}"></script>
+	<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+	<script src="{% static 'plugins/jquery-idletimer/dist/idle-timer.1.1.0.js' %}"></script>
+	<script src="{% static 'plugins/jquery-countdown/jquery.simple.timer.js' %}"></script>
+	<!-- ================== END LAZY BASE JS ================== -->
+	
+	<!-- ================== BEGIN LAZY PAGE LEVEL JS ================== -->
+	{% block lazy_javascript_code %}{% endblock %}
+	<script src="{% static 'js/apps.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			App.init();
+		});
+	</script>
+	<script type="text/javascript">
+
+      (function($){
+
+          var warning = 780000;// 13 minutes
+          var timeout = 900000; // 15 minutes
+          var msg = '';
+
+          $(document).bind("idle.idleTimer", function(){
+           //$('#modal-session').modal('show');
+           $('.timer').empty();
+           $('.timer').startTimer();
+           var timeout = 120000; // 2 minutes
+          });
+
+          $(document).bind("active.idleTimer", function(){
+               $("#session_status").html(msg);
+          });
+
+          $(document).bind("contextmenu",function(e){
+		       return false;
+		 });
+          
+
+          $.idleTimer(warning);
+          //$( "#modal-session" ).idleTimer();
+
+          $("#modal-session").bind("idle.idleTimer", function(){
+          	var dts = $( "form" ).serialize();
+          	var dt = encodeURIComponent(dts);
+            //$(location).attr("href", "{% url 'logout' %}?timeout=1&next={{request.get_full_path}}&d="+dt)
+          });
+
+          //$("#modal-session").bind("active.idleTimer", function(){
+          //     $("#session_status").html(msg);
+          //});
+
+          //$( "#modal-session" ).idleTimer(timeout);
+          //$.idleTimer('getElapsedTime');
+
+      })(jQuery);
+      </script>
+	<!-- ================== END LAZY PAGE LEVEL JS ================== -->
+</body>
+</html>

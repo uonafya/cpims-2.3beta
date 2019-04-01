@@ -1,0 +1,701 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} OVC Care New Registration {% endblock %}
+
+{% load app_filters %}
+{% load app_forms %}
+
+{% block style_code %}
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">OVC Care</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>Registration details | {{ child.first_name }} {{ child.surname }} | {{ child.age }}</small></h1>
+<!-- end page-header -->
+{% if messages %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div id="messages" class="alert alert-danger fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-info fa-2x pull-left"></i>
+    {% else %}
+        <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+    {% endif %}    
+        <p>{{ message }}</p>
+    </div>
+   {% endfor %}
+{% else %}
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>                      
+                <h4 class="panel-title">Registration details &nbsp;</h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <form action="." method="post" name="ovcreg_form" id="ovcreg_form" data-parsley-validate="true">
+                {% csrf_token %}
+
+                <div id="wizard">
+                <ol>
+                  <li>
+                      OVC Details and Eligibility
+                      <small>Biodata and eligibility criteria.</small>
+                  </li>
+                  <li>
+                      Health and Education
+                      <small>Health and education information.</small>
+                  </li>
+                  <li>
+                      Parents / Caregiver
+                      <small>Parents and Caregiver details.</small>
+                  </li>
+                  <li>
+                     Siblings
+                      <small>Siblings details.</small>
+                  </li>        
+                </ol>
+                <!-- begin wizard step-1 -->
+    <div class="primary">
+        <fieldset>
+            <legend class="pull-left width-full">Child details</legend>
+                <table width="100%" class="table table-profile">
+                    <tbody>
+                        <tr>
+                            <td class="field">First Name</td>
+                            <td>{{ child.first_name }}</td>
+                            <td class="field">Surname</td>
+                            <td>{{ child.surname }}</td>
+                            <td class="field">Other Names</td>
+                            <td>{{ child.other_names }}</td>
+                            
+                        </tr>
+                        <tr>
+                            <td class="field">DOB</td>
+                            <td>{{ child.date_of_birth }}
+                            ({{ child.age }})
+                            </td>
+                            <td class="field">CBO</td>
+                            <td>
+                            {{ form.cbo_id }}
+                            {{ ovc.child_cbo.org_unit_name }}
+                            </td>
+                            <td class="field">CHV</td>
+                            <td>{{ ovc.child_chv.full_name }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- begin row -->
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Date of Registration</label>
+                        {{ form.reg_date }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-1 -->
+                    <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Has BCert</label>
+                        {{ form.has_bcert }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Birth Certificate No.</label>
+                        {{ form.bcert_no }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-1 -->
+                    <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Is Disabled</label>
+                        {{ form.disb }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>NCPWD No.</label>
+                        {{ form.ncpwd_no }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                <!-- begin row -->
+                <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-4">
+                    <div class="form-group">
+                        <label>Eligibility Criteria</label>
+                        {{ form.eligibility }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>CBO Child ID (<small>Might change on save</small>)</label>
+                        {{ form.cbo_uid }}
+                        {{ form.cbo_uid_check }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                     <!-- begin col-1 -->
+                    <div class="col-md-1">
+                    <div class="form-group">
+                        <label>Exit</label>
+                        {{ form.is_exited }}
+                      </div>
+                    </div>
+                    <!-- end col-1 -->
+                    <!-- begin col-4 -->
+                    <div class="col-md-4" id="exit_reason_div">
+                    <div class="form-group">
+                        <label>Exit reason</label>
+                        {{ form.exit_reason }}
+                      </div>
+                    </div>
+                    <!-- end col-4 -->
+                    </div>
+            </fieldset>
+        </div>
+        <div class="primary1">
+            <fieldset>
+                <legend class="pull-left width-full">Health and Education details</legend>
+                <!-- begin row -->
+                {% if  not child.years > 5 %}
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Immunization Status</label>
+                        {{ form.immunization }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                {% endif %}
+                <!-- begin row -->
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>HIV Status</label>
+                        {{ form.hiv_status }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3" id="facility_div">
+                    <div class="form-group">
+                        <label>Facility</label>
+                         {{ form.facility }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <div class="col-md-1" id="facility_id_div">
+                    <div class="form-group">
+                        <label>ID</label>
+                        {{ form.facility_id }}
+                      </div>
+                    </div>
+                    <!-- begin col-2 -->
+                    <div class="col-md-2" id="art_div">
+                    <div class="form-group">
+                        <label>ART Status</label>
+                        {{ form.art_status }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-2" id="link_date_div">
+                    <div class="form-group">
+                        <label>Date of Linkage</label>
+                        {{ form.link_date }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-1" id="ccc_no_div">
+                    <div class="form-group">
+                        <label>CCC Number</label>
+                        {{ form.ccc_number }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                <!-- begin row -->
+                 <div class="row">
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>School Level</label>
+                        {{ form.school_level }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-3" id="school_class_div">
+                    <div class="form-group">
+                        <label>Class</label>
+                        {{ form.school_class }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->  
+                    <!-- begin col-2 -->
+                    <div class="col-md-3" id="school_name_div">
+                    <div class="form-group">
+                        <label>School Name</label>
+                        {{ form.school_name }}
+                      </div>
+                    </div>
+                    <div class="col-md-1" id="school_id_div">
+                    <div class="form-group">
+                        <label>ID</label>
+                        {{ form.school_id }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                    <!-- begin col-2 -->
+                    <div class="col-md-2">
+                    <div class="form-group" id="admission_type_div">
+                        <label>Boarding / Day</label>
+                        {{ form.admission_type }}
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+                </fieldset>
+            </div>
+        <div class="primary2">
+                <fieldset>
+                <legend class="pull-left width-full">Parents / Caregiver details</legend>
+                <!-- begin row -->
+                 <div class="row">
+                    <div class="col-md-9">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID Number</th>
+                            <th>First Name</th>
+                            <th>Surname</th>
+                            <th>Age</th>
+                            <th>Relation</th>
+                            <th>Telephone</th>
+                            <th>Alive</th>
+                            <th>HIV Status / Cause of Death</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for guardian in guardians %}
+                        {% with y=guardian.guardian_person.id|stringformat:"s" %}
+                        <tr>
+                            <td><input type="hidden" name="hh_member" value="{{ guardian.guardian_person.id }}">
+                            {% with x=y|add:"_INTL"|gen_value:extids %}
+                            {{ x }}
+                            <input type="hidden" name="cg_{{ guardian.guardian_person.id }}" value="{{ x }}">
+                            </td>
+                            <td>{{ guardian.guardian_person.first_name }}</td>
+                            <td>{{ guardian.guardian_person.surname }}</td>
+                            <td>{{ guardian.guardian_person.years }}</td>
+                            <td>{{ guardian.relationship|gen_value:vals }}
+                            <input type="hidden" name="hhr_{{ guardian.guardian_person.id }}" value="{{ guardian.relationship }}">
+                            </td>
+                            <td>{{ guardian.guardian_person.des_phone_number }}</td>
+                            <td>
+                            {% with n="astatus_"|add:y %}
+                            {{ form|get_form:n }}
+                            {% endwith %}
+                            </td>
+                            <td>
+                            <div id="div_astatus_{{ y }}">
+                            {% with n="gstatus_"|add:y %}
+                            {{ form|get_form:n }}
+                            {% endwith %}
+                            </div>
+                            <div id="ndiv_astatus_{{ y }}" style="display: none;">
+                            {% with n="cstatus_"|add:y %}
+                            {{ form|get_form:n }}
+                            {% endwith %}
+                            </div>
+                            </td>                            
+                            {% endwith %}
+                        </tr>
+                        {% endwith %}
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                    </div>
+                    <!-- begin col-2 -->
+                    <div class="col-md-3">
+                    <div class="form-group">
+                        <label>Primary Caretaker</label>
+                        <select class="form-control" name="caretaker" id="caretaker"  data-parsley-required="true" >
+                            <option value="">Please Select Caretaker</option>
+                            {% for guardian in guardians %}
+                               <option value="{{ guardian.guardian_person.id}}">{{ guardian.relationship|gen_value:vals }}</option>
+                            {% endfor %}
+                        </select>
+                      </div>
+                    </div>
+                    <!-- end col-2 -->
+                </div>
+             </fieldset>
+            </div>
+        <div class="primary3">
+                <fieldset>
+                <legend class="pull-left width-full">Siblings details</legend>
+                <!-- begin row -->
+                <div class="row">
+                    <div class="col-md-12">
+                    {% if siblings %}
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>First Name</th>
+                                <th>Surname</th>
+                                <th>Age</th>
+                                <th>Relation</th>
+                                <th>Alive</th>
+                                <th>HIV Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                       {% for sibling in siblings %}
+                       {% with y=sibling.sibling_person.id|stringformat:"s" %}
+                        <tr>
+                            <td>{{ sibling.sibling_person.id }}<input type="hidden" name="hh_member" value="{{ sibling.sibling_person.id }}"></td>
+                            <td>{{ sibling.sibling_person.first_name }}</td>
+                            <td>{{ sibling.sibling_person.surname }}</td>
+                            <td>{{ sibling.sibling_person.years }}</td>
+                            <td>
+                            {% if sibling.sibling_person.sex_id == 'SFEM' %}
+                                Sister
+                            {% else %}
+                                Brother
+                            {% endif %}
+                            </td>
+                            <td>
+                            {% if sibling.sibling_person.date_of_death %}
+                                No
+                            {% else %}
+                                Yes
+                            {% endif %}  
+                            </td>
+                            <td>
+                            {% with n="sgstatus_"|add:y %}
+                               {{ form|get_form:n }}
+                            {% endwith %}
+                            </td>
+                        </tr>
+                        {% endwith %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                        <p>No siblings</p>
+                    {% endif %}
+                    </div>
+                </div>
+                </fieldset>
+            </div>
+            </div>
+                
+                <div class="row" id="form_actions">
+                <div class="form-group">
+                    <label class="control-label col-md-4 col-sm-4"></label>
+                    <div class="col-md-6 col-sm-6">
+                        <button type="submit" class="btn btn-primary" value="submit" id="s1">Update</button>
+                        <a href="{% url 'ovc_home' %}">
+                        <button type="button" class="btn btn-default">Cancel</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- end panel -->  
+    </div>
+    <!-- end col-12 -->
+</div>
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script>
+    $("#wizard").bwizard({ validating: function (e, ui) {
+        
+         if (ui.index == 0) {
+            // step-1 validation
+            
+            if (false === $('form[name="ovcreg_form"]').parsley().validate('primary')) {
+                return false;
+            }
+        } else if ((ui.index == 1) && (ui.nextIndex > ui.index)){
+            // step-2 validation
+            
+              if (false === $('form[name="ovcreg_form"]').parsley().validate('primary1')) {
+                return false;
+            }
+        } else if ((ui.index == 2) && (ui.nextIndex > ui.index)) {
+            // step-3 validation
+            
+            if (false === $('form[name="ovcreg_form"]').parsley().validate('primary2')) {
+                return false;
+            }
+        } else if ((ui.index == 3) && (ui.nextIndex >= ui.index)) {
+            // step-4 validation
+            $("#form_actions").show();
+            if (false === $('form[name="ovcreg_form"]').parsley().validate('primary3')) {
+                  return false;
+            }
+        }
+
+    }});
+
+    var is_exit = $('#is_exited').is(":checked");
+    disable_fields(is_exit, 'exit_reason');
+
+    //Class levels
+    {% for key, values in levels.items %}
+        var {{ key }} = {{ values|safe }};
+    {% endfor %}
+
+    $('#eligibility, #exit_reason').multiselect({
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        disableIfEmpty: true,
+        enableClickableOptGroups: true,
+        buttonClass: 'btn btn-white'
+    });
+
+    $('#reg_date, #link_date').datepicker({
+        dateFormat: 'yy-mm-dd', format: 'dd-M-yyyy',
+        endDate: '+0d', enddate: '+0d', autoclose: true
+    });
+    var ccond = $('#has_bcert').is(":checked");
+    disable_fields(ccond, 'bcert_no');
+
+    var dcond = $('#disb').is(":checked");
+    disable_fields(dcond, 'ncpwd_no');
+
+    $('#is_exited').live('change', function() {
+        var is_exit = $('#is_exited').is(":checked");
+        disable_fields(is_exit, 'exit_reason');
+        $('#exit_reason').multiselect('rebuild');
+    });
+
+    $('#has_bcert').live('change', function() {
+        var cond = $('#has_bcert').is(":checked");
+        disable_fields(cond, 'bcert_no');
+    });
+    $('#disb').live('change', function() {
+        var cond = $('#disb').is(":checked");
+        disable_fields(cond, 'ncpwd_no');
+    });
+
+    $('#caretaker').val('{{ child.caretaker }}');
+
+    var hstatus = $('#hiv_status').val();
+    var hlevel = $('#school_level').val();
+    handle_hstatus(hstatus);
+    handle_education(hlevel);
+    handle_levels(hlevel);
+
+    $('#school_class').val('{{ sch_class }}');
+
+    $('#hiv_status').change(function(){
+        handle_hstatus(this.value);
+    });
+
+    $('#school_level').change(function(){
+        handle_education(this.value);
+        handle_levels(this.value);
+    });
+    $('.alive').change(function(){
+        var ids = $(this).attr('id');
+        var alive = this.value;
+        var id = ids.split('_')[1];
+        if (alive == 'ANNO'){
+           $('#div_' + ids).hide();
+           $('#ndiv_' + ids).show();
+           $('#gstatus_' + id).attr("data-parsley-required", "false");
+           $('#cstatus_' + id).attr("data-parsley-required", "true");
+        }else{
+           $('#div_' + ids).show();
+           $('#ndiv_' + ids).hide();
+           $('#gstatus_' + id).attr("data-parsley-required", "true");
+           $('#cstatus_' + id).attr("data-parsley-required", "false");
+        }
+    });
+
+    //Facility query
+    $( "#facility" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+          url: "{% url 'ovc_search' %}",
+          dataType: "json",
+          data: {q: request.term, id: 1},
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 4,
+      select: function( event, ui ) {
+         $('#facility').val(ui.item.name);
+         $('#facility_id').val(ui.item.id);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+
+    //School query
+    var s_level = $('#school_level').val();
+    $( "#school_name" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+          url: "{% url 'ovc_search' %}",
+          dataType: "json",
+          data: {q: request.term, id: 2, level: $('#school_level').val()},
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 4,
+      select: function( event, ui ) {
+         $('#school_name').val(ui.item.name);
+         $('#school_id').val(ui.item.id);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+    function handle_levels(person_type){
+        var default_txt = "<option value=''>Select title</option>";
+        if (person_type != ''){
+            var person_txt = ((eval(person_type)).length == 1) ? '' : default_txt;
+        }else{
+            var person_txt = "<option value=''>Select Class</option>";
+        }
+        $('#school_class').html(person_txt);
+        if (person_type != ''){
+            eval(person_type).forEach(function(tts) {
+                var tts_attribs = tts.split(",");
+                $('#school_class')
+                    .append($("<option></option>")
+                    .attr("value", tts_attribs[0])
+                    .text(tts_attribs[1]));
+            });
+        }else{
+             $('#school_class').append('<option></option>'); 
+        }
+    }
+
+    function handle_hstatus(hstatus){
+        if (hstatus == 'HSTP') {
+            $('#facility_div').show();
+            $('#facility_id_div').show();
+            $('#art_div').show();
+            $('#link_date_div').show();
+            $('#ccc_no_div').show();
+            $('#facility').attr("data-parsley-required", "true");
+            $('#facility_id').attr("data-parsley-required", "true");
+            $('#art_status').attr("data-parsley-required", "true");
+            $('#link_date').attr("data-parsley-required", "true");
+            $('#ccc_number').attr("data-parsley-required", "true");
+        }else{
+            $('#facility_div').hide();
+            $('#facility_id_div').hide();
+            $('#art_div').hide();
+            $('#link_date_div').hide();
+            $('#ccc_no_div').hide();
+            $('#facility').attr("data-parsley-required", "false");
+            $('#facility_id').attr("data-parsley-required", "false");
+            $('#art_status').attr("data-parsley-required", "false");
+            $('#link_date').attr("data-parsley-required", "false");
+            $('#ccc_number').attr("data-parsley-required", "false");
+        } 
+    }
+
+    function handle_education(hlevel){
+        if ((hlevel == 'SLNS') || (hlevel == '')) {
+            $('#school_name_div').hide();
+            $('#school_id_div').hide();
+            $('#school_class_div').hide();
+            $('#admission_type_div').hide();
+            $('#school_name').attr("data-parsley-required", "false");
+            $('#school_id').attr("data-parsley-required", "false");
+            $('#school_class').attr("data-parsley-required", "false");
+            $('#admission_type').attr("data-parsley-required", "false");
+        }else{
+            $('#school_name_div').show();
+            $('#school_id_div').show();
+            $('#school_class_div').show();
+            $('#admission_type_div').show();
+            $('#school_name').attr("data-parsley-required", "true");
+            $('#school_id').attr("data-parsley-required", "true");
+            $('#school_class').attr("data-parsley-required", "true");
+            $('#admission_type').attr("data-parsley-required", "true");
+        }
+
+    }
+
+    function disable_fields(cond, field_id){
+        if (cond){
+            $('#'+ field_id).prop('disabled', false);
+            $('#'+ field_id).attr("data-parsley-required", "true");  
+        }else{
+            $('#'+ field_id).prop('disabled', true);
+            $('#'+ field_id).attr("data-parsley-required", "false");
+        }
+        
+    }
+
+</script>
+
+{% endblock %}

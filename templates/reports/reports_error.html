@@ -1,0 +1,48 @@
+
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} CPIMS reports error {% endblock page_title%}
+
+{% load staticfiles %}
+
+{% block primary%}
+<h1 class="page-header">Report Error</h1>
+
+{% if messages %}
+<div id="messages" class="alert alert-danger fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.error %} class="{{ message.danger }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<!-- begin row -->
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>                        
+                <h4 class="panel-title">Report details and parameters</h4>
+            </div>
+            <div class="panel-body">
+                <p>An error occured when downloading file.</p>
+                <p>Please contact your supervisor or the administrator. Or visit the report manager.</p>
+            </div>
+        </div>
+    </div>
+    <!-- end col-12 -->       
+</div>
+<!-- end row -->
+
+{% endblock primary%}
+
+{% block lazy_javascript_code %}
+
+{% endblock lazy_javascript_code %}

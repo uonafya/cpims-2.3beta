@@ -1,0 +1,754 @@
+[
+ {
+   "pk": 9,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000097",
+   "org_unit_name": "Baringo County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 10,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000101",
+   "org_unit_name": "Bomet County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 11,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000119",
+   "org_unit_name": "Bungoma County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 12,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000127",
+   "org_unit_name": "Busia County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+  }
+ },
+ {
+  "pk": 13,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000139",
+   "org_unit_name": "Elgeyo-Marakwet County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 14,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000143",
+   "org_unit_name": "Embu County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 15,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000150",
+   "org_unit_name": "Garissa County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 16,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000169",
+   "org_unit_name": "Homa-Bay County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 17,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000177",
+   "org_unit_name": "Isiolo County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 18,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000188",
+   "org_unit_name": "Kajiado County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 19,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000194",
+   "org_unit_name": "Kakamega County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 20,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000204",
+   "org_unit_name": "Kericho County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+  }
+ },
+ {
+   "pk": 21,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000213",
+   "org_unit_name": "Kiambu County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 22,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000225",
+   "org_unit_name": "Kilifi County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 23,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000230",
+   "org_unit_name": "Kirinyaga County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 24,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000240",
+   "org_unit_name": "Kisii County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 25,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000255",
+   "org_unit_name": "Kisumu County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 26,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000264",
+   "org_unit_name": "Kitui County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 27,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000272",
+   "org_unit_name": "Kwale County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 28,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000280",
+   "org_unit_name": "Laikipia County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 29,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000296",
+   "org_unit_name": "Lamu County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 30,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000305",
+   "org_unit_name": "Machakos County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 31,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000315",
+   "org_unit_name": "Makueni County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 32,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000323",
+   "org_unit_name": "Mandera County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 33,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000330",
+   "org_unit_name": "Marsabit County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 34,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000345",
+   "org_unit_name": "Meru County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 35,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000350",
+   "org_unit_name": "Migori County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 36,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000361",
+   "org_unit_name": "Mombasa County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 37,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000372",
+   "org_unit_name": "Murang�a County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 38,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000388",
+   "org_unit_name": "Nairobi City County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 39,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000391",
+   "org_unit_name": "Nakuru County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 40,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000408",
+   "org_unit_name": "Nandi County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 41,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000412",
+   "org_unit_name": "Narok County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 42,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000426",
+   "org_unit_name": "Nyamira County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 43,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000435",
+   "org_unit_name": "Nyandarua County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 44,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000443",
+   "org_unit_name": "Nyeri County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 45,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000457",
+   "org_unit_name": "Samburu County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 46,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000469",
+   "org_unit_name": "Siaya County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 47,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000471",
+   "org_unit_name": "Taita Taveta County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 48,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000485",
+   "org_unit_name": "Tana River County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 49,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000498",
+   "org_unit_name": "Tharaka Nithi County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 50,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000508",
+   "org_unit_name": "Trans-Nzoia County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 51,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000514",
+   "org_unit_name": "Turkana County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 52,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000526",
+   "org_unit_name": "Uasin Gishu County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 53,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000532",
+   "org_unit_name": "Vihiga County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 54,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+      "org_unit_id_vis": "U000543",
+   "org_unit_name": "Wajir County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+ },
+ {
+   "pk": 55,
+   "model": "cpovc_registry.RegOrgUnit",
+   "fields": {
+   "org_unit_id_vis": "U000558",
+   "org_unit_name": "West Pokot County Children Office",
+   "org_unit_type_id": "TNGP",
+   "date_operational": null,
+   "date_closed": null,
+   "handle_ovc": false,
+   "is_void": false,
+   "parent_org_unit_id": 2,
+   "created_at": "2017-06-13",
+   "created_by_id": 1
+ }
+}
+]

@@ -1,0 +1,66 @@
+[
+    {
+        "pk": 18926, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC Forms", 
+            "user_configurable": "False", 
+            "field_name": "ovc_form_type_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "FCSI", 
+            "item_description_short": "CSI Form", 
+            "sms_keyword": "False", 
+            "item_description": "Child Status Index(CSI)", 
+            "the_order": 1
+        }
+    }, 
+    {
+        "pk": 18927, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC Forms", 
+            "user_configurable": "False", 
+            "field_name": "ovc_form_type_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "FHSA", 
+            "item_description_short": "Household Assess", 
+            "sms_keyword": "False", 
+            "item_description": "Household Assessment", 
+            "the_order": 2
+        }
+    }, 
+    {
+        "pk": 18928, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC Forms", 
+            "user_configurable": "False", 
+            "field_name": "ovc_form_type_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "FSAM", 
+            "item_description_short": "Services and Monitoring", 
+            "sms_keyword": "False", 
+            "item_description": "Services and Monitoring(Form 1A)", 
+            "the_order": 3
+        }
+    }, 
+    {
+        "pk": 18929, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC Forms", 
+            "user_configurable": "False", 
+            "field_name": "ovc_form_type_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "FSCA", 
+            "item_description_short": "Caregiver Assessment", 
+            "sms_keyword": "False", 
+            "item_description": "Caregiver Assessment(Form 1B)", 
+            "the_order": 4
+        }
+    }
+]

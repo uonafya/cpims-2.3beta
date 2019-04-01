@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %}  Child In Residential Institution {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Forms <small>View Education Background <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>School Details</b></h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard3" id="new_case_record">
+                    {% csrf_token %}
+                    <div id="wizard3">
+                        <!--<ol>
+                           
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">About the School</legend>
+                                <div class="row"> 
+   <!--                                 
+                                    -->                                              
+                                    <div id="div_reporter_contacts" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="residential_institution_name">Name of School:</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ resultset.name_of_school }}
+                                        </div>
+                                    </div>
+                                    <div id="div_reporter_relationship_to_child" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="residential_institution_type">Type of School :</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ resultset.school_type|gen_value:vals }}
+                                        </div>
+                                    </div> 
+                                    <div id="div_reporter_relationship_to_child" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="admission_type">Type of Admission :</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ resultset.school_admission_type|gen_value:vals }}
+                                        </div>
+                                   </div> 
+                                   <div id="div_reporter_relationship_to_child" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="admission_type">Class/Form :</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                {{ resultset.class_form|gen_value:vals }}
+                                        </div>
+                                   </div> 
+                                             
+                                </div>
+                                <!-- end row -->
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->
+
+                        <!-- begin wizard step-2 -->
+                        <div class="wizard-step-2">
+                            <fieldset>
+                                <legend class="pull-left width-full">About the Child</legend>
+                                <div class="row"> 
+                                    <div class="form-group">
+                                        {{ form.person }}
+                                        <label class="control-label col-md-4 col-sm-4" for="init_data">Initial Details :</label>
+                                        <div class="col-md-6 col-sm-6">
+                                                
+                                                {% for data in init_data %}
+                                                    <p><b>CHILD NAMES: </b><i id="xc" >{{ data.first_name }} {{ data.surname }}</i></p>
+                                                    <p><b>DATE OF BIRTH: </b><i>{{ data.date_of_birth }}</i></p>
+                                                    <p><b>SEX: </b><i>{{ data.sex_id|gen_value:vals }}</i></p>
+                                                    <p><b>AGE: </b><i>{{ data.date_of_birth|gen_age }} YRS (APPROX)</i></p>
+                                                {% endfor %}
+                                                
+                                        </div>
+                                    </div>                                  
+                                   
+                                </div> 
+                                <!-- end row -->
+                            </fieldset>
+                        </div>
+                      
+                      
+                    </div>
+
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                        <div class="panel-body panel-form">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4"></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <p></p>
+                                    <button id="mysubmit_update" type="submit" class="btn btn-primary">Print PDF</button>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+<!-- End content area -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+    <script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+    <script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+    <script src="{% static 'js/apps.js' %}"></script>
+    <script src="{% static 'js/form-wizards.js' %}"></script>
+    <script src="{% static 'js/tag-it.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+    <script type="text/javascript"> 
+    jQuery(document).ready(function() 
+    {       
+        /* Get Case Owner*/
+        // var pfirst_name = localStorage.getItem("first_name");
+        // var psurname = localStorage.getItem("surname");
+        // var person_name = pfirst_name + ' ' + psurname;
+        // $('#person_name')[0].innerHTML = .value;
+
+        
+    });
+    </script>
+{% endblock %}

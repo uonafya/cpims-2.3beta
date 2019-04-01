@@ -1,0 +1,504 @@
+{% extends 'base.html' %}
+
+{% load app_filters %}
+
+{% load staticfiles %}
+
+{% block page_title %} Forms Registry {% endblock %}
+
+{% block style_code %}
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+.divider{
+    margin-left: 2px;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+{% if messages %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div id="messages" class="alert alert-danger fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-info fa-2x pull-left"></i>
+    {% else %}
+        <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+    {% endif %}    
+        <p>{{ message }}</p>
+    </div>
+   {% endfor %}
+{% endif %}
+
+<!-- begin page-header -->
+<h1 class="page-header">Forms Follow-Ups <small>Search Forms</small></h1>
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+
+<span id="span_form_type" style="display: none">{{ form_type }}</span>
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>                          
+                    <h4 class="panel-title"><b>Search Form</b></h4>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" action="{% url 'forms_registry' %}" method="POST" data-parsley-validate="true">
+                        {% csrf_token %}
+                        <div class="form-group m-r-10">
+                            {{ form.form_type }}
+                        </div>
+                        <div class="form-group m-r-10">
+                            {{ form.form_person }}
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-search"></i>&nbsp<b>Search</b></button>
+                    </form>        
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if form.form_type.value == 'FTPC' %}
+        <!-- Child Protection Case Data -->
+        {% if resultsets|length %}
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="form-data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Serial</th>
+                            <th>Person ID</th>
+                            <th>Firstname</th>
+                            <th>Surname</th>
+                            <th>Sex</th>
+                            <th>Date Created</th>                                
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for results in resultsets %}
+                        {% for result in results %}
+                        <tr>
+                            <td>
+                            {% if result.case_status == 'ACTIVE' %}
+                                <span class="label label-success">ACTIVE</span>
+                            {% else %}
+                                <span class="label label-danger">{{ result.case_status }}</span>
+                            {% endif %}
+                            </td>
+                            <td>{{ result.case_serial }}</td>
+                            <td>{{ result.id }}</td>
+                            <td>{{ result.first_name }}</td>
+                            <td>{{ result.surname }}</td>
+                            <td>{{ result.sex_id|gen_value:vals }}</td>
+                            <td>{{ result.timestamp_created }}</td>
+                            <td>
+                                <a href="#" class="btn  btn-sm btn-primary m-r-5" data-toggle="modal" onClick="window.location.href='{% url 'view_case_record_sheet' id=result.form_id %}'">
+                                <b>View</b>&nbsp;&nbsp;<i class="fa fa-binoculars"></i></a>
+
+                                <a href="#" class="btn  btn-sm btn-primary m-r-5" data-toggle="modal" onClick="window.location.href='{% url 'edit_case_record_sheet' id=result.form_id %}'">
+                                <b>Edit</b>&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
+                                
+                               <a href="#" class="btn  btn-sm btn-primary m-r-5" data-toggle="modal" onClick="window.location.href='{% url 'case_events' id=result.form_id %}'">
+                                <b>Follow-up</b>&nbsp;&nbsp;<i class="fa fa-paw"></i></a>
+                           </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+            <div class="norecords" align="center"><b>No records found.</b></div>
+        {% endif %}
+    {% elif form.form_type.value == 'FTRI' %}
+        <!-- Residential Placement Data -->
+        {% if resultsets|length %}
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="form-data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Person ID</th>
+                            <th>Firstname</th>
+                            <th>Surname</th>
+                            <th>Sex</th>
+                            <th>Institution</th>
+                            <th>Date Created</th>
+                            <th>Resident Status</th>                                
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for results in resultsets %}
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result.id }}</td>
+                            <td>{{ result.first_name }}</td>
+                            <td>{{ result.surname }}</td>
+                            <td>{{ result.sex_id|gen_value:vals }}</td>
+                            <td>{{ result.institution_id|gen_orgunitname }}</td>
+                            <td>{{ result.timestamp_created}}</td>
+                            <td>
+                            Discharged : {{ result.discharged }} <br> Dead : {{ result.dead }}</td>
+                            
+                            <td>
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'view_placement' id=result.form_id %}'">
+                            <b>View</b>&nbsp;&nbsp;<i class="fa fa-binoculars"></i></a>
+                            
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'edit_placement' id=result.form_id %}'">
+                            <b>Edit</b>&nbsp;&nbsp;<i class="fa fa-edit"></i></a>   
+
+                            {% if result.discharged or result.dead %}
+                                <a href="#" class="btn  btn-sm btn-danger m-r-5">
+                                <b>No Follow-ups !</b></a>                              
+                            {% else %} 
+                                <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'placement_followup' id=result.id %}'">
+                                <b>Follow-up</b>&nbsp;&nbsp;<i class="fa fa-paw"></i></a>
+                            {% endif %} 
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+            <div class="norecords" align="center"><b>No records found.</b></div>
+        {% endif %}
+    {% elif form.form_type.value == 'FTFC' %} 
+        <!-- Family Care Data -->
+        {% if resultsets|length %}
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="form-data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Person ID</th>
+                            <th>Firstname</th>
+                            <th>Surname</th>
+                            <th>Sex</th>
+                            <th>Date Created</th>                                
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for results in resultsets %}
+                        {% for result in results %}
+                        <tr>
+                            <td>{{ result.id }}</td>
+                            <td>{{ result.first_name }}</td>
+                            <td>{{ result.surname }}</td>
+                            <td>{{ result.sex_id|gen_value:vals }}</td>
+                            <td>{{ result.timestamp_created }}</td>
+                            
+                            <td>
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'view_alternative_family_care' id=result.form_id %}'">
+                            <b>View</b>&nbsp;&nbsp;<i class="fa fa-binoculars"></i></a>
+                            
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'edit_alternative_family_care' id=result.form_id %}'">
+                            <b>Edit</b>&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+            <div class="norecords" align="center"><b>No records found.</b></div>
+        {% endif %}
+    {% elif form.form_type.value == 'FTCB' %} 
+        <!-- Child Background Data -->
+        {% if resultsets|length %}
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="form-data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <!--
+                            <th style="display:none;">Background ID</th>
+                            <th style="display:none;">Bursary ID</th>
+                            -->
+                            <th>Person ID</th>
+                            <th>Firstname</th>
+                            <th>Surname</th>
+                            <th>Sex</th>
+                            <th>Bursary Type</th>
+                            <th>Amount</th>
+                            <th>Date Created</th>                                
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for results in resultsets %}
+                        {% for result in results %}
+                        <tr>
+                            <!--
+                            <td style="display:none;">{{ result.education_followup_id }}</td>
+                            <td style="display:none;">{{ result.bursary_id }}</td>
+                            -->
+                            <td>{{ result.id }}</td>
+                            <td>{{ result.first_name }}</td>
+                            <td>{{ result.surname }}</td>
+                            <td>{{ result.sex_id|gen_value:vals }}</td>
+                            <td>{{ result.bursary_type }}</td>
+                            <td>{{ result.amount }}</td>
+                            <td>{{ result.timestamp_created }}</td>
+                            
+                            <td>
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'view_education_info' id=result.education_followup_id %}'">
+                            <b>View</b>&nbsp;&nbsp;<i class="fa fa-binoculars"></i></a>
+                            
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'edit_education_info' id=result.education_followup_id %}'">
+                            <b>Edit</b>&nbsp;&nbsp;<i class="fa fa-edit"></i></a>
+
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'bursary_followup' id=result.id %}'">
+                            <b> Followup</b>&nbsp;&nbsp;<i class="fa fa-paw"></i></a>
+                            </td>
+
+                            <!--
+
+                            {% if result.has_bursary %}
+                            <a href="#" class="btn  btn-sm btn-primary m-r-5" onClick="window.location.href='{% url 'bursary_followup' id=result.bursary_id %}'">
+                            <b> Followup Bursary</b>&nbsp;&nbsp;<i class="fa fa-paw"></i></a>
+                            </td>
+                            {% endif %}
+
+                            -->
+                        </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+            <div class="norecords" align="center"><b>No records found</b></div>
+        {% endif %}
+{% elif form.form_type.value == 'FCSI' %}
+    {% if resultsets|length %}
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="form-data-table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>OVC ID</th>
+                        <th>Firstname</th>
+                        <th>Surname</th>
+                        <th>Sex</th>
+                        <th>Date of CSI</th>                                
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for results in resultsets %}
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.first_name }}</td>
+                        <td>{{ result.surname }}</td>
+                        <td>{{ result.sex_id|gen_value:vals }}</td>
+                        <td>{{ result.date_of_csi }}</td>
+                        
+                        <td>
+                             <a href="{% url 'view_csi' id=result.form_id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-binoculars"></i>&nbsp;View</button></a>
+
+                             <a href="{% url 'edit_csi' id=result.form_id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+                         </td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        {% else %}
+            <div class="norecords" align="center"><b>No records found.</b></div>
+        {% endif %}
+{% elif form.form_type.value == 'FSAM' %}
+    {% if resultsets|length %}
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="form-data-table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>OVC ID</th>
+                        <th>Firstname</th>
+                        <th>Surname</th>
+                        <th>Sex</th>
+                        <th>Date of F1A</th>                                
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for results in resultsets %}
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.first_name }}</td>
+                        <td>{{ result.surname }}</td>
+                        <td>{{ result.sex_id|gen_value:vals }}</td>
+                        <td>{{ result.date_of_f1a }}</td>
+                        
+                        <td>
+                             <a href="{% url 'form1a_events' id=result.id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-paw"></i>&nbsp;Follow-up</button></a>
+                         </td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        {% else %}
+            <div class="norecords" align="center"><b>No records found.</b></div>
+        {% endif %}
+{% elif form.form_type.value == 'FHSA' %}
+    {% if resultsets|length %}
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="form-data-table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>OVC ID</th>
+                        <th>Firstname</th>
+                        <th>Surname</th>
+                        <th>Sex</th>
+                        <th>Date of HHVA</th>                                
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for results in resultsets %}
+                    {% for result in results %}
+                    <tr>
+                        <td>{{ result.id }}</td>
+                        <td>{{ result.first_name }}</td>
+                        <td>{{ result.surname }}</td>
+                        <td>{{ result.sex_id|gen_value:vals }}</td>
+                        <td>{{ result.date_of_hhva }}</td>
+                        
+                        <td>
+                             <a href="{% url 'view_hhva' id=result.form_id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-binoculars"></i>&nbsp;View</button></a>
+
+                             <a href="{% url 'edit_hhva' id=result.form_id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+                         </td>
+                    </tr>
+                    {% endfor %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        </div>
+        {% else %}
+            <div class="norecords" align="center"><b>No records found.</b></div>
+        {% endif %}
+{% else %}  
+    <div class="norecords" align="center">No records found</div> 
+{% endif %}    
+</div>
+
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="/static/plugins/parsley/dist/parsley.js"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script type="text/javascript">
+$(document).ready(function() 
+{    
+    // Load FormTypes depending on logged in user
+    loadFormTypes();
+
+    $('#form-data-table').bootstrapTable(
+    { 
+        toggle: 'table', 
+        search: 'true',
+        locale: 'en-US',
+        pagination: 'true',
+        pageNumber: 1,
+        pageSize: 10,
+        //showRefresh: true,
+        showToggle: true,
+        //showColumns: true,
+        singleSelect: true,
+        clickToSelect:true,
+        maintainSelected: true
+    });
+
+});
+</script>
+<script type="text/javascript">
+function loadFormTypes()
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var values = { 'csrfmiddlewaretoken': csrftoken };
+
+    $.ajax({            
+                url: '{% url 'manage_form_type' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    console.log(result);
+                    var label;
+                    var value;
+                    $('#form_type').empty();
+
+                    $.each(result, function(i, val) 
+                    {
+                        label = val.label;
+                        value = val.value;
+                        $('#form_type').append($("<option></option>").attr("value",value).text(label));
+                    });
+
+                    // set form_type
+                    var form_type = $('#span_form_type').html()
+                    $('#form_type').val(form_type);
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+            });   
+}
+</script>
+{% endblock %}
+

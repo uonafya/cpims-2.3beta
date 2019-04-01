@@ -1,0 +1,2231 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Case Record Sheet {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+
+.cell_class {
+  display: none;
+}
+
+.td_style {
+  color: #0057e7;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+	<h1 class="page-header">Forms <small>Edit Case Record Sheet  <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> Case Details </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard3" id="edit_case_record">
+                	{% csrf_token %}
+					<div id="wizard3">
+						<ol>
+							<li>
+							    Case Reporting 
+							    <small>Reporter and additional details.</small>
+
+							</li>
+							<li>
+							    About the Child 
+							    <small>Name and additional details.</small>
+
+							</li>
+							<li>
+							    Medical
+							    <small>Medical history and additional details.</small>
+							</li>
+							<li>
+							    Case Data
+							    <small>Case type and additional details.</small>
+							</li>
+							<!--
+							<li>
+							    Referrals / Interventions
+							    <small>Case referrals/interventions and additional details.</small>
+							</li>
+							-->
+						</ol>
+
+						<!-- begin wizard step-1 -->
+						<div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">Case Reporting</legend>
+                                <div class="row"> 
+
+                                	<!-- Create/Pick FK -->
+                                	{{ form.user_id }}
+									{{ form.person }}
+									{{ form.case_id }}
+									{{ form.case_category_id }}
+
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3" for="case_originator">Case Reporter/Originator : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											{{ form.case_reporter }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="Select Case Reporter/Originator"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<!-- Court Reported -->
+									<div id="div_court_name" class="form-group" style="display:none;">
+										<label class="control-label col-md-3 col-sm-3" for="court_name">Court Name : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											{{ form.court_name }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="Enter >Court Name"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<div id="div_court_number" class="form-group" style="display:none;">
+										<label class="control-label col-md-3 col-sm-3" for="court_number">Court/File Number : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											{{ form.court_number }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="Enter Case/File Number"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+
+									<!-- Police Reported -->
+									<div id="div_police_station" class="form-group" style="display:none;">
+										<label class="control-label col-md-3 col-sm-3" for="police_station">Police Station : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											{{ form.police_station }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="Enter Police Station"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<div id="div_ob_number" class="form-group" style="display:none;">
+										<label class="control-label col-md-3 col-sm-3" for="ob_number">OB Number : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											{{ form.ob_number }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="Enter OB Number"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									
+									<!-- Parents/Relatives/Non-Relative Reported -->
+                                    <div id="div_reporter_names" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-3 col-sm-3" for="case_reporter_first_name">Reporter Name(s) :<span class="asteriskField">* </label>
+                                        <div class="col-md-3 col-sm-6">
+                                            {{ form.case_reporter_first_name }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-6">
+                                            {{ form.case_reporter_other_names }}
+                                        </div>  
+                                        <div class="col-md-3 col-sm-6">
+                                            {{ form.case_reporter_surname }}
+                                        </div>
+                                        <a href="#" data-toggle="tooltip" title="Enter reporter names"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>   
+
+                                    <!--
+									<div class="form-group"> 
+										<label class="control-label col-md-2 col-sm-2" for="self_reporter">Self-Reported :</label>
+										<div class="col-md-8 col-sm-8">
+				                            <label>
+				                                {{ form.is_self_reporter }} <span id="checkbox_text">(Please check if self-reported)</span>
+				                            </label>
+				                        </div>   
+                                        <a href="#" data-toggle="tooltip" title="Check this for self-reporting"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    -->
+
+                                    <div id="div_reporter_contacts" class="form-group" style="display:none;">
+                                        <label class="control-label col-md-3 col-sm-3" for="case_reporter_contacts">Reporter PhoneNumber :</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            {{ form.case_reporter_contacts }}
+                                        </div>                                      
+                                        <a href="#" data-toggle="tooltip" title="Enter reporter contacts"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                    <!--
+                                    <div id="div_reporter_relationship_to_child" class="form-group">
+                                        <label class="control-label col-md-2 col-sm-2" for="case_reporter_relationship_to_child">Reporter Relationship To Child : <span class="asteriskField">* </label>
+                                        <div class="col-md-8 col-sm-8">
+                                                 {{ form.case_reporter_relationship_to_child }} 
+                                        </div>                                      
+                                        <a href="#" data-toggle="tooltip" title="Enter reporter relationship to child"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div> 
+                                    -->
+									<div class="form-group">
+										<label class="control-label col-md-3 col-sm-3" for="geolocs">Place Of Occurence : <span class="asteriskField">* </label>
+										<div class="col-md-2 col-sm-2">
+                                             County *   {{ form.occurence_county }}
+                                        </div>
+										<div class="col-md-2 col-sm-2">
+                                             Sub County *   {{ form.occurence_subcounty }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                             Ward   {{ form.occurence_ward }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                        	 Village/Estate   {{ form.occurence_village }}
+                                        </div>
+                                        <a href="#" data-toggle="tooltip" title="Enter Place Of Occurence"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div> 
+                                    <div class="form-group">
+										<label class="control-label col-md-3 col-sm-3" for="geolocs">Place Of Reporting : <span class="asteriskField">* </label>
+										<div class="col-md-4 col-sm-6">
+                                             Sub County *   <br> {{ form.report_subcounty }}
+                                        </div>
+                                        <!--
+                                        <div class="col-md-2 col-sm-2">
+                                             Ward    {{ form.report_ward }}
+                                        </div>
+                                        -->
+                                        <div class="col-md-4 col-sm-4">
+                                        	Organization Unit *
+                                        	<br> {{ form.report_orgunit }}
+                                        </div>
+                                        <a href="#" data-toggle="tooltip" title="Enter OrgUnit Of Reporting"><i class="fa fa-info-circle fa-sm"></i></a>
+                                        
+									</div>  
+									<div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3" for="date_case_opened">Date Case Reported : <span class="asteriskField">* </label>
+                                        <div class="col-md-8 col-sm-8">
+                                            {{ form.date_case_opened }}
+                                        </div>
+                                        <a href="#" data-toggle="tooltip" title="Enter date case was opened"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>                                                 
+                                </div>
+                                <!-- end row -->
+							</fieldset>
+						</div>
+						<!-- end wizard step-1 -->
+
+						<!-- begin wizard step-2 -->
+						<div class="wizard-step-2">
+                            <fieldset>
+                                <legend class="pull-left width-full">About the Child</legend>
+                                <div class="row"> 
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="init_data">Initial Details :</label>
+										<div class="col-md-8 col-sm-8">
+												
+												{% for data in init_data %}
+		                                			<h6>NAME : <i> {{ data.first_name }} {{ data.surname }}</i></h6>
+												    <h6>SEX : <i> {{ data.sex_id|gen_value:vals }}</i></h6>
+												    <h6>DATE OF BIRTH : <i> {{ data.date_of_birth }}</i></h6>
+												    <h6>
+												    AGE IN YEARS :
+												        <i>
+												            {% if data.date_of_birth|gen_age == 0 %}
+												                UNDER 1 YEAR
+												            {% else %}
+												                {{ data.date_of_birth|gen_age }} YRS 
+												            {% endif %}
+												         </i>
+												    </h6>
+		                                		{% endfor %}
+												
+										</div>										
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="init_data">Siblings Details :</label>
+										<div class="col-md-8 col-sm-8">
+											<div class="table-responsive">
+								                <table id="siblings-data-table" class="table">
+								                    {% if init_data.siblingpersons|length %}
+								                    <thead>
+								                        <tr>
+								                            <th>Sibling ID</th>
+								                            <th>Firstname</th>
+								                            <th>Surname</th>
+								                            <th>Sex</th> 
+								                            <th>Actions</th> 
+								                        </tr>
+								                    </thead>
+								                    <tbody>
+									                    	{% for result in init_data.siblingpersons %}
+									                    	<tr>
+		                    									<td>{{ result.id }}</a></td>
+										                        <td>{{ result.first_name }}</td>
+										                        <td>{{ result.surname }}</td>
+										                        <td>{{ result.sex_id|gen_value:vals }}</td>
+		                    								</tr>
+		                    								{% endfor %}
+								                    </tbody>
+                    								{% else %}
+								                    <div>No siblings found</div>
+                    								{% endif %}
+								                </table>
+								            </div>
+										</div>
+									</div>									
+                                    <div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="household_economics">House economic status : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											{{ form.household_economics }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="Describe household economic status"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="family_status">Family status : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											{{ form.family_status }}
+											<span id="sel_family_status"></span>
+										</div>										
+										<a href="#" data-toggle="tooltip" title="Describe family status"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="tribe">Close Friends :</label>
+										<div class="col-md-8 col-sm-8">
+											 
+											<ul id="friends_list" class="white" placeholder="type">
+	                                        </ul>
+	                                         
+	                                        {{ form.friends }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="List close friends"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="tribe">Hobbies :</label>
+										<div class="col-md-8 col-sm-8">
+											 
+											<ul id="hobbies_list" class="white" placeholder="type">
+
+	                                        </ul>	                                         
+	                                        {{ form.hobbies }}
+										</div>
+										<a href="#" data-toggle="tooltip" title="List hobbies"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+                                </div>
+                                <!-- end row -->
+							</fieldset>
+						</div>
+						<!-- end wizard step-2 -->
+
+						<!-- begin wizard step-3 -->
+						<div class="wizard-step-3">
+							<fieldset>
+                                <legend class="pull-left width-full">Medical</legend>
+                                <div class="row">
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="child_in_school">Mental condition : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											<div>{{ form.mental_condition }}</div>
+											<br>
+											<div id="div_mental_subcondition" style="display:none;">
+												<label>Please Specify : <span class="asteriskField">*  </label>{{ form.mental_subcondition }}
+												<span id="sel_mental_subcondition"></span>
+											</div>
+										</div>
+										<a href="#" data-toggle="tooltip" title="Select mental condition"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="school_category">Physical condition : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											<div>{{ form.physical_condition }}</div>
+											<br>
+											<div id="div_physical_subcondition" style="display:none;">
+												<label>Please Specify : <span class="asteriskField">*  </label>{{ form.physical_subcondition }}
+												<span id="sel_physical_subcondition"></span>
+											</div>
+										</div>
+										<a href="#" data-toggle="tooltip" title="Select physical condition"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-md-2 col-sm-2" for="school_category">Other condition : <span class="asteriskField">* </label>
+										<div class="col-md-8 col-sm-8">
+											<div>{{ form.other_condition }}</div>
+											<br>
+											<div  id="div_other_subcondition" style="display:none;">
+												<label>Please Specify : <span class="asteriskField">*  </label>{{ form.other_subcondition }}
+												<span id="sel_other_subcondition"></span>
+											</div>
+										</div>
+										<a href="#" data-toggle="tooltip" title="Select other conditions if any"><i class="fa fa-info-circle fa-sm"></i></a>
+									</div>
+                                </div>
+							</fieldset>
+						</div>
+						<!-- end wizard step-3 -->						
+
+						<!-- begin wizard step-4 -->
+					    <div class="wizard-step-4">
+						    <fieldset>
+								<legend class="pull-left width-full">Case Data</legend>
+                                
+                                <div class="row">
+                                	<div class="col-md-3 col-sm-2">
+	                                    <div class="form-group">
+	                                        <label for="serial_number">Case Serial Number <span class="asteriskField">*</span></label>
+	                                        {{ form.serial_number }}
+	                                    </div>
+	                                </div> 
+	                                <div class="col-md-3">
+	                                    <div class="form-group block1">
+	                                        <label for="perpetrator_status">Alleged Perpetrator/Offender Known? <span class="asteriskField">*</span></label>
+	                                        {{ form.perpetrator_status }}
+	                                    </div>
+	                                </div>
+	                                <div class="col-md-3">
+	                                    <div id="div_perpetrator_relationship" class="form-group block1" style="display:none;">
+	                                        <label for="perpetrator_relationship">Relationship to Child <span class="asteriskField">*</span></label>
+	                                        {{ form.perpetrator_relationship }}
+	                                    </div>
+	                                </div>                                	
+                                </div>
+
+                                <div class="divider pull-left width-full"></div>
+                                <div id="div_perpetrator_names" class="row" style="display:none;">
+                                	<div class="col-md-3">
+	                                    <div class="form-group block1">
+	                                        <label for="perpetrator_first_name">First Name <span class="asteriskField">*</span></label>
+	                                        {{ form.perpetrator_first_name }}
+	                                    </div>
+	                                </div> 
+	                                <div class="col-md-3">
+	                                    <div class="form-group block1">
+	                                        <label for="perpetrator_surname">Surname <span class="asteriskField">*</span></label>
+	                                        {{ form.perpetrator_surname }}
+	                                    </div>
+	                                </div> 
+	                                <div class="col-md-3">
+	                                    <div class="form-group block1">
+	                                        <label for="perpetrator_other_names">Other Name(s)<span class="asteriskField"></span></label>
+	                                        {{ form.perpetrator_other_names }}
+	                                    </div>
+	                                </div>                                	
+                                </div>
+
+                                <div class="divider pull-left width-full"></div>
+                                <div  class="row col-md-10">
+                                	<fieldset>
+                                	<legend><h6>Case Category(s)<span class="asteriskField">*</span></h6></legend>
+	                                	<div id="div_casecategory_errormsgs" style="display:none">
+	                                        <span><p class="dialog_paragraph">One or more case category is required</p></span>
+	                                    </div>
+
+	                                	<div class="col-md-12">
+	                                		<table id="casecategory_manager_table" class="table">
+			                                    <thead>
+			                                        <tr id="id_inputHeaders">
+			                                            <th></th>
+			                                            <th style="display: none;">Case Grouping Id</th>
+			                                            <th>Case Category(s)</th>
+			                                            <th>Case SubCategory(s)</th>
+			                                            <th>Date Of Event</th>
+			                                            <th>Place Of Event</th>
+			                                            <th>Case Nature</th>
+			                                            <th>Actions</th> 
+			                                        </tr>
+			                                    </thead>
+			                                    <tbody>
+			                                        <tr id="id_inputElements" align="left">
+			                                            <td></td>
+			                                            <td style="display: none;"></td>
+			                                            <td width="25%">
+				                                            {{ form.case_category }}
+				                                            <div id="case_category_errormsg" style="display:none;">
+				                                                <span><p class="dialog_paragraph">This value is required</p></span>
+				                                            </div>
+			                                            </td>
+
+			                                          	<td width="25%">
+				                                            {{ form.case_subcategory }}
+				                                            <h6><span id="sel_case_subcategory"></span></h6>
+				                                            <div id="case_subcategory_errormsg" style="display:none;">
+				                                                <span><p class="dialog_paragraph">This value is required</p></span>
+				                                            </div>
+			                                            </td>
+
+			                                            <td width="20%">
+				                                            {{ form.date_of_event }}
+				                                            <div id="date_of_event_errormsg" style="display:none;">
+				                                                <span><p class="dialog_paragraph">This value is required</p></span>
+				                                            </div>
+			                                            </td>
+
+			                                            <td width="20%">
+				                                            {{ form.place_of_event }}
+				                                            <div id="place_of_event_errormsg" style="display:none;">
+				                                                <span><p class="dialog_paragraph">This value is required</p></span>
+				                                            </div>
+			                                            </td>
+
+			                                            <td width="20%">
+				                                            {{ form.case_nature }}
+				                                            <div id="case_nature_errormsg" style="display:none;">
+				                                                <span><p class="dialog_paragraph">This value is required</p></span>
+				                                            </div>
+			                                            </td>
+
+			                                            <td>
+			                                            	<button id="btnAddCases" type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(1)">
+			                                                &nbsp;  Save 
+			                                            	</button>
+			                                            	<!--
+				                                            <button id="btnSaveChanges" type="button" class="btn btn-sm btn-white m-r-5" style="display:none" onClick="AddRow(1)">
+							                                	<i class="fa fa-save"></i>&nbsp;  Save 
+							                                </button>
+							                                <button id="btnCancelChanges" type="button" class="btn btn-sm btn-white m-r-5" style="display:none" onClick="CancelRow()">
+							                                	<i class="fa fa-close"></i>&nbsp;  Cancel 
+							                                </button>
+							                                -->
+			                                            </td>
+			                                            {{ form.case_category_list }}
+			                                        <tr>
+			                                        {% for resultset in resultsets %}
+					                                	{% regroup resultset by case_grouping_id as case_grouping_id_list %}
+						                                	{% for case_grouping_id in case_grouping_id_list %}	                        	
+								                                <tr id="id_inputElements{{ forloop.counter }}">
+								                                	<td>
+								                                	#
+								                                	{{ form.row_id }}
+								                                	</td>
+
+								                                	<td  style="display: none;">
+								                                	<!--		                                	
+								                                	<div id="span_case_grouping_id" style="display:none">
+									                            		<span>{{ case_grouping_id.list|gen_case_grouping_id }}</span>
+									                            	</div>
+									                            	-->
+									                            	{{ case_grouping_id.list|gen_case_grouping_id }}
+								                                	</td>
+
+								                                	<td>
+								                                	{% for item in case_grouping_id.list %}
+								                                		{{ item.case_category|gen_value2 }}
+								                                		<input id='hcase_categorys' type='hidden' value='{{ item.case_category }}'>
+								                                		<br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                            	<td>
+									                            	{% for item in case_grouping_id.list %}
+								                                		{{ item.case_subcategorys }}
+								                                		<input id='hcase_subcategorys' type='hidden' value='{{ item.case_subcategorysids }}'>
+								                                		<br>
+									                            	{% endfor %}
+									                            	 </td>
+
+									                                <td>
+									                                {{ case_grouping_id.list|gen_date_of_event }}
+									                            	</td>
+
+									                            	<td>
+								                                	{% for item in case_grouping_id.list %}
+								                                		{{ item.place_of_event|gen_value2 }}
+								                                		<input id='hplace_of_event' type='hidden' value='{{ item.place_of_event }}'>
+								                                		<br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                            	<td>
+								                                	{% for item in case_grouping_id.list %}
+								                                		{{ item.case_nature|gen_value2 }}
+								                                		<input id='hcase_nature'type='hidden' value='{{ item.case_nature }}'>
+								                                		<br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                            	<td>
+										                                <button id="btnEdit{{ forloop.counter }}" type="button" class="btn btn-sm btn-link m-r-5" onClick="RemoveRow(1, 'id_inputElements{{ forloop.counter }}')">
+										                                	Remove 
+										                                </button>
+									                                </td>
+									                            <tr>
+								                            {% endfor %}
+							                        {% endfor %}
+			                                    </tbody>
+			                                </table>
+	                                	</div> 
+                                	</fieldset>                               	
+                                </div>
+
+                                <div class="divider pull-left width-full"></div>
+                                <div class="row">
+                                	<div class="col-md-3">
+	                                    <div class="form-group block1">
+	                                        <label for="risk_level">Risk Level <span class="asteriskField">*</span></label>
+	                                        {{ form.risk_level }}
+	                                    </div>
+	                                </div>  
+
+	                                <div class="col-md-3">
+	                                    <div class="form-group block1">
+	                                        <label for="refferal_present">Referrals Present? <span class="asteriskField">*</span></label>
+	                                        {{ form.refferal_present }}
+	                                    </div>
+	                                </div>     
+
+	                                <div class="col-md-3">
+	                                    <div class="form-group block1">
+	                                        <label for="summon_issued">Summons Issued? <span class="asteriskField">*</span></label>
+	                                        {{ form.summon_issued }}
+	                                    </div>
+	                                </div> 
+
+	                                <div class="col-md-3">
+	                                    <div  id="div_date_of_summon" class="form-group block1" style="display:none;">
+	                                        <label for="date_of_summon">Date Of Summon <span class="asteriskField">*</span></label>
+	                                        {{ form.date_of_summon }}
+	                                    </div>
+	                                </div>                         	
+                                </div>
+
+                                <div class="divider pull-left width-full"></div>
+                                <div id="div_referralactors" style="display:none"  class="row col-md-10">
+                                	<fieldset>
+                                		<legend><h6>Referral(s)<span class="asteriskField">*</span></h6></legend>
+                                		<div id="div_referralactors_errormsgs" style="display:none">
+                                            <span><p class="dialog_paragraph">One or more referral actor is required</p></span>
+                                        </div>
+
+										<table id="referralactors_table" class="table">
+			                                    <thead>
+			                                        <tr id="id_inputHeaders">
+			                                        	<th></th>
+			                                        	<th style="display: none;">Referral Grouping Id</th>
+			                                            <th width="20%">Referral Actor</th>
+			                                            <th width="20%">Specify</th>
+			                                            <th width="50%">Reason</th>
+			                                            <th width="10%">Actions</th> 
+			                                        </tr>
+			                                    </thead>
+			                                    <tbody>
+			                                        <tr id="id_inputElements">
+			                                        	<th></th>
+			                                        	<td style="display: none;"></td>
+			                                            <td width="20%">
+				                                            {{ form.refferal_destination_type }}
+					                                            <div id="refferal_destination_type_errormsg" style="display:none;">
+					                                                <span><p class="dialog_paragraph">This value is required</p></span>
+					                                            </div>
+			                                            </td>
+
+			                                            <td width="20%">
+				                                            {{ form.refferal_destination_description }}
+				                                            <div id="refferal_destination_description_errormsg" style="display:none;">
+				                                                <span><p class="dialog_paragraph">This value is required</p></span>
+				                                            </div>
+			                                            </td>
+
+			                                            <td width="50%">
+				                                            {{ form.refferal_to }}
+				                                            <span align="center" id="sel_refferal_to"></span>
+					                                            <div id="refferal_to_errormsg" style="display:none;">
+					                                                <span><p class="dialog_paragraph">This value is required</p></span>
+					                                            </div>
+			                                            </td>
+
+			                                            <td width="10%">
+				                                            <button id="btn_save_referralactor" type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(2)">
+				                                                Save 
+				                                            </button>
+			                                            </td>
+			                                        <tr>
+			                                        {% for resultset in resultsets2 %}
+					                                	{% regroup resultset by referral_grouping_id as referral_grouping_id_list %}
+						                                	{% for referral_grouping_id in referral_grouping_id_list %}	              	
+								                                <tr id="id_inputElements_{{ forloop.counter }}">
+
+								                                	<td>
+								                                	<!---->
+								                                	#
+								                                	</td>
+
+								                                	<td style="display:none;">
+									                            	{{ referral_grouping_id.list|gen_referral_grouping_id }}
+									                            	<br>
+								                                	</td>
+
+								                                	<td>
+								                                	{% for item in referral_grouping_id.list %}
+								                                		{{ item.refferal_actor_type|gen_value2 }}
+								                                		<input id='hrefferal_destination_type' type='hidden' value='{{ item.refferal_actor_type_id }}'><br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                                <td>
+									                                {% for item in referral_grouping_id.list %}
+									                                	{{  item.refferal_actor_specify|gen_value2 }}
+									                                	<br>
+									                                {% endfor %}
+									                            	</td>
+
+									                            	<td>
+								                                	{% for item in referral_grouping_id.list %}
+								                                		{{ item.refferal_to|gen_value2 }}<br>
+								                                		<input id='hrefferal_to' type='hidden' value='{{ item.refferal_to_id }}'>
+								                                		<br>
+									                            	{% endfor %}
+									                            	</td>
+
+									                            	<td>
+										                                <button id="btnEdit{{ forloop.counter }}" type="button" class="btn btn-sm btn-link m-r-5" onClick="RemoveRow(2,'id_inputElements_{{ forloop.counter }}')">
+										                                 &nbsp;  Remove
+										                                </button>
+									                                </td>
+									                            <tr>
+								                            {% endfor %}
+							                        {% endfor %}			                                        
+			                                    </tbody>
+			                                </table>
+		                                {{ form.referralactors_list }}
+                                	</fieldset>                               	
+                                </div>
+
+
+                                <div class="divider pull-left width-full"></div>
+                                <div class="row">
+                                	<div class="col-md-4">
+	                                    <div class="form-group block1">
+	                                        <label for="immediate_needs">Immediate Needs <span class="asteriskField">*</span></label>
+	                                        {{ form.immediate_needs }}
+	                                        <span id="sel_immediate_needs"></span>
+	                                    </div>
+	                                </div> 
+
+	                                <div class="col-md-4">
+	                                    <div class="form-group block1">
+	                                        <label for="future_needs">Future Needs <span class="asteriskField">*</span></label>
+	                                        {{ form.future_needs }}
+	                                        <span id="sel_future_needs"></span>
+	                                    </div>
+	                                </div>                             	
+                                </div>
+
+                            </fieldset>
+                        </div>
+						<!-- end wizard step-4 -->
+					</div>
+
+	                <div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-5 col-sm-5"></label>
+							<div class="col-md-5 col-sm-5">
+								<button id="mysubmit33" type="submit" class="btn btn-primary">Update</button>
+								<a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+							</div>
+						</div>
+                    </div>
+
+				</form>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+<!-- End content area -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+	<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>	
+	<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+	<script src="{% static 'js/apps.js' %}"></script>
+	<script src="{% static 'js/form-wizards.js' %}"></script>
+	<script src="{% static 'js/tag-it.js' %}"></script>
+	<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+	<script type="text/javascript">	
+	function RemoveRow(x, row_id)
+	{
+		// ** Case Categorys Table ** //
+		if(x == 1)
+		{			
+			// Remove row
+			$("#" + row_id + "").remove();
+
+			var CaseManagementData = new Array();
+
+			// Re-write json
+			$('#casecategory_manager_table tr').each(function(row, tr)
+		    {
+		    	var case_grouping_id = $(tr).find('td:eq(1)').text();
+		    	var case_category = $(tr).find('input[id="hcase_categorys"]').val();
+		    	var case_subcategory = $(tr).find('input[id="hcase_subcategorys"]').val();
+    			var date_of_event =  $(tr).find('td:eq(4)').text();
+    			var place_of_event = $(tr).find('input[id="hplace_of_event"]').val();
+    			var case_nature = $(tr).find('input[id="hcase_nature"]').val()
+
+    			CaseManagementData[row] = {
+    				"case_grouping_id": $.trim(case_grouping_id),
+                    "case_category": $.trim(case_category),
+                    "case_subcategory": $.trim(case_subcategory),
+                    "date_of_event": $.trim(date_of_event),
+                    "place_of_event": $.trim(place_of_event),
+                    "case_nature": $.trim(case_nature)
+                }
+			});
+			CaseManagementData.shift(); //remove first row(headers stuff)
+		    CaseManagementData.shift(); //remove second row(controls stuff)
+		    CaseManagementData.shift(); //remove empty row
+		    CaseManagementData = JSON.stringify(CaseManagementData); 
+
+		    // Set case_category_list
+		    $('#case_category_list').val(CaseManagementData);
+		}
+
+		// ** Referrals Table ** //
+		if(x == 2)
+		{			
+			// Remove row
+			$("#" + row_id + "").remove();
+
+
+			console.log(row_id);
+
+			var ReferralActorsData = new Array();
+
+			// Re-write json
+			$('#referralactors_table tr').each(function(row, tr)
+		    {
+		    	var referral_grouping_id = $(tr).find('td:eq(1)').text();
+                var refferal_destination_type = $(tr).find('input[id="hrefferal_destination_type"]').val();
+    			var refferal_destination_description = $(tr).find('input[id="hrefferal_destination_description"]').val();
+    			var refferal_to = $(tr).find('input[id="hrefferal_to"]').val();
+    			ReferralActorsData[row] = {
+    				"referral_grouping_id": $.trim(referral_grouping_id),
+                    "refferal_destination_type" : $.trim(refferal_destination_type),
+                    "refferal_destination_description" : $.trim(refferal_destination_description),
+                    "refferal_to": $.trim(refferal_to)
+                }
+		    });
+		    ReferralActorsData.shift(); //remove first row(headers stuff)
+		    ReferralActorsData.shift(); //remove second row(controls stuff)
+		    ReferralActorsData.shift(); //remove empty row
+		    ReferralActorsData = JSON.stringify(ReferralActorsData); 
+
+		    // Set referralactors_list
+		    $('#referralactors_list').val(ReferralActorsData);
+		}
+	}
+
+	function AddRow(operation)
+	{
+		if(operation == 1)
+		{
+			var CaseManagementData = new Array();
+	        var case_category = $('#case_category').val();
+	        var case_subcategory = $('#case_subcategory').val();
+	        var date_of_event = $('#date_of_event').val();
+	        var place_of_event = $('#place_of_event').val();
+	        var case_nature = $('#case_nature').val();
+	        var data = new Array();
+	        var csrftoken = $.cookie('csrftoken');
+	        var values = { 
+	                        'csrfmiddlewaretoken': csrftoken
+	                     };
+
+
+			if(case_category)
+	        {
+	            if(case_subcategory)
+	            {
+	                if(date_of_event)
+		            {
+		                if(place_of_event)
+			            {
+			            	if(case_nature)
+				            {
+				            	//Initialize case_sub_category array; add to it on click per row
+				            	var selected_sub_categorys = []; 
+									$('#case_subcategory :selected').each(function(i, selected){ 
+									  selected_sub_categorys[i] = $(selected).val(); 
+									});
+
+				                // Find a <table> element with id="myTable":
+						        var table = $('#casecategory_manager_table')[0]; 
+
+						        // Create an empty <tr> element with id and add it to the 1st position of the table:
+						        var rows_length = casecategory_manager_table.rows.length;
+						        var row = table.insertRow(rows_length);
+						        var row_id = "id_inputElements_" + (rows_length);
+						        row.id = row_id;
+
+						        // Update case_category_span_count
+						    	//$('#case_category_count p').html(rows_length-2);
+
+						        //Insert new cells (<td> elements) of the "new" <tr> element:
+						        var cell0 = row.insertCell(0); 
+						        var cell1 = row.insertCell(1); 
+						        var cell2 = row.insertCell(2);
+						        var cell3 = row.insertCell(3);
+						        var cell4 = row.insertCell(4);
+						        var cell5 = row.insertCell(5);						        
+						        var cell6 = row.insertCell(6);
+						        var cell7 = row.insertCell(7);
+
+						        cell0.className = 'td_style'
+						        cell1.className = 'td_style'
+						        cell2.className = 'td_style'
+						        cell3.className = 'td_style'
+						        cell4.className = 'td_style'
+						        cell5.className = 'td_style'
+						        cell6.className = 'td_style'
+						        cell7.className = 'td_style'
+
+						        // Add some text to the new cells:
+						        var hcase_categorys = "<input id='hcase_categorys' type='hidden' value='"+case_category+"'>"
+				        		var hcase_subcategorys = "<input id='hcase_subcategorys' type='hidden' value='"+selected_sub_categorys+"'>"
+				        		var hplace_of_event = "<input id='hplace_of_event' type='hidden' value='"+place_of_event+"'>"
+				        		var hcase_nature = "<input id='hcase_nature' type='hidden' value='"+case_nature+"'>"
+
+						        var index = rows_length - 1;
+
+						        cell0.innerHTML = ('#');
+						        cell1.innerHTML = "";
+						        cell1.className = 'cell_class';
+						        cell2.innerHTML = displayVals2("case_category") + hcase_categorys;
+						        cell3.innerHTML = displayVals2("case_subcategory") + hcase_subcategorys;
+						        cell4.innerHTML = $('#date_of_event').val();
+						        cell5.innerHTML = displayVals2("place_of_event") + hplace_of_event;
+						        cell6.innerHTML = displayVals2("case_nature") + hcase_nature;
+						        cell7.innerHTML  = "<a id='" + btnDeleteItemId + "' class='btn btn-sm btn-link m-r-5'>Remove</a>"
+
+						        // AddClick EVent To Delete Button
+						        $("#" + btnDeleteItemId + "").click(function(e)
+						        {
+						        	RemoveRow(1, row_id);
+						        });
+
+						        //Hide div_casecategory_errormsgs
+						        $('#div_casecategory_errormsgs').css({ 'display': 'none' });
+
+						        // Reset Input Elements/Error Divs
+						        $("#case_category").multiselect("clearSelection");
+						        $("#case_category").multiselect("refresh");
+						        $("#case_subcategory").multiselect("clearSelection");
+						        $("#case_subcategory").multiselect("refresh");
+						        $('#date_of_event').val('');
+						        $("#place_of_event").multiselect("clearSelection");
+						        $("#place_of_event").multiselect("refresh");
+						        $("#case_nature").multiselect("clearSelection");
+						        $("#case_nature").multiselect("refresh");
+						        $( "#sel_case_subcategory").html('');
+
+						        $('#casecategory_manager_table tr').each(function(row, tr)
+							    {
+							    	var case_grouping_id = $(tr).find('td:eq(1)').text();
+							    	var case_category = $(tr).find('input[id="hcase_categorys"]').val();
+							    	var case_subcategory = $(tr).find('input[id="hcase_subcategorys"]').val();
+				        			var date_of_event =  $(tr).find('td:eq(4)').text();
+				        			var place_of_event = $(tr).find('input[id="hplace_of_event"]').val();
+				        			var case_nature = $(tr).find('input[id="hcase_nature"]').val()
+
+				        			CaseManagementData[row] = {
+				        				"case_grouping_id": $.trim(case_grouping_id),
+				                        "case_category": $.trim(case_category),
+				                        "case_subcategory": $.trim(case_subcategory),
+				                        "date_of_event": $.trim(date_of_event),
+				                        "place_of_event": $.trim(place_of_event),
+				                        "case_nature": $.trim(case_nature)
+				                    }
+							    });
+							    CaseManagementData.shift(); //remove first row(headers stuff)
+							    CaseManagementData.shift(); //remove second row(controls stuff)
+							    CaseManagementData.shift(); //remove empty row
+							    CaseManagementData = JSON.stringify(CaseManagementData); 
+
+							    // Set case_category_list
+							    $('#case_category_list').val(CaseManagementData);
+				            }
+				          	else
+				          	{
+				          		$("#case_nature_errormsg").css({ 'display': "block" });
+				          	}		                 
+			            }
+			          	else
+			          	{
+			          		$("#place_of_event_errormsg").css({ 'display': "block" });
+			          	} 
+		            }
+		          	else
+		          	{
+		          		$("#date_of_event_errormsg").css({ 'display': "block" });
+		          	} 
+	            }
+	          	else
+	          	{
+	          		$("#case_subcategory_errormsg").css({ 'display': "block" });
+	          	}
+	        }
+	        else
+	        {
+	        	$("#case_category_errormsg").css({ 'display': "block" });
+	        }
+		}
+
+		if(operation == 2)
+		{
+			var ReferralActorsData = new Array();
+		    var refferal_destination_type = $('#refferal_destination_type').val();
+		    var refferal_destination_description = $('#refferal_destination_description').val();
+	        var refferal_to = $('#refferal_to').val();
+
+		    var data = new Array();
+		    var csrftoken = $.cookie('csrftoken');
+		    var values = { 
+		                    'csrfmiddlewaretoken': csrftoken
+		                 };
+
+		    if(refferal_destination_type)
+		    {
+		    	if(refferal_destination_description)
+		    	{
+		    		if(refferal_to)
+		    		{
+			    		// Find a <table> element with id="referralactors_table":
+				        var table = $('#referralactors_table')[0]; 
+
+				        // Create an empty <tr> element with id and add it to the 1st position of the table:
+				        var rows_length = referralactors_table.rows.length;
+				        var row = table.insertRow(rows_length);
+				        var row_id = "id_inputElements" + (rows_length);
+				        row.id = row_id;
+
+				        //Insert new cells (<td> elements) of the "new" <tr> element:
+				        var cell0 = row.insertCell(0);
+				        var cell1 = row.insertCell(1);
+				        var cell2 = row.insertCell(2);
+				        var cell3 = row.insertCell(3);
+				        var cell4 = row.insertCell(4);
+				        var cell5 = row.insertCell(5);
+
+				        cell0.className = 'td_style'
+				        cell1.className = 'td_style'
+				        cell2.className = 'td_style'
+				        cell3.className = 'td_style'
+				        cell4.className = 'td_style'
+				        cell5.className = 'td_style'
+
+				        var hrefferal_destination_type = "<input id='hrefferal_destination_type' type='hidden' value='"+refferal_destination_type+"'>"
+				        var hrefferal_destination_description = "<input id='hrefferal_destination_description' type='hidden' value='"+refferal_destination_description+"'>"
+		        		var hrefferal_to = "<input id='hrefferal_to' type='hidden' value='"+refferal_to+"'>"
+
+				        // Add some text to the new cells:
+				        var index = rows_length - 2;
+				        var btnDeleteItemId = 'btnDeleteItem' + index;
+				        cell0.innerHTML = ('#');
+				        cell1.innerHTML = "";
+						cell1.className = 'cell_class';
+				        cell2.innerHTML = displayVals2("refferal_destination_type") + hrefferal_destination_type;
+				        cell3.innerHTML = displayVals2("refferal_destination_description") + hrefferal_destination_description;
+				        cell4.innerHTML = displayVals2("refferal_to") + hrefferal_to;
+				        cell5.innerHTML  = "<a id='" + btnDeleteItemId + "' class='btn btn-sm btn-link m-r-5 href='#'>&nbsp;  Remove </a>"
+
+				        //Hide div_referralactors_errormsgs
+			            $('#div_referralactors_errormsgs').css({ 'display': 'none' });
+
+				        // AddClick EVent To Delete Button
+				        $("#" + btnDeleteItemId + "").click(function(e)
+				        {
+				        	RemoveRow(2, row_id);
+				        });
+
+				        // Reset Input Elements/Error Divs	        
+				        $("#refferal_destination_type").multiselect("clearSelection");
+				        $("#refferal_destination_type").multiselect("refresh");
+				        $("#refferal_destination_type_errormsg").css({ 'display': "none" }); 
+				        $("#sel_refferal_destination_type").html('');	
+				        $('#refferal_destination_description').multiselect("clearSelection");
+       					$('#refferal_destination_description').multiselect("refresh");
+				        $("#refferal_to").multiselect("clearSelection");
+				        $("#refferal_to").multiselect("refresh");
+				        $("#refferal_to").css({ 'display': "none" }); 
+				        $("#sel_refferal_to").html('');
+
+				        $('#refferal_destination_description_errormsg').css({ 'display': "none" });		
+
+				        $('#referralactors_table tr').each(function(row, tr)
+					    {
+					    	var referral_grouping_id = $(tr).find('td:eq(1)').text();
+		                    var refferal_destination_type = $(tr).find('input[id="hrefferal_destination_type"]').val();
+		        			var refferal_destination_description = $(tr).find('input[id="hrefferal_destination_description"]').val();
+		        			var refferal_to = $(tr).find('input[id="hrefferal_to"]').val();
+		        			ReferralActorsData[row] = {
+		        				"referral_grouping_id": $.trim(referral_grouping_id),
+		                        "refferal_destination_type" : $.trim(refferal_destination_type),
+		                        "refferal_destination_description" : $.trim(refferal_destination_description),
+		                        "refferal_to": $.trim(refferal_to)
+		                    }
+					    });
+					    ReferralActorsData.shift(); //remove first row(headers stuff)
+					    ReferralActorsData.shift(); //remove second row(controls stuff)
+					    ReferralActorsData.shift(); //remove empty row
+					    ReferralActorsData = JSON.stringify(ReferralActorsData); 
+
+					    // Set referralactors_list
+					    $('#referralactors_list').val(ReferralActorsData);
+
+
+		    			console.log(ReferralActorsData);
+
+		    		}
+		    		else
+			        {
+			        	$("#refferal_to_errormsg").css({ 'display': "block" });
+			        } 
+		        }
+		        else
+		        {
+		        	$("#refferal_destination_description_errormsg").css({ 'display': "block" });
+		        }
+		    }
+		    else
+	        {
+	        	$("#refferal_destination_type_errormsg").css({ 'display': "block" });
+	        }
+		}		
+	}
+
+
+	/* Clear the ObjectArray that holds CaseCategories Data */
+	function ClearJsonCaseCategoryObjectArray()
+	{
+		var CaseManagementData = new Array();
+        var data = new Array();
+        var csrftoken = $.cookie('csrftoken');
+        var values = { 
+                        'csrfmiddlewaretoken': csrftoken
+                     };
+		
+
+        $.ajax({
+					url: '{% url 'manage_casecategory003' %}',
+					dataType: 'text',
+					method: 'POST',
+					contentType: 'application/x-www-form-urlencoded',
+					data: values,
+					success: function(result)
+					{ 
+
+					},
+					error: function(xhr, status, error)
+					{
+					alert(error);
+					}
+
+                });        
+	}
+	function fnCancel()
+	{
+		return window.location.href='{% url 'forms_registry' %}';
+	}
+
+	function generateSerialNumber(subcounty)
+	{
+		if(subcounty)
+		{
+			var csrftoken = $.cookie('csrftoken');
+			$.ajax({
+	            type: "POST",
+	            data: {
+	            		'user_id': $('#user_id').val(),
+	            		'subcounty': subcounty,
+		                'csrfmiddlewaretoken': csrftoken
+		              },
+		        dataType: "json",
+	            url: "{% url 'generate_serialnumber' %}",
+	            success: function(result){  
+	                $.each(result, function(i, val) 
+	                {
+		                var serial_number = val.serial_number;
+		                $('#serial_number').val(serial_number);
+	                });
+	            },
+	            error: function(){
+	            }
+	        });
+		}
+	}
+
+	function getUserSubcounty()
+	{
+		var multiselect_data = [];
+        var csrftoken = $.cookie('csrftoken');
+		$.ajax({
+            type: "POST",
+            data: {
+            		'user_id': $('#user_id').val(),
+	                'csrfmiddlewaretoken': csrftoken
+	              },
+            dataType: "json",
+            url: "{% url 'usersubcounty_lookup' %}",
+            success: function(result){  
+                var multiselect_dict = {};
+                var multiselect_dict_initial = { label:'Please Select', value:''};  
+                multiselect_data.push(multiselect_dict_initial);     
+                $.each(result, function(i, val) 
+                {
+	                var area_id = val.area_id;
+                    var area_name = val.area_name;
+                    var multiselect_dict = { label: area_name, value: area_id };
+	                multiselect_data.push(multiselect_dict);
+                });
+                //multi selects
+                $('#report_subcounty').multiselect({
+                    selectAllValue: 'multiselect-all',
+                    enableCaseInsensitiveFiltering: true,
+                    numberDisplayed: 1,
+                    maxHeight: 300,
+                    buttonWidth: '100%',
+                    buttonClass: 'btn btn-white'
+                });
+                //$("#report_subcounty").multiselect("refresh");
+                $("#report_subcounty").multiselect('dataprovider', multiselect_data);
+
+            },
+            error: function(){
+            }
+        });
+	}
+
+	function getUserWards()
+	{
+		var multiselect_data = [];
+		var subcounty = $('#report_subcounty').val()
+        var csrftoken = $.cookie('csrftoken');
+        var values = {
+            		'subcounty': subcounty,
+	                'csrfmiddlewaretoken': csrftoken
+	              };
+		$.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'userward_lookup' %}",
+            success: function(result){  
+                var multiselect_dict = {};
+                var multiselect_dict_initial = { label:'Please Select', value:''};  
+                multiselect_data.push(multiselect_dict_initial);     
+                $.each(result, function(i, val) 
+                {
+	                var area_id = val.area_id;
+                    var area_name = val.area_name;
+                    var multiselect_dict = { label: area_name, value: area_id };
+	                multiselect_data.push(multiselect_dict);
+                });
+                //multi selects
+                $('#report_ward').multiselect({
+                    selectAllValue: 'multiselect-all',
+                    enableCaseInsensitiveFiltering: true,
+                    numberDisplayed: 1,
+                    maxHeight: 300,
+                    buttonWidth: '100%',
+                    buttonClass: 'btn btn-white'
+                });
+                $("#report_ward").multiselect("refresh");
+                $("#report_ward").multiselect('dataprovider', multiselect_data);
+
+            },
+            error: function(){
+            }
+        });
+	}
+
+	function getCaseSubCategories(case_category_id)
+	{
+		var multiselect_data = [];
+	    var data = new Array();
+	    var csrftoken = $.cookie('csrftoken');
+	    var values = { 
+	                    'csrfmiddlewaretoken': csrftoken,
+	                    'case_category_id': case_category_id
+	                 };
+		
+
+	    $.ajax({
+					url: '{% url 'manage_casecategory001' %}',
+					dataType: 'json',
+					method: 'POST',
+					contentType: 'application/x-www-form-urlencoded',
+					data: values,
+					success: function(result)
+					{ 
+						var status;
+						var item_sub_category_id;
+						var item_sub_category;
+						var multiselect_dict = {};
+			            // var multiselect_dict_initial = { label:'Please Select', value:'' };  
+			            // multiselect_data.push(multiselect_dict_initial);     
+			            $.each(result, function(i, val) 
+			            {
+			                item_sub_category_id = val.item_sub_category_id;
+			                item_sub_category = val.item_sub_category;
+			                status = val.status;
+
+			                var multiselect_dict = { label: item_sub_category, value: item_sub_category_id };
+			                multiselect_data.push(multiselect_dict);
+			            });
+
+			            //multi selects
+			            $('#case_subcategory').multiselect('destroy');
+			            $('#case_subcategory').multiselect({
+				                selectAllValue: 'multiselect-all',
+				                enableCaseInsensitiveFiltering: true,
+				                numberDisplayed: 1,
+				                maxHeight: 300,
+				                buttonWidth: '100%',
+				                buttonClass: 'btn btn-white',
+				                nonSelectedText: 'Please Select'
+				            });
+			            $("#case_subcategory").empty();
+			            $("#case_subcategory").multiselect('dataprovider', multiselect_data);
+
+			            if(status == 0){
+			            	$("#case_subcategory option[value='" + item_sub_category_id + "']").prop("selected", true);
+			            }
+			            $("#case_subcategory").multiselect("refresh");
+					},
+					error: function(xhr, status, error)
+					{
+						console.log(error);
+					}
+
+	            });        
+	}
+	</script>
+	<script>
+	jQuery(document).ready(function() 
+	{
+		// Clear value_lists
+		$('#case_category_list').val('');
+		$('#referralactors_list').val('');
+		//$('#immediate_needs').val('');
+		//$('#future_needs').val('');
+
+		/* getCaseSubCategories */ 
+		var category_id = $("#case_category").val();
+		getCaseSubCategories(category_id);
+
+		/* Populate subcounty list with Working_in */ 
+	    // getUserSubcounty();   
+
+		//multi selects
+		$('#physical_subcondition, #other_subcondition, #mental_subcondition, #report_subcounty, #report_ward, #report_orgunit, #occurence_county, #occurence_subcounty, #occurence_ward, #family_status, #gliving_in, #case_subcategory, #case_category, #place_of_event, #case_nature, #intervention, #refferal_to, #refferal_destination_type, #refferal_destination_description, #immediate_needs, #future_needs').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            numberDisplayed: 1,
+            maxHeight: 300,
+            buttonWidth: '100%',
+            buttonClass: 'btn btn-white'
+      	});	
+
+      	/* ------ Display/Hide Reporter Details  -------------------*/
+		var case_reporter = $('#case_reporter').val();
+		if(case_reporter == 'CRSF')
+		{
+			$('#div_court_name').css({'display': 'none'});
+	    	$('#div_court_number').css({'display': 'none'});
+	    	$('#court_name').attr('data-parsley-required', 'false');
+	    	$('#court_number').attr('data-parsley-required', 'false');
+
+	    	$('#div_police_station').css({'display': 'none'});
+	    	$('#div_ob_number').css({'display': 'none'});
+	    	$('#police_station').attr('data-parsley-required', 'false');
+	    	$('#ob_number').attr('data-parsley-required', 'false');
+	    	$('#police_station').val('');
+	    	$('#ob_number').val('');
+
+	    	$('#div_reporter_names').css({'display': 'none'});
+	    	$('#case_reporter_first_name').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_surname').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_first_name').val('');
+	    	$('#case_reporter_other_names').val('');
+	    	$('#case_reporter_surname').val('');
+
+	    	$('#div_reporter_contacts').css({'display': 'block'});
+		}
+	    else if(case_reporter == 'CRCO')
+	    {
+	    	$('#div_court_name').css({'display': 'block'});
+	    	$('#div_court_number').css({'display': 'block'});
+	    	$('#court_name').attr('data-parsley-required', 'true');
+	    	$('#court_number').attr('data-parsley-required', 'true');
+
+	    	$('#div_police_station').css({'display': 'none'});
+	    	$('#div_ob_number').css({'display': 'none'});
+	    	$('#police_station').attr('data-parsley-required', 'false');
+	    	$('#ob_number').attr('data-parsley-required', 'false');
+	    	$('#police_station').val('');
+	    	$('#ob_number').val('');
+
+	    	$('#div_reporter_names').css({'display': 'none'});
+	    	$('#case_reporter_first_name').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_surname').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_first_name').val('');
+	    	$('#case_reporter_other_names').val('');
+	    	$('#case_reporter_surname').val('');
+
+	    	$('#div_reporter_contacts').css({'display': 'none'});
+	    	$('#case_reporter_contacts').val('');
+	    }
+	    else if(case_reporter == 'CRPO')
+	    {
+	    	$('#div_police_station').css({'display': 'block'});
+	    	$('#div_ob_number').css({'display': 'block'});
+	    	$('#police_station').attr('data-parsley-required', 'true');
+	    	$('#ob_number').attr('data-parsley-required', 'true');
+
+	    	$('#div_court_name').css({'display': 'none'});
+	    	$('#div_court_number').css({'display': 'none'});
+	    	$('#court_name').attr('data-parsley-required', 'false');
+	    	$('#court_number').attr('data-parsley-required', 'false');
+	    	$('#court_name').val('');
+	    	$('#court_number').val('');
+
+	    	$('#div_reporter_names').css({'display': 'none'});
+	    	$('#case_reporter_first_name').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_surname').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_first_name').val('');
+	    	$('#case_reporter_other_names').val('');
+	    	$('#case_reporter_surname').val('');
+
+	    	$('#div_reporter_contacts').css({'display': 'none'});
+	    	$('#case_reporter_contacts').val('');
+	    }
+	    else
+	    {
+	    	if(case_reporter)
+	    	{
+		    	$('#div_reporter_names').css({'display': 'block'});
+		    	$('#case_reporter_first_name').attr('data-parsley-required', 'true');
+		    	$('#case_reporter_surname').attr('data-parsley-required', 'true');
+		    	$('#div_reporter_contacts').css({'display': 'block'});
+
+		    	$('#div_police_station').css({'display': 'none'});
+		    	$('#div_ob_number').css({'display': 'none'});
+		    	$('#police_station').attr('data-parsley-required', 'false');
+		    	$('#ob_number').attr('data-parsley-required', 'false');
+		    	$('#police_station').val('');
+		    	$('#ob_number').val('');
+
+		    	$('#div_court_name').css({'display': 'none'});
+		    	$('#div_court_number').css({'display': 'none'});
+		    	$('#court_name').attr('data-parsley-required', 'false');
+		    	$('#court_number').attr('data-parsley-required', 'false');
+		    	$('#court_name').val('');
+		    	$('#court_number').val('');
+	    	}
+	    }
+
+		/* ------ Display/Hide Medical SubConditions  -------------------*/
+		var physical_condition = $('#physical_condition').val();
+	    if(physical_condition == 'PNRM')
+	    {
+	    	$('#div_physical_subcondition').css({'display': 'none'});
+	    	$('#physical_subcondition').attr('data-parsley-required', 'false');
+	    	$("#physical_subcondition").multiselect("clearSelection");
+	    	$( "#sel_physical_subcondition").html('');  
+	    }
+	    if(physical_condition == 'PHAV' || physical_condition == 'PHAU')
+	    {
+	    	$('#div_physical_subcondition').css({'display': 'block'});
+	    	$('#physical_subcondition').attr('data-parsley-required', 'true');
+			displayVals("physical_subcondition");
+	    }
+
+	    var mental_condition = $('#mental_condition').val();
+	    if(mental_condition == 'MNRM')
+	    {
+	    	$('#div_mental_subcondition').css({'display': 'none'});
+	    	$('#mental_subcondition').attr('data-parsley-required', 'false');
+	    	$("#mental_subcondition").multiselect("clearSelection");
+	    	$( "#sel_mental_subcondition").html('');
+	    }
+	    if(mental_condition == 'MCAV' || mental_condition == 'MCAU')
+	    {
+	    	$('#div_mental_subcondition').css({'display': 'block'});
+	    	$('#mental_subcondition').attr('data-parsley-required', 'true');		
+	    	displayVals("mental_subcondition");
+	    }
+	    
+		var other_condition = $('#other_condition').val();
+	    if(other_condition == 'CHRO')
+	    {
+	    	$('#div_other_subcondition').css({'display': 'block'});
+	    	$('#other_subcondition').attr('data-parsley-required', 'true');
+	    	displayVals("other_subcondition");
+	    }
+	    else
+	    {
+	    	$('#div_other_subcondition').css({'display': 'none'});
+	    	$('#other_subcondition').attr('data-parsley-required', 'false');
+	    	$("#other_subcondition").multiselect("clearSelection");
+	    	$( "#sel_other_subcondition").html('');
+	    }
+	    /* --------------------------------------------------------------------- */
+
+	    /* -----------------Hide/Show Perpetrator's Name Div Input------------ */
+	    var perpetrator_status = $('#perpetrator_status').val();
+		if(perpetrator_status == 'PKNW')
+	    {
+	    	$('#div_perpetrator_names').css({'display': 'block'});
+	    	$('#perpetrator_first_name').attr('data-parsley-required', 'true');
+	    	$('#perpetrator_surname').attr('data-parsley-required', 'true');
+
+	    	$('#div_perpetrator_relationship').css({'display': 'block'});
+	    	$('#perpetrator_relationship').attr('data-parsley-required', 'true');
+	    }
+	    else
+	    {
+	    	$('#div_perpetrator_names').css({'display': 'none'});
+	    	$('#perpetrator_first_name').attr('data-parsley-required', 'false');
+	    	$('#perpetrator_surname').attr('data-parsley-required', 'false');
+	    	$('#perpetrator_first_name').val('');
+	    	$('#perpetrator_other_names').val('');
+	    	$('#perpetrator_surname').val('');
+
+	    	$('#div_perpetrator_relationship').css({'display': 'none'});
+	    	$('#perpetrator_relationship').attr('data-parsley-required', 'false');
+	    	$('#perpetrator_relationship').val('');
+	    }
+		/* --------------------------------------------------------------------- */
+
+	    /*------------------ Hide/Show Referral Actors Name Input ---------------*/
+	    var refferal_present = $('#refferal_present').val();
+	    if(refferal_present == 'AYES')
+	    {
+	    	$('#div_referralactors').css({'display': 'block'});
+	    	$('#div_refferal_to').css({'display': 'block'});
+	    }
+	    else if(refferal_present=='ANNO')
+	    {  
+	    	$('#div_referralactors').css({'display': 'none'});
+	        $('#refferal_destination_type').multiselect("clearSelection");
+	        $('#refferal_destination_type').multiselect("refresh");
+	        $('#refferal_destination_description').val(''); 
+	        $('#refferal_to').multiselect("clearSelection");
+	        $('#refferal_to').multiselect("refresh");
+	        $("#sel_refferal_to").html('');
+	        $('#referralactors_list').val('');
+	        $('#referralactors_table').find("tr:gt(2)").remove();
+
+	        //Hide error divs
+	        $('#refferal_destination_type_errormsg').css({'display': 'none'});
+	        $('#refferal_destination_description_errormsg').css({'display': 'none'});
+	        $('#refferal_to_errormsg').css({'display': 'none'});
+	    }
+	    /* --------------------------------------------------------------------- */
+
+	    var summon_issued = $('#summon_issued').val()
+	    if(summon_issued == 'AYES')
+	    {
+	    	$('#div_date_of_summon').css({'display': 'block'});
+	    	$('#date_of_summon').attr('data-parsley-required', 'true');
+	    }
+	    else
+	    {
+	    	$('#div_date_of_summon').css({'display': 'none'});
+	    	$('#date_of_summon').attr('data-parsley-required', 'false');
+	    	$('#date_of_summon').val('');
+	    }
+
+	    /*
+	    var case_reporter = $('#case_reporter').val();
+		if(case_reporter == 'CRSF'){
+				$('#div_perpetrator_status').css({ 'display': 'none'});
+				$('#perpetrator_status').attr('data-parsley-required', 'false');
+				$('#perpetrator_status').val('PSNA'); // NA
+		}
+		else{
+				$('#div_perpetrator_status').css({ 'display': 'block'});
+				$('#perpetrator_status').attr('data-parsley-required', 'true');
+				$('#perpetrator_status').val(''); // NA
+		}
+		*/
+
+        
+		var friends_list = new Array();
+		var hobbies_list = new Array();
+		$('#friends_list').tagit(
+		{
+			placeholderText:'Type names + ENTER',
+
+			afterTagAdded: function(event, ui)
+			{
+	        	// do something special
+	        	var friends_list = $("#friends_list").tagit("assignedTags");
+	        	$("#friends").val(friends_list)
+	        	//console.log(friends_list);
+		    },
+
+		    afterTagRemoved : function(event, ui)
+			{
+	        	// do something special
+	        	var friends_list = $("#friends_list").tagit("assignedTags");
+	        	$("#friends").val(friends_list)
+			    //console.log(friends_list);
+		    }
+		});
+		$('#hobbies_list').tagit(
+		{
+			placeholderText:'Type hobby + ENTER',
+
+			afterTagAdded: function(event, ui)
+			{
+	        	// do something special
+	        	var hobbies_list = $("#hobbies_list").tagit("assignedTags");
+	        	$("#hobbies").val(hobbies_list)
+	        	//console.log(friends_list);
+		    },
+
+		    afterTagRemoved : function(event, ui)
+			{
+	        	// do something special
+	        	var hobbies_list = $("#hobbies_list").tagit("assignedTags");
+	        	$("#hobbies").val(hobbies_list)
+			    //console.log(friends_list);
+		    }
+		});
+
+		/* ----------------------------------------------------------------- */
+
+		/* --------------- Data Tables Now ----------------------------------*/
+		$('#data-table1').bootstrapTable(
+        { 
+            toggle: 'table', 
+            search: 'true',
+            locale: 'en-US',
+            pagination: 'true',
+            pageNumber: 1,
+            pageSize: 5,
+            //showRefresh: true,
+            showToggle: true,
+            //showColumns: true,
+            singleSelect: true,
+            clickToSelect:true,
+            maintainSelected: true
+        });
+        $('#data-table2').bootstrapTable(
+        { 
+            toggle: 'table',
+            locale: 'en-US',
+            pagination: 'true',
+            pageNumber: 1,
+            pageSize: 10,
+            singleSelect: true,
+            clickToSelect:true,
+            maintainSelected: true
+        });
+
+        $('#data-table-tbgr').bootstrapTable(
+        { 
+            toggle: 'table', 
+            search: 'true',
+            locale: 'en-US',
+            pagination: 'true',
+            pageNumber: 1,
+            pageSize: 5,
+            //showRefresh: true,
+            showToggle: true,
+            //showColumns: true,
+            singleSelect: true,
+            clickToSelect:true,
+            maintainSelected: true
+        });
+
+        /*
+        $('#siblings-data-table').bootstrapTable(
+        {
+            locale: 'en-US',
+            pageNumber: 1,
+            pageSize: 20,
+            singleSelect: true,
+            clickToSelect:true,
+            maintainSelected: true
+        }); **/
+        /* ----------------------------------------------------------------- */
+
+        $("#date_case_opened").change(function(event) 
+		{ 
+		    var date_case_opened = $('#date_case_opened').datepicker('getDate');
+		    var new_date_case_opened = date_case_opened.getDate() + '/' 
+		    							+ (date_case_opened.getMonth() + 1) + '/' 
+		    							+ date_case_opened.getFullYear(); 
+
+		    // Reconfigure date_of_event
+		    $('#date_of_event').val('');
+		    $('#date_of_event').datepicker('remove');
+		    $('#date_of_event').datepicker({ 
+				endDate: new_date_case_opened,
+				format: 'dd-M-yyyy'
+			});
+
+			// Reconfigure date_of_summon
+		    $('#date_of_summon').datepicker('remove');
+		    $('#date_of_summon').datepicker({ 
+				startDate: new_date_case_opened,
+				format: 'dd-M-yyyy'
+			});
+		});
+
+	    //Load hobbies
+		var hobbies = $('#hobbies').val()
+		var hobbies = hobbies.replace('[','');
+		var hobbies = hobbies.replace(']','');
+		var hobbies_array = hobbies.split(',') ;
+		for(var i=0, l = hobbies_array.length; i < l; i++)
+		{
+		    $("#hobbies_list").tagit("createTag", 
+		    	hobbies_array[i].replace("'","").replace("'",""));	
+	    }
+
+	    //Load friends
+		var friends = $('#friends').val()
+		var friends = friends.replace('[','');
+		var friends = friends.replace(']','');
+		var friends_array = friends.split(',') ;
+		for(var i=0, l = friends_array.length; i < l; i++)
+		{
+		    $("#friends_list").tagit("createTag", 
+		    	friends_array[i].replace("'","").replace("'",""));	
+		}
+
+		
+
+		$('html,body').scrollTop(0);
+		FormWizardValidation.init();
+	});
+	</script>
+	<script type="text/javascript">
+	function displayVals(value)
+	{
+		var selections = [];
+		$("#" + value + " option:selected").each(function () 
+		{
+		   var $this = $(this);
+		   if ($this.length)
+		   {
+			    var selText = $this.text();
+			    selections.push(selText);
+			    //console.log(selText);
+		   }
+		});
+		// $( "#sel_"+value ).html(selections.join( ", <br>" ) );
+		$( "#sel_"+value ).html(selections.join( "," ) );
+	}
+
+	function displayVals2(value)
+	{
+		var selections = [];
+		$("#" + value + " option:selected").each(function () 
+		{
+		   var $this = $(this);
+		   if ($this.length)
+		   {
+			    var selText = $this.text();
+			    selections.push(selText);
+			    //console.log(selText);
+		   }
+		});
+		
+		return selections.join( ", <br>" );
+	}		
+
+	function displayVals3(value)
+	{
+	    var selections = [];
+	    $("#" + value + " option:selected").each(function () 
+	    {
+	       var $this = $(this);
+	       if ($this.length)
+	       {
+	            var selText = $this.text();
+	            selections.push(selText);
+	            //console.log(selText);
+	       }
+	    });
+	    $( "#sel_"+value ).html(selections.join( ",<br>" ) );
+	}
+
+	$("#physical_condition").change(function(event) 
+	{ 
+		// displayVals('#physical_subcondition');
+	    var physical_condition = $('#physical_condition').val();
+	    if(physical_condition == 'PNRM')
+	    {
+	    	$('#div_physical_subcondition').css({'display': 'none'});
+	    	$('#physical_subcondition').attr('data-parsley-required', 'false');
+	    	$("#physical_subcondition").multiselect("clearSelection");
+	    	$( "#sel_physical_subcondition").html('');
+	    }
+	    else
+	    {
+	    	$('#div_physical_subcondition').css({'display': 'block'});
+	    	$('#physical_subcondition').attr('data-parsley-required', 'true');	    	
+	    }
+	});
+
+	$("#mental_condition").change(function(event) 
+	{ 
+		// displayVals('#mental_subcondition');
+	    var mental_condition = $('#mental_condition').val();
+	    if(mental_condition == 'MNRM')
+	    {
+	    	$('#div_mental_subcondition').css({'display': 'none'});
+	    	$('#mental_subcondition').attr('data-parsley-required', 'false');
+	    	$("#mental_subcondition").multiselect("clearSelection");
+	    	$( "#sel_mental_subcondition").html('');
+	    }
+	    else
+	    {	    	
+	    	$('#div_mental_subcondition').css({'display': 'block'});
+	    	$('#mental_subcondition').attr('data-parsley-required', 'true');	    	
+	    }
+	});
+
+	$("#other_condition").change(function(event) 
+	{ 
+		// displayVals('#other_subcondition');
+	    var other_condition = $('#other_condition').val();
+	    if(other_condition == 'CHRO')
+	    {
+	    	$('#div_other_subcondition').css({'display': 'block'});
+	    	$('#other_subcondition').attr('data-parsley-required', 'true');
+	    }
+	    else
+	    {
+	    	$('#div_other_subcondition').css({'display': 'none'});
+	    	$('#other_subcondition').attr('data-parsley-required', 'false');
+	    	$("#other_subcondition").multiselect("clearSelection");
+	    	$( "#sel_other_subcondition").html('');
+	    }
+	});
+
+	$("#case_reporter").change(function(event) 
+	{
+		var case_reporter = $('#case_reporter').val();
+		if(case_reporter == 'CRSF')
+		{
+			$('#div_court_name').css({'display': 'none'});
+	    	$('#div_court_number').css({'display': 'none'});
+	    	$('#court_name').attr('data-parsley-required', 'false');
+	    	$('#court_number').attr('data-parsley-required', 'false');
+
+	    	$('#div_police_station').css({'display': 'none'});
+	    	$('#div_ob_number').css({'display': 'none'});
+	    	$('#police_station').attr('data-parsley-required', 'false');
+	    	$('#ob_number').attr('data-parsley-required', 'false');
+	    	$('#police_station').val('');
+	    	$('#ob_number').val('');
+
+	    	$('#div_reporter_names').css({'display': 'none'});
+	    	$('#case_reporter_first_name').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_surname').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_first_name').val('');
+	    	$('#case_reporter_other_names').val('');
+	    	$('#case_reporter_surname').val('');
+
+	    	$('#div_reporter_contacts').css({'display': 'block'});
+		}
+	    else if(case_reporter == 'CRCO')
+	    {
+	    	$('#div_court_name').css({'display': 'block'});
+	    	$('#div_court_number').css({'display': 'block'});
+	    	$('#court_name').attr('data-parsley-required', 'true');
+	    	$('#court_number').attr('data-parsley-required', 'true');
+
+	    	$('#div_police_station').css({'display': 'none'});
+	    	$('#div_ob_number').css({'display': 'none'});
+	    	$('#police_station').attr('data-parsley-required', 'false');
+	    	$('#ob_number').attr('data-parsley-required', 'false');
+	    	$('#police_station').val('');
+	    	$('#ob_number').val('');
+
+	    	$('#div_reporter_names').css({'display': 'none'});
+	    	$('#case_reporter_first_name').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_surname').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_first_name').val('');
+	    	$('#case_reporter_other_names').val('');
+	    	$('#case_reporter_surname').val('');
+
+	    	$('#div_reporter_contacts').css({'display': 'none'});
+	    	$('#case_reporter_contacts').val('');
+	    }
+	    else if(case_reporter == 'CRPO')
+	    {
+	    	$('#div_police_station').css({'display': 'block'});
+	    	$('#div_ob_number').css({'display': 'block'});
+	    	$('#police_station').attr('data-parsley-required', 'true');
+	    	$('#ob_number').attr('data-parsley-required', 'true');
+
+	    	$('#div_court_name').css({'display': 'none'});
+	    	$('#div_court_number').css({'display': 'none'});
+	    	$('#court_name').attr('data-parsley-required', 'false');
+	    	$('#court_number').attr('data-parsley-required', 'false');
+	    	$('#court_name').val('');
+	    	$('#court_number').val('');
+
+	    	$('#div_reporter_names').css({'display': 'none'});
+	    	$('#case_reporter_first_name').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_surname').attr('data-parsley-required', 'false');
+	    	$('#case_reporter_first_name').val('');
+	    	$('#case_reporter_other_names').val('');
+	    	$('#case_reporter_surname').val('');
+
+	    	$('#div_reporter_contacts').css({'display': 'none'});
+	    	$('#case_reporter_contacts').val('');
+	    }
+	    else
+	    {
+	    	if(case_reporter)
+	    	{
+		    	$('#div_reporter_names').css({'display': 'block'});
+		    	$('#case_reporter_first_name').attr('data-parsley-required', 'true');
+		    	$('#case_reporter_surname').attr('data-parsley-required', 'true');
+		    	$('#div_reporter_contacts').css({'display': 'block'});
+
+		    	$('#div_police_station').css({'display': 'none'});
+		    	$('#div_ob_number').css({'display': 'none'});
+		    	$('#police_station').attr('data-parsley-required', 'false');
+		    	$('#ob_number').attr('data-parsley-required', 'false');
+		    	$('#police_station').val('');
+		    	$('#ob_number').val('');
+
+		    	$('#div_court_name').css({'display': 'none'});
+		    	$('#div_court_number').css({'display': 'none'});
+		    	$('#court_name').attr('data-parsley-required', 'false');
+		    	$('#court_number').attr('data-parsley-required', 'false');
+		    	$('#court_name').val('');
+		    	$('#court_number').val('');
+	    	}
+	    }
+	});
+
+	$("#perpetrator_status").change(function(event) 
+	{ 
+		var perpetrator_status = $('#perpetrator_status').val();
+		if(perpetrator_status == 'PKNW')
+	    {
+	    	$('#div_perpetrator_names').css({'display': 'block'});
+	    	$('#perpetrator_first_name').attr('data-parsley-required', 'true');
+	    	$('#perpetrator_surname').attr('data-parsley-required', 'true');
+
+	    	$('#div_perpetrator_relationship').css({'display': 'block'});
+	    	$('#perpetrator_relationship').attr('data-parsley-required', 'true');
+	    }
+	    else
+	    {
+	    	$('#div_perpetrator_names').css({'display': 'none'});
+	    	$('#perpetrator_first_name').attr('data-parsley-required', 'false');
+	    	$('#perpetrator_surname').attr('data-parsley-required', 'false');
+	    	$('#perpetrator_first_name').val('');
+	    	$('#perpetrator_other_names').val('');
+	    	$('#perpetrator_surname').val('');
+
+	    	$('#div_perpetrator_relationship').css({'display': 'none'});
+	    	$('#perpetrator_relationship').attr('data-parsley-required', 'false');
+	    	$('#perpetrator_relationship').val('');
+	    }
+	});
+
+	$("#refferal_present").change(function(event) 
+	{ 
+		$("#sel_refferal_to").html('');
+		var refferal_present = $('#refferal_present').val();
+	    if(refferal_present == 'AYES')
+	    {
+	    	$('#div_referralactors').css({'display': 'block'});
+	    }
+	    else if(refferal_present=='ANNO')
+	    {  
+	    	$('#div_referralactors').css({'display': 'none'});
+	        $('#refferal_destination_type').multiselect("clearSelection");
+	        $('#refferal_destination_type').multiselect("refresh");
+	        $('#refferal_destination_description').val(''); 
+	        $('#refferal_to').multiselect("clearSelection");
+	        $('#refferal_to').multiselect("refresh");
+	        $("#sel_refferal_to").html('');
+	        $('#referralactors_list').val('');
+	        $('#referralactors_table').find("tr:gt(2)").remove();
+
+	        //Hide error divs
+	        $('#refferal_destination_type_errormsg').css({'display': 'none'});
+	        $('#refferal_destination_description_errormsg').css({'display': 'none'});
+	        $('#refferal_to_errormsg').css({'display': 'none'});
+	    }
+	});
+
+	$("#summon_issued").change(function(event) 
+	{ 
+		var summon_issued = $('#summon_issued').val();
+	    if(summon_issued == 'AYES')
+	    {
+	    	$('#div_date_of_summon').css({'display': 'block'});
+	    	$('#date_of_summon').attr('data-parsley-required', 'true');
+	    }
+	    else
+	    {
+	    	$('#div_date_of_summon').css({'display': 'none'});
+	    	$('#date_of_summon').attr('data-parsley-required', 'false');
+	    	$('#date_of_summon').val('');
+	    }
+	});
+
+	$("#case_category").change(function(event) 
+	{ 
+		// displayVals3("case_category");
+		$("#case_category_errormsg").css({ 'display': "none" });
+		var category_id = $("#case_category").val();
+		getCaseSubCategories(category_id);
+    });
+    $('#case_category').trigger('change');
+
+    $("#report_subcounty").change(function(event) 
+	{ 
+		var subcounty =  $('#report_subcounty').val();
+	    // Load Wards in the Selected Subcounty
+	    getUserWards();
+
+	    //Generate Case Serial Number
+	    generateSerialNumber(subcounty);
+	});
+
+	$("#intervention").change(function(event) 
+	{ 
+		displayVals("intervention");
+		// $("#intervention_errormsg").css({ 'display': "none" });
+    });
+    $('#intervention').trigger('change');
+
+    $("#refferal_to").change(function(event) 
+	{ 
+		displayVals("refferal_to");
+		// $("#refferal_to_errormsg").css({ 'display': "none" });
+    });
+	$('#refferal_to').trigger('change');
+
+	$("#refferal_destination_type").change(function(event) 
+	{ 
+		displayVals("refferal_destination_type");
+		$("#refferal_destination_type_errormsg").css({ 'display': "none" });
+    });
+	$('#refferal_destination_type').trigger('change');
+
+	$('#refferal_destination_description').keyup(function() {
+	    if($(this).val()) // get the current value of the input field    
+	    {
+	        $("#refferal_destination_description_errormsg").css({ 'display': "none" }); 
+	    }
+	});
+
+	$("#immediate_needs").change(function(event) 
+	{ 
+		displayVals("immediate_needs");
+	});
+	$('#immediate_needs').trigger('change');
+
+	$("#future_needs").change(function(event) 
+	{ 
+		displayVals("future_needs");
+	});
+	$('#future_needs').trigger('change');
+
+	$("#family_status").change(function(event) 
+	{ 
+		displayVals("family_status");
+    });
+	$('#family_status').trigger('change');
+
+	$("#physical_subcondition").change(function(event) 
+	{ 
+	   displayVals("physical_subcondition");
+	});
+	$('#physical_subcondition').trigger('change');
+
+	$("#mental_subcondition").change(function(event) 
+	{ 
+	   displayVals("mental_subcondition");
+	});
+	$('#mental_subcondition').trigger('change');
+
+	$("#other_subcondition").change(function(event) 
+	{ 
+	   displayVals("other_subcondition");
+	});
+	$('#other_subcondition').trigger('change');	
+
+	/*
+	$("#case_reporter").change(function(event) 
+	{ 
+	   var case_reporter = $('#case_reporter').val();
+	   if(case_reporter == 'CRSF'){
+	   		$('#div_perpetrator_status').css({ 'display': 'none'});
+	   		$('#perpetrator_status').attr('data-parsley-required', 'false');
+	   		$('#perpetrator_status').val('PSNA'); // NA
+	   }
+	   else{
+	   		$('#div_perpetrator_status').css({ 'display': 'block'});
+	   		$('#perpetrator_status').attr('data-parsley-required', 'true');
+	   		$('#perpetrator_status').val(''); // NA
+	   }
+	});
+	$('#case_reporter').trigger('change');
+	*/
+
+	$("#date_case_opened").change(function(event) 
+	{ 
+	    var date_case_opened = $('#date_case_opened').datepicker('getDate');
+	    var new_date_case_opened = date_case_opened.getDate() + '/' 
+	    							+ (date_case_opened.getMonth() + 1) + '/' 
+	    							+ date_case_opened.getFullYear(); 
+
+	    // Reconfigure date_of_event
+	    $('#date_of_event').val('');
+	    $('#date_of_event').datepicker('remove');
+	    $('#date_of_event').datepicker({ 
+			endDate: new_date_case_opened,
+			format: 'dd-M-yyyy'
+		});
+	});
+
+	// Cascading drop down for occurence in counties
+    $("#occurence_county").change(function(e) {
+        var county = $("#occurence_county").val();
+        var sub_county = $("#occurence_subcounty").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': sub_county,
+                      'county': county, 'action': 4,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#occurence_subcounty').empty();
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                
+                // Default Option - Please Select
+                $('#occurence_subcounty')
+                        .append($("<option></option>")
+                        .attr("value", '')
+                        .text('Please Select'));  
+
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    $('#occurence_subcounty')
+                        .append($("<option></option>")
+                        .attr("value", ward_attribs[0])
+                        .text(ward_attribs[1]));
+                 });
+                 // $('#occurence_subcounty').multiselect('rebuild');
+				 $('#occurence_ward').multiselect('clearSelection');            
+			},
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    });
+    //$('#occurence_county').trigger('change');	
+
+    // Cascading drop down for occurence in sub-county
+    $("#occurence_subcounty").change(function(e) {
+        var sub_county = $("#occurence_subcounty").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': sub_county,
+                      'county': 0, 'action': 4,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#occurence_ward').empty();
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                
+                // Default Option - Please Select
+                $('#occurence_ward')
+                        .append($("<option></option>")
+                        .attr("value", '')
+                        .text('Please Select')); 
+
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    $('#occurence_ward')
+                        .append($("<option></option>")
+                        .attr("value", ward_attribs[0])
+                        .text(ward_attribs[1]));
+                 });
+                 $('#occurence_ward').multiselect('rebuild');
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    });
+    // $('#occurence_subcounty').trigger('change');   
+</script>
+<script>
+$('#edit_case_record').submit(function(e) {
+	var error_msg = 'Please provide required ';
+
+	var refferalsPresent = $('#refferal_present').val();
+	var rowReferrals = $('#referralactors_table tr').length;
+	var rowCases = $('#casecategory_manager_table tr').length;
+
+	if (rowCases == 3)
+	{ 
+			e.preventDefault(); 
+	    $('#div_casecategory_errormsgs').css({'display': 'block'})
+	    $(".alert").show();
+	    $('.invalid-form-message').html(error_msg + 'case category details.');
+	    return false;
+	} 
+	else if(rowReferrals == 3 && refferalsPresent =='AYES')
+	{
+	    e.preventDefault(); 
+	    $('#div_referralactors_errormsgs').css({'display': 'block'})
+	    $(".alert").show();
+	    $('.invalid-form-message').html(error_msg + 'referral details.');
+	    return false;
+	}
+	else
+	{
+		 $(".alert").hide();
+	}
+});
+</script>
+{% endblock %}

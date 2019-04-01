@@ -1,0 +1,306 @@
+[
+{
+    "pk": 2,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Person ID type - external",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "IWKF",
+        "item_description_short": "WID",
+        "field_name": "identifier_type_id",
+        "item_description": "Workforce ID",
+        "the_order": 11
+    }
+},
+{
+    "pk": 4,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Person ID type - external",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "INTL",
+        "item_description_short": "NID",
+        "field_name": "identifier_type_id",
+        "item_description": "National ID",
+        "the_order": 11
+    }
+},
+{
+    "pk": 5,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Religion",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "PROT",
+        "item_description_short": "",
+        "field_name": "religion_type_id",
+        "item_description": "Protestant",
+        "the_order": 11
+    }
+},
+{
+    "pk": 6,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Religion",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "MUS",
+        "item_description_short": "",
+        "field_name": "religion_type_id",
+        "item_description": "Muslim",
+        "the_order": 11
+    }
+},
+{
+    "pk": 7,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Religion",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "CATH",
+        "item_description_short": "",
+        "field_name": "religion_type_id",
+        "item_description": "Catholic",
+        "the_order": 11
+    }
+},
+{
+    "pk": 8,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Religion",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "OAFR",
+        "item_description_short": "",
+        "field_name": "religion_type_id",
+        "item_description": "Other African",
+        "the_order": 11
+    }
+},
+{
+    "pk": 9,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "YesNo",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "YES",
+        "item_description_short": "",
+        "field_name": "yesno_id",
+        "item_description": "Yes",
+        "the_order": 11
+    }
+},
+{
+    "pk": 10,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "YesNo",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "NO",
+        "item_description_short": "",
+        "field_name": "yesno_id",
+        "item_description": "No",
+        "the_order": 11
+    }
+},
+{
+    "pk": 11,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Household Economic Status",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "LOW",
+        "item_description_short": "Economic Status",
+        "field_name": "household_economics",
+        "item_description": "Low Income",
+        "the_order": 11
+    }
+},
+{
+    "pk": 12,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Household Economic Status",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "MID",
+        "item_description_short": "Economic Status",
+        "field_name": "household_economics",
+        "item_description": "Middle Income",
+        "the_order": 11
+    }
+},
+{
+    "pk": 13,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Household Economic Status",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "HIGH",
+        "item_description_short": "Economic Status",
+        "field_name": "household_economics",
+        "item_description": "High Income",
+        "the_order": 11
+    }
+},
+{
+    "pk": 14,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "School Category",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "IFSC",
+        "item_description_short": "",
+        "field_name": "school_category_id",
+        "item_description": "Formal",
+        "the_order": 11
+    }
+},
+{
+    "pk": 15,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "School Category",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "FSC",
+        "item_description_short": "",
+        "field_name": "school_category_id",
+        "item_description": "Informal",
+        "the_order": 11
+    }
+},
+{
+    "pk": 16,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Mental Condition",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "NORM",
+        "item_description_short": "",
+        "field_name": "mental_condition_id",
+        "item_description": "Normal",
+        "the_order": 11
+    }
+},
+{
+    "pk": 17,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Mental Condition",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "CHAL",
+        "item_description_short": "",
+        "field_name": "mental_condition_id",
+        "item_description": "Challenged",
+        "the_order": 11
+    }
+},
+{
+    "pk": 18,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Physical Condition",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "NORM",
+        "item_description_short": "",
+        "field_name": "physical_condition_id",
+        "item_description": "Normal",
+        "the_order": 11
+    }
+},
+{
+    "pk": 19,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Physical Condition",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "CHAL",
+        "item_description_short": "",
+        "field_name": "physical_condition_id",
+        "item_description": "Challenged",
+        "the_order": 11
+    }
+},
+{
+    "pk": 20,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Other Condition",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "NORM",
+        "item_description_short": "",
+        "field_name": "other_condition_id",
+        "item_description": "Normal",
+        "the_order": 11
+    }
+},
+{
+    "pk": 21,
+    "model": "cpovc_main.SetupList",
+    "fields": {
+        "item_category": "Other Condition",
+        "user_configurable": "False",
+        "sms_keyword": "True",
+        "item_sub_category": "",
+        "is_void": "False",
+        "item_id": "CHRO",
+        "item_description_short": "",
+        "field_name": "other_condition_id",
+        "item_description": "Chronic",
+        "the_order": 11
+    }
+}
+]

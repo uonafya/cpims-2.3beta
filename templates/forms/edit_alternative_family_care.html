@@ -1,0 +1,833 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Alternative Family Care {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+    <h1 class="page-header">Forms <small>Edit Alternative Family Care  <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b> Alternative Family Care </b></h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard-family-care" id="new_alternative_family_care">
+                    {% csrf_token %}
+                    <div id="wizard_familycare">
+                        <ol>
+                            <li>
+                                Family Care Details 
+                                <small> Family Care and additional details.</small>
+                            </li>                           
+                        </ol>
+
+                        {{ form.person_id }}
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">Family Care Details</legend>
+                                <div class="row"> 
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="type_of_care">Type of Care : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.type_of_care }}
+                                        </div>
+                                    </div>   
+                                    <div id="div_residential_institution" class="form-group" style="display: none;" >
+                                        <label class="control-label col-md-4 col-sm-4" for="residential_institution_name">Residential Institution : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.residential_institution_name }}
+                                        </div>
+                                    </div>  
+                                    <div id="div_type_of_adoption" class="form-group" style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="type_of_adoption">Type of Adoption : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.type_of_adoption }}
+                                        </div>
+                                    </div>
+                                    <div id="div_adoption_subcounty" class="form-group" style="display: none;" >
+                                        <label class="control-label col-md-4 col-sm-4" for="adoption_subcounty">Destination Subcounty : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adoption_subcounty }}
+                                        </div>
+                                    </div>  
+                                    <div id="div_adoption_country" class="form-group" style="display: none;" >
+                                        <label class="control-label col-md-4 col-sm-4" for="adoption_country">Destination Country : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adoption_country }}
+                                        </div>
+                                    </div> 
+                                    <div id="div_certificate_number" class="form-group" style="display: none;" >
+                                        <label class="control-label col-md-4 col-sm-4" for="certificate_number">P&C/Certificate Number : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.certificate_number }}
+                                        </div>
+                                    </div>  
+                                    <div id="div_date_of_certificate_expiry" class="form-group" style="display: none;" >
+                                        <label class="control-label col-md-4 col-sm-4" for="date_of_certificate_expiry">Certificate Expiry Date : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.date_of_certificate_expiry }}
+                                        </div>
+                                    </div>    
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="date_of_adoption">Date : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.date_of_adoption }}
+                                        </div>
+                                    </div>
+                                    <div id="div_court" class="form-group"  style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_mother_name">Court : <span class="asteriskField"> * </label>
+                                        <div class="col-md-4 col-sm-4">
+                                            {{ form.court_name }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.court_file_number }}
+                                        </div>
+                                    </div>
+                                    <div id="div_parental_status" class="form-group"  style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="parental_status">Parental Status : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.parental_status }}
+                                        </div>
+                                    </div>
+                                    <div id="div_adopting_mother" class="form-group" style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_mother_name">Mother Name(s): <span class="asteriskField"> * </label>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.adopting_mother_firstname }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.adopting_mother_surname }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.adopting_mother_othernames }}
+                                        </div>
+                                    </div>
+                                    <div id="div_adopting_mother_idnumber" class="form-group" style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_mother_idnumber">Mother ID/Passport Number : </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adopting_mother_idnumber }}
+                                        </div>
+                                    </div>
+                                    <div id="div_adopting_mother_contacts" class="form-group" style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_mother_contacts">Mother Contacts : </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adopting_mother_contacts }}
+                                        </div>
+                                    </div>
+                                    <div id="div_adopting_father" class="form-group" style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_father_name">Father Name(s): <span class="asteriskField"> * </label>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.adopting_father_firstname }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.adopting_father_surname }}
+                                        </div>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.adopting_father_othernames }}
+                                        </div>
+                                    </div>
+                                    <div id="div_adopting_father_idnumber" class="form-group" style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_father_idnumber">Father ID/Passport Number : </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adopting_father_idnumber }}
+                                        </div>
+                                    </div>
+                                    <div id="div_adopting_father_contacts" class="form-group" style="display: none;">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_father_contacts">Father Contacts : </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adopting_father_contacts }}
+                                        </div>
+                                    </div>
+                                    <div  id="div_agency" class="form-group" style="display: none;" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_agency">Agency : <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adopting_agency }}
+                                        </div>
+                                    </div>
+                                    <div  id="div_children_office" class="form-group" style="display: none;"  class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="adopting_agency">Children Office : <span class="asteriskField"> * </label>
+                                        <div class="col-md-4 col-sm-4">
+                                            {{ form.children_office }}
+                                        </div>
+                                         <div class="col-md-2 col-sm-2">
+                                            {{ form.contact_person }}
+                                        </div>
+                                    </div>
+                                    <div  id="div_fostered_from" class="form-group" style="display: none;"  class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="fostered_from">Fostered From: <span class="asteriskField"> * </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.fostered_from }}
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="adoption_remarks">Remarks :  </label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.adoption_remarks }}
+                                        </div>
+                                    </div>
+                                                                               
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->                                         
+
+                    </div>
+
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                        <div class="panel-body panel-form">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4"></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <p></p>
+                                    <button id="mysubmit15" type="submit" class="btn btn-primary">Update</button>
+                                    <p></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script>
+jQuery(document).ready(function() 
+{
+    // get countries
+    getCountries();
+
+    //multi selects
+    $('#adoption_country, #adoption_subcounty, #adopting_agency, #children_office, #residential_institution_name, #fostered_from').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        buttonClass: 'btn btn-white'
+    });
+
+    var type_of_care = $("#type_of_care").val();
+    if(type_of_care == 'AFCA')
+    {
+        $('#div_certificate_number').css({'display': 'block'});        
+        $('#div_type_of_adoption').css({'display': 'block'});
+        $('#div_court').css({'display': 'block'});
+        $('#div_agency').css({'display': 'block'});
+        $('#div_residential_institution').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'none'});        
+        $('#div_parental_status').css({'display': 'block'});
+        $('#div_date_of_certificate_expiry').css({'display': 'block'});
+
+        $('#certificate_number').attr('data-parsley-required', 'true');
+        $('#type_of_adoption').attr('data-parsley-required', 'true');
+        $('#court_name').attr('data-parsley-required', 'true');
+        $('#court_file_number').attr('data-parsley-required', 'true');
+        $('#adopting_agency').attr('data-parsley-required', 'true');
+        $('#residential_institution_name').attr('data-parsley-required', 'false');
+        $('#residential_institution_name').multiselect('clearSelection');
+        $('#residential_institution_name').multiselect('refresh');
+        $('#children_office').attr('data-parsley-required', 'false');
+        $('#children_office').multiselect('clearSelection');
+        $('#children_office').multiselect('refresh');
+        $('#contact_person').attr('data-parsley-required', 'false');
+        $('#contact_person').val('');
+        $('#parental_status').attr('data-parsley-required', 'true');
+
+        $('#div_fostered_from').css({'display': 'none'});
+        $('#fostered_from').attr('data-parsley-required', 'false');
+        $('#fostered_from').val('');
+    }
+    else if (type_of_care == 'AFCG')
+    {
+        $('#div_certificate_number').css({'display': 'block'}); 
+        $('#div_agency').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'block'});
+        $('#div_residential_institution').css({'display': 'none'});
+        $('#div_type_of_adoption').css({'display': 'none'});
+        $('#div_court').css({'display': 'block'});
+        $('#div_parental_status').css({'display': 'block'});
+        $('#div_date_of_certificate_expiry').css({'display': 'block'});
+
+        $('#certificate_number').attr('data-parsley-required', 'true');
+        $('#children_office').attr('data-parsley-required', 'true');
+        $('#contact_person').attr('data-parsley-required', 'true');
+        $('#type_of_adoption').attr('data-parsley-required', 'false');
+        $('#adopting_agency').attr('data-parsley-required', 'false');
+        $('#adopting_agency').multiselect('clearSelection');
+        $('#adopting_agency').multiselect('refresh');
+        $('#residential_institution_name').attr('data-parsley-required', 'false');
+        $('#residential_institution_name').multiselect('clearSelection');
+        $('#residential_institution_name').multiselect('refresh');
+        $('#court_name').attr('data-parsley-required', 'true');
+        $('#court_file_number').attr('data-parsley-required', 'true');
+        $('#parental_status').attr('data-parsley-required', 'true');
+
+        $('#div_fostered_from').css({'display': 'none'});
+        $('#fostered_from').attr('data-parsley-required', 'false');
+        $('#fostered_from').val('');
+    }
+    else if (type_of_care == 'AFFC' || type_of_care == 'AFKS' || type_of_care == 'AFCK')
+    {  
+        // Foster Care/Kinship/Kafaala 
+        $('#div_children_office').css({'display': 'block'});  
+        $('#div_agency').css({'display': 'none'});  
+        $('#div_certificate_number').css({'display': 'none'});
+        $('#div_court').css({'display': 'none'});
+        $('#div_type_of_adoption').css({'display': 'none'});
+        $('#div_residential_institution').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'block'});
+        $('#div_parental_status').css({'display': 'block'});
+
+        $('#children_office').attr('data-parsley-required', 'true');
+        $('#contact_person').attr('data-parsley-required', 'true');
+        $('#adopting_agency').attr('data-parsley-required', 'false');
+        $('#certificate_number').attr('data-parsley-required', 'false');
+        $('#certificate_number').val('');
+        $('#court_name').attr('data-parsley-required', 'false');
+        $('#court_name').val('');
+        $('#court_file_number').attr('data-parsley-required', 'false');
+        $('#court_file_number').val('');
+        $('#type_of_adoption').attr('data-parsley-required', 'false');
+        $('#type_of_adoption').val('');
+        $('#residential_institution_name').attr('data-parsley-required', 'false');
+        $('#residential_institution_name').multiselect('clearSelection');
+        $('#residential_institution_name').multiselect('refresh');
+        $('#parental_status').attr('data-parsley-required', 'true');
+
+        if(type_of_care == 'AFFC')
+        {
+            $('#div_certificate_number').css({'display': 'block'});
+            $('#certificate_number').attr('data-parsley-required', 'true');
+
+            $('#div_fostered_from').css({'display': 'block'});
+            $('#fostered_from').attr('data-parsley-required', 'true');
+        }else{
+            $('#div_certificate_number').css({'display': 'none'});
+            $('#certificate_number').attr('data-parsley-required', 'false');
+            $('#certificate_number').val('');
+
+            $('#div_fostered_from').css({'display': 'none'});
+            $('#fostered_from').attr('data-parsley-required', 'false');
+            $('#fostered_from').val('');
+        }
+    }
+    else if (type_of_care == 'AFIC')
+    {
+        $('#div_residential_institution').css({'display': 'block'});
+        $('#div_court').css({'display': 'block'});
+        $('#div_certificate_number').css({'display': 'none'});        
+        $('#div_type_of_adoption').css({'display': 'none'});
+        $('#div_agency').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'block'});
+        $('#div_parental_status').css({'display': 'none'});
+
+        $('#residential_institution_name').attr('data-parsley-required', 'true');
+        $('#court_name').attr('data-parsley-required', 'true');
+        $('#court_file_number').attr('data-parsley-required', 'true');
+        $('#certificate_number').attr('data-parsley-required', 'false');
+        $('#type_of_adoption').attr('data-parsley-required', 'false');
+        $('#type_of_adoption').val('');
+        $('#adopting_agency').attr('data-parsley-required', 'false');
+        $('#adopting_agency').multiselect('clearSelection');
+        $('#adopting_agency').multiselect('refresh');
+        $('#children_office').attr('data-parsley-required', 'true');
+        $('#contact_person').attr('data-parsley-required', 'true');
+        $('#parental_status').attr('data-parsley-required', 'false');
+        $('#parental_status').val('');
+        $('#div_fostered_from').css({'display': 'none'});
+        $('#fostered_from').attr('data-parsley-required', 'false');
+        $('#fostered_from').val('');
+
+        $('#parental_status').trigger('change');
+
+    }
+
+
+    var parental_status = $("#parental_status").val();
+    if(parental_status == 'PSSF')
+    {
+        $('#div_adopting_mother').css({'display': 'block'});
+        $('#div_adopting_mother_idnumber').css({'display': 'block'});
+        $('#div_adopting_mother_contacts').css({'display': 'block'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'true');
+
+        $('#div_adopting_father').css({'display': 'none'});
+        $('#div_adopting_father_idnumber').css({'display': 'none'});
+        $('#div_adopting_father_contacts').css({'display': 'none'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_father_surname').attr('data-parsley-required', 'false');
+
+        $('#adopting_father_firstname').val('');
+        $('#adopting_father_othernames').val('');
+        $('#adopting_father_surname').val('');
+        $('#adopting_father_idnumber').val('');
+        $('#adopting_father_contacts').val('');
+
+    }
+    else if(parental_status == 'PSSM')
+    {
+        $('#div_adopting_mother').css({'display': 'none'});
+        $('#div_adopting_mother_idnumber').css({'display': 'none'});
+        $('#div_adopting_mother_contacts').css({'display': 'none'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'false');
+
+        $('#adopting_mother_othernames').val('');
+        $('#adopting_mother_surname').val('');
+        $('#adopting_mother_idnumber').val('');
+        $('#adopting_mother_contacts').val('');
+
+        $('#div_adopting_father').css({'display': 'block'});
+        $('#div_adopting_father_idnumber').css({'display': 'block'});
+        $('#div_adopting_father_contacts').css({'display': 'block'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_father_surname').attr('data-parsley-required', 'true');
+    }
+    else if(parental_status == 'PSBP')
+    {
+        $('#div_adopting_mother').css({'display': 'block'});
+        $('#div_adopting_mother_idnumber').css({'display': 'block'});
+        $('#div_adopting_mother_contacts').css({'display': 'block'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'true');
+
+        $('#div_adopting_father').css({'display': 'block'});
+        $('#div_adopting_father_idnumber').css({'display': 'block'});
+        $('#div_adopting_father_contacts').css({'display': 'block'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_father_surname').attr('data-parsley-required', 'true');
+    }
+    else
+    {
+        $('#div_adopting_mother').css({'display': 'none'});
+        $('#div_adopting_mother_idnumber').css({'display': 'none'});
+        $('#div_adopting_mother_contacts').css({'display': 'none'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'false');
+        $('#adopting_mother_othernames').val('');
+        $('#adopting_mother_surname').val('');
+        $('#adopting_mother_idnumber').val('');
+        $('#adopting_mother_contacts').val('');
+
+        $('#div_adopting_father').css({'display': 'none'});
+        $('#div_adopting_father_idnumber').css({'display': 'none'});
+        $('#div_adopting_father_contacts').css({'display': 'none'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_father_surname').attr('data-parsley-required', 'false');
+        $('#adopting_father_firstname').val('');
+        $('#adopting_father_othernames').val('');
+        $('#adopting_father_surname').val('');
+        $('#adopting_father_idnumber').val('');
+        $('#adopting_father_contacts').val('');
+    }
+
+    var type_of_adoption = $("#type_of_adoption").val();
+    if(type_of_adoption == 'AFCL')
+    {
+        $('#div_adoption_subcounty').css({'display': 'block'});
+        $('#adoption_subcounty').attr('data-parsley-required', 'true');
+
+        $('#div_adoption_country').css({'display': 'none'});
+        $('#adoption_country').attr('data-parsley-required', 'false');
+        $('#adoption_country').val('');
+    }
+    else if(type_of_adoption == 'AFCI')
+    {
+        $('#div_adoption_country').css({'display': 'block'});
+        $('#adoption_country').attr('data-parsley-required', 'true');
+
+        $('#div_adoption_subcounty').css({'display': 'none'});
+        $('#adoption_subcounty').attr('data-parsley-required', 'false');
+        $('#adoption_subcounty').multiselect('clearSelection');
+        $('#adoption_subcounty').multiselect('refresh');
+    }
+    else
+    {
+        $('#div_adoption_subcounty').css({'display': 'none'});
+        $('#adoption_subcounty').attr('data-parsley-required', 'false');
+        $('#adoption_subcounty').multiselect('clearSelection');
+        $('#adoption_subcounty').multiselect('refresh');
+
+        $('#div_adoption_country').css({'display': 'none'});
+        $('#adoption_country').attr('data-parsley-required', 'false');
+        $('#adoption_country').val('');
+    }
+
+    $('html,body').scrollTop(0);
+    FormWizardValidation.init();
+});
+
+// Handling SKips
+$("#type_of_adoption").change(function(event) 
+{ 
+    var type_of_adoption = $("#type_of_adoption").val();
+    if(type_of_adoption == 'AFCL')
+    {
+        $('#div_adoption_subcounty').css({'display': 'block'});
+        $('#adoption_subcounty').attr('data-parsley-required', 'true');
+
+        $('#div_adoption_country').css({'display': 'none'});
+        $('#adoption_country').attr('data-parsley-required', 'false');
+        $('#adoption_country').val('');
+    }
+    else if(type_of_adoption == 'AFCI')
+    {
+        $('#div_adoption_country').css({'display': 'block'});
+        $('#adoption_country').attr('data-parsley-required', 'true');
+
+        $('#div_adoption_subcounty').css({'display': 'none'});
+        $('#adoption_subcounty').attr('data-parsley-required', 'false');
+        $('#adoption_subcounty').multiselect('clearSelection');
+        $('#adoption_subcounty').multiselect('refresh');
+    }
+    else
+    {
+        $('#div_adoption_subcounty').css({'display': 'none'});
+        $('#adoption_subcounty').attr('data-parsley-required', 'false');
+        $('#adoption_subcounty').multiselect('clearSelection');
+        $('#adoption_subcounty').multiselect('refresh');
+
+        $('#div_adoption_country').css({'display': 'none'});
+        $('#adoption_country').attr('data-parsley-required', 'false');
+        $('#adoption_country').val('');
+    }
+});
+
+$("#parental_status").change(function(event) 
+{ 
+    var parental_status = $("#parental_status").val();
+    if(parental_status == 'PSSF')
+    {
+        $('#div_adopting_mother').css({'display': 'block'});
+        $('#div_adopting_mother_idnumber').css({'display': 'block'});
+        $('#div_adopting_mother_contacts').css({'display': 'block'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'true');
+
+        $('#div_adopting_father').css({'display': 'none'});
+        $('#div_adopting_father_idnumber').css({'display': 'none'});
+        $('#div_adopting_father_contacts').css({'display': 'none'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_father_surname').attr('data-parsley-required', 'false');
+
+        $('#adopting_father_firstname').val('');
+        $('#adopting_father_othernames').val('');
+        $('#adopting_father_surname').val('');
+        $('#adopting_father_idnumber').val('');
+        $('#adopting_father_contacts').val('');
+
+    }
+    else if(parental_status == 'PSSM')
+    {
+        $('#div_adopting_mother').css({'display': 'none'});
+        $('#div_adopting_mother_idnumber').css({'display': 'none'});
+        $('#div_adopting_mother_contacts').css({'display': 'none'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'false');
+
+        $('#adopting_mother_othernames').val('');
+        $('#adopting_mother_surname').val('');
+        $('#adopting_mother_idnumber').val('');
+        $('#adopting_mother_contacts').val('');
+
+        $('#div_adopting_father').css({'display': 'block'});
+        $('#div_adopting_father_idnumber').css({'display': 'block'});
+        $('#div_adopting_father_contacts').css({'display': 'block'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_father_surname').attr('data-parsley-required', 'true');
+    }
+    else if(parental_status == 'PSBP')
+    {
+        $('#div_adopting_mother').css({'display': 'block'});
+        $('#div_adopting_mother_idnumber').css({'display': 'block'});
+        $('#div_adopting_mother_contacts').css({'display': 'block'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'true');
+
+        $('#div_adopting_father').css({'display': 'block'});
+        $('#div_adopting_father_idnumber').css({'display': 'block'});
+        $('#div_adopting_father_contacts').css({'display': 'block'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'true');
+        $('#adopting_father_surname').attr('data-parsley-required', 'true');
+    }    
+    else
+    {
+        $('#div_adopting_mother').css({'display': 'none'});
+        $('#div_adopting_mother_idnumber').css({'display': 'none'});
+        $('#div_adopting_mother_contacts').css({'display': 'none'});
+        $('#adopting_mother_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_mother_surname').attr('data-parsley-required', 'false');
+        $('#adopting_mother_othernames').val('');
+        $('#adopting_mother_surname').val('');
+        $('#adopting_mother_idnumber').val('');
+        $('#adopting_mother_contacts').val('');
+
+        $('#div_adopting_father').css({'display': 'none'});
+        $('#div_adopting_father_idnumber').css({'display': 'none'});
+        $('#div_adopting_father_contacts').css({'display': 'none'});
+        $('#adopting_father_firstname').attr('data-parsley-required', 'false');
+        $('#adopting_father_surname').attr('data-parsley-required', 'false');
+        $('#adopting_father_firstname').val('');
+        $('#adopting_father_othernames').val('');
+        $('#adopting_father_surname').val('');
+        $('#adopting_father_idnumber').val('');
+        $('#adopting_father_contacts').val('');
+    }
+});
+
+$("#type_of_care").change(function(event) 
+{ 
+    var type_of_care = $("#type_of_care").val();
+    if(type_of_care == 'AFCA')
+    {
+        $('#div_certificate_number').css({'display': 'block'});        
+        $('#div_type_of_adoption').css({'display': 'block'});
+        $('#div_court').css({'display': 'block'});
+        $('#div_agency').css({'display': 'block'});
+        $('#div_residential_institution').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'none'});        
+        $('#div_parental_status').css({'display': 'block'});
+        $('#div_date_of_certificate_expiry').css({'display': 'block'});
+
+        $('#certificate_number').attr('data-parsley-required', 'true');
+        $('#type_of_adoption').attr('data-parsley-required', 'true');
+        $('#court_name').attr('data-parsley-required', 'true');
+        $('#court_file_number').attr('data-parsley-required', 'true');
+        $('#adopting_agency').attr('data-parsley-required', 'true');
+        $('#residential_institution_name').attr('data-parsley-required', 'false');
+        $('#residential_institution_name').multiselect('clearSelection');
+        $('#residential_institution_name').multiselect('refresh');
+        $('#children_office').attr('data-parsley-required', 'false');
+        $('#children_office').multiselect('clearSelection');
+        $('#children_office').multiselect('refresh');
+        $('#contact_person').attr('data-parsley-required', 'false');
+        $('#contact_person').val('');
+        $('#parental_status').attr('data-parsley-required', 'true');
+
+        $('#div_fostered_from').css({'display': 'none'});
+        $('#fostered_from').attr('data-parsley-required', 'false');
+        $('#fostered_from').val('');
+    }
+    else if (type_of_care == 'AFCG')
+    {
+        $('#div_certificate_number').css({'display': 'block'}); 
+        $('#div_agency').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'block'});
+        $('#div_residential_institution').css({'display': 'none'});
+        $('#div_type_of_adoption').css({'display': 'none'});
+        $('#div_court').css({'display': 'block'});
+        $('#div_parental_status').css({'display': 'block'});
+        $('#div_date_of_certificate_expiry').css({'display': 'block'});
+
+        $('#certificate_number').attr('data-parsley-required', 'true');
+        $('#children_office').attr('data-parsley-required', 'true');
+        $('#contact_person').attr('data-parsley-required', 'true');
+        $('#type_of_adoption').attr('data-parsley-required', 'false');
+        $('#adopting_agency').attr('data-parsley-required', 'false');
+        $('#adopting_agency').multiselect('clearSelection');
+        $('#adopting_agency').multiselect('refresh');
+        $('#residential_institution_name').attr('data-parsley-required', 'false');
+        $('#residential_institution_name').multiselect('clearSelection');
+        $('#residential_institution_name').multiselect('refresh');
+        $('#court_name').attr('data-parsley-required', 'true');
+        $('#court_file_number').attr('data-parsley-required', 'true');
+        $('#parental_status').attr('data-parsley-required', 'true');
+
+        $('#div_fostered_from').css({'display': 'none'});
+        $('#fostered_from').attr('data-parsley-required', 'false');
+        $('#fostered_from').val('');
+    }
+    else if (type_of_care == 'AFFC' || type_of_care == 'AFKS' || type_of_care == 'AFCK')
+    {  
+        // Foster Care/Kinship/Kafaala 
+        $('#div_children_office').css({'display': 'block'});  
+        $('#div_agency').css({'display': 'none'});  
+        $('#div_certificate_number').css({'display': 'none'});
+        $('#div_court').css({'display': 'none'});
+        $('#div_type_of_adoption').css({'display': 'none'});
+        $('#div_residential_institution').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'block'});
+        $('#div_parental_status').css({'display': 'block'});
+
+        $('#children_office').attr('data-parsley-required', 'true');
+        $('#contact_person').attr('data-parsley-required', 'true');
+        $('#adopting_agency').attr('data-parsley-required', 'false');
+        $('#certificate_number').attr('data-parsley-required', 'false');
+        //$('#certificate_number').val('');
+        $('#court_name').attr('data-parsley-required', 'false');
+        $('#court_name').val('');
+        $('#court_file_number').attr('data-parsley-required', 'false');
+        $('#court_file_number').val('');
+        $('#type_of_adoption').attr('data-parsley-required', 'false');
+        $('#type_of_adoption').val('');
+        $('#residential_institution_name').attr('data-parsley-required', 'false');
+        $('#residential_institution_name').multiselect('clearSelection');
+        $('#residential_institution_name').multiselect('refresh');
+        $('#parental_status').attr('data-parsley-required', 'true');
+
+        if(type_of_care == 'AFFC')
+        {
+            $('#div_certificate_number').css({'display': 'block'});
+            $('#certificate_number').attr('data-parsley-required', 'true');
+
+            $('#div_fostered_from').css({'display': 'block'});
+            $('#fostered_from').attr('data-parsley-required', 'true');
+        }else{
+            $('#div_certificate_number').css({'display': 'none'});
+            $('#certificate_number').attr('data-parsley-required', 'false');
+            $('#certificate_number').val('');
+
+            $('#div_fostered_from').css({'display': 'none'});
+            $('#fostered_from').attr('data-parsley-required', 'false');
+            $('#fostered_from').val('');
+        }
+    }
+    else if (type_of_care == 'AFIC')
+    {
+        $('#div_residential_institution').css({'display': 'block'});
+        $('#div_court').css({'display': 'block'});
+        $('#div_certificate_number').css({'display': 'none'});        
+        $('#div_type_of_adoption').css({'display': 'none'});
+        $('#div_agency').css({'display': 'none'});
+        $('#div_children_office').css({'display': 'block'});
+        $('#div_parental_status').css({'display': 'none'});
+
+        $('#residential_institution_name').attr('data-parsley-required', 'true');
+        $('#court_name').attr('data-parsley-required', 'true');
+        $('#court_file_number').attr('data-parsley-required', 'true');
+        $('#certificate_number').attr('data-parsley-required', 'false');
+        $('#type_of_adoption').attr('data-parsley-required', 'false');
+        $('#type_of_adoption').val('');
+        $('#adopting_agency').attr('data-parsley-required', 'false');
+        $('#adopting_agency').multiselect('clearSelection');
+        $('#adopting_agency').multiselect('refresh');
+        $('#children_office').attr('data-parsley-required', 'true');
+        $('#contact_person').attr('data-parsley-required', 'true');
+        $('#parental_status').attr('data-parsley-required', 'false');
+        $('#parental_status').val('');
+        $('#div_fostered_from').css({'display': 'none'});
+        $('#fostered_from').attr('data-parsley-required', 'false');
+        $('#fostered_from').val('');
+
+        $('#parental_status').trigger('change');
+
+    }
+});
+</script>
+<script type="text/javascript">
+function getCountries()
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var values = {
+                    'csrfmiddlewaretoken': csrftoken
+                 }; 
+    $.ajax({
+            url: '{% url 'manage_countries' %}',
+            dataType: 'json',
+            method: 'POST',
+            data: values,
+            success: function(result)
+            {
+                var multiselect_data = [];
+                var multiselect_dict = {};
+                var multiselect_dict_initial = { label:'Please Select', value:''};
+                multiselect_data.push(multiselect_dict_initial);
+
+                $.each(result, function(i, val) {  
+                    
+                    // Prepopulate multiselects from json 
+                    var country_code = val.country_code;
+                    var country_name = val.country_name;
+                    var multiselect_dict = { label: country_name, value: country_code};
+                    multiselect_data.push(multiselect_dict);
+                });
+
+                console.log(multiselect_data);
+
+                //Case To Attach - multi selects
+                $('#adoption_country').multiselect({
+                    selectMultiple: false,
+                    selectAllValue: 'multiselect-all',
+                    includeSelectAllOption: true,
+                    enableCaseInsensitiveFiltering: true,
+                    numberDisplayed: 1,
+                    maxHeight: 300,
+                    buttonWidth: '100%',
+                    buttonClass: 'btn btn-white'
+                });                           
+                $("#adoption_country").multiselect('dataprovider', multiselect_data);
+                var adoption_country = '{{ adoption_country }}';
+                $("#adoption_country").val(adoption_country);
+                $("#adoption_country").multiselect('refresh');
+            },
+            error: function(xhr, status, error)
+            {
+                alert(error);
+            }
+        }); 
+}
+</script>
+{% endblock %}

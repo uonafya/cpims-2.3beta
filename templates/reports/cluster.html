@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Reports clusters {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Clusters</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-area-chart"></i> Reports <small>Clusters</small></h1>
+<!-- end page-header -->
+<div id="message"></div>
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+{% if messages %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div id="messages" class="alert alert-danger fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-info fa-2x pull-left"></i>
+    {% else %}
+        <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+    {% endif %}    
+        <p>{{ message }}</p>
+    </div>
+   {% endfor %}
+{% endif %}
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>                      
+                <h4 class="panel-title">Cluster management &nbsp;</h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard" id="clusters">
+                    {% csrf_token %}
+                    <!-- begin col-4 -->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group block1">
+                                <label for="person_type">Cluster Name <span class="asteriskField">*</span></label><br/><br/>
+                                {{ form.cluster }}
+                            </div>
+                        </div>
+                        <!-- end col-4 -->
+                        <div class="col-md-5">
+                            <div id="is_caregiver_div" class="form-group block1">
+                                <label for="is_caregiver">Organisation Units / CBOs <span class="asteriskField"></span></label>
+                                {{ form.cbo }} 
+                            </div>
+                        </div>
+                        <!-- end col-4 -->
+                        <!-- end col-2 -->
+                        <div class="col-md-2">
+                            <div id="is_caregiver_div" class="form-group block1">
+                                <label for="is_caregiver"><br/></label><br/><br/>
+                                <button type="submit" class="btn btn-sm btn-primary m-r-10"><i class="fa fa-check-square-o"></i> Create </button>
+                            </div>
+                        </div>
+                        <!-- end col-2 -->
+                    </div>
+                </form>
+                <hr>
+                <b><p>My / Organisation Clusters</p></b>
+                <div class="table-responsive">
+                <table id="data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th>Name</th>
+                            <th>CBOs</th>
+                            <th>Created By</th>
+                            <th>Date Created</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for cluster in clusters %}
+                        <tr id="cluster_tr_{{ cluster.id }}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ cluster.cluster_name }}</td>
+                            <td><ol>
+                            {% for cbo in cluster.cbos %}
+                            <li>{{ cbo }}</li>
+                            {% endfor %}
+                            </ol>
+                            </td>
+                            <td>{{ cluster.created_by.first_name }} {{ cluster.created_by.surname }}</td>
+                            <td>{{ cluster.created_at }}</td>
+                            <td>
+                            {% if request.user.id == cluster.created_by.id %}
+                                <button type="button" id="{{ cluster.id }}" class="btn btn-sm btn-danger m-r-10 remove_cluster"><i class="fa fa-trash"></i> </button>
+                            {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- end panel -->  
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script>
+jQuery(document).ready(function() {
+    $('#cbo').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        disableIfEmpty: true,
+        enableClickableOptGroups: true,
+        buttonClass: 'btn btn-white'
+    });
+    $("#data-table").delegate(".remove_cluster", "click", function() {
+        var id = $(this).attr('id');
+        //var cluster = $(this).attr('cluster_id');
+       $.ajax({
+               type: "POST",
+               url: "{% url 'cluster' %}",
+               data: $("#clusters").serialize() + "&id="+id,
+               success: function(data)
+               {
+                   var status_id = data.status;
+                   if (status_id == 0){
+                       $("#cluster_tr_"+id+"").remove();
+                       $("#message").addClass( "alert alert-success fade in" );
+                       $('#message').html("Cluster removed successfully.");
+                   }else{
+                       $("#message").addClass( "alert alert-danger fade in" );
+                       $('#message').html("Error removing cluster");
+                   }
+               },
+                error: function(){
+                    $("#message").addClass( "alert alert-danger fade in" );
+                    $('#message').html("Error removing cluster");
+                }
+        });
+    });
+});
+</script>
+{% endblock %}

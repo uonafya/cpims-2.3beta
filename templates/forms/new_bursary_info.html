@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Bursary Information {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+
+<!-- begin page-header -->
+{% for data in init_data %}
+    <h1 class="page-header">Forms <small> Bursary Information <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+       <b><p></p></b>
+    </ul>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>Bursary Information</b></h4>
+            </div>
+            <div class="panel-body">
+                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard-bursary" id="new_bursary">
+                    {% csrf_token %}
+                    
+                    <div id="wizard_bursary">
+                        <ol>
+                            <li>Bursary Information
+                                <small>Bursary and additional details.</small>
+                            </li>
+                                        
+                        </ol>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">Bursary Details </legend>
+                                    <div class="row"> 
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4">Bursary Type : <span class="asteriskField">*</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.bursary_type }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4">Term : <span class="asteriskField">*</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.term }}
+                                            </div>
+                                        </div>       
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4">Disbursement Date: <span class="asteriskField">*</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.disbursement_date }}
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4">Disbursement Year : <span class="asteriskField">*</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.year }}
+                                            </div>
+                                        </div>  
+                                        
+                                        <div class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4">Amount : <span class="asteriskField">*</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.amount }}
+                                            </div>
+                                        </div>
+                              
+                                    </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->
+                    </div>
+
+                    <!-- begin panel -->
+                    <div class="panel panel-inverse" data-sortable-id="form-validation-1" align="center">
+                        <div class="panel-body panel-form">
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3"></label>
+                                <div class="col-md-6 col-sm-6" id="div_itp_buttons">
+                                    
+                                 <button id="mysubmit100" type="submit" class="btn btn-primary">Submit</button>
+                                    <button class="btn btn-default">Cancel</button>
+                                </div>
+                                <br><br>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- end row -->
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+
+<script>
+jQuery(document).ready(function() 
+{
+    $('html,body').scrollTop(0);
+    FormWizardValidation.init();
+});
+</script>
+{% endblock %}

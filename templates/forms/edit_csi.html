@@ -1,0 +1,1358 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} CSI {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+
+.table_data {
+  display: none;
+}
+
+.container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.td_style {
+  /* color: #000000;*/
+  color: #0057e7;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+    <h1 class="page-header">Forms <small>Edit Child Status Index(CSI)  <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- #csi-warning-dialog -->
+<div class="modal fade" id="csi-warning-dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h4 class="modal-title">
+                <div id="closure-warning-dialog-header">
+                    Warning      
+                </div>
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                	<h4><i class="fa fa-info-circle"></i> <small><b><span id="span_csi_alert" class="dialog_paragraph"></span></b></small></h4>               
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- #end-csi-warning-dialog -->
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+	<!-- begin col-12 -->
+    <div class="col-md-12">
+    	<!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> CSI Details </h4>
+            </div>
+            <div class="panel-body">
+            	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard-csi" id="new_csi">
+                	{% csrf_token %}
+					<div id="wizard-csi">
+						<ol>
+							<li>
+							    Domain Evaluation 
+							    <small>Evaluation outcome details.</small>
+							</li>
+							
+							<li>
+							    CSI Priorities 
+							    <small>Priority details.</small>
+							</li>
+
+							<li>
+							    Support/Services 
+							    <small>Support/services provided details.</small>
+							</li>							
+						</ol>
+
+						<!-- begin wizard step-1 -->
+						<div class="wizard-step-1">
+                            <fieldset> 
+                                <!-- begin col-6 -->
+							    <div class="col-md-12">
+							        <div class="panel-group" id="accordion">
+										<div class="panel panel-info overflow-hidden">
+											<div class="panel-heading">
+												<h3 class="panel-title">
+													<a class="accordion-toggle accordion-toggle-styled" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+													    <i class="fa fa-plus-circle pull-right"></i> 
+														<b>HEALTH AND NUTRITION</b>
+													</a>
+												</h3>
+											</div>
+											<div id="collapseOne" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<table id="csi_manager_table0" class="table">
+					                                    <thead>
+					                                        <tr id="id_inputHeaders">
+					                                            <th width="20%">CSI Domain</th>
+					                                            <th width="20%">CSI Sub-Domain</th>
+					                                            <th width="15%">Outcome</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                        <tr id="id_inputElements0">
+					                                            <td width="20%"><h6>HEALTH AND NUTRITION</h6></td>
+					                                          	<td width="20%">Food Security</td>
+					                                          	<td width="15%">{{ form.food_security }}</td>
+					                                        </tr>
+					                                        <tr id="id_inputElements1">
+					                                            <td width="20%"></td>
+					                                          	<td width="20%">Nutrition and Growth</td>
+					                                          	<td width="15%">{{ form.nutrition_growth }}</td>
+					                                        </tr>
+					                                        <tr id="id_inputElements2">
+					                                            <td width="20%"></td>
+					                                          	<td width="20%">Wellness</td>
+					                                          	<td width="15%">{{ form.wellness }}</td>
+					                                        </tr>
+					                                        <tr id="id_inputElements3">
+					                                            <td width="20%"></td>
+					                                          	<td width="20%">Health Care Services</td>
+					                                          	<td width="15%">{{ form.healthcare_services }}</td>
+					                                        </tr>			                                        
+					                                    </tbody>
+					                                </table>
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-info overflow-hidden">
+											<div class="panel-heading">
+												<h3 class="panel-title">
+													<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+													    <i class="fa fa-plus-circle pull-right"></i> 
+														<b>SHELTER AND CARE</b>
+													</a>
+												</h3>
+											</div>
+											<div id="collapseTwo" class="panel-collapse collapse">
+												<div class="panel-body">
+													<table id="csi_manager_table1" class="table">
+					                                    <thead>
+					                                        <tr id="id_inputHeaders">
+					                                            <th width="20%">CSI Domain</th>
+					                                            <th width="20%">CSI Sub-Domain</th>
+					                                            <th width="15%">Outcome</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                        <tr id="id_inputElements4">
+					                                            <td width="20%"><h6>SHELTER AND CARE</h6></td>
+					                                          	<td width="20%">Shelter</td>
+					                                          	<td width="15%">{{ form.shelter }}</td>
+					                                        </tr>
+					                                        <tr id="id_inputElements5">
+					                                            <td width="20%"></td>
+					                                          	<td width="20%">Care</td>
+					                                          	<td width="15%">{{ form.care }}</td>
+					                                        </tr>		                                        
+					                                    </tbody>
+					                                </table>
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-info overflow-hidden">
+											<div class="panel-heading">
+												<h3 class="panel-title">
+													<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+													    <i class="fa fa-plus-circle pull-right"></i> 
+														<b>PROTECTION</b>
+													</a>
+												</h3>
+											</div>
+											<div id="collapseThree" class="panel-collapse collapse">
+												<div class="panel-body">
+													<table id="csi_manager_table2" class="table">
+					                                    <thead>
+					                                        <tr id="id_inputHeaders">
+					                                            <th width="20%">CSI Domain</th>
+					                                            <th width="20%">CSI Sub-Domain</th>
+					                                            <th width="15%">Outcome</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                        <tr id="id_inputElements6">
+					                                            <td width="20%"><h6>PROTECTION</h6></td>
+					                                          	<td width="20%">Abuse and Exploitation</td>
+					                                          	<td width="15%">{{ form.abuse_exploitation }}</td>
+					                                        </tr>
+					                                        <tr id="id_inputElements7">
+					                                            <td width="20%"></td>
+					                                          	<td width="20%">Legal Protection</td>
+					                                          	<td width="15%">{{ form.legal_protection }}</td>
+					                                        </tr>		                                        
+					                                    </tbody>
+					                                </table>
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-info overflow-hidden">
+											<div class="panel-heading">
+												<h3 class="panel-title">
+													<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour">
+													    <i class="fa fa-plus-circle pull-right"></i> 
+														<b>PSYCHOSOCIAL SUPPORT</b>
+													</a>
+												</h3>
+											</div>
+											<div id="collapseFour" class="panel-collapse collapse">
+												<div class="panel-body">
+													<table id="csi_manager_table3" class="table">
+					                                    <thead>
+					                                        <tr id="id_inputHeaders">
+					                                            <th width="20%">CSI Domain</th>
+					                                            <th width="20%">CSI Sub-Domain</th>
+					                                            <th width="15%">Outcome</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                        <tr id="id_inputElements8">
+					                                            <td width="20%"><h6>PSYCHOSOCIAL SUPPORT</h6></td>
+					                                          	<td width="20%">Emotional Health</td>
+					                                          	<td width="15%">{{ form.emotional_health }}</td>
+					                                        </tr>
+					                                        <tr id="id_inputElements9">
+					                                            <td width="20%"></td>
+					                                          	<td width="20%">Social Behaviour</td>
+					                                          	<td width="15%">{{ form.social_behaviour }}</td>
+					                                        </tr>		                                        
+					                                    </tbody>
+					                                </table>
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-info overflow-hidden">
+											<div class="panel-heading">
+												<h3 class="panel-title">
+													<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFive">
+													    <i class="fa fa-plus-circle pull-right"></i> 
+														<b>EDUCATION</b>
+													</a>
+												</h3>
+											</div>
+											<div id="collapseFive" class="panel-collapse collapse">
+												<div class="panel-body">
+													<table id="csi_manager_table4" class="table">
+					                                    <thead>
+					                                        <tr id="id_inputHeaders">
+					                                            <th width="20%">CSI Domain</th>
+					                                            <th width="20%">CSI Sub-Domain</th>
+					                                            <th width="15%">Outcome</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                        <tr id="id_inputElements10">
+					                                            <td width="20%"><h6>EDUCATION</h6></td>
+					                                          	<td width="20%">Perfomance</td>
+					                                          	<td width="15%">{{ form.perfomance }}</td>
+					                                        </tr>
+					                                        <tr id="id_inputElements11">
+					                                            <td width="20%"></td>
+					                                          	<td width="20%">Education and Work</td>
+					                                          	<td width="15%">{{ form.education_work }}</td>
+					                                        </tr>		                                        
+					                                    </tbody>
+					                                </table>
+												</div>
+											</div>
+										</div>
+										<div class="panel panel-info overflow-hidden">
+											<div class="panel-heading">
+												<h3 class="panel-title">
+													<a class="accordion-toggle accordion-toggle-styled collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix">
+													    <i class="fa fa-plus-circle pull-right"></i> 
+														<b>HOUSEHOLD ECONOMIC STRENGTHENING</b>
+													</a>
+												</h3>
+											</div>
+											<div id="collapseSix" class="panel-collapse collapse">
+												<div class="panel-body">
+													<table id="csi_manager_table5" class="table">
+					                                    <thead>
+					                                        <tr id="id_inputHeaders">
+					                                            <th width="20%">CSI Domain</th>
+					                                            <th width="20%">CSI Sub-Domain</th>
+					                                            <th width="15%">Outcome</th>
+					                                        </tr>
+					                                    </thead>
+					                                    <tbody>
+					                                        <tr id="id_inputElements12">
+					                                            <td width="20%"><h6>HOUSEHOLD ECONOMIC STRENGTHENING</h6></td>
+					                                          	<td width="20%">Household Economic Strengthening</td>
+					                                          	<td width="15%">{{ form.household_strengthening }}</td>
+					                                        </tr>		                                        
+					                                    </tbody>
+					                                </table>
+												</div>
+											</div>
+										</div>
+										
+									</div>
+							    </div>
+							    <!-- end col-6 -->                                
+							</fieldset>
+						</div>
+						<!-- end wizard step-1 -->  
+
+						<!-- begin wizard step-2 -->
+						<div class="wizard-step-2">
+							<div class="panel-body">  
+								<table id="priority_manager_table" class="table">
+                                    <thead>
+                                        <tr id="id_inputHeaders">
+                                        	<td width="2%" style="display: none"></td>
+                                        	<td width="2%">#</td>                                        	
+                                        	<td width="10%"><h6><b>Domain</b></h6></td>
+                                            <td width="15%"><h6><b>Priority Need(s)</b></h6></td>
+                                            <td width="5%"><h6><b>Actions</b></h6></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="id_inputElements14">
+                                        	<td width="2%" style="display: none"></td>
+                                            <td width="2%"></td>
+                                            <td width="10%">
+                                            	{{ form.olmis_priority_domain }}
+                                            	<div id="olmis_priority_domain_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="15%">
+	                                            {{ form.olmis_priority_service }}
+	                                            <h6><span id="sel_olmis_priority_service"></span></h6>
+	                                        	<div id="olmis_priority_service_errormsg" style="display:none;">
+	                                                <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+	                                            </div>                                            	
+                                            </td>
+                                            <td width="5%">
+                                            <h6><b>
+	                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(2)">
+	                                                <i class="fa fa-plus"></i>  Add
+	                                            </button>
+                                            	</b></h6>
+                                            </td>                                            
+                                        <tr> 
+                                    	{% for resultset in resultsetspr %}
+		                                	{% regroup resultset by service_grouping_id as service_grouping_id_list %}
+			                                	{% for service_grouping_id in service_grouping_id_list %}
+
+					                                <tr id="id_inputElements{{ forloop.counter }}">
+					                                	<td style="display: none">
+					                                	#
+					                                	{% for item in service_grouping_id.list %}
+					                                		{{ item.service_grouping_id }}
+					                                		<input id='holmis_service_grouping_id' type='hidden' value='{{ item.service_grouping_id }}'>
+					                                		<br>
+						                            	{% endfor %}
+					                                	</td>
+					                                	<td></td>
+					                                	<td>
+					                                	{% for item in service_grouping_id.list %}
+					                                		{{ item.domain|gen_value2 }}
+					                                		<input id='holmis_priority_domain' type='hidden' value='{{ item.domain }}'>
+					                                		<br>
+						                            	{% endfor %}
+						                            	</td>
+
+						                            	<td>
+						                            	{% for item in service_grouping_id.list %}
+						                            		{% for svc in item.service %}
+					                                			{{ svc|gen_value2 }}<br>	
+					                                		{% endfor %}
+					                                		<input id='holmis_priority_service'  type='hidden' value='{{ item.service|join:", " }}'>
+						                            	{% endfor %}
+						                            	</td>
+
+						                            	<td>
+						                            		<input id='holmis_priority_service_status'  type='hidden' value='existing'>
+						                            		<!--
+							                                <button type="button" class="btn btn-sm btn-link m-r-5">
+							                                	Remove 
+							                                </button>
+							                                -->
+						                                </td>
+						                            <tr>
+					                            {% endfor %}
+				                        {% endfor %}                
+                                    </tbody>                                            
+                                </table>
+                                {{ form.olmis_priority_service_provided_list }}
+							</div>
+							<div align="right">
+								<button id="btnClearGrid" type="button" class="btn btn-sm btn-danger m-r-5" onClick="RemoveRow(3)">
+	                                <i class="fa fa-trash"></i>  Clear Grid
+	                            </button>								
+							</div>
+						</div> 
+						<!-- end wizard step-2 -->
+
+						<!-- begin wizard step-3 -->
+						<div class="wizard-step-3">
+							<div class="panel-body">
+								<table id="services_manager_table" class="table">
+                                    <thead>
+                                        <tr id="id_inputHeaders">
+                                        	<td width="2%"></td>
+                                        	<th width="15%"><h6><b>Domain</b></h6></th>
+                                            <th width="20%"><h6><b>Service(s)</b></h6></th>
+                                            <th width="15%"><h6><b>Date Of Service</b></h6></th>
+                                            <th width="20%"><h6><b>Service(s) Provider</b></h6></th>
+                                            <th width="20%"><h6><b>Place Of Service</b></h6></th>
+                                            <th width="5%"><h6><b>Actions</b></h6></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="id_inputElements13">
+                                        	<td width="2%"> <!-- <input id='holmis_priority_log' type='hidden' value=''> --></td>
+                                        	<td width="15%">
+                                        		{{ form.olmis_domain }}
+                                        		<div id="olmis_domain_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                        	</td>
+                                            <td width="20%">
+                                            	{{ form.olmis_service }}
+                                            	<div id="olmis_service_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="15%">
+                                            	{{ form.olmis_service_date }}
+                                            	<div id="olmis_service_date_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="20%">
+                                            	{{ form.olmis_service_provider }}
+                                            	<div id="olmis_service_provider_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="20%">
+                                            	{{ form.olmis_place_of_service }}
+                                            	<div id="olmis_place_of_service_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="5%">
+                                            <h6><b>
+	                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(1)">
+	                                                <i class="fa fa-plus"></i>  Add
+	                                            </button>
+                                            	</b></h6>
+                                            </td>
+                                        <tr>
+                                        {% for resultset in resultsetssvc %}
+		                                	{% regroup resultset by service_grouping_id as service_grouping_id_list %}
+		                                		
+			                                	{% for service_grouping_id in service_grouping_id_list %}	
+					                                <tr id="id_inputElements{{ forloop.counter }}">
+					                                	<td></td>
+
+					                                	<td>
+					                                	{% for item in service_grouping_id.list %}
+					                                		{{ item.domain|gen_value2 }}
+					                                		<input id='hservice_provided' type='hidden' value='{{ item.service_provided }}'>
+					                                		<br>
+						                            	{% endfor %}
+						                            	</td>
+
+					                                	<td>
+					                                	{% for item in service_grouping_id.list %}
+					                                		{{ item.service_provided|gen_value2 }}
+					                                		<input id='hservice_provided' type='hidden' value='{{ item.service_provided }}'>
+					                                		<br>
+						                            	{% endfor %}
+						                            	</td>
+
+						                            	<td>
+					                                	{% for item in service_grouping_id.list %}
+					                                		{{ item.date_of_encounter_event }}
+					                                		<input id='hdate_of_encounter_event' type='hidden' value='{{ item.date_of_encounter_event }}'>
+					                                		<br>
+						                            	{% endfor %}
+						                            	</td>
+
+						                            	<td>
+					                                	{% for item in service_grouping_id.list %}
+					                                		{{ item.service_provider|gen_value2 }}
+					                                		<input id='hservice_provider' type='hidden' value='{{ item.service_provider }}'>
+					                                		<br>
+						                            	{% endfor %}
+						                            	</td>
+
+						                            	<td>
+					                                	{% for item in service_grouping_id.list %}
+					                                		{{ item.place_of_service }}
+					                                		<input id='hplace_of_service' type='hidden' value='{{ item.place_of_service }}'>
+					                                		<br>
+						                            	{% endfor %}
+						                            	</td>
+
+						                            	<td>
+							                                <button type="button" class="btn btn-sm btn-link m-r-5" onClick="RemoveRow(1, 'uuid', 'id_inputElements{{ forloop.counter }}')" >
+							                                	Remove 
+							                                </button>
+						                                </td>
+						                            <tr>
+					                            {% endfor %}
+                                        	}
+					                    {% endfor %}		                                        
+                                    </tbody>
+                                </table>
+                                {{ form.olmis_service_provided_list }}
+							</div>
+						</div> 
+						<!-- end wizard step-3 -->						    
+					</div>
+
+					<label class="control-label col-md-4 col-sm-4" for="csi_qs">Date of CSI : <span class="asteriskField">* </label>
+					<div class="col-md-6 col-sm-6">
+						{{ form.date_of_csi }}
+					</div>                      
+
+					<div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4"></label>
+							<div class="col-md-6 col-sm-6">
+								<button id="mysubmit-csi-update" type="submit" class="btn btn-primary">Update</button>
+								<a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+							</div>
+						</div>
+                    </div>
+
+				</form>
+            </div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>	
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script>
+jQuery(document).ready(function() 
+{
+	//multi selects
+    $('#olmis_domain, #olmis_service_provider, #olmis_service, #olmis_priority_service, #olmis_priority_domain, #olmis_priority_health, #olmis_priority_education, #olmis_priority_shelter, #olmis_priority_protection, #olmis_priority_pss, #olmis_priority_hes').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        buttonClass: 'btn btn-white'
+    });
+
+	$('html,body').scrollTop(0);
+	FormWizardValidation.init();
+});
+
+var arr_DSHC = new Array();
+var arr_DPSS = new Array();
+var arr_DPRO = new Array();
+var arr_DHES = new Array();
+var arr_DHNU = new Array();
+var arr_DEDU = new Array();
+var domain_log = { "DSHC": arr_DSHC, "DPSS": arr_DPSS, "DPRO": arr_DPRO, "DHES": arr_DHES, "DHNU": arr_DHNU, "DEDU": arr_DEDU}
+function loadMultiselect(x)
+{
+	if(x==1)
+	{
+		// get selected services
+		var OlmisPriorityServices = new Array();
+		$('#priority_manager_table tr').each(function(row, tr)
+        {
+            var olmis_priority_service = $(tr).find('input[id="holmis_priority_service"]').val();
+            OlmisPriorityServices.push({"olmis_priority_service" : olmis_priority_service});  
+        });        
+        OlmisPriorityServices.shift(); //remove first row(headers stuff)
+        OlmisPriorityServices.shift(); //remove second row(controls stuff)
+        OlmisPriorityServices = JSON.stringify(OlmisPriorityServices)
+
+        // do an ajax_call
+        var data = new Array();
+	    var index = 4;
+	    var csrftoken = $.cookie('csrftoken');
+	    var values = { 
+	                    'csrfmiddlewaretoken': csrftoken,
+	                    'domain_id': OlmisPriorityServices,
+	                    'index': index
+	                 };
+    	$.ajax({
+				url: '{% url 'manage_service_category' %}',
+				dataType: 'json',
+				method: 'POST',
+				contentType: 'application/x-www-form-urlencoded',
+				data: values,
+				success: function(result)
+				{
+					var status;
+					var item_sub_category_id;
+					var item_sub_category;
+					var multiselect_dict = {};
+					var multiselect_data = [];
+		            multiselect_data.push({label: 'Please Select', value: ''});
+
+		            $.each(result, function(i, val) 
+		            {
+		                item_sub_category_id = val.item_sub_category_id;
+		                item_sub_category = val.item_sub_category;
+		                status = val.status;
+
+		                multiselect_dict = { label: item_sub_category, value: item_sub_category_id };
+		                multiselect_data.push(multiselect_dict);
+		            });
+
+		            multiselect_id = '#olmis_service';
+		            //add multi-select data
+		            $('' + multiselect_id + '').multiselect('destroy');
+		            $('' + multiselect_id + '').multiselect({
+			                selectAllValue: 'multiselect-all',
+			                enableCaseInsensitiveFiltering: true,
+			                numberDisplayed: 1,
+			                maxHeight: 300,
+			                buttonWidth: '100%',
+			                buttonClass: 'btn btn-white',
+			                nonSelectedText: 'Please Select'
+			            });
+		            $('' + multiselect_id + '').empty();
+		            $('' + multiselect_id + '').multiselect('dataprovider', multiselect_data);
+
+		            // refresh multiselect
+		            $('' + multiselect_id + '').multiselect("refresh");
+
+				},
+				error: function(xhr, status, error)
+				{
+					console.log(error);
+				}
+
+            }); 
+	}
+}
+
+function getServices(x, domain)
+{
+	var multiselect_data = [];
+    var data = new Array();
+    var index = 1;
+    var csrftoken = $.cookie('csrftoken');
+    var values = { 
+                    'csrfmiddlewaretoken': csrftoken,
+                    'domain_id': domain,
+                    'index': index
+                 };
+
+    // do an ajax_call
+    $.ajax({
+				url: '{% url 'manage_service_category' %}',
+				dataType: 'json',
+				method: 'POST',
+				contentType: 'application/x-www-form-urlencoded',
+				data: values,
+				success: function(result)
+				{ 
+					var status;
+					var item_sub_category_id;
+					var item_sub_category;
+					var multiselect_dict = {};
+
+		            multiselect_data.push({label: 'Please Select', value: ''});
+
+		            $.each(result, function(i, val) 
+		            {
+		                item_sub_category_id = val.item_sub_category_id;
+		                item_sub_category = val.item_sub_category;
+		                status = val.status;
+
+		                var multiselect_dict = { label: item_sub_category, value: item_sub_category_id };
+		                multiselect_data.push(multiselect_dict);
+		            });
+
+		            var multiselect_id = '#olmis_service'
+		            if(x == 2) 
+		            { 
+		            	multiselect_id = '#olmis_priority_service';
+		    		}
+
+		            //add multi-select data
+		            $('' + multiselect_id + '').multiselect('destroy');
+		            $('' + multiselect_id + '').multiselect({
+			                selectAllValue: 'multiselect-all',
+			                enableCaseInsensitiveFiltering: true,
+			                numberDisplayed: 1,
+			                maxHeight: 300,
+			                buttonWidth: '100%',
+			                buttonClass: 'btn btn-white',
+			                nonSelectedText: 'Please Select'
+			            });
+		            $('' + multiselect_id + '').empty();
+		            $('' + multiselect_id + '').multiselect('dataprovider', multiselect_data);
+
+		            // if no subcategories found . . .
+		            if(status == 0)
+		            {
+		            	$("" + multiselect_id + " option[value='" + item_sub_category_id + "']").prop("selected", true);
+		            }
+
+		            // refresh multiselect
+		            $('' + multiselect_id + '').multiselect("refresh");
+				},
+				error: function(xhr, status, error)
+				{
+					console.log(error);
+				}
+
+            });        
+}
+
+function AddRow(x)
+{
+	if(x==1)
+	{
+		var OlmisServiceData = new Array();
+        var olmis_domain = $("#olmis_domain").val();
+        var olmis_service = $("#olmis_service").val();
+        var olmis_service_date = $("#olmis_service_date").val();
+        var olmis_service_provider = $("#olmis_service_provider").val();
+        var olmis_place_of_service = $("#olmis_place_of_service").val();
+        var csrftoken = $.cookie('csrftoken');        
+        var values = {  
+            'csrfmiddlewaretoken': csrftoken
+        };
+
+        // Validation and Ajax
+        if(olmis_domain)
+		{
+			if(olmis_service)
+			{
+				if(olmis_service_date)
+				{
+					if(olmis_service_provider)
+					{
+						if(olmis_place_of_service)
+						{
+							// Find a <table> element with id="myTable":
+	                        var table = $('#services_manager_table')[0]; 
+
+	                        // Create an empty <tr> element with id and add it to the 1st position of the table:
+	                        var rows_length = table.rows.length;
+	                        var row = table.insertRow(rows_length);
+	                        var index = rows_length - 2;
+	                        row_id = 'rowid_' + index;
+	                        row.id = row_id;
+	                        var btnRemoveSvcId = 'btnRemoveSvc' + index;
+
+	                        // Insert new cells (<td> elements) of the "new" <tr> element:
+	                        var cell0 = row.insertCell(0);
+	                        var cell1 = row.insertCell(1);
+	                        var cell2 = row.insertCell(2);
+	                        var cell3 = row.insertCell(3);
+	                        var cell4 = row.insertCell(4);
+	                        var cell5 = row.insertCell(5);
+	                        var cell6 = row.insertCell(6);
+
+	                        var holmis_domain= "<input id='holmis_domain' type='hidden' value='"+olmis_domain+"'>"
+	                        var holmis_service = "<input id='holmis_service' type='hidden' value='"+olmis_service+"'>"
+	                        var holmis_service_provider = "<input id='holmis_service_provider' type='hidden' value='"+olmis_service_provider+"'>"
+	                        var holmis_service_status= "<input id='holmis_service_status' type='hidden' value='new'>"
+
+	                        cell0.innerHTML = '<h6 class="td_style"></h6>';        
+	                        cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_domain") + holmis_domain + '</h6>';
+	                        cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_service") + holmis_service + '</h6>';
+	                        cell3.innerHTML = '<h6 class="td_style">' + $('#olmis_service_date').val() + '</h6>';
+	                        cell4.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_service_provider") + holmis_service_provider + '</h6>';
+	                        cell5.innerHTML = '<h6 class="td_style">' + $('#olmis_place_of_service').val() + holmis_service_status + '</h6>';
+	                        cell6.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-sm btn-link m-r-5 href='#'>Remove</a>" + '</h6>';
+
+	                        // AddClick Event To Remove Button
+	                        $("#" + btnRemoveSvcId + "").click(function(e)
+	                        {
+	                            RemoveRow(1, '', row_id);
+	                        });
+
+	                        // Reset Input Elements/Error Divs
+	                        $("#olmis_domain").multiselect("clearSelection");
+	                        $("#olmis_domain").multiselect("refresh");
+	                        $("#olmis_service").multiselect("clearSelection");
+	                        $("#olmis_service").multiselect("refresh");
+	                        $('#olmis_service_date').val('');
+	                        $("#olmis_service_provider").multiselect("clearSelection");
+	                        $("#olmis_service_provider").multiselect("refresh");
+	                        $('#olmis_place_of_service').val('');
+	                        $('#olmis_service_date_errormsg').val('');
+	                        $(".alert").hide();
+
+	                        $('#services_manager_table tr').each(function(row, tr)
+	                        {                            
+	                            var olmis_domain = $(tr).find('input[id="holmis_domain"]').val();
+	                            var olmis_service = $(tr).find('input[id="holmis_service"]').val();
+	                            var olmis_service_date = $(tr).find('td:eq(3)').text();
+	                            var olmis_service_provider = $(tr).find('input[id="holmis_service_provider"]').val();
+	                            var olmis_place_of_service = $(tr).find('td:eq(5)').text();
+	                            var olmis_service_status = $(tr).find('input[id="holmis_service_status"]').val();
+
+	                            OlmisServiceData[row]= {
+	                                "olmis_domain" : olmis_domain,
+	                                "olmis_service" : olmis_service,
+	                                "olmis_service_date" : olmis_service_date,
+	                                "olmis_service_provider" : olmis_service_provider,
+	                                "olmis_place_of_service": olmis_place_of_service,
+	                                "olmis_service_status" : olmis_service_status
+	                                }                                
+	                            
+	                        });
+	                        
+	                        OlmisServiceData.shift(); //remove first row(headers stuff)
+	                        OlmisServiceData.shift(); //remove second row(controls stuff)
+	                        OlmisServiceData = JSON.stringify(OlmisServiceData); 
+
+	                        // Set service_provided_list
+	                        $('#olmis_service_provided_list').val(OlmisServiceData); 
+
+						}
+						else
+						{
+						    $("#olmis_place_of_service_errormsg").css({ 'display': "block" }); 
+						} 
+					}
+					else
+					{
+					    $("#olmis_service_provider_errormsg").css({ 'display': "block" }); 
+					} 
+				}
+				else
+				{
+				    $("#olmis_service_date_errormsg").css({ 'display': "block" }); 
+				} 
+			}
+			else
+			{
+			    $("#olmis_service_errormsg").css({ 'display': "block" }); 
+			} 
+		}
+		else
+		{
+		    $("#olmis_domain_errormsg").css({ 'display': "block" }); 
+		} 
+	}	
+
+	if(x==2)
+	{
+		var OlmisPriorityServiceData = new Array();		
+        var olmis_priority_domain = $("#olmis_priority_domain").val();
+        var olmis_priority_service = $("#olmis_priority_service").val();        
+        var csrftoken = $.cookie('csrftoken');        
+        var values = {  
+            'csrfmiddlewaretoken': csrftoken
+        };
+
+        // Validation and Ajax
+        if(olmis_priority_domain)
+		{
+			if(olmis_priority_service)
+			{
+				// Find a <table> element with id="myTable":
+                var table = $('#priority_manager_table')[0]; 
+
+                // Create an empty <tr> element with id and add it to the 1st position of the table:
+                var rows_length = table.rows.length;
+                var row = table.insertRow(rows_length);
+                // var index = rows_length - 2;
+                // row_id = 'rowid_' + index;
+                row_id = 'rowid_' + (rows_length-2);
+                row.id = row_id;
+                var btnRemoveSvcId = 'btnRemoveSvc' + index; 
+
+                // get total selected
+		        var total = arr_DSHC.length + arr_DPSS.length + arr_DPRO.length + arr_DHES.length + arr_DHNU.length + arr_DEDU.length;
+
+		        console.log('total : ' + total);   		        
+		        if(total >= 3)
+		        {
+		        	$('#csi-warning-dialog').modal('show');
+            		$('#span_csi_alert').html("You are violating CSI Priority assessment Rules which demands 3 a maximum of priorities from either domain.");
+            		return false;
+		        }
+		        else
+		        {
+		        	/* 
+	                Manage validations
+	                ----------------------------------
+	                Get total domain-specific selected 
+	                */
+			        if(olmis_priority_domain == 'DEDU')
+			        {
+			        	items = olmis_priority_service;
+			        	for(var i=0, l = items.length; i < l; i++)
+			        	{
+			        		if($.inArray(items[i], arr_DEDU) == -1)
+			        		{
+			        			if(arr_DEDU.length < 3)
+			        			{
+			        				arr_DEDU.push(items[i]);
+			        			}
+			        		}
+			        		else
+			        		{
+			        			$('#csi-warning-dialog').modal('show');
+		            			$('#span_csi_alert').html('One or more of the priority need you have selected have been captured.');
+			        			return false;
+			        		}
+						}
+			        	domain_log.DEDU = arr_DEDU;
+			        }
+
+			        if(olmis_priority_domain == 'DHNU')
+			        {
+			        	items = olmis_priority_service;
+			        	for(var i=0, l = items.length; i < l; i++)
+			        	{
+			        		if($.inArray(items[i], arr_DHNU) == -1)
+			        		{
+			        			if(arr_DHNU.length < 3)
+			        			{
+			        				arr_DHNU.push(items[i]);
+			        			}
+			        		}
+			        		else
+			        		{
+			        			$('#csi-warning-dialog').modal('show');
+		            			$('#span_csi_alert').html('One or more of the priority need you have selected have been captured.');
+			        			return false;
+			        		}
+						}
+			        	domain_log.DHNU = arr_DHNU;
+			        }
+
+			        if(olmis_priority_domain == 'DHES')
+			        {
+			        	items = olmis_priority_service;
+			        	for(var i=0, l = items.length; i < l; i++)
+			        	{
+			        		if($.inArray(items[i], arr_DHES) == -1)
+			        		{
+			        			if(arr_DHES.length < 3)
+			        			{
+			        				arr_DHES.push(items[i]);
+			        			}
+			        		}
+			        		else
+			        		{
+			        			$('#csi-warning-dialog').modal('show');
+		            			$('#span_csi_alert').html('One or more of the priority need you have selected have been captured.');
+			        			return false;
+			        		}
+						}
+			        	domain_log.DHES = arr_DHES;
+			        }
+
+			        if(olmis_priority_domain == 'DPRO')
+			        {
+			        	items = olmis_priority_service;
+			        	for(var i=0, l = items.length; i < l; i++)
+			        	{
+			        		if($.inArray(items[i], arr_DPRO) == -1)
+			        		{
+			        			if(arr_DPRO.length < 3)
+			        			{
+			        				arr_DPRO.push(items[i]);
+			        			}
+			        		}
+			        		else
+			        		{
+			        			$('#csi-warning-dialog').modal('show');
+		            			$('#span_csi_alert').html('One or more of the priority need you have selected have been captured.');
+			        			return false;
+			        		}
+						}
+			        	domain_log.DPRO = arr_DPRO;
+			        }
+
+			        if(olmis_priority_domain == 'DPSS')
+			        {
+			        	items = olmis_priority_service;
+			        	for(var i=0, l = items.length; i < l; i++)
+			        	{
+			        		if($.inArray(items[i], arr_DPSS) == -1)
+			        		{
+			        			if(arr_DPSS.length < 3)
+			        			{
+			        				arr_DPSS.push(items[i]);
+			        			}
+			        		}
+			        		else
+			        		{
+			        			$('#csi-warning-dialog').modal('show');
+		            			$('#span_csi_alert').html('One or more of the priority need you have selected have been captured.');
+			        			return false;
+			        		}
+						}
+			        	domain_log.DPSS = arr_DPSS;
+			        }
+
+			        if(olmis_priority_domain == 'DSHC')
+			        {
+			        	items = olmis_priority_service;
+			        	for(var i=0, l = items.length; i < l; i++)
+			        	{
+			        		if($.inArray(items[i], arr_DSHC) == -1)
+			        		{
+			        			if(arr_DSHC.length < 3)
+			        			{
+			        				arr_DSHC.push(items[i]);
+			        			}
+			        		}
+			        		else
+			        		{
+			        			$('#csi-warning-dialog').modal('show');
+		            			$('#span_csi_alert').html('One or more of the priority need you have selected have been captured.');
+			        			return false;
+			        		}
+						}
+			        	domain_log.DSHC = arr_DSHC;
+			        }
+
+		        	// Insert new cells (<td> elements) of the "new" <tr> element:
+	                var cell0 = row.insertCell(0);
+	                var cell1 = row.insertCell(1);
+	                var cell2 = row.insertCell(2);
+	                var cell3 = row.insertCell(3);
+
+	                var holmis_priority_domain= "<input id='holmis_priority_domain' type='hidden' value='"+olmis_priority_domain+"'>"
+	                var holmis_priority_service = "<input id='holmis_priority_service' type='hidden' value='"+olmis_priority_service+"'>"
+	                var holmis_priority_service_status= "<input id='holmis_priority_service_status' type='hidden' value='new'>"
+	                var holmis_service_grouping_id= "<input id='holmis_service_grouping_id' type='hidden' value=''>"
+
+	                cell0.innerHTML = '<h6 class="td_style">' + holmis_service_grouping_id + '</h6>';        
+	                cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_domain") + holmis_priority_domain + '</h6>';
+	                cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_service") + holmis_priority_service + '</h6>';
+	                cell3.innerHTML  = holmis_priority_service_status;
+
+	                // AddClick Event To Remove Button
+	                $("#" + btnRemoveSvcId + "").click(function(e)
+	                {
+	                    RemoveRow(2, '', row_id);
+	                });
+
+	                //Show ClearGridOption
+	                $("#btnClearGrid").css({'display': 'block'})
+
+	                // Reset Input Elements/Error Divs
+	                $("#olmis_priority_domain").multiselect("clearSelection");
+	                $("#olmis_priority_domain").multiselect("refresh");
+	                $("#olmis_priority_service").multiselect("clearSelection");
+	                $("#olmis_priority_service").multiselect("refresh");
+	                $("#sel_olmis_priority_service").html('');
+	                $(".alert").hide();                
+
+	                $('#priority_manager_table tr').each(function(row, tr)
+	                {                            
+	                    var olmis_priority_domain = $(tr).find('input[id="holmis_priority_domain"]').val();
+	                    var olmis_priority_service = $(tr).find('input[id="holmis_priority_service"]').val();
+	                    var olmis_service_grouping_id = $(tr).find('input[id="holmis_service_grouping_id"]').val();
+	                    var olmis_priority_service_status= $(tr).find('input[id="holmis_priority_service_status"]').val();
+
+	                    OlmisPriorityServiceData[row]= {
+	                        "olmis_priority_domain" : olmis_priority_domain,
+	                        "olmis_priority_service" : olmis_priority_service,
+	                        "olmis_service_grouping_id" : olmis_service_grouping_id,
+	                        "olmis_priority_service_status" : olmis_priority_service_status
+	                        } 
+	                });
+	                
+	                OlmisPriorityServiceData.shift(); //remove first row(headers stuff)
+	                OlmisPriorityServiceData.shift(); //remove second row(controls stuff)
+	                OlmisPriorityServiceData = JSON.stringify(OlmisPriorityServiceData);
+
+	                // Set olmis_priority_service_provided_list
+	                $('#olmis_priority_service_provided_list').val(OlmisPriorityServiceData);	
+
+	                console.log(OlmisPriorityServiceData) ;               
+		        }                       
+			}
+			else
+			{
+			    $("#olmis_priority_service_errormsg").css({ 'display': "block" }); 
+			} 
+		}
+		else
+		{
+		    $("#olmis_priority_domain_errormsg").css({ 'display': "block" }); 
+		} 
+	}
+}
+
+function displayVals(x, value)
+{
+	var selections = [];
+	var hselections = [];
+	if(x == 1)
+	{
+	    $("#" + value + " option:selected").each(function () 
+	    {
+	       var $this = $(this);
+	       if ($this.length)
+	       {
+	            var selText = $this.text();
+	            selections.push(selText);
+	       }
+	    });
+	    $( "#sel_"+value ).html(selections.join( ", " ) );		
+	}
+	if(x==2)
+	{
+	    $("#" + value + " option:selected").each(function () 
+	    {
+	       var $this = $(this);
+	       if ($this.length)
+	       {
+	            var selText = $this.text();
+	            selections.push(selText);
+	            //console.log(selText);
+	       }
+	    });
+	    
+	    return selections.join( ", <br>" );
+	}
+}
+
+function RemoveRow(index, uuid, tr_id)
+{
+	if(index == 1)
+    {
+        // Delete Table Row
+
+        console.log('Delete row id = ' + tr_id);
+        $("#" + tr_id).remove();
+
+        var OlmisServiceData = new Array();
+        $('#services_manager_table tr').each(function(row, tr)
+        {                            
+            var olmis_domain = $(tr).find('input[id="holmis_domain"]').val();
+            var olmis_service = $(tr).find('input[id="holmis_service"]').val();
+            var olmis_service_date = $(tr).find('td:eq(3)').text();
+            var olmis_service_provider = $(tr).find('input[id="holmis_service_provider"]').val();
+            var olmis_place_of_service = $(tr).find('td:eq(5)').text();
+            var olmis_service_status = $(tr).find('input[id="holmis_service_status"]').val();
+
+            OlmisServiceData[row]= {
+                "olmis_domain" : olmis_domain,
+                "olmis_service" : olmis_service,
+                "olmis_service_date" : olmis_service_date,
+                "olmis_service_provider" : olmis_service_provider,
+                "olmis_place_of_service": olmis_place_of_service,
+                "olmis_service_status" : olmis_service_status
+                }                                
+            
+        });
+        
+        OlmisServiceData.shift(); //remove first row(headers stuff)
+        OlmisServiceData.shift(); //remove second row(controls stuff)
+        OlmisServiceData = JSON.stringify(OlmisServiceData); 
+
+        // Set service_provided_list
+        $('#olmis_service_provided_list').val(OlmisServiceData);
+    }
+
+    if(index == 2)
+    {
+        // Delete Table Row
+        $("#" + tr_id).remove();
+
+        var OlmisPriorityServiceData = new Array();
+        $('#priority_manager_table tr').each(function(row, tr)
+        {                            
+            var olmis_priority_domain = $(tr).find('input[id="holmis_priority_domain"]').val();
+            var olmis_priority_service = $(tr).find('input[id="holmis_priority_service"]').val();
+
+            OlmisPriorityServiceData[row]= {
+                "olmis_priority_domain" : olmis_priority_domain,
+                "olmis_priority_service" : olmis_priority_service
+                }                                
+            
+        });
+        
+        OlmisPriorityServiceData.shift(); //remove first row(headers stuff)
+        OlmisPriorityServiceData.shift(); //remove second row(controls stuff)
+        OlmisPriorityServiceData = JSON.stringify(OlmisPriorityServiceData); 
+
+        // Set olmis_priority_service_provided_list
+        $('#olmis_priority_service_provided_list').val(OlmisPriorityServiceData);
+
+        //reload olmis_service
+        //loadMultiselect(1);
+    }
+
+    if(index == 3)
+    {
+    	$('#priority_manager_table').find("tr:gt(1)").remove();
+    	$("#btnClearGrid").css({ 'display': "none" });
+
+    	// reset key-value-pair
+    	arr_DSHC = new Array();
+    	arr_DPSS = new Array();
+    	arr_DPRO = new Array();
+    	arr_DHES = new Array();
+    	arr_DHNU = new Array();
+    	arr_DEDU = new Array();
+    	domain_log = { "DSHC": arr_DSHC, "DPSS": arr_DPSS, "DPRO": arr_DPRO, "DHES": arr_DHES, "DHNU": arr_DHNU, "DEDU": arr_DEDU }
+    }
+    	
+}
+
+$("#olmis_domain").change(function(event) 
+{ 
+	var olmis_domain = $("#olmis_domain").val();
+	getServices(1, olmis_domain);
+	$("#olmis_domain_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_priority_domain").change(function(event) 
+{ 
+	var olmis_priority_domain = $("#olmis_priority_domain").val();
+
+	getServices(2, olmis_priority_domain);
+	$("#olmis_priority_domain_errormsg").css({ 'display': "none" });
+	$("#sel_olmis_priority_service").html('');
+
+});
+
+$("#olmis_priority_service").change(function(event) 
+{ 
+	$("#olmis_priority_service_errormsg").css({ 'display': "none" });
+	displayVals(1, 'olmis_priority_service');
+
+	// Get selected options.
+    var selectedOptions = $('#olmis_priority_service option:selected');
+
+	if (selectedOptions.length == 3) 
+	{
+		// Disable all other checkboxes.
+		var nonSelectedOptions = $('#olmis_priority_service option').filter(function() {
+			return !$(this).is(':selected');
+			});
+
+		var dropdown = $('#olmis_priority_service').siblings('.multiselect-container');
+		nonSelectedOptions.each(function() {
+			var input = $('input[value="' + $(this).val() + '"]');
+			input.prop('disabled', true);
+			input.parent('li').addClass('disabled');
+		});
+	}
+	else 
+	{
+		// Enable all checkboxes.
+		var dropdown = $('#olmis_priority_service').siblings('.multiselect-container');
+		$('#olmis_priority_service option').each(function() {
+			var input = $('input[value="' + $(this).val() + '"]');
+			input.prop('disabled', false);
+			input.parent('li').addClass('disabled');
+		});
+	}
+});
+
+$("#olmis_service").change(function(event) 
+{ 
+	$("#olmis_service_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_service_date").change(function(event) 
+{
+	$("#olmis_service_date_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_service_provider").change(function(event) 
+{
+	$("#olmis_service_provider_errormsg").css({ 'display': "none" });
+});
+
+$("#olmis_place_of_service").change(function(event) 
+{ 
+	$("#olmis_place_of_service_errormsg").css({ 'display': "none" });
+});
+
+$('#new_csi').submit(function(e) {
+	var error_msg = 'Please provide required ';
+	var rows = $('#services_manager_table tr').length;
+	if (rows == 2)
+	{ 
+		e.preventDefault();
+		$(".alert").show();
+        $('.invalid-form-message').html(error_msg + ' support/services details.Add one or more support/services.');
+        return false;
+	}
+	else
+	{
+		 $(".alert").hide();
+	}
+});
+</script>	
+{% endblock %}

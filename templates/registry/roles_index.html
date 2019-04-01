@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Permissions and Roles {% endblock %}
+
+{% load app_filters %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Roles</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Registry <small>Roles home</small></h1>
+<!-- end page-header -->
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% if message %}
+    <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+        <p class="invalid-form-message"> {{ message }}</p>
+    </div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+<!-- Start content area -->
+
+<!-- End content area -->
+
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+
+{% endblock %}

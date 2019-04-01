@@ -1,0 +1,156 @@
+ {% extends 'base.html' %}
+
+{% load app_filters %}
+
+{% load staticfiles %}
+
+{% block page_title %} School & Bursary {% endblock %}
+
+{% block style_code %}
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<h1 class="page-header">Forms <small>School and Bursary Details Form</small></h1>
+
+{% if messages %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div id="messages" class="alert alert-danger fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-info fa-2x pull-left"></i>
+    {% else %}
+        <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+    {% endif %}    
+        <p>{{ message }}</p>
+    </div>
+   {% endfor %}
+{% endif %}
+
+<div class="row">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    </div>                          
+                    <h4 class="panel-title"><b>School and Bursary Details Form</b></h4>
+                </div>
+                <div class="panel-body">
+                    <form class="form-inline" action="{% url 'background_details' %}" method="POST" data-parsley-validate="true">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="form-group">
+                                {{ form.search_name }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.search_criteria }}
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary m-r-5">
+                                <i class="fa fa-search"></i>&nbsp;&nbsp;<b>Search</b>
+                            </button>
+
+                            <!--
+                            <a href="{% url 'new_school' %}" class="btn btn-sm btn-primary m-r-5">
+                                <i class="fa fa-plus"></i>&nbsp;&nbsp;<b>New School</b>
+                            </a>
+                            -->
+                        </div>
+                    </form> 
+       
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if resultsets %}
+    <div class="panel-body">
+        <div class="table-responsive">
+            <table id="data-table" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Surname</th>
+                        <th>Sex</th>  
+                        <th>School Name</th>
+                        <th>Class/Form</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in resultsets %}
+                    <tr>                                        
+                        <td width="5%">{{ result.id }}</a></td>
+                        <td width="15%">{{ result.first_name }}</td>
+                        <td width="15%">{{ result.surname }}</td>
+                        <td width="15%">{{ result.sex_id|gen_value:vals }}</td>
+                        <td width="15%">{{ result.schoolname }}</td>
+                        <td width="15%">{{ result.classform }}</td>                                             
+                        <td width="20%">
+
+                            <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="open_form({{ result.id }})" >New School Info &nbsp;</button>
+                                                    
+                            <!--
+                            {% if result.schooled %}
+                            <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="open_form(2, {{ result.id }})"> New Bursary Info&nbsp;</button>                             
+                            <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="open_form(1, {{ result.id }})" >New School Info &nbsp;</button>   
+                            {% else %}
+                            <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="open_form(1, {{ result.id }})" >New School Info &nbsp;</button>
+                            {% endif %}
+                            -->  
+
+                        </td>                      
+                    </tr>                              
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+        <div align="center" class="norecords">No records found.</div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script>
+$(document).ready(function() 
+{
+    $('#data-table').bootstrapTable(
+    { 
+        toggle: 'table', 
+        search: 'true',
+        locale: 'en-US',
+        pagination: 'true',
+        pageNumber: 1,
+        pageSize: 10,
+        //showRefresh: true,
+        showToggle: true,
+        //showColumns: true,
+        singleSelect: true,
+        clickToSelect:true,
+        maintainSelected: true
+        
+    });
+});
+
+function open_form(id)
+{  
+    // SchoolInfo
+    return window.location.href='{% url 'new_education_info' id=0 %}'.replace("0", id); 
+}
+</script>
+<!--<script src="{% static 'js/apps.js' %}"></script>-->
+{% endblock %}

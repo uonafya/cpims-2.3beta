@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Register School {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Forms <small>Register New School <span id="span_child_name"></span> </small></h1>
+<!-- end page-header -->
+
+
+<div id="div_placementfollowup_msgs" class="alert alert-success fade in" style="display:none;">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+       <b><p></p></b>
+    </ul>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>Register New School</b></h4>
+            </div>
+            <div class="panel-body">
+                 <form class="form-horizontal form-bordered" action="{% url 'new_school' %}" method="POST" data-parsley-validate="true"
+                name="form-wizard-placement" id="new_placement">
+                    {% csrf_token %}
+
+                   
+                    <div id="wizard_placementfollowup">
+                        <ol>
+                            <li>School Details
+                                <small>School and additional details.</small>
+                            </li>
+                                        
+                        </ol>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">School Details </legend>
+                                    <div class="row"> 
+                                        <table id="placement_followup_table" class="table table-striped table-bordered">
+                                            <tbody>
+
+                                                <tr>
+
+                                                 <div id="div_school_type" class="form-group">
+                                                        <label class="control-label col-md-4 col-sm-4">Name of School :<span class="asteriskField"> *</label>
+                                                        <div class="col-md-6 col-sm-6">
+                                                                {{ form.school_name }}
+                                                        </div>
+                                                    </div> 
+                                                    <div id="div_school_admission_type" class="form-group">
+                                                        <label class="control-label col-md-4 col-sm-4">Type of School :<span class="asteriskField">*</label>
+                                                        <div class="col-md-6 col-sm-6">
+                                                                {{ form.type_of_school }}
+                                                        </div>
+                                                    </div>
+  
+                                                </tr>
+
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->
+                        
+
+
+                    </div>
+                     <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                        <div class="panel-body panel-form">
+                            <div class="form-group">
+                                <label class="control-label col-md-4 col-sm-4"></label>
+                                <div class="col-md-6 col-sm-6">
+                                    
+                                    <button id="mysubmit100" type="submit" class="btn btn-primary">Submit</button>
+
+                                    <button class="btn btn-default">Cancel</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    
+
+</div>
+
+<!-- end row -->
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+
+
+<script type="text/javascript">
+function messagingFunction()
+{
+    $("#div_placementfollowup_msgs").css({ 'display': "block" }); 
+    $('#div_placementfollowup_msgs p').html('Bursary Details Save Successful'); 
+  
+}
+
+$('html,body').scrollTop(0);
+FormWizardValidation.init();
+</script>
+
+{% endblock %}

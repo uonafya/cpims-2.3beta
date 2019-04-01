@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block title %} {{block.super}} | Register {% endblock title%}
+
+
+<!DOCTYPE html>
+<body class="pace-top bg-white">
+	<!-- begin #page-loader -->
+	<div id="page-loader" class="fade in"><span class="spinner"></span></div>
+	<!-- end #page-loader -->	
+
+	<!-- begin #page-container -->
+	<div id="page-container" class="fade">
+    
+    {% block content%}
+	    <!-- begin register -->
+        <div class="register register-with-news-feed">
+            
+            <!-- begin left-content -->
+            <div class="left-content">
+                <!-- begin register-header -->
+                <h1 class="register-header">
+                    Register
+                    <small>Create your CPMIS Account</small>
+                </h1>
+                <!-- end register-header -->
+                <!-- begin register-content -->
+                <div class="register-content">
+                    <form action="." method="POST" class="margin-bottom-0">
+                    {% csrf_token %}
+                        <label class="control-label"><b>Name</b></label>
+                        <div class="row row-space-10">
+                            <div class="col-md-6 m-b-15">
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6 m-b-15">
+                                {{ form.last_name }}
+                            </div>
+                        </div>
+                        <label class="control-label"><b>Username</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                {{ form.username }}
+                            </div>
+                        </div>
+                        <label class="control-label"><b>Password</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                {{ form.password1 }}
+                            </div>
+                        </div>
+                        <label class="control-label"><b>Re-enter Password</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                {{ form.password2 }}
+                            </div>
+                        </div>                     
+                        <label class="control-label"><b>Phone Number</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                {{ form.phone_no }}
+                            </div>
+                        </div>
+                        <label class="control-label"><b>National ID</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                {{ form.national_id }}
+                            </div>
+                        </div>
+                        <label class="control-label"><b>Staff Number</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                {{ form.staff_no }}
+                            </div>
+                        </div>
+                        <label class="control-label"><b>Location Of Work</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <select class="form-control">
+                                    <option>Select location of work</option>
+                                    <option>NAIROBI HQ</option>
+                                    <option>KISUMU CCI</option>
+                                </select>
+                            </div>
+                        </div>
+                        <label class="control-label"><b>User Group</b></label>
+                        <div class="row m-b-15">
+                            <div class="col-md-12">
+                                <select class="form-control">
+                                    <option>Select user group</option>
+                                    <option>DCS</option>
+                                    <option>VCO</option>
+                                    <option>CCO</option>
+                                    <option>CCC</option>
+                                    <option>SCCO</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        
+                        <div class="register-buttons">
+                            <button type="submit" class="btn btn-primary btn-block btn-lg">Register</button>
+                        </div>
+                        <div class="m-t-20 m-b-40 p-b-40">
+                            Already registered? Click <a href="{% url 'login' %}"><b>here</b></a> to login.
+                        </div>
+                        <hr />                        
+                    </form>
+                </div>
+                <!-- end register-content -->
+            </div>
+            <!-- end left-content -->
+        </div>
+        <!-- end register -->
+    {% endblock content%}
+
+        
+	</div>
+	<!-- end page container -->
+</body>
+</html>

@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Organization Unit details {% endblock %}
+
+{% load app_filters %}
+
+{% block style_code %}
+    <link href="{% static 'plugins/datatables/css/data-table.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Registry</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Organizational Unit Registry <small>Unit details</small></h1>
+<!-- end page-header -->
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+	<ul class="messages">
+	    {% for message in messages %}
+	    <li{% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+	    {% endfor %}
+	</ul>
+</div>
+{% endif %}
+{% if message %}
+	<div id="messages" class="alert alert-success fade in">
+	    <span class="close" data-dismiss="alert">×</span>
+	    <i class="fa fa-check fa-2x pull-left"></i>
+	    <p class="invalid-form-message"> {{ message }}</p>
+	</div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+    <!-- Start content area -->
+    <!-- begin profile-container -->
+            <div class="profile-container">
+                <!-- begin profile-section -->
+                <div class="profile-section">
+                    <!-- begin profile-left -->
+                    <div class="profile-left">
+                        <!-- begin profile-image -->
+                        <div class="profile-image">
+                            <img src="/static/img/map.jpg" />
+                            <i class="fa fa-user hide"></i>
+                        </div>
+                        <!-- end profile-image -->
+                        <div class="m-b-10">
+                            <a href="#modal-dialog" class="btn btn-warning btn-block btn-sm" data-toggle="modal">Show on map</a>
+                        </div>
+                        <!-- begin profile-highlight -->
+                        <div class="profile-highlight">
+                            <h4><i class="fa fa-cog"></i> Map filter options</h4>
+                            <div class="checkbox m-b-5 m-t-0">
+                                <label><input type="checkbox" /> Show sub - counties</label>
+                            </div>
+                            <!--
+                            <div class="checkbox m-b-0">
+                                <label><input type="checkbox" /> Show Counties</label>
+                            </div>
+                            -->
+                        </div>
+                        <!-- end profile-highlight -->
+                    </div>
+                    <!-- end profile-left -->
+                    <!-- begin profile-right -->
+                    <div class="profile-right">
+                        <!-- begin profile-info -->
+                        <div class="profile-info">
+                            <!-- begin table -->
+                            <div class="table-responsive">
+                                <table class="table table-profile">
+                                    <thead>
+                                        <tr>
+                                            <th width="25%"></th>
+                                            <th>
+                                                <h4>{{ org_details.org_unit_name }} <small>
+                                                {% if org_details.date_closed == None %}
+                                                    Operational
+                                                {% else %}
+                                                <span class="label label-danger">
+                                                    <b>Closed on {{ org_details.date_closed }}</b>
+                                                </span>
+                                                {% endif %}
+
+                                                </small></h4>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="highlight">
+                                            <td class="field">Unit ID</td>
+                                            <td>{{ org_details.org_unit_id_vis}}</td>
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Unit Name</td>
+                                            <td>{{ org_details.org_unit_name}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Unit Type</td>
+                                            <td>{{ org_details.org_unit_type_id|gen_value:vals }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Parent Unit</td>
+                                            <td>{{ org_details.parent_org_unit_id|gen_value:vals}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="field">Date Operational</td>
+                                            <td>{{ org_details.date_operational}}</td>
+                                        </tr>
+                                        {% if org_details.registration_type %}
+                                        <tr>
+                                            <td class="field">Legal registration type</td>
+                                            <td>{{ org_details.registration_type|gen_value:vals}}</td>
+                                        </tr>
+                                        {% endif %}
+                                        {% if org_details.registration_number %}
+                                        <tr>
+                                            <td class="field">Legal registration No.</td>
+                                            <td>{{ org_details.registration_number}}</td>
+                                        </tr>
+                                        {% endif %}
+                                        <tr>
+                                            <td class="field">Record creation details: </td>
+                                            <td>By {{ org_details.created_by.reg_person.full_name }}; on {{ org_details.created_at }}</td>                                          
+                                        </tr>
+                                        <tr class="divider">
+                                            <td colspan="2"></td>
+                                        </tr>                                       
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                             <button onclick="goBack()" class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-arrow-left"></i> &nbsp;Back to search</button>
+                                            {% if org_details.date_closed == None %}
+                                            <a href="{% url 'registry_edit' org_id=org_details.pk %}">
+                                            <button type="button" class="btn btn-sm btn-primary m-r-5">Edit Unit &nbsp;<i class="fa fa-edit"></i></button></a>
+                                            {% endif %}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- end table -->
+                        </div>
+                        <!-- end profile-info -->
+                    </div>
+                    <!-- end profile-right -->
+                </div>
+                <!-- end profile-section -->
+                <!-- begin profile-section -->
+                <div class="profile-section">
+                    <!-- begin row -->
+                    <div class="row">
+                        <!-- begin col-4 -->
+                        <div class="col-md-4">
+                            <h4 class="title">Contact details <small>{{ org_details.contacts.count }} provided</small></h4>
+                            <!-- begin scrollbar -->
+                            <div data-scrollbar="true" data-height="280px" class="bg-silver">
+                                <!-- begin contacts -->
+                                {% if org_details.contacts %}
+                                 <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>Item</th>
+                                            <th>Value</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for contact in org_details.contacts %}
+                                        <tr>
+                                            <td class="field">{{ contact.contact_detail_type_id|gen_value:vals }}</td>
+                                            <td>{{ contact.contact_detail }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                    <br>
+                                    <p>&nbsp;Please provide contact details for this unit.</p>  
+                                {% endif %}  
+                                <!-- end contacts -->
+                            </div>
+                            <!-- end scrollbar -->
+                        </div>
+                        <!-- end col-4 -->
+                        <!-- begin col-4 -->
+                        <div class="col-md-4">
+                            <h4 class="title">Location details <small>3 levels</small></h4>
+                            <!-- begin scrollbar -->
+                            <div data-scrollbar="true" data-height="280px" class="bg-silver" style="padding:10px;">
+                                <!-- begin table -->
+                                <dl>
+                                    {% if org_details.county %}
+                                    <dt>Counties</dt>
+                                    <dd>{{ org_details.county }}</dd>
+                                    <br/>
+                                    {% endif %}
+                                    <dt>Sub Counties</dt>
+                                    <dd>{{ org_details.sub_county }}</dd>
+                                    <br/>
+                                    {% if org_details.wards %}
+                                    <dt>Wards</dt>
+                                    <dd>{{ org_details.wards}}</dd>
+                                    {% endif %}
+                                </dl>
+                                <!-- end table -->
+                            </div>
+                            <!-- end scrollbar -->
+                        </div>
+                        <!-- end col-4 -->
+                        <!-- begin col-4 -->
+                        <div class="col-md-4">
+                            <h4 class="title">Child Units <small>{{ child_units.count }} exists</small></h4>
+                            <!-- begin scrollbar -->
+                            <div data-scrollbar="true" data-height="280px" class="bg-silver">
+                                <!-- begin child units -->
+                                {% if child_units %}
+                                 <table class="table table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for child_unit in child_units %}
+                                        <tr>
+                                            <td class="field">{{ child_unit.org_unit_id_vis }}</td>
+                                            <td>{{ child_unit.org_unit_name }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                {% else %}
+                                    <br>
+                                    <p>&nbsp;This unit does not have child organisation units.</p>  
+                                {% endif %} 
+                                <!-- end child units -->
+                            </div>
+                            <!-- end scrollbar -->
+                        </div>
+                        <!-- end col-4 -->
+                    </div>
+                    <!-- end row -->
+                </div>
+                <!-- end profile-section -->
+            </div>
+            <!-- end profile-container -->
+            <!-- #modal-dialog -->
+            <div class="modal fade" id="modal-dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">
+                            {{ org_details.org_unit_id_vis}} | 
+                            {{ org_details.org_unit_name }}
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="map-canvas" style="height:450px"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <!-- End content area -->
+</div>
+<!-- end row -->
+
+
+{% endblock %}
+{% block lazy_javascript_code %}
+<script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: {lat: {{org_details.maps.lat}}, lng: {{org_details.maps.long}}},
+          zoom: 15
+        });
+
+        var marker_img = "{% static 'img/smallmarker_highlight.png' %}";
+        //new google.maps.MarkerImage(APP.baseUrl + 'assets/img/smallmarker_highlight.png');
+
+        var marker = new google.maps.Marker({
+          position: {lat: {{org_details.maps.lat}}, lng: {{org_details.maps.long}}},
+          map: map,
+          title: '{{ org_details.org_unit_name}}',
+          icon: marker_img
+        });
+
+        var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">{{ org_details.org_unit_name}}</h1>'+
+          '<div id="bodyContent">'+
+          '<p><b>{{ org_details.org_unit_type_id|gen_value:vals }}</b></p>'+
+          '{% for contact in org_details.contacts %}'+
+            '<p><b>{{ contact.contact_detail_type_id|gen_value:vals }}</b> : '+
+            '{{ contact.contact_detail|escapejs }}</p>'+
+          '{% endfor %}'+
+          '<p><b>Map:</b> {{org_details.maps.map}} '+
+          '<p>Website: <a href="http://www.labour.go.ke" target="blank">http://www.labour.go.ke</a> '+
+          '</p>'+
+          '</div>'+
+          '</div>';
+
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+
+
+        marker.addListener('click', function() {
+            infowindow.open(map, marker);
+        });
+
+      }
+      // My error handler
+      setTimeout(function () {
+            try{
+                if (!google || !google.maps) {
+                    $('#map-canvas').html('Google maps not loaded');
+                }else{
+                    $("#map-canvas").load(location.href + " #map-canvas");
+                }
+            }
+            catch (e) {
+                $('#map-canvas').html('Error creating map - ' + e);
+            }
+        }, 500);
+    jQuery('#modal-dialog').on("shown.bs.modal", function(e) {
+        initMap();
+     });
+
+    //
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDovhIRxlhE-osvbpLKxaOfjUIj75o_QTk&callback=initMap"
+    async defer></script>
+{% endblock%}

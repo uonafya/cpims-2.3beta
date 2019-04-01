@@ -1,0 +1,165 @@
+
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} Search Persons registry {% endblock page_title%}
+
+{% load staticfiles %}
+
+{% load app_filters %}
+
+{% block extra_styling%}
+<!--
+<link href="{% static 'plugins/DataTables/css/data-table.css' %}" rel="stylesheet" />
+-->
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock extra_styling%}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+
+{% block primary %}
+<h1 class="page-header">Persons Registry <small>Search person</small></h1>
+
+{% if messages %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div id="messages" class="alert alert-danger fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-info fa-2x pull-left"></i>
+    {% else %}
+        <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+    {% endif %}    
+        <p>{{ message }}</p>
+    </div>
+   {% endfor %}
+{% endif %}
+<div class="row">
+<!-- Start content area -->
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+                <!-- begin panel -->
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>                          
+                        <h4 class="panel-title">Search Persons</h4>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-inline" action="{% url 'search_persons' %}" method="POST"  data-parsley-validate="true">
+                           {% csrf_token %}
+                            <div class="form-group m-r-10">
+                                {{ form.person_type }}
+                            </div>
+                            <div class="form-group m-r-10">
+                                {{ form.search_name }}
+                            </div>
+                            <div class="form-group m-r-10">
+                                {{ form.search_criteria }}
+                            </div>
+                            <div class="checkbox m-r-10">
+                                <label>
+                                    {{ form.person_deceased }} <span>Include Deceased</span>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-search"></i>&nbsp;Search</button>
+                            <a href="{% url 'new_person' %}">
+                               <button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-plus"></i>&nbsp;Register New</button>
+                            </a>
+                        </form>     
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if results|length %}
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table id="data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th>First Name</th>
+                            <th>Surname</th>
+                            <th>Other Names</th>
+                            <th>Person Type</th> 
+                            <th>Sex</th>
+                            <th>Date of Birth</th>
+                            <th>Primary parent Org Unit</th>                        
+                            <th>Geo Links</th>
+                            <th>Can Log in</th>                           
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for result in results %}
+                        <tr>                                        
+                            <td>{{ result.id }}</td>
+                            <td>{{ result.first_name }}</td>
+                            <td>{{ result.surname }}</td>
+                            <td>{{ result.other_names }}</td>
+                            <td>{{ result.pk|gen_value:person_types }}</td>
+                            <td>{{ result.sex_id|gen_value:vals }}</td>
+                            <td>{{ result.date_of_birth }}</td>
+                            <td>{{ result.pk|gen_value:orgs }}</td>
+                            <td>
+                            {% if result.pk|gen_value:geos %}
+                                {{ result.pk|gen_value:geos }}
+                            {% else %}
+                                None
+                            {% endif %}
+                            </td>
+                            <td>
+                            {% ifequal result.id|gen_value:app_user result.id %}
+                            No
+                            {% else %}
+                            Yes
+                            {% endifequal %}
+                            <td>
+                            <button id="btn_view_details" onClick="window.location.href='{% url 'view_person' id=result.id %}'" class="btn  btn-sm btn-primary m-r-5">
+                            View&nbsp&nbsp;<i class="fa fa-binoculars"></i>
+                            </button>
+                            </td>
+                        </tr>
+                    {% endfor %}  
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    {% else %}
+        <div class="norecords">No records found.</div>
+    {% endif %}
+</div>
+{% endblock primary %}
+
+{% block lazy_javascript_code %}
+    <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>    
+    <script>
+        $(document).ready(function() 
+        {
+            $('#data-table').bootstrapTable(
+            { 
+                toggle: 'table', 
+                search: 'true',
+                locale: 'en-US',
+                pagination: 'true',
+                pageNumber: 1,
+                pageSize: 10,
+                //showRefresh: true,
+                showToggle: true,
+                //showColumns: true,
+                singleSelect: true,
+                clickToSelect:true,
+                maintainSelected: true                
+            });
+        });
+    </script>
+    <script src="{% static 'js/apps.js' %}"></script>
+
+{% endblock lazy_javascript_code%}

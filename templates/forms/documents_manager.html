@@ -1,0 +1,307 @@
+ {% extends 'base.html' %}
+
+{% load app_filters %}
+
+{% load staticfiles %}
+
+{% block page_title %} Documents Manager {% endblock %}
+
+{% block style_code %}
+<link href="{% static 'css/jquery.fileupload.css' %}" rel="stylesheet" />
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.info %} class="{{ message.info }}"{% endif %}><b>{{ message }}</b></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<!-- begin page-header -->
+<h1 class="page-header">Documents Manager <small>Template Generation</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+
+<!-- begin Search Row -->
+<div class="row">
+
+    <!-- begin col-md-12 -->
+    <div class="col-md-12">
+
+        <!-- begin panel panel-inverse -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>                          
+                <h4 class="panel-title"><b>Search Child To Manage Documents</b></h4>
+            </div>
+            <!-- begin panel-body #1 -->
+            <div class="panel-body">
+                <form class="form-inline" action="{% url 'documents_manager_search' %}" method="POST" data-parsley-validate="true">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <b>{{ form.search_name }}</b>
+                    </div>
+                    <div class="form-group">
+                        <b>{{ form.search_criteria }}</b>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-primary m-r-5">
+                        <i class="fa fa-search"></i>&nbsp<b>Search</b>
+                    </button>
+                </form>
+            </div>
+            <!-- end panel-body #1-->
+
+            <!-- begin panel-body #2-->
+            <div class="panel-body">
+                <!-- begin table -->
+                <div>
+                    {% if resultsets %}
+                    <div  class="panel panel-inverse">
+                        <div class="table-responsive">
+                            <table id="data-table" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th data-checkbox="true"></th>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Surname</th>
+                                        <th>Sex</th>  
+                                        <th>Residence</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for resultset in resultsets %}
+                                    {% for result in resultset %}
+                                    <tr> 
+                                        <td></td>                                       
+                                        <td>{{ result.id }}</td>
+                                        <td>{{ result.first_name }}</td>
+                                        <td>{{ result.surname }}</td>
+                                        <td>{{ result.sex_id|gen_value:vals }}</td>
+
+                                        
+                                        {% for pgeoloc in result.pgeolocs %}
+                                            <td>{{ pgeoloc.area_name }}</td>
+                                        {% endfor %}
+                                    </tr>                              
+                                    {% endfor %}
+                                {% endfor %}  
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% else %}
+                        <div class="norecords" align="center"><b>No matching records found</b></div>
+                    {% endif %} 
+                </div>
+                <!-- end table -->
+            </div>
+            <!-- end panel-body #2-->
+    </div> 
+    <!-- end panel panel-inverse -->
+
+    
+
+    <!-- begin panel panel-inverse -->
+        <div id="div_generate_documents" class="panel panel-inverse" style="display:none;">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>                          
+                <h4 class="panel-title"><b>Create / Generate / Upload Documents &nbsp;&nbsp;<i class="fa fa-book"></i></b></h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="{% url 'documents_manager' %}" method="POST" enctype="multipart/form-data" data-parsley-validate="true"
+                name="form-wizard3" id="new_document_upload">
+
+                    {% csrf_token %}
+
+                    <fieldset>
+                    <legend class="pull-left width-full">Inputs</legend>
+                        {{ form.person }}
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4">Document Type * :</label>
+                            <div class="col-md-6 col-sm-6">
+                                    {{ form.document_type }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4">Document Description * :</label>
+                            <div class="col-md-6 col-sm-6">
+                                    {{ form.document_description }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4">Upload Document * :</label>
+                            <div class="col-md-6 col-sm-6">
+                                {{ form.file_name }}
+                                <br>
+                                <span class="btn btn-warning fileinput-button m-r-5">
+                                    <i class="fa fa-folder"></i>
+                                    &nbsp;
+                                    <span>Browse...</span>
+                                    <input id="file_browser" name="file_browser" type="file">
+                                </span>
+                                <button id="mysubmit3" type="submit" class="btn btn-primary">Save Document</button>
+                            </div>
+                        </div> 
+                        <!--
+                        <div class="form-group">
+                            <h1><p align="center">OR</p></h1>
+                        </div>                       
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4">Click To Generate Template:</label>
+                            <div class="col-md-6 col-sm-6">
+                                {{ form.document_type }} <br>
+                                <button type="button" class="btn btn-white m-r-5 m-b-5 col-md-6 col-sm-6"><b>GENERATE TEMPLATE</b></button>
+                            </div>
+                        </div>
+                        -->
+                    </fieldset>
+                </form>
+            </div>              
+    </div> 
+    <!-- end panel panel-inverse -->
+
+    </div> 
+    <!-- begin col-md-12 -->
+
+</div>
+<!-- end Search Row -->
+
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script src="{% static 'js/jquery.fileupload.js' %}"></script>
+<script src="{% static 'js/jquery.fileupload-process.js' %}"></script>
+<script type="text/javascript">
+/*
+// Check for the various File API support.
+if (window.File && window.FileReader && window.FileList && window.Blob)
+{
+    function readSingleFile(evt)
+    {
+        //Retrieve the first (and only!) File from the FileList object
+        var f = evt.target.files[0]; 
+
+        if (f)
+        {
+            var r = new FileReader();
+            r.onload = function(e)
+            { 
+                var contents = e.target.result;
+                alert( "Got the file.n" 
+                +"name: " + f.name + "n"
+                +"type: " + f.type + "n"
+                +"size: " + f.size + " bytesn"
+                + "starts with: " + contents.substr(1, contents.indexOf("n"))
+                );  
+            }
+            r.readAsText(f);
+        } 
+        else 
+        { 
+          alert("Failed to load file");
+        }
+    }
+
+    document.getElementById('file_browser').addEventListener('change', readSingleFile, false);
+    
+    // #file_browser change() event
+    $('#file_browser').change(function()
+    {
+        //Get FileName
+        var filename = $('input[type=file]').val();
+        $('#file_name').val(filename);
+
+        //Read Content
+        readSingleFile(false);
+    });
+    
+}
+else
+{
+  alert('The File APIs are not fully supported by your browser.');
+}
+*/
+// #file_browser change() event
+$('#file_browser').change(function()
+{
+    //Get FileName
+    var filename = $('input[type=file]').val();
+    $('#file_name').val(filename);
+});
+</script>
+<script>
+$(document).ready(function() 
+{
+    $('#data-table').bootstrapTable(
+    { 
+        toggle: 'table', 
+        search: 'true',
+        locale: 'en-US',
+        pagination: 'true',
+        pageNumber: 1,
+        pageSize: 10,
+        //showRefresh: true,
+        showToggle: true,
+        //showColumns: true,
+        singleSelect: true,
+        clickToSelect:true,
+        maintainSelected: true,
+
+        onClickRow: function (row, $element)
+        {
+            $('#person').val(row[1]);
+            var checked;
+
+            $('#data-table tr').each(function(row, tr)
+            {
+                var id = $(tr).find('td:eq(1)').text();
+                checked = $(tr).find('input[type="checkbox"]').is(':checked');
+            });
+
+            if(!checked)
+            {                     
+                $('#div_generate_documents').css({'display': 'block'});
+            }
+            if(checked)
+            {
+                $('#div_generate_documents').css({'display': 'none'});
+            }
+        }
+        
+    });
+});
+</script>
+{% endblock %}

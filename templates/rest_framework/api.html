@@ -1,0 +1,16 @@
+{% extends "rest_framework/base.html" %}
+{% load staticfiles %}
+
+{% block bootstrap_theme %}
+    <link href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block title %}
+    CPIMS - API | {{ title }}
+{% endblock %}
+
+{% block branding %}
+    <a class='navbar-brand' href="#">Child Protection Information Management System (CPIMS) - API</a>
+{% endblock %}
+
+

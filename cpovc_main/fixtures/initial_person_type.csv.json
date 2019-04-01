@@ -1,0 +1,518 @@
+[
+  {
+     "pk":1,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":2
+  }
+},
+  {
+     "pk":2,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":3
+  }
+},
+  {
+     "pk":3,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":4
+  }
+},
+  {
+     "pk":4,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":5
+  }
+},
+  {
+     "pk":5,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":6
+  }
+},
+  {
+     "pk":6,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":7
+  }
+},
+  {
+     "pk":7,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":8
+  }
+},
+  {
+     "pk":8,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":9
+  }
+},
+  {
+     "pk":9,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":10
+  }
+},
+  {
+     "pk":10,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":11
+  }
+},
+  {
+     "pk":11,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":12
+  }
+},
+  {
+     "pk":12,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":13
+  }
+},
+  {
+     "pk":13,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":14
+  }
+},
+  {
+     "pk":14,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":15
+  }
+},
+  {
+     "pk":15,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":16
+  }
+},
+  {
+     "pk":16,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":17
+  }
+},
+  {
+     "pk":17,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":18
+  }
+},
+  {
+     "pk":18,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":19
+  }
+},
+  {
+     "pk":19,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":20
+  }
+},
+  {
+     "pk":20,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":21
+  }
+},
+  {
+     "pk":21,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":22
+  }
+},
+  {
+     "pk":22,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":23
+  }
+},
+  {
+     "pk":23,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":24
+  }
+},
+  {
+     "pk":24,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":25
+  }
+},
+  {
+     "pk":25,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":26
+  }
+},
+  {
+     "pk":26,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":27
+  }
+},
+  {
+     "pk":27,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":28
+  }
+},
+  {
+     "pk":28,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":29
+  }
+},
+  {
+     "pk":29,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":30
+  }
+},
+  {
+     "pk":30,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":31
+  }
+},
+  {
+     "pk":31,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":32
+  }
+},
+  {
+     "pk":32,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":33
+  }
+},
+  {
+     "pk":33,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":34
+  }
+},
+  {
+     "pk":34,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":35
+  }
+},
+  {
+     "pk":35,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":36
+  }
+},
+  {
+     "pk":36,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":37
+  }
+},
+  {
+     "pk":37,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":38
+  }
+},
+  {
+     "pk":38,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":39
+  }
+},
+  {
+     "pk":39,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":40
+  }
+},
+  {
+     "pk":40,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":41
+  }
+},
+  {
+     "pk":41,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":42
+  }
+},
+  {
+     "pk":42,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":43
+  }
+},
+  {
+     "pk":43,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":44
+  }
+},
+  {
+     "pk":44,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":45
+  }
+},
+  {
+     "pk":45,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":46
+  }
+},
+  {
+     "pk":46,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":47
+  }
+},
+  {
+     "pk":47,
+     "model":"cpovc_registry.RegPersonsTypes",
+    "fields": {
+    "person_type_id":"TWGE",
+    "date_began":"2017-06-13",
+    "date_ended":null,
+    "is_void":"False",
+    "person_id":48
+  }
+}]

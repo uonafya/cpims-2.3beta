@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} GIS {% endblock page_title%}
+
+{% load staticfiles %}
+
+{% block style_code%}
+
+{% endblock style_code%}
+
+{% block javascript_code%}
+
+{% endblock javascript_code%}
+
+{% block primary%}
+
+{% if messages %}
+<div id="messages" class="alert alert-danger fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.error %} class="{{ message.danger }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+  <li><a href="#">Home</a></li>
+  <li><a href="#">Map</a></li>
+  <li class="active">Google Map</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Google Map <small>header small text goes here...</small></h1>
+<!-- end page-header -->
+      <div class="map-content">
+          <div class="btn-group map-btn pull-right">
+              <button type="button" class="btn btn-sm btn-inverse" id="map-theme-text">Org Units</button>
+              <button type="button" class="btn btn-sm btn-inverse dropdown-toggle" data-toggle="dropdown">
+                  <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" id="map-theme-selection">
+                  <li class="active"><a href="#" data-map-theme="default">Org Units</a></li>
+                  <li><a href="#" data-map-theme="flat">CCI</a></li>
+                  <li><a href="#" data-map-theme="turquoise-water">Cases</a></li>
+          </div>
+      </div>
+<div class="map">
+  <div id="map-error"></div>
+  <div id="map-canvas" style="height:100%" class="height-full width-full"></div>
+</div>
+{% endblock %}
+{% block lazy_javascript_code %}
+<script>
+      function getColor(val) {
+        var coli = + val;
+        var colors = [
+          '#d73027',
+          '#f46d43',
+          '#fdae61',
+          '#fee08b',
+          '#d9ef8b',
+          '#a6d96a',
+          '#66bd63',
+          '#1a9850'
+        ];
+        return coli >= 36 ? colors[7] :
+          coli > 31 ? colors[6] :
+          coli > 26 ? colors[5] :
+          coli > 21 ? colors[4] :
+          coli > 16 ? colors[3] :
+          coli > 11 ? colors[2] :
+          coli > 6 ? colors[1] :
+          colors[0];
+      }
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map-canvas'), {
+          center: {lat: 0.588314, lng: 37.683641},
+          zoom: 7,
+          styles: mapStyle
+        });
+        /*
+        var marker = new google.maps.Marker({
+          position: { lat: -1.290211, lng: 36.812137},
+          map: map,
+          title: 'NSSF Building Nairobi'
+        });
+        */
+        var contentString = '<div id="content">'+
+          '<div id="siteNotice">'+
+          '</div>'+
+          '<h1 id="firstHeading" class="firstHeading">Test</h1>'+
+          '<div id="bodyContent">'+
+          '<p>Date operational: None</p>'+
+          '<p>Website: <a href="http:www.labour.go.ke">http:www.labour.go.ke</a> '+
+          '</p>'+
+          '</div>'+
+          '</div>';
+
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+
+          map.data.loadGeoJson("{% static 'maps/kenya.geojson' %}", { idPropertyName: 'COUNTY_NAM' });
+
+
+        //marker.addListener('click', function() {
+        //    infowindow.open(map, marker);
+        //});
+
+        map.data.setStyle(function(feature) {
+          var color = 'gray';
+          if (feature.getProperty('isColorful')) {
+            color = feature.getProperty('color');
+          }
+          return /** @type {google.maps.Data.StyleOptions} */({
+            fillColor: getColor(feature.getProperty('COUNTY_COD')),
+            fillOpacity: 0.8,
+            strokeColor: '#b3b3b3',
+            strokeWeight: 2,
+            zIndex: 1,
+            title: feature.getProperty('COUNTY_NAM')          
+          });
+        });
+        var infowindow = new google.maps.InfoWindow({
+            content: ""
+          });
+
+        // When the user clicks, set 'isColorful', changing the color of the letters.
+        map.data.addListener('click', function(event) {
+          //event.feature.setProperty('isColorful', true);
+           infowindow.setContent('<div id="content"><h4>' +
+           event.feature.getProperty('COUNTY_NAM') + '</h4><p>County Code: ' +
+           event.feature.getProperty('COUNTY_COD') + '</p></div>');
+           var anchor = new google.maps.MVCObject();
+           anchor.set("position", event.latLng);
+           infowindow.open(map, anchor);
+        });
+
+        // When the user hovers, tempt them to click by outlining the letters.
+        // Call revertStyle() to remove all overrides. This will use the style rules
+        // defined in the function passed to setStyle()
+        map.data.addListener('mouseover', function(event) {
+          map.data.revertStyle();
+          map.data.overrideStyle(event.feature, {strokeWeight: 3, strokeColor: 'red'});
+        });
+
+        map.data.addListener('mouseout', function(event) {
+          map.data.revertStyle();
+        });
+
+      }
+      // My error handler
+       $('#map-error').empty();
+      setTimeout(function () {
+            try{
+                if (!google || !google.maps) {
+                    $('#map-canvas').html('Google maps not loaded.');
+                }
+            }
+            catch (e) {
+              var error = 'Error or delayed Google maps loading.';
+              msg = '<span class="close" data-dismiss="alert">×</span>';
+              msg += '<i class="fa fa-check fa-2x pull-left"></i>'+error;
+                $('#map-error').html(msg);
+                $('#map-error').addClass('alert alert-danger fade in');   
+            }
+        }, 5000);
+    jQuery('#modal-dialog').on("shown.bs.modal", function(e) {
+        initMap();
+     });
+
+//
+var mapStyle = [{
+  'featureType': 'all',
+  'elementType': 'all',
+  'stylers': [{'visibility': 'off'}]
+}, {
+  'featureType': 'landscape',
+  'elementType': 'geometry',
+  'stylers': [{'visibility': 'on'}, {'color': '#fcfcfc'}]
+}, {
+  'featureType': 'water',
+  'elementType': 'labels',
+  'stylers': [{'visibility': 'off'}]
+}, {
+  'featureType': 'water',
+  'elementType': 'geometry',
+  'stylers': [{'visibility': 'on'}, {'hue': '#5f94ff'}, {'lightness': 60}]
+}];
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDovhIRxlhE-osvbpLKxaOfjUIj75o_QTk&callback=initMap"
+    async defer></script>
+{% endblock%}

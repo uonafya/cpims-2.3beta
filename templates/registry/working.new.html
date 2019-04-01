@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Dashboard {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Registry</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">Registry <small>Register Organisational Unit</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <p class="invalid-form-message"></p>
+</div>
+<!-- begin row -->
+<div class="row">
+    <!-- Start content area -->
+    	<!-- begin row -->
+		<div class="row">
+            <!-- begin col-6 -->
+		    <div class="col-12">
+		        <!-- begin panel -->
+		        <form class="form-horizontal form-bordered" data-parsley-validate="true" name="demo-form" id="new_org_unit" method="post">
+		        {% csrf_token %}
+                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>
+                        <h4 class="panel-title">About the Organisation</h4>
+                    </div>
+                    <div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="org_unit_name">Name of Organisation Unit * :</label>
+							<div class="col-md-6 col-sm-6">
+									{{ form.org_unit_name }}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="date_reg">Date when the organisation Unit was set up or became operational * :</label>
+							<div class="col-md-6 col-sm-6">
+                                {{ form.reg_date }}
+							</div>
+						</div>
+                    </div>
+                </div>
+                <!-- end panel -->
+                <!-- begin panel -->
+                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>
+                        <h4 class="panel-title">Organisation Type</h4>
+                    </div>
+                    <div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="org_unit_type">Type of organisation Unit :</label>
+							<div class="col-md-6 col-sm-6">
+								{{ form.org_unit_type }}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="legal_reg_type">Legal Registration type :</label>
+							<div class="col-md-6 col-sm-6">
+								{{ form.org_reg_type }}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="legal_reg_number">Legal Registration Number :</label>
+							<div class="col-md-6 col-sm-6">
+								{{ form.legal_reg_number }}
+							</div>
+						</div>
+                        <div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="parent_unit">Parent Unit :</label>
+							<div class="col-md-6 col-sm-6">
+								{{ form.parent_org_unit }}
+							</div>
+						</div>
+                    </div>
+                </div>
+                <!-- end panel -->
+                <!-- begin panel -->
+                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>
+                        <h4 class="panel-title">Where located / Providing services</h4>
+                    </div>
+                    <div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="sub_county">Sub County :</label>
+							<div class="col-md-6 col-sm-6">
+								{{ form.sub_county }}
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4" for="wards">Wards :</label>
+							<div class="col-md-6 col-sm-6">
+								{{ form.ward }}
+							</div>
+						</div>
+                    </div>
+                </div>
+                <!-- end panel -->
+                <!-- begin panel -->
+                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>
+                        <h4 class="panel-title">Organisation Unit contact details</h4>
+                    </div>
+	                <div class="panel-body panel-form">
+	                    {% crispy cform %}
+	                </div>
+	            </div>
+	            <!-- end panel -->
+                <!-- begin panel -->
+                <div class="panel panel-inverse" data-sortable-id="form-validation-1">
+                    <div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4"></label>
+							<div class="col-md-6 col-sm-6">
+							    <p></p>
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<button type="submit" class="btn btn-default">Cancel</button>
+								<p></p>
+							</div>
+						</div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            <!-- end col-6 -->
+        </div>
+    
+	<!-- End content area -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+	<script src="{% static 'js/apps.js' %}"></script>
+	<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+	<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+	<script type="text/javascript">
+		window.Parsley
+		  .addValidator('isngo', {
+		    requirementType: 'string',
+		    validateString: function(value, requirement) {
+		      var refs = $(requirement).val();
+		      var reff = $(requirement);
+		      var vals = ["TNND", "TNNM", "TNNH"];
+		      if (reff.length){
+                if($.inArray(refs, vals) > -1){
+                	if (value != '') return true; else return false;
+                }else{
+                	return true;
+                }
+		      }else{
+		      	return false;
+		      }
+		    },
+		    messages: {
+		      en: 'Registration details should be provided for this unit.'
+		    }
+		  });
+		window.Parsley
+		    .addValidator('ishq', {
+		    requirementType: 'string',
+		    validateString: function(value, requirement) {
+		      var refs = $(requirement).val();
+		      var reff = $(requirement);
+		      if (reff.length){
+                if(refs != 'TNGN'){
+                	if (value != '') return true; else return false;
+                }else{
+                	return true;
+                }
+		      }else{
+		      	return false;
+		      }
+		    },
+		    messages: {
+		      en: 'Parent organization unit must be provided.'
+		    }
+		  });
+		</script>
+	<script>
+		jQuery(document).ready(function() {
+			$('html,body').scrollTop(0);
+			App.init();
+			$('#id_sub_county').multiselect({
+				enableFiltering: true,
+				filterBehavior: 'both',
+				numberDisplayed: 0,
+				maxHeight: 200,
+				enableCaseInsensitiveFiltering: true
+			});
+			$('#id_ward').multiselect({
+				enableFiltering: true,
+				filterBehavior: 'both',
+				numberDisplayed: 0,
+				maxHeight: 200,
+				enableCaseInsensitiveFiltering: true
+			});
+			
+		});
+	</script>
+
+    <script type="text/javascript">
+		$(function () {
+		  $('#new_org_unit').parsley().on('form:validate', function (formInstance) {
+		    var ok = formInstance.isValid('primary', true);
+		    $(".alert").show();
+		    $('.invalid-form-message')
+		      .html(ok ? '' : 'You must correctly fill the mandatory fields.')
+		      .toggleClass('filled', !ok);
+		    if (!ok){
+		      formInstance.validationResult = false;
+		    }else{
+		    	$(".alert").hide();
+		    }
+		  });
+		});
+	</script>
+{% endblock %}

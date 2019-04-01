@@ -1,0 +1,79 @@
+{% extends 'base_home.html' %}
+{% load staticfiles %}
+
+{% block page_title %} {{block.super}} Log in {% endblock page_title%}    
+
+{% block primary %}
+<!-- begin right-content -->
+<div class="right-content">
+    <!-- begin register-header -->
+    <div class="register-header">
+        <h4 class="brand shome">Department of Children Services (DCS)</h4>
+    </div>
+    <h1 class="register-header">
+        <small>Provide the required details to log in</small>
+    </h1>
+    <!-- end register-header -->
+    
+    <!-- begin register-content -->
+    <div class="register-content">
+     {% if request.session.password_change_relogin %}
+     <p>Please login afresh</p>
+     {% endif %}
+        {% if messages %}
+            {% for message in messages %}
+            {% if 'error' in message.tags %}
+                <div id="messages" class="alert alert-danger fade in m-b-15">
+                <span class="close" data-dismiss="alert">×</span>
+                <i class="fa fa-info fa-2x pull-left"></i>
+            {% else %}
+                <div id="messages" class="alert alert-success fade in">
+                <span class="close" data-dismiss="alert">×</span>
+                <i class="fa fa-check fa-2x pull-left"></i>
+            {% endif %}    
+                <p>{{ message }}</p>
+            </div>
+           {% endfor %}
+        {% endif %}
+        {% if form.errors %}
+            <div id="messages" class="alert alert-danger fade in m-b-15">
+            <span class="close" data-dismiss="alert">×</span>
+            <i class="fa fa-info fa-2x pull-left"></i>
+            {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        <form action="{{ request.get_full_path }}" method="POST" class="margin-bottom-0" data-parsley-validate="true">
+            {% csrf_token %}
+            <label class="control-label">Username</label>
+            <div class="form-group m-b-15">
+                {{ form.username }}
+            </div>
+            <label class="control-label">Password</label>
+            <div class="form-group m-b-15">
+                {{ form.password }}
+            </div>
+            <div class="login-buttons">
+                <button type="submit" class="btn btn-success btn-block btn-lg">Sign in</button>
+            </div>
+            <div class="m-t-20 m-b-20 p-b-20">
+                Not registered yet? Click <a href="{% url 'access' %}" class="text-success">here</a> to request for access<br>
+                Forgot password? Click <a href="{% url 'password_reset' %}" class="text-success">here</a> to change password
+            </div>
+                <span class="promo">
+                    <p>
+                        <img src="{% static 'img/logo_public.jpg' %}" height="80">
+                    </p>
+                    </span>
+                    <hr />
+                    <p class="text-center text-inverse">
+                        &copy; {% now "Y" %} Department of Children Services (DCS). All Rights Reserved.
+                    </p>
+        </form>
+    </div>
+    <!-- end register-content -->
+</div>
+<!-- end right-content -->
+{% endblock primary %}
+
+{% block lazy_javascript_code %}
+{% endblock lazy_javascript_code %}

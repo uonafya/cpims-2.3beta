@@ -1,0 +1,210 @@
+[
+    {
+        "pk": 19000, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC CSI Grade", 
+            "user_configurable": "False", 
+            "field_name": "csi_grade_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "VBAD", 
+            "item_description_short": "Very Bad", 
+            "sms_keyword": "False", 
+            "item_description": "1-Very Bad", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 19001, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC CSI Grade", 
+            "user_configurable": "False", 
+            "field_name": "csi_grade_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "GBAD", 
+            "item_description_short": "Bad", 
+            "sms_keyword": "False", 
+            "item_description": "2-Bad", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 19002, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC CSI Grade", 
+            "user_configurable": "False", 
+            "field_name": "csi_grade_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "GOOD", 
+            "item_description_short": "Good", 
+            "sms_keyword": "False", 
+            "item_description": "4-Good", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 19003, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OVC CSI Grade", 
+            "user_configurable": "False", 
+            "field_name": "csi_grade_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "FAIR", 
+            "item_description_short": "Fair", 
+            "sms_keyword": "False", 
+            "item_description": "3-Fair", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 19004, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Service Provider", 
+            "user_configurable": "False", 
+            "field_name": "olmis_service_provider_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PUSG", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "USG Partner", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 19005, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Service Provider", 
+            "user_configurable": "False", 
+            "field_name": "olmis_service_provider_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PROG", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Religious Organization", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 19006, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Service Provider", 
+            "user_configurable": "False", 
+            "field_name": "olmis_service_provider_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PGOK", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Government Of Kenya", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 19007, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Service Provider", 
+            "user_configurable": "False", 
+            "field_name": "olmis_service_provider_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PPSE", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Private Sector", 
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 19012, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Service Provider", 
+            "user_configurable": "False", 
+            "field_name": "olmis_service_provider_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "PIBF", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Individual Benefactor", 
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 19008, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Critical Event", 
+            "user_configurable": "False", 
+            "field_name": "olmis_critical_event_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "CCGV", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Change of caregiver", 
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 19009, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Critical Event", 
+            "user_configurable": "False", 
+            "field_name": "olmis_critical_event_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "CLVL", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Change of living location", 
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 19010, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Critical Event", 
+            "user_configurable": "False", 
+            "field_name": "olmis_critical_event_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "CPRG", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Child pregnant", 
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 19011, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "OLMIS Critical Event", 
+            "user_configurable": "False", 
+            "field_name": "olmis_critical_event_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "CPDD", 
+            "item_description_short": "", 
+            "sms_keyword": "False", 
+            "item_description": "Child died", 
+            "the_order": 4
+        }
+    }
+]

@@ -1,0 +1,521 @@
+
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} {{ report_name }} Report{% endblock page_title%}
+
+{% load staticfiles %}
+
+{% block style_code%}
+
+{% endblock style_code%}
+
+
+{% block javascript_code%}
+
+{% endblock javascript_code%}
+
+{% block primary%}
+<h1 class="page-header">{{ report_name }} Report</h1><small></small>
+
+{% if messages %}
+<div id="messages" class="alert alert-danger fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.error %} class="{{ message.danger }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<!-- begin row -->
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>                        
+                <h4 class="panel-title">Report details and parameters</h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="{% url 'caseload_reports' %}" method="POST" data-parsley-validate="true" id="cpims_std_reports">
+                   {% csrf_token %} {{ form.report_id}}
+                   {% if report_name == 'CPIMS' %}
+                        <p>Invalid report. Please use the menu on the left.</p>
+                   {% else %}
+                    {% if doc_id == 5 %}
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4">Report Type</label>
+                        <div class="col-md-2 col-sm-2">
+                            {{ form.report_vars }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="form-group" id="report_areas">
+                        <label class="control-label col-md-4 col-sm-4">Report Region :</label>
+                        <div class="col-md-6 col-sm-6">
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_0" name="report_region" class="report_region" type="radio" value="1" checked="checked" /> National</label>
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_1" name="report_region" class="report_region" type="radio" value="2" /> County</label>
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_2" name="report_region" class="report_region" type="radio" value="3" /> Sub-county</label>
+                            <label><input data-parsley-required="true" data-parsley-errors-container="#type_error" id="report_type_3" name="report_region" class="report_region" type="radio" value="4" /> Organisation Unit</label>
+                            <div id="type_error"></div>
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select report type."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group" id="report_county">
+                        <label class="control-label col-md-4 col-sm-4">County :</label>
+                        <div class="col-md-6 col-sm-6">
+                            {{ form.county }}
+                            <div id="county_error"></div>
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select one county."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group" id="report_sub_county">
+                        <label class="control-label col-md-4 col-sm-4">Sub-county :</label>
+                        <div class="col-md-6 col-sm-6">
+                            {{ form.sub_county }}
+                            <div id="sub_county_error"></div>
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select one sub-county."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group" id="report_reg_unit">
+                        <label class="control-label col-md-4 col-sm-4">Organisation Unit :</label>
+                        <div class="col-md-6 col-sm-6">
+                            {% if doc_id == 3 or doc_id == 4 %}
+                                {{ form.org_inst }}
+                            {% else %}
+                                {{ form.org_unit }}
+                            {% endif %}
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select Organisation Unit."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4">Reporting period :</label>
+                        <div class="col-md-2 col-sm-2">
+                            {{ form.report_type }}
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                        {{ form.report_period }}
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                        
+                        {% if doc_id == 3 or doc_id == 4 %}
+                                {{ form.report_years }}
+                            {% else %}
+                                {{ form.report_year }}
+                            {% endif %}
+                        </div>
+                        <a href="#" data-toggle="tooltip" title="Select report type."><i class="fa fa-info-circle fa-lg"></i></a>
+                    </div>
+                    
+                    {% if doc_id == 3 or doc_id == 4 %}
+                    <div class="form-group" id="report_unit_type">
+                        <label class="control-label col-md-4 col-sm-4">Institution Type</label>
+                        <div class="col-md-2 col-sm-2">
+                            {{ form.institution_type }}
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                        {{ form.org_type }}
+                        </div>
+                    </div>
+				    {% endif %}
+                    {% if doc_id == 5 %}
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4">Indicators</label>
+                        <div class="col-md-6 col-sm-6">
+                            <div id="line_list">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="" checked="checked" />
+                                    Line Listing
+                                </label>
+                            </div>
+                            <div id="detail_list">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="" />
+                                    Names
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="" />
+                                    Age
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="" />
+                                    Sex
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" value="" />
+                                    Status
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if doc_id == 6 %}
+                    <div class="form-group" id="report_ovc_type">
+                        <label class="control-label col-md-4 col-sm-4">OVC Report Type</label>
+                        <div class="col-md-2 col-sm-2">
+                            {{ form.report_ovc }}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label class="control-label col-md-4 col-sm-4"></label>
+                        <div class="col-md-2 col-sm-2">
+                            <button type="submit" class="btn btn-sm btn-primary m-r-5">
+                            <i class="fa fa-check-square-o"></i> View </button>
+                        </div>
+                    </div>
+                    {% endif %}
+				</form>
+			</div>
+        </div>
+        <!-- end panel -->
+        <!-- begin scrollbar -->
+        <div id="report_results"></div>
+        <div data-scrollbar="true" data-height="200px" class="bg-white" id="report_html" style="padding:10px; display: none;">
+        <div id="report_vhtml"></div>
+        </div>
+        <!-- begin scrollbar -->        
+    </div>
+    <!-- end col-12 -->       
+</div>
+<!-- end row -->
+
+{% endblock primary%}
+
+{% block lazy_javascript_code %}
+<script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script>
+{% if report_name == 'CPIMS' %}
+    //Invalid report
+{% else %}
+jQuery(document).ready(function() {
+    $('#sub_county, #county').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        disableIfEmpty: true,
+        enableClickableOptGroups: true,
+        nonSelectedText: 'Please select sub-county',
+        buttonClass: 'btn btn-white'
+    });
+    $('#cpims_std_reports').on('submit', function(event){
+        event.preventDefault();
+        $('#report_results').html("Processing Report...");
+        $('#report_vhtml').empty();
+        var oname = $("#id_org_unit option:selected").text();
+        $.ajax({
+            url : "{% url 'generate_reports' %}",
+            type : "POST",
+            dataType: "json",
+            data: $("#cpims_std_reports").serialize()+ "&org_unit_name="+oname,
+            // handle a successful response
+            success : function(response) {
+                var file_name = response.file_name;
+                var status = response.status;
+                var message = response.message;
+                var url = '<a href="{% url "download_reports" file_name="0000" %}">';
+                // PDF
+                var pdf = url.replace('0000', file_name+'.pdf');
+                pdf += '<button type="button" class="btn btn-danger m-r-5 m-b-5">';
+                pdf += '<i class="fa fa-file-pdf-o"></i> PDF</button></a>';
+                // CSV
+                var csvf = url.replace('0000', file_name+'.csv');
+                csvf += '<button type="button" class="btn btn-success m-r-5 m-b-5">';
+                csvf += '<i class="fa fa-file-excel-o"></i> CSV </button></a>';
+                // Excel
+                var xlsx = "";
+                {% if doc_id == 6 %}
+                xlsx = url.replace('0000', file_name+'.xlsm');
+                xlsx += '<button type="button" class="btn btn-danger m-r-5 m-b-5">';
+                xlsx += '<i class="fa fa-file-excel-o"></i> Excel</button></a>';
+                {% endif %}
+                // Printing
+                var prnt = '<button type="button" class="btn btn-success m-r-5 m-b-5"';
+                prnt += ' onclick="printReport()"><i class="fa fa-print">';
+                prnt += '</i> Print report</button>';
+                if (status == 0){
+                    $('#report_results').html(prnt + csvf + xlsx);//Available exts
+                }else{
+                    $('#report_results').html(message);                
+                }
+                $('#report_vhtml').html(response.report); 
+                $('#report_html').show();  
+            },
+            // handle a non-successful response
+            error : function(xhr, errmsg, err) {
+                $('#report_results').html("Oops! We have encountered an error: " + errmsg);
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+           
+    });
+    {% if doc_id == 3 or doc_id == 4 %}
+    var unit_category = $("#id_institution_type").val();
+    handle_subcat(unit_category);
+
+     $("#id_institution_type").change(function(e) {
+        var unit_category = $("#id_institution_type").val();
+        handle_subcat(unit_category);
+    });
+    {% endif %}
+    // Hide some stuff by default
+    $("#report_type_0").prop("checked", true);
+    $('#report_county').hide();
+    $('#county').attr('data-parsley-required', 'false');
+    $('#report_sub_county').hide();
+    $('#sub_county').attr('data-parsley-required', 'false');
+    $('#report_reg_unit').hide();
+
+    
+    $(".report_region").click(function(e) {
+        var res = $('input[name=report_region]:checked', '#cpims_std_reports').val();
+        if (res == '1'){
+            $('#report_county').hide();
+            $('#county').attr('data-parsley-required', 'false');
+
+            $('#report_sub_county').hide();
+            $('#sub_county').attr('data-parsley-required', 'false');
+            $('#report_reg_unit').hide();
+            $('#id_org_unit').attr('data-parsley-required', 'false');
+            $('#report_unit_type').show();
+            $('#id_institution_type').attr('data-parsley-required', 'true');
+        }else if (res == '2'){
+            $('#report_county').show();
+            $('#county').attr('data-parsley-required', 'true');
+            $('#county').val('');
+            $('#county').multiselect('rebuild');
+
+            $('#report_sub_county').hide();
+            $('#sub_county').attr('data-parsley-required', 'false');
+            $('#report_reg_unit').hide();
+            $('#id_org_unit').attr('data-parsley-required', 'false');
+            $('#report_unit_type').show();
+            $('#id_institution_type').attr('data-parsley-required', 'true');
+        }else if (res == '3'){
+            $('#report_county').show();
+            $('#county').attr('data-parsley-required', 'true');
+            $('#county').val('');
+            $('#county').multiselect('rebuild');
+
+            $('#report_sub_county').show();
+            $('#sub_county').attr('data-parsley-required', 'true');
+            $('#sub_county').empty();
+            $('#sub_county').multiselect('rebuild');
+            $('#report_reg_unit').hide();
+            $('#id_org_unit').attr('data-parsley-required', 'false');
+            $('#report_unit_type').show();
+            $('#id_institution_type').attr('data-parsley-required', 'true');
+        }else if (res == '4'){
+            $('#report_reg_unit').show();
+            $('#id_org_unit').attr('data-parsley-required', 'true');
+
+            $('#report_county').hide();
+            $('#county').attr('data-parsley-required', 'false');
+
+            $('#report_sub_county').hide();
+            $('#sub_county').attr('data-parsley-required', 'false');
+            $('#report_unit_type').hide();
+            $('#id_institution_type').attr('data-parsley-required', 'false');
+        }
+    });
+    //default hide details
+    $('#detail_list').hide();
+    $("#id_report_vars").change(function(e) {
+        var ad_hoc = $("#id_report_vars").val();
+        if (ad_hoc == '2'){
+             $('#report_areas').hide();
+             $('#report_reg_unit').show();
+             $('#line_list').hide();
+            $('#detail_list').show();
+            $("#report_type_3").prop("checked", true);
+        }else{
+            $('#report_areas').show();
+            $('#report_reg_unit').hide();
+            $('#line_list').show();
+            $('#detail_list').hide();
+            $("#report_type_0").prop("checked", true);
+        }
+    });
+
+    // Cascading drop down
+    $("#county").change(function(e) {
+        var county = $("#county").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': 0,
+                      'county': county, 'action': 6,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#sub_county').empty();
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                $('#sub_county').html("<option value=''>Please Select</option>");           
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    $('#sub_county')
+                        .append($("<option></option>")
+                        .attr("value", ward_attribs[0])
+                        .text(ward_attribs[1]));
+                 });
+                 $('#sub_county').multiselect('rebuild');
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    });
+    M = new Array('January','February','March','April','May','June',
+                  'July','August','September','October','November','December');
+    Q = new Array('Qtr1','Qtr2','Qtr3','Qtr4');
+    Y = new Array('Financial','Calendar');
+    YC = {{ cyears|safe }};
+    YF = {{ fyears|safe }};
+
+    populateSelect();
+    populateYears();
+
+    $(function() {
+        $('#id_report_type').change(function(){
+            populateSelect();
+        });
+    });
+
+    $(function() {
+        $('#id_report_period').change(function(){
+            populateYears();
+        });
+    });
+
+
+    function populateSelect(){
+        cat = $('#id_report_type').val();
+        $('#id_report_period').html('');
+
+        if (cat != ''){
+            eval(cat).forEach(function(t) { 
+                $('#id_report_period').append('<option>'+t+'</option>');
+            });
+        }else{
+             $('#id_report_period').append('<option></option>'); 
+        }
+    }
+
+    function populateYears(){
+        y_type = $('#id_report_period').val();
+        $('#id_report_year').html('');
+
+        if (y_type == 'Calendar'){
+            YC.forEach(function(t) { 
+                $('#id_report_year').append('<option>'+t+'</option>');
+            });
+        }else{
+            YF.forEach(function(t) { 
+                $('#id_report_year').append('<option>'+t+'</option>');
+            }); 
+        }
+    }
+
+    function handle_subcat(area_value){             
+       var TNSI = ['TNRH,Remand Home', 'TNRB,Borstal', 'TNRR,Rescue Home',
+                   'TNRS,Rehabilitation School', 'TNAP,Assessment & Placement'];
+       var TNCI = ['TNRC,Charitable Children Institution'];
+        $('#id_org_type').html("<option value=''>All Types</option>");
+        if (area_value != ''){
+            eval(area_value).forEach(function(orgs) {
+                var orgs_attribs = orgs.split(",");
+                $('#id_org_type')
+                    .append($("<option></option>")
+                    .attr("value", orgs_attribs[0])
+                    .text(orgs_attribs[1]));
+            });
+        }else{
+             $('#id_org_type').html("<option value=''>All Types</option>"); 
+        }
+        $('#id_org_type').val('');
+    }
+
+});
+
+function PrintElem(elem)
+    {
+        Popup($(elem).html());
+    }
+
+    function Popup(data) 
+    {
+        var lscape = '<style type="text/css" media="print">@page { size: landscape; }</style>';
+        var bstrap = '<link href="{% static "plugins/bootstrap/css/bootstrap.min.css" %}" rel="stylesheet" />';
+        var mywindow = window.open('', 'report_html', 'height=400,width=600');
+        mywindow.document.write('<html><head><title>Case Load Report</title>');
+        mywindow.document.write(bstrap);
+        mywindow.document.write('<link href="{% static "css/style.css" %}" rel="stylesheet" />');
+        mywindow.document.write(lscape);
+        mywindow.document.write('</head><body >');
+        mywindow.document.write(data);
+        mywindow.document.write('</body></html>');
+        // IE Handlers
+        mywindow.document.close(); // necessary for IE >= 10
+        mywindow.focus(); // necessary for IE >= 10
+        // Other browsers handlers
+        mywindow.print();
+        mywindow.close();
+
+        return true;
+    }
+
+function printReport() {
+      var body               = $('body');
+      var reportContainer       = $('#report_vhtml');
+      var reportContainerParent = reportContainer.parent();
+      var printContainer     = $('<div>');
+      var inithtml = $('#report_vhtml').html();
+
+      console.log(reportContainer.height());
+
+      printContainer
+        .addClass('print-container')
+        .css('width', '100%')
+        .css('height', '800px')
+        .height(reportContainer.height())
+        .append(reportContainer)
+        .prependTo(body);
+
+      var content = body
+        .children()
+        .not('script')
+        .not(printContainer)
+        .detach();
+      
+
+      var patchedStyle = $('<style>')
+        .attr('media', 'print')
+        .text('img { max-width: auto !important; }' +
+              'a[href]:after { content: ""; }')
+        .appendTo('head');
+
+      window.print();
+
+      body.prepend(content);
+      reportContainerParent.prepend(reportContainer);
+
+      printContainer.remove();
+      patchedStyle.remove();
+      //Rewrite the html back to the page
+      $('#report_html').hide();
+      $('#report_vhtml').html(inithtml);
+      $('#report_html').show();
+}
+{% endif %}
+</script>
+{% endblock lazy_javascript_code %}

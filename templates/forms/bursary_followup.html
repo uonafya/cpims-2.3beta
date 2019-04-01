@@ -1,0 +1,640 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Bursary Information {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+    <h1 class="page-header">Forms <small>Bursary Followup <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+                            UNDER 1 YEAR
+                        {% else %}
+                            {{ data.date_of_birth|gen_age }} YRS 
+                        {% endif %}</b></small></h1>
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-close fa-2x pull-left"></i>
+    <ul class="messages">
+       <p></p>
+    </ul>
+</div>
+
+<div id="success_messages" class="alert alert-success fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+       <p></p>
+    </ul>
+</div>
+
+<div id="error_messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-close fa-2x pull-left"></i>
+    <ul class="messages">
+       <p></p>
+    </ul>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+    <div class="col-md-12">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"><b>Bursary Information</b></h4>
+            </div>
+            <div class="panel-body">
+                 <form class="form-horizontal form-bordered" name="form-wizard-placementfollowup" id="new_placementfollowup">
+                    {% csrf_token %}
+
+                    {{ form.person_id }}
+
+                    {{ form.operation_mode }}
+                    
+                    <div id="wizard_placementfollowup">
+                        <ol>
+                            <li>Bursary Information
+                                <small>Bursary and additional details.</small>
+                            </li>
+                                        
+                        </ol>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <fieldset>
+                                <legend class="pull-left width-full">Bursary Details </legend>
+
+
+                                    <div class="row"> 
+
+                                        <table id="bursary_followup_table" class="table table-striped table-bordered">
+                                            <tbody>
+
+                                                <tr>
+                                                    <td width="5%"># {{ form.bursary_id }}</td>
+                                                    <td width="15%">
+                                                        {{ form.bursary_type }}
+                                                        <div id="bursary_msgs1" style="display: none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="15%">
+                                                        {{ form.disbursement_date}}
+                                                        <div id="bursary_msgs2" style="display: none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="13%">
+                                                        {{ form.amount }}
+                                                        <div id="bursary_msgs3" style="display: none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="15%">
+                                                        {{ form.year }}
+                                                        <div id="bursary_msgs4" style="display: none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="16%">
+                                                        {{ form.term }}
+                                                        <div id="bursary_msgs5" style="display: none;">
+                                                            <span><p class="dialog_paragraph">This value is required</p></span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="28%">
+                                                        <div id="div_itp_buttons">
+                                                            <button id="btn_save_bursary" type="button" class="btn btn-sm btn-primary m-r-5" onClick="fnSaveBursary()"><b>Save</b></button>
+                                                            <button id="btn_update_bursary" style="display: none;" type="button" class="btn btn-sm btn-inverse m-r-4" onClick="fnUpdateBursary()"><b>Update</b></button>
+                                                            <button id="btn_cancel_bursary" type="button" class="btn btn-sm btn-primary m-r-5" onClick="fnCancel()"><b>Cancel</b></button>
+                                                        </div>
+                                                 </td>
+                                                </tr>                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-1 -->
+                        
+
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table id="bursary_data_table" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Person Id</th>
+                <th>Bursary Source/ Issuer</th>
+                <th>Disbursement Date</th>
+                <th>Amount Disbursed</th> 
+                <th>Year</th> 
+                <th>Term Disbursed</th>
+                <th>School</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>                
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+<!-- End content area -->
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>   
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+
+<script>
+jQuery(document).ready(function() 
+{
+    // Load Bursary History
+    LoadBursary();
+
+    $('html,body').scrollTop(0);
+    FormWizardValidation.init();
+});
+
+
+function fnSaveBursary()
+{
+    var operation_mode = $('#operation_mode').val(); 
+    if(operation_mode == 'EDIT')
+    { 
+        fnUpdateBursary();
+        return false;
+    }
+
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person_id = $('#person_id').val();
+    var values = { 
+                    'person_id' : person_id,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+
+    var bursary_type = $('#bursary_type').val();
+    var disbursement_date = $('#disbursement_date').val();
+    var amount = $('#amount').val();
+    var year = $('#year').val();
+    var term = $('#term').val();
+
+    if(bursary_type)
+    {
+        values['bursary_type'] = bursary_type;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#messages p").html('Please fill the missing values');
+        $("#bursary_msgs1").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(disbursement_date)
+    {
+        values['disbursement_date'] = disbursement_date;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#messages p").html('Please fill the missing values');
+        $("#bursary_msgs2").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(amount)
+    {
+        values['amount'] = amount;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#messages p").html('Please fill the missing values');
+        $("#bursary_msgs3").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(year)
+    {
+        values['year'] = year;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#messages p").html('Please fill the missing values');
+        $("#bursary_msgs4").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(term)
+    {
+        values['term'] = term;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#messages p").html('Please fill the missing values');
+        $("#bursary_msgs5").css({ 'display': "block" }); 
+        return false;
+    }
+
+    $.ajax({
+                url: '{% url 'new_bursary_info' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    var message;
+                    var status;
+                    $.each(result, function(i, val) {
+                        message = val.msg;
+                        status = val.status;                        
+                    });
+
+                    if(status == 'Issue' || status == 'Error')
+                    {
+                        $('#error_messages p').html(message);
+                        $('#error_messages').css({ 'display': 'block' });
+                    }
+                    else
+                    {
+                        $('#success_messages p').html(message);
+                        $('#success_messages').css({ 'display': 'block' });
+                    }
+                    // reset controls
+                    fnCancel();
+
+                    // load bursary grid
+                    LoadBursary();
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+
+            });
+}
+
+function fnUpdateBursary()
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person_id = $('#person_id').val();
+    var bursary_id = $('#bursary_id').val();
+    var values = { 
+                    'person_id' : person_id,
+                    'bursary_id' : bursary_id,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+
+    var bursary_type = $('#bursary_type').val();
+    var disbursement_date = $('#disbursement_date').val();
+    var amount = $('#amount').val();
+    var year = $('#year').val();
+    var term = $('#term').val();
+
+    if(bursary_type)
+    {
+        values['bursary_type'] = bursary_type;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#bursary_msgs1").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(disbursement_date)
+    {
+        values['disbursement_date'] = disbursement_date;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#bursary_msgs2").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(amount)
+    {
+        values['amount'] = amount;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#bursary_msgs3").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(year)
+    {
+        values['year'] = year;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#bursary_msgs4").css({ 'display': "block" }); 
+        return false;
+    }
+
+    if(term)
+    {
+        values['term'] = term;
+    }
+    else
+    {
+        $("#messages").css({ 'display': "block" });
+        $("#bursary_msgs5").css({ 'display': "block" }); 
+        return false;
+    }
+
+    $.ajax({
+                url: '{% url 'edit_bursary_info' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    var message;
+                    var status;
+                    $.each(result, function(i, val) {
+                        message = val.msg;
+                        status = val.status;                        
+                    });
+
+                    if(status == 'Issue' || status == 'Error')
+                    {
+                        $('#error_messages p').html(message);
+                        $('#error_messages').css({ 'display': 'block' });
+                    }
+                    else
+                    {
+                        $('#success_messages p').html(message);
+                        $('#success_messages').css({ 'display': 'block' });
+                    }
+
+                    // reset controls
+                    fnCancel();
+
+                    // load bursary grid
+                    LoadBursary();
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+
+            });
+}
+
+function fnViewBursary(bursary_id)
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    // var bursary_id = $('#bursary_data_table tr').find('input[id="hbursaryid"]').val();
+    var values = { 
+                    'bursary_id' : bursary_id,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+
+        $.ajax({
+                url: '{% url 'view_bursary_info' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    // reset controls
+                    fnCancel();
+
+                    $.each(result, function(i, val) {
+
+                        // Data from json
+                        var person_id = val.person_id;
+                        var bursary_id = val.pk;
+                        var bursary_type = val.bursary_type;
+                        var disbursement_date = val.disbursement_date;
+                        var amount = val.amount;
+                        var year = val.year;
+                        var term = val.term;
+
+                        // Set values
+                        $('#bursary_id').val(bursary_id)
+                        $('#bursary_type').val(bursary_type)
+                        $('#disbursement_date').val(disbursement_date)
+                        $('#amount').val(amount)
+                        $('#year').val(year)
+                        $('#term').val(term)
+                        
+                        $('#btn_save_bursary').text('Update')
+                        $('#operation_mode').val('EDIT')
+                    });
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+
+            });
+}
+
+function fnDeleteBursary(bursary_id)
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    // var bursary_id = $('#bursary_id').val();
+    var values = { 
+                    'bursary_id' : bursary_id,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+
+    $.ajax({
+                url: '{% url 'delete_bursary_info' %}',
+                dataType: 'text',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    // reset controls
+                    fnCancel();
+
+                    // load bursary grid
+                    LoadBursary();
+
+                    $('#success_messages p').html('Delete bursary success');
+                    $('#success_messages').css({ 'display': 'block' });
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+
+            });    
+}
+
+function fnCancel()
+{
+    var bursary_id = $('#bursary_id').val('');
+    var bursary_type = $('#bursary_type').val('');
+    var disbursement_date = $('#disbursement_date').val('');
+    var amount = $('#amount').val('');
+    var year = $('#year').val('');
+    var term = $('#term').val('');
+    $('#btn_save_bursary').text('Save')
+    $('#operation_mode').val('')
+
+    $("#messages").css({ 'display': "none" });
+    $("#bursary_msgs1").css({ 'display': "none" });
+    $("#bursary_msgs2").css({ 'display': "none" });
+    $("#bursary_msgs3").css({ 'display': "none" });
+    $("#bursary_msgs4").css({ 'display': "none" });
+}
+
+function LoadBursary()
+{
+    var data = new Array();
+    var csrftoken = $.cookie('csrftoken');
+    var person_id = $('#person_id').val();
+    var values = {  
+                    'person_id' : person_id,
+                    'csrfmiddlewaretoken': csrftoken
+                 };
+    $.ajax({
+                url: '{% url 'manage_bursary' %}',
+                dataType: 'json',
+                method: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: values,
+                success: function(result)
+                {
+                    // Clear <tbody>
+                    $("#bursary_data_table tbody").html('');
+
+                    $.each(result, function(i, val) {
+
+                        // Data from json
+                        var person_id = val.person_id;
+                        var bursary_id = val.pk;
+                        var bursary_type = val.bursary_type;
+                        var disbursement_date = val.disbursement_date;
+                        var amount = val.amount;
+                        var year = val.year;
+                        var term = val.term;
+                        var school_name = val.school_name;
+
+                        // Buttons
+                        var btnView = 'btnView' + i;
+                        var btnEdit = 'btnEdit' + i;
+                        var btnDelete = 'btnDelete' + i;
+                        var tableRowId = 'tableRowId' + i;
+
+                        // Hidden Inputs
+                        var hbursaryid = 'hbursaryid' + i;
+
+                        // Append to rows to table rows
+                        $("#bursary_data_table tbody").append('<tr id=' + tableRowId + '>' + 
+                            '<td width="10%"><h6>' + person_id + '</h6><input id="' + hbursaryid + '" type="hidden" value="' + bursary_id +'"></td>' +
+                            '<td width="15%"><h6>' + bursary_type + '</h6></td>' + 
+                            '<td width="10%"><h6>' + disbursement_date+'</h6></td>' + 
+                            '<td width="5%"><h6>' + amount + '</h6></td>' +
+                            '<td width="10%"><h6>' + year + '</h6></td>' +
+                            '<td width="10%"><h6>' + term + '</h6></td>' +
+                            '<td width="20%"><h6>' + school_name + '</h6></td>' +
+                            '<td width="20%">' + 
+                            '<button id=' + btnView + ' type="submit" class="btn  btn-sm btn-primary m-r-4" ><i class="fa fa-edit"></i></button>' +
+                            '<button id=' + btnDelete + ' type="submit" class="btn  btn-sm btn-danger m-r-4" ><i class="fa fa-trash"></i></button>' +
+                            '</td></tr>'
+                            );
+
+                        $("#" + btnView + "").click(function(e)
+                        {
+                          // Code to view
+                          var bursary_id = $('#bursary_data_table tr').find('input[id="' + hbursaryid + '"]').val();
+                          fnViewBursary(bursary_id);
+
+                        });
+
+                        $("#" + btnDelete + "").click(function(e)
+                        {
+                          // Code to Delete
+                          var bursary_id = $('#bursary_data_table tr').find('input[id="' + hbursaryid + '"]').val();
+                          fnDeleteBursary(bursary_id);
+                          
+                        });
+                    });
+                },
+                error: function(xhr, status, error)
+                {
+                    alert(error);
+                }
+
+            });
+}
+
+$("#bursary_type").change(function(event) 
+{
+    $("#bursary_msgs1").css({ 'display': "none" });
+});
+$("#disbursement_date").change(function(event) 
+{
+    $("#bursary_msgs2").css({ 'display': "none" });
+});
+$("#amount").change(function(event) 
+{
+    $("#bursary_msgs3").css({ 'display': "none" });
+});
+$("#year").change(function(event) 
+{
+    $("#bursary_msgs4").css({ 'display': "none" });
+});
+$("#term").change(function(event) 
+{
+    $("#bursary_msgs5").css({ 'display': "none" });
+});
+</script>
+{% endblock %}

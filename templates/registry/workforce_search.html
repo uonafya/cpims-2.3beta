@@ -1,0 +1,220 @@
+
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} Register {% endblock page_title%}
+
+{% load staticfiles %}
+
+{% block style_code%}
+<!--
+<link href="{% static 'plugins/DataTables/css/data-table.css' %}" rel="stylesheet" />
+-->
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock style_code%}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+
+{% block primary%}
+<h1 class="page-header">Workforce Registry</h1>
+{% if messages %}
+<div id="messages" class="alert alert-success fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.info %} class="{{ message.info }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<p></p>
+
+<!-- begin row -->
+
+<!-- begin row -->
+<div class="row">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+                <!-- begin panel -->
+                <div class="panel panel-inverse">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>                          
+                        <h4 class="panel-title"><b>Search Users</b></h4>
+                    </div>
+                    <div class="panel-body">
+                    <form class="form-inline" action="{% url 'workforce_search' %}" method="POST"  data-parsley-validate="true">
+                       {% csrf_token %}
+                        <div class="form-group m-r-10">
+                            <b>{{ form.person_type }}</b>
+                        </div>
+                        <div class="form-group m-r-10">
+                            <b>{{ form.search_name }}</b>
+                        </div>
+                        <div class="form-group m-r-10">
+                            <b>{{ form.search_criteria }}</b>
+                        </div>
+                        <div class="checkbox m-r-10">
+                            <label>
+                                {{ form.person_deceased }} <span><b>Include Deceased</b></span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-search"></i>&nbsp<b>Search</b></button>
+                    </form>    
+                    </div>
+                </div>
+        </div>
+</div>
+
+<div class="row">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+                <!-- begin panel -->
+                <div class="panel panel-inverse">
+                    <div class="panel-heading"> 
+                        <div class="panel-heading-btn">
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                                <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                        </div>                           
+                        <h4 class="panel-title">Workforce List &nbsp &nbsp<i class="fa fa-navicon"></i></b></h4>
+                    </div>
+
+                    {% if resultsets %}
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Username</th>
+                                        <th>Firstname</th>
+                                        <th>Surname</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for resultset in resultsets %}
+                                        {% for result in resultset %}
+                                        <tr>
+                                            <td>{{ result.id }}</td>
+
+                                            {% for appuser in result.appusers %}
+                                                <td>{{ appuser.username }}</td>
+                                            {% endfor %}
+
+                                            <td>{{ result.first_name }}</td>  
+                                            <td>{{ result.surname }}                                      
+                                            <td>
+                                                <button id="btn_create_account" type="submit" onClick="#" class="btn  btn-sm btn-primary m-r-5">
+                                                <b>Assign Roles</b>&nbsp&nbsp<i class="fa fa-key"></i>
+                                                </button>
+                                                
+                                                <button id="btn_view_details" onClick="#" class="btn  btn-sm btn-primary m-r-5">
+                                                <b>Edit</b>&nbsp&nbsp<i class="fa fa-edit"></i>
+                                                </button>
+
+                                                <a href="#delete-dialog" class="btn btn-sm btn-danger m-r-5" data-toggle="modal">
+                                                <b>Delete</b>&nbsp&nbsp<i class="fa fa-trash-o"></i></a>
+                                            </td>
+                                        </tr> 
+
+                                        <!-- #modal-dialog -->
+                                        <div class="modal fade" id="delete-dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                        <h4 class="modal-title">Delete Dialog</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Do you want to delete {{ result.first_name }} {{ result.surname }}?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-sm btn-white" data-dismiss="modal">No</button>
+                                                        <button class="btn btn-sm btn-success" onClick="#">Yes</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- #modal-dialog -->
+                                    {% endfor %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- end panel -->  
+                    {% else %}
+                        <div class="norecords" align="center"><b>No records found.</b></div>
+                    {% endif %}            
+
+            </div>
+            <!-- end col-12 -->
+        </div>
+        <!-- end row -->
+    </div>
+
+{% endblock primary%}
+
+{% block lazy_javascript_code %}
+    <script src="/static/plugins/parsley/dist/parsley.js"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+        });
+    </script>
+    <script src="{% static 'js/custom_js.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>    
+    <script>
+    </script>
+    <script>
+        $(document).ready(function() 
+        {
+            $('#data-table').bootstrapTable(
+            { 
+                toggle: 'table', 
+                search: 'true',
+                locale: 'en-US',
+                pagination: 'true',
+                pageNumber: 1,
+                pageSize: 10,
+                //showRefresh: true,
+                showToggle: true,
+                //showColumns: true,
+                singleSelect: true,
+                clickToSelect:true,
+                maintainSelected: true,
+
+
+                
+                onClickRow: function (row, $element)
+                {
+                    person_id = row[0];
+                    person_fname = row[1];
+                    person_sname = row[2];
+                    localStorage.setItem("person_id",person_id);
+                    localStorage.setItem("person_fname",person_fname);
+                    localStorage.setItem("person_sname",person_sname);
+                }
+                
+            });
+        });
+    </script>
+    
+    <!--
+    <script src="{% static 'plugins/DataTables/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'js/table-manage-default.demo.min.js' %}"></script>
+    
+    <script>
+        $(document).ready(function() {
+            TableManageDefault.init();
+        });
+    </script>
+    -->
+    <script src="{% static 'js/apps.js' %}"></script>
+
+{% endblock lazy_javascript_code%}

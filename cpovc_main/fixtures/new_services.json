@@ -1,0 +1,274 @@
+[
+    {
+        "pk": 30612,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "C10a",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "viral load testing",
+            "field_name": "olmis_health_assessment_id_1",
+            "item_description": "HC10a - HIV+ child viral load testing not done",
+            "the_order": 10
+        }
+    },
+    {
+        "pk": 30613,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "C11a",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "MUAC assessment",
+            "field_name": "olmis_health_assessment_id_1",
+            "item_description": "HC11a - MUAC assessment not performed [6 mths to 5 years only]",
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 30614,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "C11s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Referral for MCH services",
+            "field_name": "Olmis_health_service_id",
+            "item_description": "HC11s - Child refered to facility for MCH services",
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 30615,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "C12s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "health education",
+            "field_name": "Olmis_health_service_id",
+            "item_description": "HC12s - Child provided with health education by CMM",
+            "the_order": 12
+        }
+    },
+    {
+        "pk": 30616,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "C13s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Nutritional services linkage",
+            "field_name": "Olmis_health_service_id",
+            "item_description": "HC13s - Child linked for nutritional services",
+            "the_order": 13
+        }
+    },
+    {
+        "pk": 30617,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "C14s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "HIV+ Child linked to CMM",
+            "field_name": "Olmis_health_service_id",
+            "item_description": "HC14s - HIV+ Child linked to CMM for support",
+            "the_order": 14
+        }
+    },
+    {
+        "pk": 30618,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "PT4a",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "No birth certificate",
+            "field_name": "olmis_protection_assessment_id_1",
+            "item_description": "PT4a - Child has no birth certificate",
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 30619,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "PT6s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Abuse reported to 116",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "PT6s - Abuse case reported to helpline 116/other centers",
+            "the_order": 12
+        }
+    },
+    {
+        "pk": 30620,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "PT7s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Medical assistance abuse cases",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "PT7s - Provided with medical assistance in cases of abuse",
+            "the_order": 13
+        }
+    },
+    {
+        "pk": 30621,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "PS5s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Stimulating activities",
+            "field_name": "olmis_pss_service_id",
+            "item_description": "PS5s - Child [Below 5 yrs] provided with stimulating activities by person above 15yr",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 30622,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE3a",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Eligible-vocational training",
+            "field_name": "olmis_hes_assessment_id_1",
+            "item_description": "HE3a - Youth eligible for technical vocational training [above 17yrs]",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 30623,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE4a",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Eligible for YSLA",
+            "field_name": "olmis_hes_assessment_id_1",
+            "item_description": "HE4a - Youth eligible for YSLA, EYL [above 17yrs]",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 30624,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE5a",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Youth engaged in IGA",
+            "field_name": "olmis_hes_assessment_id_1",
+            "item_description": "HE5a - Youth engaged in IGA e.g small business, farming, artisan, casual employment, hawking  [above 17yrs]",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 30625,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE6a",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Accessing formal financial services",
+            "field_name": "olmis_hes_assessment_id_1",
+            "item_description": "HE6a - Youth accessing formal financial services (bank, MFI, GOK grants) [above 17yrs]",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 30626,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE6s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Youth trained on EYL",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "HE6s - Youth trained on EYL  [above 17yrs]",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 30627,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE7s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Youth trained in YSLA",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "HE7s - Youth trained in YSLA [above 17yrs]",
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 30628,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE8s",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Technical and Vocational skills training",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "HE8s - Youth trained on Technical and Vocational skills [above 17yrs]",
+            "the_order": 8
+        }
+    }
+]

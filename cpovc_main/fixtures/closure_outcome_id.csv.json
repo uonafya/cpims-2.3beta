@@ -1,0 +1,34 @@
+[
+    {
+        "pk": 1, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Closure Outcome", 
+            "user_configurable": "False", 
+            "field_name": "closure_outcome_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "COTR", 
+            "item_description_short": "Transfer", 
+            "sms_keyword": "False", 
+            "item_description": "Transfer to other Organization Unit", 
+            "the_order": 1
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "cpovc_main.SetupList", 
+        "fields": {
+            "item_category": "Closure Outcome", 
+            "user_configurable": "False", 
+            "field_name": "closure_outcome_id", 
+            "item_sub_category": "", 
+            "is_void": "False", 
+            "item_id": "COEN", 
+            "item_description_short": "Case Ended", 
+            "sms_keyword": "False", 
+            "item_description": "Case Ended", 
+            "the_order": 2
+        }
+    }
+]

@@ -1,0 +1,482 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Form 1B {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+
+.table_data {
+  display: none;
+}
+
+.container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.td_style {
+  /* color: #000000;*/
+  color: #0057e7;
+}
+.sbody{
+    background: #d9e0e7;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+
+<h1 class="page-header">Forms <small>Caregiver Status and Service Monitoring (Form 1B)
+<b>{{ ovc.caretaker.first_name }} {{ ovc.caretaker.surname }} {{ ovc.caretaker.other_names }} | {{ ovc.caretaker.sex_id|gen_value:vals }} | 
+{% if ovc.caretaker.age >= '116 years' %}
+    DOB Not Provided
+{% else %}
+    {{ ovc.caretaker.age }}
+{% endif %}</b>
+<span class="label label-primary">Active</span>
+</small></h1>
+
+
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+	<!-- begin col-12 -->
+    <div class="col-md-12">
+    	<!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> Form 1B Details </h4>
+            </div>
+            {% if form1b_allowed %}
+            <div class="alert alert-warning fade in m-b-15">
+                    <strong>Warning!</strong>
+                    This form should be filed only in the months of March, June, September &amp; December.
+                    <span class="close" data-dismiss="alert">&times;</span>
+                </div>
+            <div class="panel-body">
+                 
+            	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                name="form-wizard-f1b" id="new_form1b">
+                	{% csrf_token %} {{ form.caretaker_id }}
+					<div id="wizard-f1a">
+						<ol>
+							<li>
+							    Health and Nutrition
+							    <small>Caregiver health and nutrition status</small>
+							</li>
+                            <li>
+                                Shelter and Care
+                                <small>Caregiver shelter and care service</small>
+                            </li>
+							<li>
+							    Protection
+							    <small>Caregiver protection service</small>
+							</li>
+							<li>
+							    Psychosocial Support
+							    <small>Caregiver psychosocial support service</small>
+							</li>
+							<li>
+							    Education
+							    <small>Caregiver Education status</small>
+							</li>
+                            <li>
+                                Household Economic Strengthening
+                                <small>Caregiver household economic strengthning status</small>
+                            </li>							
+						</ol>
+                        <table width="100%" class="table table-profile">
+                        <tbody>
+                            <tr>
+                                <td class="field" style="width: 150px">CHV</td>
+                                <td class="field">First Name</td>
+                                <td>{{ ovc.child_chv.first_name }}</td>
+                                <td class="field">Surname</td>
+                                <td>{{ ovc.child_chv.surname }}</td>
+                                <td class="field">Other Names</td>
+                                <td>{{ ovc.child_chv.other_names }}</td>
+                                
+                            </tr>
+                        </tbody>
+                        </table>
+
+						<!-- begin wizard step-1 -->
+						<div class="wizard-step-1">
+                            <fieldset> 
+                                <!-- begin col-6 -->
+                                <legend class="pull-left width-full">
+                                1. Caregiver health and nutrition status assessment and service provision</legend>
+                                <div class="row">
+                                <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                    {% for itm in domains.HG.a %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" id="f1b" name="f1b[]" data-parsley-mincheck="1" value="{{ itm.id }}" data-parsley-errors-container="#messages" data-parsley-required-message="Please check at least one" required/>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+                                <div class="row sbody">
+                                <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.HG.s %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+							    <!-- end col-6 -->                                
+							</fieldset>
+						</div>
+						<!-- end wizard step-1 -->  
+
+						<!-- begin wizard step-2 -->
+						<div class="wizard-step-2">
+							<fieldset>
+							<legend class="pull-left width-full">
+                                2. Caregiver shelter and care service provision</legend>
+                                <div class="row"></div>
+                                <div class="row sbody">
+                                <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.SC.s %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+                            </fieldset>
+                        </div>
+						<!-- end wizard step-2 -->
+                        <!-- begin wizard step-3 -->
+                        <div class="wizard-step-3">
+                            <fieldset>
+                            <legend class="pull-left width-full">
+                                3. Caregiver protection service provision</legend>
+                                <div class="row"></div>
+                                <div class="row sbody">
+                                <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.PG.s %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <!-- end wizard step-3 -->
+
+						<!-- begin wizard step-4 -->
+						<div class="wizard-step-4">
+                            <fieldset>
+                            <legend class="pull-left width-full">
+                                4. Caregiver psychosocial support service provision</legend>
+                                <div class="row"></div>
+                                <div class="row sbody">
+                                <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.PSG.s %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+                            </fieldset>
+                        </div>
+						<!-- end wizard step-4 --> 
+
+						<!-- begin wizard step-5 -->
+						<div class="wizard-step-5">
+							<fieldset>
+                            <legend class="pull-left width-full">
+                                5. Caregiver education status assessment and service provision</legend>
+                                <div class="row"></div>
+                                <div class="row sbody">
+                                <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.EG.s %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+                            </fieldset>
+						</div> 
+						<!-- end wizard step-5 --> 
+
+                        <!-- begin wizard step-6 -->
+                        <div class="wizard-step-6">
+                            <fieldset>
+                            <legend class="pull-left width-full">
+                                6. Caregiver household economic strengthening status assessment and service</legend>
+                                <div class="row">
+                                <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.HE.a %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+                                <div class="row sbody">
+                                <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.HE.s %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
+                            </fieldset>
+                        </div> 
+                        <!-- end wizard step-6 -->                          
+					</div>
+                    <div class="row">
+                    <label class="control-label col-md-4 col-sm-4" for="csi_qs">Date of Service(s)/Monitoring : <span class="asteriskField">* </span></label>
+                    <div class="col-md-4 col-sm-4">
+                        {{ form.olmis_service_date }}
+                    </div>
+                    </div>
+                    <br>
+					<div class="row">
+                        <label class="control-label col-md-4 col-sm-4"></label>
+                        <div class="col-md-6 col-sm-6">
+                            <button type="submit" class="btn btn-primary" value="submit">Submit</button>
+                            <a href="{% url 'ovc_view' id=ovc.person_id %}">
+                            <button type="button" class="btn btn-default">Cancel</button>
+                            </a>
+                        </div>
+                    </div>
+
+				</form>
+            </div>
+            {% else %}
+            <div class="alert alert-danger fade in m-b-15">
+                    <strong>Warning!</strong>
+                    This form should be filed only in the months of March, June, September &amp; December.
+                    <span class="close" data-dismiss="alert">&times;</span>
+                </div>
+            <div class="row m-5 p-5">
+                <a href="{% url 'ovc_view' id=ovc.person_id %}">
+                <button type="button" class="btn btn-primary">Back</button>
+                </a>
+            </div>
+            {% endif %}
+            <div class="badge pull-right m-4">Revised: October 6th 2016</div>
+        </div>
+        <!-- end panel -->
+               <b><p>Past Form 1B</p></b>
+                <div class="table-responsive">
+                <table id="data-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th width="5%">ID</th>
+                            <th>Caregiver Names</th>
+                            <th>Date</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for f1b in f1bs %}
+                        <tr id="cluster_tr_{{ cluster.id }}">
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ f1b.person.first_name }} {{ f1b.person.surname }}</td>
+                            <td>{{ f1b.date_of_event }}
+                            </td>
+                            <td></td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                    </table>
+                </div>
+
+    </div>
+    <!-- end col-12 -->
+
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>	
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script type="text/javascript">
+    FormWizardValidation.init();
+
+    $('#olmis_service_date').attr('data-parsley-required', 'true');
+
+    $("#new_form1b").submit(function(e){
+            e.preventDefault();
+
+            $('#new_form1b').parsley().validate();
+            var amonths = [ 3, 6, 9, 12 ];
+            var date = $('#olmis_service_date').datepicker('getDate')
+            var month = date.getMonth() + 1;
+            var mcheck = $.inArray(month, amonths);
+
+           if ($('#new_form1b').parsley().isValid() && mcheck !== -1){
+               // $("#messages").html('Good');
+               $(this).unbind("submit").submit();
+           }else{
+               $("#messages").show();
+               $("#messages").html('Make sure the month is correct and there is data.');
+               $("#messages").attr("tabindex",-1).focus();
+           }
+    });
+
+
+</script>
+
+{% endblock %}

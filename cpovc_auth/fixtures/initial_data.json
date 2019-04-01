@@ -1,0 +1,1413 @@
+[
+{
+	"model":"auth.Permission",
+	"pk":1001,
+	"fields":{
+		"name":"reg org"
+		,"codename":"reg org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1002,
+	"fields":{
+		"name":"update org contact rel"
+		,"codename":"update org contact rel"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1003,
+	"fields":{
+		"name":"update org general rel"
+		,"codename":"update org general rel"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1004,
+	"fields":{
+		"name":"reg wkf rel"
+		,"codename":"reg wkf rel"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1005,
+	"fields":{
+		"name":"update wkf contact rel"
+		,"codename":"update wkf contact rel"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1006,
+	"fields":{
+		"name":"update wkf general rel"
+		,"codename":"update wkf general rel"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1007,
+	"fields":{
+		"name":"ben view by org"
+		,"codename":"ben view by org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1008,
+	"fields":{
+		"name":"update ben contact by org"
+		,"codename":"update ben contact by org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1009,
+	"fields":{
+		"name":"update ben general by org"
+		,"codename":"update ben general by org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1010,
+	"fields":{
+		"name":"role assign org rel"
+		,"codename":"role assign org rel"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1011,
+	"fields":{
+		"name":"ben lookup"
+		,"codename":"ben lookup"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1012,
+	"fields":{
+		"name":"update org contact"
+		,"codename":"update org contact"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1013,
+	"fields":{
+		"name":"update org general"
+		,"codename":"update org general"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1014,
+	"fields":{
+		"name":"update org special"
+		,"codename":"update org special"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1015,
+	"fields":{
+		"name":"update wkf contact"
+		,"codename":"update wkf contact"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1016,
+	"fields":{
+		"name":"update wkf general"
+		,"codename":"update wkf general"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1017,
+	"fields":{
+		"name":"update wkf special"
+		,"codename":"update wkf special"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1018,
+	"fields":{
+		"name":"ben vw"
+		,"codename":"ben vw"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1019,
+	"fields":{
+		"name":"update ben special"
+		,"codename":"update ben special"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1020,
+	"fields":{
+		"name":"dedub"
+		,"codename":"dedub"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1021,
+	"fields":{
+		"name":"auto update"
+		,"codename":"auto update"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1022,
+	"fields":{
+		"name":"ben view in geo"
+		,"codename":"ben view in geo"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1023,
+	"fields":{
+		"name":"vw frm h sensitive area"
+		,"codename":"vw frm h sensitive area"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1024,
+	"fields":{
+		"name":"vw frm h sensitive"
+		,"codename":"vw frm h sensitive"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1025,
+	"fields":{
+		"name":"vw frm h sense all in org"
+		,"codename":"vw frm h sense all in org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1026,
+	"fields":{
+		"name":"edit frm l sense all in org"
+		,"codename":"edit frm l sense all in org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1027,
+	"fields":{
+		"name":"edit frm h sense all in org"
+		,"codename":"edit frm h sense all in org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1028,
+	"fields":{
+		"name":"dq rpt by org"
+		,"codename":"dq rpt by org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1029,
+	"fields":{
+		"name":"log in capture site"
+		,"codename":"log in capture site"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1030,
+	"fields":{
+		"name":"add doc library"
+		,"codename":"add doc library"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1031,
+	"fields":{
+		"name":"assign role org spec"
+		,"codename":"assign role org spec"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1032,
+	"fields":{
+		"name":"assign role non org spec"
+		,"codename":"assign role non org spec"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1033,
+	"fields":{
+		"name":"role management"
+		,"codename":"role management"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1034,
+	"fields":{
+		"name":"manage config list"
+		,"codename":"manage config list"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1035,
+	"fields":{
+		"name":"manage geo list"
+		,"codename":"manage geo list"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1036,
+	"fields":{
+		"name":"reg ben"
+		,"codename":"reg ben"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1037,
+	"fields":{
+		"name":"update wkf contact own"
+		,"codename":"update wkf contact own"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1038,
+	"fields":{
+		"name":"org lookup"
+		,"codename":"org lookup"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1039,
+	"fields":{
+		"name":"org view"
+		,"codename":"org view"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1040,
+	"fields":{
+		"name":"wkf lookup"
+		,"codename":"wkf lookup"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1041,
+	"fields":{
+		"name":"wkf view"
+		,"codename":"wkf view"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1042,
+	"fields":{
+		"name":"enter frm high sensitive own"
+		,"codename":"enter frm high sensitive own"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1043,
+	"fields":{
+		"name":"enter frm low sensitive"
+		,"codename":"enter frm low sensitive"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1044,
+	"fields":{
+		"name":"vw frm low sensitive"
+		,"codename":"vw frm low sensitive"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1045,
+	"fields":{
+		"name":"vw frm sensitive own"
+		,"codename":"vw frm sensitive own"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1046,
+	"fields":{
+		"name":"edit frm low sensitive own"
+		,"codename":"edit frm low sensitive own"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1047,
+	"fields":{
+		"name":"edit form sensitive own"
+		,"codename":"edit form sensitive own"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1048,
+	"fields":{
+		"name":"update ben general"
+		,"codename":"update ben general"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1049,
+	"fields":{
+		"name":"update ben contact"
+		,"codename":"update ben contact"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1050,
+	"fields":{
+		"name":"approve capture sites"
+		,"codename":"approve capture sites"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1051,
+	"fields":{
+		"name":"enter frm high sensitive"
+		,"codename":"enter frm high sensitive"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1052,
+	"fields":{
+		"name":"log in web"
+		,"codename":"log in web"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1053,
+	"fields":{
+		"name":"enter frm as soc welf"
+		,"codename":"enter frm as soc welf"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1054,
+	"fields":{
+		"name":"edit and delete sets all"
+		,"codename":"edit and delete sets all"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1055,
+	"fields":{
+		"name":"edit and delete sets self"
+		,"codename":"edit and delete sets self"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1056,
+	"fields":{
+		"name":"view profile ovc in geo"
+		,"codename":"view profile ovc in geo"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1057,
+	"fields":{
+		"name":"view profile ovc"
+		,"codename":"view profile ovc"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1058,
+	"fields":{
+		"name":"view profile wf own"
+		,"codename":"view profile wf own"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1059,
+	"fields":{
+		"name":"view profile wf org"
+		,"codename":"view profile wf org"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1060,
+	"fields":{
+		"name":"view profile wf"
+		,"codename":"view profile wf"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1061,
+	"fields":{
+		"name":"view unrestricted reports"
+		,"codename":"view unrestricted reports"
+		,"content_type":2
+	}
+},
+{
+	"model":"auth.Permission",
+	"pk":1062,
+	"fields":{
+		"name":"edit frm as soc welf"
+		,"codename":"edit frm as soc welf"
+		,"content_type":2
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1001,
+	"fields":{
+		"permission_description":"Register organisational unit - related org units"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"create"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1002,
+	"fields":{
+		"permission_description":"File update org units - contact fields - related org units"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1003,
+	"fields":{
+		"permission_description":"File update org units - general fields - related org units"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1004,
+	"fields":{
+		"permission_description":"Register workforce members/users - related workforce members/users"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"create"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1005,
+	"fields":{
+		"permission_description":"File update workforce members/users - contact fields - related workforce members/users"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1006,
+	"fields":{
+		"permission_description":"File update workforce members/users - general fields - related workforce members/users"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1007,
+	"fields":{
+		"permission_description":"Beneficiary - view file - beneficiaries ever served by org unit"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"view"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1008,
+	"fields":{
+		"permission_description":"File update beneficiary - contact fields - beneficiaries ever served by org unit"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1009,
+	"fields":{
+		"permission_description":"File update beneficiary - general fields - beneficiaries ever served by org unit"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1010,
+	"fields":{
+		"permission_description":"Assignment of roles  to workforce members/users - org unit specific roles - related workforce members/users"
+		,"permission_set":"Access"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1011,
+	"fields":{
+		"permission_description":"Beneficiary lookup  - Perform lookup/searches in beneficiary data using basic biodata and returning beneficiary ID together with basic bio data (but not full file)"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"lookup"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1012,
+	"fields":{
+		"permission_description":"File update org units - contact fields"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1013,
+	"fields":{
+		"permission_description":"File update org units - general fields"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1014,
+	"fields":{
+		"permission_description":"File update org units - special fields"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1015,
+	"fields":{
+		"permission_description":"File update workforce members/users - contact fields"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1016,
+	"fields":{
+		"permission_description":"File update workforce members/users - general fields"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1017,
+	"fields":{
+		"permission_description":"File update workforce members/users - special fields"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1018,
+	"fields":{
+		"permission_description":"Beneficiary - view file"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1019,
+	"fields":{
+		"permission_description":"File update beneficiaries - special fields"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1020,
+	"fields":{
+		"permission_description":"De-duplication/merge tool"
+		,"permission_set":"General registry"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1021,
+	"fields":{
+		"permission_description":"Mass update tool"
+		,"permission_set":"General registry"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1022,
+	"fields":{
+		"permission_description":"Beneficiary - view file - beneficiaries in area"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"view"
+		,"restricted_to_geo":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1023,
+	"fields":{
+		"permission_description":"View form - high sensitivity - related to area"
+		,"permission_set":"Forms"
+		,"permission_type":"view"
+		,"restricted_to_geo":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1024,
+	"fields":{
+		"permission_description":"View form - high sensitivity"
+		,"permission_set":"Forms"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1025,
+	"fields":{
+		"permission_description":"View form - high sensitivity - uploaded by anyone in org unit"
+		,"permission_set":"Forms"
+		,"permission_type":"view"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1026,
+	"fields":{
+		"permission_description":"Edit form - low sensitivity - uploaded by anyone in org unit"
+		,"permission_set":"Forms"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1027,
+	"fields":{
+		"permission_description":"Edit form - high sensitivity - uploaded by anyone in org unit"
+		,"permission_set":"Forms"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1028,
+	"fields":{
+		"permission_description":"Run data quality reports - on forms submitted by the organizational unit"
+		,"permission_set":"Outputs"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1029,
+	"fields":{
+		"permission_description":"log in to capture site application"
+		,"permission_set":"Security"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1030,
+	"fields":{
+		"permission_description":"Upload  documents to the document library on behalf of the organisational unit, and remove documents from the document library which were uploaded by this organisational unit"
+		,"permission_set":"Library"
+		,"permission_type":"update"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1031,
+	"fields":{
+		"permission_description":"Assignment of roles  to workforce members/users - org-unit-specific roles"
+		,"permission_set":"Access"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1032,
+	"fields":{
+		"permission_description":"Assignment of roles  to workforce members/users - non-org-unit-specific roles"
+		,"permission_set":"Access"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1033,
+	"fields":{
+		"permission_description":"Management of roles and assignment of permissions to roles"
+		,"permission_set":"Access"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1034,
+	"fields":{
+		"permission_description":"Manage configurable lists"
+		,"permission_set":"Config"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1035,
+	"fields":{
+		"permission_description":"Manage geographic area lists"
+		,"permission_set":"Config"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1036,
+	"fields":{
+		"permission_description":"Register beneficiary"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"create"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1037,
+	"fields":{
+		"permission_description":"File update workforce member/user - contact fields - own record"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"update"
+		,"restricted_to_self":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1038,
+	"fields":{
+		"permission_description":"Org unit lookup"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"lookup"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1039,
+	"fields":{
+		"permission_description":"Org unit - view file"
+		,"permission_set":"Organisational unit registry"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1040,
+	"fields":{
+		"permission_description":"Workforce member/user lookup"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"lookup"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1041,
+	"fields":{
+		"permission_description":"Workforce member/user - view file"
+		,"permission_set":"Workforce/user registry"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1042,
+	"fields":{
+		"permission_description":"Enter form - high sensitivity - related to self"
+		,"permission_set":"Forms"
+		,"permission_type":"create"
+		,"restricted_to_self":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1043,
+	"fields":{
+		"permission_description":"Enter form - low sensitivity"
+		,"permission_set":"Forms"
+		,"permission_type":"create"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1044,
+	"fields":{
+		"permission_description":"View form - low sensitivity"
+		,"permission_set":"Forms"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1045,
+	"fields":{
+		"permission_description":"View form - high sensitivity - uploaded by self"
+		,"permission_set":"Forms"
+		,"permission_type":"view"
+		,"restricted_to_self":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1046,
+	"fields":{
+		"permission_description":"Edit form - low sensitivity - uploaded by self"
+		,"permission_set":"Forms"
+		,"permission_type":"update"
+		,"restricted_to_self":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1047,
+	"fields":{
+		"permission_description":"Edit form - high sensitivity - uploaded by self"
+		,"permission_set":"Forms"
+		,"permission_type":"update"
+		,"restricted_to_self":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1048,
+	"fields":{
+		"permission_description":"File update beneficiaries - general fields"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1049,
+	"fields":{
+		"permission_description":"File update beneficiaries - contact fields"
+		,"permission_set":"Beneficiary registry"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1050,
+	"fields":{
+		"permission_description":"Approve capture sites"
+		,"permission_set":"Access"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1051,
+	"fields":{
+		"permission_description":"Enter form - high sensitivity"
+		,"permission_set":"Forms"
+		,"permission_type":"create"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1052,
+	"fields":{
+		"permission_description":"log in to web application"
+		,"permission_set":"Security"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1053,
+	"fields":{
+		"permission_description":"Enter form - residential institution, child in conflict with law - as social welfare officer"
+		,"permission_set":"Forms"
+		,"permission_type":"create"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1054,
+	"fields":{
+		"permission_description":"Delete report sets of org units - created by anyone"
+		,"permission_set":"Outputs"
+		,"permission_type":"update"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1055,
+	"fields":{
+		"permission_description":"Delete report sets of org units - created by self"
+		,"permission_set":"Outputs"
+		,"permission_type":"update"
+		,"restricted_to_self":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1056,
+	"fields":{
+		"permission_description":"OVC - view profile - OVC in area"
+		,"permission_set":"Outputs"
+		,"permission_type":"view"
+		,"restricted_to_geo":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1057,
+	"fields":{
+		"permission_description":"OVC - view profile"
+		,"permission_set":"Outputs"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1058,
+	"fields":{
+		"permission_description":"Workforce member - view profile - own profile"
+		,"permission_set":"Outputs"
+		,"permission_type":"view"
+		,"restricted_to_self":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1059,
+	"fields":{
+		"permission_description":"Workforce member - view profile - ever in org unit"
+		,"permission_set":"Outputs"
+		,"permission_type":"view"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1060,
+	"fields":{
+		"permission_description":"Workforce member - view profile"
+		,"permission_set":"Outputs"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1061,
+	"fields":{
+		"permission_description":"View unrestricted reports"
+		,"permission_set":"Outputs"
+		,"permission_type":"view"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCPermission",
+	"pk":1062,
+	"fields":{
+		"permission_description":"Edit residential institution forms in a district"
+		,"permission_set":"Forms"
+		,"permission_type":"update"
+		,"restricted_to_geo":"True"
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":1,
+	"fields":{
+		"name":"Access manager"
+		,"permissions":[
+			1031
+			,1032
+			,1033
+			,1050
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":2,
+	"fields":{
+		"name":"Data entry"
+		,"permissions":[
+			1011
+			,1029
+			,1051
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":3,
+	"fields":{
+		"name":"Data supervisor"
+		,"permissions":[
+			1011
+			,1025
+			,1026
+			,1027
+			,1028
+			,1029
+			,1059
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":4,
+	"fields":{
+		"name":"Document upload"
+		,"permissions":[
+			1030
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":5,
+	"fields":{
+		"name":"Public (not logged in)"
+		,"permissions":[
+			1038
+			,1039
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":6,
+	"fields":{
+		"name":"Registry manager"
+		,"permissions":[
+			1011
+			,1012
+			,1013
+			,1014
+			,1015
+			,1016
+			,1017
+			,1018
+			,1019
+			,1020
+			,1021
+			,1048
+			,1049
+			,1054
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":7,
+	"fields":{
+		"name":"Registration assistant"
+		,"permissions":[
+			1001
+			,1002
+			,1003
+			,1004
+			,1005
+			,1006
+			,1007
+			,1008
+			,1009
+			,1010
+			,1011
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":8,
+	"fields":{
+		"name":"System configuration"
+		,"permissions":[
+			1034
+			,1035
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":9,
+	"fields":{
+		"name":"Standard logged in"
+		,"permissions":[
+			1036
+			,1037
+			,1038
+			,1039
+			,1040
+			,1041
+			,1042
+			,1043
+			,1044
+			,1045
+			,1046
+			,1047
+			,1052
+			,1055
+			,1058
+			,1061
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":10,
+	"fields":{
+		"name":"Area social welfare"
+		,"permissions":[
+			1011
+			,1022
+			,1023
+			,1053
+			,1056
+			,1060
+			,1062
+		]
+	}
+},
+{
+	"model":"auth.Group",
+	"pk":11,
+	"fields":{
+		"name":"National social welfare"
+		,"permissions":[
+			1011
+			,1018
+			,1024
+			,1053
+			,1057
+			,1060
+		]
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":1,
+	"fields":{
+		"group_id":"ACM"
+		,"group_name":"Access manager"
+		,"group_description":"This role allows allocation of roles (both restricted and non-restricted roles) to any user"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":2,
+	"fields":{
+		"group_id":"DEC"
+		,"group_name":"Data entry"
+		,"group_description":"This role allows log in to any capture site application linked to the organisational unit, and also entry of forms through the web application"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":3,
+	"fields":{
+		"group_id":"DSU"
+		,"group_name":"Data supervisor"
+		,"group_description":"This role allows viewing and editing of forms (including sensitive forms) submitted by workforce members/users within an organisational unit"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":4,
+	"fields":{
+		"group_id":"DUU"
+		,"group_name":"Document upload"
+		,"group_description":"This role allows upload of documents on behalf of the organisational unit"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":5,
+	"fields":{
+		"group_id":"PUB"
+		,"group_name":"Public (not logged in)"
+		,"group_description":"Public (not logged in)"
+		,"automatic":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":6,
+	"fields":{
+		"group_id":"RGM"
+		,"group_name":"Registry manager"
+		,"group_description":"This role allows high level administration, de-duplication and corrections to the national registries (org units, workforce/users and beneficiaries)"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":7,
+	"fields":{
+		"group_id":"RGU"
+		,"group_name":"Registration assistant"
+		,"group_description":"This role allows registration of workforce members, users and sub-units under the organisaitonal unit"
+		,"restricted_to_org_unit":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":8,
+	"fields":{
+		"group_id":"SCM"
+		,"group_name":"System configuration"
+		,"group_description":"This role allows managing the content of configurable drop down lists in the system, and maintaining system geographic data"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":9,
+	"fields":{
+		"group_id":"STD"
+		,"group_name":"Standard logged in"
+		,"group_description":"This role is allocated by default to all logged in users / workforce members"
+		,"automatic":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":10,
+	"fields":{
+		"group_id":"SWA"
+		,"group_name":"Area social welfare"
+		,"group_description":"This role allows viewing of sensitive individual beneficiary registry records and forms data throughout a district"
+		,"restricted_to_geo":"True"
+	}
+},
+{
+	"model":"cpovc_auth.CPOVCRole",
+	"pk":11,
+	"fields":{
+		"group_id":"SWM"
+		,"group_name":"National social welfare"
+		,"group_description":"This role allows viewing of sensitive individual beneficiary registry records and forms data throughout the entire country"
+	}
+}
+]
+

@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Raw data {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+<link href="{% static 'plugins/datatables/css/dataTables.bootstrap.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Settings</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-user" aria-hidden="true"></i>
+ Raw Data <small> Master List, Assessments, Services and Priorities. </small></h1>
+ {% if messages %}
+    {% for message in messages %}
+    {% if 'error' in message.tags %}
+        <div id="messages" class="alert alert-danger fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-info fa-2x pull-left"></i>
+    {% else %}
+        <div id="messages" class="alert alert-success fade in">
+        <span class="close" data-dismiss="alert">×</span>
+        <i class="fa fa-check fa-2x pull-left"></i>
+    {% endif %}    
+        <p>{{ message }}</p>
+    </div>
+   {% endfor %}
+{% endif %}
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-remove"><i class="fa fa-times"></i></a>
+                </div>                      
+                <h4 class="panel-title">Raw data download</h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+              <form class="form-inline" action="." method="POST" data-parsley-validate="true">
+                {% csrf_token %}
+                <input type="hidden" name="report_region" value="1">
+                <input type="hidden" name="report_id" value="5">
+                <input type="hidden" name="report_period" value="Other">
+                
+                <div class="form-group m-r-10">
+                    <div class="col-md-12">
+                       {{ form.raw_data }}
+                    </div>
+                </div>
+                <div class="form-group m-r-10">
+                  {{ form.report_from_date }}
+                </div>
+                <div class="form-group m-r-10">
+                  {{ form.report_to_date }}
+                </div>
+                <div class="form-group m-r-10">
+                    {{ form.org_unit }}
+                </div>
+                <div class="form-group m-r-10">
+                    {{ form.cluster }}
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary m-r-5">Generate</button>
+                {% if file_name %}
+                    <a href="{% url 'archived_reports' file_name=file_name %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-download"></i>&nbsp; Download </button></a>
+                {% else %}
+                    <span>0 Records</span>
+                {% endif %}
+              </form>
+              <br/>
+              <table id="data-table" class="table table-striped table-bordered">
+                  <thead>
+                      <tr>
+                          <th>#</th>
+                          <th>NAME</th>
+                          <th>DATE</th>
+                          <th>ACTION</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for report in reports %}
+                      <tr>
+                          <td>{{ forloop.counter }}</td>
+                          <td>{{ report.0 }}</td>
+                          <td>{{ report.1 }}</td>
+                          <td>
+                            <a href="{% url 'archived_reports' file_name=report.2 %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-download"></i>&nbsp; Download </button></a>
+                            <a href="{% url 'remove_reports' file_name=report.2 %}"><button type="button" class="btn btn-sm btn-danger m-r-5"><i class="fa fa-trash"></i>&nbsp; Remove </button></a>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <th>#</th>
+                          <th>NAME</th>
+                          <th>DATE</th>
+                          <th>ACTION</th>
+                      </tr>
+                  </tfoot>
+              </table>
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- end panel -->  
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/datatables/js/jquery.dataTables.js' %}"></script>
+<script src="{% static 'plugins/datatables/js/dataTables.bootstrap.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/js/moment.min.js' %}"></script>
+<script src="{% static 'plugins/datatables/js/datetime-moment.js' %}"></script>
+
+<script>
+$(document).ready(function() {
+    $('#data-table').DataTable( {
+        "order": [[ 2, "desc" ]]
+    } );
+
+    $('#report_from_date, #report_to_date').datepicker({
+        dateFormat: 'yy-mm-dd', format: 'dd-M-yyyy',
+        endDate: '+0d', enddate: '+0d', autoclose: true
+    });
+} );
+</script>
+{% endblock %}

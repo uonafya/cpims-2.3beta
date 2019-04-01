@@ -1,0 +1,4 @@
+# Added by NMA on 13-June-2016 at 12:59:00
+# Block all robots
+User-agent: *
+Disallow: /

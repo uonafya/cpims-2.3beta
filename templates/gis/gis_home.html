@@ -1,0 +1,1312 @@
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} GIS {% endblock page_title%}
+
+{% load staticfiles %}
+
+{% block style_code %}
+<style type="text/css">
+  #legend {
+    background: #FFF;
+    padding: 10px;
+    margin: 5px;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+.color {
+    border: 1px solid;
+    height: 14px;
+    width: 14px;
+    margin-right: 3px;
+    float: left;
+}
+.map_info{
+    line-height: 30px;
+    padding: 17px 15px;
+    font-size: 14px;
+}
+.mtext{
+    background-color: #ccc;
+    border: 1px solid #ddd;
+    padding: 10px 20px 10px 20px;
+    font-size: 14px;
+    color: #000;
+    -moz-border-radius: 0 0 10px 10px;
+    -webkit-border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;
+    -khtml-border-radius: 0 0 10px 10px;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";       /* IE 8 */
+    filter: alpha(opacity=50);  /* IE 5-7 */
+    -moz-opacity: 0.5;          /* Netscape */
+    -khtml-opacity: 0.5;        /* Safari 1.x */
+    opacity: 0.5;  
+    }
+#divLoading
+{
+    display : none;
+}
+#divLoading.show
+{
+    display : block;
+    position : fixed;
+    z-index: 100;
+    background-image : url({% static 'img/loading.gif' %});
+    background-color:#666;
+    opacity : 0.4;
+    background-repeat : no-repeat;
+    background-position : center;
+    left : 0;
+    bottom : 0;
+    right : 0;
+    top : 0;
+}
+#loadinggif.show
+{
+    left : 50%;
+    top : 50%;
+    position : absolute;
+    z-index : 101;
+    width : 32px;
+    height : 32px;
+    margin-left : -16px;
+    margin-top : -16px;
+}
+#legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+}
+#legend h3 {
+  margin-top: 0;
+}
+#legend img {
+  vertical-align: middle;
+}
+.mtitles{
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+}
+.footer{
+  margin: 0 25px 0 70px;
+}
+</style>
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static 'plugins/jstree/dist/themes/default/style.min.css' %}" />
+
+{% endblock style_code %}
+
+{% block javascript_code %}
+
+<script src="{% static 'js/gis.js' %}"></script>
+
+{% endblock javascript_code %}
+
+{% block primary %}
+
+{% if messages %}
+<div id="messages" class="alert alert-danger fade in">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.error %} class="{{ message.danger }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<!-- begin row -->
+<div class="row">
+    <div class="col-md-9">
+          <div class="map">
+            <div id="map-error"></div>
+            <div id="divLoading"></div>
+            <div id="map-canvas" style="height:980px" class="height-full width-full"></div>
+      </div>
+      <div id="legend"></div>
+        </div>
+        <div class="col-md-3"> 
+            <form id="gis_form">       
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>                        
+                    </div>
+                    <h4 class="panel-title">Map controls</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="mtitles">Data sets</div>
+                    <div class="checkbox" id="dlayer">
+                        <label>
+                           <input type="checkbox" value="1" class="data_layer" checked="checked" />Organisation Units
+                        </label>
+                    </div>
+                    <div class="checkbox" id="olayer">
+                        <label>
+                           <input type="checkbox" value="2" class="data_layer" checked="checked" />Operational areas
+                        </label>
+                    </div>
+                    <div class="checkbox" id="cclayer">
+                        <label>
+                           <input type="checkbox" value="3" class="data_layer" />Case Categories
+                        </label>
+                    </div>
+                    <div class="mtitles">Thematic Areas</div>
+                    <div class="checkbox" id="clayer">
+                        <label>
+                           <input type="checkbox" value="1" class="theme_layer" checked="checked" />Counties
+                        </label>
+                    </div>
+                    <div class="checkbox" id="sclayer">
+                        <label>
+                            <input type="checkbox" value="1" class="theme_layer" />Sub-counties
+                        </label>
+                    </div>
+                    <div class="mtitles">Data filters</div>
+                    <div class="checkbox" id="dd_filter">
+                       <div class="input-group date">
+                        <input type="text" class="form-control" name="start_date" id="start_date" placeholder="Select start Date"  data-date-format="dd-mm-yyyy" />
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                      <p></p>
+                       <div class="input-group date">
+                        <input type="text" class="form-control" name="end_date" id="end_date" placeholder="Select end Date"  data-date-format="dd-mm-yyyy" />
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        </div>
+                    </div>
+                    <div class="checkbox" id="ou_filter">
+                      <p>Organisation Unit Status</p>
+                        <label>
+                           <input type="checkbox" value="1" class="ou_status" checked="checked" />Operational units
+                        </label>
+                        <label>
+                           <input type="checkbox" value="2" class="ou_status" checked="checked" />Closed units
+                        </label>
+                        <div>
+                        <br/>
+                        <p>Organisation Unit Type</p>
+                        </div>
+                        <div id="jstree"></div>
+                    </div>
+                    <div class="checkbox" id="cc_filter">
+                        <p>Select case category</p>
+                        <select class="form-control" id="case_category" name="case_category">
+                            <option value="CDIS">Abandoned</option>
+                            <option value="CDSA">Abduction</option>
+                            <option value="CLAB">Child Affected by HIV/AIDS</option>
+                            <option value="CORP">Child Delinquency</option>
+                            <option value="COSR">Child headed household</option>
+                            <option value="CTRF">Child Labour</option>
+                            <option value="CCCM">Child Marriage</option>
+                            <option value="SCCI">Child of imprisoned parent (s)</option>
+                            <option value="CSAB">Child offender</option>
+                            <option value="CSAD">Child out of school</option>
+                        </select>
+                    </div>
+                    
+                    <div class="panel-group">
+                      <a href="#modal-map-settings" class="btn btn-primary btn-block" data-toggle="modal"><i class="fa fa-cogs pull-right"></i> Advanced filters and settings </a> 
+                    </div>
+                    <p></p>
+                    <hr>
+                    <p>Developed by University of Nairobi</p>
+                    <div id="event_result"></div>
+                    <hr>
+                    <p></p>
+                </div>
+            </div>
+            <!-- end panel -->        
+            <!-- end of collapsible -->
+          </div>
+        </form>
+        <!-- #modal-alert -->
+        <div class="modal fade" id="modal-map-settings">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Map filters and settings</h4>
+              </div>
+              <div class="modal-body">
+                <div class="panel-body panel-form">
+                <form class="form-horizontal form-bordered">
+                  <div class="form-group">
+                    <label class="control-label col-md-3">Show map labels</label>
+                    <div class="col-md-4">
+                        <input type="radio" name="show_labels" value="AYES" /> Yes
+                        <input type="radio" name="show_labels" value="ANNO" checked /> No
+                    </div>
+                  </div>
+                  <!-- Start more settings -->
+                  <div class="form-group">
+                          <!-- end col-4 -->
+                          <label class="control-label col-md-3">Map title</label>
+                          <!-- begin col-4 -->
+                          <div class="col-md-9">
+                              <input class="form-control" id="print_title" name="print_title" placeholder="Title used by print functionality" type="text" />
+                          </div>
+                          <!-- end col-4 -->
+                      </div>
+                  <!-- End more settings -->
+                  <div class="form-group">
+                    <label class="control-label col-md-3">Data classes</label>
+                    <div class="col-md-4">
+                        <div class="input-group" id="data_classes">
+                          <label class="radio-inline">
+                              <input type="radio" name="data_class" value="4" checked />
+                              4
+                          </label>
+                          <label class="radio-inline">
+                              <input type="radio" name="data_class" value="5" />
+                              5
+                          </label>
+                           <label class="radio-inline">
+                              <input type="radio" name="data_class" value="6" />
+                              6
+                          </label>
+                          <label class="radio-inline">
+                              <input type="radio" name="data_class" value="7" />
+                              7
+                          </label>
+                           <label class="radio-inline">
+                              <input type="radio" name="data_class" value="8" />
+                              8
+                          </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="control-label col-md-3">Color theme</label>
+                    <div class="col-md-4">
+                        <div class="input-group">
+                        <label> Sequential </label>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="1" checked />
+                                  Reds
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="2" />
+                                  Blues
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="3" />
+                                  Purples
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="4" />
+                                  Greens
+                              </label>
+                          </div>
+                      </div>
+                    </div>
+                      <div class="col-md-4">
+                        <div class="input-group">
+                        <label> Diverging </label>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="5" />
+                                  Red Blues
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="6" />
+                                  Red Green
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="7" />
+                                  Red Brown
+                              </label>
+                          </div>
+                          <div class="radio">
+                              <label>
+                                  <input type="radio" name="data_color" value="8" />
+                                  Purple Green
+                              </label>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a id="cancel_filter" href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                <a id="apply_filter" href="#" class="btn btn-sm btn-danger" data-dismiss="modal">Apply filter</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- #modal-alert -->
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+
+<script src="{% static 'plugins/jstree/dist/jstree.min.js' %}"></script>
+<script>
+$(document).ready(function() {
+  GIS.init();
+});
+
+$('#start_date, #end_date').datepicker({
+    dateFormat: 'yy-mm-dd', format: 'dd-M-yyyy',
+    endDate: '+0d', enddate: '+0d', autoclose: true
+});
+
+var dataSets = {};
+var noColor = '#d5d5d5';
+var opAreas = '#1a9850';
+var legendMin = 0;
+var legendMax = 0;
+
+var ou_Colors = ['#7fc97f', '#beaed4', '#fdc086', '#ffff99', '#f0027f', '#386cb0'];
+var ouColors = ['7fc97f', 'beaed4', 'fdc086', 'ffff99', 'f0027f', '386cb0'];
+
+var ouTypes = ['Committee', 'Adoption Society', 'Statutory Institution',
+               'CCI', 'NGO', 'Government Unit'];
+
+// Shrink the menu-bar to have a larger map area
+$('#page-container').addClass('page-sidebar-minified');
+
+//Legend
+var legend = document.getElementById('legend');
+legend.id = 'legend';
+var catLegend;
+var cThemes = {};
+
+function makeLegend(dataset=2){
+    var ltitles = {1: 'Operational areas', 2: 'Case Category'};
+    var nodatas = {1: 'Area not covered', 2: 'No data'};
+    var content = [];
+    var bg_style = '<p><div style="border: 1px solid; height: 14px; width: 14px;' +
+              ' margin-right: 3px; float: left; background-color: ';
+    var mtitle = ltitles[dataset];
+    var nodata = nodatas[dataset];
+    var webkit = ' !important; -webkit-print-color-adjust: exact;';
+    if (mtitle){
+        content.push('<h5>'+ mtitle +'</h5>');
+    }
+    var catdata = getCLegend(bg_style);
+    if (dataset == 1){
+      content.push(bg_style + opAreas + webkit +'"></div>Area covered</p>');
+    }else if (dataset == 2){
+      for (cd in catdata){
+          content.push(catdata[cd]);
+      }
+    }
+    if (nodata){
+        content.push(bg_style + noColor + webkit +'"></div>'+ nodata +'</p>');
+    }
+    if ($('#dlayer input[type="checkbox"]').is(":checked")){
+       content.push('<h5>Organisation units</h5>');
+       for (var key in ouColors) {
+          var ouname = ouTypes[key];
+          var ouColor = ou_Colors[key];
+          content.push(bg_style + ouColor + webkit +'"></div>'+ ouname+'</p>');
+        }
+    }
+    return content.join('');
+}
+
+function getCLegend(bg_style){
+  var cdata = [];
+  var dclasses = $('input[name=data_class]:checked').val();
+  var scolor = $('input[name=data_color]:checked').val();
+  var dclass = parseInt(dclasses);
+  var dcolor = parseInt(scolor);
+  var dataColor = dataColors[dcolor][dclass];
+  var max_range = legendMax - legendMin;
+  var dranges = max_range / dclass;
+  var drange = Math.round(dranges);
+  //Math.floor(dranges / 10) * 10;
+  for (i = 1; i <= dclass; i++) {
+    var min_value = (i * drange - drange);
+    var max_value = (min_value + drange);
+    var min_theme = min_value;
+    var max_theme = max_value;
+    if (min_value == 0){ 
+      min_value = ' 1';
+      min_theme = 0;
+    }
+    if (max_value >= legendMax){ 
+      max_value = legendMax +'+';
+      max_theme = legendMax + 1
+    }
+    cThemes[i] = [min_theme, max_theme];
+    var cpattern = (dcolor < 5) ? i - 1 : dataColor.length - i;
+    var lcolor = dataColor[cpattern];
+    var crange = min_value +' - '+ max_value;
+    var webkit = ' !important; -webkit-print-color-adjust: exact;';
+    var mystyle = bg_style + lcolor + webkit +'" ></div>';
+    cdata.push(mystyle + crange +'</p>');
+  }
+  return cdata;
+}
+
+function getColor(val, theme_area) {
+  var coli = + val;
+  var opCounty = [32, 41, 47];
+  var opConst = [274, 290, 232, 237, 166, 176];
+  var is_active = 0;
+  //Nakuru
+  for (i = 166; i < 176; i++) { 
+    opConst.push(i);
+  }
+  //Siaya
+  for (i = 232; i < 237; i++) { 
+    opConst.push(i);
+  }
+  // Nairobi
+  for (i = 274; i < 290; i++) { 
+    opConst.push(i);
+  }
+  if ((opCounty.indexOf(coli) > -1) && (theme_area == 1)){
+     is_active = 1;
+  }else if ((opConst.indexOf(coli) > -1) && (theme_area == 2)){
+     is_active = 2;
+  }
+  if (is_active > 0){
+     my_color = opAreas;
+  }else{
+     my_color = noColor;
+  }
+  
+  return my_color;
+}
+var map;
+var dataLayer;
+var countyLayer;
+var constituencyLayer;
+var markers = [];
+
+function initMap() {
+    map = new google.maps.Map(document.getElementById('map-canvas'), {
+      center: {lat: 0.588314, lng: 37.683641},
+      zoom: 7,
+      styles: mapStyle,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+        mapTypeIds: ['roadmap', 'terrain'],
+      },
+      zoomControl: true,
+      zoomControlOptions: {
+          position: google.maps.ControlPosition.LEFT_TOP
+      },
+      scaleControl: true,
+      scaleControlOptions: {
+          position: google.maps.ControlPosition.BOTTOM_CENTER
+      },
+      fullscreenControl: true
+    });
+
+    //Show legend
+    $('#legend').show();
+
+    countyLayer = new google.maps.Data();
+    constituencyLayer = new google.maps.Data();
+
+    countyLayer.loadGeoJson(
+      "{% static 'maps/county.geojson' %}",
+      { idPropertyName: 'AREA_CODE'
+    });
+    //Other available Kenya base map
+    constituencyLayer.loadGeoJson(
+      "{% static 'maps/constituency.geojson' %}",
+      { idPropertyName: 'AREA_CODE' }
+    );
+
+    countyLayer.setStyle(styleThematic);
+
+    constituencyLayer.setStyle(styleThematic);
+    
+    var infowindow = new google.maps.InfoWindow();
+
+    handleEvents(countyLayer, 1);
+    handleEvents(constituencyLayer, 2);
+
+    countyLayer.setMap(map);
+
+    $.getJSON("{% static 'maps/org_units.geojson' %}", function(oujson) {
+        $.each(oujson.features, function(key, data) {
+            var feature = data.properties;
+            var ous = ["", "C", "A", "S", "I", "N", "G"];
+            var lat = feature.latitude;
+            var lng = feature.longitude;
+            var latLng = new google.maps.LatLng(lat, lng); 
+            // Creating a marker and putting it on the map
+            addMarker(latLng, feature);
+        });
+    });
+
+
+    function addMarker(latLng, feature) {
+        var ou_type = feature.org_unit_type;
+        var pinColor = ouColors[parseInt(ou_type) -1 ];
+        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+            new google.maps.Size(21, 34),
+            new google.maps.Point(0,0),
+            new google.maps.Point(10, 34));
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          icon: pinImage
+        });
+        
+        marker.addListener('click', function(event) {
+          event.feature = feature;
+          windowControl(event, infowindow, map, 1);
+        });
+
+        markers.push(marker);
+    }
+
+    function handleEvents(currentLayer, area_type){
+      var a_title = area_type == 1 ? 'County: ' : 'Sub-County: ';
+      // When the user clicks, set 'isColorful', changing the color of the letters.
+      google.maps.event.addListener(currentLayer, 'click', function(event) {
+         windowControl(event, infowindow, map, 2);
+      });
+      //Right click handler
+      google.maps.event.addListener(currentLayer, "rightclick", function(event) {
+          var lat = event.latLng.lat();
+          var lng = event.latLng.lng();
+          windowOptions(event, infowindow, map);
+      });
+      // When the user hovers, tempt them to click by outlining the area.
+      google.maps.event.addListener(currentLayer, 'mouseover', function(event) {
+        currentLayer.revertStyle();
+        currentLayer.overrideStyle(event.feature, {strokeWeight: 2, strokeColor: 'red'});
+        $('#top-navbar').html(a_title + event.feature.getProperty('AREA_NAME'));
+        $('#top-navbar').addClass('map_info');
+      });
+
+      google.maps.event.addListener(currentLayer, 'mouseout', function(event) {
+        currentLayer.revertStyle();
+        $('#top-navbar').html('');
+      });
+
+    }
+
+    function DrillDown() {
+
+      $.ajax({
+          type: "POST",
+          url: "maps/county/",
+          data: '{area_code: "' + countryCode + '"}',
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          success: CreateAreaMap
+       });
+
+    }
+
+    function CreateAreaMap(response) {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'City');
+      data.addColumn('number', 'Popularity');
+      data.addRows(response.d.length);
+      for (var i = 0; i < response.d.length; i++) {
+          data.setValue(i, 0, "'" + response.d[i].City + "'");
+          data.setValue(i, 1, response.d[i].Popularity);
+      }
+
+      var options = {};
+      options['region'] = countryCode;
+      options['colors'] = [0xFF8747, 0xFFB581, 0xc06000];
+      options['dataMode'] = 'markers';
+      options['showZoomOut'] = true;
+
+      var container = document.getElementById('map_canvas');
+      var geomap = new google.visualization.GeoMap(container);
+      geomap.draw(data, options);
+      google.visualization.events.addListener(
+      geomap, 'zoomOut', function(e) {
+      initMap();
+      });
+    }
+
+    function windowControl(e, infoWindow, map, dataSet) {
+      infowindow.setOptions({
+        content: e.infoWindowHtml,
+        position: e.latLng,
+        pixelOffset: e.pixelOffset
+      });
+      var vdatas = getInfo(e, dataSet);
+      var vdata = vdatas[0];
+      var window_info = vdatas[1];
+      var values = {'action': 2, 'category': dataSet, 'region': vdata};
+      $.ajax({
+            type: "GET",
+            data: values,
+            dataType: "json",
+            url: "{% url 'gis_data' %}",
+            success: function(data){
+                 appendData(data);
+                 $('#messages').html('Good');
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+      infowindow.setContent(window_info);
+      infowindow.open(map);
+    }
+
+    function windowOptions(e, infoWindow, map) {
+      infowindow.setOptions({
+        content: e.infoWindowHtml,
+        position: e.latLng,
+        pixelOffset: e.pixelOffset
+      });
+      var aid = e.feature.getProperty('AREA_CODE');
+
+      var mydiv = '<div>';
+      mydiv += '<p>More Options</p>';
+      mydiv += '<span><a href="#" id="'+ aid +'" class="more_options">Drill Down Here</a></span>';
+      mydiv += '</div>';
+
+      var window_info = mydiv;
+
+      infowindow.setContent(window_info);
+      infowindow.open(map);
+    }
+
+
+    function appendData(data){
+      var htmld = "";
+      $.each(data, function(k, v) {
+          if (k > 0){
+               var cpimsVar = v[0];
+               var cpimsVal = v[1];
+               htmld += "<tr><td>"+ cpimsVar +"</td>";
+               htmld += "<td>"+ cpimsVal +"</td></tr>";
+          }
+      });
+         
+      $("#map-vars > tbody").append(htmld);
+    }
+
+
+    function getCircle(ou_type) {
+      var ou_color = ouColors[parseInt(ou_type) -1 ];
+      var circle = {
+        path: google.maps.SymbolPath.CIRCLE,
+        fillColor: ou_color,
+        fillOpacity: .9,
+        scale: 15,
+        strokeColor: 'white',
+        strokeWeight: .5
+      };
+      return circle;
+    }
+
+    function getInfo(event, dataSet){
+      var c_name;
+      var i_code;
+      var d_code;
+      var a_name;
+      var a_data;
+      var u_code;
+      if (dataSet == 1){
+        c_name = event.feature.org_unit_name;
+        i_code = event.feature.org_unit_type;
+        u_code = event.feature.org_unit_id;
+        d_code = 'Unit type';
+        d_data = ouTypes[parseInt(i_code) -1 ];
+        a_name = "Organisation Unit details"
+        a_data = "";
+      }else{
+        c_name = event.feature.getProperty('AREA_NAME');
+        d_data = event.feature.getProperty('AREA_CODE');
+        u_code = d_data;
+        var layerId = checkLayer(event.feature);
+        var a_title = layerId == 1 ? 'County' : 'Sub-County';
+        d_code = 'Area Code'
+        a_name = a_title +" details"
+        a_data = getRawdata(event, 1);
+      }
+      var vdata = [a_name, c_name, d_code, d_data, a_data];
+      var mydiv = getHtml(vdata);
+      var d_datas = [u_code, mydiv];
+      return d_datas;
+    }
+
+    function getHtml(vdata){
+      var mydiv = '<table id="map-vars" class="table table-condensed">';
+      mydiv += '<thead><tr><th colspan="2">'+ vdata[0] +'</th></tr></thead>';
+      mydiv += '<tbody><tr><td>Name</td><td>'+ vdata[1] +'</td></tr>';
+      mydiv += '<tr><td>'+ vdata[2] +'</td><td>'+ vdata[3] +'</td></tr>';
+      mydiv += vdata[4];
+      mydiv += '</tbody></table>';
+      return mydiv;
+    }
+
+
+    function getRawdata(event){
+       var data = '';
+       var dataValue = event.feature.getProperty('case_load');
+       var caseCat = $("#case_category").val();
+       var caseLayer = $('#cclayer input[type="checkbox"]').is(":checked");
+       var catName = cpimsCategory[caseCat];
+       if (dataValue && caseLayer){
+           var iCol = getTheme(dataValue)
+           data ='<tr><td>'+ catName +'</td><td>'+ dataValue +'</td></tr>'; 
+       }else if (dataValue == 0 && caseLayer){
+           data ='<tr><td>'+ catName +'</td><td>0</td></tr>';  
+       }    
+       return data;
+    }
+    var legend = document.getElementById('legend');
+    legend.innerHTML = ''; //content.join('');
+    legend.index = 1;
+    map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
+
+    //Title
+    var map_title = document.createElement('div');
+    map_title.id = 'map_title';
+    map_title.innerHTML = '';
+    map_title.index = 1;
+    map.controls[google.maps.ControlPosition.TOP_CENTER].push(map_title);
+
+    //Print
+    var map_print = document.createElement('div');
+    var prnt = '<button id="map-print" class="btn btn-danger m-r-5 m-b-5"';
+    prnt += ' onclick="printMap()"><i class="fa fa-print">';
+    prnt += '</i></button>';
+    map_print.id = 'map_print';
+    map_print.innerHTML = prnt;
+    map_print.index = 1;
+    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(map_print);
+
+    var content = [];
+    var bg_style = '<p><div class="color" style="background: ';
+    for (i = 0; i < ouTypes.length; i++) { 
+      content.push(bg_style + ouColors[i]+'"></div>'+ouTypes[i]+'</p>');
+    }
+    var myhtml = content.join('');
+    //$('#org_units_legend').html(myhtml);
+    catLegend = makeLegend(1);
+    $('#legend').html(catLegend);
+    $('#legend').show();
+
+    map.addListener(infowindow, 'domready', function() {
+    $(".more_options").click(function(e){
+      var a_href = $(this).attr('id');
+      console.log(a_href);
+      //e.preventDefault();
+      //DrillDown();
+   });
+});
+
+}
+// Map errors handled here
+$('#map-error').empty();
+setTimeout(function () {
+      try{
+          if (!google || !google.maps) {
+              $('#map-canvas').html('Google maps not loaded.');
+          }
+      }
+      catch (e) {
+        var error = 'Error or delayed Google maps loading.';
+        msg = '<span class="close" data-dismiss="alert">×</span>';
+        msg += '<i class="fa fa-check fa-2x pull-left"></i>'+error;
+          $('#map-error').html(msg);
+          $('#map-error').addClass('alert alert-danger fade in');   
+      }
+}, 5000);
+
+jQuery(document).ready(function() {
+  // By default disable constituency Layer
+  $('#legend').show();
+  $('#clayer input[type="checkbox"]').prop('checked', true);
+  $('#sclayer input[type="checkbox"]').prop('checked', false);
+  $('#olayer input[type="checkbox"]').prop('checked', true);
+  $('#cclayer input[type="checkbox"]').prop('checked', false);
+  // For drill down
+  
+  // Organisation units
+  $('#ou_filter').show();
+  $('#cc_filter').hide();
+  $('#dlayer input[type="checkbox"]').click(function() {
+      toggleLegend();
+      changeTitle();
+      if ($('#dlayer input[type="checkbox"]').is(":checked")){
+          //toggleLayer(dataLayer, 1);
+           $('#ou_filter').show();
+          setMapOnAll(map);
+      }else{
+          $('#ou_filter').hide();
+          setMapOnAll(null);
+      }
+  });
+  // Operational areas
+  $('#olayer input[type="checkbox"]').click(function() {
+      toggleLegend();
+      changeTitle();
+      if ($('#olayer input[type="checkbox"]').is(":checked")){
+            countyLayer.setStyle(styleThematic);
+            constituencyLayer.setStyle(styleThematic);
+            $('#cclayer input[type="checkbox"]').prop('checked', false);
+            // Hide this divs
+            $('#map_title').hide();
+            //
+      }else{
+            countyLayer.setStyle(styleRemove);
+            constituencyLayer.setStyle(styleRemove);
+      }
+  });
+  // County Layer
+  $('#clayer input[type="checkbox"]').click(function() {
+      toggleLegend();
+      changeTitle();
+      if ($('#clayer input[type="checkbox"]').is(":checked")){
+          reloadCases(countyLayer, 1);
+          toggleLayer(countyLayer, 1);
+          $('#sclayer input[type="checkbox"]').prop('checked', false);
+          toggleLayer(constituencyLayer, 0);
+      }else{
+          toggleLayer(countyLayer, 0);
+      }
+  });
+  // Sub county Layer
+  $('#sclayer input[type="checkbox"]').click(function() {
+      toggleLegend();
+      changeTitle();
+      if ($('#sclayer input[type="checkbox"]').is(":checked")){
+          reloadCases(constituencyLayer, 2);
+          toggleLayer(constituencyLayer, 1);
+          $('#clayer input[type="checkbox"]').prop('checked', false);
+          toggleLayer(countyLayer, 0);
+      }else{
+          toggleLayer(constituencyLayer, 0);
+      }
+  });
+  // Case categories
+  $('#cclayer input[type="checkbox"]').click(function() {
+      toggleLegend();
+      changeTitle();
+      if ($('#cclayer input[type="checkbox"]').is(":checked")){
+          $('#legend').show();
+          $('#cc_filter').show();
+          var caseCat = $("#case_category").val();
+          $('#olayer input[type="checkbox"]').prop('checked', false);
+          if ($('#clayer input[type="checkbox"]').is(":checked")){
+              loadCasedata(countyLayer, 1);
+          }else if ($('#sclayer input[type="checkbox"]').is(":checked")){
+              loadCasedata(constituencyLayer, 2);
+          }
+          var catName = cpimsCategory[caseCat];
+          $('#map_title').show();
+          $('#map_title').html("Case Category: "+ catName);
+          $('#map_title').addClass("mtext");
+      }else{
+          $('#cc_filter').hide();
+          $('#map_title').html("");
+          $('#map_title').removeClass("mtext");
+          countyLayer.setStyle(styleRemove);
+          constituencyLayer.setStyle(styleRemove);
+      }
+      
+  });
+
+  $('#apply_filter').click(function(){
+      console.log('Coming soon');
+   });
+
+  $('#case_category').change(function(){
+        var category_id = $("#case_category").val();
+        changeCategory(category_id);
+        // Remake legend
+        catLegend = makeLegend(2);
+        $('#legend').html(catLegend);
+    });
+
+  function toggleLegend(){
+    if ($('#olayer input[type="checkbox"]').is(":checked")){
+        catLegend = makeLegend(1);
+        $('#legend').html(catLegend);
+    }else if ($('#cclayer input[type="checkbox"]').is(":checked")){
+        catLegend = makeLegend(2);
+        $('#legend').html(catLegend);
+    }else if ($('#dlayer input[type="checkbox"]').is(":checked")){
+        catLegend = makeLegend(3);
+        $('#legend').html(catLegend);
+    }else{
+      $('#legend').hide();
+    }
+    
+  }
+
+  function reloadCases(currentLayer, dtype=1){
+      if ($('#cclayer input[type="checkbox"]').is(":checked")){
+        loadCasedata(currentLayer, dtype);
+      }
+  }
+
+  function loadCasedata(currentLayer, dtype=1){
+      var caseCat = $("#case_category").val();
+      loadData(caseCat, currentLayer, dtype);
+      currentLayer.setStyle(styleFeature);
+      currentLayer.setMap(map);
+      //
+      var catName = cpimsCategory[caseCat];
+      $('#map_title').html("Case Category: "+ catName);
+      $('#map_title').addClass("mtext");
+      //
+  }
+
+  function changeCategory(){
+    if ($('#clayer input[type="checkbox"]').is(":checked")){
+        reloadCases(countyLayer, 1);
+    }else if ($('#sclayer input[type="checkbox"]').is(":checked")){
+        reloadCases(constituencyLayer, 2);
+    }
+    
+  }
+
+});
+
+function toggleLayer(currentLayer, show){
+  if (show == 1){
+       //Setting the Layer but only if it does not exist
+       if(currentLayer.getMap() == null) { 
+        if (!$('#olayer input[type="checkbox"]').is(":checked") && 
+          !$('#cclayer input[type="checkbox"]').is(":checked")){
+          countyLayer.setStyle(styleRemove);
+          constituencyLayer.setStyle(styleRemove);
+        }
+        currentLayer.setMap(map);
+      }
+  }else{
+       //Removing the Layer but don't trigger resize
+       currentLayer.setMap(null);
+       //google.maps.event.trigger(map,'resize')
+  }
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function loadData(categoryId, currentLayer, regionId) {
+  // load the requested variable from the API
+  var xhr = new XMLHttpRequest();
+  var dataMin = 0;
+  var dataMax = 0;
+  xhr.open('GET', '/gis/data?action=1&category=' + categoryId + '&region='+ regionId);
+  xhr.onload = function() {
+    var cpimsData = JSON.parse(xhr.responseText);
+    cpimsData.shift(); // the first row contains column names
+    cpimsData.forEach(function(row) {
+      var cpimsVariable = parseFloat(row[0]);
+      var areaId = row[1];
+      // keep track of min and max values
+      if (cpimsVariable < dataMin) {
+        dataMin = cpimsVariable;
+      }
+      if (cpimsVariable > dataMax) {
+        dataMax = cpimsVariable;
+      }
+      // update the existing row with the new data
+      currentLayer
+        .getFeatureById(areaId)
+        .setProperty('case_load', cpimsVariable);
+    });
+    //console.log('Max id'+ dataMax);
+    legendMin = dataMin;
+    legendMax = dataMax + 1;
+    catLegend = makeLegend(2);
+    $('#legend').html(catLegend);
+  };
+  xhr.send();
+}
+//Compare this
+function styleFeature(feature) {
+  //Do the styling in here
+  var showRow = true;
+  var dataValue = 0;
+  if (feature.getProperty('case_load') == null ||
+      isNaN(feature.getProperty('case_load'))) {
+    showRow = false;
+    fetColor = noColor;
+  }else{
+     dataValue = feature.getProperty('case_load');
+  }
+ return {
+    strokeWeight: 1,
+    strokeColor: '#b3b3b3',
+    zIndex: 1,
+    fillColor: getTheme(dataValue),
+    fillOpacity: 0.8,
+    visible: showRow
+  };
+}
+
+function checkLayer(feature){
+  var themeId = 2;
+   if (isNaN(feature.getProperty('COUNTY_COD'))) {
+    themeId = 1;
+  }
+  return themeId;
+}
+
+//Style thematic area
+function styleThematic(feature) {
+  var featureId = feature.getProperty('AREA_CODE');
+  var featureName = feature.getProperty('AREA_NAME');
+  //Sub counties have county data
+  var themeId = 2;
+   if (isNaN(feature.getProperty('COUNTY_COD'))) {
+    themeId = 1;
+  }
+
+  var color = noColor;
+    if (feature.getProperty('isColorful')) {
+      color = feature.getProperty('color');
+    }
+
+ return {
+    fillColor: getColor(featureId, themeId),
+    fillOpacity: 0.8,
+    strokeColor: '#b3b3b3',
+    strokeWeight: 1,
+    zIndex: 1,
+    title: featureName
+  };
+}
+// Remove everything
+function styleRemove(feature) {
+  //Remove area stylings in here
+ return {
+    fillColor: noColor,
+    fillOpacity: 0.8,
+    strokeColor: '#b3b3b3',
+    strokeWeight: 1,
+    zIndex: 1,
+    title:''
+  };
+}
+
+
+function getTheme(val) {
+  var coli = + val;
+  var dclasses = $('input[name=data_class]:checked').val();
+  var scolor = $('input[name=data_color]:checked').val();
+  var dclass = parseInt(dclasses);
+  var dcolor = parseInt(scolor);
+
+  var dataColor = dataColors[dcolor][dclass];
+  var max_range = legendMax - legendMin;
+  var dranges = max_range / dclass;
+  var drange = Math.ceil(dranges / 10) * 10;
+  // My themes
+  var fcolor = getTColor(coli, dcolor, dataColor);
+  return fcolor;
+}
+
+function getTColor(coli, dcolor, dataColor){
+  var fcolor;
+  if (coli == 0){
+    return noColor;
+  }
+  for (ctheme in cThemes){
+    var theme_range = cThemes[ctheme];
+    var cmin = theme_range[0];
+    var cmax = theme_range[1];
+    if (coli >= cmin && coli < cmax){
+      var cpattern = (dcolor < 5) ? ctheme - 1 : dataColor.length - ctheme;
+      fcolor = dataColor[cpattern];
+    }
+  }
+  return fcolor;
+}
+//Sytle override to make Gmaps less crowded
+var mapStyle = [{
+  'featureType': 'all',
+  'elementType': 'all',
+  'stylers': [{'visibility': 'off'}]
+}, {
+  'featureType': 'landscape',
+  'elementType': 'geometry',
+  'stylers': [{'visibility': 'on'}, {'color': '#fcfcfc'}]
+}, {
+  'featureType': 'water',
+  'elementType': 'labels',
+  'stylers': [{'visibility': 'off'}]
+}, {
+  'featureType': 'water',
+  'elementType': 'geometry',
+  'stylers': [{'visibility': 'on'}, {'hue': '#5f94ff'}, {'lightness': 60}]
+}];
+
+function showLoading(state_id){
+  if (state_id == 1){
+     $("div#divLoading").addClass('show');
+  }else{
+     $("div#divLoading").removeClass('show');
+  }
+}
+
+function changeTitle() {
+    var title = $(document).prop('title');
+    var otitle = 'CPIMS | GIS - ';
+    var layername;
+    var dlayer = "";
+    var oulayer = "";
+    // Get layers
+    if ($('#clayer input[type="checkbox"]').is(":checked")){
+       layername = " by counties";
+    }else if ($('#sclayer input[type="checkbox"]').is(":checked")){
+       layername = " by sub-counties";
+    }else{
+       layername = "no thematic area";
+    }
+    //
+    if ($('#dlayer input[type="checkbox"]').is(":checked")){
+      dlayer = "Organisation units";
+    }
+    //
+    if ($('#olayer input[type="checkbox"]').is(":checked")){
+       oulayer = "Operational areas distribution";
+    }else if ($('#cclayer input[type="checkbox"]').is(":checked")){
+       var caset = $("#case_category").val();
+       oulayer = caset + " case category distribution";
+    }
+    var dolayer = (oulayer) ? dlayer + " and " : dlayer + " distribution";
+    var dataset = dolayer + oulayer + layername;
+    if (title.indexOf(otitle) == -1) {
+        //setTimeout(changeTitle, 3000);  
+        $(document).prop('title', title +' - '+ dataset);
+    }else{
+        $(document).prop('title', otitle + dataset);
+    }
+}
+
+function PrintElem(elem)
+    {
+        printMap($(elem).html());
+    }
+
+function printMap() {
+      //map-print
+      $('#map_print').hide();
+      $('#map_title').hide();
+      showLoading(1);
+      var body               = $('body');
+      var mapContainer       = $('#map-canvas');
+      var mapContainerParent = mapContainer.parent();
+      var printContainer     = $('<div>');
+      var prnt_title = $("#print_title").val();
+      var dataColors = dataColors;
+
+      printContainer
+        .addClass('print-container')
+        .css('width', '100%')
+        .css('height', '800px')
+        .height(mapContainer.height())
+        .append(mapContainer)
+        .prependTo(body);
+
+      var content = body
+        .children()
+        .not('script')
+        .not(printContainer)
+        .detach();
+      
+      body.prepend("<div id='print_title'><center><h3>"+ prnt_title +"</h3></center></div>");
+      // Patch for some Bootstrap 3.3.x `@media print` styles. :|
+      var patchedStyle = $('<style>')
+        .attr('media', 'print')
+        .text('img { max-width: auto !important; }' +
+              'a[href]:after { content: ""; }')
+        .appendTo('head');
+
+      window.print();
+
+      body.prepend(content);
+      mapContainerParent.prepend(mapContainer);
+
+      printContainer.remove();
+      patchedStyle.remove();
+      $('#map_print').show();
+      $('#map_title').show();
+      $('#print_title').html('');
+      //Remove progress
+      showLoading(0);
+}
+</script>
+<script>
+  $(function () {
+    // 6 create an instance when the DOM is ready
+    $('#jstree').jstree({ 'core' : {
+        'data' : [
+            { "id" : "KEOUS", "parent" : "#", "text" : "Kenya Organisation Units" },
+            { "id" : "TNGU", "parent" : "KEOUS", "text" : "Government Unit" },
+            { "id" : "TNNG", "parent" : "KEOUS", "text" : "Non Government Organisation" },
+            { "id" : "TNCI", "parent" : "KEOUS", "text" : "Charitable Children Institution" },
+            { "id" : "TNSI", "parent" : "KEOUS", "text" : "Statutory Institution" },
+            { "id" : "TNAS", "parent" : "KEOUS", "text" : "Adoption Society" },
+            { "id" : "TNCO", "parent" : "KEOUS", "text" : "Committee" },
+            { "id" : "TNRB", "parent" : "TNSI", "text" : "Borstal" },
+            { "id" : "TNRR", "parent" : "TNSI", "text" : "Rescue Home" },
+            { "id" : "TNRS", "parent" : "TNSI", "text" : "Rehabilitation School" },
+            { "id" : "TNRH", "parent" : "TNSI", "text" : "Remand Home" }, 
+            { "id" : "TNAP", "parent" : "TNSI", "text" : "Assessment & Placement" },               
+            { "id" : "TNRL", "parent" : "TNNG", "text" : "Local NGO" }, 
+            { "id" : "TNRI", "parent" : "TNNG", "text" : "Interational NGO" },
+            { "id" : "TNCB", "parent" : "TNNG", "text" : "Community Based Organization" }, 
+            { "id" : "TNCF", "parent" : "TNNG", "text" : "Faith Based Organization" },
+            { "id" : "TNPR", "parent" : "TNNG", "text" : "Private Organization" },
+            { "id" : "TNSA", "parent" : "TNAS", "text" : "Adoption Society" },
+            { "id" : "TNGP", "parent" : "TNGU", "text" : "County Children Office" },
+            { "id" : "TNGD", "parent" : "TNGU", "text" : "Sub County Children Office" },
+            { "id" : "TNPS", "parent" : "TNGU", "text" : "Police Station" },
+            { "id" : "TNGH", "parent" : "TNGU", "text" : "Health facility" },
+            { "id" : "TNGE", "parent" : "TNGU", "text" : "Education" }, 
+            { "id" : "TNGN", "parent" : "TNGU", "text" : "National Office" },
+            { "id" : "TNGC", "parent" : "TNGU", "text" : "Children's Court" },
+            { "id" : "TNRC", "parent" : "TNCI", "text" : "Charitable Children Institution" },
+            { "id" : "TNCM", "parent" : "TNCO", "text" : "Locational AAC" },
+            { "id" : "TNAC", "parent" : "TNCO", "text" : "Sub county AAC" },
+            { "id" : "TNCP", "parent" : "TNCO", "text" : "County AAC" },
+            { "id" : "TNCN", "parent" : "TNCO", "text" : "National Adoption Committee" },
+        ]
+    },
+      "plugins" : [ "wholerow", "checkbox" ]
+    });
+    $('#jstree').on("changed.jstree", function (e, data) {
+      console.log(data.selected);
+      var i, j, r = [];
+      for(i = 0, j = data.selected.length; i < j; i++) {
+        r.push(data.instance.get_node(data.selected[i]).text);
+      }
+    });
+    // 8 interact with the tree - either way is OK
+    $('button').on('click', function () {
+      $('#jstree').jstree(true).select_node('child_node_1');
+      $('#jstree').jstree('select_node', 'child_node_1');
+      $.jstree.reference('#jstree').select_node('child_node_1');
+    });
+  });
+
+  </script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDovhIRxlhE-osvbpLKxaOfjUIj75o_QTk&callback=initMap"
+    async defer></script>
+{% endblock%}
