@@ -3,7 +3,7 @@ from cpovc_registry.functions import (
 
 from cpovc_main.functions import get_general_list, convert_date
 from cpovc_forms.models import (
-    FormsAuditTrail, OVCCareF1B, OVCCareEvents, OVCEducationFollowUp)
+    FormsAuditTrail, OVCCareF1B, OVCCareEvents, OVCEducationFollowUp, OVCCareCpara)
 from cpovc_ovc.functions import get_house_hold
 from .models import OVCGokBursary
 
@@ -259,3 +259,28 @@ def save_bursary(request, person_id):
     else:
         return True
 
+
+def save_cpara_form_by_domain(id, question, answer, house_hold, event, date_event, exceptions=[]):
+    answer_value = {
+        'AYES': 'Yes',
+        'ANNO': 'No',
+        'No': 'No'
+    }
+    if answer is None:
+        answer = 'No'
+    if question.code.lower() not in exceptions:
+        answer = answer_value[answer]
+    try:
+        OVCCareCpara.objects.create(
+            person_id=id,
+            question=question,
+            answer=answer,
+            household=house_hold,
+            question_type=question.question_type,
+            domain=question.domain,
+            event=event,
+            date_of_event=date_event
+        )
+    except Exception as e:
+        print '%s :error saving cpara - %s' % (question.code, str(e))
+        return False

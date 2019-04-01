@@ -2011,7 +2011,7 @@ def get_variables(request):
             report_ovc_name = RPTS[rpt_ovc]
         report_name = report_ovc_name.title().replace(' ', '')
         categories = {}
-        report_id = int(report) if report else 0
+        report_id = int(report) if report else rpt_ovc_id
         if int(report_id) in [3, 4]:
             report_unit = report_inst
             rpt_years = rpt_iyears
@@ -2448,11 +2448,71 @@ def get_services_data(servs, params):
         return datas
 
 
+
+def get_viral_load_rpt_stats(params):
+    """Get viral load data."""
+    try:
+
+        results = []
+        start = time.clock()
+
+        cbo = params['org_unit']
+        cbo_id = int(cbo) if cbo else 0
+        rpt_id = params['report_region']
+
+        cluster = params['cluster'] if 'cluster' in params else 0
+        report_id = int(rpt_id) if rpt_id else 0
+        # cbos = [cbo_id]
+        print "cbos id {}".format(cbo_id)
+        if report_id == 5:
+            cbo_id = get_cbo_cluster(cluster)
+            # cbos = cbo_id.split(',')
+        with connection.cursor() as cursor:
+            try:
+                query = ''' SELECT ovc_reg.person_id ,CONCAT (reg_person.surname,' ',reg_person.first_name, ' ', reg_person.other_names)  AS "Full name",vl.viral_load as vload 
+                        FROM ovc_registration ovc_reg inner join reg_person reg_person on reg_person.id=ovc_reg.person_id inner join 
+                        ovc_viral_load vl on vl.person_id = ovc_reg.person_id where ovc_reg.art_status = 'ARAR'                             
+                        '''
+                if cbo_id:
+                    query = query + " and ovc_reg.child_cbo_id in ({})".format(cbo_id)
+
+                cursor.execute(
+                    query
+                )
+                result_set = cursor.fetchall()
+
+                for ovc_person in result_set:
+                    suppression = "N/A"
+
+                    try:
+                        if (int(ovc_person[2]) < 1000):
+                            suppression = "Suppressed"
+                        elif (int(ovc_person[2]) > 1000):
+                            suppression = "Not Suppressed"
+                    except Exception, e:
+                        pass
+                    results.append({'CPIMS ID': ovc_person[0], 'NAME': ovc_person[1], 'VIRAL LOAD': ovc_person[2],
+                                    'SUPPRESSION': suppression})
+
+            except Exception, e:
+                print 'error viral load stats - %s' % (str(e))
+
+        return results
+    except Exception, e:
+        print 'viral load report error - %s' % (str(e))
+        raise e
+    else:
+        return results
+
+
+
+
+
 def get_pivot_ovc(request, params={}):
     """Method to get OVC Pivot Data."""
     try:
         datas = []
-        report_id = int(request.POST.get('report_ovc'))
+        report_id = int(request.POST.get('rpt_ovc_id'))
         kpis = {}
         kpis[1] = '1.a %s OVCs Ever Registered'
         kpis[2] = '1.b %s New OVC Registrations within period'
@@ -2491,6 +2551,7 @@ def get_pivot_ovc(request, params={}):
         services[1] = 'a.OVC HIVSTAT'
         services[2] = 'b.OVC Served'
         services[3] = 'c.OVC Not Served'
+        '''
         if report_id == 3:
             datas = get_registration_data(kpis, params)
         elif report_id == 2:
@@ -2498,7 +2559,8 @@ def get_pivot_ovc(request, params={}):
         elif report_id == 1:
             datas = get_services_data(services, params)
         else:
-            datas, titles = get_sql_data(request, params)
+        '''
+        datas, titles = get_sql_data(request, params)
     except Exception, e:
         print 'Error getting OVC pivot data - %s' % (str(e))
         return []
@@ -2574,15 +2636,17 @@ def get_sql_data(request, params):
     qname = REPORTS[rpt_ovc] if rpt_ovc in REPORTS else df_rpt
     sql = QUERIES[qname]
     sql = sql.format(**params)
-    print 'nnnnn'
+    print 'Report Name', qname
     row, desc = run_sql_data(request, sql)
     data = datas + row
+    '''
     qblank = '%s_blank' % (qname)
     if qblank in QUERIES:
         bsql = QUERIES[qblank]
         bsql = bsql.format(**params)
         brow, bdesc = run_sql_data(request, bsql)
         data = data + brow
+
     for i in range(1, 5):
         qs = '%s_%s' % (qname, str(i))
         qb = '%s_blank_%s' % (qname, str(i))
@@ -2596,6 +2660,7 @@ def get_sql_data(request, params):
             sql = sql.format(**params)
             brow, desc = run_sql_data(request, sql)
             data = data + brow
+    '''
     return data, desc
 
 
@@ -2616,7 +2681,7 @@ def run_sql_data(request, sql):
     Fallback to Transaction DB if any error
     """
     try:
-        db_inst = 'reporting'
+        db_inst = 'default'
         dbinstance = connections[db_inst]
         print 'Query Reporting database .....'
         with dbinstance.cursor() as cursor:

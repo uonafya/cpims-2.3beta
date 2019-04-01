@@ -45,7 +45,7 @@ def get_checkins(user_id):
 def get_school(ovc_id):
     """Method to get school details."""
     try:
-        school = OVCEducation.objects.get(person_id=ovc_id, is_void=False)
+        school = OVCEducation.objects.get(person_id=ovc_id)
     except Exception as e:
         print 'No school details - %s' % (str(e))
         return None
@@ -334,8 +334,6 @@ def ovc_registration(request, ovc_id, edit=0):
             school_class = request.POST.get('school_class')
             school_adm = request.POST.get('admission_type')
             if school_id and school_class and school_adm:
-                OVCEducation.objects.filter(
-                    person_id=ovc_id).update(is_void=True)
                 health, created = OVCEducation.objects.update_or_create(
                     person_id=ovc_id, school_class=school_class,
                     defaults={'person_id': ovc_id,
@@ -357,15 +355,11 @@ def ovc_registration(request, ovc_id, edit=0):
         if edit == 0:
             # Create House Hold and populate members
             caretaker_id = int(cgs[caretaker][0])
-            hhid = get_house_hold(caretaker)
-            if not hhid:
-                new_hh = OVCHouseHold(
-                    head_person_id=caretaker,
-                    head_identifier=caretaker_id)
-                new_hh.save()
-                hh_id = new_hh.pk
-            else:
-                hh_id = hhid.id
+            new_hh = OVCHouseHold(
+                head_person_id=caretaker,
+                head_identifier=caretaker_id)
+            new_hh.save()
+            hh_id = new_hh.pk
             # Add members to HH
             hh_members.append(ovc_id)
             for hh_m in hh_members:
@@ -384,13 +378,11 @@ def ovc_registration(request, ovc_id, edit=0):
                 if oid == hh_m:
                     hh_hiv, hh_alive, hh_death = hiv_status, 'AYES', None
 
-                membership = get_hh_membership(hh_m)
-                if not membership:
-                    OVCHHMembers(
-                        house_hold_id=hh_id, person_id=hh_m,
-                        hh_head=hh_head, member_type=member_type,
-                        death_cause=hh_death, member_alive=hh_alive,
-                        hiv_status=hh_hiv, date_linked=todate).save()
+                OVCHHMembers(
+                    house_hold_id=hh_id, person_id=hh_m,
+                    hh_head=hh_head, member_type=member_type,
+                    death_cause=hh_death, member_alive=hh_alive,
+                    hiv_status=hh_hiv, date_linked=todate).save()
         else:
             # Update HH details
             hhid = request.POST.get('hh_id')
@@ -477,17 +469,6 @@ def get_house_hold(person_id):
         return None
     else:
         return hh_detail
-
-
-def get_hh_membership(person_id):
-    """Method to get HH membership."""
-    try:
-        member = get_object_or_404(
-            OVCHHMembers, person_id=person_id)
-    except Exception as e:
-        return None
-    else:
-        return member
 
 
 def manage_checkins(request, gid=0):

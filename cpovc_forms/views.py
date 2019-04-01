@@ -8,18 +8,20 @@ from django.conf import settings
 from django.db.models import Q
 import json
 import random
+import ast
 import uuid
+import time
 from reportlab.pdfgen import canvas
 # from itertools import chain #
-from datetime import datetime
+from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from shutil import copyfile
 from cpovc_forms.forms import (
     OVCSearchForm, ResidentialSearchForm, ResidentialFollowupForm,
     ResidentialForm, OVC_FT3hForm, SearchForm, OVCCareSearchForm,
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
-    BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm,
-    GOKBursaryForm)
+    BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
+    GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm)
 from .models import (
     OVCEconomicStatus, OVCFamilyStatus, OVCReferral, OVCHobbies, OVCFriends,
     OVCDocuments, OVCMedical, OVCCaseRecord, OVCNeeds, OVCCaseCategory,
@@ -29,7 +31,8 @@ from .models import (
     OVCAdverseEventsFollowUp, OVCAdverseEventsOtherFollowUp,
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
-    OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary)
+    OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations,
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
@@ -37,7 +40,7 @@ from cpovc_main.functions import (
     case_event_id_generator, convert_date, new_guid_32,
     beneficiary_id_generator, translate_geo, translate, translate_case,
     translate_reverse, translate_reverse_org, translate_school, get_days_difference)
-from cpovc_forms.functions import (save_audit_trail)
+from cpovc_forms.functions import (save_audit_trail, save_cpara_form_by_domain)
 from cpovc_main.country import (COUNTRIES)
 from cpovc_registry.models import (
     RegOrgUnit, RegOrgUnitContact, RegOrgUnitGeography, RegPerson, RegPersonsOrgUnits, AppUser, RegPersonsSiblings,
@@ -51,7 +54,7 @@ from django.views.decorators.cache import cache_control
 from cpovc_registry.functions import get_list_types, extract_post_params
 from cpovc_ovc.functions import get_ovcdetails
 from .functions import create_fields, create_form_fields, save_form1b, save_bursary
-# from .documents import create_mcert
+from .documents import create_mcert
 
 
 def validate_serialnumber(user_id, subcounty, serial_number):
@@ -8475,10 +8478,648 @@ def form_bursary(request, id):
         response['Content-Disposition'] = 'attachment; filename="Bursary.pdf"'
         params = {'insurance': 'GOVERNMENT OF KENYA', 'status_id': 1,
                   'insurances': 'BOX 12 Nairobi'}
-        # resp = create_mcert(response, params)
+        resp = create_mcert(response, params)
         return response
     except Exception as e:
         print 'error saving bursary - %s' % (str(e))
         raise e
     else:
         pass
+
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_cpara(request, id):
+    if request.method == 'POST':
+        data = request.POST
+        child = RegPerson.objects.get(id=id)
+        house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+        date_of_event = data.get('cp2d')
+        event = OVCCareEvents.objects.create(
+            event_type_id='cpr',
+            created_by=request.user.id,
+            person=child,
+            house_hold=house_hold
+        )
+        questions = OVCCareQuestions.objects.filter(code__startswith='cp')
+        exceptions = ['cp2d', 'cp2q', 'cp74q', 'cp34q', 'cp18q']
+        for question in questions:
+            save_cpara_form_by_domain(
+                id=id,
+                question=question,
+                answer=data.get(question.code.lower()),
+                house_hold=house_hold,
+                event=event,
+                date_event=convert_date(date_of_event),
+                exceptions=exceptions
+            )
+        answer_value = {
+            'AYES': 1,
+            'ANNO': 0,
+            0: 0
+        }
+        # Saving Benchmarks
+        OVCCareBenchmarkScore.objects.create(
+            household=house_hold,
+            bench_mark_1=answer_value[data.get('cp1b', 0)],
+            bench_mark_2=answer_value[data.get('cp2b', 0)],
+            bench_mark_3=answer_value[data.get('cp3b', 0)],
+            bench_mark_4=answer_value[data.get('cp4b', 0)],
+            bench_mark_5=answer_value[data.get('cp5b', 0)],
+            bench_mark_6=answer_value[data.get('cp6b', 0)],
+            bench_mark_7=answer_value[data.get('cp7b', 0)],
+            bench_mark_8=answer_value[data.get('cp8b', 0)],
+            bench_mark_9=answer_value[data.get('cp9b', 0)],
+            bench_mark_10=answer_value[data.get('cp10b', 0)],
+            bench_mark_11=answer_value[data.get('cp11b', 0)],
+            bench_mark_12=answer_value[data.get('cp12b', 0)],
+            bench_mark_13=answer_value[data.get('cp13b', 0)],
+            bench_mark_14=answer_value[data.get('cp14b', 0)],
+            bench_mark_15=answer_value[data.get('cp15b', 0)],
+            bench_mark_16=answer_value[data.get('cp16b', 0)],
+            bench_mark_17=answer_value[data.get('cp17b', 0)],
+            event=event,
+            care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id),
+        )
+        msg = 'Benchmark Assessment save successful'
+        messages.add_message(request, messages.INFO, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
+        # get relations
+    guardians = RegPersonsGuardians.objects.select_related().filter(
+        child_person=id, is_void=False, date_delinked=None)
+    siblings = RegPersonsSiblings.objects.select_related().filter(
+        child_person=id, is_void=False, date_delinked=None)
+    # Reverse relationship
+    osiblings = RegPersonsSiblings.objects.select_related().filter(
+        sibling_person=id, is_void=False, date_delinked=None)
+    oguardians = RegPersonsGuardians.objects.select_related().filter(
+        guardian_person=id, is_void=False, date_delinked=None)
+    child = RegPerson.objects.get(id=id)
+    ovc_id = int(id)
+    creg = OVCRegistration.objects.get(is_void=False, person_id=ovc_id)
+    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+    house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+    
+    ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
+
+    ward = SetupGeography.objects.get(area_id=ward_id)
+    subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    print ('xxxxxxx', ward_id)
+    if ward.area_type_id == 'GLTL':
+        # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
+        subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    elif ward.area_type_id == 'GDIS':
+        subcounty = ward
+        ward = ''
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+
+
+    # orgunit = RegPersonsOrgUnits.objects.get(person=child)
+    form = CparaAssessment()
+    return render(request,
+                  'forms/new_cpara.html',
+                  {
+                      'form': form,
+                      'person': id,
+                      'siblings': siblings,
+                      'osiblings': osiblings,
+                      'oguardians': oguardians,
+                      'child' : child,
+                      'creg' : creg,
+                      'caregiver': care_giver,
+                      'household' : house_hold,
+                      'ward': ward,
+                      'subcounty': subcounty,
+                      'county': county
+                    #   'orgunit' : orgunit,
+
+                  })
+
+
+def convert_tuple_choices_to_dict(tuple_list):
+    choices_dict = {}
+    for li in tuple_list:
+        choices_dict[li[0]] = li[1]
+    return choices_dict
+
+
+# @login_required
+# @cache_control(no_cache=True, must_revalidate=True, no_store=True)
+# def case_plan_template(request, id):
+#     from .forms import CPT_DOMAIN_CHOICES, CPT_GOALS_CHOICES, CPT_GOALS_HEALTHY_CHOICES, CPT_GOALS_STABLE_CHOICES, CPT_GOALS_SAFE_CHOICES, CPT_GOALS_SCHOOL_CHOICES, CPT_GAPS_HEALTHY_CHOICES, CPT_GAPS_SCHOOLED_CHOICES, \
+#         CPT_GAPS_SAFE_CHOICES, CPT_GAPS_STABLE_CHOICES, CPT_ACTIONS_HEALTHY_CHOICES, CPT_ACTIONS_STABLE_CHOICES, \
+#         CPT_ACTIONS_SCHOOLED_CHOICES, \
+#         CPT_ACTIONS_SAFE_CHOICES, CPT_PERSON_RESPONSIBLE, CPT_RESULTS
+#     init_data = RegPerson.objects.filter(pk=id)
+#     check_fields = ['sex_id']
+#     vals = get_dict(field_name=check_fields)
+#     # print convert_tuple_choices_to_dict(CPT_DOMAIN_CHOICES)
+#     vals['CPT_DOMAIN_CHOICES'] = json.dumps(convert_tuple_choices_to_dict(CPT_DOMAIN_CHOICES))
+#     vals['CPT_GOALS_CHOICES'] = json.dumps(convert_tuple_choices_to_dict(CPT_GOALS_CHOICES))
+#     vals['CPT_GAPS_HEALTHY_CHOICES'] = json.dumps(convert_tuple_choices_to_dict(CPT_GAPS_SCHOOLED_CHOICES))
+#     vals['CPT_ACTIONS_HEALTHY_CHOICES'] = json.dumps(convert_tuple_choices_to_dict(CPT_ACTIONS_HEALTHY_CHOICES))
+#     vals['CPT_SERVICES_HEALTHY_CHOICES'] = json.dumps(convert_tuple_choices_to_dict(CPT_ACTIONS_HEALTHY_CHOICES))
+#     vals['CPT_PERSON_RESPONSIBLE'] = json.dumps(convert_tuple_choices_to_dict(CPT_PERSON_RESPONSIBLE))
+#     vals['CPT_RESULTS'] = json.dumps(convert_tuple_choices_to_dict(CPT_RESULTS))
+#     form = CasePlanTemplate()
+#     return render(request,
+#                   'forms/case_plan_template.html',
+#                   {'form': form, 'init_data': init_data,
+#                    'vals': vals})
+from .models import OVCCareCasePlan
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def case_plan_template(request, id):
+    if request.method == 'POST':
+        
+        ignore_request_values= ['household_id','csrfmiddlewaretoken']
+        child = RegPerson.objects.get(id=id)
+        house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+        person = RegPerson.objects.get(pk=int(id))
+        event_type_id = 'FHSA'
+        date_of_wellbeing_event = convert_date(datetime.today().strftime('%d-%b-%Y'))
+
+        """ Save Wellbeing-event """
+        # get event counter
+        event_counter = OVCCareEvents.objects.filter(
+            event_type_id=event_type_id, person=id, is_void=False).count()
+            # save event
+        ovccareevent=OVCCareEvents.objects.create(
+            event_type_id=event_type_id,
+            event_counter=event_counter,
+            event_score=0,
+            date_of_event=date_of_wellbeing_event,
+            created_by=request.user.id,
+            person=RegPerson.objects.get(pk=int(id)),
+            house_hold=house_hold
+        )
+        ovccareevent.save()
+        new_events_pk = ovccareevent.pk
+
+        my_request=request.POST.get('final_submission')
+
+        if my_request:
+            caseplandata= json.loads(my_request)
+            for all_data in caseplandata:
+                my_domain=all_data['domain']
+                my_goal=all_data['goal']
+                my_gap=all_data['gaps']
+                my_action=all_data['actions']
+                my_service=all_data['services']
+                my_responsible=all_data['responsible']
+                my_results=all_data['results']
+                my_reason=all_data['reasons']
+                my_date=all_data['date']
+                
+                x=OVCCareForms.objects.get(name='OVCCareCasePlan')
+
+                OVCCareCasePlan(
+                        domain=my_domain,
+                        goal=my_goal,
+                        person_id = id,
+                        household = house_hold,
+                        need=my_gap,
+                        priority=my_action,
+                        cp_service = SetupList.objects.get(item_id = 'HC6S'),
+                        responsible= my_responsible,
+                        # form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
+                        completion_date = '2019-03-20',
+                        results=my_results,
+                        reasons=my_reason,
+                        case_plan_status='D',
+                        event= OVCCareEvents.objects.get(event=new_events_pk)
+                        ).save()
+    # get child data
+    init_data = RegPerson.objects.filter(pk=id)
+    check_fields = ['sex_id', 'relationship_type_id']
+    vals = get_dict(field_name=check_fields)
+
+    form = CasePlanTemplate()
+    return render(request,
+                  'forms/case_plan_template.html',
+                  {'form': form, 'init_data': init_data,
+                   'vals': vals})
+
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_case_plan_monitoring(request, id):
+    if request.method == 'POST':
+        data = request.POST
+        child = RegPerson.objects.get(id=id)
+        house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+        event = OVCCareEvents.objects.create(
+            event_type_id='cpr',
+            created_by=request.user.id,
+            person=child,
+            house_hold=house_hold
+        )
+        event_date = convert_date(data.get('cm1d'))
+        month = event_date.month
+        quarter = 0
+        if month in [10, 11, 12]:
+            quarter = 1
+        elif month in [1, 2, 3]:
+            quarter = 2
+        elif month in [4, 5, 6]:
+            quarter = 3
+        elif month in [7, 8, 9]:
+            quarter = 4
+        answer_value = {
+            'AYES': 'Yes',
+            'ANNO': 'No'
+        }
+        try:
+            OVCMonitoring.objects.create(
+                household=house_hold,
+                hiv_status_knowledge=answer_value[data.get('cm2q')],
+                viral_suppression=answer_value[data.get('cm3q')],
+                hiv_prevention=answer_value[data.get('cm4q')],
+                undernourished=answer_value[data.get('cm5q')],
+                access_money=answer_value[data.get('cm6q')],
+                violence=answer_value[data.get('cm7q')],
+                caregiver=answer_value[data.get('cm8q')],
+                school_attendance=answer_value[data.get('cm9q')],
+                school_progression=answer_value[data.get('cm10q')],
+                cp_achievement=answer_value[data.get('cm11q')],
+                case_closure=answer_value[data.get('cm12q')],
+                case_closure_checked=data.get('cm13q'),
+                quarter=quarter,
+                event=event,
+                event_date=event_date
+            )
+        except Exception as e:
+            print 'error saving caseplan monitoring - %s' % (str(e))
+            return False
+        msg = 'Case Plan Monitoring saved successful'
+        messages.add_message(request, messages.INFO, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
+    form = CparaMonitoring()
+    return render(request, 'forms/new_case_plan_monitoring.html', {'form': form})
+
+
+def fetch_question(answer_item_code):
+    question_code = answer_item_code
+    OVCCareQuestions.objects.get(pk=question_code)
+    return question_code
+
+
+def persist_wellbeing_data(kvals, value, person, house_hold, new_pk,date_of_wellbeing_event,request):
+    question_code_to_ui_item_mapping = {
+        'WB_GEN_07': 'WB_GEN_06', "WB_GEN_08": "WB_GEN_07", "WB_GEN_09": "WB_GEN_07",
+        "WB_SAF_32_1": "WB_SAF_31", "WB_SAF_33_1": "WB_SAF_32", "WB_SAF_34_2": "WB_SAF_33", "WB_SAF_34_1": "WB_SAF_33",
+        "WB_SAF_35_1": "WB_SAF_34", "WB_SAF_36_1": "WB_SAF_35", "WB_SAF_36_2": "WB_SAF_35",
+        "WB_SAF_37_1": "WB_SAF_36", "WB_SAF_37_2": "WB_SAF_36", "WB_SAF_39_1": "WB_SAF_37", "WB_SAF_39_2": "WB_SAF_37",
+        "WB_SAF_40_1": "WB_SAF_38", "WB_SAF_40_2": "WB_SAF_38", "WB_SCH_39_1": "WB_SCH_39", "WB_SCH_39_1": "WB_SCH_39",
+        "WB_SCH_40_1": "WB_SCH_40", "WB_SCH_41_1": "WB_SCH_41", "WB_SCH_41_2": "WB_SCH_41",
+        "WB_SCH_42_2": "WB_SCH_42", "WB_SCH_42_1": "WB_SCH_42", "WB_SCH_44_1": "WB_SCH_44",
+        "WB_SCH_45_1": "WB_SCH_46", "WB_HEL_14_1": "WB_HEL_14", "WB_HEL_14_2": "WB_HEL_14", "WB_HEL_15_1": "WB_HEL_15",
+        "WB_HEL_16_1": "WB_HEL_16", "WB_HEL_16_2": "WB_HEL_17", "WB_HEL_16_3": "WB_HEL_17", "WB_HEL_16_4": "WB_HEL_18",
+        "WB_HEL_16_5": "WB_HEL_20",
+        "WB_HEL_17_1": "WB_HEL_19", "WB_HEL_18_1": "WB_HEL_20", "WB_HEL_18_2": "WB_HEL_17", "WB_HEL_19_1": "WB_HEL_21",
+        "WB_HEL_20_2": "WB_HEL_22", "WB_HEL_20_1": "WB_HEL_22", "WB_HEL_21_1": "WB_HEL_23", "WB_HEL_22_1": "WB_HEL_24",
+        "WB_HEL_23_1": "WB_HEL_25", "WB_HEL_24_1": "WB_HEL_26", "WB_HEL_25_1": "WB_HEL_27", "WB_HEL_25_2": "WB_HEL_27",
+        "WB_HEL_26_1": "WB_HEL_28", "WB_HEL_27_1": "WB_HEL_29", "WB_HEL_27_2": "WB_HEL_29", "WB_HEL_28_1": "WB_HEL_30",
+        "WB_HEL_28_2": "WB_HEL_30",
+        "WB_STA_1_1": "WB_STA_1", "WB_STA_1_2": "WB_STA_1", "WB_STA_1_3": "WB_STA_1", "WB_STA_2_1": "WB_STA_2",
+        "WB_STA_2_2": "WB_STA_2", "WB_STA_2_3": "WB_STA_2",
+        "WB_STA_3_1": "WB_STA_3", "WB_STA_3_2": "WB_STA_3", "WB_STA_3_3": "WB_STA_3", "WB_STA_4_1": "WB_STA_4",
+        "WB_STA_4_2": "WB_STA_4", "WB_STA_4_3": "WB_STA_4",
+        "WB_STA_5_1": "WB_STA_5", "WB_STA_5_2": "WB_STA_5", "WB_STA_5_3": "WB_STA_5", "WB_STA_6_1": "WB_STA_6",
+        "WB_STA_7_1": "WB_STA_7", "WB_STA_8_1": "WB_STA_8", "WB_STA_8_2": "WB_STA_8", "WB_STA_9_1": "WB_STA_9",
+        "WB_STA_9_2": "WB_STA_9",
+        "WB_STA_10_1": "WB_STA_10", "WB_STA_10_2": "WB_STA_10", "WB_STA_11_1": "WB_STA_11", "WB_STA_11_2": "WB_STA_11",
+        "WB_STA_12_1": "WB_STA_12", "WB_STA_12_2": "WB_STA_12", "WB_STA_12_3": "WB_STA_12", "WB_STA_13_1": "WB_STA_13",
+        "WB_STA_13_2": "WB_STA_13",
+        "WB_GEN_04": "WB_GEN_04", "WB_GEN_05": "WB_GEN_05", "WB_GEN_07": "WB_GEN_06", "WB_GEN_06": "WB_GEN_06",
+        "WB_GEN_08": "WB_GEN_07", "WB_GEN_09": "WB_GEN_07",'WB_GEN_12':'WB_GEN_01','WB_GEN_04':'WB_GEN_04','WB_GEN_05':'WB_GEN_05'
+    }
+
+    other_list = ['WB_SAF_1_2', 'WB_SAF_31_2', 'WB_SAF_34_2', 'WB_SAF_37_2', 'WB_SAF_38_2', 'WB_SAF_39_2', 'WB_SAF_40_2'
+        , 'WB_SCH_41_2', 'WB_STA_1_2', 'WB_STA_2_2', 'WB_STA_3_2',
+                  'WB_STA_4_2', 'WB_STA_5_2', 'WB_STA_5_3', 'WB_STA_8_2', 'WB_STA_9_2', 'WB_HEL_25_2', 'WB_HEL_27_2',
+                  'WB_HEL_28_2', 'WB_HEL_14_2', 'WB_HEL_20_2']
+
+
+
+    entity = kvals["entity"]
+    question_code = kvals["question_code"]
+    demographics_items = ['WB_GEN_12', 'WB_GEN_13', 'WB_GEN_15', 'WB_GEN_06', 'WB_GEN_08']
+    try:
+        question_code = question_code_to_ui_item_mapping[question_code]
+        ovc_qst = OVCCareQuestions.objects.get(question=question_code)
+
+        if (entity == 'wellbeing' and kvals["question_code"] not in demographics_items):
+            OVCCareWellbeing(
+                question_code=ovc_qst.code,
+                person=person,
+                question=ovc_qst,
+                answer=value,
+                household=house_hold,
+                question_type='CG',
+                domain=ovc_qst.domain,
+                date_of_event=date_of_wellbeing_event,
+                event=OVCCareEvents.objects.get(pk=new_pk)
+            ).save()
+
+        if (entity == 'comment' or kvals["question_code"] in other_list):
+            explanation_uuid = uuid.UUID('3249b14e-3e83-11e9-b210-d663bd873d93')
+            ovc_Care_forms_obj = OVCCareForms.objects.get(pk=explanation_uuid)
+            OVCExplanations(
+                question=ovc_qst,
+                comment=value,
+                form=ovc_Care_forms_obj,
+                event=OVCCareEvents.objects.get(pk=new_pk)
+            ).save()
+
+    except Exception, e:
+        print "error saving wellbeing data"
+        print e
+
+    if (kvals["question_code"] in demographics_items):
+        m_value = 0
+        f_value = 0
+        key = ''
+
+        if (kvals["question_code"] == 'WB_GEN_12'):
+            status_val = {'Monogamous Marriage': '1', 'Polygamous Marriage': '2', 'Single': '3', 'Widowed': '4',
+                          'Divorced': '5', 'Cohabiting': '6'}
+            m_value = status_val[value]
+            f_value = status_val[value]
+            key = 'MARS'
+
+        if (kvals["question_code"] == 'WB_GEN_13'):
+            m_value = request.POST.get('WB_GEN_13')  # male
+            f_value = request.POST.get('WB_GEN_14')  # female
+            key = 'IU18'
+
+        if (kvals["question_code"] == 'WB_GEN_15'):
+            m_value = request.POST.get('WB_GEN_15')  # male
+            f_value = request.POST.get('WB_GEN_16')  # female
+            key = 'DU18'
+
+        if (kvals["question_code"] == 'WB_GEN_06'):
+            m_value = request.POST.get('WB_GEN_06')  # male
+            f_value = request.POST.get('WB_GEN_07')  # female
+            key = 'IO18'
+
+        if (kvals["question_code"] == 'WB_GEN_08'):
+            m_value = request.POST.get('WB_GEN_08')  # male
+            f_value = request.POST.get('WB_GEN_09')  # female
+            key = 'DO18'
+
+        OVCHouseholdDemographics(
+            household=house_hold,
+            key=key,
+            male=m_value,
+            female=f_value,
+            event=OVCCareEvents.objects.get(pk=new_pk)
+        ).save()
+
+def persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk):
+    date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'))
+    if (key == 'safeanswer'):
+        answer_obj = request.POST.get(key)
+        answer_obj = ast.literal_eval(answer_obj)  # convert to dict
+        for person_id, individual_person_answers in answer_obj.iteritems():
+            # individual_person_answers=ast.literal_eval(individual_person_answers)
+            person = RegPerson.objects.get(pk=int(person_id))
+            for element_id, answer in individual_person_answers.iteritems():
+                kvals = {"entity": "wellbeing", "value": answer, "question_code": element_id}
+                persist_wellbeing_data(kvals, answer, person, house_hold, new_events_pk,date_of_wellbeing_event,request)
+
+    if (key == 'schooledanswer'):
+        answer_obj = request.POST.get(key)
+        answer_obj = ast.literal_eval(answer_obj)  # convert to dict
+        for person_id, individual_person_answers in answer_obj.iteritems():
+            # individual_person_answers=ast.literal_eval(individual_person_answers)
+            person = RegPerson.objects.get(pk=int(person_id))
+            for element_id, answer in individual_person_answers.iteritems():
+
+                kvals = {"entity": "wellbeing", "value": answer, "question_code": element_id}
+                if isinstance(answer, (list,)):
+                    for vall in answer:
+                        kvals['value'] = vall
+                        persist_wellbeing_data(kvals, vall, person, house_hold, new_events_pk,date_of_wellbeing_event,request)
+                else:
+                    persist_wellbeing_data(kvals, answer, person, house_hold, new_events_pk,date_of_wellbeing_event,request)
+
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_wellbeing(request, id):
+    try:
+
+        if request.method == 'POST':
+            comments = ['WB_STA_13_2', 'WB_STA_12_3', 'WB_STA_11_2', 'WB_STA_10_2', 'WB_STA_5_3', 'WB_STA_4_3',
+                        'WB_STA_3_3', 'WB_STA_2_3', 'WB_STA_1_3']
+
+            ignore_request_values = ['household_id', 'csrfmiddlewaretoken']
+
+            household_id = request.POST.get('household_id')
+            caretker_id = request.POST.get('caretaker_id')
+
+            hse_uuid = uuid.UUID(household_id)
+            house_hold = OVCHouseHold.objects.get(pk=hse_uuid)
+            person = RegPerson.objects.get(pk=int(caretker_id))
+            event_type_id = 'FHSA'
+            date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'))
+
+            """ Save Wellbeing-event """
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=id, is_void=False).count()
+            print "save event"
+            ovccareevent = OVCCareEvents(
+                event_type_id=event_type_id,
+                event_counter=event_counter,
+                event_score=0,
+                date_of_event=date_of_wellbeing_event,
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(id)),
+                house_hold=house_hold
+            )
+            ovccareevent.save()
+            new_events_pk = ovccareevent.pk
+
+            entity_values = []
+            for key in request.POST:
+                if (str(key) != "safeanswer" and str(key) != "schooledanswer"):
+
+                    if (key in ignore_request_values):
+                        continue
+                    val = request.POST.getlist(key)
+                    for i, value in enumerate(val):
+                        entity_type = 'wellbeing'
+                        if (key in comments):
+                            entity_type = 'comment'
+                        kvals = {"entity": entity_type, "value": val, "question_code": key,
+                                 'domain': 1}
+                        persist_wellbeing_data(kvals, value, person, house_hold, new_events_pk,date_of_wellbeing_event,request)
+                else:
+                    persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk)
+            url = reverse('ovc_view', kwargs={'id': id})
+            print url
+            print id
+            # return HttpResponseRedirect(reverse(forms_registry))
+            return HttpResponseRedirect(url)
+    except Exception, e:
+        msg = 'wellbeing save error: (%s)' % (str(e))
+        messages.add_message(request, messages.ERROR, msg)
+        print 'Error saving wellbeing : %s' % str(e)
+        print  e
+        return HttpResponseRedirect(reverse(forms_registry))
+
+    # get household members/ caretaker/ household_id
+    household_id = None
+    ovcreg = None
+    person_sex_type = 'male'
+    try:
+        ovcreg = get_object_or_404(OVCRegistration, person_id=id, is_void=False)
+
+        person_sex_type = 'male' if ovcreg.caretaker.sex_id == 'SMAL' else 'female'
+        caretaker_id = ovcreg.caretaker_id if ovcreg else None
+        ovchh = get_object_or_404(OVCHouseHold, head_person=caretaker_id, is_void=False)
+        household_id = ovchh.id if ovchh else None
+    except Exception, e:
+        print str(e)
+        msg = 'Error getting household identifier: (%s)' % (str(e))
+        messages.add_message(request, messages.ERROR, msg)
+        return HttpResponseRedirect(reverse(forms_registry))
+
+        # get relations
+    guardians = RegPersonsGuardians.objects.select_related().filter(
+        child_person=id, is_void=False, date_delinked=None)
+    # siblings = RegPersonsSiblings.objects.select_related().filter(
+    #     child_person=id, is_void=False, date_delinked=None)
+    ovc_id = int(id)
+    child = RegPerson.objects.get(is_void=False, id=ovc_id)
+
+    siblings = RegPersonsSiblings.objects.filter(
+        is_void=False, child_person=child.id)
+
+    # Reverse relationship
+    osiblings = RegPersonsSiblings.objects.select_related().filter(
+        sibling_person=id, is_void=False, date_delinked=None)
+
+    oguardians = RegPersonsGuardians.objects.select_related().filter(
+        guardian_person=id, is_void=False, date_delinked=None)
+
+    # get child data
+    init_data = RegPerson.objects.filter(pk=id)
+    check_fields = ['sex_id', 'relationship_type_id']
+    vals = get_dict(field_name=check_fields)
+
+    # Get house hold
+    hhold = OVCHHMembers.objects.get(
+        is_void=False, person_id=child.id)
+    # Get HH members
+    hhid = hhold.house_hold_id
+    hhmqs = OVCHHMembers.objects.filter(
+        is_void=False, house_hold_id=hhid).order_by("-hh_head")
+
+    hhmembers = hhmqs.exclude(person_id=ovcreg.caretaker_id)
+
+    form = Wellbeing(initial={'household_id': household_id, 'caretaker_id': caretaker_id, })
+    return render(request,
+                  'forms/new_wellbeing.html',
+                  {
+                      'form': form,
+                      'init_data': init_data,
+                      'vals': vals,
+                      'ovcreg': ovcreg,
+                      'person': id,
+                      'guardians': guardians,
+                      'siblings': siblings,
+                      'hhmembers': hhmembers,
+                      'osiblings': osiblings,
+
+                      'person_sex_type': person_sex_type,
+                      'oguardians': oguardians
+                  })
+
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_wellbeingadolescent(request, id):
+    try:
+        if request.method == 'POST':
+            comments=['WB_AD_GEN_4_2']
+            ignore_request_values= ['household_id','csrfmiddlewaretoken']
+
+            household_id = request.POST.get('household_id')
+            hse_uuid = uuid.UUID(household_id)
+            house_holds = OVCHouseHold.objects.get(pk=hse_uuid)
+            person = RegPerson.objects.get(pk=int(id))
+            event_type_id = 'FHSA'
+            date_of_wellbeing_event = convert_date(datetime.today().strftime('%d-%b-%Y'))
+
+            """ Save Wellbeing-event """
+            # get event counter
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=id, is_void=False).count()
+                # save event
+            ovccareevent = OVCCareEvents(
+                event_type_id=event_type_id,
+                event_counter=event_counter,
+                event_score=0,
+                date_of_event=date_of_wellbeing_event,
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(id)),
+                house_hold=house_holds
+            )
+            ovccareevent.save()
+            # get questions for adolescent
+            questions = OVCCareQuestions.objects.filter(code__startswith='wba')
+            for question in questions:
+                answer=request.POST.get(question.question)
+                if answer is None:
+                    answer = 'No'
+                OVCCareWellbeing.objects.create(
+                    person=RegPerson.objects.get(pk=int(id)),
+                    question=question,
+                    answer=answer,
+                    household=house_holds,
+                    event=ovccareevent,
+                    date_of_event=convert_date(datetime.today().strftime('%d-%b-%Y')),
+                    domain=question.domain,
+                    question_type=question.question_type
+                    )
+            url = reverse('ovc_view', kwargs={'id': id})
+            # return HttpResponseRedirect(reverse(forms_registry))
+            return HttpResponseRedirect(url)
+    except Exception, e:
+        msg = 'wellbeing adolescent save error : (%s)' % (str(e))
+        messages.add_message(request, messages.ERROR, msg)
+        print 'Error saving wellbeing adolescent : %s' % str(e)
+        return HttpResponseRedirect(reverse(forms_home))
+
+    # get household members/ caretaker/ household_id
+    household_id = None
+    try:
+        ovcreg = get_object_or_404(OVCRegistration, person_id=id, is_void=False)
+        caretaker_id = ovcreg.caretaker_id if ovcreg else None
+        ovchh = get_object_or_404(OVCHouseHold, head_person=caretaker_id, is_void=False)
+        household_id = ovchh.id if ovchh else None
+    except Exception, e:
+        print str(e)
+        msg = 'Error getting household identifier: (%s)' % (str(e))
+        messages.add_message(request, messages.ERROR, msg)
+        return HttpResponseRedirect(reverse(forms_registry))
+    # get child data
+    init_data = RegPerson.objects.filter(pk=id)
+    check_fields = ['sex_id', 'relationship_type_id']
+    vals = get_dict(field_name=check_fields)
+
+    form = WellbeingAdolescentForm(initial={'household_id': household_id})
+    return render(request,
+                  'forms/new_wellbeingadolescent.html',
+                  {
+                      'form': form,
+                      'init_data': init_data,
+                      'vals': vals,
+                      'person': id,
+                  })

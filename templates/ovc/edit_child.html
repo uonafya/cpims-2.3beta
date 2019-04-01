@@ -21,7 +21,7 @@
 <h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>Registration details | {{ child.first_name }} {{ child.surname }} | {{ child.age }}</small></h1>
 <!-- end page-header -->
 <div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
-    <span class="close" data-dismiss="alert">×</span>
+    <span class="close" data-dismiss="alert">�</span>
     <i class="fa fa-check fa-2x pull-left"></i>
     <span class="invalid-form-message" id="invalid-form-message"></span>
 </div>
@@ -95,11 +95,12 @@
                     </tbody>
                 </table>
                 <!-- begin row -->
+                <hr/>
                  <div class="row">
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>Date of Registration</label>
+                        <label class="text-bold">Date of Registration</label>
                         {{ form.reg_date }}
                       </div>
                     </div>
@@ -107,7 +108,7 @@
                     <!-- begin col-1 -->
                     <div class="col-md-1">
                     <div class="form-group">
-                        <label>Has BCert</label>
+                        <label class="text-bold">Has BCert</label>
                         {{ form.has_bcert }}
                       </div>
                     </div>
@@ -115,7 +116,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>Birth Certificate No.</label>
+                        <label class="text-bold">Birth Certificate No.</label>
                         {{ form.bcert_no }}
                       </div>
                     </div>
@@ -123,7 +124,7 @@
                     <!-- begin col-1 -->
                     <div class="col-md-1">
                     <div class="form-group">
-                        <label>Is Disabled</label>
+                        <label class="text-bold">Is Disabled</label>
                         {{ form.disb }}
                       </div>
                     </div>
@@ -131,18 +132,19 @@
                     <!-- begin col-2 -->
                     <div class="col-md-4">
                     <div class="form-group">
-                        <label>NCPWD No.</label>
+                        <label class="text-bold">NCPWD No.</label>
                         {{ form.ncpwd_no }}
                       </div>
                     </div>
                     <!-- end col-2 -->
                 </div>
+                <hr/>
                 <!-- begin row -->
                 <div class="row">
                     <!-- begin col-2 -->
                     <div class="col-md-4">
                     <div class="form-group">
-                        <label>Eligibility Criteria</label>
+                        <label class="text-bold">Eligibility Criteria</label>
                         {{ form.eligibility }}
                       </div>
                     </div>
@@ -150,7 +152,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>CBO Child ID</label>
+                        <label class="text-bold">CBO Child ID</label>
                         {{ form.cbo_uid }}
                         {{ form.cbo_uid_check }}
                       </div>
@@ -159,7 +161,7 @@
                      <!-- begin col-1 -->
                     <div class="col-md-1">
                     <div class="form-group">
-                        <label>Exit</label>
+                        <label class="text-bold">Exit</label>
                         {{ form.is_exited }}
                       </div>
                     </div>
@@ -167,7 +169,7 @@
                     <!-- begin col-4 -->
                     <div class="col-md-4" id="exit_reason_div">
                     <div class="form-group">
-                        <label>Exit reason</label>
+                        <label class="text-bold">Exit reason</label>
                         {{ form.exit_reason }}
                       </div>
                     </div>
@@ -184,7 +186,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>Immunization Status</label>
+                        <label class="text-bold">Immunization Status</label>
                         {{ form.immunization }}
                       </div>
                     </div>
@@ -196,7 +198,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>HIV Status</label>
+                        <label class="text-bold">HIV Status</label>
                         {{ form.hiv_status }}
                       </div>
                     </div>
@@ -204,14 +206,14 @@
                     <!-- begin col-2 -->
                     <div class="col-md-6" id="facility_div">
                     <div class="form-group">
-                        <label>Facility</label>
+                        <label class="text-bold">Facility</label>
                          {{ form.facility }}
                       </div>
                     </div>
                     <!-- end col-2 -->
                     <div class="col-md-2" id="facility_id_div">
                     <div class="form-group">
-                        <label>ID (Auto-populated)</label>
+                        <label class="text-bold">ID (Auto-populated)</label>
                         {{ form.facility_id }}
                       </div>
                     </div>
@@ -220,7 +222,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3" id="art_div">
                     <div class="form-group">
-                        <label>ART Status</label>
+                        <label class="text-bold">ART Status</label>
                         {{ form.art_status }}
                       </div>
                     </div>
@@ -228,7 +230,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3" id="link_date_div">
                     <div class="form-group">
-                        <label>Date of Linkage</label>
+                        <label class="text-bold">Date of Linkage</label>
                         {{ form.link_date }}
                       </div>
                     </div>
@@ -236,7 +238,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3" id="ccc_no_div">
                     <div class="form-group">
-                        <label>CCC Number</label>
+                        <label class="text-bold">CCC Number</label>
                         {{ form.ccc_number }}
                       </div>
                     </div>
@@ -244,18 +246,20 @@
                 </div>
                 <!-- begin row -->
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning fade in m-b-15">
+                            <strong>Warning!</strong>
+                            Facility details will only be saved if you provide all the details.
+                            <span class="close" data-dismiss="alert">&times;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-1">
                       <a href="#modal-facility" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Facility</button></a>
                     </div>
                     <div class="col-md-2">
                       <a href="#modal-viralload" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Viral Load details </button></a>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="alert alert-danger fade in m-b-15">
-                                <strong>Warning!</strong>
-                                Facility details will only be saved if you provide all the details.
-                                <span class="close" data-dismiss="alert">&times;</span>
-                            </div>
                     </div>
                 </div>
             </fieldset>
@@ -267,7 +271,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-2">
                     <div class="form-group">
-                        <label>School Level</label>
+                        <label class="text-bold">School Level</label>
                         {{ form.school_level }}
                       </div>
                     </div>
@@ -275,7 +279,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3" id="school_class_div">
                     <div class="form-group">
-                        <label>Class</label>
+                        <label class="text-bold">Class</label>
                         {{ form.school_class }}
                       </div>
                     </div>
@@ -283,13 +287,13 @@
                     <!-- begin col-2 -->
                     <div class="col-md-4" id="school_name_div">
                     <div class="form-group">
-                        <label>School Name</label>
+                        <label class="text-bold">School Name</label>
                         {{ form.school_name }}
                       </div>
                     </div>
                     <div class="col-md-1" id="school_id_div">
                     <div class="form-group">
-                        <label>ID</label>
+                        <label class="text-bold">ID</label>
                         {{ form.school_id }}
                       </div>
                     </div>
@@ -297,22 +301,23 @@
                     <!-- begin col-2 -->
                     <div class="col-md-2">
                     <div class="form-group" id="admission_type_div">
-                        <label>Boarding / Day</label>
+                        <label class="text-bold">Boarding / Day</label>
                         {{ form.admission_type }}
                       </div>
                     </div>
                     <!-- end col-2 -->
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-warning fade in m-b-15">
+                            <p class="text-bold">School details will only be saved if you provide all the details.</p>
+                            <!-- <span class="close" data-dismiss="alert">&times;</span> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-1">
                       <a href="#modal-school" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> School</button></a>
-                    </div>
-                    <div class="col-md-11">
-                        <div class="alert alert-danger fade in m-b-15">
-                            <strong>Warning!</strong>
-                            School details will only be saved if you provide all the details.
-                            <span class="close" data-dismiss="alert">&times;</span>
-                        </div>
                     </div>
                 </div>
                 </fieldset>
@@ -383,7 +388,7 @@
                 <div class="row">
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>Primary Caretaker {{ ctaker }}</label>
+                        <label class="text-bold">Primary Caretaker {{ ctaker }}</label>
                         <select class="form-control" name="caretaker" id="caretaker"  data-parsley-required="true" >
                             <option value="">Please Select Caretaker</option>
                             {% for guardian in hhmembers %}
@@ -467,14 +472,16 @@
                 
                 <div class="row" id="form_actions">
                 <div class="form-group">
-                    <label class="control-label col-md-4 col-sm-4"></label>
-                    <div class="col-md-6 col-sm-6">
-                        <button type="submit" class="btn btn-primary" value="submit" id="s1">Update</button>
-                        <button type="button" class="btn btn-primary" value="exit-ovc" id="ovcexit">Exit OVC</button>
-                        <a href="{% url 'ovc_home' %}">
-                        <button type="button" class="btn btn-default">Cancel</button>
-                        </a>
-                    </div>
+                    <div class="row">
+                        <label class=""></label>
+                        <div class="col-md-8 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary" value="submit" id="s1">Update</button>
+                            <button type="button" class="btn btn-danger" value="exit-ovc" id="ovcexit">Exit OVC</button>
+                            <a href="{% url 'ovc_home' %}">
+                            <button type="button" class="nobtnui f-1_3x">Cancel</button>
+                            </a>
+                        </div>
+                </div>
                 </div>
             </div>
             <!-- end panel body -->
@@ -487,12 +494,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
                     <h4 class="modal-title">New Health Facility</h4>
                 </div>
                 <div class="modal-body">
-                    <p>To create a new Health Facility request for the addition.</p>
-                    <p>This will be added to the Master Health List.</p>
+                    <div class="alert alert-info">
+                        <p class="text-bold">To create a new Health Facility, please request for the addition.</p>
+                        <i>This will be added to the Master Health List.</i>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
@@ -506,25 +515,25 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
                     <h4 class="modal-title">Viral Load details</h4>
                 </div>
                 <div class="modal-body">
                     <div id="vmessage"></div>
-                    <p>New Viral load details.</p>
+                    <h5 class="text-bold"><u>New Viral load details.</u></h5>
                     <div class="row">
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>Date</label>
+                        <label class="text-bold"><small>Date</small></label>
                         <input type="text" class="form-control" id="viral_date" name="viral_date" placeholder="Date" />
                       </div>
                     </div>
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>LDL</label>
+                        <label class="text-bold"><small>LDL</small></label>
                         <div class="checkbox">
-                            <label>
+                            <label class="text-bold">
                                 <input type="checkbox" name="ldl" id="ldl" /> Check ONLY if LDL
                             </label>
                         </div>
@@ -534,7 +543,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>Viral Load</label>
+                        <label class="text-bold"><small>Viral Load</small></label>
                         <input type="text" class="form-control" id="viral_value" placeholder="Value" />
                       </div>
                     </div>
@@ -542,14 +551,15 @@
                     <!-- begin col-2 -->
                     <div class="col-md-1">
                     <div class="form-group">
-                        <label>-------------</label>
+                        <label class="text-bold">&nbsp;</label>
                         <button type="button" class="form-group btn btn-primary m-r-5" id="viral_details"> Save Record</button>
                       </div>
                     </div>
                     <!-- end col-2 -->
                 </div>
-                    <p>History.</p>
-                    <table class="table">
+                <hr/>
+                    <h5 class="text-bold"><u>History.</u></h5>
+                    <table class="table table-hover table-striped">
                         <thead>
                             <tr>
                                 <th>#</th><th>Date</th><th>Viral Load Value</th><th>Suppressed</th>
@@ -577,12 +587,14 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
                     <h4 class="modal-title">New School</h4>
                 </div>
                 <div class="modal-body">
-                    <p>To create a new School request for the addition.</p>
-                    <p>This will be added to the Master Schools List.</p>
+                    <div class="alert alert-info">
+                        <p class="text-bold">To create a new School, please request for the addition.</p>
+                        <i>This will be added to the Master Schools List.</i>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <a href="javascript:;" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
@@ -596,7 +608,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">�</button>
                     <h4 class="modal-title">Exit OVC - {{ child.first_name }} {{ child.surname }} | {{ child.age }}</h4>
                 </div>
                 <div class="modal-body">
@@ -607,7 +619,7 @@
                     <fieldset>
                     <div class="row">
                         <div class="col-md-4">
-                           <label>Exit reason</label>
+                           <label class="text-bold">Exit reason</label>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -618,7 +630,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                           <label>Exit Date</label>
+                           <label class="text-bold">Exit Date</label>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -629,7 +641,7 @@
                     </div>
                     <div class="row" id="exit_org_div">
                         <div class="col-md-4">
-                           <label>Organization Name</label>
+                           <label class="text-bold">Organization Name</label>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
@@ -643,7 +655,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" value="exit-ovc" id="oexit">Exit OVC</button>
+                                <button type="button" class="btn btn-danger" value="exit-ovc" id="oexit">Exit OVC</button>
                             </div>
                         <!-- end col-4 -->
                         </div>
@@ -670,7 +682,6 @@
 <script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
 <script>
     $("#wizard").bwizard();
-
     $('#ovcreg_form').submit(function(){
         if ($('#ovcreg_form').parsley().isValid()){ 
              $('#messages').html('Form is OK.');
@@ -682,13 +693,10 @@
         }
          
     });
-
     $('#ovcexit').click(function() { 
         $('#modal-ovc-exit').modal('toggle');
     });
-
     $('#viral_details').click(function() {
-
         var viral_date = $('#viral_date').val();
         var viral_value = $('#viral_value').val();
         var ldl = $('#ldl').is(":checked");
@@ -721,20 +729,17 @@
             $('#vmessage').html('Please fill the date and LDL or Viral Load value' );
             $("#vmessage").addClass( "alert alert-danger fade in" ); 
         }
-
         $('#messages').html('Viral Load added successful' );
         $('#messages').show();
         //$(location).attr('href', '{% url 'ovc_view' id=child.id %}');
     });  
     
-
     $('#oexit').click(function() {
         $('#ovcreg_form').parsley().validate("primary4");
         var ovc_id = $('#ovc_id').val();
         var ovc_exit_reason = $('#ovc_exit_reason').val();
         var ovc_exit_date = $('#exit_date').val();
         var ovc_exit_org = $('#exit_org_name').val();
-
         
         var csrftoken = $.cookie('csrftoken');
         var values = {'ovc_id': ovc_id, 'action': 2,
@@ -770,18 +775,14 @@
             $('#exit-message').html("Please provide all the details.");
             $("#exit-message").addClass( "alert alert-danger fade in" );
         }
-
-
     });
     
     var is_exit = $('#is_exited').is(":checked");
     disable_fields(is_exit, 'exit_reason');
-
     //Class levels
     {% for key, values in levels.items %}
         var {{ key }} = {{ values|safe }};
     {% endfor %}
-
     $('#eligibility, #exit_reason').multiselect({
         enableCaseInsensitiveFiltering: true,
         numberDisplayed: 1,
@@ -791,23 +792,19 @@
         enableClickableOptGroups: true,
         buttonClass: 'btn btn-white'
     });
-
     $('#reg_date, #link_date, #exit_date, #viral_date').datepicker({
         dateFormat: 'yy-mm-dd', format: 'dd-M-yyyy',
         endDate: '+0d', enddate: '+0d', autoclose: true
     });
     var ccond = $('#has_bcert').is(":checked");
     disable_fields(ccond, 'bcert_no');
-
     var dcond = $('#disb').is(":checked");
     disable_fields(dcond, 'ncpwd_no');
-
     $('#is_exited').live('change', function() {
         var is_exit = $('#is_exited').is(":checked");
         disable_fields(is_exit, 'exit_reason');
         $('#exit_reason').multiselect('rebuild');
     });
-
     $('#has_bcert').live('change', function() {
         var cond = $('#has_bcert').is(":checked");
         disable_fields(cond, 'bcert_no');
@@ -816,7 +813,6 @@
         var cond = $('#disb').is(":checked");
         disable_fields(cond, 'ncpwd_no');
     });
-
     $('#exit_org_div').hide();
     var cond = $('#ovc_exit_reason').val();
     handle_exit_org(cond);
@@ -824,26 +820,20 @@
         var cond = $('#ovc_exit_reason').val();
         handle_exit_org(cond);
     });
-
     $('#caretaker').val('{{ child.caretaker }}');
-
     var hstatus = $('#hiv_status').val();
     var hlevel = $('#school_level').val();
     handle_hstatus(hstatus);
     handle_education(hlevel);
     handle_levels(hlevel);
-
     $('#school_class').val('{{ sch_class }}');
-
     $('#hiv_status').change(function(){
         handle_hstatus(this.value);
     });
-
     $('#school_level').change(function(){
         handle_education(this.value);
         handle_levels(this.value);
     });
-
     $('.alive').change(function(){
         var ids = $(this).attr('id');
         var alive = this.value;
@@ -860,7 +850,6 @@
            $('#cstatus_' + id).attr("data-parsley-required", "false");
         }
     });
-
     //Facility query
     $( "#facility" ).autocomplete({
         source: function( request, response ) {
@@ -885,7 +874,6 @@
         $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
       }
     });
-
     //School query
     var s_level = $('#school_level').val();
     $( "#school_name" ).autocomplete({
@@ -931,7 +919,6 @@
              $('#school_class').append('<option></option>'); 
         }
     }
-
     function handle_exit_org(cond){
         if (cond == 'ERFO' || cond == 'ERTL'){
            $('#exit_org_div').show(); 
@@ -941,7 +928,6 @@
            $('#exit_org_name').attr("data-parsley-required", "false");
         }
     }
-
     function handle_hstatus(hstatus){
         if (hstatus == 'HSTP') {
             $('#facility_div').show();
@@ -967,7 +953,6 @@
             $('#ccc_number').attr("data-parsley-required", "false");
         } 
     }
-
     function handle_education(hlevel){
         if ((hlevel == 'SLNS') || (hlevel == '')) {
             $('#school_name_div').hide();
@@ -988,9 +973,7 @@
             $('#school_class').attr("data-parsley-required", "true");
             $('#admission_type').attr("data-parsley-required", "true");
         }
-
     }
-
     function disable_fields(cond, field_id){
         if (cond){
             console.log(field_id + ' 1');
@@ -1003,7 +986,6 @@
         }
         
     }
-
 </script>
 
 {% endblock %}

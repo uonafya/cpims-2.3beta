@@ -25,11 +25,11 @@ from .functions import (
     get_sub_county_info, get_raw_data, create_year_list, get_totals,
     get_case_data, org_unit_tree, get_performance, get_performance_detail,
     get_pivot_data, get_pivot_ovc, get_variables, get_sql_data, write_xls,
-    csvxls_data, write_xlsm, get_cluster, edit_cluster, create_pepfar,
+    csvxls_data, write_xlsm, get_cluster, edit_cluster, create_pepfar,get_viral_load_rpt_stats,
     get_dashboard_summary)
 
 from cpovc_registry.models import RegOrgUnit
-from cpovc_registry.functions import get_contacts, merge_two_dicts
+from cpovc_registry.functions import get_contacts, merge_two_dicts, get_ovc_hiv_status
 
 from cpovc_auth.models import AppUser
 
@@ -46,6 +46,7 @@ from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from .parameters import ORPTS, RPTS
 
+from django.db import connection
 from cpovc_forms.models import OVCGokBursary
 
 MEDIA_ROOT = settings.MEDIA_ROOT
@@ -297,6 +298,76 @@ def write_pdf(data, file_name):
 
     except Exception, e:
         raise e
+
+
+def get_viral_load_report(request):
+    """Method to do adhoc pivot reports."""
+    try:
+        # time_now = int(datetime.now().strftime('%H'))
+        user_id = request.user.id
+        report_variables = get_variables(request)
+        if request.method == 'POST':
+            ext = request.POST.get('ext')
+        print ext
+        report_ovc_id = int(report_variables['report_ovc'])
+        #report_name = report_variables['report_ovc_name']
+        report_name = 'Viral Load'
+        start_date = report_variables['start_date']
+        report_id = int(request.POST.get('rpt_ovc_id', 1))
+        today = datetime.now()
+        if start_date > today:
+            results = []
+        else:
+            #results = get_pivot_ovc(request, report_variables)
+            results =get_viral_load_rpt_stats(get_variables(request))
+
+        fid = '%s_%s_%s' % (report_name, today, user_id)
+        fid = fid.replace(':', '').replace(' ', '_')
+        fid = base64.urlsafe_b64encode(fid)
+        titles = ['CPIMS ID', 'NAME','VIRAL LOAD','SUPPRESSION']
+        # if report_ovc_id == 6 and report_id == 5:
+        #     titles = []
+        # if report_ovc_id == 6 and (report_id == 12 or report_id == 8):
+        #     titles = []
+        # if report_ovc_id == 6 and report_id == 14:
+        #     titles = []
+        data = [titles]
+        print 'Results count - ', len(results)
+        for res in results:
+            vals = []
+            for n, i in enumerate(titles):
+                val = res[i]
+                if type(val) is unicode:
+                    val = val.encode('ascii', 'ignore').decode('ascii')
+                vals.append(val)
+            data.append(vals)
+        csv_file = 'tmp-%s' % (fid)
+
+        write_csv(data, csv_file, {'archive': True})
+        xlsm_name = ''
+        status = 9
+
+        message = "No results matching your query."
+        if len(results) > 0:
+
+            status = 0
+            message = "Query executed successfully."
+            if len(results) > 100000 and report_id == 12:
+                message += " File too big to render. Please download."
+                results = []
+        if report_ovc_id == 1:
+            xlsm_name = '%sReport_%s' % (report_name, user_id)
+            write_xlsm(csv_file, xlsm_name)
+
+        datas = {'file_name': fid, 'data': results,
+                 'status': status, 'message': message, 'xls': xlsm_name}
+        return JsonResponse(datas, content_type='application/json',
+                            safe=False)
+    except Exception, e:
+        print 'error getting raw data - %s' % (str(e))
+        return JsonResponse([], content_type='application/json',
+                            safe=False)
+
 
 
 @login_required
@@ -846,6 +917,17 @@ def reports_ovc_pepfar(request):
     else:
         pass
 
+
+@login_required
+def viral_load(request):
+    """Method to do pivot reports."""
+    try:
+        form = CaseLoad(request.user)
+        return render(request, 'reports/viral_load.html', {'form': form})
+    except Exception, e:
+        raise e
+    else:
+        pass
 
 @login_required
 def reports_ovc_kpi(request):

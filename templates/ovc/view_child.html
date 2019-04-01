@@ -292,6 +292,25 @@ Registration details | {{ child.first_name }} {{ child.surname }} | {{ child.age
                         <a href="{% url 'hh_manage' hhid=hhold.house_hold.id %}">
                         <button type="button" class="btn btn-primary"> <i class="fa fa-users"></i> Manage HH </button>
                         </a>
+
+                            <a href="{% url 'new_cpara' id=creg.person_id %}">
+                        <button type="button" class="btn btn-primary"> <i class="fa fa-users"></i> CPARA</button>
+                        </a>
+                            <a href="{% url 'new_caseplan' id=creg.person_id %}">
+                        <button type="button" class="btn btn-primary"> <i class="fa fa-folder-open"></i> Case Plan Template</button>
+                        </a>
+                            <a href="{% url 'new_caseplan_monitoring' id=creg.person_id %}">
+                        <button type="button" class="btn btn-primary"> <i class="fa fa-check-circle"></i> CPARA Monitoring</button>
+                        </a>
+
+			  <a href="{% url 'new_wellbeing' id=creg.person_id%}">
+                        <button type="button" class="btn btn-primary"> <i class="fa fa-users"></i> Wellbeing </button>
+                        </a>
+
+                        <a href="{% url 'new_wellbeingadolescent' id=creg.person_id%}">
+                        <button type="button" class="btn btn-primary"> <i class="fa fa-users"></i> Wellbeing Adolescent</button>
+                        </a>
+			
                         {% endif %}
                     <p></p>
                     </center>

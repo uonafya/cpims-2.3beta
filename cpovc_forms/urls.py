@@ -227,4 +227,19 @@ urlpatterns = patterns(
         'edit_bursary', name='edit_bursary'),
     url(r'^bursary/form/(?P<id>[0-9A-Za-z_\-{32}\Z]+)/$',
         'form_bursary', name='form_bursary'),
+    # OVC Care - CPARA Form
+    url(r'^cpara/new/(?P<id>\d+)/$',
+        'new_cpara', name='new_cpara'),
+    # OVC Care - Case Plan Template
+    url(r'^caseplan/new/(?P<id>\d+)/$',
+        'case_plan_template', name='new_caseplan'),
+    url(r'^caseplan-monitoring/new/(?P<id>\d+)/$', 'new_case_plan_monitoring', name='new_caseplan_monitoring'),
+
+    #wellbeing Adult and Child
+    url(r'^wellbeing/new/(?P<id>\d+)/$',
+        'new_wellbeing', name='new_wellbeing'),
+    #wellbeing Adolescent
+    url(r'^wellbeingadolescent/new/(?P<id>\d+)/$',
+        'new_wellbeingadolescent', name='new_wellbeingadolescent')
+
 )

@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('cpovc_registry', '0001_initial'),
-        ('cpovc_main', '0002_auto_20180419_1202'),
+        ('cpovc_main', '0002_auto_20190219_1040'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
@@ -103,6 +103,22 @@ class Migration(migrations.Migration):
                 'db_table': 'ovc_eligibility',
                 'verbose_name': 'OVC Eligibility',
                 'verbose_name_plural': 'OVC Eligibility',
+            },
+        ),
+        migrations.CreateModel(
+            name='OVCExit',
+            fields=[
+                ('id', models.UUIDField(default=uuid.uuid4, serialize=False, editable=False, primary_key=True)),
+                ('org_unit_name', models.CharField(max_length=150, null=True)),
+                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+                ('is_void', models.BooleanField(default=False)),
+                ('org_unit', models.ForeignKey(to='cpovc_registry.RegOrgUnit', null=True)),
+                ('person', models.ForeignKey(to='cpovc_registry.RegPerson')),
+            ],
+            options={
+                'db_table': 'ovc_exit_organization',
+                'verbose_name': 'OVC Exit Org Unit',
+                'verbose_name_plural': 'OVC Exit Org Units',
             },
         ),
         migrations.CreateModel(
@@ -229,6 +245,22 @@ class Migration(migrations.Migration):
                 'db_table': 'ovc_upload',
                 'verbose_name': 'OVC upload data',
                 'verbose_name_plural': 'OVC upload data',
+            },
+        ),
+        migrations.CreateModel(
+            name='OVCViralload',
+            fields=[
+                ('id', models.UUIDField(default=uuid.uuid4, serialize=False, editable=False, primary_key=True)),
+                ('viral_load', models.IntegerField(null=True)),
+                ('viral_date', models.DateField(null=True)),
+                ('created_at', models.DateTimeField(default=django.utils.timezone.now)),
+                ('is_void', models.BooleanField(default=False)),
+                ('person', models.ForeignKey(to='cpovc_registry.RegPerson')),
+            ],
+            options={
+                'db_table': 'ovc_viral_load',
+                'verbose_name': 'OVC Viral Load',
+                'verbose_name_plural': 'OVC Viral Loads',
             },
         ),
         migrations.AddField(

@@ -289,6 +289,21 @@ jQuery(document).ready(function() {
                                     },
                                     rendererName: "Table"
                                 }, true);
+                            }else if (ovc == '15'){
+                                $("#report_html").pivotUI(data, {
+                                    //renderers: renderers,
+                                    cols: ["SERVICE"],
+                                    rows: ["COUNTY","WARD","CBO","OVCID", "OVCNAME"],
+                                    aggregators: {
+                                        "Number of OVC":  function() {
+                                            return tpl.count()()
+                                        },
+                                        "Sum of OVC":  function() {
+                                            return tpl.sum(intFormat)(["OVCCOUNT"])
+                                        }
+                                    },
+                                    rendererName: "Table"
+                                }, true);
                             }else{
                                 $("#report_html").pivotUI(data, {
                                     //renderers: renderers,

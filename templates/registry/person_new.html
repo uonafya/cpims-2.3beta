@@ -247,13 +247,13 @@
                                             <!-- begin row -->
                                             <div class="row">
                                                 <div id="des_phone_number_div" class="form-group">
-                                                    <label class="control-label col-md-4 col-sm-4" for="des_phone_number">Designated mobile Number (07XXXXXXXX):</label>
+                                                    <label class="control-label col-md-4 col-sm-4" for="des_phone_number">Designated mobile Number :</label>
                                                     <div class="col-md-6 col-sm-6">
                                                        {{ form.des_phone_number }}
                                                     </div>
                                                 </div>
                                                 <div id="other_phone_number_div" class="form-group">
-                                                    <label class="control-label col-md-4 col-sm-4" for="other_phone_number">Other mobile Number (07XXXXXXXX):</label>
+                                                    <label class="control-label col-md-4 col-sm-4" for="other_phone_number">Other mobile Number :</label>
                                                     <div class="col-md-6 col-sm-6">
                                                         {{ form.other_phone_number }}
                                                     </div>
@@ -500,14 +500,6 @@
                                 </div>
 
                             <!--- End Wizard Block -->
-                            {% if request.session.reg_ovc %}
-                                <div class="alert alert-warning fade in">
-                                        <button type="button" class="close" data-dismiss="alert">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                        Please NOTE ward is required and please provide atleast One caregiver for creating household details. 
-                                    </div>
-                            {% else %}
                             <div class="row" id="audit_detail_div">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -524,7 +516,6 @@
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
                             <div class="form-group">
                                 <label class="control-label col-md-4 col-sm-4"></label>
                                 <div class="col-md-6 col-sm-6">
@@ -741,7 +732,7 @@
                                     <!-- begin col-4 -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Mobile Number: (07XXXXXXXX)</label>
+                                            <label>Mobile Number:</label>
                                             {{ form.caregiver_tel }}
                                         </div>
                                     </div>
@@ -1580,7 +1571,6 @@ function handle_default(){
 }
 
 function handle_child(){
-    $('#living_in_ward').attr('data-parsley-required', 'true');
     $('#national_id_div').hide();
     $('#national_id').attr('data-parsley-required', 'false');
 

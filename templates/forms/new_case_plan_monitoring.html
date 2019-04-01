@@ -1,0 +1,221 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Reaching Case Plan Achievement {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+
+.table_data {
+  display: none;
+}
+
+.container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.td_style {
+  /*color: #000000;*/
+  color: #0057e7;
+}
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+
+{% for data in init_data %}
+
+	<h1 class="page-header">Forms <small>Reaching Case Plan Achievement</small></h1>
+
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+	<!-- begin col-12 -->
+    <div class="col-md-12">
+    	<!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> Monitoring Tool for OVC Households Reaching Case Plan Achievement </h4>
+            </div>
+            <div class="panel-body">
+                {{ request.GET }}
+            	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true">
+                	{% csrf_token %}
+							<div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                                <label class="control-label formlabel" for="csi_qs">Date of Monitoring : <span class="asteriskField">* </span></label>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                {{ form.cm1d }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+							    <!-- add labels like HA1, HA2 .. -->
+							    <h2 class="text-center note note-info">Healthy</h2>
+							<div class="form-group">
+                                    <label class="col-md-6 control-label">1.All children, adolescents and caregivers in
+                                        the household have known HIV status or test not required based on risk assessment</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm2q }}
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                    <label class="col-md-6 control-label">2.All HIV+ children, adolescents and caregivers in the household are virally suppressed</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm3q }}
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <label class="col-md-6 control-label">3.All adolescents 10-17 years of age in the household have knowledge about preventing HIV infection</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm4q }}
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                    <label class="col-md-6 control-label">4.No child under 5 in the household is undernourished </label>
+                                    <div class="col-md-3">
+                                        {{ form.cm5q }}
+                                    </div>
+                                </div>
+                            </div>
+                    <h2 class="text-center note note-info">Stable</h2>
+							<div class="form-group">
+                                    <label class="col-md-6 control-label">1.Caregiver able to access money (without
+                                        selling productive assets) to pay for school fees and medical costs for children 0-17 years</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm6q }}
+                                    </div>
+                                </div>
+                    <h4 class="text-center">Safe</h4>
+							<div class="form-group">
+                                    <label class="col-md-6 control-label">1.No child, adolescent and caregivers in the
+                                        household report experience of violence</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm7q }}
+                                    </div>
+                                </div>
+                    <div class="form-group">
+                                    <label class="col-md-6 control-label">2.All children and adolescents in the household
+                                        are under the care of a stable adult caregiver</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm8q }}
+                                    </div>
+                                </div>
+                    <h2 class="text-center note note-info">Schooled</h2>
+							<div class="form-group">
+                                    <label class="col-md-6 control-label">1.All school age children and adolescents in
+                                        the household regularly attend school since last visit (have not missed more than
+                                        80% of school days per month) </label>
+                                    <div class="col-md-3">
+                                        {{ form.cm9q }}
+                                    </div>
+                                </div>
+                    <div class="form-group">
+                                    <label class="col-md-6 control-label">2.All school age children and adolescents progressed
+                                        from one grade to the next grade/graduated and progressed since the last visit</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm10q }}
+                                    </div>
+                                </div>
+                    <div class="form-group">
+                                    <label class="col-md-6 control-label">Household is still ready to successfully exit
+                                        (case plan achievement):</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm11q }}
+                                    </div>
+                                </div>
+                    <div class="form-group">
+                                    <label class="col-md-6 control-label">Case determined ready for closure:</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm12q }}
+                                    </div>
+                                </div>
+                    <br/>
+                    <hr style="border-color: darkgrey; border-width: 5px;"/>
+                    <div class="form-group">
+                                    <label class="col-md-6 control-label semi-bold">Case determined ready for closure be checked by the third month:</label>
+                                    <div class="col-md-3">
+                                        {{ form.cm13q }}
+                                    </div>
+                                </div>
+
+					                     
+
+					<div class="panel-body panel-form">
+						<div class="form-group">
+							<label class="control-label col-md-4 col-sm-4"></label>
+							<div class="col-md-6 col-sm-6">
+								<button type="submit" class="btn btn-primary">Submit</button>
+								<a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+							</div>
+						</div>
+                    </div>
+
+				</form>
+            </div>
+            <div class="badge pull-right m-4">Revised: March 7th 2019</div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>	
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script>
+jQuery(document).ready(function() 
+{
+	$('html,body').scrollTop(0);
+	FormWizardValidation.init();
+});
+</script>
+{% endblock lazy_javascript_code %}

@@ -49,6 +49,7 @@
 		    <li><a href="{% url 'cpims_reports' id=1 %}">KNBS Report</a></li>
 		    <li><a href="{% url 'cpims_reports' id=3 %}">Institutions Population Returns Report </a></li>
 		    <li><a href="{% url 'cpims_reports' id=4 %}">Health Report </a></li>
+		    <li><a href="{% url 'bursary_reports' %}">Bursary Report </a></li>
 		    <li><a href="{% url 'cpims_reports' id=5 %}">Ad Hoc Report </a></li>
 		    <li><a href="{% url 'pivot_reports' %}">Ad Hoc Pivot Report </a></li>
 		    <li><a href="{% url 'document_reports' %}">Document Templates </a></li>
@@ -59,7 +60,7 @@
 				    <span>OVC Reports</span>
 				</a>
 				<ul class="sub-menu">
-					<li><a href="{% url 'pivot_ovc_reports' %}">DATIM</a></li>
+					<li><a href="{% url 'pivot_ovc_reports' %}">DATIM MER ver 2.3</a></li>
 					<li><a href="{% url 'pivot_ovc_pepfar' %}">Services by Domain (PEPFAR Summary)</a></li>
 					<li><a href="{% url 'pivot_ovc_kpi' %}">Key Performance Indicator</a></li>
 					<li><a href="{% url 'reports_ovc' id=1 %}">Registration List</a></li>
@@ -75,6 +76,12 @@
 					<li><a href="{% url 'reports_ovc' id=9 %}">Form1A summary</a></li>
 					<li><a href="{% url 'reports_ovc' id=11 %}">Form1B summary</a></li>
 					<li><a href="{% url 'reports_ovc' id=10 %}">Needs vs Served by domain</a></li>
+					<li><a href="{% url 'reports_ovc' id=15 %}">OVC Overall View</a></li>
+                    <li><a href="{% url 'reports_ovc' id=15 %}">CPARA</a></li>
+                    <li><a href="{% url 'reports_ovc' id=15 %}">Case Plans</a></li>
+                    <li><a href="{% url 'reports_ovc' id=15 %}">Case Plan Monitoring</a></li>
+                    <li><a href="{% url 'reports_ovc' id=15 %}">Serverd two quaters</a></li>
+                    <li><a href="{% url 'reports_ovc' id=15 %}">Benchmarks</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -88,7 +95,9 @@
 		</a>
 		<ul class="sub-menu">
 		    <li><a href="{% url 'settings_reports' %}">Reports</a></li>
-		    <li><a href="#">Schools &amp; Facilities</a></li>
+		    <li><a href="{% url 'settings_schools' %}">Schools</a></li>
+		     <li><a href="{% url 'settings_facilities' %}">Facilities</a></li>
+		      <li><a href="{% url 'settings_rawdata' %}">Raw data</a></li>
 		    <li><a href="#">System Settings</a></li>
 		</ul>
 	</li>
@@ -117,9 +126,14 @@
 	
 	<li class="has-sub">
 	    <a href="#">
+	    	<b class="caret pull-right"></b>
 	        <i class="fa fa-medkit"></i>
-	        <span>Help and Documentation</span>
+	        <span>Help &amp; Documentation</span>
 	    </a>
+	    <ul class="sub-menu">
+	        <li><a href="{% url 'change_notes' %}">Change Notes</a></li>
+	        <li><a href="#">Documentation</a></li>
+	    </ul>
 	</li>
     <!-- begin sidebar minify button -->
 	<li><a href="#" class="sidebar-minify-btn" data-click="sidebar-minify">
