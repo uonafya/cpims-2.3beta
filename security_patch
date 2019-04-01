@@ -1,0 +1,19 @@
+Open the file /etc/environment with your favourite editor on your PC and add the following fields with your specific values;
+Step 1:
+	sudo nano /etc/environment
+Step 2:
+	Copy and paste the following variables and edit with your environment specific variables;
+		CPIMS_HOST='localhost' #change if not localhost
+		CPIMS_PASSWORD='yourdbpassword'
+		CPIMS_DB='yourdbname'
+		CPIMS_PORT='5432' #change if not 5432
+		CPIMS_DBUSER='yourdbusername'
+		CPIMS_SECRET_KEY='thekey' #check older commits for the key
+		
+Step 3: 
+	Save and exit;
+	<ctrl><O> and <ctrl><X>
+
+Step: 
+	Logout from the current session for your changes on the environment viriables to take effect
+		

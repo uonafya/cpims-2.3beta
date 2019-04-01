@@ -1,0 +1,2379 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Adult and Child Wellbeing Assessment Form {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet"/>
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet"/>
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet"/>
+<style type="text/css">
+.dialog_paragraph {
+  color: #f00;
+}
+
+.table_data {
+  display: none;
+}
+
+.container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.td_style {
+  /*color: #000000;*/
+  color: #0057e7;
+}
+
+
+
+
+/*  bhoechie tab */
+div.bhoechie-tab-menu {
+  padding-right: 0;
+  padding-left: 0;
+  padding-bottom: 0;
+}
+
+div.bhoechie-tab-menu div.list-group {
+  margin-bottom: 0;
+}
+
+div.bhoechie-tab-menu div.list-group>a {
+  margin-bottom: 0;
+}
+
+div.bhoechie-tab-menu div.list-group>a .glyphicon,
+div.bhoechie-tab-menu div.list-group>a .fa {
+  color: #00acac;
+}
+
+div.bhoechie-tab-menu div.list-group>a:first-child {
+  border-top-right-radius: 0;
+  -moz-border-top-right-radius: 0;
+}
+
+div.bhoechie-tab-menu div.list-group>a:last-child {
+  border-bottom-right-radius: 0;
+  -moz-border-bottom-right-radius: 0;
+}
+
+div.bhoechie-tab-menu div.list-group>a.active,
+div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
+div.bhoechie-tab-menu div.list-group>a.active .fa {
+  background-color: #00acac;
+  background-image: #00acac;
+  color: #ffffff;
+}
+
+div.bhoechie-tab-menu div.list-group>a.active:after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-top: -13px;
+  border-left: 0;
+  border-bottom: 13px solid transparent;
+  border-top: 13px solid transparent;
+  border-left: 10px solid #00acac;
+}
+
+div.bhoechie-tab-content {
+  background-color: #ffffff;
+  /* border: 1px solid #eeeeee; */
+  padding-left: 20px;
+  padding-top: 10px;
+}
+
+div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
+  display: none;
+}
+
+
+.active_child{
+  background-color: #00acac;
+  padding: 5px;
+}
+
+.child_list:hover {
+  background-color: #00acac;
+  cursor: pointer;
+}
+
+
+
+
+
+
+</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+
+{% for data in init_data %}
+
+<h1 class="page-header">Forms
+    <small>Adult and Child Wellbeing Assessment Form
+        <!--<b>{{ data.first_name }} {{ data.surname }} | {{-->
+        <!--data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}-->
+        <!--UNDER 1 YEAR-->
+        <!--{% else %}-->
+        <!--{{ data.date_of_birth|gen_age }} YRS-->
+        <!--{% endif %}</b>-->
+    </small>
+</h1>
+
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">�</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i
+                            class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i
+                            class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> Adult and Child Wellbeing Assessment </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                      name="form-wizard-hhva" id="new_hhva">
+                    {% csrf_token %}
+
+                    <div id="wizard-hhva">
+                        <ol>
+
+                            <li>
+                                Demographics
+                                <small>Demographics</small>
+                            </li>
+
+                            <li>
+                                STABLE
+                                <small>Household individuals details</small>
+                            </li>
+
+                            <li>
+                                HEALTHY
+                                <small>Household individuals details</small>
+                            </li>
+
+                            <li>
+                                SAFE
+                                <small>WASH details</small>
+                            </li>
+                            <li>
+                                SCHOOLED
+                                <small>Shelter and care details</small>
+                            </li>
+                            <li>
+                                GOALS
+                                <small>Household income and property details</small>
+                            </li>
+
+                        </ol>
+
+                        {{ form.person }}
+                        {{ form.household_id }}
+                        {{ form.caretaker_id }}
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+
+
+                            <div class="row">
+                                <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11 bhoechie-tab-container">
+                                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 bhoechie-tab-menu"
+                                         style="width: 170px;">
+                                        <div class="list-group">
+                                            <a href="#" class="list-group-item active text-center">
+                                                <h4 class="glyphicon glyphicon-file"></h4><br/>Demographics (Static)
+                                            </a>
+                                            <a href="#" class="list-group-item text-center">
+                                                <h4 class="glyphicon glyphicon-file"></h4><br/>Demographics (Provide)
+                                            </a>
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+                                        <!-- flight section -->
+                                        <div class="bhoechie-tab-content active">
+                                            <center>
+                                                <h3 style="margin-top: 0;color:#55518a">Demographic(Static)</h3>
+
+
+                                                <div class="form-group">
+                                                    <table class="table table-bordered">
+                                                        <thead>
+
+                                                        </thead>
+                                                        <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                Basic Information
+                                                            </td>
+
+                                                            <td>
+                                                                Name:<label style="display: block" for="care-name">{{ovcreg.caretaker.first_name}}
+                                                                {{ovcreg.caretaker.other_names}}
+                                                                {{ovcreg.caretaker.surname}}
+                                                            </label>
+                                                                Phone:<label style="display: block" for="care-name">{{ovcreg.caretaker.des_phone_number}}</label>
+                                                                Physical:<label style="display: block" for="care-name">slip
+                                                                road</label>
+                                                                Date of Birth:<label style="display: block"
+                                                                                     for="care-age">
+                                                                {{ovcreg.caretaker.date_of_birth}}</label>
+                                                            </td>
+                                                            <td>
+                                                                Age:<label style="display: block" for="care-age">
+                                                                {{ovcreg.caretaker.date_of_birth|gen_age}}
+
+                                                            </label>
+                                                                Gender:<label style="display: block" for="care-name">{{person_sex_type}}</label>
+                                                                What is your marital status:<label
+                                                                    style="display: block"
+                                                                    for="care-name">Single</label>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Location
+                                                            </td>
+
+                                                            <td colspan="2">
+                                                                <table class="table table-bordered">
+                                                                    <th>County</th>
+                                                                    <th>Sub-county</th>
+                                                                    <th>Ward</th>
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td>Nairobi</td>
+                                                                        <td>Kasarani</td>
+                                                                        <td>Sunton</td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+
+                                                        </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                    <div>
+
+
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>First Name</th>
+                                                                <th>Surname</th>
+                                                                <th>Sex M/F</th>
+                                                                <th>Date of birth</th>
+                                                                <th>Age</th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            {% for hhmember in hhmembers %}
+                                                            <tr>
+                                                                <td>{{ forloop.counter }}</td>
+                                                                <td>{{ hhmember.person.first_name }}</td>
+                                                                <td>{{ hhmember.person.surname }}</td>
+                                                                <td>
+                                                                    {% if hhmember.person.sex_id == 'SFEM' %}
+                                                                    female
+                                                                    {% endif %}
+                                                                    {% if hhmember.person.sex_id == 'SMAL' %}
+                                                                    male
+                                                                    {% endif %}
+                                                                </td>
+                                                                </td>
+
+                                                                <td>{{ hhmember.person.date_of_birth }}</td>
+                                                                <td>{{ hhmember.person.date_of_birth |gen_age}}
+                                                                </td>
+
+                                                            </tr>
+                                                            {% endfor %}
+                                                            </tbody>
+                                                        </table>
+
+                                                        <!--<table class="table table-bordered">-->
+                                                        <!--<thead>-->
+                                                        <!--<tr>-->
+                                                        <!--<th scope="col">#</th>-->
+                                                        <!--<th scope="col">Name (3 Names)</th>-->
+                                                        <!--<th scope="col">Date Of Birth (dd/mm/yyyy)</th>-->
+                                                        <!--<th scope="col">Sex M/F</th>-->
+                                                        <!--</tr>-->
+                                                        <!--</thead>-->
+                                                        <!--<tbody>-->
+                                                        <!--<tr>-->
+                                                        <!--<th scope="row">1</th>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--<th scope="row">2</th>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--<th scope="row">3</th>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--<th scope="row">4</th>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--<th scope="row">5</th>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--<td></td>-->
+                                                        <!--</tr>-->
+                                                        <!--<tr>-->
+                                                        <!--<th scope="row">6</th>-->
+                                                        <!--<td class="text-center"></td>-->
+                                                        <!--<td class="text-center"></td>-->
+                                                        <!--<td class="text-center"></td>-->
+                                                        <!--</tr>-->
+                                                        <!--</tbody>-->
+                                                        <!--</table>-->
+
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </center>
+                                        </div>
+                                        <!-- train section -->
+                                        <div class="bhoechie-tab-content">
+                                            <h3 style="margin-top: 0;color:#55518a">Demographics(To Provide)</h3>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div id="table" class="table-editable">
+
+                                                        <table class="table table-bordered table-responsive-md  text-left">
+                                                            <thead>
+                                                            <col width="400">
+                                                            <col width="500">
+
+                                                            <th>Question</th>
+                                                            <th>Answer</th>
+
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+
+
+                                                                <td>
+                                                                    Date of assessement.
+                                                                </td>
+                                                                <td>
+
+                                                                    {{form.WB_GEN_01}}
+
+                                                                </td>
+                                                            </tr>
+
+                                                                <tr>
+                                                                <td>
+                                                                    What is your birth date
+                                                                </td>
+                                                                <td>
+
+                                                                    {{form.WB_GEN_02}}
+
+                                                                </td>
+                                                            </tr>
+<tr>
+                                                                <td>
+                                                                    What is your physical address
+                                                                </td>
+                                                                <td>
+
+                                                                    {{form.WB_GEN_03}}
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    What is your phone number
+                                                                </td>
+                                                                <td>
+
+                                                                    {{form.WB_GEN_11}}
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    What is your Marital status
+                                                                </td>
+                                                                <td>
+
+                                                                    {{form.WB_GEN_12}}
+
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    Number of individuals in the household below 18 years
+                                                                </td>
+                                                                <td>
+
+                                                                      <table class="table table-bordered">
+                                                                        <thead>
+
+                                                                        <th scope="col">Male</th>
+                                                                        <th>Female</th>
+
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+
+                                                                            <td>{{form.WB_GEN_13}}</td>
+                                                                            <td>{{form.WB_GEN_14}}</td>
+                                                                        </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+
+
+                                                                </td>
+                                                            </tr>
+                                                             <tr>
+                                                                <td>
+                                                                    Number of disabled individuals in the household below 18 years
+                                                                </td>
+                                                                <td>
+
+
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+
+                                                                        <th scope="col">Male</th>
+                                                                        <th>Female</th>
+
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+
+                                                                            <td>{{form.WB_GEN_15}}</td>
+                                                                            <td>{{form.WB_GEN_16}}</td>
+                                                                        </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+
+
+                                                                </td>
+                                                            </tr>
+                                                <!------------------------------------------------>
+                                                            <tr>
+                                                                <td>
+
+                                                                    How many people currently live in your household?
+                                                                </td>
+                                                                <td>
+                                                                    <div class="col-sm-6">
+
+                                                                        {{form.WB_GEN_04}}
+
+                                                                        <!--<div class="number">-->
+                                                                        <!--<label><input type="number"-->
+                                                                        <!--value=""></label>-->
+                                                                        <!--</div>-->
+                                                                    </div>
+
+
+                                                                </td>
+
+                                                                <td>
+                                                                    Are there any adults who live in this household
+                                                                    other
+                                                                    than you?
+                                                                </td>
+                                                                <td>
+
+                                                                    {{form.WB_GEN_05}}
+
+                                                                    <!--<div class="col-sm-6">-->
+                                                                    <!--<div class="radio">-->
+                                                                    <!--<label><input name="anyadult" type="radio" value="">Yes</label>-->
+
+
+                                                                    <!--<label><input name="anyadult" type="radio" value="">Yes</label>-->
+                                                                    <!--</div>-->
+
+
+                                                                    <!--</div>-->
+
+                                                                </td>
+
+                                                            </tr>
+                                                            <tr>
+
+                                                                <td>
+
+                                                                    If yes, how many adult Males and Females (other than
+                                                                    you)
+                                                                    live in your household?
+                                                                </td>
+                                                                <td>
+
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+
+                                                                        <th scope="col">Male</th>
+                                                                        <th>Female</th>
+
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+
+                                                                            <td>{{form.WB_GEN_06}}</td>
+                                                                            <td>{{form.WB_GEN_07}}</td>
+                                                                        </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+                                                                </td>
+                                                            </tr>
+
+
+                                                            <tr>
+
+                                                                <td>
+
+                                                                    Number of persons living with disability in the
+                                                                    household
+                                                                    above
+                                                                    18 years
+                                                                </td>
+                                                                <td>
+                                                                    <table class="table table-bordered">
+                                                                        <thead>
+
+                                                                        <th scope="col">Male</th>
+                                                                        <th>Female</th>
+
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        <tr>
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+                                                                            <!--<td><label><input type="text" value=""></label></td>-->
+
+                                                                            <td>{{form.WB_GEN_08}}</td>
+                                                                            <td>{{form.WB_GEN_09}}</td>
+                                                                        </tr>
+                                                                        </tbody>
+
+                                                                    </table>
+
+
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end wizard step-1 -->
+                        <!-- begin wizard step-2 -->
+                        <!--stable-->
+                        <div class="wizard-step-2">
+                            <table class="table table-bordered">
+                                <thead>
+                                <col width="13">
+                                <col width>
+                                <col width="500">
+                                <th>Q1</th>
+                                <th>Question</th>
+                                <th>Options</th>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>1.</td>
+                                    <td id="WB_STA_1">How do you help your family?</td>
+                                    <td>
+
+                                        {{form.WB_STA_1_1}}
+                                        {{form.WB_STA_1_2}}
+                                        {{form.WB_STA_1_3}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Provide money</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Look after the children</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Help with house chores</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Work on the farms</label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Collect water and/ or wood</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Take care of animals</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Bring food</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Other</label>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+                                        <!-- <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
+                                        Specify</label> -->
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>2.</td>
+                                    <td>How do the other adults in your household help you?</td>
+                                    <td>
+
+                                        {{form.WB_STA_2_1}}
+                                        {{form.WB_STA_2_2}}
+                                        {{form.WB_STA_2_3}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Not applicable (no other adults)</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Provide money</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Help with house chores</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Work on the farms</label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Collect water and/ or wood</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Take care of animals</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Bring food</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Earn extra money </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Other</label>
+                                                </div>
+                                            </div>
+                                        </div> -->
+
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>3.</td>
+                                    <td>How do your children help you?</td>
+                                    <td>
+
+                                        {{form.WB_STA_3_1}}
+                                        {{form.WB_STA_3_2}}
+                                        {{form.WB_STA_3_3}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Look after younger children</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Help with house chores</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Work on the farm</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Collect water and/ or wood </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">take care of animals</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Bring food</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Earn extra money </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Other</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
+                                        Specify</label> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>4.</td>
+                                    <td>What kinds of assets do you have?</td>
+                                    <td>
+
+                                        {{form.WB_STA_4_1}}
+                                        {{form.WB_STA_4_2}}
+                                        {{form.WB_STA_4_3}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Basic household utensils</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Tools for making repairs </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Hoe, axe or farming tools </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Water storage container </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Bicycle</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Livestock</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Cellphone(s)</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Gas Lamp </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Lantern</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Radio</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
+                                        Specify</label> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>5.</td>
+                                    <td>What is the household main source of income?</td>
+                                    <td>
+
+                                        {{form.WB_STA_5_1}}
+                                        {{form.WB_STA_5_2}}
+                                        {{form.WB_STA_5_3}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Crop farming</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Livestock rearing </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Fishing </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Begging </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Cash transfer</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Donations</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Bee keeping </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Casual labour </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Small business </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Unemployed </label>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                        <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
+                                        Specify</label> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>6.</td>
+                                    <td>What is the average household monthly income before purchase?</td>
+                                    <td>
+
+                                        {{form.WB_STA_6_1}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>7.</td>
+                                    <td>What is the household savings after expenses</td>
+                                    <td>
+
+                                        {{form.WB_STA_7_1}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>8.</td>
+                                    <td>Which of the following take up most of the household income?</td>
+                                    <td>
+
+                                        {{form.WB_STA_8_1}}
+                                        {{form.WB_STA_8_2}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Food</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Rent </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Clothing </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Medical bill </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">School fees </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Entertainment</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Transport(fair) </label>
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>9.</td>
+                                    <td>Are you able to regularly meet the needs of your children (School
+                                        fees,medication,clothes,housing)?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_STA_9_1}}
+                                        {{form.WB_STA_9_2}}
+                                    </td>
+
+
+                                </tr>
+
+                                <tr>
+                                    <td>10.</td>
+                                    <td>If today you had an unplanned expense for the family, how would you respond in
+                                        meeting this
+                                        need?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_STA_10_1}}
+                                        {{form.WB_STA_10_2}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">My salary</label>
+                                                </div>
+                                                <p>If yes, indicate how :</p>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">My savings </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value=""> A loan from family for friend </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">A loan from microcredit group </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">A loan from a money lender </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Hawking/ market vending </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Sell off family assets </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Sell off stored family food</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Unable to meet unplanned needs</label>
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>11.</td>
+                                    <td>Are you or any member of your household participating in a savings group?</td>
+                                    <td>
+
+                                        {{form.WB_STA_11_1}}
+                                        {{form.WB_STA_11_2}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Yes</label>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">No</label>
+
+                                                </div>
+
+                                            </div>
+
+
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>12.</td>
+                                    <td>Which of the following programs do you know?</td>
+                                    <td>
+
+                                        {{form.WB_STA_12_1}}
+                                        {{form.WB_STA_12_2}}
+                                        {{form.WB_STA_12_3}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Cash transfer</label>
+                                                </div>
+                                                <p>If yes, indicate how :</p>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Emergency food </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value=""> School bursaries</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Farm inputs (e.g. fertilizer, seeds) </label>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">NHIF</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">None</label>
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>13.</td>
+                                    <td>Which food groups do you regularly serve to your family at least twice a week in
+                                        past one
+                                        week?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_STA_13_1}}
+                                        {{form.WB_STA_13_2}}
+                                        <!--<div class="row">-->
+                                        <!--<div class="col-md-6">-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Energy food</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Body building foods:</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value=""> Protective food</label>-->
+                                        <!--</div>-->
+
+
+                                        <!--</div>-->
+                                        <!--</div>-->
+
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- end wizard step-2 -->
+                        <!--  start of wizard step-3 -->
+
+                        <div class="wizard-step-3">
+                            <table class="table table-bordered">
+                                <thead>
+                                <col width="13">
+                                <col width>
+                                <col width="500">
+                                <th>Q1</th>
+                                <th>Question</th>
+                                <th>Options</th>
+                                </thead>
+
+                                <tbody>
+                                <tr>
+                                    <td>14.</td>
+                                    <td>If there is someone with disability in this house, what type of disability
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_14_1}}
+                                        {{form.WB_HEL_14_2}}
+
+
+                                        <!--                         <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="checkbox">
+                                                                            <label><input type="checkbox" value="">No disability</label>
+                                                                        </div>
+                                                                        <p>If No disability Go to 17:</p>
+                                                                        <div class="checkbox">
+                                                                            <label><input type="checkbox" value="">Hearing </label>
+                                                                        </div>
+
+                                                                        <div class="checkbox">
+                                                                            <label><input type="checkbox" value=""> Speech </label>
+                                                                        </div>
+
+                                                                        <div class="checkbox">
+                                                                            <label><input type="checkbox" value="">Physical </label>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                    <div class="col-md-6">
+                                                                        <div class="checkbox">
+                                                                            <label><input type="checkbox" value="">Mental </label>
+                                                                        </div>
+
+                                                                        <div class="checkbox">
+                                                                            <label><input type="checkbox" value="">Visual </label>
+                                                                        </div>
+
+                                                                        <div class="checkbox">
+                                                                            <label><input type="checkbox" value="">Genetic differences (albinism)</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                                <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
+                                                                Specify</label> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>15.</td>
+                                    <td>Is the person with disability receiving services for the disability?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_15_1}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>16.</td>
+                                    <td>Do you or any other household member have a long-term illness that you would
+                                        like to share
+                                        with
+                                        me?
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                {{form.WB_HEL_16_1}}
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>If Yes</p>
+                                                {{form.WB_HEL_16_2}}
+                                                <!--                                 <div class="checkbox">
+                                                                                    <label><input type="checkbox" value="">Cancer</label>
+                                                                                </div>
+                                                                                <div class="checkbox">
+                                                                                    <label><input type="checkbox" value="">Epilepsy</label>
+                                                                                </div>
+
+                                                                                <div class="checkbox">
+                                                                                    <label><input type="checkbox" value="">Diabetes</label>
+                                                                                </div>
+
+                                                                                <div class="checkbox">
+                                                                                    <label><input type="checkbox" value="">Hypertension</label>
+                                                                                </div>
+                                                                                <div class="input">
+                                                                                    <label><input type="text" value="">Who</label>
+
+                                                                                </div>
+
+                                                                                <div class="input">
+                                                                                    <label><input type="text" value="">What is the long-term illness that you
+                                                                                        have?</label>
+
+                                                                                </div> -->
+
+                                            </div>
+
+
+                                        </div>
+                                        {{form.WB_HEL_16_3}}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <p>Who ?</p>
+                                                {{form.WB_HEL_16_4}}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>What is the long-term illness?</p>
+                                                {{form.WB_HEL_16_5}}
+                                            </div>
+                                        </div>
+
+
+                                        <!-- <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
+                                        Specify</label> -->
+                                    </td>
+
+                                </tr>
+
+
+                                <tr>
+                                    <td>17.</td>
+                                    <td>Have you been tested for HIV?
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-12">
+
+                                                {{form.WB_HEL_17_1}}
+
+                                            </div>
+                                        </div>
+                                        <p>When?</p>
+                                        {{form.WB_HEL_17_2}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>18.</td>
+                                    <td>Would you share your HIV test result with me?
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-md-6">
+
+                                                {{form.WB_HEL_18_1}}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>If Yes</p>
+                                                {{form.WB_HEL_18_2}}
+                                            </div>
+
+
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>19.</td>
+                                    <td>Are you currently taking ART?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_19_1}}
+
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>20.</td>
+                                    <td>Do you take your treatments daily and on time(As prescribed)
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_20_1}}
+
+                                        {{form.WB_HEL_20_2}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>21.</td>
+                                    <td>Have you ever heard a blood test called viral load?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_21_1}}
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>22.</td>
+                                    <td>What was the result of your viral load test?
+                                    </td>
+                                    <td>
+
+
+                                        {{form.WB_HEL_22_1}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">High (above 1,000 copies/ml) </label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Undetectable</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Low (less than 1,000 copies/ml) </label>
+                                                    <p>If yes:</p>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Dont know </label>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>23.</td>
+                                    <td>What is the name of the health facility you
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_23_1}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <input type="text" value="">
+                                                </div>
+
+                                            </div>
+
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>24.</td>
+                                    <td>Have you disclosed your status to anyone?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_24_1}}
+                                        <p>If
+                                            answer in() Go to Q26</p>
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Yes</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Undetectable</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                (
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">No </label>
+                                                    <p>If yes:</p>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Refused to answer</label>
+                                                </div>
+                                                )
+                                                <p>answer in() Go to Q26</p>
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>25.</td>
+                                    <td>To whom have you disclosed your status?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_25_1}}
+                                        {{form.WB_HEL_25_2}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">My child</label>
+                                                </div>
+
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">My spouse</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Pastor or priest </label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">A friend/neighbour </label>
+                                                    <p>If yes:</p>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Boyfriend/ girlfriend</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Member of the family</label>
+                                                    <p>If yes:</p>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Boyfriend/ girlfriend</label>
+                                                </div>
+
+                                                <textarea rows="3" cols="30"
+                                                          style="margin-top: 5px;margin-right: 2px;"></textarea><label>
+                                                Other
+                                                Specify</label>
+
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>26.</td>
+                                    <td>Do you feel like people treat you differently because you are HIV positive?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_26_1}}
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Yes</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">No</label>
+
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">I refuse to answer</label>
+                                                </div>
+
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>27.</td>
+                                    <td>How have you coped with HIV-related stigma?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_27_1}}
+                                        {{form.WB_HEL_27_2}}
+
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">am part of a support group </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">I speak with people who I am close with or my
+                                                        family</label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">I speak with my doctor </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">I speak with my pastor or priest</label>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">I face it all alone </label>
+
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">I avoid thinking about it because its too
+                                                        difficult
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value=""> I do not face stigma </label>
+                                                </div>
+
+                                                <textarea rows="3" cols="30"
+                                                          style="margin-top: 5px;margin-right: 2px;"></textarea><label>
+                                                Other
+                                                Specify</label>
+
+
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>28.</td>
+                                    <td>If you have a child or children 10 or over, have you talked to them about how to
+                                        protect
+                                        themselves from HIV?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_HEL_28_1}}
+                                        {{form.WB_HEL_28_2}}
+
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Yes </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">No
+                                                    </label>
+                                                </div>
+                                                <div class="checkbox">
+                                                    <label><input type="checkbox" value="">Refuse to answer</label>
+                                                </div>
+
+
+                                            </div>
+                                        </div> -->
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- end of wizard step-3 -->
+                        <!-- begin wizard step-4 -->
+                        <div class="wizard-step-4">
+
+                            <table class="table table-bordered">
+                                <thead>
+                                <col width="13">
+                                <col width>
+                                <col width="500">
+                                <th>Q1</th>
+                                <th>Question</th>
+                                <th>Options</th>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        29.
+                                    </td>
+
+                                    <td>
+
+                                        What organizations or community groups do you participate in?
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_SAF_31_1}}
+                                        {{form.WB_SAF_31_2}}
+
+
+                                        <!--<div class="row">-->
+
+                                        <!--<div class="col-sm-6">-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Womens group</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Church/Religious-->
+                                        <!--group</label>-->
+                                        <!--</div>-->
+
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Parents/Caregivers-->
+                                        <!--group</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div style="" class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">HIV-->
+                                        <!--support group</label>-->
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+                                        <!--<div class="col-sm-6">-->
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Community savings-->
+                                        <!--group</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Trade association or-->
+                                        <!--business group</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Political group</label>-->
+                                        <!--</div>-->
+
+
+                                        <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other-->
+                                        <!--Specify</label>-->
+
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        30.
+                                    </td>
+
+                                    <td>
+                                        Is there someone or a group of people in your community that you trust and feel
+                                        that you can talk to about any problems that you may face?
+                                    </td>
+                                    <td>
+
+
+                                        {{form.WB_SAF_32_1}}
+
+
+                                        <!--<div class="row">-->
+
+                                        <!--<div class="col-sm-12">-->
+
+                                        <!--<div class="radio">-->
+                                        <!--<label><input type="radio" name="opt-community" value="">Yes</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="radio">-->
+                                        <!--<label><input type="radio" name="opt-community"  value="">No</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div style="" class="radio">-->
+                                        <!--<label><input type="radio" name="opt-community"  value="">Refuse to respond</label>-->
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        31.
+                                    </td>
+
+                                    <td>
+                                        In the last six months have you received information on parenting/ child care
+                                        and development through training, counseling, mentoring, or home visits?
+                                    </td>
+                                    <td>
+
+
+                                        {{form.WB_SAF_33_1}}
+
+                                        <!--<div class="row">-->
+
+                                        <!--<div class="col-sm-12">-->
+
+                                        <!--<div class="radio">-->
+                                        <!--<label><input type="radio" name="opt-parenting">Yes</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="radio">-->
+                                        <!--<label><input type="radio" name="opt-parenting">No</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div style="" class="radio">-->
+                                        <!--<label><input type="radio" name="opt-parenting">Refuse to respond</label>-->
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        32.
+                                    </td>
+
+                                    <td>
+                                        How did you receive information about parenting and child care?
+                                    </td>
+
+
+                                    <td>
+
+
+                                        {{form.WB_SAF_34_1}}
+                                        {{form.WB_SAF_34_2}}
+
+                                        <!--<div class="row">-->
+
+                                        <!--<div class="col-sm-6">-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Radio</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Counseling</label>-->
+                                        <!--</div>-->
+
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Mentoring from-->
+                                        <!--Caseworkers</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div style="" class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Care group</label>-->
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+
+                                        <!--<div class="col-sm-6">-->
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Community Meeting</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Health care facility</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Schools</label>-->
+                                        <!--</div>-->
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Under five clinic</label>-->
+                                        <!--</div>-->
+
+
+                                        <!--</div>-->
+                                        <!--</div>-->
+
+                                        <!--<textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other-->
+                                        <!--Specify</label>-->
+
+                                    </td>
+
+
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        33.
+                                    </td>
+
+                                    <td>
+                                        If violence has been reported during the HVPT .It was mentioned before about
+                                        violence happening in this house.
+                                        Did you report this violence?
+                                        <p><i>If violence is/was reported, ensure referral to the Social Worker. If not
+                                            reported, immediately contact Social Worker.</i></p>
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_SAF_35_1}}
+
+                                        <!--<div class="row">-->
+
+                                        <!--<div class="col-sm-12">-->
+
+                                        <!--<div class="radio">-->
+                                        <!--<label><input type="radio" name="opt-violence">Yes</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="radio">-->
+                                        <!--<label><input type="radio" name="opt-violence">No</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div style="" class="radio">-->
+                                        <!--<label><input type="radio" name="opt-violence">Refuse to respond</label>-->
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+                                        <!--</div>-->
+
+                                    </td>
+                                </tr>
+
+
+                                <tr>
+                                    <td>
+                                        34.
+                                    </td>
+
+                                    <td>
+                                        What kind of support did you receive (if any) and from whom?
+                                        <p><b>Note to the caseworker: the caseworker should look out for signs of child
+                                            abuse/violence that may not be reported.</b></p>
+                                    </td>
+                                    <td>
+
+                                        {{form.WB_SAF_36_1}}
+                                        {{form.WB_SAF_36_2}}
+
+
+                                        <!--<div class="row">-->
+
+                                        <!--<div class="col-sm-12">-->
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Legal Assistance</label>-->
+                                        <!--</div>-->
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Psychosocial Support</label>-->
+                                        <!--</div>-->
+
+
+                                        <!--<div class="checkbox">-->
+                                        <!--<label><input type="checkbox" value="">Medical services</label>-->
+                                        <!--</div>-->
+
+
+                                        <!--</div>-->
+
+                                        <!--<textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label>-->
+                                        <!--Other-->
+                                        <!--Specify</label>-->
+
+                                        <!--</div>-->
+
+                                    </td>
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+
+
+                            <table class="table table-bordered">
+                                <thead>
+                                <col width="20">
+
+                                <col width="500">
+                                </thead>
+                                <tbody>
+
+                                <tr>
+
+                                    <td>
+                                        <div class="col-md-12" id="safetytab" style="overflow-y: auto; max-height: 700px;">
+                                          <ul class="nav nav-pills nav-stacked">
+                                             {% for hhmember in hhmembers %}
+                                                {% if forloop.counter == 1 %}
+                                                    <li class="active" data-child-id={{ hhmember.person_id }} >
+                                                {% else %}
+                                                    <li data-child-id={{ hhmember.person_id }} >
+                                                {% endif %}
+                                                  <span>
+                                                    <h4> Child {{ forloop.counter }} </h4>
+                                                    <label style="display: block">Name: {{ hhmember.person.first_name }} {{ hhmember.person.surname }}</label>
+                                                    <label>Age:{{ hhmember.person.date_of_birth |gen_age}}</label>
+                                                  </span>
+                                                </li>
+                                            {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>
+
+
+                                        <div>
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <li class="nav-item active">
+                                                    <a class="nav-link active" id="Q40-tab" data-toggle="tab"
+                                                       href="#Q40"
+                                                       role="tab" aria-controls="Q40"
+                                                       aria-selected="true">Questions.</a>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content" id="myTabContent">
+                                                <div class="tab-pane fade in active" id="Q40" role="tabpanel"
+                                                     aria-labelledby="home-tab">
+
+                                                    <div class="panel-body">
+
+
+                                                        <table class="table table-bordered">
+                                                            <thead>
+                                                                <col width>
+                                                                <col width="500">
+                                                                <th>Question</th>
+                                                                <th>Options</th>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <b>40:</b> What is your relationship to the child?
+                                                                    </td>
+                                                                    <td>
+
+                                                                        {{form.WB_SAF_37_1}}
+                                                                        {{form.WB_SAF_37_2}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <b>41:</b> What is their relationship to the child?
+                                                                    </td>
+                                                                    <td>
+                                                                        {{form.WB_SAF_38_1}}
+                                                                        {{form.WB_SAF_38_2}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <b>42:</b> If the mother is not a primary caregiver, where is
+                                                                        the childs mother?
+                                                                    </td>
+                                                                    <td>
+
+                                                                        {{form.WB_SAF_39_1}}
+                                                                        {{form.WB_SAF_39_2}}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <b>43:</b> If the father is not a primary caregiver, where is the childs father?
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="row">
+
+
+                                                                            {{form.WB_SAF_40_1}}
+                                                                            {{form.WB_SAF_40_2}}
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!--end wizard step-4      -->
+                        <!-- begin wizard step-5 -->
+                        <div class="wizard-step-5">
+                            <table class="table table-bordered">
+                                <thead>
+                                <col width="20">
+
+                                <col width="500">
+                                </thead>
+                                <tbody>
+
+
+                                <tr>
+
+                                    <td>
+                                        <div class="col-md-12" id="schooltab" style="overflow-y: auto; max-height: 700px;">
+                                            <ul class="nav nav-pills nav-stacked">
+                                                {% for hhmember in hhmembers %}
+                                                    {% if forloop.counter == 1 %}
+
+                                                        <li class="active" data-child-id={{ hhmember.person_id }} >
+                                                    {% else %}
+                                                        <li data-child-id={{ hhmember.person_id }} >
+                                                    {% endif %}
+                                                    <span>
+                                                        <h4> Child {{ forloop.counter }} </h4>
+                                                        <label style="display: block">Name: {{ hhmember.person.first_name }} {{ hhmember.person.surname }}</label>
+                                                        <label>Age:{{ hhmember.person.date_of_birth |gen_age}}</label>
+                                                    </span>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                          <li class="nav-item active">
+                                              <a class="nav-link active" id="Q44-tab" data-toggle="tab"
+                                                 href="#Q44"
+                                                 role="tab" aria-controls="Q44"
+                                                 aria-selected="true">Questions.</a>
+                                          </li>
+                                          
+                                      </ul>
+
+                                      <div class="tab-content" id="mTabContent">
+                                          <div class="tab-pane fade in active" id="Q44" role="tabpanel"
+                                               aria-labelledby="home-tab">
+                                              <div class="panel-body">
+                                                  <table class="table table-bordered">
+                                                      <thead>
+                                                      <col width>
+                                                      <col width="500">
+                                                      <th>Question</th>
+                                                      <th>Options</th>
+                                                      </thead>
+                                                      <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                Is this child currently enrolled in school?
+                                                            </td>
+                                                            <td>
+
+                                                                {{form.WB_SCH_39_1}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                If the caregiver responded no, has the child ever been enrolled in school?
+                                                            </td>
+                                                            <td>
+
+                                                                {{form.WB_SCH_40_1}}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Record why the child is not enrolled in school.
+                                                            </td>
+                                                            <td>
+
+                                                                {{form.WB_SCH_41_1}}
+                                                                {{form.WB_SCH_41_2}}
+                                                                
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                If the caregiver responded yes, what grade/form/year is this child in now?
+                                                            </td>
+                                                            <td>
+                                                                <div class="col-md-6">
+
+                                                                    {{form.WB_SCH_42_2}}
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    {{form.WB_SCH_42_1}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                If the caregiver responded yes, what grade/form/year was this child in last year?
+                                                            </td>
+                                                            <td>
+                                                                <div class="col-md-6">
+                                                                    {{form.WB_SCH_43_2}}
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    {{form.WB_SCH_43_1}}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                If the child is enrolled in school, during the last month, did [name of child] miss more than five days for any reason?
+                                                            </td>
+                                                            <td>
+
+                                                                {{form.WB_SCH_44_1}} 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Does [name of child] like to go to school?
+                                                            </td>
+                                                            <td>
+
+                                                                {{form.WB_SCH_45_1}}  
+                                                            </td>
+                                                        </tr>
+                                                      </tbody>
+                                                  </table>
+                                              </div>
+                                          </div>
+
+                                      </div>
+
+                                    </td>
+
+                                </tr>
+
+
+                                <tbody>
+                            </table>
+                        </div>
+                        <!-- end wizard step-5-->
+                        <!-- start wizard step-6 -->
+                        <div class="wizard-step-6">
+
+                            <h3><b>Goals</b></h3>
+                            <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse001"><u>Child
+                                                1 </u></a> Details From DB
+                                        </h4>
+                                    </div>
+                                    <div id="collapse001" class="panel-collapse collapse">
+                                        <div class="panel-body">
+
+                                            <table class="table table-bordered">
+                                                <thead>
+
+                                                <col width>
+                                                <col width="500">
+
+                                                <th colspan="3">Goal Setting</th>
+
+                                                </thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Goals</th>
+                                                    <th>Action for the Goals</th>
+
+                                                    </td>
+                                                <tr>
+                                                    <th>1</th>
+                                                    <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+                                                    <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>2</th>
+                                                    <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+                                                    <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+                                                </tr>
+                                                </tr>
+                                            </table>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion"
+                                                   href="#collapse002"><u>Child
+                                                    2 </u></a> Details
+                                                From DB
+                                            </h4>
+                                        </div>
+                                        <div id="collapse002" class="panel-collapse collapse">
+                                            <div class="panel-body">
+
+                                                <table class="table table-bordered">
+                                                    <thead>
+
+                                                    <col width>
+                                                    <col width="500">
+
+                                                    <th colspan="3">Goal Setting</th>
+
+                                                    </thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Goals</th>
+                                                        <th>Action for the Goals</th>
+
+                                                        </td>
+                                                    <tr>
+                                                        <th>1</th>
+                                                        <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+                                                        <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+
+                                                    </tr>
+                                                    <tr>
+                                                        <th>2</th>
+                                                        <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+                                                        <th><textarea name="" id="" cols="40" rows="2"></textarea></th>
+                                                    </tr>
+                                                    </tr>
+                                                </table>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end of wizard-step-6-->
+
+                    </div>
+
+
+                    <div class="panel-body panel-form">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    <input name="safeanswer" id="safeanswer"  value="{}" type="hidden"/>
+                    <input name="schooledanswer" id="schooledanswer" value="{}" type="hidden"/>
+                </form>
+            </div>
+            <div class="badge pull-right m-4">Revised: Oct 6th 2016</div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script src="{% static 'js/wellbeing.js' %}"></script>
+<script src="{% static 'js/skipto.js' %}"></script>
+<script>
+  jQuery(document).ready(function () {
+      //multi selects
+      $('#hhva_test').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        buttonClass: 'btn btn-white'
+      });
+
+      $('html,body').scrollTop(0);
+      FormWizardValidation.init();
+    });
+
+
+
+
+</script>
+
+
+<script>
+
+
+
+    $(document).ready(function () {
+      $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+        e.preventDefault();
+        $(this).siblings('a.active').removeClass("active");
+        $(this).addClass("active");
+        var index = $(this).index();
+        $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+        $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+      });
+    });
+
+
+    $( function() {
+      $( ".wellbeing_dates" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+    } );
+
+
+</script>
+
+{% endblock %}

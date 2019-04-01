@@ -11,3 +11,4 @@ jellyfish==0.5.4
 python-memcached
 pandas==0.20.3
 xlsxwriter==0.9.8
+django-import-export==1.2.0

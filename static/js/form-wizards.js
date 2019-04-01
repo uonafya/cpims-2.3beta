@@ -7,6 +7,7 @@ var handleBootstrapWizardsValidation = function() {
     $("#mysubmit-csi").removeClass( "btn-primary" ).attr("disabled", "disabled");
     $("#mysubmit-f1a").removeClass( "btn-primary" ).attr("disabled", "disabled");
     $("#mysubmit-hhva").removeClass( "btn-primary" ).attr("disabled", "disabled");
+//    $("#mysubmit-wellbeingadolescent").removeClass( "btn-primary" ).attr("disabled", "disabled");
     
     $("#wizard").bwizard({ validating: function (e, ui) {
         $(".alert").hide();
@@ -45,7 +46,7 @@ var handleBootstrapWizardsValidation = function() {
             $("#mysubmit").removeClass( "btn-primary" ).attr("disabled", "disabled");
         }
     }});
-    $("#wizard2").bwizard({ validating: function (e, ui) { 
+    $("#wizard2").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard2"]').parsley().validate('group0')) {
@@ -53,22 +54,22 @@ var handleBootstrapWizardsValidation = function() {
                 }
             } else if (ui.index == 1) {
                 // step-2 validation
-                
+
                 $("#mysubmit2").addClass( "btn-primary" ).removeAttr("disabled");
                   if (false === $('form[name="form-wizard2"]').parsley().validate('group1')) {
                     return false;
                 }
             }else if (ui.index == 2) {
                 // step-3 validation
-                 
+
                   if (false === $('form[name="form-wizard2"]').parsley().validate('group2')) {
                     return false;
                 }
-            } 
-        } 
+            }
+        }
     });
 
-   $("#wizard3").bwizard({ validating: function (e, ui) { 
+   $("#wizard3").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard3"]').parsley().validate('group0')) {
@@ -87,7 +88,7 @@ var handleBootstrapWizardsValidation = function() {
                 }
                 else { $(".alert").hide(); }
             }else if (ui.index == 2) {
-                // step-3 validation                 
+                // step-3 validation
                 $("#mysubmit3").addClass( "btn-primary" ).removeAttr("disabled");
                 if (false === $('form[name="form-wizard3"]').parsley().validate('group2')) {
                     $(".alert").show();
@@ -102,12 +103,12 @@ var handleBootstrapWizardsValidation = function() {
                 var rowReferrals = $('#referralactors_table tr').length;
 
                 if (rowCases == 3)
-                { 
+                {
                     $('#div_casecategory_errormsgs').css({'display': 'block'})
                     $(".alert").show();
                     $('.invalid-form-message').html(error_msg + 'case category details.');
                     return false;
-                } 
+                }
                 else if(rowReferrals == 3 && refferalsPresent =='AYES')
                 {
                     $('#div_referralactors_errormsgs').css({'display': 'block'})
@@ -123,12 +124,12 @@ var handleBootstrapWizardsValidation = function() {
                         return false;
                     }
                 }
-                    
-            } 
-      }            
+
+            }
+      }
     });
 
-    $("#wizard_placement").bwizard({ validating: function (e, ui) { 
+    $("#wizard_placement").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-placement"]').parsley().validate('group0')) {
@@ -141,50 +142,50 @@ var handleBootstrapWizardsValidation = function() {
                     return false;
                 }
             }
-      }            
+      }
     });
 
-    $("#wizard_familycare").bwizard({ validating: function (e, ui) { 
+    $("#wizard_familycare").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-family-care"]').parsley().validate('group0')) {
                     return false;
                 }
-            } 
-      }            
+            }
+      }
     });
 
-    $("#wizard_education").bwizard({ validating: function (e, ui) { 
+    $("#wizard_education").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-education"]').parsley().validate('group0')) {
                     return false;
                 }
-            } 
-      }            
+            }
+      }
     });
 
-    $("#wizard_school").bwizard({ validating: function (e, ui) { 
+    $("#wizard_school").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-school"]').parsley().validate('group0')) {
                     return false;
                 }
-            } 
-      }            
+            }
+      }
     });
 
-    $("#wizard_bursary").bwizard({ validating: function (e, ui) { 
+    $("#wizard_bursary").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-bursary"]').parsley().validate('group0')) {
                     return false;
                 }
-            } 
-      }            
+            }
+      }
     });
 
-    $("#wizard_placementfollowup").bwizard({ validating: function (e, ui) { 
+    $("#wizard_placementfollowup").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-placementfollowup"]').parsley().validate('group0')) {
@@ -202,41 +203,41 @@ var handleBootstrapWizardsValidation = function() {
                     return false;
                 }
             }
-      }            
+      }
     });
-    
-    $("#wizard_persons").bwizard({ validating: function (e, ui) { 
+
+    $("#wizard_persons").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard"]').parsley().validate('group0')) {
                     return false;
                 }
             } else if (ui.index == 1) {
-                // step-2 validation 
+                // step-2 validation
                 $("#mysubmit2").addClass( "btn-primary" ).removeAttr("disabled");
                   if (false === $('form[name="form-wizard"]').parsley().validate('group1')) {
                     return false;
                 }
             }else if (ui.index == 2) {
-                // step-3 validation  
+                // step-3 validation
                   if (false === $('form[name="form-wizard"]').parsley().validate('group2')) {
                     return false;
                 }
             }else if (ui.index == 3) {
-                // step-4 validation     
+                // step-4 validation
                   if (false === $('form[name="form-wizard"]').parsley().validate('group3')) {
                     return false;
                 }
             }else if (ui.index == 4) {
-                // step-5 validation     
+                // step-5 validation
                   if (false === $('form[name="form-wizard"]').parsley().validate('group4')) {
                     return false;
                 }
-            } 
-        } 
+            }
+        }
     });
 
-    $("#wizard-csi").bwizard({ validating: function (e, ui) { 
+    $("#wizard-csi").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-csi"]').parsley().validate('group0')) {
@@ -247,14 +248,14 @@ var handleBootstrapWizardsValidation = function() {
                 $(".alert").hide();
             } else if (ui.index == 1) {
                 // step-2 validation
-                $("#mysubmit-csi").addClass( "btn-primary" ).removeAttr("disabled"); 
+                $("#mysubmit-csi").addClass( "btn-primary" ).removeAttr("disabled");
                 var rows = $('#priority_manager_table tr').length;
                 if (rows == 2)
                 {
                     $(".alert").show();
                     $('.invalid-form-message').html(error_msg + ' CSI priority details.Add one or more CSI priorities.');
                     return false;
-                } 
+                }
                 $(".alert").hide();
             }else if (ui.index == 2) {
                 // step-3 validation
@@ -262,13 +263,13 @@ var handleBootstrapWizardsValidation = function() {
                     return false;
                 }
             }
-        } 
+        }
     });
 
-    $("#wizard-f1a").bwizard({ validating: function (e, ui) { 
+    $("#wizard-f1a").bwizard({ validating: function (e, ui) {
             if (ui.index == 0) {
                 $(".alert").hide();
-            } 
+            }
             else if (ui.index == 1) {
                 // step-2 validation
                 $(".alert").hide();
@@ -276,7 +277,7 @@ var handleBootstrapWizardsValidation = function() {
             else if (ui.index == 2) {
                 // step-3 validation
                 $(".alert").hide();
-            } 
+            }
             else if (ui.index == 3) {
                 // step-4 validation
                 $(".alert").hide();
@@ -284,14 +285,14 @@ var handleBootstrapWizardsValidation = function() {
         }
     });
 
-    $("#wizard-hhva").bwizard({ validating: function (e, ui) { 
+    $("#wizard-hhva").bwizard({ validating: function (e, ui) {
             $(".alert").hide();
             if (ui.index == 0) {
                 // step-1 validation
                 if (false === $('form[name="form-wizard-hhva"]').parsley().validate('group0')) {
                     return false;
                 }
-            } 
+            }
             else if (ui.index == 1) {
                 // step-2 validation
                 if (false === $('form[name="form-wizard-hhva"]').parsley().validate('group1')) {
@@ -300,7 +301,7 @@ var handleBootstrapWizardsValidation = function() {
             }
             else if (ui.index == 2) {
                 // step-3 validation
-                var rows = $('#ha10_manager_table tr').length;                 
+                var rows = $('#ha10_manager_table tr').length;
                 if (false === $('form[name="form-wizard-hhva"]').parsley().validate('group2')) {
                     return false;
                 }
@@ -310,7 +311,7 @@ var handleBootstrapWizardsValidation = function() {
                     $('.invalid-form-message').html(error_msg + ' bedding details.Add one or more bedding.');
                     return false;
                 }
-            } 
+            }
             else if (ui.index == 3) {
                 // step-4 validation
                 if (false === $('form[name="form-wizard-hhva"]').parsley().validate('group3')) {
@@ -319,7 +320,7 @@ var handleBootstrapWizardsValidation = function() {
             }
             else if (ui.index == 4) {
                 // step-4 validation
-                var rows = $('#ha15_manager_table tr').length;                 
+                var rows = $('#ha15_manager_table tr').length;
                 if (false === $('form[name="form-wizard-hhva"]').parsley().validate('group4')) {
                     return false;
                 }
@@ -347,7 +348,7 @@ var handleBootstrapWizardsValidation = function() {
                 if (false === $('form[name="form-wizard-hhva"]').parsley().validate('group7')) {
                     return false;
                 }
-                $("#mysubmit-hhva").addClass( "btn-primary" ).removeAttr("disabled"); 
+                $("#mysubmit-hhva").addClass( "btn-primary" ).removeAttr("disabled");
             }
             else if (ui.index == 8) {
                 // step-4 validation

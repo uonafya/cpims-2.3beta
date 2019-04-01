@@ -1,0 +1,10 @@
+<b>July 11, 2018</b>
+
+- Presidential Bursary Form.
+
+<b>July 9, 2018</b>
+
+- Introduced change notes.
+- Viral load functionality.
+- Facilities and Schools settings to allow search for preview.
+- Raw data download - Master List, Assessments, Priorities and Services.

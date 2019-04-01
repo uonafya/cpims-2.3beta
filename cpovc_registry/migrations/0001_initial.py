@@ -318,6 +318,8 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'reg_persons_types',
+                'verbose_name': 'Person Type Registry',
+                'verbose_name_plural': 'Person Types Registries',
             },
         ),
         migrations.CreateModel(

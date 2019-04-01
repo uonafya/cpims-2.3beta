@@ -8,17 +8,18 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'h34yo5l8c8!edb%^b@3j-i^gc$e)fcjnw_9jm4a^%jbq&*41+@'
+SECRET_KEY = os.environ.get('CPIMS_SECRET_KEY') if os.environ.get('CPIMS_SECRET_KEY') else 'xxxx'
 
 
 ALLOWED_HOSTS = ['*']
 
 cpims_db_host = os.environ.get('CPIMS_HOST') if os.environ.get('CPIMS_HOST') else 'localhost'
-cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else 'Xaen!ee8'
-cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'cpims'
+cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else ''
+cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else ''
 cpims_db_port = os.environ.get('CPIMS_PORT') if os.environ.get('CPIMS_PORT') else '5432'
-cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else 'cpimsdbuser'
-cpims_debug = eval(os.environ.get('CPIMS_DEBUG')) if os.environ.get('CPIMS_DEBUG') else False
+cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else ''
+
+cpims_debug = eval(os.environ.get('CPIMS_DEBUG')) if os.environ.get('CPIMS_DEBUG') else True
 
 DEBUG = cpims_debug
 
@@ -52,7 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    #'cpovc_main.middleware.SqlPrintingMiddleware',
+    'cpovc_main.middleware.SqlPrintingMiddleware',
     'cpovc_auth.middleware.UserRestrictMiddleware',
     'cpovc_access.middleware.FailedLoginMiddleware',
 )
@@ -90,7 +91,7 @@ DATABASES = {
         'NAME': cpims_db_instance,
         'USER': cpims_db_user,
         'PASSWORD': cpims_db_pass,
-        'HOST': '41.89.94.104',
+        'HOST': '41.89.94.99',
         'PORT': cpims_db_port, }
 }
 
@@ -182,4 +183,3 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
-CSRF_FAILURE_VIEW = 'cpims.views.csrf_failure'

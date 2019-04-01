@@ -1,0 +1,823 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} Adolescent Wellbeing Assessment Form {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+
+{% for data in init_data %}
+
+<h1 class="page-header">Forms
+    <small>Adolescent Wellbeing Assessment Form <b>{{ data.first_name }} {{ data.surname }} |
+            {% if data.date_of_birth|gen_age == 0 %}
+            UNDER 1 YEAR
+            {% else %}
+            {{ data.date_of_birth|gen_age }} YRS
+            {% endif %}</b></small>
+</h1>
+
+{% endfor %}
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i
+                            class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i
+                            class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> Adolescent Wellbeing Assessment </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                    name="form-wizard-hhva" id="new_hhva">
+                    {% csrf_token %}
+                    <div id="wizard-hhva">
+                        <ol>
+
+                            <li>
+                                Demographics
+                                <small>Demographics</small>
+                            </li>
+
+                            <li>
+                                Schooled
+                                <small>Schooled</small>
+                            </li>
+                            <li>
+                                Stable
+                                <small>stable</small>
+                            </li>
+                            <li>
+                                Healthy
+                                <small>healthy</small>
+                            </li>
+                            <li>
+                                Safe
+                                <small>safe</small>
+                            </li>
+                            <li>
+                                Goals
+                                <small>goals</small>
+                            </li>
+
+                        </ol>
+
+                        {{ form.person }}
+                        {{ form.household_id }}
+
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <h3 style="margin-top: 0;color:#55518a">Demographics</h3>
+                            <div class="form-group">
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Gender</th>
+                                            <th scope="col">Age(Years)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>{% for data in init_data %}
+                                            <td>{{ data.first_name }} {{ data.surname }}</td>
+                                            <td>{{data.sex_id|gen_value:vals }}</td>
+                                            <td>{{ data.date_of_birth|gen_age }} YRS</td>
+                                            {% endfor %}
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <h4 style="margin-top: 0;color:#55518a">Assessment</h4>
+
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td>Date of Assessment</td>
+                                            <td>{{ form.WB_AD_GEN_4_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Comment</td>
+                                            <td>{{ form.WB_AD_GEN_4_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Who takes care of you?</td>
+                                            <td>
+                                                {{ form.WB_AD_GEN_5_1 }}
+                                                <br />
+                                                {{ form.WB_AD_GEN_5_2 }}
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <p lang="en-GB">What is your role in the family? For example, do you
+                                                    cook, do housework or make items such as clothes or tools? Do you
+                                                    sell in the market or work outside of the household? Do you take
+                                                    care of other family members?</p>
+                                            </td>
+                                            <td colspan="1" rowspan="1">
+                                                {{ form.WB_AD_GEN_6 }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+
+
+                        </div>
+                        <!-- end wizard step-1 -->
+
+                        <!-- begin wizard step-2 -->
+                        <div class="wizard-step-2">
+                            <h3 style="margin-top: 0;color:#55518a">Schooled</h3>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Questions?</th>
+                                            <th scope="col">Options/Answers</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>Are you currently enrolled in school or a vocation program? If yes,
+                                                which one? If not enrolled in either, enrol in either school or
+                                                vocational training.</td>
+                                            <td>
+                                                {{ form.WB_AD_SCH_7 }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">8</td>
+                                            <td>If neither, have you ever been enrolled in school?</td>
+                                            <td>
+                                                {{ form.WB_AD_SCH_8_1 }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>If no in 8 above, give a reason:</td>
+                                            <td>{{ form.WB_AD_SCH_8_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>If enrolled in school, what grade/ form/ year are you in now?<br />
+                                                What grade/ form/ year were you in last year? If the child is not
+                                                progressing in school, follow up to understand why not and in the case
+                                                plan include action steps for addressing this.</td>
+                                            <td>
+                                                <p lang="en-GB" style="margin-bottom:0in">{{ form.WB_AD_SCH_9_1 }}</p>
+
+                                                <!-- <p lang="en-GB" style="margin-bottom:0in">{{ form.WB_AD_SCH_9_2 }}</p> -->
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>If the child responded they are enrolled in vocational training: what
+                                                are you being trained in? When will you graduate from the vocational
+                                                training program?</td>
+                                            <td>{{ form.WB_AD_SCH_10 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>11</td>
+                                            <td>During the last month, did you miss more than three school or training
+                                                days for any reason? If yes, why?</td>
+                                            <td>
+                                                <p align="center" lang="en-GB" style="margin-bottom:0in">
+                                                    {{ form.WB_AD_SCH_11 }}</p>
+                                                <p align="center" lang="en-GB" style="margin-bottom:0in">
+                                                    {{ form.WB_AD_SCH_11_1 }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">12</td>
+                                            <td>Do you like going to school or vocational training?</td>
+                                            <td>
+                                                <p align="center" lang="en-GB" style="margin-bottom:0in">
+                                                    {{ form.WB_AD_SCH_12_1 }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>If not, why?</td>
+                                            <td>
+                                                <p>{{ form.WB_AD_SCH_12_2 }}</p>
+                                                <br />
+                                                <p>{{ form.WB_AD_SCH_12_2_1 }}</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+                        </div>
+                        <!-- end wizard step-2 -->
+
+                        <!-- begin wizard step-3 -->
+                        <div class="wizard-step-3">
+                            <h3 style="margin-top: 0;color:#55518a">Stable</h3>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Questions?</th>
+                                        <th scope="col">Options/Answers</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="1" rowspan="2">13</td>
+                                        <td>In the past month have you ever gone a whole day or night without eating
+                                            anything at all because there was not enough food? If yes, how often would
+                                            you say this happens?</td>
+                                        <td>{{ form.WB_AD_STA_13_1}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p lang="en-GB">If yes, refer for nutritional support.</p>
+                                        </td>
+                                        <td>
+                                            {{ form.WB_AD_STA_13_2 }}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p>&nbsp;</p>
+                        </div>
+                        <!-- end wizard step-3 -->
+
+                        <!-- begin wizard step-4 -->
+                        <div class="wizard-step-4">
+                            <h3 style="margin-top: 0;color:#55518a">Healthy</h3>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Questions?</th>
+                                            <th scope="col">Options/Answers</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="1" rowspan="1">14</td>
+                                            <td>In the last month, have you gone more than three days when you were too
+                                                sick or too tired to participate in daily activities? If yes, refer for
+                                                health services</td>
+                                            <td> {{ form.WB_AD_HEL_14 }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">15</td>
+                                            <td>
+                                                <p lang="en-GB">The last time that you were sick, were you taken to the
+                                                    doctor or the hospital?</p>
+                                            </td>
+                                            <td>{{ form.WB_AD_HEL_15 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="4">16</td>
+                                            <td>Did someone tell you what you had?</td>
+                                            <td>{{ form.WB_AD_HEL_16_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, what was it?</td>
+                                            <td>{{ form.WB_AD_HEL_16_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Did you receive medication for this illness?</td>
+                                            <td>{{ form.WB_AD_HEL_16_3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, what kind?</td>
+                                            <td>{{ form.WB_AD_HEL_16_4 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="5">17</td>
+                                            <td>Do you have a disability? If the child has a disability or illness and
+                                                is not receiving treatment, refer for health services.</td>
+                                            <td>{{ form.WB_AD_HEL_17_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Do you have a chronic illness that you would like to share with me?</td>
+                                            <td>{{ form.WB_AD_HEL_17_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, list response.</td>
+                                            <td>{{ form.WB_AD_HEL_17_3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Are you currently receiving treatment for your illness or disability?
+                                            </td>
+                                            <td>{{ form.WB_AD_HEL_17_4 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, from whom?</td>
+                                            <td>{{ form.WB_AD_HEL_17_5 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">18</td>
+                                            <td>If you are often sick, have you been tested to know the cause of your
+                                                illness?</td>
+                                            <td>{{ form.WB_AD_HEL_18_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, do you know the name of that test?</td>
+                                            <td>{{ form.WB_AD_HEL_18_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">19</td>
+                                            <td>Have you ever heard of HIV?</td>
+                                            <td>{{ form.WB_AD_HEL_19_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, where did you hear about HIV? For example, school, friends,
+                                                family, or church?</td>
+                                            <td>{{ form.WB_AD_HEL_19_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="4">20</td>
+                                            <td>Have you ever been tested for HIV?</td>
+                                            <td>{{ form.WB_AD_HEL_20_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, date of test:</td>
+                                            <td>{{ form.WB_AD_HEL_20_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Do you know the results of your test?</td>
+                                            <td>{{ form.WB_AD_HEL_20_3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, could you share the results of the test with me</td>
+                                            <td>{{ form.WB_AD_HEL_20_4 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">21</td>
+                                            <td>How did you find out about your HIV status?</td>
+                                            <td>{{ form.WB_AD_HEL_21_1 }}
+                                                <br />
+                                                {{ form.WB_AD_HEL_21_2 }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>How old were you the first time you heard this news?(Years)</td>
+                                            <td>{{ form.WB_AD_HEL_21_3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="3">22</td>
+                                            <td>Do you take medication for HIV?</td>
+                                            <td>{{ form.WB_AD_HEL_22_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, do you like taking your treatment? If no, refer for HIV
+                                                services.</td>
+                                            <td>{{ form.WB_AD_HEL_22_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If no, can you explain why you don&rsquo;t like taking your treatment?
+                                            </td>
+                                            <td>{{ form.WB_AD_HEL_22_3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">23</td>
+                                            <td>Which health facility do you visit?</td>
+                                            <td>{{ form.WB_AD_HEL_23 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">24</td>
+                                            <td>Who in your household or your life knows about your HIV status?</td>
+                                            <td>
+                                                <p>{{ form.WB_AD_HEL_24_1 }}</p>
+
+                                                <p>{{ form.WB_AD_HEL_24_2 }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">25</td>
+                                            <td>If at least one person knows, what is their attitude</td>
+                                            <td>{{ form.WB_AD_HEL_25_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Who are the members of your household or community that have an
+                                                encouraging attitude toward you and help you?</td>
+                                            <td>{{ form.WB_AD_HEL_25_2 }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+                        </div>
+                        <!-- end wizard step-4 -->
+
+                        <!-- begin wizard step-5 -->
+                        <div class="wizard-step-5">
+                            <h3 style="margin-top: 0;color:#55518a">Safe</h3>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Questions?</th>
+                                            <th scope="col">Options/Answers</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="1" rowspan="1">26</td>
+                                            <td>Would you say it is true that your caregiver listens when you talk to
+                                                him/her?1 If other than all the time or often, refer parent to parenting
+                                                skills training.*</td>
+                                            <td>
+                                                {{ form.WB_AD_SAF_26 }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">27</td>
+                                            <td>If a child headed household, are you or any othr children in the house
+                                                receiving any child or social protection support</td>
+                                            <td>
+                                                {{ form.WB_AD_SAF_27_1 }} <br />
+                                                {{ form.WB_AD_SAF_27_2 }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">28</td>
+                                            <td>Would you say it is true that you can go to your caregiver for help and
+                                                advice with problems and he/ she will help to solve them?1 If other than
+                                                all the time or often, refer parent to parenting skills*</td>
+                                            <td>
+                                                {{ form.WB_AD_SAF_28 }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">29</td>
+                                            <td>Do you feel like your opinion is heard .</td>
+                                            <td>{{ form.WB_AD_SAF_29 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">30</td>
+                                            <td>When things get tough, do you feel that you can cope?</td>
+                                            <td>{{ form.WB_AD_SAF_30_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If no, why?</td>
+                                            <td>{{ form.WB_AD_SAF_30_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="3">31</td>
+                                            <td>Do you have friends that are older than you? If yes, refer child
+                                                &nbsp;to teen group.</td>
+                                            <td>{{ form.WB_AD_SAF_31_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, do they ever buy or give you gifts&nbsp;</td>
+                                            <td>{{ form.WB_AD_SAF_31_2 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Do you feel pressure to do anything in exchange for the gifts.</td>
+                                            <td>{{ form.WB_AD_SAF_31_3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="6">32</td>
+                                            <td>In the past six months, has anyone ever beaten</td>
+                                            <td>{{ form.WB_AD_SAF_32_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, how often has someone beaten/slapped/spanked you, or hit you
+                                                with a belt, a stick or something hard? &nbsp;Would you say?<br />
+                                                If Declined to answer Read alternatives</td>
+                                            <td>
+                                                {{ form.WB_AD_SAF_32_2 }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, have you ever told someone about this?</td>
+                                            <td> {{ form.WB_AD_SAF_32_3 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, have you ever had to miss school because of it?</td>
+                                            <td> {{ form.WB_AD_SAF_32_4 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If you have had to miss school because of the violence you experienced
+                                                at home, did you receive or are your currently receiving any services to
+                                                help with this problem?</td>
+                                            <td> {{ form.WB_AD_SAF_32_5 }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, from whom?</td>
+                                            <td>
+                                                <p> {{ form.WB_AD_SAF_32_6_1 }}</p>
+                                                <p> {{ form.WB_AD_SAF_32_6_2 }}</p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1" rowspan="2">33</td>
+                                            <td>Have you ever been touched by anyone on your private parts or in way you
+                                                did not like or forced to do something against your will?</td>
+                                            <td> {{ form.WB_AD_SAF_33_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>If yes, and please ask if the child or adolescent would feel comfortable
+                                                telling you who it was.</td>
+                                            <td> {{ form.WB_AD_SAF_33_2 }} </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">34</td>
+                                            <td>Has anyone in the household, neighbourhood, or school said things or
+                                                asked you to do things that made you feel uncomfortable? For example,
+                                                made inappropriate comments about your body, offered things in exchange,
+                                                etc</td>
+                                            <td> {{ form.WB_AD_SAF_34 }} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+                        </div>
+                        <!-- end wizard step-5 -->
+
+                        <!-- begin wizard step-5 -->
+                        <div class="wizard-step-5">
+                            <h3 style="margin-top: 0;color:#55518a">Goals</h3>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Goal&nbsp;</th>
+                                            <th scope="col">Action for Goal&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="1" rowspan="1">1</td>
+                                            <td> {{ form.WB_AD_GOAL_1 }}</td>
+                                            <td>{{ form.WB_AD_ACTION_1 }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="1">2</td>
+                                            <td>{{ form.WB_AD_GOAL_2}} </td>
+                                            <td>{{ form.WB_AD_ACTION_2 }} </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+                        </div>
+                        <!-- end wizard step-5 -->
+
+                    </div>
+
+                    <div class="panel-body panel-form">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <button id="mysubmit-wellbeingadolescent" type="submit"
+                                    class="btn btn-primary">Submit</button>
+                                <a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="badge pull-right m-4">Revised: Feb 23rd 2019</div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+
+<!-- <script>
+        function myFunction() {
+          document.getElementById("id_WB_AD_SCH_8_1_0").innerHTML = "Hello World";
+        }
+        </script> -->
+
+<script type="text/javascript">
+    window.onload = function () {
+        var x = document.getElementById("id_WB_AD_SCH_8_1_1");
+        var y = document.getElementById("WB_AD_SCH_8_2");
+
+        x.onclick = function () {
+            if (y.style.display === "block") {
+                // 
+                alert('right')
+            } else {
+                // y.style.display = "block";
+                alert('wrong')
+            }
+        };
+    };
+</script>
+
+<script>
+
+
+
+    jQuery(document).ready(function () {
+        //multi selects
+        $('#WB_AD_SCH_12_2').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            numberDisplayed: 1,
+            maxHeight: 300,
+            buttonWidth: '100%',
+            buttonClass: 'btn btn-white'
+        });
+
+
+        $('#WB_AD_SCH_8_2').attr("disabled", 'disabled');
+        $('#WB_AD_SCH_8_2').prop("disabled", true);
+        // $('#WB_AD_SCH_8_2').addClass('hidden');
+
+        // function radioDecision(radioID,desiredValue,desiredFunc,desiredFuncParas) {
+        //     // console.log('radioDecision:->  rID:'+radioID+'desVal:'+desiredValue+'desFunc:'+desiredFunc+'desPars:'+desiredFuncParas);
+        //     var ival = $("input[name='"+radioID+"']:checked").val();
+        //     if(ival == desiredValue){
+        //         if(desiredFuncParas.length>1){
+        //             $.each(desiredFuncParas, function (pindx, fparas) {
+        //                 desiredFunc(fparas);    
+        //             })
+        //         }else{
+        //             desiredFunc(desiredFuncParas);
+        //         }
+        //     }
+        // }
+
+        $("input[name='WB_AD_SCH_8_1']").on('change', function () {
+            var ival = $("input[name='WB_AD_SCH_8_1']:checked").val();
+            if (ival == 'ANNO') {
+                unhideQn('WB_AD_SCH_8_2');
+                hideQn('id_WB_AD_SCH_9_1_0');
+                hideQn('id_WB_AD_SCH_9_1_1');
+                hideQn('id_WB_AD_SCH_9_1_2');
+            } else {
+                hideQn('WB_AD_SCH_8_2');
+                unhideQn('id_WB_AD_SCH_9_1_0');
+                unhideQn('id_WB_AD_SCH_9_1_1');
+                unhideQn('id_WB_AD_SCH_9_1_2');
+            }
+        });
+        $("input[name='WB_AD_SCH_12_1']").on('change', function () {
+            var ival = $("input[name='WB_AD_SCH_12_1']:checked").val();
+            if (ival == 'AYES') {
+                hideQn('WB_AD_SCH_12_2');
+                hideQn('WB_AD_SCH_12_2_1');
+            } else {
+                unhideQn('WB_AD_SCH_12_2');
+                unhideQn('WB_AD_SCH_12_2_1');
+            }
+        });
+
+        $("input[name='WB_AD_HEL_16_1']").on('change', function () {
+            var ival = $("input[name='WB_AD_HEL_16_1']:checked").val();
+            if (ival == 'ANNO') {
+                hideQn('id_WB_AD_STA_13_2_0');
+                hideQn('id_WB_AD_STA_13_2_1');
+                hideQn('id_WB_AD_STA_13_2_2');
+                hideQn('id_WB_AD_STA_13_2_3');
+            } else {
+                unhideQn('id_WB_AD_STA_13_2_0');
+                unhideQn('id_WB_AD_STA_13_2_1');
+                unhideQn('id_WB_AD_STA_13_2_2');
+                unhideQn('id_WB_AD_STA_13_2_3');
+            }
+        });
+
+
+        $("input[name='WB_AD_HEL_16_1']").on('change', function () {
+            var ival = $("input[name='WB_AD_HEL_16_1']:checked").val();
+            if (ival == 'ANNO') {
+                hideQn('WB_AD_HEL_16_2');
+            } else {
+                unhideQn('WB_AD_HEL_16_2');
+              
+            }
+        });
+
+        $("input[name='WB_AD_HEL_16_3']").on('change', function () {
+            var ival = $("input[name='WB_AD_HEL_16_3']:checked").val();
+            if (ival == 'ANNO') {
+                hideQn('WB_AD_HEL_16_4');
+            } else {
+                unhideQn('WB_AD_HEL_16_4');
+              
+            }
+        });
+
+        $("input[name='WB_AD_HEL_17_4']").on('change', function () {
+            var ival = $("input[name='WB_AD_HEL_17_4']:checked").val();
+            if (ival == 'ANNO') {
+                hideQn('WB_AD_HEL_17_5');
+            } else {
+                unhideQn('WB_AD_HEL_17_5');
+              
+            }
+        });
+
+
+
+
+        $('html,body').scrollTop(0);
+        FormWizardValidation.init();
+    });
+
+    function hideQn(qnID) {
+        // $('#' + qnID).addClass('hidden');
+        $('#' + qnID).attr("disabled", 'disabled');
+        // check if multiselect
+        var ms_attr = $('#' + qnID).attr('multiple');
+        if (typeof ms_attr !== typeof undefined && ms_attr !== false) {
+            $('#' + qnID).multiselect('disable');
+        }
+        // endCheck
+        $('#' + qnID).prop("disabled", true);
+        $('#' + qnID).removeAttr('required');
+    }
+    function unhideQn(qnID) {
+        // $('#' + qnID).removeClass('hidden');
+        // check if multiselect
+        var ms_attr = $('#' + qnID).attr('multiple');
+        if (typeof ms_attr !== typeof undefined && ms_attr !== false) {
+            $('#' + qnID).multiselect('enable');
+        }
+        // endCheck
+        $('#' + qnID).removeAttr('disabled');
+        $('#' + qnID).attr('required');
+    }
+</script>
+
+<script>
+    $( function() {
+      $( "#WB_AD_GEN_4_1" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+    } );
+    </script>
+
+{% endblock %}

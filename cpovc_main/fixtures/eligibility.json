@@ -462,38 +462,6 @@
             "item_description": "Transfer to another LIP (PEPFAR)", 
             "item_category": "Exit Reason"
         }
-    },
-    {
-        "pk": 1174, 
-        "model": "cpovc_main.SetupList", 
-        "fields": {
-            "the_order": 16, 
-            "user_configurable": "False", 
-            "field_name": "exit_reason_id", 
-            "item_id": "EROS", 
-            "is_void": "False", 
-            "item_sub_category": "", 
-            "item_description_short": "Over 18 out of School", 
-            "sms_keyword": "False", 
-            "item_description": "Over 18 yrs and out of School", 
-            "item_category": "Exit Reason"
-        }
-    },
-    {
-        "pk": 1175, 
-        "model": "cpovc_main.SetupList", 
-        "fields": {
-            "the_order": 17, 
-            "user_configurable": "False", 
-            "field_name": "exit_reason_id", 
-            "item_id": "ERCP", 
-            "is_void": "False", 
-            "item_sub_category": "", 
-            "item_description_short": "Case Plan Achieved", 
-            "sms_keyword": "False", 
-            "item_description": "Case Plan Achievement", 
-            "item_category": "Exit Reason"
-        }
     }
 ]
 
