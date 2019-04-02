@@ -8639,9 +8639,9 @@ def case_plan_template(request, id):
         house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
         person = RegPerson.objects.get(pk=int(id))
         event_type_id = 'FHSA'
-        date_of_wellbeing_event = convert_date(datetime.today().strftime('%d-%b-%Y'))
+        date_of_caseplan_event = convert_date(datetime.today().strftime('%d-%b-%Y'))
 
-        """ Save Wellbeing-event """
+        """ Save caseplan-event """
         # get event counter
         event_counter = OVCCareEvents.objects.filter(
             event_type_id=event_type_id, person=id, is_void=False).count()
@@ -8650,7 +8650,7 @@ def case_plan_template(request, id):
             event_type_id=event_type_id,
             event_counter=event_counter,
             event_score=0,
-            date_of_event=date_of_wellbeing_event,
+            date_of_event=date_of_caseplan_event,
             created_by=request.user.id,
             person=RegPerson.objects.get(pk=int(id)),
             house_hold=house_hold
@@ -8669,28 +8669,39 @@ def case_plan_template(request, id):
                 my_action=all_data['actions']
                 my_service=all_data['services']
                 my_responsible=all_data['responsible']
+                my_date_completed=convert_date(all_data['date'])
+                my_date_of_prev_evnt=convert_date(all_data['date_first_cpara'])
+                my_date_of_caseplan=convert_date(all_data['CPT_DATE_CASEPLAN'])
                 my_results=all_data['results']
                 my_reason=all_data['reasons']
-                my_date=all_data['date']
+                my_initial_caseplan=all_data['if_first_cpara']
                 
                 x=OVCCareForms.objects.get(name='OVCCareCasePlan')
+                if my_initial_caseplan=='AYES':
+                    my_date_of_prev_evnt=convert_date(my_date_of_caseplan)
 
-                OVCCareCasePlan(
-                        domain=my_domain,
-                        goal=my_goal,
-                        person_id = id,
-                        household = house_hold,
-                        need=my_gap,
-                        priority=my_action,
-                        cp_service = SetupList.objects.get(item_id = 'HC6S'),
-                        responsible= my_responsible,
-                        # form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
-                        completion_date = '2019-03-20',
-                        results=my_results,
-                        reasons=my_reason,
-                        case_plan_status='D',
-                        event= OVCCareEvents.objects.get(event=new_events_pk)
-                        ).save()
+                for service in my_service:
+                    OVCCareCasePlan(
+                            initial_caseplan=my_initial_caseplan,
+                            domain=my_domain,
+                            goal=my_goal,
+                            person_id = id,
+                            household = house_hold,
+                            need=my_gap,
+                            priority=my_action,
+                            # cp_service = SetupList.objects.get(item_id = service),
+                            cp_service = service,
+                            responsible= my_responsible,
+                            date_of_previous_event=my_date_of_prev_evnt,
+                            date_of_event=my_date_of_caseplan,
+                            form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
+                            completion_date = my_date_completed,
+                            results=my_results,
+                            reasons=my_reason,
+                            case_plan_status='D',
+                            event= OVCCareEvents.objects.get(event=new_events_pk)
+
+                            ).save()
     # get child data
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id', 'relationship_type_id']

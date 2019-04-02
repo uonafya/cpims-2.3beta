@@ -4210,6 +4210,24 @@ class CparaMonitoring(forms.Form):
 
     
 class CasePlanTemplate(forms.Form):
+    # CPT_DATE_INITIAL= forms.DateField(
+    # widget=forms.widgets.DateInput(
+    #         format="%m/%d/%Y",
+    #         attrs={'placeholder': _('Date Of Assessement'),
+    #                'class': 'form-control wellbeing_dates',
+    #                'autocomplete': "off",
+    #                'data-parsley-required': "False"
+    #                # ,
+    #                #    'data-parsley-required': "true",
+    #                #    'data-parsley-group': 'group0'
+    #                }))
+
+
+    # CPT_DATE_INITIAL = forms.DateField(widget=forms.DateInput(
+    #     attrs={'class': 'form-control',
+    #            'id': 'CPT_DATE_INITIAL'
+    #            }))
+
     CPT_DOMAIN = forms.ChoiceField(
         choices=CPT_DOMAIN_CHOICES,
         widget=forms.Select(
@@ -4219,21 +4237,21 @@ class CasePlanTemplate(forms.Form):
         #     choices=CPT_GOALS_CHOICES,
         #     widget=forms.SelectMultiple(
         #         attrs={'class': 'form-control'}))
-    CPT_GOAL_HEALTHY = forms.MultipleChoiceField(
+    CPT_GOAL_HEALTHY = forms.ChoiceField(
         choices=CPT_GOALS_HEALTHY_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
             attrs={'class': 'form-control'}))
-    CPT_GOAL_STABLE = forms.MultipleChoiceField(
+    CPT_GOAL_STABLE = forms.ChoiceField(
         choices=CPT_GOALS_STABLE_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
             attrs={'class': 'form-control'}))
-    CPT_GOAL_SAFE = forms.MultipleChoiceField(
+    CPT_GOAL_SAFE = forms.ChoiceField(
         choices=CPT_GOALS_SAFE_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
             attrs={'class': 'form-control'}))
-    CPT_GOAL_SCHOOL = forms.MultipleChoiceField(
+    CPT_GOAL_SCHOOL = forms.ChoiceField(
         choices=CPT_GOALS_SCHOOL_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
             attrs={'class': 'form-control'}))
     # ------endGOAL------- #
 
@@ -4243,24 +4261,24 @@ class CasePlanTemplate(forms.Form):
         #     widget=forms.Select(
         #     attrs={
         #         'class': 'form-control'}))
-    CPT_GAPS_HEALTHY = forms.MultipleChoiceField(
+    CPT_GAPS_HEALTHY = forms.ChoiceField(
         choices=CPT_GAPS_HEALTHY_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'}))
-    CPT_GAPS_STABLE = forms.MultipleChoiceField(
+    CPT_GAPS_STABLE = forms.ChoiceField(
         choices=CPT_GAPS_STABLE_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'}))
-    CPT_GAPS_SAFE = forms.MultipleChoiceField(
+    CPT_GAPS_SAFE = forms.ChoiceField(
         choices=CPT_GAPS_SAFE_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'}))
-    CPT_GAPS_SCHOOL = forms.MultipleChoiceField(
+    CPT_GAPS_SCHOOL = forms.ChoiceField(
         choices=CPT_GAPS_SCHOOLED_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'}))
     # ------endGAP------- #
@@ -4273,30 +4291,30 @@ class CasePlanTemplate(forms.Form):
         #         'class': 'form-control'
         #     })
         # )
-    CPT_ACTIONS_HEALTHY = forms.MultipleChoiceField(
+    CPT_ACTIONS_HEALTHY = forms.ChoiceField(
         choices=CPT_ACTIONS_HEALTHY_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'
         })
     )
-    CPT_ACTIONS_STABLE = forms.MultipleChoiceField(
+    CPT_ACTIONS_STABLE = forms.ChoiceField(
         choices=CPT_ACTIONS_STABLE_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'
         })
     )
-    CPT_ACTIONS_SAFE = forms.MultipleChoiceField(
+    CPT_ACTIONS_SAFE = forms.ChoiceField(
         choices=CPT_ACTIONS_SAFE_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'
         })
     )
-    CPT_ACTIONS_SCHOOL = forms.MultipleChoiceField(
+    CPT_ACTIONS_SCHOOL = forms.ChoiceField(
         choices=CPT_ACTIONS_SCHOOLED_CHOICES,
-        widget=forms.SelectMultiple(
+        widget=forms.Select(
         attrs={
             'class': 'form-control'
         })
