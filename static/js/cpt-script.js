@@ -75,6 +75,8 @@ final_input['responsible'] = [];
 final_input['date'] = [];
 final_input['results'] = [];
 final_input['reasons'] = [];
+final_input['if_first_cpara'] = [];
+final_input['date_first_cpara'] = [];
 function AddRow() {    
     var randomID = randomNo();
     $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_repsonsible"></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
@@ -119,6 +121,8 @@ function AddRow() {
 
     let responsibl = $('#id_CPT_RESPONSIBLE option:selected').val();
     let date = $('#CPT_DATE').val();
+    let if_first_cpara = $('input[name=if_first_cpara]:checked').val();
+    let date_first_cpara = $('input[name=date_first_cpara]').val();
     let results = $('#id_CPT_RESULTS option:selected').val();
     let reasons = $('#id_CPT_REASONS').val();
 
@@ -195,6 +199,8 @@ function AddRow() {
     final_input['date'].push(date);
     final_input['results'].push(results);
     final_input['reasons'].push(reasons);
+    final_input['if_first_cpara'].push(if_first_cpara);
+    final_input['date_first_cpara'].push(date_first_cpara);
 
     $('#row_'+randomID+' > td#tbl_acts > .removerow').click(function (e) { 
         e.preventDefault();
@@ -222,6 +228,8 @@ $('#submit-caseplan').click(function (e) {
         answrs['date'] = [];
         answrs['results'] = [];
         answrs['reasons'] = [];
+        answrs['if_first_cpara'] = [];
+        answrs['date_first_cpara'] = [];
 
         answrs['domain'] = final_input['domain'][indexDomain];
         answrs['goal'] = final_input['goal'][indexDomain];
@@ -232,6 +240,8 @@ $('#submit-caseplan').click(function (e) {
         answrs['date'] = final_input['date'][indexDomain];
         answrs['results'] = final_input['results'][indexDomain];
         answrs['reasons'] = final_input['reasons'][indexDomain];
+        answrs['if_first_cpara'] = final_input['if_first_cpara'][indexDomain];
+        answrs['date_first_cpara'] = final_input['date_first_cpara'][indexDomain];
 
         fd2.push(answrs);
     });
