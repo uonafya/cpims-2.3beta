@@ -8575,6 +8575,8 @@ def new_cpara(request, id):
         subcounty = ward
         ward = ''
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    else:
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     # orgunit = RegPersonsOrgUnits.objects.get(person=child)
     form = CparaAssessment()
