@@ -18,28 +18,28 @@ jQuery(document).ready(function()
     $('select[name=CPT_DOMAIN]').change(function (e) { 
         // e.preventDefault();
         var domain_val = $('select[name=CPT_DOMAIN] option:selected').val();
-        if(domain_val === 'SCH'){
+        if(domain_val === 'DEDU'){
             $('.school_form').each(function () {
                 $(this).removeClass('hidden');
             })
             $('.healthy_form, .stable_form, .safe_form').each(function () {
                 $(this).addClass('hidden');
             })
-        }else if(domain_val === 'STB'){
+        }else if(domain_val === 'DHES'){
             $('.healthy_form, .safe_form, .school_form').each(function () {
                 $(this).addClass('hidden');
             })
             $('.stable_form').each(function () {
                 $(this).removeClass('hidden');
             })
-        }else if(domain_val === 'SF'){
+        }else if(domain_val === 'DPRO'){
             $('.healthy_form, .school_form, .stable_form').each(function () {
                 $(this).addClass('hidden');
             })
             $('.safe_form').each(function () {
                 $(this).removeClass('hidden');
             })
-        }else if(domain_val === 'HE'){
+        }else if(domain_val === 'DHNU'){
             $('.stable_form, .safe_form, .school_form').each(function () {
                 $(this).addClass('hidden');
             })
@@ -65,7 +65,16 @@ function stripHTML(strWithHTML) {
     container.appendChild(text);
     return container.innerHTML;
   }
-
+var final_input = {};
+final_input['domain'] = [];
+final_input['goal'] = [];
+final_input['gaps'] = [];
+final_input['actions'] = [];
+final_input['services'] = [];
+final_input['responsible'] = [];
+final_input['date'] = [];
+final_input['results'] = [];
+final_input['reasons'] = [];
 function AddRow() {    
     var randomID = randomNo();
     $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_repsonsible"></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
@@ -120,7 +129,7 @@ function AddRow() {
     $('#row_'+randomID+' > td#tbl_goal > ul.ul-flow').empty();
     $('.goals_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
         var txt = stripHTML($(this).text());
-        if(txt !== 'Select all'){
+        if(txt === 'Select all'){}else{
             $('#row_'+randomID+' > td#tbl_goal > ul.ul-flow').append( '<li>'+txt+'</li>' );
         }
     })
@@ -130,7 +139,7 @@ function AddRow() {
     $('#row_'+randomID+' > td#tbl_needs > ul.ul-flow').empty();
     $('.gaps_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
         var txt2 = stripHTML($(this).text());
-        if(txt2 !== 'Select all'){
+        if(txt2 === 'Select all'){}else{
             $('#row_'+randomID+' > td#tbl_needs > ul.ul-flow').append( '<li>'+txt2+'</li>' );
         }
     });
@@ -140,7 +149,7 @@ function AddRow() {
     $('#row_'+randomID+' > td#tbl_actions > ul.ul-flow').empty();
     $('.actions_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
         var txt3 = stripHTML($(this).text());
-        if(txt3 !== 'Select all'){
+        if(txt3 === 'Select all'){}else{
             $('#row_'+randomID+' > td#tbl_actions > ul.ul-flow').append( '<li>'+txt3+'</li>' );
         }
     });
@@ -150,7 +159,7 @@ function AddRow() {
     $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').empty();
     $('.services_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
         var txt4 = stripHTML($(this).text());
-        if(txt4 !== 'Select all'){
+        if(txt4 === 'Select all'){}else{
             $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').append( '<li>'+txt4+'</li>' );
         }
     });
@@ -163,19 +172,30 @@ function AddRow() {
     $('#row_'+randomID+' td#tbl_reasons').html('<div>'+reasons+'</div>' + '<input type="hidden" name="h_CPT_REASONS" value="'+reasons+'" />');
     $('#row_'+randomID+' td#tbl_acts').html('<a href="#" class="removerow btn btn-xs btn-danger"><i class="fa fa-trash"></i> Remove</a>');
     
-    console.log(
-        'LOG: '+JSON.stringify({
-            1: domain,
-            2: goal,    
-            3: gaps,
-            4: actions,
-            5: services,
-            6: responsibl,
-            7: date,
-            8: results,
-            9: reasons
-        })
-    )
+    // console.log(
+    //     'LOG: '+JSON.stringify({
+    //         1: domain,
+    //         2: goal,    
+    //         3: gaps,
+    //         4: actions,
+    //         5: services,
+    //         6: responsibl,
+    //         7: date,
+    //         8: results,
+    //         9: reasons
+    //     })
+    // )
+
+    final_input['domain'].push(domain);
+    final_input['goal'].push(goal);
+    final_input['gaps'].push(gaps);
+    final_input['actions'].push(actions);
+    final_input['services'].push(services);
+    final_input['responsible'].push(responsibl);
+    final_input['date'].push(date);
+    final_input['results'].push(results);
+    final_input['reasons'].push(reasons);
+
     $('#row_'+randomID+' > td#tbl_acts > .removerow').click(function (e) { 
         e.preventDefault();
         $('#row_'+randomID).empty();
@@ -186,3 +206,36 @@ function AddRow() {
     });
 
 }
+var fd2 = [];
+$('#submit-caseplan').click(function (e) { 
+    // e.preventDefault();
+    // console.log("final_input: "+JSON.stringify(final_input));
+    $.each(final_input['domain'], function (indexDomain, oneDomain) { 
+        var answrs = {};
+         
+        answrs['domain'] = [];
+        answrs['goal'] = [];
+        answrs['gaps'] = [];
+        answrs['actions'] = [];
+        answrs['services'] = [];
+        answrs['responsible'] = [];
+        answrs['date'] = [];
+        answrs['results'] = [];
+        answrs['reasons'] = [];
+
+        answrs['domain'] = final_input['domain'][indexDomain];
+        answrs['goal'] = final_input['goal'][indexDomain];
+        answrs['gaps'] = final_input['gaps'][indexDomain];
+        answrs['actions'] = final_input['actions'][indexDomain];
+        answrs['services'] = final_input['services'][indexDomain];
+        answrs['responsible'] = final_input['responsible'][indexDomain];
+        answrs['date'] = final_input['date'][indexDomain];
+        answrs['results'] = final_input['results'][indexDomain];
+        answrs['reasons'] = final_input['reasons'][indexDomain];
+
+        fd2.push(answrs);
+    });
+    console.log("answrs: "+JSON.stringify(fd2));
+    $('input[name=final_submission').val(JSON.stringify(fd2));
+    // $('#new_f1a').submit();
+});
