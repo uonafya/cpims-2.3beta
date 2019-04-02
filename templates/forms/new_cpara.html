@@ -130,43 +130,46 @@ print(blu.sing("'Happy'"))
                                                         <table width="100%" class="table table-profile">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td style="width: 10%"><b>Name of Organization (LIP):</b></td>
-                                                                    <td style="width: 90%">{{ creg.child_cbo.org_unit_name }}</td>
+                                                                    <td><b>Name of Organization (LIP):</b></td>
+                                                                    <td>{{ creg.child_cbo.org_unit_name }}</td>
+                                                                    <td><b>Date enrolled in the project: </b></td>
+                                                                    <td>{{ creg.registration_date }}</td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td style="width: 25%"><b>County:</b></td>
-                                                                    <td style="width: 25%">{{ county.area_name }}</td>
-                                                                    <td style="width: 25%"><b>Sub County:</b></td>
-                                                                    <td style="width: 25%">{{subcounty.area_name}}</td>
-                                                                    <td style="width: 25%"><b>Ward:</b></td>
-                                                                    <td style="width: 25%">{{ward.area_name}}</td>
+                                                                    <td><b>County:</b></td>
+                                                                    <td>{{ county.area_name }}</td>
+                                                                    <td><b>Sub County:</b></td>
+                                                                    <td>{{subcounty.area_name}}</td>
+                                                                    <td><b>Ward:</b></td>
+                                                                    <td>{{ward.area_name}}</td>
                                                                 </tr>                                                                
                                                                 <tr>
-                                                                    <td style="width: 50%"><b>Name of case worker/CHV conducting assesment:</b></td>
+                                                                    <td><b>Name of case worker/CHV conducting assesment:</b></td>
                                                                     <td>{{ creg.child_chv.full_name }}</td>
-                                                                <tr>
-                                                                    <td style="width: 20%"><b>Name of SDP staff/Case Manager:</b></td>
-                                                                    <td style="width: 90%">{{ creg.child_cbo.org_unit_name }}</td>
+                                                                    <td><b>Name of SDP staff/Case Manager:</b></td>
+                                                                    <td>{{ creg.child_cbo.org_unit_name }}</td>
                                                                 </tr>
-                                                                    <td style="width: 20%"><b>Name of Caregiver:</b></td>
-                                                                    <td style="width: 20%">{{caregiver}}</td>
-                                                                </tr>                                                                
+                                                                    
                                                                 <tr>
-                                                                    <td style="width: 20%"><b>Caregiver ID Number:</b></td>                                                                    
-                                                                    <td style="width: 20%">{{household.head_identifier }}</td>                                                                    
-                                                                    <td style="width: 20%"><b>Caregiver Gender:</b></td>
-                                                                    <td style="width: 20%">{% if caregiver.sex_id == 'SMAL' %}
+                                                                    <td><b>Name of Caregiver:</b></td>
+                                                                    <td>{{caregiver}}</td>
+                                                                    <td><b>Caregiver ID Number:</b></td>                                                                    
+                                                                    <td>{{household.head_identifier }}</td> 
+                                                                </tr>                                                                
+                                                                <tr>                                                                                                                                       
+                                                                    <td><b>Caregiver Gender:</b></td>
+                                                                    <td>{% if caregiver.sex_id == 'SMAL' %}
                                                                             Male
                                                                         {% endif %}
                                                                         {% if caregiver.sex_id == 'SFEM' %}
                                                                             Female
                                                                         {% endif %}</td>
+                                                                    <td><b>Age of Caregiver:</b></td>
+                                                                    <td>{{caregiver.date_of_birth|gen_age}}</td>
                                                                 </tr>
-                                                                <tr>
-                                                                    <td style="width: 20%"><b>Age of Caregiver:</b></td>
-                                                                    <td style="width: 20%">{{caregiver.date_of_birth|gen_age}}</td>
-                                                                    <td style="width: 20%"><b>Caregiver Phone Number:</b></td>
-                                                                    <td style="width: 20%">{{caregiver.des_phone_number}}</td>
+                                                                <tr>                                                                    
+                                                                    <td><b>Caregiver Phone Number:</b></td>
+                                                                    <td>{{caregiver.des_phone_number}}</td>
                                                                 </tr>                                              
                                                             </tbody>
                                                         </table> 
