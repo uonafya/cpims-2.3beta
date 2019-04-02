@@ -1,7 +1,8 @@
 jQuery(document).ready(function()
 {
 	 //multi selects
-    $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .services_cell > div > select').multiselect({
+    // $('.responsible_cell > select, .services_cell > div > select').multiselect({
+    $('.services_cell > div > select').multiselect({
         selectAllValue: 'multiselect-all',
         includeSelectAllOption: true,
         enableCaseInsensitiveFiltering: true,
@@ -10,7 +11,11 @@ jQuery(document).ready(function()
         buttonWidth: '100%',
         buttonClass: 'btn btn-white'
     });
-    $('#CPT_DATE').datepicker({ format: 'dd-M-yyyy' });
+    $('input, select').attr('required', true);
+    $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .domain_cell > select, #id_CPT_RESPONSIBLE').prepend('<option value="" disabled selected>Pick an item</option>');
+    $('#CPT_DATE').datepicker({ format: 'yyyy-mm-dd' });
+    $('input[name=CPT_DATE_CASEPLAN]').datepicker({ format: 'yyyy-mm-dd' });
+    $('input[name=date_first_cpara]').datepicker({ format: 'yyyy-mm-dd' });
 
     FormWizardValidation.init();
     
@@ -77,38 +82,39 @@ final_input['results'] = [];
 final_input['reasons'] = [];
 final_input['if_first_cpara'] = [];
 final_input['date_first_cpara'] = [];
+final_input['CPT_DATE_CASEPLAN'] = [];
 function AddRow() {    
     var randomID = randomNo();
     $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_repsonsible"></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
     
     let domain = $('#id_CPT_DOMAIN option:selected').val();
     
-    // let goal = $('.goals_cell > div:not(.hidden) > select > option').val();
-    let goal = []
-    $('.goals_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
-        var vlu = $(this).val();
-        if(vlu !== 'multiselect-all'){
-            goal.push(vlu);
-        }
-    })
+    let goal = $('.goals_cell > div:not(.hidden) > select > option:selected').val();
+    // let goal = []
+    // $('.goals_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
+    //     var vlu = $(this).val();
+    //     if(vlu !== 'multiselect-all'){
+    //         goal.push(vlu);
+    //     }
+    // })
 
-    // let gaps = $('.gaps_cell > div:not(.hidden) > select > option:selected').val();
-    let gaps = []
-    $('.gaps_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
-        var vlu2 = $(this).val();
-        if(vlu2 !== 'multiselect-all'){
-            gaps.push(vlu2);
-        }
-    })
+    let gaps = $('.gaps_cell > div:not(.hidden) > select > option:selected').val();
+    // let gaps = []
+    // $('.gaps_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
+    //     var vlu2 = $(this).val();
+    //     if(vlu2 !== 'multiselect-all'){
+    //         gaps.push(vlu2);
+    //     }
+    // })
 
-    // let actions = $('.actions_cell > div:not(.hidden) > select > option:selected').val();
-    let actions = []
-    $('.actions_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
-        var vlu3 = $(this).val();
-        if(vlu3 !== 'multiselect-all'){
-            actions.push(vlu3);
-        }
-    })
+    let actions = $('.actions_cell > div:not(.hidden) > select > option:selected').val();
+    // let actions = []
+    // $('.actions_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
+    //     var vlu3 = $(this).val();
+    //     if(vlu3 !== 'multiselect-all'){
+    //         actions.push(vlu3);
+    //     }
+    // })
 
     // let services = $('.services_cell > div:not(.hidden) > select > option:selected').val();
     let services = []
@@ -118,47 +124,33 @@ function AddRow() {
             services.push(vlu);
         }
     })
-
+    
+    
     let responsibl = $('#id_CPT_RESPONSIBLE option:selected').val();
+
     let date = $('#CPT_DATE').val();
     let if_first_cpara = $('input[name=if_first_cpara]:checked').val();
     let date_first_cpara = $('input[name=date_first_cpara]').val();
+    let CPT_DATE_CASEPLAN = $('input[name=CPT_DATE_CASEPLAN]').val();
     let results = $('#id_CPT_RESULTS option:selected').val();
     let reasons = $('#id_CPT_REASONS').val();
 
     // domain
     $('#row_'+randomID+' > td#tbl_domain').html( $('select[name=CPT_DOMAIN] option[value='+domain+']').text() + '<input type="hidden" name="h_CPT_DOMAIN" value="'+domain+'" />');
     // -domain
+
     // goal
-    $('#row_'+randomID+' > td#tbl_goal > ul.ul-flow').empty();
-    $('.goals_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
-        var txt = stripHTML($(this).text());
-        if(txt === 'Select all'){}else{
-            $('#row_'+randomID+' > td#tbl_goal > ul.ul-flow').append( '<li>'+txt+'</li>' );
-        }
-    })
-    $('#row_'+randomID+' > td#tbl_goal').append('<input type="hidden" name="h_CPT_GOAL" value="'+goal+'" />');
+        $('#row_'+randomID+' > td#tbl_goal').html( $('.goals_cell > div:not(.hidden) > select option:selected').text() + '<input type="hidden" name="h_CPT_GOAL" value="'+goal+'" />');
     // -goal
+
     // gaps
-    $('#row_'+randomID+' > td#tbl_needs > ul.ul-flow').empty();
-    $('.gaps_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
-        var txt2 = stripHTML($(this).text());
-        if(txt2 === 'Select all'){}else{
-            $('#row_'+randomID+' > td#tbl_needs > ul.ul-flow').append( '<li>'+txt2+'</li>' );
-        }
-    });
-    $('#row_'+randomID+' > td#tbl_needs').append('<input type="hidden" name="h_CPT_GAPS" value="'+gaps+'" />');
+        $('#row_'+randomID+' > td#tbl_needs').html( $('.gaps_cell > div:not(.hidden) > select option:selected').text() + '<input type="hidden" name="h_CPT_GAPS" value="'+gaps+'" />');
     // -gaps
+
     // actions
-    $('#row_'+randomID+' > td#tbl_actions > ul.ul-flow').empty();
-    $('.actions_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
-        var txt3 = stripHTML($(this).text());
-        if(txt3 === 'Select all'){}else{
-            $('#row_'+randomID+' > td#tbl_actions > ul.ul-flow').append( '<li>'+txt3+'</li>' );
-        }
-    });
-    $('#row_'+randomID+' > td#tbl_actions').append('<input type="hidden" name="h_CPT_ACTIONS" value="'+actions+'" />');
+        $('#row_'+randomID+' > td#tbl_actions').html( $('.actions_cell > div:not(.hidden) > select option[value='+actions+']').text() + '<input type="hidden" name="h_CPT_ACTIONS" value="'+actions+'" />');
     // -actions
+
     // services
     $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').empty();
     $('.services_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
@@ -176,19 +168,19 @@ function AddRow() {
     $('#row_'+randomID+' td#tbl_reasons').html('<div>'+reasons+'</div>' + '<input type="hidden" name="h_CPT_REASONS" value="'+reasons+'" />');
     $('#row_'+randomID+' td#tbl_acts').html('<a href="#" class="removerow btn btn-xs btn-danger"><i class="fa fa-trash"></i> Remove</a>');
     
-    // console.log(
-    //     'LOG: '+JSON.stringify({
-    //         1: domain,
-    //         2: goal,    
-    //         3: gaps,
-    //         4: actions,
-    //         5: services,
-    //         6: responsibl,
-    //         7: date,
-    //         8: results,
-    //         9: reasons
-    //     })
-    // )
+    console.log(
+        'LOG: '+JSON.stringify({
+            1: domain,
+            2: goal,    
+            3: gaps,
+            4: actions,
+            5: services,
+            6: responsibl,
+            7: date,
+            8: results,
+            9: reasons
+        })
+    )
 
     final_input['domain'].push(domain);
     final_input['goal'].push(goal);
@@ -201,6 +193,7 @@ function AddRow() {
     final_input['reasons'].push(reasons);
     final_input['if_first_cpara'].push(if_first_cpara);
     final_input['date_first_cpara'].push(date_first_cpara);
+    final_input['CPT_DATE_CASEPLAN'].push(CPT_DATE_CASEPLAN);
 
     $('#row_'+randomID+' > td#tbl_acts > .removerow').click(function (e) { 
         e.preventDefault();
@@ -230,6 +223,7 @@ $('#submit-caseplan').click(function (e) {
         answrs['reasons'] = [];
         answrs['if_first_cpara'] = [];
         answrs['date_first_cpara'] = [];
+        answrs['CPT_DATE_CASEPLAN'] = [];
 
         answrs['domain'] = final_input['domain'][indexDomain];
         answrs['goal'] = final_input['goal'][indexDomain];
@@ -242,10 +236,11 @@ $('#submit-caseplan').click(function (e) {
         answrs['reasons'] = final_input['reasons'][indexDomain];
         answrs['if_first_cpara'] = final_input['if_first_cpara'][indexDomain];
         answrs['date_first_cpara'] = final_input['date_first_cpara'][indexDomain];
+        answrs['CPT_DATE_CASEPLAN'] = final_input['CPT_DATE_CASEPLAN'][indexDomain];
 
         fd2.push(answrs);
     });
     console.log("answrs: "+JSON.stringify(fd2));
     $('input[name=final_submission').val(JSON.stringify(fd2));
-    // $('#new_f1a').submit();
+    $('#new_f1a').submit();
 });

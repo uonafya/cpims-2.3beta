@@ -165,8 +165,6 @@
 											<label class="control-label formlabel">Is this the first Case Plan Readiness Assessment?:</label><br/>
 											
 										</div>
-									</div>
-									<div class="col-md-2">
 										<label class="radio-inline">
 											<input type="radio" name="if_first_cpara" value="AYES">
 											Yes
@@ -179,9 +177,15 @@
 									<div class="col-md-4">
 										<div class="form-group">
 											<label class="control-label formlabel">If No, give date of Previous Case Plan Readiness Assessment:</label><br/>
-											<input type="date" class="form-control" style="max-width: 200px;" name="date_first_cpara"/>
+											<input type="text" class="form-control" style="max-width: 200px;" name="date_first_cpara"/>
 										</div>
-									</div>
+                                    </div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="control-label formlabel">Date of caseplan:</label><br/>
+											<input type="text" class="form-control" style="max-width: 200px;" name="CPT_DATE_CASEPLAN"/>
+										</div>
+                                    </div>
 								</div>
                                 <table id="assessment_manager_table" class="table">
                                     <thead>
@@ -195,7 +199,7 @@
                                     <br>
                                         <tr id="id_inputElements1">
 
-                                             <td colspan="1">
+                                             <td colspan="1" class="domain_cell">
                                             	{{ form.CPT_DOMAIN }}
                                             	<div id="olmis_assessment_coreservice_errormsg" style="display:none;" class="col-md-10 control-label">
                                                     <small><p class="dialog_paragraph">This value is required</p></small>
@@ -284,7 +288,7 @@
                                                 </div>
                                             </td>
 
-                                            <td colspan="2">
+                                            <td colspan="2" class="responsible_cell">
                                             	{{ form.CPT_RESPONSIBLE }}
                                             	<div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
                                                     <small><p class="dialog_paragraph">This value is required</p></small>
