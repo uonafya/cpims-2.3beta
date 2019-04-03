@@ -8633,13 +8633,9 @@ from .models import OVCCareCasePlan
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def case_plan_template(request, id):
     if request.method == 'POST':
-        
-        ignore_request_values= ['household_id','csrfmiddlewaretoken']
         child = RegPerson.objects.get(id=id)
         house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-        person = RegPerson.objects.get(pk=int(id))
-        event_type_id = 'FHSA'
-        date_of_caseplan_event = convert_date(datetime.today().strftime('%d-%b-%Y'))
+        event_type_id = 'CPAR'
 
         """ Save caseplan-event """
         # get event counter
@@ -8650,12 +8646,10 @@ def case_plan_template(request, id):
             event_type_id=event_type_id,
             event_counter=event_counter,
             event_score=0,
-            date_of_event=date_of_caseplan_event,
             created_by=request.user.id,
             person=RegPerson.objects.get(pk=int(id)),
             house_hold=house_hold
         )
-        ovccareevent.save()
         new_events_pk = ovccareevent.pk
 
         my_request=request.POST.get('final_submission')
@@ -8669,16 +8663,15 @@ def case_plan_template(request, id):
                 my_action=all_data['actions']
                 my_service=all_data['services']
                 my_responsible=all_data['responsible']
-                my_date_completed=convert_date(all_data['date'])
-                my_date_of_prev_evnt=convert_date(all_data['date_first_cpara'])
-                my_date_of_caseplan=convert_date(all_data['CPT_DATE_CASEPLAN'])
+                my_date_completed=all_data['date']
+                my_date_of_prev_evnt=all_data['date_first_cpara']
+                my_date_of_caseplan=all_data['CPT_DATE_CASEPLAN']
                 my_results=all_data['results']
                 my_reason=all_data['reasons']
                 my_initial_caseplan=all_data['if_first_cpara']
-                
-                x=OVCCareForms.objects.get(name='OVCCareCasePlan')
+
                 if my_initial_caseplan=='AYES':
-                    my_date_of_prev_evnt=convert_date(my_date_of_caseplan)
+                    my_date_of_prev_evnt=my_date_of_caseplan
 
                 for service in my_service:
                     OVCCareCasePlan(
@@ -8692,16 +8685,20 @@ def case_plan_template(request, id):
                             # cp_service = SetupList.objects.get(item_id = service),
                             cp_service = service,
                             responsible= my_responsible,
-                            date_of_previous_event=my_date_of_prev_evnt,
-                            date_of_event=my_date_of_caseplan,
+                            date_of_previous_event=convert_date(my_date_of_prev_evnt, fmt='%Y-%m-%d'),
+                            date_of_event=convert_date(my_date_of_caseplan, fmt='%Y-%m-%d'),
                             form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
-                            completion_date = my_date_completed,
+                            completion_date = convert_date(my_date_completed, fmt='%Y-%m-%d'),
                             results=my_results,
                             reasons=my_reason,
                             case_plan_status='D',
                             event= OVCCareEvents.objects.get(event=new_events_pk)
 
                             ).save()
+                msg = 'Case Plan Template saved successful'
+                messages.add_message(request, messages.INFO, msg)
+                url = reverse('ovc_view', kwargs={'id': id})
+                return HttpResponseRedirect(url)
     # get child data
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id', 'relationship_type_id']
