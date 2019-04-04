@@ -192,10 +192,10 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                 SCHOOLED
                                 <small>Shelter and care details</small>
                             </li>
-                            <li>
+                            {% comment %} <li>
                                 GOALS
                                 <small>Household income and property details</small>
-                            </li>
+                            </li> {% endcomment %}
 
                         </ol>
 
@@ -2191,8 +2191,9 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                             </table>
                         </div>
                         <!-- end wizard step-5-->
+
                         <!-- start wizard step-6 -->
-                        <div class="wzd wizard-step-6">
+                        {% comment %} <div class="wzd wizard-step-6 hidden">
 
                             <h3><b>Goals</b></h3>
                             <div class="panel-group" id="accordion">
@@ -2288,7 +2289,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 </div>
                             </div>
-                        </div>
+                        </div> {% endcomment %}
                         <!-- end of wizard-step-6-->
 
                     </div>
