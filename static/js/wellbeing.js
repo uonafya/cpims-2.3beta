@@ -336,7 +336,7 @@ function unhideQn(qnID) {
 $('#btn_submit_wellbeing').click(function (e) { 
     e.preventDefault();
     if ( $('input, select, textarea').hasClass('parsley-error') ) {
-        $(this).closest('div.wzd').css('background', 'red');
+        $(this).closest('div.wzd').css('background', 'red').addClass('this-wiz-contains-errors');
         alert('form errors');
     }else{
         // $('#new_hhva').submit();
