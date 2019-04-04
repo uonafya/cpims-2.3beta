@@ -346,9 +346,10 @@ $('#btn_submit_wellbeing').click(function (e) {
         $('#new_hhva').submit();
         // $('#real_submit').trigger('click');
     }
+    $('.validation_warning').remove();
+    $('.this-wiz-contains-errors').prepend('<div class="row validation_warning"><span class="col-md-12 alert alert-danger"><i class="fa fa-warning"></i> Please fill all blank fields in this page before submitting</span></div>');
 });
 
-$('input, select, textarea').change(function (e) { 
-    $('.this-wiz-contains-errors').prepend('<div class="row"><span class="col-md-12 alert alert-danger"><i class="fa fa-warning"></i> Please fill all blank fields in this page before submitting</span></div>');
-});
+
+
 //validate on submit
