@@ -328,3 +328,20 @@ function unhideQn(qnID) {
     $('#' + qnID).removeAttr('disabled');
     $('#' + qnID).attr('required');
 }
+
+
+
+
+//validate on submit
+$('#btn_submit_wellbeing').click(function (e) { 
+    e.preventDefault();
+    if ( $('input, select, textarea').hasClass('parsley-error') ) {
+        $(this).closest('div.wzd').css('background', 'red');
+        alert('form errors');
+    }else{
+        // $('#new_hhva').submit();
+        $('#real_submit').trigger('click');
+
+    }
+});
+//validate on submit
