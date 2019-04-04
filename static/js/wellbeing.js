@@ -339,8 +339,7 @@ $('#btn_submit_wellbeing').click(function (e) {
     $('#real_submit').trigger('click');
     
     if ( $('input, select, textarea').hasClass('parsley-error') ) {
-        this.closest('.wzd').css('background', 'red').addClass('this-wiz-contains-errors');
-        // $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').css('background', 'red').addClass('this-wiz-contains-errors');
+        $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').css('background', 'red').addClass('this-wiz-contains-errors');
     }else{
         // $('#new_hhva').submit();
         $('#real_submit').trigger('click');
