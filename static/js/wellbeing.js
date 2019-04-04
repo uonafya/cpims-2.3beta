@@ -349,6 +349,6 @@ $('#btn_submit_wellbeing').click(function (e) {
 });
 
 $('input, select, textarea').change(function (e) { 
-    $('.this-wiz-contains-errors').prepend('<div class="row"><span class="col-md-12 alert alert-warning">Please fill all blank fields in this page before submitting</span></div>');
+    $('.this-wiz-contains-errors').prepend('<div class="row"><span class="col-md-12 alert alert-danger"><i class="fa fa-warning"></i> Please fill all blank fields in this page before submitting</span></div>');
 });
 //validate on submit
