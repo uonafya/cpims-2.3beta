@@ -94,7 +94,7 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $("td").attr("tabindex", "-1");
             $('input[name="'+toQnID+'"]').closest("td").attr("tabindex", "1");
             $('input[name="'+toQnID+'"]').closest("td").focus();
-            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").addClass('hidden').after('<tr class="skyp"><td colspan="3"><i style="color: grey;">Skipped question</i></td></tr>');
+            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").addClass('hidden').after('<tr class="skyp"><td colspan="3" class="text-center"><i style="color: grey;">Skipped question</i></td></tr>');
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('input, select, textarea').attr('data-parsley-required', false).removeAttr('required');
             $('input[name="'+toQnID+'"]').closest("td").css('outline', 'thick double #32a1ce');
             console.log("skipping to Qn: "+toQnID+" on Tab: "+toTabID);
