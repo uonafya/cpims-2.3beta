@@ -342,6 +342,7 @@ $('#btn_submit_wellbeing').click(function (e) {
         $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').each(function (index, wzd) {
             this.addClass('this-wiz-contains-errors').css('border-top', '2px solid #ff7832');
             var theid = this.attr('id');
+            alert(theid);
             $('a[href="#'+theid+'"]').closest('li[role="tab"]').css('background', '#ff7832')
         });
         // $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').addClass('this-wiz-contains-errors');
