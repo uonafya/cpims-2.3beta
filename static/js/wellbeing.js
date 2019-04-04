@@ -336,10 +336,10 @@ function unhideQn(qnID) {
 $('#btn_submit_wellbeing').click(function (e) { 
     e.preventDefault();
     $('#real_submit').trigger('click');
-    if ( $('input, select, textarea').hasClass('parsley-error') ) {
+    if ( $('input').hasClass('parsley-error') ) {
         $(this).closest('wzd').css('background', 'red').addClass('this-wiz-contains-errors');
         $(this).addClass('this-input-contains-errors');
-        alert('form errors');
+        alert($(this).closest('wzd').text());
     }else{
         // $('#new_hhva').submit();
         $('#real_submit').trigger('click');
