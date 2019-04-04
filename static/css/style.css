@@ -6456,6 +6456,10 @@ select,input,textarea{
 .slimtable td{
     font-size: 0.9em;
 }
+
+.this-wiz-contains-errors{
+    border-top: 3px solid #ff7832;
+}
 /* CUSTOM */
 
 
