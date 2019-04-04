@@ -349,6 +349,7 @@ $('#btn_submit_wellbeing').click(function (e) {
     
     $('.this-wiz-contains-errors').each(function (index, wiz) {
         var theid = this.attr('id');
+        alert(theid);
         $('a[href="#'+theid+'"]').closest('li[role="tab"]').css('background', '#ff7832').class('this-wiz-contains-errors');
     });
 });
