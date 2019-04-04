@@ -98,7 +98,8 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('input, select, textarea').attr('data-parsley-required', false).removeAttr('required');
             $('input[name="'+toQnID+'"]').closest("td").css('outline', 'thick double #32a1ce');
             console.log("skipping to Qn: "+toQnID+" on Tab: "+toTabID);
-        }else{
+        }
+        if(unDo){
             $("td").attr("tabindex", "-1");
             $('input[name="'+inputToCheck+'"]').closest("td").attr("tabindex", "1");
             $('input[name="'+inputToCheck+'"]').closest("td").focus();
