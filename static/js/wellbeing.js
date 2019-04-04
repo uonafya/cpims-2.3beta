@@ -343,8 +343,8 @@ $('#btn_submit_wellbeing').click(function (e) {
     // });
 
     if ( $('input, select, textarea').hasClass('parsley-error') ) {
-        $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('wzd').css('background', 'red').addClass('this-wiz-contains-errors');
-        $('input.parsley-error, select.parsley-error, textarea.parsley-error').addClass('this-input-contains-errors');
+        // $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('wzd').css('background', 'red').addClass('this-wiz-contains-errors');
+        $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('wzd').remove();
     }else{
         // $('#new_hhva').submit();
         $('#real_submit').trigger('click');
