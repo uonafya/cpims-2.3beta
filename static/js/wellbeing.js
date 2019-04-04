@@ -344,10 +344,10 @@ $('#btn_submit_wellbeing').click(function (e) {
         //     var theid = this.attr('id');
         //     $('a[href="#'+theid+'"]').closest('li[role="tab"]').css('background', '#ff7832')
         // });
-        $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').addClass('this-wiz-contains-errors');
+        $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').addClass('this-wiz-contains-errors').before('<span class="alert alert-warning">Please fill all blank fields in this page before submitting</span>');
     }else{
-        // $('#new_hhva').submit();
-        $('#real_submit').trigger('click');
+        $('#new_hhva').submit();
+        // $('#real_submit').trigger('click');
     }
 });
 //validate on submit
