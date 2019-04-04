@@ -334,13 +334,12 @@ function unhideQn(qnID) {
 
 //validate on submit
 $('#btn_submit_wellbeing').click(function (e) { 
-    var this_ = this;
+    var this_ = $(this);
     e.preventDefault();
     $('#real_submit').trigger('click');
     $('input.parsley-error, select.parsley-error, textarea.parsley-error').each(function (index, inpterror) {
-        $(this).closest('wzd').css('background', 'red').addClass('this-wiz-contains-errors');
-        $(this).addClass('this-input-contains-errors');
-        
+        this.closest('wzd').css('background', 'red').addClass('this-wiz-contains-errors');
+        this.addClass('this-input-contains-errors');
     });
     // if ( $('input, select, textarea').hasClass('parsley-error') ) {
     //     $(this).closest('wzd').css('background', 'red').addClass('this-wiz-contains-errors');
