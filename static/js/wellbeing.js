@@ -339,12 +339,9 @@ $('#btn_submit_wellbeing').click(function (e) {
     $('#real_submit').trigger('click');
     
     if ( $('input, select, textarea').hasClass('parsley-error') ) {
-        // $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').each(function (index, wzd) {
-        //     this.addClass('this-wiz-contains-errors').css('border-top', '2px solid #ff7832');
-        //     var theid = this.attr('id');
-        //     $('a[href="#'+theid+'"]').closest('li[role="tab"]').css('background', '#ff7832')
-        // });
-        $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').addClass('this-wiz-contains-errors').before('<span class="alert alert-warning">Please fill all blank fields in this page before submitting</span>');
+        // var theid = this.attr('id');
+        // $('a[href="#'+theid+'"]').closest('li[role="tab"]').css('background', '#ff7832')
+        $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').addClass('this-wiz-contains-errors');
     }else{
         $('#new_hhva').submit();
         // $('#real_submit').trigger('click');
@@ -352,6 +349,6 @@ $('#btn_submit_wellbeing').click(function (e) {
 });
 
 $('input, select, textarea').change(function (e) { 
-    $('.this-wiz-contains-errors').prepend('<span class="alert alert-warning">Please fill all blank fields in this page before submitting</span>');
+    $('.this-wiz-contains-errors').prepend('<div class="row"><span class="col-md-12 alert alert-warning">Please fill all blank fields in this page before submitting</span></div>');
 });
 //validate on submit
