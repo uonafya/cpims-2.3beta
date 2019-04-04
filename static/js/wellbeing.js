@@ -335,6 +335,7 @@ function unhideQn(qnID) {
 //validate on submit
 $('#btn_submit_wellbeing').click(function (e) { 
     e.preventDefault();
+    $('#real_submit').trigger('click');
     if ( $('input, select, textarea').hasClass('parsley-error') ) {
         $(this).closest('div.wzd').css('background', 'red').addClass('this-wiz-contains-errors');
         alert('form errors');
