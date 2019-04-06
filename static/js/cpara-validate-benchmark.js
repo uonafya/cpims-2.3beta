@@ -141,7 +141,7 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
             if(thisval !== arrayOfExpectedValues[inde]){
                 $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
                 $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
-                // console.log('first NOone works');
+                $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
                 if(thisval === arrayOfExpectedValues[inde]){
                     actualValNo = actualValNo + 1;
                 }else{
@@ -155,7 +155,7 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
                 if(actualValNo == valToMatch){
                     $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
                     $('input[name='+idOfBenchmarkQn+'][value=AYES]').prop("checked", true);
-                    console.log('2nd YESone works');
+                    $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
                     //update benchmark score
                     // benchmarkScore = benchmarkScore + 1
                     // $('input[name=cp74q]').val(benchmarkScore);
@@ -164,6 +164,7 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
                 }else{
                     $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
                     $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
+                    $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
                     // console.log('2nd NOone works');
                     if(thisval === arrayOfExpectedValues[inde]){
                         actualValNo = actualValNo + 1;
