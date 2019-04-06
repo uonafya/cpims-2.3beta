@@ -112,7 +112,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label formlabel">Date of Assessment:</label><br/>
-                                                    <input type="date" class="form-control" placeholder=" ">
+                                                    <input type="date" class="form-control" name="d_o_a">
                                                 </div>
                                             </div>                                           
                                         </div>
@@ -2172,6 +2172,10 @@ jQuery(document).ready(function()
         buttonWidth: '100%',
         buttonClass: 'btn btn-white'
     });
+
+    $( function() {
+        $('input[name="d_o_a"]').datepicker({ format: 'yyyy-mm-dd' }).val();
+    } );
 
 	$('html,body').scrollTop(0);
     FormWizardValidation.init();
