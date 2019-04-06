@@ -1,0 +1,2256 @@
+{% extends 'base.html' %}
+{% block page_title %} {{block.super}} Edit Persons registry {% endblock page_title%}
+
+{% load staticfiles %}
+{% load app_filters %}
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+{% endblock style_code%}
+
+    
+{% block primary %}  
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+<li><a href="#">Home</a></li>
+<li class="active">Persons</li>
+</ol>
+
+<h3 class="register-header">Persons Registry <small>Edit Person | {{ person.first_name }} {{ person.surname }}</small></h3>
+<!-- end breadcrumb -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span id="invalid-form-message"></span>
+    <span class="validation-errors"></span>
+</div>
+<div class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
+                        <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
+                </div>                        
+                <h4 class="panel-title">Update Person &nbsp<i class="fa fa-lg fa-male"></i> <span id="person_name"></span></h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard" id="edit_person">
+                    {% csrf_token %} {{ form.person_id }}
+                <input type='radio' class="edit_person" name='edit_person' value="1" checked="checked" id="edit_person_1"> Update person details
+                <div class="separator"><p></p></div>
+                <div id="edit_part">
+                    <div class="row">
+                        <fieldset>
+                            <legend class="pull-left width-full">Personal details</legend>
+                            <!-- begin col-4 -->
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group block1">
+                                        <label for="person_type">Person Type <span class="asteriskField">*</span></label>
+                                        {{ form.person_type }}
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                                <div class="col-md-4">
+                                    <div id="is_caregiver_div" class="form-group block1">
+                                        <label for="is_caregiver">Person is also a Caregiver <span class="asteriskField"></span></label>
+                                        <br>
+                                        {{ form.is_caregiver }} 
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                                <!-- begin col-4 -->
+                                <div class="col-md-4">
+                                    <div id="provides_service" class="form-group">
+                                        <label for="child_services">Provides services directly to children</label>
+                                        <br>                                        
+                                        {{ form.child_services }}
+                                        <span id="services_error"></span>
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                                {% if request.session.reg_ovc or request.user.is_superuser %}
+                                <!-- begin col-4 -->
+                                <div class="col-md-4" id="is_ovc">
+                                    <div class="form-group">
+                                        <label for="child_ovc">Child is OVC <span class="asteriskField">*</span></label>
+                                        <br>                                        
+                                        {{ form.child_ovc }}
+                                        <span id="child_ovc_error"></span>
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                                {% endif %}                                
+                            </div>
+                            <div class="divider pull-left width-full"></div>
+                            <div class="row">
+                                <!-- end col-4 -->
+                                <div class="col-md-4">
+                                    <div class="form-group block1">
+                                        <label for="first_name">First Name <span class="asteriskField">*</span></label>
+                                        {{ form.first_name }}
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                                <!-- begin col-4 -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="surname">Surname <span class="asteriskField">*</span></label>
+                                        {{ form.surname }}
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                                <!-- begin col-4 -->
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="other_names">Other Name(s)<span class="asteriskField"></span></label>
+                                        {{ form.other_names}}
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                            </div>
+                            <div class="divider pull-left width-full"></div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group block1">
+                                        <label for="sex_id">Sex <span class="asteriskField">*</span></label>
+                                        {{ form.sex_id }}
+                                    </div>
+                                </div>
+                                <!-- end col-4 -->
+                                <!-- begin col-4 -->
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label for="date_of_birth">Date of Birth <span class="asteriskField">*</span></label>
+                                        {{ form.date_of_birth }}
+                                    </div>
+                                </div>
+                                <!-- begin col-4 -->
+                                <div class="col-md-4"  id="title_type_div">
+                                    <div class="form-group">
+                                        <label for="title_type">Title <span class="asteriskField">*</span></label>
+                                        {{ form.title_type }}
+                                    </div>
+                                </div>
+                                <!-- begin col-4 -->
+                                <div class="col-md-4">
+                                    <div  id="cadre_type_div" class="form-group">
+                                        <label for="cadre_type">Designation <span class="asteriskField">*</span> :</label>
+                                        {{ form.cadre_type }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider pull-left width-full"></div>
+                        </fieldset>
+                    </div>
+                    <!--- end row -->
+                    <div class="row">
+                        <!--- Start Wizard Block -->
+                        <div id="wizard_persons">
+                            <ol>
+                                <li>
+                                    Identification 
+                                    <small>Person's identification details</small>
+                                </li>
+                                <li>
+                                    Contact Details
+                                    <small>Person's contact information.</small>
+                                </li>
+                                <li>
+                                    Location
+                                    <small>Living in and working in details.</small>
+                                </li>
+                                <li>
+                                    Caregiver / Siblings
+                                    <small>Child's caregiver(s) / sibling(s) details.</small>
+                                </li>
+                                <li>
+                                    <span  id="cbo_chv_div">
+                                       CBO and CHV
+                                       <small>CBO and CHV attached to person.</small>
+                                    </span>
+
+                                    <span  id="cbo_chv_ndiv">
+                                       Organisation Unit
+                                       <small>Units attached to person.</small>
+                                    </span>
+                                     
+                                </li>
+                            </ol>
+                            <!-- begin wizard step-1 -->
+                            <div class="wizard-step-1">
+                                <fieldset>
+                                    <legend class="pull-left width-full">Identification</legend>
+                                    <!-- begin row -->
+                                    <div class="row">
+                                        <div id="national_id_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="national_id">National ID <span class="asteriskField">*</span> :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.national_id }}
+                                            </div>
+                                        </div>
+                                        <div id="staff_id_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="staff_id">Staff No. / Registration No. / Serial No. :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.staff_id }}
+                                            </div>
+                                        </div>
+                                        <div id="birth_reg_id_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="birth_reg_id">Birth Registration Number :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.birth_reg_id }}
+                                            </div>
+                                        </div>
+                                        <div id="given_name_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="given_name">Child Given Name :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.given_name }}
+                                            </div>
+                                        </div>
+                                        <div id="nation_id_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="country">Country of Origin :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.country }}
+                                            </div>
+                                        </div>
+                                        <div id="tribe_id_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="tribe">Tribe :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.tribe }}
+                                            </div>
+                                        </div>
+                                        <div id="religion_id_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="religion">Religion :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.religion }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- end row -->
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-1 -->
+                            <!-- begin wizard step-2 -->
+                            <div class="wizard-step-2">
+                                <fieldset>
+                                    <legend class="pull-left width-full">Contact Information</legend>
+                                    <!-- begin row -->
+                                    <div class="row">
+                                        <div id="des_phone_number_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="des_phone_number">Designated mobile Number :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                               {{ form.des_phone_number }}
+                                            </div>
+                                        </div>
+                                        <div id="other_phone_number_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="other_phone_number">Other mobile Number :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.other_phone_number }}
+                                            </div>
+                                        </div> 
+                                        <div id="email_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="email">Email Address :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.email }}
+                                            </div>
+                                        </div>
+                                        <div id="physical_location_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="physical_address">Physical Location :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.physical_address }}
+                                            </div>
+                                        </div> 
+                                        <!-- end col-6 -->
+                                    </div>
+                                    <!-- end row -->
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-2 -->
+                            <!-- begin wizard step-3 -->
+                            <div class="wizard-step-3">
+                                <fieldset>
+                                    <legend class="pull-left width-full">Locations details</legend>
+                                    <!-- begin row -->
+                                    <!-- begin row -->
+                                    <div class="row" id="working_in_div">
+                                        <!-- begin panel -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="panel-heading-btn">
+                                                    
+                                                </div>
+                                                <h4 class="panel-title">Working In</h4>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group" id="working_in_region_div">
+                                                   <label class="control-label col-md-4 col-sm-4" for="working_in_region">Region :</label>
+                                                    <div class="col-md-4 col-sm-4">
+                                                       {{ form.working_in_region }}
+                                                    </div>
+                                                    <div id="type_error"></div>
+                                                </div>
+                                                <div class="form-group" id="county_div">
+                                                    <label class="control-label col-md-4 col-sm-4" for="working_in_county">County <span class="asteriskField">*</span> : </label>
+                                                    <div class="col-md-4 col-sm-4 data-maxOptions=1" >
+                                                        {{ form.working_in_county }}
+                                                        <br>
+                                                        <span id="sel_working_in_county" class="showlist"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" id="subcounty_div">
+                                                    <label class="control-label col-md-4 col-sm-4" for="working_in_subcounty">Sub-county <span class="asteriskField">*</span> : </label>
+                                                    <div class="col-md-4 col-sm-4 data-maxOptions=1" >
+                                                        {{ form.working_in_subcounty }}
+                                                        <br>
+                                                        <span id="sel_working_in_subcounty" class="showlist"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" id="ward_div">
+                                                    <label class="control-label col-md-4 col-sm-4" for="working_in_ward">Ward : </label>
+                                                    <div class="col-md-4 col-sm-4 data-maxOptions=1" >
+                                                        {{ form.working_in_ward }}
+                                                        <br>
+                                                        <span id="sel_working_in_ward" class="showlist"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end panel -->
+                                    </div>
+                                    <!-- end row -->
+                                    <div class="row" id="living_in_div">
+                                        <!-- begin panel -->
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <div class="panel-heading-btn">
+                                                    
+                                                </div>
+                                                <h3 class="panel-title">Living In</h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-4" for="living_in_county">County <span class="asteriskField">*</span> : </label>
+                                                    <div class="col-md-4 col-sm-4 data-maxOptions=1" >
+                                                        {{ form.living_in_county }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-4" for="living_in_subcounty">Sub-county <span class="asteriskField">*</span> : </label>
+                                                    <div class="col-md-4 col-sm-4" >
+                                                        {{ form.living_in_subcounty }}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-4" for="living_in_ward">Ward : </label>
+                                                    <div class="col-md-4 col-sm-4" >
+                                                        {{ form.living_in_ward }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end panel -->
+                                    </div>
+                                    <!-- end row -->
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-3 -->
+                            <!-- begin wizard step-4 -->
+                            <div class="wizard-step-4">
+                                <fieldset>
+                                    <legend class="pull-left width-full">Child caregiver and sibling details <span id="caregiver_info"><small></small></span></legend>
+                                    <!-- begin row -->
+                                    <div class="row" id="caregiver_add">
+                                        <div class="col-md-6">
+                                            <!-- begin panel -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="btn-group pull-right">
+                                                        <a href="#modal-caregiver" class="btn btn-success" data-toggle="modal"> Attach caregiver</a>
+                                                    </div>
+                                                    <h3 class="panel-title">Caregiver</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="log_cgiver"></div>
+                                                    <div class="form-group">
+                                                    {{ form.caregiver_cpims_id }}
+                                                    </div>
+                                                    <table id="caregivers" class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="10%">ID</th>
+                                                                <th width="40%">Name</th>
+                                                                <th width="35%">Relationship with child</th>
+                                                                <th>Adult</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                           {% if guardians %}
+                                                           {% for guardian in guardians %}
+                                                            <tr id="gd_tr_{{ guardian.guardian_person_id }}">
+                                                                <td>
+                                                                <input id="cc_{{ guardian.guardian_person_id }}_cpid" name="cc_{{ guardian.guardian_person_id }}_cpid" value="{{ guardian.guardian_person_id }}" type="hidden">
+                                                                {{ guardian.guardian_person_id }}</td>
+                                                                <td>{{ guardian.guardian_person.full_name }}</td>
+                                                                <td>{{ guardian.relationship|gen_value:vals }}</td>
+                                                                <td>{{ guardian.child_headed|yesno:"No,Yes" }}</td>
+                                                                <td><button id = "{{ guardian.guardian_person_id }}" type="button" class="btn btn-danger remove_cg"><i class="fa fa-trash-o"></i></button></td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% elif oguardians %}
+                                                            {% for guardian in oguardians %}
+                                                            <tr id="gd_tr_{{ guardian.guardian_person_id }}">
+                                                                <td>
+                                                                <input id="cc_{{ guardian.guardian_person_id }}_cpid" name="cc_{{ guardian.guardian_person_id }}_cpid" value="{{ guardian.guardian_person_id }}" type="hidden">
+                                                                {{ guardian.guardian_person_id }}</td>
+                                                                <td>{{ guardian.guardian_person.full_name }}</td>
+                                                                <td>{{ guardian.relationship|gen_value:vals }}</td>
+                                                                <td>{{ guardian.child_headed|yesno:"No,Yes" }}</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% endif %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <!-- begin panel -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <div class="btn-group pull-right">
+                                                        <a href="#modal-sibling" class="btn btn-success" data-toggle="modal"> Add Sibling</a>
+                                                    </div>
+                                                    <h3 class="panel-title">Siblings</h3>
+                                                </div>
+                                                <div class="panel-body">
+                                                    <div id="log_sibling"></div>
+                                                    <table id="child_siblings" class="table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="20%">ID</th>
+                                                                <th width="40%">Names</th>
+                                                                <th>Sex</th>
+                                                                <th width="30%">DOB</th>
+                                                                <th></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% if siblings %}
+                                                            {% for sibling in siblings %}
+                                                            <tr id="sb_tr_{{ sibling.sibling_person_id }}">
+                                                                <td>
+                                                                <input id="sb_{{ sibling.sibling_person_id }}_cpid" name="sb_{{ sibling.sibling_person_id }}_cpid" value="{{ sibling.sibling_person_id }}" type="hidden">
+                                                                {{ sibling.sibling_person_id }}</td>
+                                                                <td>{{ sibling.sibling_person.full_name }}</td>
+                                                                <td>{{ sibling.sibling_person.sex_id|gen_value:vals }}</td>
+                                                                <td>{{ sibling.sibling_person.date_of_birth }}</td>
+                                                                <td><button id = "{{ sibling.sibling_person_id }}" type="button" class="btn btn-danger remove_sib"><i class="fa fa-trash-o"></i></button></td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% elif osiblings %}
+                                                            {% for sibling in osiblings %}
+                                                            <tr id="sb_tr_{{ sibling.child_person_id }}">
+                                                                <td>
+                                                                <input id="sb_{{ sibling.child_person_id }}_cpid" name="sb_{{ sibling.child_person_id }}_cpid" value="{{ sibling.child_person_id }}" type="hidden">
+                                                                {{ sibling.child_person_id }}</td>
+                                                                <td>{{ sibling.child_person.full_name }}</td>
+                                                                <td>{{ sibling.child_person.sex_id|gen_value:vals }}</td>
+                                                                <td>{{ sibling.child_person.date_of_birth }}</td>
+                                                                <td>-</td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                            {% endif %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                    </div>
+                                    <!-- end row -->
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-4 -->
+                            <!-- begin wizard step-5 -->
+                            <div class="wizard-step-5">
+                                <fieldset>
+                                   <legend class="pull-left width-full" id="ou_ovc">Organisation Units details<small><span id="add_org_info"></span></small></legend>
+                                            <!-- begin row -->
+                                            <div class="row"  id="cbo_chv_add">
+                                                <span class="form-group"></span>
+                                                <div id="cbo_id_div" class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-4" for="cbo_unit_id">CBO <span class="asteriskField">*</span> :</label>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        {{ form.cbo_unit_id  }}
+                                                    </div>
+                                                </div>
+
+                                                <div id="chv_id_div" class="form-group">
+                                                    <label class="control-label col-md-4 col-sm-4" for="chv_unit_id">CHV <span class="asteriskField">*</span> :</label>
+                                                    <div class="col-md-6 col-sm-6">
+                                                        {{ form.chv_unit_id  }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row"  id="parent_org_add"><br><br>
+                                        <div id="log_unit"></div>
+                                        <div id="org_unit_id_div" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="org_unit_id">Organizational Unit <span class="asteriskField">*</span> :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.org_unit_id  }}
+                                            </div>
+                                        </div>
+                                        <div id="org_unit_id_parent" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="unit_parent">Primary Parent Organizational Unit <span class="asteriskField">*</span> :</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.unit_parent }}
+                                            </div>
+                                        </div>
+                                        <div id="org_unit_id_parent" class="form-group">
+                                            <label class="control-label col-md-4 col-sm-4" for="unit_reg_assistant">Registration assistant for this Organizational Unit:</label>
+                                            <div class="col-md-6 col-sm-6">
+                                                {{ form.unit_reg_assistant }}
+                                            </div>
+                                        </div>
+                                        <div id="org_unit_id_add" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="org_unit_primary"></label>
+                                            <div class="col-md-8 col-sm-8">
+                                                {{ form.org_unit_primary }}
+                                                <button type="button" class="btn btn-success" id="add_org_unit"><i class="fa fa-plus"></i> Organisation Unit</button>
+                                            </div>
+                                        </div>
+                                        <table id="org_units" class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Org Unit ID</th>
+                                                    <th>Org Unit</th>
+                                                    <th>Primary parent Org unit</th>
+                                                    <th>Registration assistant for Unit</th>
+                                                    <th>Remove</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for result in org_units %}
+                                                <tr id="unit_tr_{{ result.org_unit_id }}">
+                                                    <td>
+                                                    <input id="ou_{{ result.org_unit_id }}_oid" name="ou_{{ result.org_unit_id }}_oid" value="{{ result.org_unit_id }}" type="hidden">
+                                                    {{ result.org_unit.org_unit_id_vis }}</td>
+                                                    <td>{{ result.org_unit.org_unit_name }}</td>
+                                                    <td>
+                                                    <input id="ou_{{ result.org_unit_id }}_pri" name="ou_{{ result.org_unit_id }}_pri" value="{{ result.primary_unit|yesno:"Yes,No" }}" type="hidden">
+                                                    {{ result.primary_unit|yesno:"Yes,No" }}</td>
+                                                    <td>
+                                                    <input id="ou_{{ result.org_unit_id }}_reg" name="ou_{{ result.org_unit_id }}_reg" value="{{ result.primary_unit|yesno:"Yes,No" }}" type="hidden">
+                                                     {{ result.reg_assistant|yesno:"Yes,No" }}</td>
+                                                    <td><button id = "{{ result.org_unit_id }}" type="button" class="btn btn-danger remove_org"><i class="fa fa-trash-o"></i></button></td>
+                                                </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                        <label for="orgs_selected">Attached Units</label>
+                                        <div id="selected_orgs_div">{{ form.orgs_selected }}</div>
+                                    </div>
+                                    <!-- end row -->
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-5 -->
+                        </div>
+                        <!--- End Wizard Block -->
+                    </div>
+                </div>
+                <input type='radio' class="edit_person" name='edit_person' value="2"> Person died.
+                    <div id="cdate" class="form-group">
+                        <label class="control-label col-md-4 col-sm-4" for="date_of_death">Date of Death :</label>
+                        <div class="col-md-4 col-sm-4">
+                            {{ form.date_of_death }}
+                        </div>
+                    </div>
+                <div class="separator"></div>
+                <input type='radio' class="edit_person" name='edit_person' value="3"> Person never existed. (Registration mistake or duplicate.)
+                <div class="separator"><p></p></div>
+
+                <!-- begin panel -->
+                <div class="row" id="audit_detail_div">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="panel-heading-btn">
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-plus"></i></a>
+                        </div>
+                        <h4 class="panel-title">Audit Trails</h4>
+                    </div>
+                    <div class="panel-body collapse">
+                        <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Person recorded on paper</th>
+                                            <th>Paper date</th>
+                                            <th>Person recorded electronically</th>
+                                            <th>Electronic date time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for audit in audits %}
+                                        <tr>
+                                            <td>{{ audit.person_recorded_paper.first_name }}
+                                             {{ audit.person_recorded_paper.surname }}</td>
+                                            <td>{{ audit.date_recorded_paper }}</td>
+                                            <td>{{ audit.app_user.reg_person.first_name }}
+                                            {{ audit.app_user.reg_person.surname }}</td>
+                                            <td>{{ audit.timestamp_modified }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                    </div>
+                </div>
+                <!-- end panel -->   
+                        
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="audit_workforce">Workforce member recorded on paper :<span class="asteriskField">*</span></label>
+                                {{ form.audit_workforce }}
+                                {{ form.workforce_id }}
+                            </div>
+                        </div>
+                        <!-- begin col-6 -->
+                        <div class="col-md-6">
+                            <div class="form-group col-md-6">
+                                <label for="audit_date">Date paper form filled :<span class="asteriskField">*</span></label>
+                                {{ form.audit_date }}
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                                <a href="{% url 'search_persons' %}">
+                                <button type="button" class="btn btn-default">Cancel</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="caregiver_new"></div>
+                </div>
+                <!-- end panel -->
+            </div>
+            <!-- end col-6 -->
+        <div class="modal fade" id="modal-sibling">
+            <div class="modal-dialog">
+                <div class="modal-content form-horizontal form-bordered">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Add Sibling</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                <div id="log_cg"></div>
+                                    <div id="caregiver_id_adult" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="caregiver_id">CPIMS registered child:</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.is_cpims_sibling }}
+                                        </div>
+                                    </div>
+                                    <div id="sibling_search_div" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="caregiver_id">Search Child:</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            {{ form.sibling_id }}
+                                            <div id="my-siblings"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider pull-left width-full"></div>
+                                <div class="row">
+                                    <!-- end col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group block1">
+                                            <label>First Name <span class="asteriskField">*</span>:</label>
+                                            {{ form.sibling_firstname }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Surname <span class="asteriskField">*</span>:</label>
+                                            {{ form.sibling_surname }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Other Name(s)</label>
+                                            {{ form.sibling_othernames }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                </div>
+                                <div class="divider pull-left width-full"></div>
+                                <div class="row">
+                                    <!-- end col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group block1">
+                                            <label>Date of Birth :</label>
+                                            {{ form.sibling_dob }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Sex <span class="asteriskField">*</span>:</label>
+                                            {{ form.sibling_gender }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Class <span class="asteriskField">*</span>:</label>
+                                            {{ form.sibling_class }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                </div>
+                                <div class="divider pull-left width-full"></div>
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 col-sm-4" for="sibling_remark">Remarks :</label>
+                                    <div class="col-md-8 col-sm-8">
+                                        {{ form.sibling_remark }}
+                                        {{ form.sibling_cpims_id }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="proc_sibling"><i class="fa fa-plus"></i> Proceed</button>
+                            <button type="button" class="btn btn-success" id="add_sibling"><i class="fa fa-plus"></i> Sibling</button>
+                            <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+        <div class="modal fade" id="modal-caregiver">
+            <div class="modal-dialog">
+                <div class="modal-content form-horizontal form-bordered">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title">Attach a caregiver</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div id="log"></div>
+                                    <div id="caregiver_cpims" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="caregiver_id">CPIMS registered caregiver:</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.is_cpims_caregiver }}
+                                        </div>
+                                    </div>
+                                    <div id="caregiver_search_div" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="caregiver_id">Search Caregiver:</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            {{ form.caregiver_id }}
+                                            <div id="my-caregiver"></div>
+                                        </div>
+                                    </div>
+                                    <div id="caregiver_id_adult" class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4" for="caregiver_id">No adult caregiver:</label>
+                                        <div class="col-md-6 col-sm-6">
+                                            {{ form.no_adult_caregiver }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="divider pull-left width-full"></div>
+                                <div class="row">
+                                    <!-- end col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group block1">
+                                            <label>First Name <span class="asteriskField">*</span>:</label>
+                                            {{ form.caregiver_firstname }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Surname <span class="asteriskField">*</span>:</label>
+                                            {{ form.caregiver_surname }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Other Name(s)</label>
+                                            {{ form.caregiver_othernames }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                </div>
+                                <div class="divider pull-left width-full"></div>
+                                <div class="row">
+                                    <!-- end col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group block1">
+                                            <label>Date of Birth :</label>
+                                            {{ form.caregiver_dob }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Sex <span class="asteriskField">*</span>:</label>
+                                            {{ form.caregiver_gender }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Relationship with child <span class="asteriskField">*</span>:</label>
+                                            {{ form.relationship_type_id }}
+                                            {{ form.sibling_cpims_id }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                </div>
+                                <div class="divider pull-left width-full"></div>
+                                {% if request.session.reg_ovc %}
+                                <div class="row">
+                                    <!-- end col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group block1">
+                                            <label>National ID No. <span class="asteriskField">*</span>:</label>
+                                            {{ form.caregiver_idno }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                    <!-- begin col-4 -->
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Mobile Number:</label>
+                                            {{ form.caregiver_tel }}
+                                        </div>
+                                    </div>
+                                    <!-- end col-4 -->
+                                </div>
+                                <div class="divider pull-left width-full"></div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="add_caregiver"><i class="fa fa-plus"></i> Caregiver</button> 
+                            <a href="#" class="btn btn-sm btn-white" data-dismiss="modal">Close</a>
+                        </div>
+                    </div>
+                </div>
+            </div>          
+        </div>
+    </form>
+</div>
+<!-- end row -->
+{% endblock primary %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/bootstrap-multiselect.js' %}"></script>
+<script>
+jQuery(document).ready(function() {
+    //Hide these <divs> on page_load()
+    //No need for check window load
+    var person_type = $("#person_type").val();
+    var person_text = $("#person_type option:selected").text();
+    handle_persons(person_type, person_text);
+    handle_titles(person_type);
+    var country_id = $("#country_id").val();
+    handle_country(country_id);
+
+    //Handle cadres
+    var title_type = $('#title_type').val();
+    handle_cadres(title_type);
+
+    $("#country_id").change(function(e) {
+        var country_id = $("#country_id").val();
+        handle_country(country_id);
+    });
+
+    $("#title_type").change(function(e) {
+        var title_type = $("#title_type").val();
+        handle_cadres(title_type);
+    });
+    $(':input[name="child_ovc"]').click(function(){
+        var child_ovc = $('input[name=child_ovc]:checked').val();
+        if (child_ovc == 'AYES'){
+            $('#other_names').attr('data-parsley-required', 'true');   
+        }
+    });
+    // autofill with today
+    $('#audit_date').val('{{ todate }}');
+
+    //This is for regions
+    check_region('{{ region_id }}');
+
+    //
+    {% if child_ovc == 'AYES' %}
+    $(':input[name="child_ovc"]').click(function(){
+        $('#messages').show();
+        $('#messages').html("Child OVC status can not be changed.");
+        return false;
+    });
+    $('#other_names').attr('data-parsley-required', 'true');
+    {% endif %}
+
+    FormWizardValidation.init();
+
+    $('#org_unit_id, #working_in_subcounty, #working_in_county').multiselect({
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        disableIfEmpty: true,
+        enableClickableOptGroups: true,
+        buttonClass: 'btn btn-white'
+    });
+    $('#working_in_ward').multiselect({
+        selectAllValue: 'multiselect-all',
+        includeSelectAllOption: true,
+        enableCaseInsensitiveFiltering: true,
+        numberDisplayed: 1,
+        maxHeight: 300,
+        buttonWidth: '100%',
+        disableIfEmpty: true,
+        enableClickableOptGroups: true,
+        buttonClass: 'btn btn-white'
+    });
+    // Default behaviour for sibling
+    if ($('#id_is_cpims_sibling').is(":checked")){
+        $('#sibling_search_div').show();
+    }else{
+        $('#sibling_search_div').hide();
+    }
+
+    // Default behaviour for caregivers
+    if ($('#id_is_cpims_caregiver').is(":checked")){
+        $('#caregiver_search_div').show();
+    }else{
+        $('#caregiver_search_div').hide();
+    }
+
+    // Rebuild this
+    $('#org_unit_id').multiselect('rebuild');
+
+    // Event for checking the is CPIMS sibling
+    $("#id_is_cpims_sibling").change(function() {
+        if(this.checked) {
+            $('#sibling_search_div').show();
+        }else{
+            $('#sibling_search_div').hide();
+            clear_siblings();
+        }
+    });
+
+    // Event for checking the is CPIMS caregiver
+    $("#id_is_cpims_caregiver").change(function() {
+        if(this.checked) {
+            $('#caregiver_search_div').show();
+        }else{
+            $('#caregiver_search_div').hide();
+            clear_guardian();
+        }
+    });
+
+    //Duplicates buttons
+    $('#proc_sibling').hide();
+
+    $('#person_type').change(function() {
+        var person_type = $("#person_type").val();
+        var person_text = $("#person_type option:selected").text();
+        handle_persons(person_type, person_text);   
+        handle_titles(person_type);
+        $('#cadre_type').empty();
+    });
+
+    $('#living_in_subcounty, #living_in_ward, #living_in_county').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            maxHeight: 300,
+            checked: false,
+            deselectAll: true,
+            buttonWidth: '100%',
+            disableIfEmpty: true,
+            enableClickableOptGroups: true,
+            buttonClass: 'btn btn-white'
+            });
+
+    $('#add_caregiver').click(function() {
+        //id_no_adult_caregiver
+        var rel_type_id = $("#relationship_type_id").val();
+        var rel_type = $("#relationship_type_id option:selected").text();
+        var caregiver_cpims = $("#caregiver_cpims_id").val();
+        var grid_cpims = $("#cc_"+caregiver_cpims+"_cpid").val();
+
+        var c_fname = $("#id_caregiver_firstname").val();
+        var c_sname = $("#id_caregiver_surname").val();
+        var c_oname = $("#id_caregiver_othernames").val();
+        var c_gender = $("#caregiver_gender_id").val();
+        var c_dob = $("#caregiver_dob").val();
+        var child_subcounty = $("#living_in_subcounty").val();
+
+        if ($('#id_is_cpims_caregiver').is(":checked")){
+            var is_cpims = 'Yes';
+            var caregiver = $("#caregiver_id").val();
+        }else{
+            var is_cpims = 'No';
+            var caregiver = c_fname + ' ' + c_sname;
+        }
+
+        if ($('#id_no_adult_caregiver').is(":checked")){
+            var is_adult = 'No';
+        }else{
+            var is_adult = 'Yes';
+        }
+        var c_idno;
+        $('#log').empty();
+        $("#log").addClass( "alert alert-danger fade in" );
+        if ((c_fname == '') || (c_sname == '')){
+           $('#log').html('Please provide first name and surname.');
+           return false;
+        }
+        if (is_cpims == 'Yes'){
+            if ((caregiver_cpims == '') || (caregiver_cpims_id == '')){
+               $('#log').html('Search for caregiver.');
+               return false;
+            }
+        }else{
+            $("#caregiver_cpims_id").val('0');
+        }
+        if (c_gender == ''){
+           $('#log').html('Please select Sex');
+           return false;
+        }
+        if (rel_type_id == ''){
+           $('#log').html('Please select Relationship');
+           return false;
+        }
+        {% if request.session.reg_ovc %}
+        var c_idno = $("#caregiver_idno").val();
+        c_tel = $("#caregiver_tel").val();
+        if (c_idno == ''){
+           $('#log').html('Please enter National ID for Caregiver.');
+           return false;
+        }
+        {% else %}
+        var c_idno = '';
+        var c_tel = '';
+        {% endif %}
+        if (child_subcounty == ''){
+           $('#log').html('Please select living in sub county for the child first before attaching caregivers.');
+           return false;
+        }
+        if (typeof grid_cpims !== 'undefined'){
+           $('#log').html('Caregiver already added. '+ caregiver_cpims);
+           //clear_guardian();
+           return false;
+        }
+       var caregiver_cpims = $("#caregiver_cpims_id").val();
+       $("#log").removeClass( "alert alert-danger fade in" );
+
+       var cbtn = '<button id = "'+caregiver_cpims+'" type="button" class="btn btn-danger remove_cg"><i class="fa fa-trash-o"></i></button>';
+
+       chtml = '<tr id="gd_tr_'+caregiver_cpims+'">';
+       chtml += '<td><input id="cc_'+caregiver_cpims+'_cpid" name="cc_'+caregiver_cpims+
+       '_cpid" value="'+caregiver_cpims+'" type="hidden">';
+       chtml += '<span id="cc_'+caregiver_cpims+'_did">'+ caregiver_cpims +
+       '</span></td><td>'+ caregiver +'</td>';
+       chtml += '<td><input id="cc_'+caregiver_cpims+'_ctype" name="cc_'+caregiver_cpims+
+       '_ctype" value="'+rel_type_id+'" type="hidden">'+ rel_type +'</td>';
+       chtml += '<td><input id="cc_'+caregiver_cpims+'_adult" name="cc_'+caregiver_cpims+
+       '_adult" value="'+is_adult +'" type="hidden">';
+       chtml += '<input id="cc_'+caregiver_cpims+'_gender" name="cc_'+caregiver_cpims+
+       '_gender" value="'+ c_gender +'" type="hidden">';
+       chtml += '<input id="cc_'+caregiver_cpims+'_dob" name="cc_'+caregiver_cpims+
+       '_dob" value="'+ c_dob +'" type="hidden">';
+       chtml += '<input id="cc_'+caregiver_cpims+'_fname" name="cc_'+caregiver_cpims+
+        '_fname" value="'+ c_fname +'" type="hidden">';
+       chtml += '<input id="cc_'+caregiver_cpims+'_sname" name="cc_'+caregiver_cpims+
+       '_sname" value="'+ c_sname +'" type="hidden">';
+       chtml += '<input id="cc_'+caregiver_cpims+'_oname" name="cc_'+
+        caregiver_cpims+'_oname" value="'+ c_oname +'" type="hidden">';
+       chtml += '<input id="cc_'+caregiver_cpims+'_idno" name="cc_'+caregiver_cpims+
+       '_idno" value="'+ c_idno +'" type="hidden">';
+       chtml += '<input id="cc_'+caregiver_cpims+'_tel" name="cc_'+caregiver_cpims
+       +'_tel" value="'+ c_tel +'" type="hidden">';
+       chtml += is_adult +'</td><td>'+ cbtn +'</td></tr>';
+       $('#caregivers tbody').append(chtml);
+       $.ajax({
+           type: "POST",
+           url: "{% url 'person_actions' %}",
+           data: $("#edit_person").serialize() + "&edit_type=3",
+           success: function(data)
+           {
+               if (caregiver_cpims == '0'){
+                   var cp_id = data.caregiver_id;
+                   $("#cc_0_cpid").val(cp_id);
+                   $("#cc_0_did").html(cp_id);
+               }
+               $("#log_cgiver").addClass( "alert alert-success fade in" );
+               $('#log_cgiver').html('Caregiver attached Successfully');
+               // Set all fields to blank
+               clear_guardian();
+           },
+            error: function(){
+                $("#log_cgiver").addClass( "alert alert-danger fade in" );
+                $('#log_cgiver').html("Error attaching caregiver")
+            }
+         });
+       $('#modal-caregiver').modal('hide');
+    });
+    $('#add_sibling, #proc_sibling').click(function() {
+        //id_no_adult_caregiver
+        var clicked = $(this).attr('id');
+        var sibling_fname = $("#id_sibling_firstname").val();
+        var sibling_sname = $("#id_sibling_surname").val();
+        var sibling_oname = $("#id_sibling_othernames").val();
+        var gender_id = $("#sibling_gender_id").val();
+        var gender = $("#sibling_gender_id option:selected").text();
+        var sclass_id = $("#sibling_class_id").val();
+        var sclass = $("#sibling_class_id option:selected").text();
+        var remarks = $("#id_sibling_remark").val();
+        var sibling_dob = $("#sibling_dob").val();
+        var cpims_child_id = $("#sibling_cpims_id").val();
+        //Will use names for validation
+        var names = sibling_fname +' '+ sibling_sname +' '+ sibling_oname;
+        var sibling_cpims = names.replace(/\W/g, '').toLowerCase();
+        var person_type = $("#person_type").val();
+
+        //var sibling_cpims = $("#sibling_cpims_id").val();
+        var grid_sibling = $("#sb_"+ sibling_cpims +"_names").val();
+        var grid_sibcpims = $("#sb_"+cpims_child_id+"_cpid").val();
+
+        $('#log_cg').empty();
+        $("#log_cg").addClass( "alert alert-danger fade in" );
+        if ($('#id_is_cpims_sibling').is(":checked")){
+            var is_cpims = cpims_child_id;
+        }else{
+            var is_cpims = '-';
+        }
+        if ((is_cpims == 'Yes') && (cpims_child_id == '')){
+           $('#log_cg').html('Please use the search if child exists in CPIMS.');
+           return false;
+        }
+        if ((sibling_fname == '') || (sibling_sname == '')){
+           $('#log_cg').html('Please provide first name and surname.');
+           return false;
+        }
+        if (gender_id == ''){
+           $('#log_cg').html('Please select sibling Sex.');
+           return false;
+        }
+        if (sclass_id == ''){
+           $('#log_cg').html('Please select sibling class.');
+           return false;
+        }
+        if (typeof grid_sibling !== 'undefined'){
+           $('#log_cg').html('Sibling '+ names +' already added.'+grid_sibling);
+           //clear_siblings();
+           return false;
+        }
+        if (typeof grid_sibcpims !== 'undefined'){
+           $('#log_cg').html('2. Sibling '+ names +' already added.'+grid_sibcpims);
+           //clear_siblings();
+           return false;
+        }
+        var cpims_child_new = $("#sibling_cpims_id").val();
+        $("#log_cg").removeClass( "alert alert-danger fade in" );
+
+        // Check if this child is a duplicate
+        var sibArray = new Array();
+        sibArray[0] = sibling_cpims;
+        sibArray[1] = cpims_child_id;
+        sibArray[2] = is_cpims;
+        sibArray[3] = names;
+        sibArray[4] = gender_id;
+        sibArray[5] = gender;
+        sibArray[6] = sibling_dob;
+        sibArray[7] = remarks;
+        sibArray[8] = sclass_id;
+        sibArray[9] = cpims_child_new;
+        if ((clicked == 'add_sibling') && (cpims_child_id == '') && (person_type == 'TBVC')){
+            $.ajax({
+               type: "POST",
+               url: "{% url 'person_actions' %}",
+               data: $("#edit_person").serialize() + "&edit_type=8",
+               success: function(data)
+               {
+                   var status_id = data.status;
+                   save_child_sibling(status_id, sibArray);
+               },
+                error: function(){
+                    $("#log_cg").addClass( "alert alert-danger fade in" );
+                    $('#log_cg').html("Error checking if child is duplicate");
+                }
+             });
+        }else{
+            save_child_sibling(0, sibArray);
+        }
+
+    });
+    
+    $('#add_org_unit').click(function() {
+        $('#log_unit').empty();
+        var org_unit_id = $("#org_unit_id").val();
+        var check_primary = $("#org_unit_primary").val();
+        var org_unit = $("#org_unit_id option:selected").text();
+        var primary_unit = $('input[name=unit_parent]:checked', '#edit_person').val();
+        var reg_assistant = $('input[name=unit_reg_assistant]:checked', '#edit_person').val();
+        var org_unit_vals = org_unit.split(/ - (.+)?/);
+        var org_unit_id_vis = org_unit_vals[0];
+        var org_unit_name = org_unit_vals[1];
+        var grid_oid = $("#ou_"+org_unit_id+"_oid").val();       
+        var btn = '<button id = "'+org_unit_id+'" type="button" class="btn btn-danger remove_org"><i class="fa fa-trash-o"></i></button>';
+        $("#log_unit").addClass( "alert alert-danger fade in" );
+        if (org_unit_id == '') {
+           $('#log_unit').html('Please select organisation unit.');
+           return false;
+        }       
+        if (typeof primary_unit === 'undefined'){
+           $('#log_unit').html('Please check if unit is primary');
+           return false;
+        }
+        if (typeof reg_assistant === 'undefined'){
+           $('#log_unit').html('Please check person is registration assistant.');
+           return false;
+        }
+        if (typeof grid_oid !== 'undefined'){
+           $('#log_unit').html('Organizational unit already added.');
+           return false;
+        }
+        if ((check_primary != '') && (primary_unit == 'AYES')) {
+           $('#log_unit').html('Primary organisation unit is already set.');
+           return false;
+        }
+        // For controlling Primary check
+        if (primary_unit == 'AYES'){
+            $("#org_unit_primary").val(org_unit_id);  
+        }
+        $("#log_unit").removeClass( "alert alert-success fade in" );
+        $("#log_unit").removeClass( "alert alert-danger fade in" );
+        $("#log_unit").empty();
+        var pri_unt = (primary_unit == 'AYES' ? "Yes" : "No");
+        var reg_ass = (reg_assistant == 'AYES' ? "Yes" : "No");
+       $('#org_units tbody').append(
+        '<tr id="unit_tr_'+ org_unit_id +'"><td><input id="ou_'+org_unit_id+'_oid" name="ou_'+org_unit_id+'_oid" value="'+org_unit_id+'" type="hidden" class="my_ou">'+ org_unit_id_vis +
+        '</td><td>'+ org_unit_name +
+        '</td><td><input id="ou_'+org_unit_id+'_pri" name="ou_'+org_unit_id+'_pri" value="'+primary_unit+'" type="hidden">'+ pri_unt +
+        '</td><td><input id="ou_'+org_unit_id+'_reg" name="ou_'+org_unit_id+'_reg" value="'+reg_assistant+'" type="hidden">'+ reg_ass +
+        '</td><td>'+ btn +
+        '</td></tr>');
+       var sel_orgs = $("#id_orgs_selected").val();
+       if (sel_orgs != ''){
+           var newText = sel_orgs.split(",");
+        }else{
+            var newText = [];
+        }
+       var newtxt = newText.push(org_unit_name);
+       var conv = [];
+
+        for(var i = 0; i < newtxt.length; ++i)
+        {
+            conv.push(newtxt[i]);
+        }
+       // var ftxt = conv.join();
+       $("#id_orgs_selected").val(newText);
+        $.ajax({
+           type: "POST",
+           url: "{% url 'person_actions' %}",
+           data: $("#edit_person").serialize() + "&edit_type=1",
+           success: function(data)
+           {
+               $("#log_unit").addClass( "alert alert-success fade in" );
+               $('#log_unit').html('Record saved Successfully');
+           },
+            error: function(){
+                $("#log_unit").addClass( "alert alert-danger fade in" );
+                $('#log_unit').html("Error saving record")
+            }
+         });
+    });
+
+    $("#org_units").delegate(".remove_org", "click", function() {
+        var id = $(this).attr('id');
+        var check_primary = $("#org_unit_primary").val();
+        if (id == check_primary){
+            $("#org_unit_primary").val('');   
+        }
+       $("#unit_tr_" + id + "").remove();
+       $.ajax({
+           type: "POST",
+           dataType: "json",
+           url: "{% url 'person_actions' %}",
+           data: $("#edit_person").serialize() + "&edit_type=2&org_unit_id="+id,
+           success: function(data)
+           {
+               var org_unit_name = data.org_unit_name;
+               var message = data.message;
+               $("#log_unit").addClass( "alert alert-success fade in" );
+               $('#log_unit').html(message);
+
+               // Remove some values from the display div
+               var sel_orgs = $("#id_orgs_selected").val();
+               if (sel_orgs != ''){
+                   var newText = sel_orgs.split(",");
+                }else{
+                    var newText = [];
+                }
+               var newtxt = newText.pop(org_unit_name);
+               var conv = [];
+
+                for(var i = 0; i < newtxt.length; ++i)
+                {
+                    conv.push(newtxt[i]);
+                }
+               // var ftxt = conv.join();
+               $("#id_orgs_selected").val(newText);
+           },
+            error: function(){
+                $("#log_unit").addClass( "alert alert-danger fade in" );
+                $('#log_unit').html("Error removing record")
+            }
+         });
+    });
+
+    $("#caregivers").delegate(".remove_cg", "click", function() {
+        var id = $(this).attr('id');
+       $("#gd_tr_"+id+"").remove();
+       $.ajax({
+           type: "POST",
+           url: "{% url 'person_actions' %}",
+           data: $("#edit_person").serialize() + "&edit_type=5&guardian_id="+id,
+           success: function(data)
+           {
+               $("#log_cgiver").addClass( "alert alert-success fade in" );
+               $('#log_cgiver').html('Caregiver removed Successfully');
+           },
+            error: function(){
+                $("#log_cgiver").addClass( "alert alert-danger fade in" );
+                $('#log_cgiver').html("Error removing caregiver record")
+            }
+         });
+    });
+
+    $("#child_siblings").delegate(".remove_sib", "click", function() {
+       var id = $(this).attr('id');
+       $("#sb_tr_"+id+"").remove();
+       $.ajax({
+           type: "POST",
+           url: "{% url 'person_actions' %}",
+           data: $("#edit_person").serialize() + "&edit_type=10&sibling_id="+id,
+           success: function(data)
+           {
+               $("#log").addClass( "alert alert-success fade in" );
+               $('#log').html('Sibling removed Successfully');
+           },
+            error: function(){
+                $("#log").addClass( "alert alert-danger fade in" );
+                $('#log').html("Error removing sibling record")
+            }
+         });
+    });
+
+    $( "#caregiver_id" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+          url: "{% url 'registry' %}",
+          dataType: "json",
+          data: {q: request.term, id: 0},
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 4,
+      select: function( event, ui ) {
+        $('#log').empty();
+        $('#caregiver_cpims_id').val(ui.item.id);
+        $("#caregiver_gender_id").val(ui.item.gender);
+        $("#caregiver_dob").val(ui.item.dob);
+        $("#id_caregiver_firstname").val(ui.item.fname);
+        $("#id_caregiver_surname").val(ui.item.sname);
+        $("#id_caregiver_othernames").val(ui.item.onames);
+        $("#caregiver_idno").val(ui.item.idno);
+        $("#caregiver_tel").val(ui.item.tel);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+
+    // To get workforce
+    $( "#audit_workforce_id" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+          url: "{% url 'registry' %}",
+          dataType: "json",
+          data: {q: request.term, id: 3},
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 4,
+      select: function( event, ui ) {
+         $('#workforce_id').val(ui.item.id);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+
+
+    // To get siblings
+    $( "#cpims_child_id" ).autocomplete({
+        source: function( request, response ) {
+        $.ajax({
+          url: "{% url 'registry' %}",
+          dataType: "json",
+          data: {q: request.term, id: 1},
+          success: function( data ) {
+            response( data );
+          }
+        });
+      },
+      minLength: 4,
+      appendTo: "#my-siblings",
+      select: function( event, ui ) {
+        $('#log_cg').empty();
+        $('#sibling_cpims_id').val(ui.item.id);
+        $("#sibling_gender_id").val(ui.item.gender);
+        $("#sibling_dob").val(ui.item.dob);
+        $("#id_sibling_firstname").val(ui.item.fname);
+        $("#id_sibling_surname").val(ui.item.sname);
+        $("#id_sibling_othernames").val(ui.item.onames);
+      },
+      open: function() {
+        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+      },
+      close: function() {
+        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+      }
+    });
+
+    // Edit controls
+    $("#cdate").hide();
+    $("#edit_person_1").prop("checked", true);
+    $(".edit_person").click(function(e) {
+        var res = $('input[name=edit_person]:checked', '#edit_person').val();
+        if (res == '2'){
+           $("#edit_part").hide();
+           $("#cdate").show();
+           $("#editdate").prop("readonly", false);
+           $("#mysubmit").addClass( "btn-primary" ).removeAttr("disabled");
+           $('#edit_person').parsley({excluded: 'select'});
+           $('#date_of_death').attr('data-parsley-required', 'true');
+        }else if (res == '1'){
+           $("#edit_part").show();
+           $("#cdate").hide();
+           $("#editdate").prop("readonly", true);
+           $("#mysubmit").addClass( "btn-primary" ).removeAttr("disabled");
+           $('#date_of_death').attr('data-parsley-required', 'false');
+           //$('#new_person').parsley();
+        }else{
+           $("#edit_part").hide();
+           $("#cdate").hide();
+           $("#editdate").prop("readonly", true);
+           $("#mysubmit").addClass( "btn-primary" ).removeAttr("disabled");
+           $('#date_of_death').attr('data-parsley-required', 'false');
+           $('#edit_person').parsley().destroy();
+       }
+    });
+
+    // Cascading drop down for working in counties
+    $("#working_in_county").change(function(e) {
+        var county = $("#working_in_county").val();
+        var sub_county = $("#working_in_subcounty").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': sub_county, 'filter': 1,
+                      'county': county, 'action': 2,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#working_in_subcounty').empty();
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                var geos = data.selects.split(',');
+                //$('#working_in_ward').html("<option value=''>Please Select</option>");           
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    var geo_id = ward_attribs[0];
+                    var selected = (($.inArray(geo_id, geos) > -1) ? "selected" : '');
+                    if (selected == "selected"){
+                        $('#working_in_subcounty')
+                            .append($("<option></option>")
+                            .attr("value", geo_id)
+                            .attr("selected", "selected")
+                            .text(ward_attribs[1]));
+                    }else{
+                        $('#working_in_subcounty')
+                            .append($("<option></option>")
+                            .attr("value", geo_id)
+                            .text(ward_attribs[1]));
+                    }
+                 });
+                 $('#working_in_subcounty').multiselect('rebuild');
+                 change_ward();
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    });
+
+    // Cascading drop down for working in sub-counties
+    $("#working_in_subcounty").change(function(e) {
+        change_ward();
+    });
+
+    function change_ward(){
+        var sub_county = $("#working_in_subcounty").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': sub_county,
+                      'county': 0, 'action': 1,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#working_in_ward').empty();
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                var geos = data.selects.split(',');
+                //$('#working_in_ward').html("<option value=''>Please Select</option>");           
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    var ward_attribs = wards[i].split(",");
+                    var geo_id = ward_attribs[0];
+                    var selected = (($.inArray(geo_id, geos) > -1) ? "selected" : '');
+                    if (selected == "selected"){
+                        $('#working_in_ward')
+                            .append($("<option></option>")
+                            .attr("value", geo_id)
+                            .attr("selected", "selected")
+                            .text(ward_attribs[1]));
+                    }else{
+                        $('#working_in_ward')
+                            .append($("<option></option>")
+                            .attr("value", ward_attribs[0])
+                            .text(ward_attribs[1]));
+                    }
+                 });
+                 $('#working_in_ward').multiselect('rebuild');
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    }
+
+    // Cascading drop down
+    $("#living_in_subcounty").change(function(e) {
+        var sub_county = $("#living_in_subcounty").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': sub_county,
+                      'county': 0, 'action': 4,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#living_in_ward').empty();
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                $('#living_in_ward').html("<option value=''>Please Select</option>");           
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    $('#living_in_ward')
+                        .append($("<option></option>")
+                        .attr("value", ward_attribs[0])
+                        .text(ward_attribs[1]));
+                 });
+                 $('#living_in_ward').multiselect('rebuild');
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    });
+});
+
+function save_child_sibling(status_id, sibArray){
+    if (status_id == 0){
+        $('#proc_sibling').hide();
+        $('#add_sibling').show();
+        $('#log_cg').empty();
+        // Need to populate my grid here
+        sib_ims = sibArray[0];
+        cpims_child_id = sibArray[1];
+        is_cpims = sibArray[2];
+        names = sibArray[3];
+        gender_id = sibArray[4];
+        gender = sibArray[5];
+        sibling_dob = sibArray[6];
+        remarks = sibArray[7];
+        sclass_id = sibArray[8];
+        cpims_child_new = sibArray[9];
+        var sib_names = names.replace(/\s+/g, '|').toLowerCase();
+        rm_btn = '<button id = "'+cpims_child_new+'" type="button" class="btn btn-danger remove_sib"><i class="fa fa-trash-o"></i></button>';
+        sib_html = '<tr id="sb_tr_'+cpims_child_new+'">';        
+        sib_html +='<td><input id="sb_'+sib_ims+'_sbid" name="sb_'+sib_ims+'_sbid" value="';
+        sib_html += cpims_child_id+'" type="hidden"><span id="sb_'+sib_ims+'_did">'+ cpims_child_new + '</span>';
+        sib_html += '</td><input id="sb_'+sib_ims+'_names" name="sb_'+sib_ims+'_names" value="'+sib_names;
+        sib_html += '" type="hidden"><td>'+ names;
+        sib_html += '</td><td><input id="sb_'+sib_ims+'_sex" name="sb_'+sib_ims+'_sex" value="'+gender_id;
+        sib_html += '" type="hidden">'+ gender;
+        sib_html += '</td><td><input id="sb_'+sib_ims+'_dob" name="sb_'+sib_ims+'_dob" value="';
+        sib_html += sibling_dob+'" type="hidden">'+ sibling_dob;
+        sib_html += '<input id="sb_'+sib_ims+'_rmk" name="sb_'+sib_ims+'_rmk" value="'+remarks;
+        sib_html += '" type="hidden"><input id="sb_'+sib_ims+'_slevel" name="sb_'+sib_ims+'_slevel" value="';
+        sib_html += sclass_id+'" type="hidden"></td><td>'+rm_btn+'</td></tr>';
+        $('#child_siblings tbody').append(sib_html);
+       $.ajax({
+           type: "POST",
+           url: "{% url 'person_actions' %}",
+           data: $("#edit_person").serialize() + "&edit_type=4",
+           success: function(data)
+           {
+                if(data.sibling_id){
+                   var cp_id = data.sibling_id;
+                   $('#sb_'+sib_ims+'_sbid').val(cp_id);
+                   $('#sb_'+sib_ims+'_did').html(cp_id);
+               }
+               clear_siblings();              
+               $("#log_sibling").addClass( "alert alert-success fade in" );
+               $('#log_sibling').html('Sibling added Successfully');
+           },
+            error: function(){
+                $("#log_sibling").addClass( "alert alert-danger fade in" );
+                $('#log_sibling').html("Error adding sibling")
+            }
+         });
+       $('#modal-sibling').modal('hide');
+    }else{
+        $('#proc_sibling').show();
+        $('#add_sibling').hide();
+        $("#log_cg").addClass( "alert alert-danger fade in" );
+        $('#log_cg').html('Child is a possible duplicate ('+status_id+'). Proceed if OK.');
+    }
+}
+
+function clear_siblings(){
+   $("#id_sibling_firstname").val('');
+   $("#id_sibling_surname").val('');
+   $("#id_sibling_othernames").val('');
+   $("#sibling_gender_id").val('');
+   $("#sibling_class_id").val('');
+   $("#id_sibling_remark").val('');
+   $("#sibling_dob").val('');
+   $("#sibling_cpims_id").val('');
+   $("#cpims_child_id").val('');
+   $('#id_is_cpims_sibling').attr('checked', false);
+   $('#sibling_search_div').hide();
+   $('#proc_sibling').hide();
+   $('#add_sibling').show();
+   //
+}
+
+function clear_guardian(){
+   $("#relationship_type_id").val('');
+   $("#caregiver_cpims_id").val('');
+   $("#id_caregiver_firstname").val('');
+   $("#id_caregiver_surname").val('');
+   $("#id_caregiver_othernames").val('');
+   $("#caregiver_gender_id").val('');
+   $("#caregiver_dob").val('');
+   $('#caregiver_search_div').hide();
+   $('#id_is_cpims_caregiver').attr('checked', false);
+   $('#caregiver_search_div').hide(); 
+   $('#caregiver_idno').val('');
+   $('#caregiver_tel').val('');
+}
+
+
+function handle_persons(person_type, person_text){
+    var person_type = (typeof person_type === 'undefined') ? 'default' : person_type;
+    handle_ovc(person_type);
+    $("#child_services_0").prop("checked", true);
+    //Child
+    if (person_type == 'TBVC')
+    {
+        handle_child();
+    }
+
+    //Caregiver
+    else if (person_type == 'TBGR')
+    {
+        handle_caregiver(person_text);
+    }
+
+    //Volunteer
+    else if (person_type == 'TWVL')
+    {
+         handle_volunteer(person_text);
+    }
+
+    //Government Employee
+    else if (person_type == 'TWGE')
+    {
+        handle_government(person_text); 
+    }
+
+    //NGO/private sector employee
+    else if (person_type == 'TWNE')
+    {
+        handle_ngo_private(person_text);
+    }
+
+    //Default page
+    else
+    {
+        handle_default();
+    }
+}
+
+function handle_default(){
+    $('#national_id_div').hide();
+    $('#national_id').attr('data-parsley-required', 'false');
+
+    $('#staff_id_div').hide();
+    $('#staff_id').attr('data-parsley-required', 'false');
+
+    $('#birth_reg_id_div').hide();
+    $('#given_name_div').hide();
+    $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+    $('#caregiver_add').hide();
+    $('#caregiver_id').attr('data-parsley-required', 'false');
+    $('#relationship_type_id').attr('data-parsley-required', 'false');
+    $('#caregiver_info').empty();
+
+    $('#org_unit_id_div').hide();
+    $('#add_org_info').empty();
+    $('#id_orgs_selected').attr('data-parsley-required', 'false');
+
+    $('#cadre_type_div').hide(); 
+    $('#cadre_type').attr('data-parsley-required', 'false');
+    $('#title_type_div').hide(); 
+    $('#title_type').attr('data-parsley-required', 'false');
+
+    $('#provides_service').show();
+    $('#child_services_0').attr('data-parsley-required', 'true');
+    $('#child_services_1').attr('data-parsley-required', 'true');
+    $('#child_service').attr('data-parsley-required', 'true');
+
+    $('#working_in_region_div').show();
+    $('.working_region').attr('data-parsley-required', 'true');
+    $('#working_in_div').show();
+    $('#working_in_subcounty').attr('data-parsley-required', 'true');
+    $('#living_in_div').hide();
+    $('#living_in_subcounty').attr('data-parsley-required', 'false');
+
+    $('#is_caregiver_div').show();
+    $('#date_of_birth').datepicker("remove");
+    $('#date_of_birth').datepicker({ endDate: '-18y', format: 'dd-M-yyyy' });
+
+    $('#audit_detail_div').show();
+    $('#audit_workforce_id').attr('data-parsley-required', 'true');
+    $('#audit_date').attr('data-parsley-required', 'true');
+
+    $('#tribe_id_div').hide();
+    $('#religion_id_div').hide();
+    $('#nation_id_div').hide();
+}
+
+function handle_child(){
+    $('#national_id_div').hide();
+    $('#national_id').attr('data-parsley-required', 'false');
+
+    $('#staff_id_div').hide();
+    $('#staff_id').attr('data-parsley-required', 'false');
+
+    $('#birth_reg_id_div').show(); 
+    $('#given_name_div').show();
+    $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+    $('#caregiver_add').show();
+    $('#caregiver_id').attr('data-parsley-required', 'true');
+    $('#relationship_type_id').attr('data-parsley-required', 'true');
+    $('#caregiver_info').empty();
+
+    $('#parent_org_add').hide();
+    $('#add_org_info').html(' - Not required');
+    $('#id_orgs_selected').attr('data-parsley-required', 'false');
+
+    $('#cadre_type_div').hide(); 
+    $('#cadre_type').attr('data-parsley-required', 'false');
+    $('#title_type_div').hide(); 
+    $('#title_type').attr('data-parsley-required', 'false');
+
+    $('#provides_service').hide(); 
+    $('#child_services_0').attr('data-parsley-required', 'false');
+    $('#child_services_1').attr('data-parsley-required', 'false');
+    
+    $('#working_in_region_div').hide();
+    $('.working_region').attr('data-parsley-required', 'false');
+    $('#working_in_div').hide();
+    $('#working_in_subcounty').attr('data-parsley-required', 'false');
+    $('#living_in_div').show();
+    $('#living_in_subcounty').attr('data-parsley-required', 'true');
+
+    $('#is_caregiver_div').show();
+    $('#date_of_birth').datepicker("remove");
+    $('#date_of_birth').datepicker({ startDate: "-23y",
+                                     endDate: '+0d', 
+                                     format: 'dd-M-yyyy' });
+
+    $('#audit_detail_div').show();
+    $('#audit_workforce_id').attr('data-parsley-required', 'true');
+    $('#audit_date').attr('data-parsley-required', 'true');
+
+    $('#tribe_id_div').show();
+    $('#religion_id_div').show();
+    $('#nation_id_div').show();
+    var child_ovc = $('#child_ovc').val();
+    if (child_ovc == 'AYES'){
+        $('#other_names').attr('data-parsley-required', 'true');   
+    }
+}
+
+function handle_caregiver(person_text){
+    $('#national_id_div').show();
+    $('#national_id').attr('data-parsley-required', 'true');
+
+    $('#staff_id_div').hide();
+    $('#staff_id').attr('data-parsley-required', 'false');
+
+    $('#birth_reg_id_div').hide();
+    $('#given_name_div').hide();
+    $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+    $('#caregiver_add').hide();
+    $('#caregiver_id').attr('data-parsley-required', 'false');
+    $('#relationship_type_id').attr('data-parsley-required', 'false');
+    $('#caregiver_info').html('- Not required for ' + person_text);
+
+    $('#parent_org_add').hide();
+    $('#add_org_info').html(' - Not required');
+    $('#id_orgs_selected').attr('data-parsley-required', 'false');
+
+    $('#cadre_type_div').hide(); 
+    $('#cadre_type').attr('data-parsley-required', 'false');
+    $('#title_type_div').hide(); 
+    $('#title_type').attr('data-parsley-required', 'false');
+
+    $('#provides_service').hide(); 
+    $('#child_services_0').attr('data-parsley-required', 'false');
+    $('#child_services_1').attr('data-parsley-required', 'false');
+    $('#child_service').attr('data-parsley-required', 'true');
+
+    $('#working_in_region_div').hide();
+    $('.working_region').attr('data-parsley-required', 'false');
+    $('#working_in_div').hide();
+    $('#working_in_subcounty').attr('data-parsley-required', 'false');
+    $('#living_in_div').show();
+    $('#living_in_subcounty').attr('data-parsley-required', 'true');
+
+    $('#is_caregiver_div').hide();
+    $('#id_is_caregiver').attr('checked', false);
+    $('#date_of_birth').datepicker("remove");
+    $('#date_of_birth').datepicker({ endDate: '-18y', format: 'dd-M-yyyy' });
+
+    $('#audit_detail_div').show();
+    $('#audit_workforce_id').attr('data-parsley-required', 'true');
+    $('#audit_date').attr('data-parsley-required', 'true');
+
+    $('#tribe_id_div').hide();
+    $('#religion_id_div').hide();
+    $('#nation_id_div').hide();
+    {% if request.session.reg_ovc %}
+    $("#cbo_chv_add").show();
+    $('#add_org_info').html('');
+    $('#chv_id_div').hide();    
+    $('#chv_unit_id').attr('data-parsley-required', 'false');
+    {% endif %}
+}
+
+function handle_volunteer(person_text){
+    $('#national_id_div').show();
+    $('#national_id').attr('data-parsley-required', 'true');
+
+    $('#staff_id_div').show();
+    $('#staff_id').attr('data-parsley-required', 'true');
+
+    $('#birth_reg_id_div').hide();
+    $('#given_name_div').hide(); 
+    $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+    $('#caregiver_add').hide();
+    $('#caregiver_id').attr('data-parsley-required', 'false');
+    $('#relationship_type_id').attr('data-parsley-required', 'false');
+    $('#caregiver_info').html('- Not required for ' + person_text);
+
+    $('#parent_org_add').show();
+    $('#add_org_info').empty();
+    $('#id_orgs_selected').attr('data-parsley-required', 'true');
+
+    $('#cadre_type_div').hide(); 
+    $('#cadre_type').attr('data-parsley-required', 'false');
+    $('#title_type_div').hide(); 
+    $('#title_type').attr('data-parsley-required', 'false');
+
+    $('#provides_service').show();
+    $('#child_services_0').attr('data-parsley-required', 'true');
+    $('#child_services_1').attr('data-parsley-required', 'true');
+    $('#child_service').attr('data-parsley-required', 'true');
+
+    $('#working_in_region_div').show();
+    $('.working_region').attr('data-parsley-required', 'true');
+    $('#working_in_div').show();
+    $('#working_in_subcounty').attr('data-parsley-required', 'true');
+    $('#living_in_div').hide();
+    $('#living_in_subcounty').attr('data-parsley-required', 'false');
+
+    $('#is_caregiver_div').show();
+    $('#date_of_birth').datepicker("remove");
+    $('#date_of_birth').datepicker({ endDate: '-18y', format: 'dd-M-yyyy' });
+
+    $('#audit_detail_div').hide();
+    $('#audit_workforce_id').attr('data-parsley-required', 'false');
+    $('#audit_date').attr('data-parsley-required', 'false');
+
+    $('#tribe_id_div').hide();
+    $('#religion_id_div').hide();
+    $('#nation_id_div').hide();
+    {% if request.session.reg_ovc %}
+    $("#cbo_chv_add").show();
+    $('#add_org_info').html('');
+    $('#chv_id_div').hide();    
+    $('#chv_unit_id').attr('data-parsley-required', 'false');
+    {% endif %}
+
+}
+
+function handle_government(person_text){
+    $('#national_id_div').show();
+    $('#national_id').attr('data-parsley-required', 'true');
+
+    $('#staff_id_div').show();
+    $('#staff_id').attr('data-parsley-required', 'true');
+
+    $('#birth_reg_id_div').hide();
+    $('#given_name_div').hide();
+    $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+    $('#caregiver_add').hide();
+    $('#caregiver_id').attr('data-parsley-required', 'false');
+    $('#relationship_type_id').attr('data-parsley-required', 'false');
+    $('#caregiver_info').html('- Not required for ' + person_text);
+
+    $('#parent_org_add').show();
+    $('#add_org_info').empty();
+    $('#id_orgs_selected').attr('data-parsley-required', 'true');
+
+    $('#cadre_type_div').show(); 
+    $('#cadre_type').attr('data-parsley-required', 'true');
+    $('#title_type_div').show(); 
+    $('#title_type').attr('data-parsley-required', 'true');
+
+    $('#provides_service').show();
+    $('#child_services_0').attr('data-parsley-required', 'true');
+    $('#child_services_1').attr('data-parsley-required', 'true');
+    $('#child_service').attr('data-parsley-required', 'true');
+
+    $('#working_in_region_div').show();
+    $('.working_region').attr('data-parsley-required', 'true');
+    $('#working_in_div').show();
+    $('#working_in_subcounty').attr('data-parsley-required', 'true');
+    $('#living_in_div').hide();
+    $('#living_in_subcounty').attr('data-parsley-required', 'false');
+
+    $('#is_caregiver_div').show();
+    $('#date_of_birth').datepicker("remove");
+    $('#date_of_birth').datepicker({ endDate: '-18y', format: 'dd-M-yyyy' });
+    $('#date_of_birth').attr('data-parsley-required', 'false');
+
+    $('#audit_detail_div').hide();
+    $('#audit_workforce_id').attr('data-parsley-required', 'false');
+    $('#audit_date').attr('data-parsley-required', 'false');
+
+    $('#tribe_id_div').hide();
+    $('#religion_id_div').hide();
+    $('#nation_id_div').hide();
+}
+
+function handle_ngo_private(person_text){
+    $('#national_id_div').show();
+    $('#national_id').attr('data-parsley-required', 'true');
+
+    $('#staff_id_div').show();
+    $('#staff_id').attr('data-parsley-required', 'true');
+
+    $('#birth_reg_id_div').hide();
+    $('#given_name_div').hide();
+    $('#birth_reg_id').attr('data-parsley-required', 'false');
+
+    $('#caregiver_add').hide();
+    $('#caregiver_id').attr('data-parsley-required', 'false');
+    $('#relationship_type_id').attr('data-parsley-required', 'false');
+    $('#caregiver_info').html('- Not required for ' + person_text);
+
+    $('#parent_org_add').show();
+    $('#add_org_info').empty();
+    $('#id_orgs_selected').attr('data-parsley-required', 'true');
+
+    $('#cadre_type_div').show(); 
+    $('#cadre_type').attr('data-parsley-required', 'true');
+    $('#title_type_div').show(); 
+    $('#title_type').attr('data-parsley-required', 'true');
+
+    $('#provides_service').show();
+    $('#child_services_0').attr('data-parsley-required', 'true');
+    $('#child_services_1').attr('data-parsley-required', 'true');
+    $('#child_service').attr('data-parsley-required', 'true');
+
+    $('#working_in_region_div').show();
+    $('.working_region').attr('data-parsley-required', 'true');
+    $('#working_in_div').show();
+    $('#working_in_subcounty').attr('data-parsley-required', 'true');
+    $('#living_in_div').hide();
+    $('#living_in_subcounty').attr('data-parsley-required', 'false');
+
+    $('#is_caregiver_div').show();
+    $('#date_of_birth').datepicker("remove");
+    $('#date_of_birth').datepicker({ endDate: '-18y', format: 'dd-M-yyyy' });
+    $('#date_of_birth').attr('data-parsley-required', 'false');
+
+    $('#audit_detail_div').hide();
+    $('#audit_workforce_id').attr('data-parsley-required', 'false');
+    $('#audit_date').attr('data-parsley-required', 'false');
+
+    $('#tribe_id_div').hide();
+    $('#religion_id_div').hide();
+    $('#nation_id_div').hide();
+}
+
+{% for key, values in titles.items %}
+    var {{ key }} = {{ values|safe }};
+{% endfor %}
+
+function handle_ovc(person_type){
+    
+    if (person_type == 'TBVC')
+    {
+        {% if request.session.reg_ovc %}
+            $("#cbo_chv_add").show();
+            $('#add_org_info').html('');
+            $('#cbo_unit_id').attr('data-parsley-required', 'true');
+            $('#chv_unit_id').attr('data-parsley-required', 'true');
+            $("#cbo_chv_add").show();
+            $("#cbo_chv_div").show();
+            $("#cbo_chv_ndiv").hide();
+            $('#ou_ovc').html('CBO / CHV details');
+            $('#is_ovc').show();
+        {% else %}
+            $("#cbo_chv_add").hide();
+            $('#add_org_info').html(' - Not required');
+            $('#cbo_unit_id').attr('data-parsley-required', 'false');
+            $('#chv_unit_id').attr('data-parsley-required', 'false');
+            $("#cbo_chv_add").hide();
+            $("#cbo_chv_ndiv").show();
+            $("#cbo_chv_div").hide();
+            $('#ou_ovc').html('Organizational unit details');
+            $('#is_ovc').hide();
+        {% endif %}
+            
+    }else{
+        $("#cbo_chv_add").hide();
+        $('#add_org_info').html(' - Not required');
+        $('#cbo_unit_id').attr('data-parsley-required', 'false');
+        $('#chv_unit_id').attr('data-parsley-required', 'false');
+        $("#cbo_chv_add").hide();
+        $("#cbo_chv_ndiv").show();
+        $("#cbo_chv_div").hide();
+        $('#ou_ovc').html('Organizational unit details');
+        $('#is_ovc').hide();
+    }
+
+}
+
+function handle_country(country_id){
+    var person_type = $("#person_type").val();
+    if ((country_id == 'KE') && (person_type == 'TBVC')){
+        $('#tribe_id_div').show();
+    }else{
+        $('#tribe_id_div').hide();
+    }
+}
+
+function handle_titles(person_type){
+    $('#title_type').html("<option value=''>Select title</option>");
+    if (person_type != ''){
+        eval(person_type).forEach(function(tts) {
+            var tts_attribs = tts.split(",");
+            $('#title_type')
+                .append($("<option></option>")
+                .attr("value", tts_attribs[0])
+                .text(tts_attribs[1]));
+        });
+    }else{
+         $('#title_type').append('<option></option>'); 
+    }
+    $('#title_type').val('{{ title_type }}');
+}
+
+function handle_cadres(title_type){
+    var person_type = $("#person_type").val();
+    if (person_type == 'TWGE'){
+        $('#cadre_type').html("<option value=''>Select cadre</option>");    
+    }else{
+        $('#cadre_type').empty();
+    }
+    if (title_type != ''){
+        eval(title_type).forEach(function(ttp) {
+            var ttp_attribs = ttp.split(",");
+            $('#cadre_type')
+                .append($("<option></option>")
+                .attr("value", ttp_attribs[0])
+                .text(ttp_attribs[1]));
+        });
+    }else{
+         $('#cadre_type').append('<option></option>'); 
+    }
+    $('#cadre_type').val('{{ cadre_type }}');
+}
+
+function displayVals(area_value) {
+      var area_name = [];
+      area_value = (typeof area_value === 'undefined') ? 'working_in_county' : area_value;
+      $("#"+area_value+" option:selected").each(function () {
+           var $this = $(this);
+           if ($this.length) {
+            var selText = $this.text();
+            area_name.push(selText);
+           }
+        });
+
+      $( "#sel_"+area_value ).html(area_name.join( ", " ) );
+}
+$("#working_in_county").change(function(event) { 
+    displayVals();
+});
+$("#working_in_subcounty").change(function(event) { 
+    displayVals("working_in_subcounty");
+});
+$("#working_in_ward").change(function(event) { 
+    displayVals("working_in_ward");
+});
+displayVals();
+displayVals("working_in_subcounty");
+displayVals("working_in_ward");
+
+window.Parsley.on('form:validate', function() {
+   $('.validation-errors').html('');
+});
+
+
+window.Parsley.on('field:error', function(fieldInstance) {
+  // Get the error messages
+    var messages = ParsleyUI.getErrorsMessages(fieldInstance);
+
+    // Get the field's name
+    var fieldName = fieldInstance.$element.attr('name');
+    //var fieldLabel = fieldInstance.$element.attr('label');
+    //'+ fieldInstance.$element.attr('name') +'
+    var fieldLabel = $('label[for="'+ fieldName +'"]').text();
+
+    // Loop through all the messages
+    var fmsg = '';
+    for (var i in messages) {
+        // Create a message for each error
+        var message = (fieldLabel + ': ' + messages[i]).replace('*', '');
+        //var msg = $('<p><a class="focus-' + fieldName + '" href="#">' + message + '</a><p>');
+        var msg = $('<p><a class="focus-' + fieldName + '" href="#">' + message + '</a><p>');
+
+        // Append the errors to the div
+        fmsg += fieldLabel.replace('*', '') + ' - '+ messages[i] +'; ';
+        if (fieldLabel != ''){
+            //$('.validation-errors').append(', ' + fieldLabel);
+            fmsgs = fieldLabel.replace('*', '') + ' - '+ messages[i] +'; ';
+        }   
+    }
+    if (fmsg != ''){
+       $('.validation-errors').append(fmsg.replace(':', ''));
+       $('#messages').show();  
+    }else{
+        $('#messages').hide();
+    }     
+});
+
+$(".working_region").click(function(e) {
+    var region_id = $('input[name=working_in_region]:checked', '#edit_person').val();
+    check_region(region_id);
+});
+
+function check_region(region_id){
+    if (region_id == '0'){
+        $('#county_div').hide();
+        $('#working_in_county').attr('data-parsley-required', 'false');
+        $('#subcounty_div').hide();
+        $('#working_in_subcounty').attr('data-parsley-required', 'false');
+        $('#ward_div').hide();
+        $('#working_in_ward').attr('data-parsley-required', 'false');
+    }else if (region_id == '1'){
+        $('#county_div').show();
+        $('#working_in_county').attr('data-parsley-required', 'true');
+        $('#subcounty_div').hide();
+        $('#working_in_subcounty').attr('data-parsley-required', 'false');
+        $('#ward_div').hide();
+        $('#working_in_ward').attr('data-parsley-required', 'false');
+        //$('#working_in_subcounty').multiselect('rebuild');
+    }else{
+        $('#county_div').show();
+        $('#working_in_county').attr('data-parsley-required', 'true');
+        $('#subcounty_div').show();
+        $('#working_in_subcounty').attr('data-parsley-required', 'true');
+        $('#ward_div').show();
+        $('#working_in_ward').attr('data-parsley-required', 'false');
+        //$('#sub_county').multiselect('rebuild');
+    }
+}
+</script>
+{% endblock lazy_javascript_code %}

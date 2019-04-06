@@ -161,7 +161,11 @@ def ovc_register(request, id):
                        'levels': levels})
     except Exception, e:
         print "error with OVC registration - %s" % (str(e))
-        raise e
+        #raise e
+        msg = "Error occured during OVC registration."
+        messages.error(request, msg)
+        form = OVCSearchForm()
+        return render(request, 'ovc/home.html', {'form': form, 'status': 200})
 
 
 @login_required(login_url='/')
@@ -305,7 +309,11 @@ def ovc_edit(request, id):
                        'ctaker': ctaker, 'vloads': vloads})
     except Exception, e:
         print "error with OVC editing - %s" % (str(e))
-        raise e
+        # raise e
+        msg = "Error occured during OVC edit."
+        messages.error(request, msg)
+        form = OVCSearchForm()
+        return render(request, 'ovc/home.html', {'form': form, 'status': 200})
 
 
 @login_required(login_url='/')
@@ -411,7 +419,12 @@ def ovc_view(request, id):
                        'suppression': vl_sup})
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
-        raise e
+        msg = "Error occured during OVC view."
+        messages.error(request, msg)
+        url = reverse('ovc_register', kwargs={'id': id})
+        return HttpResponseRedirect(url)
+        # form = OVCSearchForm()
+        # return render(request, 'ovc/home.html', {'form': form, 'status': 200})
 
 
 @login_required(login_url='/')

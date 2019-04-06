@@ -2639,7 +2639,6 @@ def get_sql_data(request, params):
     print 'Report Name', qname
     row, desc = run_sql_data(request, sql)
     data = datas + row
-    '''
     qblank = '%s_blank' % (qname)
     if qblank in QUERIES:
         bsql = QUERIES[qblank]

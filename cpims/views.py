@@ -44,7 +44,7 @@ def get_dashboard(request):
         summary['workforce'] = '{:,}'.format(dash['workforce_members'])
         summary['cases'] = '{:,}'.format(dash['case_records'])
         summary['pending'] = '{:08}'.format(dash['pending_cases'])
-
+        summary['hiv_status'] = dash['hiv_status']
         # OVC care
         odash = ovc_dashboard(request)
         ovc = {}
@@ -167,5 +167,13 @@ def handler_500(request):
     """Some default page for Server Errors."""
     try:
         return render(request, '500.html', {'status': 500})
+    except Exception, e:
+        raise e
+
+
+def csrf_failure(request):
+    """Some default page for CSRF error."""
+    try:
+        return render(request, 'csrf.html', {'status': 500})
     except Exception, e:
         raise e
