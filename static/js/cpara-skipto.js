@@ -19,8 +19,8 @@
     triggerSkip('chd_ovr_10ys','ANNO','cp62q','4');
     triggerSkip('adole_in_vc_train','ANNO','cp74q','5');
     
-    triggerSkip('cp49q','AYES','q12p4','5');
-    triggerSkip('cp50q','ANNO','q12p4','5');
+    triggerSkip('cp49q','AYES','q12p4','4');
+    triggerSkip('cp50q','ANNO','q12p4','4');
 // endQuestionSkipLogic
 
 
