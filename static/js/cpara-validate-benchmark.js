@@ -39,7 +39,8 @@ $('input[name=cp1b]').attr('disabled', true); $('input[name=cp2b]').attr('disabl
 // disable benchmark editing
 
 // benchmark score after change of last benchmark radio
-$('input[name=cp17b], input[name=cp1b], input[name=cp2b], input[name=cp3b], input[name=cp4b], input[name=cp5b], input[name=cp6b], input[name=cp7b], input[name=cp8b], input[name=cp9b], input[name=cp10b], input[name=cp11b], input[name=cp12b], input[name=cp13b], input[name=cp14b], input[name=cp15b], input[name=cp16b], input[name=cp17b]').change(function (e) { 
+// $('input[name=cp17b], input[name=cp1b], input[name=cp2b], input[name=cp3b], input[name=cp4b], input[name=cp5b], input[name=cp6b], input[name=cp7b], input[name=cp8b], input[name=cp9b], input[name=cp10b], input[name=cp11b], input[name=cp12b], input[name=cp13b], input[name=cp14b], input[name=cp15b], input[name=cp16b], input[name=cp17b]').change(function (e) { 
+$('input[name=cp17b]').change(function (e) { 
 
     var cp1b = $('input[name=cp1b]:checked').val();
     if(cp1b === 'AYES'){cp1b = 1;}

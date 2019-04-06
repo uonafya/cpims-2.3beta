@@ -12,9 +12,11 @@
     triggerSkip('child_abv_10y','ANNO','cp36q','3');
     triggerSkip('u_chd_sck','ANNO','cp43q','3');
     triggerSkip('chd_ovr_10','ANNO','child_hd_hse','4');
+    triggerSkip('chd_ovr_10y','ANNO','cp49q','4');
     triggerSkip('child_hd_hse','ANNO','cp49q','4');
     triggerSkip('o5y_cd_hse','ANNO','cp55q','4');
     triggerSkip('cld_rsk_abus','ANNO','cp60q','4');
+    triggerSkip('chd_ovr_10ys','ANNO','cp62q','4');
     triggerSkip('adole_in_vc_train','ANNO','cp74q','5');
     
     triggerSkip('cp49q','AYES','q12p4','5');
