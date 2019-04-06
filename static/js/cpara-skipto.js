@@ -83,10 +83,10 @@ function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
     });
 }
 function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
-    $('a[href="#step'+toTabID+'"]').trigger("click");
     //hideQnsBtwn
     var destinationT = $('input[name="'+toQnID+'"]').closest("tr");
     if(!unDo){
+            $('a[href="#step'+toTabID+'"]').trigger("click");
             $("td").attr("tabindex", "-1");
             $(".form-group").attr("tabindex", "-1");
             $('input[name="'+toQnID+'"]').closest("td").attr("tabindex", "1");
