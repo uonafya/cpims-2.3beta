@@ -1513,7 +1513,6 @@ print(blu.sing("'Happy'"))
                                                 <hr>
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
-                                                        <input type="text" class="hidden" name="q12p4" value=""/>
                                                         {% if siblings or osiblings %}
                                                             <table class="table table-condensed table-responsive">
                                                                 <thead>
@@ -1531,6 +1530,7 @@ print(blu.sing("'Happy'"))
                                                                     <tr>
                                                                         <td>
                                                                             <a href="{% url 'view_person' id=sibling.sibling_person.id %}">{{ sibling.sibling_person.full_name }}</a>
+                                                                            <input type="text" class="hidden" name="q12p4" value=""/>
                                                                         </td>
                                                                         <td id={{ sibling.sibling_person.id }}_q12a_Qn>
                                                                             <label class="radio-inline">
