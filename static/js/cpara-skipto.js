@@ -10,6 +10,7 @@
     triggerSkip('adole_gb_hse','ANNO','cp30q','2');
     triggerSkip('child_w_disab_hse','ANNO','cp32q','3');
     triggerSkip('child_abv_10y','ANNO','cp36q','3');
+    triggerSkip('u_chd_sck','ANNO','cp43q','3');
     triggerSkip('child_hd_hse','ANNO','cp49q','4');
     triggerSkip('o5y_cd_hse','ANNO','cp55q','4');
     triggerSkip('cld_rsk_abus','ANNO','cp60q','4');
