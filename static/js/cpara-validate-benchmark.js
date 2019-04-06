@@ -128,7 +128,7 @@ $('input[name=cp17b]').change(function (e) {
     $('input[name=cp74q]').val(benchmarkScore);
 });
 
-$('.form-group.note.note-info .col-md-3 label input').attr('readonly', true);
+$('.form-group.note.note-info .col-md-3 label input').addClass('hidden');
 // benchmark score after change of last benchmark radio
 
 
