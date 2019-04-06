@@ -110,6 +110,8 @@ $('input[name=cp17b]').change(function (e) {
 
     $('input[name=cp74q]').val(benchmarkScore);
 });
+
+$('.note-info').find('input[type="radio"]').attr('readonly', true);
 // benchmark score after change of last benchmark radio
 
 
