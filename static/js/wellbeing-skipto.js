@@ -6,11 +6,18 @@
     // Q14 -> Q17
     triggerSkip('WB_HEL_14_1','NODISABILITY','WB_HEL_17_1','3');
 
-    // Q17 -> Q31
-    triggerSkip('WB_HEL_17_1','ANNO','WB_SAF_33_1','4');
-    triggerSkip('WB_HEL_17_1','AREFUSE','WB_SAF_33_1','4');
+    // Q16 -> Q17
+    triggerSkip('WB_HEL_16_1','NODISABILITY','WB_HEL_17_1','3');
+
+    // Q17 -> Q29
+    triggerSkip('WB_HEL_17_1','ANNO','WB_SAF_31_1','4');
+    triggerSkip('WB_HEL_17_1','AREFUSE','WB_SAF_31_1','4');
+
+    // Q18 -> Q29
+    triggerSkip('WB_HEL_18_1','ANNO','WB_SAF_31_1','4');
+    triggerSkip('WB_HEL_18_1','AREFUSE','WB_SAF_31_1','4');
     
-    // Q19 -> Q21
+    // Q19 -> Q24
     triggerSkip('WB_HEL_19_1','ANNO','WB_HEL_21_1','3');
     
     // Q21 -> Q23
@@ -24,10 +31,10 @@
     triggerSkip('WB_SAF_33_1','ANNO','WB_SAF_34_1','4');
     triggerSkip('WB_SAF_33_1','AREFUSE','WB_SAF_34_1','4');
     
-    // Q33 -> Q35 *********** Not Implemented ************
-      // triggerSkip('WB_SAF_34_1','ANNO','WB_SAF_36_1','4');
-      // triggerSkip('WB_SAF_34_1','AREFUSE','WB_SAF_36_1','4');
-    // END Q33 -> Q35 *********** Not Implemented ************
+    // Q33 -> Q35 *********** Implemented ************
+      triggerSkip('WB_SAF_34_1','ANNO','WB_SAF_36_1','4');
+      triggerSkip('WB_SAF_34_1','AREFUSE','WB_SAF_36_1','4');
+    // END Q33 -> Q35 *********** Implemented ************
 
 // endQuestionSkipLogic
 
@@ -87,10 +94,10 @@ function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
     });
 }
 function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
-    $('a[href="#step'+toTabID+'"]').trigger("click");
     //hideQnsBtwn
     var destinationT = $('input[name="'+toQnID+'"]').closest("tr");
     if(!unDo){
+            $('a[href="#step'+toTabID+'"]').trigger("click");
             $("td").attr("tabindex", "-1");
             $('input[name="'+toQnID+'"]').closest("td").attr("tabindex", "1");
             $('input[name="'+toQnID+'"]').closest("td").focus();
