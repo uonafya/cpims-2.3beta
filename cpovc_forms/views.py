@@ -40,7 +40,7 @@ from cpovc_main.functions import (
     case_event_id_generator, convert_date, new_guid_32,
     beneficiary_id_generator, translate_geo, translate, translate_case,
     translate_reverse, translate_reverse_org, translate_school, get_days_difference)
-from cpovc_forms.functions import (save_audit_trail, save_cpara_form_by_domain)
+from cpovc_forms.functions import (save_audit_trail)
 from cpovc_main.country import (COUNTRIES)
 from cpovc_registry.models import (
     RegOrgUnit, RegOrgUnitContact, RegOrgUnitGeography, RegPerson, RegPersonsOrgUnits, AppUser, RegPersonsSiblings,

@@ -281,11 +281,8 @@ def save_cpara_form_by_domain(id, question, answer, house_hold, event, date_even
             event=event,
             date_of_event=date_event
         )
+
     except Exception as e:
         print '%s :error saving cpara - %s' % (question.code, str(e))
         return False
- 
- 
-
-
 

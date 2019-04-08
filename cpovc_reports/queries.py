@@ -929,7 +929,8 @@ and ovc_registration.exit_date between ''{start_date}'' and ''{end_date}'' ))
 group by exit_reason, list_geo.area_name order by ward) as wc
 group by ward, graduation order by 1,2')
 AS ct("ward" text, "WardActive" int, "WARDGraduated" int,
-"WARDTransferred" int, "WARDExitedWithoutGraduation" int);;'''
+"WARDTransferred" int, "WARDExitedWithoutGraduation" int);
+'''
 
 
 QUERIES['datim_4'] = '''
@@ -948,7 +949,6 @@ LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id=ovc_registration.pe
 WHERE reg_persons_geo.is_void = False
 and ovc_registration.is_void = False
 and ovc_registration.child_cbo_id in {cbos}
- 
 GROUP BY reg_person.sex_id, Domain;'''
 
 
@@ -970,7 +970,6 @@ WHERE reg_persons_geo.is_void = False
 AND ovc_registration.hiv_status = 'HSTP'
 and ovc_registration.is_void = False
 and ovc_registration.child_cbo_id in {cbos}
-
 GROUP BY 
 reg_person.sex_id, Domain;'''
 
@@ -1953,7 +1952,7 @@ left outer join list_general AS cgt on hhm.member_type=cgt.item_id AND cgt.field
 LEFT OUTER JOIN ovc_care_health ON
 ovc_care_health.person_id=ovc_registration.person_id
 left outer join ovc_facility on ovc_care_health.facility_id=ovc_facility.id
-where ovc_registration.child_cbo_id in ({cbos})
+where reg_persons_geo.is_void = False and ovc_registration.child_cbo_id in ({cbos})
 and ovc_care_events.date_of_event between '{start_date}' and '{end_date}'
 and service_provided != '' and service_provided is not null
 '''
@@ -2178,6 +2177,7 @@ LEFT OUTER JOIN ovc_care_health ON
 ovc_care_health.person_id=ovc_registration.person_id
 left outer join ovc_facility on ovc_care_health.facility_id=ovc_facility.id
 where ovc_registration.child_cbo_id in ({cbos})
+and reg_persons_geo.is_void = False
 and ovc_care_events.date_of_event between '{start_date}' and '{end_date}'
 and service != '' and service is not null
 '''
@@ -2901,3 +2901,4 @@ and vw_cpims_treatment.cbo_id IN ({cbos})
 GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,dob, ward_id,countyid,
   gender,ovchivstatus;
 '''
+

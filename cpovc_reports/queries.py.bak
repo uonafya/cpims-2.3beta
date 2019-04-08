@@ -6,28 +6,29 @@ REPORTS[1] = 'registration_list'
 REPORTS[2] = 'registration'
 REPORTS[3] = 'registration'
 REPORTS[4] = 'registration'
-# REPORTS[5] = 'not_served'
-REPORTS[51] = 'datim'
-REPORTS[52] = 'pepfar'
-REPORTS[53] = 'kpi'
-REPORTS[54] = 'datim_mer_23'
-
 REPORTS[5] = 'not_served'
+
 REPORTS[6] = 'pepfar_summary'
 REPORTS[7] = 'registration'
 REPORTS[8] = 'beneficiary_list'
 REPORTS[9] = 'form1a_summary'
 REPORTS[10] = 'needs_vs_served'
-REPORTS[16] = 'needs_vs_served_summary'
+
 REPORTS[11] = 'form1b_summary'
 REPORTS[12] = 'ovc_served_list'
 REPORTS[13] = 'master_list'
 REPORTS[14] = 'ovc_assessed_list'
 REPORTS[15] = 'ovc_overall_view'
+REPORTS[16] = 'needs_vs_served_summary'
 REPORTS[17] = 'cpara'
 REPORTS[18] = 'case_plan'
 REPORTS[19] = 'served_two_quaters'
 REPORTS[20] = 'benchmark'
+
+REPORTS[51] = 'datim'
+REPORTS[52] = 'pepfar'
+REPORTS[53] = 'kpi'
+REPORTS[54] = 'datim_mer_23'
 
 # Master List
 QUERIES['master_list'] = '''
@@ -928,7 +929,8 @@ and ovc_registration.exit_date between ''{start_date}'' and ''{end_date}'' ))
 group by exit_reason, list_geo.area_name order by ward) as wc
 group by ward, graduation order by 1,2')
 AS ct("ward" text, "WardActive" int, "WARDGraduated" int,
-"WARDTransferred" int, "WARDExitedWithoutGraduation" int);;'''
+"WARDTransferred" int, "WARDExitedWithoutGraduation" int);
+'''
 
 
 QUERIES['datim_4'] = '''
@@ -947,7 +949,6 @@ LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id=ovc_registration.pe
 WHERE reg_persons_geo.is_void = False
 and ovc_registration.is_void = False
 and ovc_registration.child_cbo_id in {cbos}
- 
 GROUP BY reg_person.sex_id, Domain;'''
 
 
@@ -969,7 +970,6 @@ WHERE reg_persons_geo.is_void = False
 AND ovc_registration.hiv_status = 'HSTP'
 and ovc_registration.is_void = False
 and ovc_registration.child_cbo_id in {cbos}
-
 GROUP BY 
 reg_person.sex_id, Domain;'''
 

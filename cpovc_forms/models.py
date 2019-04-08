@@ -265,14 +265,14 @@ class OVCReferral(models.Model):
         db_table = 'ovc_referrals'
 
 
-# class OVCReferralActors(models.Model):
-#    case_id = models.ForeignKey(OVCCaseRecord)
-#    referral_actor = models.CharField(max_length=50)
-#    referral_actor_description = models.CharField(max_length=250, null=True)
-#    referral_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
-#    timestamp_created = models.DateTimeField(default=timezone.now)
-#    timestamp_updated = models.DateTimeField(default=timezone.now)
-#    is_void = models.BooleanField(default=False)
+    # class OVCReferralActors(models.Model):
+    #    case_id = models.ForeignKey(OVCCaseRecord)
+    #    referral_actor = models.CharField(max_length=50)
+    #    referral_actor_description = models.CharField(max_length=250, null=True)
+    #    referral_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    #    timestamp_created = models.DateTimeField(default=timezone.now)
+    #    timestamp_updated = models.DateTimeField(default=timezone.now)
+    #    is_void = models.BooleanField(default=False)
     sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
 
 
@@ -340,7 +340,7 @@ class OVCPlacement(models.Model):
     transfer_from = models.CharField(max_length=100, null=True)
     admission_reason = models.CharField(max_length=100, blank=True)
     holding_period = models.IntegerField(null=True)
-    committing_period_units= models.CharField(max_length=4, null=True)
+    committing_period_units = models.CharField(max_length=4, null=True)
     committing_period = models.IntegerField(null=True)
     current_residential_status = models.CharField(max_length=4)
     has_court_committal_order = models.CharField(max_length=4)
@@ -364,8 +364,7 @@ class OVCPlacement(models.Model):
 
 
 class OVCCaseEvents(models.Model):
-    case_event_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid1, editable=False)
+    case_event_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     case_event_type_id = models.CharField(max_length=20)
     date_of_event = models.DateField(default=timezone.now)
     case_event_details = models.CharField(max_length=100)
