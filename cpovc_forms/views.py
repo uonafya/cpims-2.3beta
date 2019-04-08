@@ -9030,6 +9030,22 @@ def new_wellbeing(request, id):
 
     hhmembers = hhmqs.exclude(person_id=ovcreg.caretaker_id)
 
+
+    ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
+
+    ward = SetupGeography.objects.get(area_id=ward_id)
+    subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+
+    if ward.area_type_id == 'GLTL':
+        # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
+        subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    elif ward.area_type_id == 'GDIS':
+        subcounty = ward
+        ward = ''
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+
     form = Wellbeing(initial={'household_id': household_id, 'caretaker_id': caretaker_id, })
     return render(request,
                   'forms/new_wellbeing.html',
@@ -9045,7 +9061,11 @@ def new_wellbeing(request, id):
                       'osiblings': osiblings,
 
                       'person_sex_type': person_sex_type,
-                      'oguardians': oguardians
+                      'oguardians': oguardians,
+                      
+                      'county': county,
+                      'ward': ward,
+                      'subcounty': subcounty
                   })
 
 
