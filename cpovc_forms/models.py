@@ -54,7 +54,7 @@ class OVCCaseRecord(models.Model):
     case_id = models.UUIDField(
         primary_key=True, default=uuid.uuid1, editable=False)
     case_serial = models.CharField(max_length=50, default='XXXX')
-    #place_of_event = models.CharField(max_length=50)
+    # place_of_event = models.CharField(max_length=50)
     perpetrator_status = models.CharField(max_length=20, default='PKNW')
     perpetrator_first_name = models.CharField(max_length=50, null=True)
     perpetrator_other_names = models.CharField(max_length=50, null=True)
@@ -195,7 +195,7 @@ class OVCMedicalSubconditions(models.Model):
 class OVCCaseCategory(models.Model):
     case_category_id = models.UUIDField(
         primary_key=True, default=uuid.uuid1, editable=False)
-    #case_category_id = models.CharField(max_length=10, primary_key=True)
+    # case_category_id = models.CharField(max_length=10, primary_key=True)
     case_id = models.ForeignKey(OVCCaseRecord, on_delete=models.CASCADE)
     case_category = models.CharField(max_length=4)
     case_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
@@ -264,15 +264,14 @@ class OVCReferral(models.Model):
     class Meta:
         db_table = 'ovc_referrals'
 
-
-# class OVCReferralActors(models.Model):
-#    case_id = models.ForeignKey(OVCCaseRecord)
-#    referral_actor = models.CharField(max_length=50)
-#    referral_actor_description = models.CharField(max_length=250, null=True)
-#    referral_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
-#    timestamp_created = models.DateTimeField(default=timezone.now)
-#    timestamp_updated = models.DateTimeField(default=timezone.now)
-#    is_void = models.BooleanField(default=False)
+    # class OVCReferralActors(models.Model):
+    #    case_id = models.ForeignKey(OVCCaseRecord)
+    #    referral_actor = models.CharField(max_length=50)
+    #    referral_actor_description = models.CharField(max_length=250, null=True)
+    #    referral_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    #    timestamp_created = models.DateTimeField(default=timezone.now)
+    #    timestamp_updated = models.DateTimeField(default=timezone.now)
+    #    is_void = models.BooleanField(default=False)
     sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
 
 
@@ -316,7 +315,7 @@ class FormsLog(models.Model):
 class FormsAuditTrail(models.Model):
     """Model for Forms Audit."""
     transaction_id = models.AutoField(primary_key=True)
-    form_id =  models.UUIDField(null=True)
+    form_id = models.UUIDField(null=True)
     form_type_id = models.CharField(max_length=250)
     transaction_type_id = models.CharField(max_length=4, null=True,
                                            db_index=True)
@@ -340,7 +339,7 @@ class OVCPlacement(models.Model):
     transfer_from = models.CharField(max_length=100, null=True)
     admission_reason = models.CharField(max_length=100, blank=True)
     holding_period = models.IntegerField(null=True)
-    committing_period_units= models.CharField(max_length=4, null=True)
+    committing_period_units = models.CharField(max_length=4, null=True)
     committing_period = models.IntegerField(null=True)
     current_residential_status = models.CharField(max_length=4)
     has_court_committal_order = models.CharField(max_length=4)
@@ -364,8 +363,7 @@ class OVCPlacement(models.Model):
 
 
 class OVCCaseEvents(models.Model):
-    case_event_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid1, editable=False)
+    case_event_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     case_event_type_id = models.CharField(max_length=20)
     date_of_event = models.DateField(default=timezone.now)
     case_event_details = models.CharField(max_length=100)
@@ -375,7 +373,7 @@ class OVCCaseEvents(models.Model):
     next_mention_date = models.DateField(null=True)  # For Court Mentions
     plea_taken = models.CharField(max_length=4, null=True)  # For Plea Taken (Guilty/Not Guilty)
     application_outcome = models.CharField(max_length=4, null=True)  # For Application Outcome (Granted/Not Granted)
-    placement_id = models.ForeignKey(OVCPlacement, null=True) # To track children who went to court from institutions
+    placement_id = models.ForeignKey(OVCPlacement, null=True)  # To track children who went to court from institutions
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
     sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
@@ -555,9 +553,9 @@ class OVCEducationFollowUp(models.Model):
     admitted_to_school = models.CharField(max_length=10)
     admission_to_school_date = models.DateField(
         default=timezone.now, null=True)
-    education_comments = models.CharField(max_length=1000, null=True)  
+    education_comments = models.CharField(max_length=1000, null=True)
 
-    #-- New ---
+    # -- New ---
     school_id = models.ForeignKey(SchoolList, null=True)
     not_in_school_reason = models.CharField(max_length=4, null=True)
     school_admission_type = models.CharField(max_length=4, null=True)
@@ -661,7 +659,8 @@ class OVCFamilyCare(models.Model):
     adoption_subcounty = models.ForeignKey(
         'cpovc_main.SetupGeography', related_name='adoption_subcounty_fk', null=True)
     adoption_country = models.CharField(max_length=20, null=True)
-    residential_institution_name = models.ForeignKey(RegOrgUnit, related_name='residential_institution_name_fk', null=True)
+    residential_institution_name = models.ForeignKey(RegOrgUnit, related_name='residential_institution_name_fk',
+                                                     null=True)
     fostered_from = models.ForeignKey(RegOrgUnit, related_name='fostered_from_fk', null=True)
     date_of_adoption = models.DateField(default=timezone.now, null=True)
     court_name = models.CharField(max_length=100, null=True)
@@ -704,12 +703,12 @@ class OVCCareEvents(models.Model):
     event_type_id = models.CharField(max_length=4)
     event_counter = models.IntegerField(default=0)
     event_score = models.IntegerField(null=True, default=0)
-    date_of_event = models.DateField(default=timezone.now)       
+    date_of_event = models.DateField(default=timezone.now)
+    date_of_previous_event = models.DateTimeField(null=True)
     created_by = models.IntegerField(null=True, default=404)
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
     sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
-    # app_user = models.ForeignKey(AppUser, default=1)
     person = models.ForeignKey(RegPerson, null=True)
     house_hold = models.ForeignKey(OVCHouseHold, null=True)
 
@@ -721,7 +720,7 @@ class OVCCareAssessment(models.Model):
     """ This table will hold OVC Assessment Data """
 
     assessment_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    domain = models.CharField(max_length=4)   
+    domain = models.CharField(max_length=4)
     service = models.CharField(max_length=4)
     service_status = models.CharField(max_length=4)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
@@ -737,7 +736,7 @@ class OVCCarePriority(models.Model):
     """ This table will hold OVC Priority Data """
 
     priority_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    domain = models.CharField(max_length=4)   
+    domain = models.CharField(max_length=4)
     service = models.CharField(max_length=4)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
     service_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
@@ -754,7 +753,7 @@ class OVCCareServices(models.Model):
     service_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     service_provided = models.CharField(max_length=250)
     service_provider = models.CharField(max_length=250, null=True)
-    domain = models.CharField(max_length=4,null=True)
+    domain = models.CharField(max_length=4, null=True)
     place_of_service = models.CharField(max_length=250, null=True)
     date_of_encounter_event = models.DateField(default=timezone.now, null=True)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
@@ -901,7 +900,9 @@ class OVCGokBursary(models.Model):
 
 
 '''
-Classes below were added due to ovc case management
+Classes below were added by someone using django for first time,
+if you find errors, correct and move on.
+Peace!
 '''
 
 

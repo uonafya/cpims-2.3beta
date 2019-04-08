@@ -10,13 +10,17 @@
     triggerSkip('adole_gb_hse','ANNO','cp30q','2');
     triggerSkip('child_w_disab_hse','ANNO','cp32q','3');
     triggerSkip('child_abv_10y','ANNO','cp36q','3');
+    triggerSkip('u_chd_sck','ANNO','cp43q','3');
+    triggerSkip('chd_ovr_10','ANNO','child_hd_hse','4');
+    triggerSkip('chd_ovr_10y','ANNO','cp49q','4');
     triggerSkip('child_hd_hse','ANNO','cp49q','4');
     triggerSkip('o5y_cd_hse','ANNO','cp55q','4');
     triggerSkip('cld_rsk_abus','ANNO','cp60q','4');
+    triggerSkip('chd_ovr_10ys','ANNO','cp62q','4');
     triggerSkip('adole_in_vc_train','ANNO','cp74q','5');
     
-    triggerSkip('cp49q','AYES','q12p4','5');
-    triggerSkip('cp50q','ANNO','q12p4','5');
+    triggerSkip('cp49q','AYES','q12p4','4');
+    triggerSkip('cp50q','ANNO','q12p4','4');
 // endQuestionSkipLogic
 
 
@@ -81,10 +85,10 @@ function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
     });
 }
 function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
-    $('a[href="#step'+toTabID+'"]').trigger("click");
     //hideQnsBtwn
     var destinationT = $('input[name="'+toQnID+'"]').closest("tr");
     if(!unDo){
+            $('a[href="#step'+toTabID+'"]').trigger("click");
             $("td").attr("tabindex", "-1");
             $(".form-group").attr("tabindex", "-1");
             $('input[name="'+toQnID+'"]').closest("td").attr("tabindex", "1");
@@ -93,11 +97,16 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $('input[name='+toQnID+']').removeAttr('required');
 			$('input[name='+toQnID+']').attr('data-parsley-required', false);
             $('input[name="'+toQnID+'"]').closest(".form-group").focus();
-            $('input[name="'+inputToCheck+'"]').closest(".form-group").nextUntil(destinationT, "tr").addClass('hidden');
+            // $('input[name="'+inputToCheck+'"]').closest(".form-group").nextUntil(destinationT, "tr").addClass('hidden');
             
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('input').attr('data-parsley-required', false).removeAttr('required');
 
-            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.form-group').not('.note-info').addClass('hidden').after('<span id="skyp"><br><i style="color: grey;">Skipped question</i><br/></span>');
+            //tick AYES for skipped qns
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('input[value=AYES]').prop("checked", true)
+            //tick AYES for skipped qns
+
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12:not(.containsTable)").nextUntil(destinationT, ".col-md-12:not(.containsTable)").find('.form-group').not('.note-info').addClass('hidden').after('<span id="skyp"><br><i style="color: grey;">Skipped question</i><br/></span>');
+            
             //tick Benchmark
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.form-group.note-info input[value="AYES"]').prop('checked',true);
             //tick Benchmark

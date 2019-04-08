@@ -4121,10 +4121,12 @@ class CparaAssessment(forms.Form):
             renderer=RadioCustomRenderer,
             attrs={'data-parsley-required': 'true',
                    'data-parsley-errors-container': "#signed_csac_error"}))
-    cp74q = forms.CharField(widget=forms.TextInput(
+    cp74q = forms.CharField(widget=forms.NumberInput(
         attrs={
             'placeholder': _('score'),
-            'class': 'form-control'
+            'class': 'form-control',
+            'min': '0',
+            'max': '17'
         }))
 
 

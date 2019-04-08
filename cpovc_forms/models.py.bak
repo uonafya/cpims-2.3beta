@@ -971,7 +971,6 @@ class OVCCareCpara(models.Model):
     domain = models.CharField(max_length=50)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
     date_of_event = models.DateField()
-    date_of_previous_event =models.DateField(null=True, blank=True)
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
     timestamp_created = models.DateTimeField(default=timezone.now)
@@ -1023,6 +1022,10 @@ class OVCCareWellbeing(models.Model):
 
 
 class OVCCareCasePlan(models.Model):
+<<<<<<< HEAD
+    # id=models.IntegerField(primary_key=True,  editable=False)
+=======
+>>>>>>> caseplan
     case_plan_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     domain = models.CharField(max_length=50)
     goal = models.CharField(max_length=255)
@@ -1030,19 +1033,17 @@ class OVCCareCasePlan(models.Model):
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     need = models.CharField(max_length=255)
     priority = models.CharField(max_length=255)
-    # cp_service = models.ForeignKey('cpovc_main.SetupList', on_delete=models.CASCADE)
-    cp_service = models.CharField(max_length=10)
+    cp_service = models.ForeignKey('cpovc_main.SetupList', on_delete=models.CASCADE)
     responsible = models.CharField(max_length=50)
-    completion_date = models.DateField(default=timezone.now)
+    completion_date = models.DateField()
     results = models.CharField(max_length=300)
     reasons = models.CharField(max_length=300)
-    form = models.ForeignKey(OVCCareForms)
+    # form = models.ForeignKey(OVCCareForms)
     date_of_event = models.DateField()
-    date_of_previous_event =models.DateField(null=True, blank=True)
+    # date_of_previous_event =models.DateField()
     case_plan_status=models.CharField(max_length=5)
-    initial_caseplan=models.BooleanField(default=True)
     is_void = models.BooleanField(default=False)
-    event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
+    event = models.UUIDField(default=uuid.uuid4, editable=False)
     timestamp_created = models.DateTimeField(default=timezone.now)
     timestamp_updated = models.DateTimeField(auto_now=True)
 

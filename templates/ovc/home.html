@@ -18,21 +18,6 @@
 <!-- end breadcrumb -->
 <!-- begin page-header -->
 <h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>Home</small></h1>
-{% if messages %}
-    {% for message in messages %}
-    {% if 'error' in message.tags %}
-        <div id="messages" class="alert alert-danger fade in">
-        <span class="close" data-dismiss="alert">×</span>
-        <i class="fa fa-info fa-2x pull-left"></i>
-    {% else %}
-        <div id="messages" class="alert alert-success fade in">
-        <span class="close" data-dismiss="alert">×</span>
-        <i class="fa fa-check fa-2x pull-left"></i>
-    {% endif %}    
-        <p>{{ message }}</p>
-    </div>
-   {% endfor %}
-{% endif %}
 <!-- end page-header -->
 <div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
     <span class="close" data-dismiss="alert">×</span>
@@ -143,7 +128,7 @@
                     </thead>
                     <tbody>
                     {% for ovc in ovcs %}
-                        <tr id="crow_{{ ovc.id }}">
+                        <tr>
                              <td><input type="checkbox" value="{{ ovc.person.id }}" name="ovc_id[]" /></td>
                              <td>{{ ovc.person.id }}</td>
                              <td>{{ ovc.org_unique_id }}</td>
@@ -165,7 +150,6 @@
                              <td>
                              {% if ovc.registration_date.year == 1900 %}
                              <a href="{% url 'ovc_register' id=ovc.person.id %}"><button type="button" class="btn btn-sm btn-danger m-r-5"><i class="fa fa-pencil"></i>&nbsp;Finish Registration</button></a>
-                             <button type="button" class="btn btn-sm btn-danger m-r-5 crow" id="{{ ovc.id }}"><i class="fa fa-trash"></i> Delete </button>
                              {% else %}
                              <a href="{% url 'ovc_view' id=ovc.person.id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-binoculars"></i>&nbsp;View</button></a>
 
@@ -250,35 +234,6 @@ $(document).ready(function()
         clickToSelect:true,
         maintainSelected: true                
     });
-
-    $('.crow').click(function() {
-        $("#message").show();
-        $("#message").addClass( "alert alert-success fade in" );
-        $("#message").html("Record removed successfully.");
-         var rid = $(this).attr('id');
-         $('#crow_'+ rid).remove();
-          $.ajax({
-               type: "POST",
-               url: "{{ request.get_full_path }}",
-               dataType: "json",
-               data: $("#ovcreg_form").serialize() + "&id=4&cid="+rid,
-               success: function(data)
-               {
-                   var status = data.status;
-                   if (status == 0){
-                       $("#message").addClass( "alert alert-success fade in" );
-                       $('#response').html(data.message);
-                    }else{
-                       $("#message").addClass( "alert alert-danger fade in" );
-                       $('#response').html(data.message);
-                    }
-               },
-                error: function(){
-                    $("#message").addClass( "alert alert-danger fade in" );
-                    $('#response').html("Error checking in. Please try again.");
-                }
-          });
-    });
 });
 </script>
 <script type="text/javascript">
@@ -310,7 +265,6 @@ function OpenForm(id)
     $("#form_type").multiselect("clearSelection");
     $("#form_type").multiselect("refresh");
 }
-
 $('#checkin').click(function() {
         $('#message').show();
         $.ajax({
