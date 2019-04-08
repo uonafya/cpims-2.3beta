@@ -1073,7 +1073,7 @@ legend {
 }
 .note.note-default {
     border-color: #979797;
-    background: #bbbbbb;
+    background: #dbdbdb;
     color: #3b3b3b;
 }
 .note.note-info h1, 
@@ -6455,6 +6455,15 @@ select,input,textarea{
 }
 .slimtable td{
     font-size: 0.9em;
+}
+
+.this-wiz-contains-errors{
+    border-top: 3px solid #ff7832;
+}
+
+.leadqn{
+    font-size: 1.25em;
+    font-weight: bold;
 }
 /* CUSTOM */
 

@@ -328,3 +328,32 @@ function unhideQn(qnID) {
     $('#' + qnID).removeAttr('disabled');
     $('#' + qnID).attr('required');
 }
+
+
+
+
+//validate on submit
+// $('#btn_submit_wellbeing').click(function (e) { 
+//     var this_ = $(this);
+//     e.preventDefault();
+//     $('#real_submit').trigger('click');
+    
+//     if ( $('input, select, textarea').hasClass('parsley-error') ) {
+//         $('input.parsley-error, select.parsley-error, textarea.parsley-error').closest('.wzd').addClass('this-wiz-contains-errors');
+//     }else{
+//         $('#new_hhva').submit();
+//         // $('#real_submit').trigger('click');
+//     }
+//     $('.validation_warning').remove();
+//     $('.this-wiz-contains-errors').prepend('<div class="row validation_warning"><span class="col-md-12 alert alert-danger"><i class="fa fa-warning"></i> Please fill all blank fields in this page before submitting</span></div>');
+    
+//     $('.this-wiz-contains-errors').each(function (index, wiz) {
+//         var theid = this.attr('id');
+//         alert(theid);
+//         $('a[href="#'+theid+'"]').closest('li[role="tab"]').css('background', '#ff7832').class('this-wiz-contains-errors');
+//     });
+// });
+
+
+
+//validate on submit

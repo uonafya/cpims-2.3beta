@@ -347,9 +347,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label col-md-4 col-sm-4" for="living_in_ward">Ward
-                                                    {% if person_type == 'TBVC' and request.session.reg_ovc %}
-                                                    <span class="asteriskField">*</span> {% endif %}: </label>
+                                                    <label class="control-label col-md-4 col-sm-4" for="living_in_ward">Ward : </label>
                                                     <div class="col-md-4 col-sm-4" >
                                                         {{ form.living_in_ward }}
                                                     </div>
@@ -578,20 +576,12 @@
                 <input type='radio' class="edit_person" name='edit_person' value="3"> Person never existed. (Registration mistake or duplicate.)
                 <div class="separator"><p></p></div>
 
-                {% if request.session.reg_ovc %}
-                    <div class="alert alert-warning fade in">
-                            <button type="button" class="close" data-dismiss="alert">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            Please note the changes will affect the household details. 
-                        </div>
-                {% else %}
                 <!-- begin panel -->
                 <div class="row" id="audit_detail_div">
-                <div class="panel panel-primary">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="panel-heading-btn">
-                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-danger" data-click="panel-collapse"><i class="fa fa-plus"></i></a>
+                            <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-plus"></i></a>
                         </div>
                         <h4 class="panel-title">Audit Trails</h4>
                     </div>
@@ -636,8 +626,7 @@
                                 {{ form.audit_date }}
                             </div>
                         </div>
-                    </div>
-                {% endif %}  
+                    </div>  
                     <div class="form-group">
                             <label class="control-label col-md-4 col-sm-4"></label>
                             <div class="col-md-6 col-sm-6">
@@ -853,7 +842,7 @@
                                     <!-- begin col-4 -->
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label>Mobile Number: (07XXXXXXXX)</label>
+                                            <label>Mobile Number:</label>
                                             {{ form.caregiver_tel }}
                                         </div>
                                     </div>
@@ -883,9 +872,6 @@
 <script>
 jQuery(document).ready(function() {
     //Hide these <divs> on page_load()
-    {% if person_type == 'TBVC' and request.session.reg_ovc %}
-    $('#living_in_ward').attr('data-parsley-required', 'true');
-    {% endif %}
     //No need for check window load
     var person_type = $("#person_type").val();
     var person_text = $("#person_type option:selected").text();

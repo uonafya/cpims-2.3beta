@@ -670,13 +670,10 @@ def new_person(request):
 
             # Perform audit trail here for all
             if person_type:
-                today = datetime.now()
-                todate = today.strftime('%Y-%m-%d')
-                a_date = audit_date if audit_date else todate
                 params = {}
                 params['transaction_type_id'] = 'REGS'
                 params['interface_id'] = 'INTW'
-                params['date_recorded_paper'] = a_date
+                params['date_recorded_paper'] = audit_date
                 params['paper_person_id'] = audit_workforce_id
                 params['person_id'] = int(reg_person_pk)
                 save_audit_trail(request, params)
@@ -1186,13 +1183,10 @@ def edit_person(request, id):
 
             # Perform audit trail here for all
             if edit_type:
-                today = datetime.now()
-                todate = today.strftime('%Y-%m-%d')
-                a_date = audit_date if audit_date else todate
                 params = {}
                 params['transaction_type_id'] = 'UPDS'
                 params['interface_id'] = 'INTW'
-                params['date_recorded_paper'] = a_date
+                params['date_recorded_paper'] = audit_date
                 params['paper_person_id'] = audit_workforce_id
                 params['person_id'] = eperson_id
                 save_audit_trail(request, params)
@@ -1260,7 +1254,6 @@ def edit_person(request, id):
             area_id = None
             for pgeo in person_geos:
                 area_id = pgeo.area_id
-                parent_area_id = pgeo.area.parent_area_id
                 area_type = pgeo.area.area_type_id
                 geo_type = pgeo.area_type
                 print 'IN', area_id
@@ -1280,13 +1273,6 @@ def edit_person(request, id):
                     else:
                         if area_id:
                             living_in_ward = area_id
-                    if area_id and area_id > 337:
-                        living_in_ward = area_id
-                        living_in_subcounty = parent_area_id
-                        living_in_county = 1
-                    if area_id and area_id > 47 and area_id < 337:
-                        living_in_subcounty = area_id
-                        living_in_county = parent_area_id
             # Hack to remove sub_county and ward ids
             print 'LIVIN IN', living_in_county, area_id
             # Get extid values
@@ -1354,9 +1340,8 @@ def edit_person(request, id):
             if living_in_subcounty:
                 list_subcounties.append(living_in_subcounty)
             living_in_county = counties_from_aids(list_subcounties)
-            if len(living_in_county) > 0:
+            if len(living_in_county) > 1:
                 living_in_county = living_in_county[0]
-            print 'FL', living_in_county
             initial_vals = {
                 'person_type': person_type_id,
                 'person_id': person.pk,

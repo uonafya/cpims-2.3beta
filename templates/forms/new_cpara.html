@@ -28,6 +28,8 @@ print(blu.sing("'Happy'"))
   /*color: #000000;*/
   color: #0057e7;
 }
+
+
 </style>
 {% endblock %}
 
@@ -112,7 +114,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label formlabel">Date of Assessment:</label><br/>
-                                                    <input type="date" class="form-control" placeholder=" ">
+                                                    <input type="text" class="form-control" name="d_o_a">
                                                 </div>
                                             </div>                                           
                                         </div>
@@ -192,7 +194,7 @@ print(blu.sing("'Happy'"))
                                                     <p>Please include any other aged above 18 years if still in school</p>
                                                 </div>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 containsTable">
                                                 <div class="form-group">
                                                 {% if siblings or osiblings %}
                                                     <table class="table table-condensed">
@@ -305,7 +307,7 @@ print(blu.sing("'Happy'"))
                                         <div class="row">
 
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="if_ovc_Qn">
+                                                <div class="form-group leadqn note note-default" id="if_ovc_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Is there a child (including under 5 years) in the household that is at risk or vulnerable to HIV? </label>
                                                         <small>(Chronic illness: Asthma, Cancer, Diabetes, Epileplsy)</small>
@@ -455,7 +457,7 @@ print(blu.sing("'Happy'"))
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="u10_know_status_Qn">
+                                                <div class="form-group leadqn note note-default" id="u10_know_status_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Is child under ten and/or doesn't know their status? </label>
                                                     </div>
@@ -527,7 +529,7 @@ print(blu.sing("'Happy'"))
                                             </div>
                                             <hr>
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="o10_know_status_Qn">
+                                                <div class="form-group leadqn note note-default" id="o10_know_status_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Is child(ren) above ten and know their status? </label>
                                                     </div>
@@ -545,7 +547,7 @@ print(blu.sing("'Happy'"))
                                             </div>
                                             
 
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 containsTable">
                                             <div class="form-group">
                                                 <input type="text" class="hidden" name="q3p6" value=""/>
                                                 {% if siblings or osiblings %}
@@ -680,7 +682,7 @@ print(blu.sing("'Happy'"))
 
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="adole_preg_hiv_Qn">
+                                                <div class="form-group leadqn note note-default" id="adole_preg_hiv_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Is there an adolescent or woman in the household who is pregnant or has been tested for HIV?</label>
                                                     </div>
@@ -709,7 +711,7 @@ print(blu.sing("'Happy'"))
                                             </div>
                                             <hr>
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="adole_preg_testpos_Qn">
+                                                <div class="form-group leadqn note note-default" id="adole_preg_testpos_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Did the adolescent or woman test HIV positive? </label>
                                                     </div>
@@ -749,7 +751,7 @@ print(blu.sing("'Happy'"))
                                             </div>
                                             <hr/>
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="adole_wo_deliv_Qn">
+                                                <div class="form-group leadqn note note-default" id="adole_wo_deliv_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Has the woman/adolescent already delivered? </label>
                                                     </div>
@@ -838,7 +840,7 @@ print(blu.sing("'Happy'"))
                                         
                                         <div class="row">
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="adole_gb_hse_Qn">
+                                                <div class="form-group leadqn note note-default" id="adole_gb_hse_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Are there adolescent girls and boys in the household? </label>
                                                     </div>
@@ -951,7 +953,7 @@ print(blu.sing("'Happy'"))
                                             </div>
                                             <hr/>
                                             <div class="col-md-12">
-                                                <div class="form-group note note-default" id="child_w_disab_hse_Qn">
+                                                <div class="form-group leadqn note note-default" id="child_w_disab_hse_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Is there a child(ren) with disability in the household? </label>
                                                     </div>
@@ -989,7 +991,7 @@ print(blu.sing("'Happy'"))
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp31q_Qn">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-9">
                                                     <label class="control-label formlabel">6.2 Can you describe the services you are receiving for the illness or disability? </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
@@ -1071,7 +1073,7 @@ print(blu.sing("'Happy'"))
 
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <div class="form-group note note-default" id="child_abv_10y_Qn">
+                                            <div class="form-group leadqn note note-default" id="child_abv_10y_Qn">
                                                 <div class="col-md-9">
                                                     <label class="control-label formlabel">Is there a child(ren) ten years and above in the household? </label>
                                                 </div>
@@ -1232,6 +1234,23 @@ print(blu.sing("'Happy'"))
                                         </div>
                                         <hr>
                                         <div class="col-md-12">
+                                            <div class="form-group leadqn note note-default" id="u_chd_sck_Qn">
+                                                <div class="col-md-9">
+                                                    <label class="control-label formlabel">Were you or the child sick, hurt in any way, needed legal assistance, financial service or any other protection services? </label>
+                                                </div>
+                                                <div class="col-md-3 text-left">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="u_chd_sck" value="AYES">
+                                                        Yes
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="u_chd_sck" value="ANNO">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
                                             <div class="form-group" id="cp42q_Qn">
                                                 <div class="col-md-9">
                                                     <label class="control-label formlabel">10.2 Have you or someone in your family ever accessed any critical service that exists in
@@ -1253,6 +1272,23 @@ print(blu.sing("'Happy'"))
                                     </div>
 
                                     <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group leadqn note note-default" id="chd_ovr_10_Qn">
+                                                <div class="col-md-9">
+                                                    <label class="control-label formlabel">Are there children of 10 years and above in this household? </label>
+                                                </div>
+                                                <div class="col-md-3 text-left">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="chd_ovr_10" value="AYES">
+                                                        Yes
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" name="chd_ovr_10" value="ANNO">
+                                                        No
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp43q_Qn">
                                                 <div class="col-md-9">
@@ -1293,7 +1329,7 @@ print(blu.sing("'Happy'"))
 
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="form-group note note-default" id="child_hd_hse_Qn">
+                                                    <div class="form-group leadqn note note-default" id="child_hd_hse_Qn">
                                                         <div class="col-md-9">
                                                             <label class="control-label formlabel">Is the household child-headed? </label>
                                                         </div>
@@ -1363,6 +1399,23 @@ print(blu.sing("'Happy'"))
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group leadqn note note-default" id="chd_ovr_10y_Qn">
+                                                        <div class="col-md-9">
+                                                            <label class="control-label formlabel">Are there children of 10 years and above in this household? </label>
+                                                        </div>
+                                                        <div class="col-md-3 text-left">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="chd_ovr_10y" value="AYES">
+                                                                Yes
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="chd_ovr_10y" value="ANNO">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp48q_Qn">
                                                         <div class="col-md-9">
@@ -1458,9 +1511,8 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                 </div>
                                                 <hr>
-                                                <div class="col-md-12">
+                                                <div class="col-md-12 containsTable">
                                                     <div class="form-group">
-                                                        <input type="text" class="hidden" name="q12p4" value=""/>
                                                         {% if siblings or osiblings %}
                                                             <table class="table table-condensed table-responsive">
                                                                 <thead>
@@ -1478,6 +1530,7 @@ print(blu.sing("'Happy'"))
                                                                     <tr>
                                                                         <td>
                                                                             <a href="{% url 'view_person' id=sibling.sibling_person.id %}">{{ sibling.sibling_person.full_name }}</a>
+                                                                            <input type="text" class="form-control" style="width: 0px !important; height: 0px !important; opacity: 0; font-size: 0px;" name="q12p4" value=""/>
                                                                         </td>
                                                                         <td id={{ sibling.sibling_person.id }}_q12a_Qn>
                                                                             <label class="radio-inline">
@@ -1574,7 +1627,7 @@ print(blu.sing("'Happy'"))
                                             <div class="row">
                                                 <hr>
                                                 <div class="col-md-12">
-                                                    <div class="form-group note note-default" id="cld_rsk_abus_Qn">
+                                                    <div class="form-group leadqn note note-default" id="cld_rsk_abus_Qn">
                                                         <div class="col-md-9">
                                                             <label class="control-label formlabel">Are there children in the household are at risk of or experienced abuse, violence, exploitation, or neglect? </label>
                                                         </div>
@@ -1622,7 +1675,7 @@ print(blu.sing("'Happy'"))
                                                 </div>
                                             </div>
 
-                                                <div class="col-md-12">
+                                                <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% if siblings or osiblings %}
                                                             <table class="table table-condensed table-responsive">
@@ -1755,6 +1808,23 @@ print(blu.sing("'Happy'"))
                                             </div>
 
                                             <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group leadqn note note-default" id="chd_ovr_10ys_Qn">
+                                                        <div class="col-md-9">
+                                                            <label class="control-label formlabel">Are there children of 5 years and above in this household? </label>
+                                                        </div>
+                                                        <div class="col-md-3 text-left">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="chd_ovr_10ys" value="AYES">
+                                                                Yes
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="chd_ovr_10ys" value="ANNO">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp61q_Qn">
                                                         <div class="col-md-9">
@@ -1952,7 +2022,7 @@ print(blu.sing("'Happy'"))
 
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <div class="form-group note note-default" id="adole_in_vc_train_Qn">
+                                                    <div class="form-group leadqn note note-default" id="adole_in_vc_train_Qn">
                                                         <div class="col-md-9">
                                                             <label class="control-label formlabel">Are there any adolescents in the household enrolled in vocational training? </label>
                                                         </div>
@@ -2012,7 +2082,7 @@ print(blu.sing("'Happy'"))
                                                 </div>
                                             </div>
 
-                                                <div class="col-md-12">
+                                                <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% if siblings or osiblings %}
                                                             <table class="table table-condensed table-responsive">
@@ -2172,6 +2242,10 @@ jQuery(document).ready(function()
         buttonWidth: '100%',
         buttonClass: 'btn btn-white'
     });
+
+    $( function() {
+        $('input[name="d_o_a"]').datepicker({ format: 'yyyy-mm-dd' }).val();
+    } );
 
 	$('html,body').scrollTop(0);
     FormWizardValidation.init();

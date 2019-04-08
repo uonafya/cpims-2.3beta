@@ -351,5 +351,3 @@ class OVCViralload(models.Model):
     def __unicode__(self):
         """To be returned by admin actions."""
         return str(self.person)
-
-

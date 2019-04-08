@@ -34,18 +34,105 @@ validDate('cp2q','cp1q','ANNO','AYES');
 var benchmarkScore = 0;
 $('input[name=cp74q]').attr('readonly', true);
 
+// disable benchmark editing 
+$('input[name=cp1b]').attr('disabled', true); $('input[name=cp2b]').attr('disabled', true); $('input[name=cp3b]').attr('disabled', true); $('input[name=cp4b]').attr('disabled', true); $('input[name=cp5b]').attr('disabled', true); $('input[name=cp6b]').attr('disabled', true); $('input[name=cp7b]').attr('disabled', true); $('input[name=cp8b]').attr('disabled', true); $('input[name=cp9b]').attr('disabled', true); $('input[name=cp10b]').attr('disabled', true); $('input[name=cp11b]').attr('disabled', true); $('input[name=cp12b]').attr('disabled', true); $('input[name=cp13b]').attr('disabled', true); $('input[name=cp14b]').attr('disabled', true); $('input[name=cp15b]').attr('disabled', true); $('input[name=cp16b]').attr('disabled', true); $('input[name=cp17b]').attr('disabled', true);
+// disable benchmark editing
+
+// benchmark score after change of last benchmark radio
+// $('input[name=cp17b], input[name=cp1b], input[name=cp2b], input[name=cp3b], input[name=cp4b], input[name=cp5b], input[name=cp6b], input[name=cp7b], input[name=cp8b], input[name=cp9b], input[name=cp10b], input[name=cp11b], input[name=cp12b], input[name=cp13b], input[name=cp14b], input[name=cp15b], input[name=cp16b], input[name=cp17b]').change(function (e) { 
+$('input[name=cp17b]').change(function (e) { 
+
+    var cp1b = $('input[name=cp1b]:checked').val();
+    if(cp1b === 'AYES'){cp1b = 1;}
+    else if(cp1b === 'ANNO'){cp1b = 0;}
+    
+    var cp2b = $('input[name=cp2b]:checked').val();
+    if(cp2b === 'AYES'){cp2b = 1;}
+    else if(cp2b === 'ANNO'){cp2b = 0;}
+    
+    var cp3b = $('input[name=cp3b]:checked').val();
+    if(cp3b === 'AYES'){cp3b = 1;}
+    else if(cp3b === 'ANNO'){cp3b = 0;}
+    
+    var cp4b = $('input[name=cp4b]:checked').val();
+    if(cp4b === 'AYES'){cp4b = 1;}
+    else if(cp4b === 'ANNO'){cp4b = 0;}
+    
+    var cp5b = $('input[name=cp5b]:checked').val();
+    if(cp5b === 'AYES'){cp5b = 1;}
+    else if(cp5b === 'ANNO'){cp5b = 0;}
+    
+    var cp6b = $('input[name=cp6b]:checked').val();
+    if(cp6b === 'AYES'){cp6b = 1;}
+    else if(cp6b === 'ANNO'){cp6b = 0;}
+    
+    var cp7b = $('input[name=cp7b]:checked').val();
+    if(cp7b === 'AYES'){cp7b = 1;}
+    else if(cp7b === 'ANNO'){cp7b = 0;}
+    
+    var cp8b = $('input[name=cp8b]:checked').val();
+    if(cp8b === 'AYES'){cp8b = 1;}
+    else if(cp8b === 'ANNO'){cp8b = 0;}
+    
+    var cp9b = $('input[name=cp9b]:checked').val();
+    if(cp9b === 'AYES'){cp9b = 1;}
+    else if(cp9b === 'ANNO'){cp9b = 0;}
+    
+    var cp10b = $('input[name=cp10b]:checked').val();
+    if(cp10b === 'AYES'){cp10b = 1;}
+    else if(cp10b === 'ANNO'){cp10b = 0;}
+    
+    var cp11b = $('input[name=cp11b]:checked').val();
+    if(cp11b === 'AYES'){cp11b = 1;}
+    else if(cp11b === 'ANNO'){cp11b = 0;}
+    
+    var cp12b = $('input[name=cp12b]:checked').val();
+    if(cp12b === 'AYES'){cp12b = 1;}
+    else if(cp12b === 'ANNO'){cp12b = 0;}
+    
+    var cp13b = $('input[name=cp13b]:checked').val();
+    if(cp13b === 'AYES'){cp13b = 1;}
+    else if(cp13b === 'ANNO'){cp13b = 0;}
+    
+    var cp14b = $('input[name=cp14b]:checked').val();
+    if(cp14b === 'AYES'){cp14b = 1;}
+    else if(cp14b === 'ANNO'){cp14b = 0;}
+    
+    var cp15b = $('input[name=cp15b]:checked').val();
+    if(cp15b === 'AYES'){cp15b = 1;}
+    else if(cp15b === 'ANNO'){cp15b = 0;}
+    
+    var cp16b = $('input[name=cp16b]:checked').val();
+    if(cp16b === 'AYES'){cp16b = 1;}
+    else if(cp16b === 'ANNO'){cp16b = 0;}
+    
+    var cp17b = $('input[name=cp17b]:checked').val();
+    if(cp17b === 'AYES'){cp17b = 1;}
+    else if(cp17b === 'ANNO'){cp17b = 0;}
+
+    benchmarkScore =  parseFloat(cp1b) + parseFloat(cp2b) + parseFloat(cp3b) + parseFloat(cp4b) + parseFloat(cp5b) + parseFloat(cp6b) + parseFloat(cp7b) + parseFloat(cp8b) + parseFloat(cp9b) + parseFloat(cp10b) + parseFloat(cp11b) + parseFloat(cp12b) + parseFloat(cp13b) + parseFloat(cp14b) + parseFloat(cp15b) + parseFloat(cp16b) + parseFloat(cp17b);
+
+    $('input[name=cp74q]').val(benchmarkScore);
+});
+
+// benchmark score after change of last benchmark radio
+
+
 
 // ----------------CORE----------------
 function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn) {
     // $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
+
+    // prevent manual benchmark ticking
     $('input[name='+idOfBenchmarkQn+']').change(function() {
-        var vf = $(this).val();
-        if(vf == 'AYES'){
-            $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
-        }else if(vf =='ANNO'){
-            $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
-        }
+        // var vf = $(this).val();
+        // if(vf == 'AYES'){
+        //     $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
+        // }else if(vf =='ANNO'){
+        //     $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
+        // }
     });
+    // prevent manual benchmark ticking
 
     var valToMatch = arrayOfInputsToCheck.length;
     var actualValNo = 1;
@@ -55,7 +142,7 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
             if(thisval !== arrayOfExpectedValues[inde]){
                 $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
                 $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
-                // console.log('first NOone works');
+                $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
                 if(thisval === arrayOfExpectedValues[inde]){
                     actualValNo = actualValNo + 1;
                 }else{
@@ -69,15 +156,16 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
                 if(actualValNo == valToMatch){
                     $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
                     $('input[name='+idOfBenchmarkQn+'][value=AYES]').prop("checked", true);
-                    console.log('2nd YESone works');
+                    $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
                     //update benchmark score
-                    benchmarkScore = benchmarkScore + 1
-                    $('input[name=cp74q]').val(benchmarkScore);
-                    console.log("added benchmark + 1 = "+benchmarkScore);
+                    // benchmarkScore = benchmarkScore + 1
+                    // $('input[name=cp74q]').val(benchmarkScore);
+                    // console.log("added benchmark + 1 = "+benchmarkScore);
                     //update benchmark score
                 }else{
                     $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
                     $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
+                    $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
                     // console.log('2nd NOone works');
                     if(thisval === arrayOfExpectedValues[inde]){
                         actualValNo = actualValNo + 1;
