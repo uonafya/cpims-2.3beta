@@ -8657,9 +8657,7 @@ def case_plan_template(request, id):
 
         # house_hold=
         care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-        print ('care_giver', care_giver)
         caregiver_id=OVCRegistration.objects.get(person=child).caretaker_id
-        print ('eeeeeeeee', caregiver_id)
 
 
         if my_request:
