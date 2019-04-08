@@ -8559,6 +8559,7 @@ def new_cpara(request, id):
     ovc_id = int(id)
     creg = OVCRegistration.objects.get(is_void=False, person_id=ovc_id)
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
     house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
     
     ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
@@ -8654,6 +8655,13 @@ def case_plan_template(request, id):
 
         my_request=request.POST.get('final_submission')
 
+        # house_hold=
+        care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        print ('care_giver', care_giver)
+        caregiver_id=OVCRegistration.objects.get(person=child).caretaker_id
+        print ('eeeeeeeee', caregiver_id)
+
+
         if my_request:
             caseplandata= json.loads(my_request)
             for all_data in caseplandata:
@@ -8673,12 +8681,17 @@ def case_plan_template(request, id):
                 if my_initial_caseplan=='AYES':
                     my_date_of_prev_evnt=my_date_of_caseplan
 
+                    # User.objects.filter(first_name__startswith='R').values('first_name', 'last_name')
+                xyz=RegPerson.objects.filter(id=caregiver_id).values('id')
+                print ('mmmmm', xyz)
+
                 for service in my_service:
                     OVCCareCasePlan(
                             initial_caseplan=my_initial_caseplan,
                             domain=my_domain,
                             goal=my_goal,
                             person_id = id,
+                            caregiver=RegPerson.objects.get(id=caregiver_id),
                             household = house_hold,
                             need=my_gap,
                             priority=my_action,
