@@ -43,16 +43,17 @@
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
+<!-- {% for data in init_data %} -->
 
-{% for data in init_data %}
-
-	<h1 class="page-header">Forms <small>Case Plan Template <b> | {{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+	<h1 class="page-header">Forms <small>Case Plan Template <b> {{care_giver}}
+         <!-- | {{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
                             UNDER 1 YEAR
                         {% else %}
                             {{ data.date_of_birth|gen_age }} YRS 
-                        {% endif %}</b></small></h1>
+                        {% endif %} -->
+                    </b></small></h1>
 
-{% endfor %}
+<!-- {% endfor %} -->
 <!-- end page-header -->
 
 <!-- #csi-warning-dialog -->

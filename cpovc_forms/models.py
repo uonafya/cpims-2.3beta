@@ -272,7 +272,7 @@ class OVCReferral(models.Model):
     #    timestamp_created = models.DateTimeField(default=timezone.now)
     #    timestamp_updated = models.DateTimeField(default=timezone.now)
     #    is_void = models.BooleanField(default=False)
-    sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    #  sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
 
 
 #    person = models.ForeignKey(RegPerson)
@@ -315,10 +315,9 @@ class FormsLog(models.Model):
 class FormsAuditTrail(models.Model):
     """Model for Forms Audit."""
     transaction_id = models.AutoField(primary_key=True)
-    form_id = models.UUIDField(null=True)
+    form_id =  models.UUIDField(null=True)
     form_type_id = models.CharField(max_length=250)
-    transaction_type_id = models.CharField(max_length=4, null=True,
-                                           db_index=True)
+    transaction_type_id = models.CharField(max_length=4, null=True, db_index=True)
     interface_id = models.CharField(max_length=4, null=True, db_index=True)
     timestamp_modified = models.DateTimeField(auto_now=True)
     app_user = models.ForeignKey(AppUser)
@@ -373,7 +372,7 @@ class OVCCaseEvents(models.Model):
     next_mention_date = models.DateField(null=True)  # For Court Mentions
     plea_taken = models.CharField(max_length=4, null=True)  # For Plea Taken (Guilty/Not Guilty)
     application_outcome = models.CharField(max_length=4, null=True)  # For Application Outcome (Granted/Not Granted)
-    placement_id = models.ForeignKey(OVCPlacement, null=True)  # To track children who went to court from institutions
+    placement_id = models.ForeignKey(OVCPlacement, null=True) # To track children who went to court from institutions
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
     sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
@@ -659,8 +658,7 @@ class OVCFamilyCare(models.Model):
     adoption_subcounty = models.ForeignKey(
         'cpovc_main.SetupGeography', related_name='adoption_subcounty_fk', null=True)
     adoption_country = models.CharField(max_length=20, null=True)
-    residential_institution_name = models.ForeignKey(RegOrgUnit, related_name='residential_institution_name_fk',
-                                                     null=True)
+    residential_institution_name = models.ForeignKey(RegOrgUnit, related_name='residential_institution_name_fk', null=True)
     fostered_from = models.ForeignKey(RegOrgUnit, related_name='fostered_from_fk', null=True)
     date_of_adoption = models.DateField(default=timezone.now, null=True)
     court_name = models.CharField(max_length=100, null=True)
@@ -709,6 +707,7 @@ class OVCCareEvents(models.Model):
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
     sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    # app_user = models.ForeignKey(AppUser, default=1)
     person = models.ForeignKey(RegPerson, null=True)
     house_hold = models.ForeignKey(OVCHouseHold, null=True)
 
@@ -720,7 +719,7 @@ class OVCCareAssessment(models.Model):
     """ This table will hold OVC Assessment Data """
 
     assessment_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    domain = models.CharField(max_length=4)
+    domain = models.CharField(max_length=4)   
     service = models.CharField(max_length=4)
     service_status = models.CharField(max_length=4)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
@@ -900,9 +899,7 @@ class OVCGokBursary(models.Model):
 
 
 '''
-Classes below were added by someone using django for first time,
-if you find errors, correct and move on.
-Peace!
+Classes below were added due to ovc case management
 '''
 
 
@@ -1027,6 +1024,7 @@ class OVCCareCasePlan(models.Model):
     domain = models.CharField(max_length=50)
     goal = models.CharField(max_length=255)
     person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
+    caregiver = models.ForeignKey(RegPerson, on_delete=models.CASCADE, related_name='wellbieng_caregiver')
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     need = models.CharField(max_length=255)
     priority = models.CharField(max_length=255)

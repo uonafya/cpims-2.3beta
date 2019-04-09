@@ -988,13 +988,13 @@ legend {
     border-color: #bee5eb;
 }
 .alert.alert-danger {
-    /* background: #f8b2b2; */
+    background: #f8b2b2;
     color: #8a1621;
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
 .alert.alert-warning {
-    /* background: #ffead0; */
+    background: #ffead0;
     color: #917010;
     background-color: #fff3cd;
     border-color: #ffeeba;

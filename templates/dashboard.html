@@ -254,7 +254,7 @@ National
 					<!--<div id="stacked-chart" class="height-sm"></div>-->
 					<div id="donut-chart" class="height-sm"></div>
 
-					{% endif %}	
+					{% endif %}
 				</div>
 			</div>
 		</div>
@@ -424,7 +424,7 @@ National
 		       var rname = $('#rpt_'+rrid).html();
 		       {% if request.session.ou_primary_name %}
 				    var heading = '{{ request.session.ou_primary_name }} - ';
-				{% else %} 
+				{% else %}
 				    var heading = 'National - ';
 				{% endif %}
 		       $('#modal-reports').modal('show');

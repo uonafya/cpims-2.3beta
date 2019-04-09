@@ -8559,6 +8559,7 @@ def new_cpara(request, id):
     ovc_id = int(id)
     creg = OVCRegistration.objects.get(is_void=False, person_id=ovc_id)
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
     house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
     
     ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
@@ -8578,6 +8579,10 @@ def new_cpara(request, id):
 
     # orgunit = RegPersonsOrgUnits.objects.get(person=child)
     form = CparaAssessment()
+    ovc_id = int(id)
+    child = RegPerson.objects.get(is_void=False, id=ovc_id)
+    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
     return render(request,
                   'forms/new_cpara.html',
                   {
@@ -8592,7 +8597,8 @@ def new_cpara(request, id):
                       'household' : house_hold,
                       'ward': ward,
                       'subcounty': subcounty,
-                      'county': county
+                      'county': county,
+                      'care_giver':care_giver
                     #   'orgunit' : orgunit,
 
                   })
@@ -8654,6 +8660,11 @@ def case_plan_template(request, id):
 
         my_request=request.POST.get('final_submission')
 
+        # house_hold=
+        care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        caregiver_id=OVCRegistration.objects.get(person=child).caretaker_id
+
+
         if my_request:
             caseplandata= json.loads(my_request)
             for all_data in caseplandata:
@@ -8673,12 +8684,17 @@ def case_plan_template(request, id):
                 if my_initial_caseplan=='AYES':
                     my_date_of_prev_evnt=my_date_of_caseplan
 
+                    # User.objects.filter(first_name__startswith='R').values('first_name', 'last_name')
+                xyz=RegPerson.objects.filter(id=caregiver_id).values('id')
+                print ('mmmmm', xyz)
+
                 for service in my_service:
                     OVCCareCasePlan(
                             initial_caseplan=my_initial_caseplan,
                             domain=my_domain,
                             goal=my_goal,
                             person_id = id,
+                            caregiver=RegPerson.objects.get(id=caregiver_id),
                             household = house_hold,
                             need=my_gap,
                             priority=my_action,
@@ -8703,12 +8719,17 @@ def case_plan_template(request, id):
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id', 'relationship_type_id']
     vals = get_dict(field_name=check_fields)
+    ovc_id = int(id)
+    child = RegPerson.objects.get(is_void=False, id=ovc_id)
+    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
 
     form = CasePlanTemplate()
     return render(request,
                   'forms/case_plan_template.html',
                   {'form': form, 'init_data': init_data,
-                   'vals': vals})
+                   'vals': vals,
+                   'care_giver':care_giver})
 
 
 @login_required
@@ -8766,7 +8787,12 @@ def new_case_plan_monitoring(request, id):
         url = reverse('ovc_view', kwargs={'id': id})
         return HttpResponseRedirect(url)
     form = CparaMonitoring()
-    return render(request, 'forms/new_case_plan_monitoring.html', {'form': form})
+
+    ovc_id = int(id)
+    child = RegPerson.objects.get(is_void=False, id=ovc_id)
+    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
+    return render(request, 'forms/new_case_plan_monitoring.html', {'form': form, 'care_giver': care_giver})
 
 
 def fetch_question(answer_item_code):
@@ -9030,7 +9056,26 @@ def new_wellbeing(request, id):
 
     hhmembers = hhmqs.exclude(person_id=ovcreg.caretaker_id)
 
+
+    ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
+
+    ward = SetupGeography.objects.get(area_id=ward_id)
+    subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+
+    if ward.area_type_id == 'GLTL':
+        # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
+        subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    elif ward.area_type_id == 'GDIS':
+        subcounty = ward
+        ward = ''
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+
     form = Wellbeing(initial={'household_id': household_id, 'caretaker_id': caretaker_id, })
+    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
+    
     return render(request,
                   'forms/new_wellbeing.html',
                   {
@@ -9045,7 +9090,12 @@ def new_wellbeing(request, id):
                       'osiblings': osiblings,
 
                       'person_sex_type': person_sex_type,
-                      'oguardians': oguardians
+                      'oguardians': oguardians,
+                      
+                      'county': county,
+                      'ward': ward,
+                      'subcounty': subcounty,
+                      'care_giver': care_giver
                   })
 
 
@@ -9120,8 +9170,12 @@ def new_wellbeingadolescent(request, id):
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id', 'relationship_type_id']
     vals = get_dict(field_name=check_fields)
+    ovc_id = int(id)
+    child = RegPerson.objects.get(is_void=False, id=ovc_id)
 
     form = WellbeingAdolescentForm(initial={'household_id': household_id})
+    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
     return render(request,
                   'forms/new_wellbeingadolescent.html',
                   {
@@ -9129,4 +9183,6 @@ def new_wellbeingadolescent(request, id):
                       'init_data': init_data,
                       'vals': vals,
                       'person': id,
+                      'care_giver':care_giver
+
                   })

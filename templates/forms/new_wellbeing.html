@@ -128,7 +128,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 {% for data in init_data %}
 
 <h1 class="page-header">Forms
-    <small>Adult and Child Wellbeing Assessment Form
+    <small>Adult and Child Wellbeing Assessment Form || {{care_giver}}
         <!--<b>{{ data.first_name }} {{ data.surname }} | {{-->
         <!--data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}-->
         <!--UNDER 1 YEAR-->
@@ -273,11 +273,14 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                     <th>Sub-county</th>
                                                                     <th>Ward</th>
                                                                     <tbody>
-                                                                    <tr>
-                                                                        <td>Nairobi</td>
-                                                                        <td>Kasarani</td>
-                                                                        <td>Sunton</td>
-                                                                    </tr>
+                                                                            <tr>
+                                                                                    <td><b>County:</b></td>
+                                                                                    <td>{{ county.area_name }}</td>
+                                                                                    <td><b>Sub County:</b></td>
+                                                                                    <td>{{subcounty.area_name}}</td>
+                                                                                    <td><b>Ward:</b></td>
+                                                                                    <td>{{ward.area_name}}</td>
+                                                                                </tr>  
                                                                     </tbody>
                                                                 </table>
                                                             </td>

@@ -2512,7 +2512,7 @@ def get_pivot_ovc(request, params={}):
     """Method to get OVC Pivot Data."""
     try:
         datas = []
-        report_id = int(request.POST.get('rpt_ovc_id'))
+        report_id = int(request.POST.get('report_ovc'))
         kpis = {}
         kpis[1] = '1.a %s OVCs Ever Registered'
         kpis[2] = '1.b %s New OVC Registrations within period'
@@ -2551,7 +2551,6 @@ def get_pivot_ovc(request, params={}):
         services[1] = 'a.OVC HIVSTAT'
         services[2] = 'b.OVC Served'
         services[3] = 'c.OVC Not Served'
-        '''
         if report_id == 3:
             datas = get_registration_data(kpis, params)
         elif report_id == 2:
@@ -2559,8 +2558,7 @@ def get_pivot_ovc(request, params={}):
         elif report_id == 1:
             datas = get_services_data(services, params)
         else:
-        '''
-        datas, titles = get_sql_data(request, params)
+            datas, titles = get_sql_data(request, params)
     except Exception, e:
         print 'Error getting OVC pivot data - %s' % (str(e))
         return []
@@ -2639,14 +2637,13 @@ def get_sql_data(request, params):
     print 'Report Name', qname
     row, desc = run_sql_data(request, sql)
     data = datas + row
-    '''
+
     qblank = '%s_blank' % (qname)
     if qblank in QUERIES:
         bsql = QUERIES[qblank]
         bsql = bsql.format(**params)
         brow, bdesc = run_sql_data(request, bsql)
         data = data + brow
-
     for i in range(1, 5):
         qs = '%s_%s' % (qname, str(i))
         qb = '%s_blank_%s' % (qname, str(i))
@@ -2660,7 +2657,6 @@ def get_sql_data(request, params):
             sql = sql.format(**params)
             brow, desc = run_sql_data(request, sql)
             data = data + brow
-    '''
     return data, desc
 
 

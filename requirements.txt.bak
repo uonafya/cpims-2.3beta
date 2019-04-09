@@ -1,0 +1,13 @@
+Django==1.8.15
+django-crispy-forms==1.6.0
+jellyfish==0.5.4
+pillow==2.4.0
+psycopg2
+reportlab==3.3.0
+djangorestframework==3.3.3
+openpyxl==2.3.3
+python-dateutil==2.4.2
+jellyfish==0.5.4
+python-memcached
+pandas==0.20.3
+xlsxwriter==0.9.8

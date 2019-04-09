@@ -8,7 +8,7 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = os.environ.get('CPIMS_SECRET_KEY') if os.environ.get('CPIMS_SECRET_KEY') else 'xxxx'
+SECRET_KEY = 'h34yo5l8c8!edb%^b@3j-i^gc$e)fcjnw_9jm4a^%jbq&*41+@'
 
 
 ALLOWED_HOSTS = ['*']
@@ -35,7 +35,7 @@ INSTALLED_APPS = (
     'cpovc_main',
     'cpovc_forms',
     'cpovc_gis',
-    'cpovc_access',
+    #'cpovc_access',
     'cpovc_settings',
     'crispy_forms',
     'cpovc_ovc',
@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'cpovc_main.middleware.SqlPrintingMiddleware',
+    #'cpovc_main.middleware.SqlPrintingMiddleware',
     'cpovc_auth.middleware.UserRestrictMiddleware',
     'cpovc_access.middleware.FailedLoginMiddleware',
 )
@@ -183,3 +183,5 @@ CACHES = {
         'LOCATION': '127.0.0.1:11211',
     }
 }
+CSRF_FAILURE_VIEW = 'cpims.views.csrf_failure'
+

@@ -304,9 +304,12 @@ def ovc_edit(request, id):
                        'sch_class': sch_class, 'siblings': siblings,
                        'ctaker': ctaker, 'vloads': vloads})
     except Exception, e:
-        print "error with OVC editing - %s" % (str(e))
-        raise e
-
+        print "error with OVC viewing - %s" % (str(e))
+        # raise e
+        msg= "Error occured during ovc edit"
+        messages.error(request, msg)
+        form=OVCSearchForm()
+        return render(request, 'ovc/home.html', {'form':form, 'status':200})
 
 @login_required(login_url='/')
 @is_allowed_ous(['RGM', 'RGU', 'DSU', 'STD'])
@@ -401,18 +404,25 @@ def ovc_view(request, id):
                         'art_status_id', 'school_type_id',
                         'class_level_id']
         vals = get_dict(field_name=check_fields)
+        
+
+        care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
         return render(request, 'ovc/view_child.html',
                       {'status': 200, 'child': child, 'params': params,
                        'guardians': guardians, 'siblings': siblings,
                        'vals': vals, 'hhold': hhold, 'creg': creg,
                        'extids': gparams, 'health': health,
                        'hhmembers': hhmembers, 'school': school,
+                       'care_giver' :care_giver,
                        'services': services, 'allow_edit': allow_edit,
                        'suppression': vl_sup})
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
-        raise e
-
+        # raise e
+        msg= "Error occured during ovc view"
+        messages.error(request, msg)
+        url=reverse('ovc_register', kwargs={'id':id})
+        return HttpResponseRedirect(url)
 
 @login_required(login_url='/')
 def hh_manage(request, hhid):

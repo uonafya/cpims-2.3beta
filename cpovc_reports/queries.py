@@ -6,23 +6,29 @@ REPORTS[1] = 'registration_list'
 REPORTS[2] = 'registration'
 REPORTS[3] = 'registration'
 REPORTS[4] = 'registration'
-# REPORTS[5] = 'not_served'
-REPORTS[51] = 'datim'
-REPORTS[52] = 'pepfar'
-REPORTS[53] = 'kpi'
-
 REPORTS[5] = 'not_served'
+
 REPORTS[6] = 'pepfar_summary'
 REPORTS[7] = 'registration'
 REPORTS[8] = 'beneficiary_list'
 REPORTS[9] = 'form1a_summary'
 REPORTS[10] = 'needs_vs_served'
-REPORTS[16] = 'needs_vs_served_summary'
+
 REPORTS[11] = 'form1b_summary'
 REPORTS[12] = 'ovc_served_list'
 REPORTS[13] = 'master_list'
 REPORTS[14] = 'ovc_assessed_list'
 REPORTS[15] = 'ovc_overall_view'
+REPORTS[16] = 'needs_vs_served_summary'
+REPORTS[17] = 'cpara'
+REPORTS[18] = 'case_plan'
+REPORTS[19] = 'served_two_quaters'
+REPORTS[20] = 'benchmark'
+
+REPORTS[51] = 'datim'
+REPORTS[52] = 'pepfar'
+REPORTS[53] = 'kpi'
+REPORTS[54] = 'datim_mer_23'
 
 # Master List
 QUERIES['master_list'] = '''
@@ -923,7 +929,8 @@ and ovc_registration.exit_date between ''{start_date}'' and ''{end_date}'' ))
 group by exit_reason, list_geo.area_name order by ward) as wc
 group by ward, graduation order by 1,2')
 AS ct("ward" text, "WardActive" int, "WARDGraduated" int,
-"WARDTransferred" int, "WARDExitedWithoutGraduation" int);;'''
+"WARDTransferred" int, "WARDExitedWithoutGraduation" int);
+'''
 
 
 QUERIES['datim_4'] = '''
@@ -942,7 +949,6 @@ LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id=ovc_registration.pe
 WHERE reg_persons_geo.is_void = False
 and ovc_registration.is_void = False
 and ovc_registration.child_cbo_id in {cbos}
- 
 GROUP BY reg_person.sex_id, Domain;'''
 
 
@@ -964,7 +970,6 @@ WHERE reg_persons_geo.is_void = False
 AND ovc_registration.hiv_status = 'HSTP'
 and ovc_registration.is_void = False
 and ovc_registration.child_cbo_id in {cbos}
-
 GROUP BY 
 reg_person.sex_id, Domain;'''
 
@@ -1947,7 +1952,7 @@ left outer join list_general AS cgt on hhm.member_type=cgt.item_id AND cgt.field
 LEFT OUTER JOIN ovc_care_health ON
 ovc_care_health.person_id=ovc_registration.person_id
 left outer join ovc_facility on ovc_care_health.facility_id=ovc_facility.id
-where ovc_registration.child_cbo_id in ({cbos})
+where reg_persons_geo.is_void = False and ovc_registration.child_cbo_id in ({cbos})
 and ovc_care_events.date_of_event between '{start_date}' and '{end_date}'
 and service_provided != '' and service_provided is not null
 '''
@@ -2172,6 +2177,7 @@ LEFT OUTER JOIN ovc_care_health ON
 ovc_care_health.person_id=ovc_registration.person_id
 left outer join ovc_facility on ovc_care_health.facility_id=ovc_facility.id
 where ovc_registration.child_cbo_id in ({cbos})
+and reg_persons_geo.is_void = False
 and ovc_care_events.date_of_event between '{start_date}' and '{end_date}'
 and service != '' and service is not null
 '''
@@ -2523,3 +2529,380 @@ WHERE reg_org_unit.id in ({cbos}) AND (ovc_care_assessment.domain in ('DHNU','DP
 AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
 )
 '''
+QUERIES['cpara'] = '''
+Select * from vw_cpims_cpara
+WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+'''
+QUERIES['case_plan'] = '''
+Select * from vw_cpims_case_plan
+WHERE cbo_id in ({cbos}) AND (vw_cpims_case_plan.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+'''
+QUERIES['served_two_quaters'] = '''
+select * from * vw_cpims_two_quarters
+WHERE cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}');
+'''
+QUERIES['benchmark'] = '''
+select * from vw_cpims_mer_benchmark_achieved
+WHERE cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}');
+'''
+QUERIES['datim_mer_23'] = '''
+select count(distinct vw_cpims_exits.person_id) as WardGraduated,vw_cpims_exits.ward_id INTO TEMP temp_ExitsGraduated from vw_cpims_exits
+LEFT OUTER JOIN vw_cpims_graduated ON vw_cpims_exits.person_id = vw_cpims_graduated.person_id
+where vw_cpims_exits.datimexitreason = 'GRADUATION'   AND
+ vw_cpims_exits.cbo_id in ({cbos})  AND (vw_cpims_exits.exit_status = 'EXITED' AND
+(vw_cpims_exits.registration_date <= '{end_date}' AND (vw_cpims_exits.exit_date BETWEEN '{start_date}' AND '{end_date}')))
+--AND vw_cpims_exits.person_id IN (SELECT vw_cpims_graduated.person_id FROM vw_cpims_graduated)
+GROUP BY vw_cpims_exits.ward_id;
+
+-- Transfers to PEPFAR
+--query 2
+SELECT count(distinct person_id) as TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER, ward_id INTO TEMP
+ temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER from vw_cpims_exits where  datimexitreason = 'TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER'
+  AND vw_cpims_exits.cbo_id in ({cbos}) AND (exit_status = 'EXITED' AND (registration_date <= '{end_date}' AND (exit_date BETWEEN '{datim_start_date}' AND '{end_date}')))
+GROUP BY ward_id;
+
+
+-- Transfers to NON PEPFAR
+--query 3
+SELECT count(distinct person_id) AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER, ward_id INTO TEMP temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER
+from vw_cpims_exits where  datimexitreason = 'TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER' AND vw_cpims_exits.cbo_id IN ({cbos})
+AND (exit_status = 'EXITED' AND (registration_date <= '{end_date}' AND (exit_date BETWEEN '{datim_start_date}' AND '{end_date}'))) GROUP BY ward_id;
+
+-- No Category Exits
+--query 4
+SELECT count(distinct person_id) AS NO_CATEGORY, ward_id INTO TEMP temp_ExitsNO_CATEGORY from vw_cpims_exits
+where  datimexitreason = 'NO_CATEGORY' AND vw_cpims_exits.cbo_id IN ({cbos}) AND
+(exit_status = 'EXITED' AND (registration_date <= '{end_date}' AND (exit_date BETWEEN '{datim_start_date}' AND '{end_date}'))) GROUP BY ward_id;
+
+
+--query 5 Attrition
+SELECT count(distinct person_id) AS ATTRITION, ward_id INTO TEMP temp_Attrition from vw_cpims_exits
+where  datimexitreason = 'ATTRITION' AND vw_cpims_exits.cbo_id IN ({cbos}) AND
+(exit_status = 'EXITED' AND (registration_date <= '{end_date}' AND (exit_date BETWEEN '{datim_start_date}' AND '{end_date}'))) GROUP BY ward_id;
+
+--query 6 Active Beneficiary
+SELECT count(distinct cpims_ovc_id) AS ACTIVEBENEFICIARY, ward_id INTO TEMP temp_Actives_Ben from vw_cpims_active_beneficiary
+where  --datimexitreason = 'ATTRITION' AND
+       vw_cpims_active_beneficiary.cbo_id IN ({cbos}) AND
+--(exit_status = 'EXITED' AND
+ (registration_date <= '{end_date}'
+    --AND (exit_date BETWEEN '{datim_start_date}' AND '{end_date}'))
+   )
+    GROUP BY ward_id;
+
+--Datim Services
+ SELECT DISTINCT person_id as ovcid, CBO, ward, County,AgeRange,tbl_pepfar.ward_id,tbl_pepfar.countyid,
+Gender INTO  TEMP temp_DatimServices FROM
+	(SELECT person_id,vw_cpims_Registration.CBO, vw_cpims_Registration.ward, vw_cpims_Registration.County, CASE sex_id WHEN
+	   'SMAL' THEN 'Male' ELSE 'Female' END AS Gender,
+	 CASE
+	 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) < 1 THEN 'a.[<1yrs]'
+	 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+	 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+	 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+	 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+	 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+	 ELSE 'g.[21+yrs]' END AS AgeRange,cboid,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
+	  FROM  vw_cpims_services INNER JOIN vw_cpims_Registration ON vw_cpims_services.person_id = vw_cpims_Registration.cpims_ovc_id
+	  WHERE vw_cpims_services.cboid IN (2796) AND (date_of_event BETWEEN '2018-10-31' AND '2019-03-31')
+	   AND ((exit_status = 'ACTIVE' AND (vw_cpims_registration.registration_date <= '2019-03-31'))
+		OR person_id IN (SELECT DISTINCT person_id FROM vw_cpims_exits
+                     WHERE datimexitreason = 'GRADUATION'
+						AND
+       vw_cpims_exits.cbo_id IN ({cbos})
+                       AND (exit_status = 'EXITED' AND (registration_date <= '{end_date}'
+						AND (exit_date BETWEEN '{start_date}' AND '{end_date}')))
+                    )
+	 -- OR (exit_status = 'EXITED' AND (registration_date <= '{end_date}' AND exit_date >= '{datim_start_date}'))
+	  )
+      -- Only under 18s or 18-20 in School
+      AND (vw_cpims_Registration.age < 17 OR (vw_cpims_Registration.age BETWEEN 18 AND 20 AND vw_cpims_Registration.schoollevel='Secondary'))
+		-- AND NOT (more than 18 years and not in school)
+	 AND NOT
+	   (vw_cpims_Registration.schoollevel = 'Not in School' AND  vw_cpims_Registration.age > 17)
+
+	  GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward,
+	  vw_cpims_Registration.County,sex_id,vw_cpims_Registration.dob,cboid,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
+
+UNION --Include Graduated 6(sapr)-12(apr)months because Active+Graduated=OVC_Serv
+		SELECT person_id,vw_cpims_Registration.cbo, vw_cpims_Registration.ward,  vw_cpims_Registration.County, vw_cpims_Registration.gender,
+		 CASE
+		 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) < 1 THEN 'a.[<1yrs]'
+		 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+		 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+		 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+		 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+		 WHEN  date_part('year', age(timestamp '2019-03-31', vw_cpims_Registration.dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+		 ELSE 'g.[21+yrs]' END AS AgeRange,vw_cpims_Registration.cbo_id,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
+		from vw_cpims_exits
+    -- from vw_cpims_graduated
+			INNER JOIN vw_cpims_Registration ON vw_cpims_exits.person_id = 	vw_cpims_Registration.cpims_ovc_id
+			where
+        datimexitreason = 'GRADUATION'   AND
+        vw_cpims_graduated.cbo_id in ({cbos})
+        AND (vw_cpims_exits.exit_status = 'EXITED' AND
+
+
+		(vw_cpims_exits.registration_date <= '{end_date}' AND (vw_cpims_exits.exit_date BETWEEN '{start_date}' AND '{end_date}'))
+	)
+		GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward,
+		  vw_cpims_Registration.County,vw_cpims_Registration.gender,vw_cpims_Registration.dob,vw_cpims_Registration.cbo_id,
+		vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
+
+     )
+tbl_pepfar
+group by ovcid,CBO, ward, County,AgeRange,tbl_pepfar.ward_id,tbl_pepfar.countyid,Gender;
+
+--Active OVCs, should be only OVCs Served
+select
+CAST(COUNT(DISTINCT cpims_ovc_id) AS integer) AS OVCCount,
+ward,County,ward_id as wardid
+into TEMP temp_ActiveBeneficiaries
+from vw_cpims_Registration
+where vw_cpims_registration.cbo_id in ({cbos}) AND ((exit_status = 'ACTIVE' and registration_date <= '{end_date}')
+
+)
+AND NOT
+      (vw_cpims_Registration.schoollevel = 'Not in School' AND  vw_cpims_Registration.age > 17)
+ and cpims_ovc_id in (select ovcid from temp_datimservices)
+ group by  ward,County,ward_id ;
+
+
+
+
+--   ++++++  Datim final output  +++
+SELECT DISTINCT count(ovcid) as OVCCount  , temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+ temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,
+ temp_ActiveBeneficiaries.ovccount as WardActive,
+ temp_Actives_Ben.ACTIVEBENEFICIARY,
+ temp_ExitsGraduated.WardGraduated,
+ temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+ temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+ temp_Attrition.Attrition,
+ temp_ExitsNO_CATEGORY.NO_CATEGORY,'1. OVC_Serv ' || ''  as Domain
+FROM temp_DatimServices
+LEFT OUTER JOIN temp_ActiveBeneficiaries ON temp_DatimServices.Ward_id = temp_ActiveBeneficiaries.wardid
+LEFT OUTER JOIN temp_Actives_Ben ON temp_Actives_Ben.ward_id = temp_Actives_Ben.ward_id
+LEFT OUTER JOIN temp_ExitsGraduated ON temp_ExitsGraduated.WARD_ID = temp_DatimServices.Ward_id
+LEFT OUTER  JOIN temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER ON temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.WARD_ID = temp_DatimServices.Ward_id
+LEFT OUTER  JOIN temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER ON temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.Ward_id = temp_DatimServices.Ward_id
+LEFT OUTER JOIN temp_Attrition ON temp_DatimServices.ward_id = temp_Attrition.ward_id
+LEFT OUTER  JOIN temp_ExitsNO_CATEGORY ON temp_ExitsNO_CATEGORY.Ward_id = temp_DatimServices.Ward_id
+group by temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+ temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,temp_ActiveBeneficiaries.ovccount,
+ temp_Actives_Ben.ACTIVEBENEFICIARY,
+ temp_ExitsGraduated.WardGraduated,
+ temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+ temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+ temp_Attrition.Attrition,
+ temp_ExitsNO_CATEGORY.NO_CATEGORY
+
+ UNION ALL
+
+  --HIV STATUS DISAGGREGATES
+
+ SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, county,
+  CASE
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) < 1 THEN 'a.[<1yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+        ELSE 'g.[21+yrs]' END AS AgeRange,
+  ward_id,countyid, gender,
+       '0'  AS WardActive,
+       '0'  AS ActiveBeneficiaries,
+       '0'  AS WardGraduated,
+       '0'  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS ATTRITION,
+       '0'  AS NO_CATEGORY,
+       CASE ovchivstatus
+       WHEN 'POSITIVE' THEN '2a. (i) OVC_HIVSTAT: HIV+'
+       WHEN 'NEGATIVE' THEN '2b. OVC_HIVSTAT: HIV-'
+       WHEN 'TESTN' THEN '2d. OVC_HIVSTAT: TEST NOT REQUIRED'
+       ELSE '2c. OVC_HIVSTAT: UKNOWN' END AS domain
+FROM vw_cpims_Registration WHERE
+vw_cpims_registration.cbo_id IN ({cbos}) 
+AND vw_cpims_registration.cpims_ovc_id IN (SELECT DISTINCT ovcid FROM temp_DatimServices)
+GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward, vw_cpims_Registration.county,dob, ward_id,countyid,
+  gender,ovchivstatus
+
+UNION ALL
+
+--POSITIVE ON TREATMENT
+ SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, county,
+  CASE
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) < 1 THEN 'a.[<1yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+        ELSE 'g.[21+yrs]' END AS AgeRange,
+  ward_id,countyid, gender,
+       '0'  AS WardActive,
+       '0'  AS ActiveBeneficiaries,
+       '0'  AS WardGraduated,
+       '0'  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS ATTRITION,
+       '0'  AS NO_CATEGORY,
+       '2a. (ii) OVC_HIVSTAT: HIV+ on ARV Treatment'  AS domain
+FROM vw_cpims_treatment
+WHERE
+vw_cpims_treatment.linked = 'TREATMENT'
+and vw_cpims_treatment.cbo_id IN ({cbos}) 
+AND vw_cpims_treatment.cpims_ovc_id IN (SELECT DISTINCT ovcid FROM temp_DatimServices)
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,dob, ward_id,countyid,
+  gender,ovchivstatus
+
+union ALL
+
+--POSITIVE NOT ON TREATMENT
+  SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, county,
+  CASE
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) < 1 THEN 'a.[<1yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+        ELSE 'g.[21+yrs]' END AS AgeRange,
+  ward_id,countyid, gender,
+       '0'  AS WardActive,
+       '0'  AS ActiveBeneficiaries,
+       '0'  AS WardGraduated,
+       '0'  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS ATTRITION,
+       '0'  AS NO_CATEGORY,
+       '2a. (iii) OVC_HIVSTAT: HIV+ NOT on ART Treatment / ART Status UNKNOWN'  AS domain
+FROM vw_cpims_treatment
+WHERE
+vw_cpims_treatment.linked = 'NOTREATMENT'
+and vw_cpims_treatment.cbo_id IN ({cbos})
+AND vw_cpims_treatment.cpims_ovc_id IN (SELECT DISTINCT ovcid FROM temp_DatimServices)
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,dob, ward_id,countyid,
+  gender,ovchivstatus
+
+  UNION ALL
+  ---=================ZERO PADDING ROWS TO MAINTAIN STRUCTURE====================
+
+SELECT DISTINCT 0 as OVCCount  , temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+ temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,
+ temp_ActiveBeneficiaries.ovccount as WardActiveBeneficiaries,temp_ExitsGraduated.WardGraduated,
+temp_Actives_Ben.ACTIVEBENEFICIARY,
+ temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+ temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+ temp_Attrition.Attrition,
+ temp_ExitsNO_CATEGORY.NO_CATEGORY,'1. OVC_Serv ' || ''  as Domain
+FROM temp_DatimServices
+LEFT OUTER JOIN temp_ActiveBeneficiaries
+ ON temp_DatimServices.Ward_id = temp_ActiveBeneficiaries.wardid
+left outer join temp_Actives_Ben ON temp_Actives_Ben.ward_id=temp_DatimServices.ward_id
+LEFT OUTER JOIN temp_ExitsGraduated
+ ON temp_ExitsGraduated.WARD_ID = temp_DatimServices.Ward_id
+LEFT OUTER  JOIN temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER
+ ON temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.WARD_ID = temp_DatimServices.Ward_id
+LEFT OUTER  JOIN temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER
+ ON temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.Ward_id = temp_DatimServices.Ward_id
+left outer join temp_Attrition ON temp_Attrition.ward_id=temp_DatimServices.ward_id
+LEFT OUTER  JOIN temp_ExitsNO_CATEGORY
+ ON temp_ExitsNO_CATEGORY.Ward_id = temp_DatimServices.Ward_id
+group by temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+ temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,temp_ActiveBeneficiaries.ovccount,temp_Actives_Ben.ACTIVEBENEFICIARY,
+temp_ExitsGraduated.WardGraduated,
+ temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+ temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+temp_Attrition.ATTRITION,
+ temp_ExitsNO_CATEGORY.NO_CATEGORY
+
+ UNION ALL
+
+  --HIV STATUS DISAGGREGATES
+
+ SELECT DISTINCT 0 AS OVCCount  , cbo, ward, county,
+  CASE
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) < 1 THEN 'a.[<1yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+        ELSE 'g.[21+yrs]' END AS AgeRange,
+  ward_id,countyid, gender,
+        0  AS WardActive,
+       0  AS ActiveBeneficiaries,
+       0  AS WardGraduated,
+       0  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       0  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       0 AS ATTRITION,
+       0  AS NO_CATEGORY,
+       CASE ovchivstatus
+       WHEN 'POSITIVE' THEN '2a. (i) OVC_HIVSTAT: HIV+'
+       WHEN 'NEGATIVE' THEN '2b. OVC_HIVSTAT: HIV-'
+       ELSE '2c. OVC_HIVSTAT: HIV Status NOT Known' END AS domain
+FROM vw_cpims_Registration WHERE
+vw_cpims_registration.cbo_id IN ({cbos}) 
+GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward, vw_cpims_Registration.county,dob, ward_id,countyid,
+  gender,ovchivstatus
+
+UNION ALL
+
+--POSITIVE ON TREATMENT
+ SELECT DISTINCT 0 AS OVCCount  , cbo, ward, county,
+  CASE
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) < 1 THEN 'a.[<1yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+        ELSE 'g.[21+yrs]' END AS AgeRange,
+  ward_id,countyid, gender,
+        0  AS WardActive,
+       0  AS ActiveBeneficiaries,
+       0  AS WardGraduated,
+       0  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       0  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       0  AS ATTRITION,
+       0  AS NO_CATEGORY,
+       '2a. (ii) OVC_HIVSTAT: HIV+ on ARV Treatment'  AS domain
+FROM vw_cpims_treatment
+WHERE
+vw_cpims_treatment.linked = 'TREATMENT'
+and vw_cpims_treatment.cbo_id IN ({cbos})
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,dob, ward_id,countyid,
+  gender,ovchivstatus
+
+UNION ALL
+
+--POSITIVE NOT ON TREATMENT
+  SELECT DISTINCT 0 AS OVCCount  , cbo, ward, county,
+  CASE
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) < 1 THEN 'a.[<1yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+        WHEN  date_part('year', age(timestamp '2019-03-31', dob)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
+        ELSE 'g.[21+yrs]' END AS AgeRange,
+  ward_id,countyid, gender,
+       0  AS WardActive,
+       0  AS ActiveBeneficiaries,
+       0  AS WardGraduated,
+       0  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       0  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       0  AS ATTRITION,
+       0  AS NO_CATEGORY,
+       '2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV Treatment'  AS domain
+FROM vw_cpims_treatment
+WHERE
+vw_cpims_treatment.linked = 'NOTREATMENT'
+and vw_cpims_treatment.cbo_id IN ({cbos})
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,dob, ward_id,countyid,
+  gender,ovchivstatus;
+'''
+
