@@ -404,6 +404,8 @@ def ovc_view(request, id):
                         'art_status_id', 'school_type_id',
                         'class_level_id']
         vals = get_dict(field_name=check_fields)
+        
+
         care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
         return render(request, 'ovc/view_child.html',
                       {'status': 200, 'child': child, 'params': params,
