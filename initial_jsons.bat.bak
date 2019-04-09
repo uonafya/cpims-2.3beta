@@ -16,8 +16,8 @@ python manage.py loaddata cpovc_main\fixtures\olmis_registry.json
 python manage.py loaddata cpovc_main\fixtures\eligibility.json
 python manage.py loaddata cpovc_main\fixtures\olmis_services.csv.json
 python manage.py loaddata cpovc_main\fixtures\ovc_form_type_id.json
-
 python manage.py createsuperuser
+
 
 python manage.py loaddata cpovc_main\fixtures\initial_org_unit.csv.json
 python manage.py loaddata cpovc_main\fixtures\initial_org_unit_contact.csv.json

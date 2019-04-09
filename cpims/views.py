@@ -44,7 +44,8 @@ def get_dashboard(request):
         summary['workforce'] = '{:,}'.format(dash['workforce_members'])
         summary['cases'] = '{:,}'.format(dash['case_records'])
         summary['pending'] = '{:08}'.format(dash['pending_cases'])
-        # summary['hiv_status'] = dash['hiv_status']
+        #summary['hiv_status'] = dash['hiv_status']
+        
         # OVC care
         odash = ovc_dashboard(request)
         ovc = {}
