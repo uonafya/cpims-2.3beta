@@ -287,7 +287,6 @@ def save_cpara_form_by_domain(id, question, answer, house_hold, event, date_even
         print '%s :error saving cpara - %s' % (question.code, str(e))
         return False
 
-=======
 from cpovc_registry.functions import (
     get_client_ip, get_meta_data)
 

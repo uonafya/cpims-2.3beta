@@ -9131,7 +9131,6 @@ def new_wellbeingadolescent(request, id):
                       'vals': vals,
                       'person': id,
                   })
-=======
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
@@ -18264,4 +18263,3 @@ def new_wellbeingadolescent(request, id):
                       'vals': vals,
                       'person': id,
                   })
->>>>>>> 518bdd67948319a7254daba92b857c26dc029ae5
