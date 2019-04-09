@@ -2530,16 +2530,20 @@ AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event 
 )
 '''
 QUERIES['cpara'] = '''
-Select * from vw_cpims_cpara;
+Select * from vw_cpims_cpara
+WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara.date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['case_plan'] = '''
-Select * from vw_cpims_case_plan;
+Select * from vw_cpims_case_plan
+WHERE cbo_id in ({cbos}) AND (vw_cpims_case_plan.date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['served_two_quaters'] = '''
-select * from * vw_cpims_two_quarters;
+select * from * vw_cpims_two_quarters
+WHERE cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['benchmark'] = '''
-select * from vw_cpims_mer_benchmark_achieved;
+select * from vw_cpims_mer_benchmark_achieved
+WHERE cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['datim_mer_23'] = '''
 select count(distinct vw_cpims_exits.person_id) as WardGraduated,vw_cpims_exits.ward_id INTO TEMP temp_ExitsGraduated from vw_cpims_exits
