@@ -170,3 +170,11 @@ def handler_500(request):
         return render(request, '500.html', {'status': 500})
     except Exception, e:
         raise e
+
+
+def csrf_failure(request):
+    """Some default page for CSRF error."""
+    try:
+        return render(request, 'csrf.html', {'status': 500})
+    except Exception, e:
+        raise e
