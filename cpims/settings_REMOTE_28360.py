@@ -35,7 +35,7 @@ INSTALLED_APPS = (
     'cpovc_main',
     'cpovc_forms',
     'cpovc_gis',
-    #'cpovc_access',
+    'cpovc_access',
     'cpovc_settings',
     'crispy_forms',
     'cpovc_ovc',
@@ -53,7 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    #'cpovc_main.middleware.SqlPrintingMiddleware',
+    'cpovc_main.middleware.SqlPrintingMiddleware',
     'cpovc_auth.middleware.UserRestrictMiddleware',
     'cpovc_access.middleware.FailedLoginMiddleware',
 )

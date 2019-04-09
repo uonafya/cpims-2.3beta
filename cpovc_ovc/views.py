@@ -304,9 +304,12 @@ def ovc_edit(request, id):
                        'sch_class': sch_class, 'siblings': siblings,
                        'ctaker': ctaker, 'vloads': vloads})
     except Exception, e:
-        print "error with OVC editing - %s" % (str(e))
-        raise e
-
+        print "error with OVC viewing - %s" % (str(e))
+        # raise e
+        msg= "Error occured during ovc edit"
+        messages.error(request, msg)
+        form=OVCSearchForm()
+        return render(request, 'ovc/home.html', {'form':form, 'status':200})
 
 @login_required(login_url='/')
 @is_allowed_ous(['RGM', 'RGU', 'DSU', 'STD'])
@@ -413,8 +416,11 @@ def ovc_view(request, id):
                        'suppression': vl_sup})
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
-        raise e
-
+        # raise e
+        msg= "Error occured during ovc view"
+        messages.error(request, msg)
+        url=reverse('ovc_register', kwargs={'id':id})
+        return HttpResponseRedirect(url)
 
 @login_required(login_url='/')
 def hh_manage(request, hhid):

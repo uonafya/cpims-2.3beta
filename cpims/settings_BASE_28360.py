@@ -14,10 +14,11 @@ SECRET_KEY = 'h34yo5l8c8!edb%^b@3j-i^gc$e)fcjnw_9jm4a^%jbq&*41+@'
 ALLOWED_HOSTS = ['*']
 
 cpims_db_host = os.environ.get('CPIMS_HOST') if os.environ.get('CPIMS_HOST') else 'localhost'
-cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else 'postgres'
-cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'dcs_live'
+cpims_db_pass = os.environ.get('CPIMS_PASSWORD') 
+if os.environ.get('CPIMS_PASSWORD') else 'Xaen!ee8'
+cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'cpims'
 cpims_db_port = os.environ.get('CPIMS_PORT') if os.environ.get('CPIMS_PORT') else '5432'
-cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else 'postgres'
+cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else 'cpimsdbuser'
 
 cpims_debug = eval(os.environ.get('CPIMS_DEBUG')) if os.environ.get('CPIMS_DEBUG') else True
 
@@ -35,7 +36,7 @@ INSTALLED_APPS = (
     'cpovc_main',
     'cpovc_forms',
     'cpovc_gis',
-    #'cpovc_access',
+    'cpovc_access',
     'cpovc_settings',
     'crispy_forms',
     'cpovc_ovc',
@@ -53,7 +54,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    #'cpovc_main.middleware.SqlPrintingMiddleware',
+    'cpovc_main.middleware.SqlPrintingMiddleware',
     'cpovc_auth.middleware.UserRestrictMiddleware',
     'cpovc_access.middleware.FailedLoginMiddleware',
 )
@@ -91,7 +92,7 @@ DATABASES = {
         'NAME': cpims_db_instance,
         'USER': cpims_db_user,
         'PASSWORD': cpims_db_pass,
-        'HOST': '41.89.94.99',
+        'HOST': '41.89.94.104',        
         'PORT': cpims_db_port, }
 }
 

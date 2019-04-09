@@ -205,16 +205,6 @@ National
 				<div class="stats-info">
 					<h4 id="rpt_16">PENDING CASES</h4>
 					<p>{{ data.pending }}</p>
-					{% for hiv_stats in data.hiv_status %}
-						<input type="hidden"  name="ovc_unknown_count" value={{hiv_stats.ovc_unknown_count}}/>
-						<input type="hidden"  name="on_art" value={{hiv_stats.on_art}}/>
-						<input type="hidden"  name="ovc_HSTP" value={{hiv_stats.ovc_HSTP}}/>
-						<input type="hidden"  name="ovc_HSTN" value={{hiv_stats.ovc_HSTN}}/>
-						<input type="hidden"  name="not_on_art" value={{hiv_stats.not_on_art}}/>
-						<input type="hidden"  name="suppresed" value={{hiv_stats.suppresed}}/>
-						<input type="hidden"  name="not_suppresed" value={{hiv_stats.not_suppresed}}/>
-						<!--<div id="test-flot" style="width: 200px;height: 70px"></div>-->
-					{% endfor %}
 				</div>
 				<div class="stats-link">
 					<a href="#" class="dash_details" id="dt_16">View Detail <i class="fa fa-arrow-circle-o-right"></i></a>
@@ -264,13 +254,13 @@ National
 					<!--<div id="stacked-chart" class="height-sm"></div>-->
 					<div id="donut-chart" class="height-sm"></div>
 
-					{% endif %}	
+					{% endif %}
 				</div>
 			</div>
 		</div>
-
+		<!--HIV status graph -->
 		<div class="col-md-2">
-	        <div class="panel panel-inverse" data-sortable-id="index-7">
+	        <div class="panel panel-inverse" data-sortable-id="index-8">
 				<div class="panel-heading">
 					<div class="panel-heading-btn">
 						<a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
@@ -279,14 +269,9 @@ National
 					<h4 class="panel-title">Cacade 90-90-90</h4>
 				</div>
 				<div class="panel-body">
-					{% if request.session.reg_ovc or request.user.is_superuser %}
 					<div id="test-flot" class="height-sm"></div>
-					<!--<div id="donut-chart" class="height-sm"></div>-->
-					{% else %}
-					<!--<div id="stacked-chart" class="height-sm"></div>-->
-					<div id="donut-chart" class="height-sm"></div>
-
-					{% endif %}
+				</div>
+			</div>
 		</div>
 
 
@@ -439,7 +424,7 @@ National
 		       var rname = $('#rpt_'+rrid).html();
 		       {% if request.session.ou_primary_name %}
 				    var heading = '{{ request.session.ou_primary_name }} - ';
-				{% else %} 
+				{% else %}
 				    var heading = 'National - ';
 				{% endif %}
 		       $('#modal-reports').modal('show');
@@ -486,8 +471,6 @@ National
 		    });
 
 	add_ovc_HST_stats();
-	function add_ovc_HST_stats(){
-			// Add  hiv stats to dashboard
 
 	function showTooltip2(x, y, contents) {
         $('<div id="tooltip2" class="flot-tooltip">' + contents + '</div>').css( {
