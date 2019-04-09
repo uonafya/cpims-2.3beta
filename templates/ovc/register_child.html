@@ -117,27 +117,42 @@
                         {{ form.reg_date }}
                       </div>
                     </div>
+
+                    <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Point of entry</label>
+                        {{ form.po_entry }}
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                    <div class="form-group">
+                        <label>Is this the initial enrolment?</label>
+                        {{ form.init_enrol }}
+                      </div>
+                    </div>
+
                     <!-- end col-2 -->
                     <!-- begin col-1 -->
                     <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Has BCert</label>
-                        {{ form.has_bcert }}
-                      </div>
+                        <div class="form-group">
+                            <label>Has BCert</label>
+                            {{ form.has_bcert }}
+                        </div>
                     </div>
                     <!-- end col-2 -->
                     <!-- begin col-2 -->
                     <div class="col-md-2">
-                    <div class="form-group">
-                        <label>Birth Certificate No.</label>
-                        {{ form.bcert_no }}
-                      </div>
+                        <div class="form-group">
+                            <label>Birth Certificate No.</label>
+                            {{ form.bcert_no }}
+                        </div>
                     </div>
                     <!-- end col-2 -->
                     <!-- begin col-1 -->
                     <div class="col-md-2">
                     <div class="form-group">
-                        <label>Is Disabled</label>
+                        <label>Is Child Disabled</label>
                         {{ form.disb }}
                       </div>
                     </div>
@@ -145,7 +160,7 @@
                     <!-- begin col-2 -->
                     <div class="col-md-3">
                     <div class="form-group">
-                        <label>NCPWD No.</label>
+                        <label>PWD Registration No.</label>
                         {{ form.ncpwd_no }}
                       </div>
                     </div>

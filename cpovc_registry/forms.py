@@ -38,6 +38,7 @@ county_list = get_geo_list(all_list, 'GPRV')
 sub_county_list = get_geo_list(all_list, 'GDIS')
 ward_list = get_geo_list(all_list, 'GWRD')
 
+caregiver_hiv_status_choices = ( ('', 'Select status'), ('1', 'Positive'), ('2', 'Negative'), ('3', 'Not Known') )
 
 YESNO_CHOICES = get_list('yesno_id')
 
@@ -335,6 +336,13 @@ class RegistrationForm(forms.Form):
         attrs={'placeholder': _('Cellphone Number'),
                'class': 'form-control',
                'id': 'caregiver_tel'}))
+    caregiver_hiv_status = forms.ChoiceField(
+        choices=caregiver_hiv_status_choices, label=_('Select HIV status'),
+        initial='',
+        widget=forms.Select(
+            attrs={'id': 'caregiver_hiv_status',
+                   'class': 'form-control'}))
+
     relationship_type_id = forms.ChoiceField(
         choices=relationship_type_list,
         initial='0',

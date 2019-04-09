@@ -19,9 +19,15 @@ eligibility_list = get_list('eligibility_criteria_id', '')
 death_cause_list = get_list('death_cause_id', 'Please Select Cause of Death')
 exit_list = get_list('exit_reason_id', 'Please Select one')
 admission_list = get_list('school_type_id', 'Please Select one')
-
 health_unit_list = get_org_units_list(
     default_txt='Select Unit', org_types=['HFGU'])
+
+# -------------additions
+
+point_of_entry_choices = ( ('', 'Select Criteria'), ('1', 'Health facility'), ('2', 'Community') )
+initial_enrolment_choices = ( ('', 'Select Criteria'), ('1', 'Yes'), ('2', 'No') )
+
+# -------------additions
 
 
 class OVCSearchForm(forms.Form):
@@ -112,6 +118,20 @@ class OVCRegistrationForm(forms.Form):
         attrs={'class': 'form-control',
                'id': 'reg_date',
                'data-parsley-required': "true"}))
+    
+    init_enrol = forms.ChoiceField(
+                choices=initial_enrolment_choices,
+                initial='0',
+                widget=forms.Select(
+                    attrs={'class': 'form-control', 'id': 'init_enrol',
+                           'data-parsley-required': "true"}))
+    
+    po_entry = forms.ChoiceField(
+                choices=point_of_entry_choices,
+                initial='0',
+                widget=forms.Select(
+                    attrs={'class': 'form-control', 'id': 'po_entry',
+                           'data-parsley-required': "true"}))
 
     exit_date = forms.CharField(widget=forms.TextInput(
         attrs={'class': 'form-control',
