@@ -30,6 +30,7 @@ validBench(['cp71q','cp72q','cp73q'], ['AYES','AYES','AYES'], 'cp17b');
 
 validDate('cp2d','cp1d','AYES','ANNO');
 validDate('cp2q','cp1q','ANNO','AYES');
+validDate('children_rsk_hiv_assess_date','cp1q','ANNO','AYES');
 
 var benchmarkScore = 0;
 $('input[name=cp74q]').attr('readonly', true);

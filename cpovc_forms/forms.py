@@ -3570,6 +3570,13 @@ class CparaAssessment(forms.Form):
                'data-parsley-group': 'group1'
                # type': 'hidden'
                }))
+    children_rsk_hiv_assess_date = forms.DateField(widget=forms.TextInput(
+        attrs={'class': 'form-control',
+               'id': 'children_rsk_hiv_assess_date',
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group1'
+               # type': 'hidden'
+               }))
     cp3q = forms.ChoiceField(
         choices=YESNO_CHOICES,
         widget=forms.RadioSelect(
