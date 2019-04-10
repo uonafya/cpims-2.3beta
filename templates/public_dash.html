@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CPIMS - Dashboard </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="../static/js/public_dash/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+          rel="stylesheet">
+    <link href="../static/js/public_dash/css/font-awesome.css" rel="stylesheet">
+    <link href="../static/js/public_dash/css/style.css" rel="stylesheet">
+    <link href="../static/js/public_dash/css/pages/dashboard.css" rel="stylesheet">
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">CPIMS DASH</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-cog"></i> Locality <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li id="national"><a href="javascript:;">National</a></li>
+                            <li id="county"><a href="javascript:;">County</a></li>
+                            <li id="constituency"><a href="javascript:;">Countituency</a></li>
+                            <li id="ward"><a href="javascript:;">Ward</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-user"></i> Suppression <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:;">Viral Load</a></li>
+                            <li><a href="javascript:;">Stats</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i
+                            class="icon-cog"></i> Implementing Partner <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:;">Pepfar</a></li>
+                            <li><a href="javascript:;">Usaid</a></li>
+                            <li><a href="javascript:;">DOD</a></li>
+                            <li><a href="javascript:;">CDC</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <form class="navbar-form navbar-right navbar-search">
+
+                    <input type="text" class="search-query" placeholder="Search">
+
+                    <button type="submit" class="btn btn-xs btn-default nav-search-btn">Search</button>
+                </form>
+
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </div>
+</nav>
+
+
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+            <ul class="mainnav">
+                <li class="active"><a href="#"><i class="icon-dashboard"></i><span>Dashboard</span> </a></li>
+
+                <li><a href="#"><i class="icon-list-alt"></i><span>Reports</span> </a></li>
+                <li><a href="#"><i class="icon-bar-chart"></i><span>Charts</span> </a></li>
+                <li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i
+                        class="icon-long-arrow-down"></i><span>Drops</span> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="logo" href="#">CPIMS DASH</a></li>
+                        <li><a href="#">FAQ</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="{% url 'home' %}"><i class="icon-signin"></i> <span>Login</span> </a></li>
+            </ul>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /subnavbar-inner -->
+</div>
+<!-- /subnavbar -->
+
+<div class="main">
+    <div class="main-inner">
+        <div id="charts-board" class="container-fluid">
+            <div  class="row">
+                <div id="art_status_chart" class="col-sm-6"></div>
+                <div id="hiv_status_chart" class="col-sm-6"></div>
+            </div><br>
+
+            <div class="row">
+                <div id="cascade_90_chart" class="col-sm-6"></div>
+            </div> <br>
+
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /main-inner -->
+</div>
+<!-- /main -->
+
+<!-- /extra -->
+<div class="footer">
+    <div class="footer-inner">
+        <div class="container">
+            <div class="row">
+                <div class="span12"> &copy; 2018 <a href="#">CPIMS DASHBAORD</a>.</div>
+                <!-- /span12 -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /footer-inner -->
+</div>
+<!-- /footer -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="../static/js/public_dash/js/jquery-3.3.1.min.js"></script>
+
+<script src="../static/js/public_dash/js/base.js"></script>
+<script src="../static/js/public_dash/js/bootstrap.min.js"></script>
+<script language="javascript" type="text/javascript"></script>
+
+<script src="../static/js/public_dash/js/jquery-ui.min.js"></script>
+<script src="../static/js/public_dash/js/charts/highcharts.js"></script>
+
+<script src="../static/js/public_dash/js/charts/stacked-bar.js"></script>
+
+<script src="../static/js/public_dash/js/charts/hiv-stats.js"></script>
+<script src="../static/js/public_dash/js/charts/cascade-90-90-90.js"></script>
+<script src="../static/js/public_dash/js/events.js"></script>
+
+
+</body>
+</html>
+

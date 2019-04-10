@@ -25,7 +25,11 @@ from cpovc_access.forms import StrictPasswordChangeForm
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     # url(r'^$', 'cpovc_auth.views.log_in', name='home'),
-    url(r'^$', 'cpims.views.home', name='home'),
+    url(r'^$', 'cpims.views.public_dash', name='public_dash'),
+    url(r'^hiv_stats_pub_data/(?P<org_level>\w+)/(?P<org_level_sub_level>.*)/', 'cpims.views.get_pub_data', name='get_pub_data'),
+    url(r'^get_hiv_suppression_data/(?P<org_level>\w+)/(?P<org_level_sub_level>.*)/', 'cpims.views.get_hiv_suppression_data', name='get_hiv_suppression_data'),
+    #url(r'^$', 'cpims.views.home', name='home'),
+    url(r'^home/$', 'cpims.views.home', name='home'),
     url(r'^accounts/request/$', 'cpims.views.access', name='access'),
     url(r'^accounts/terms/(?P<id>\d+)/$', 'cpovc_access.views.terms',
         name='terms'),
