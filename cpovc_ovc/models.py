@@ -165,7 +165,7 @@ class OVCHHMembers(models.Model):
 
     def __unicode__(self):
         """To be returned by admin actions."""
-        return self.id
+        return str(self.id)
 
 
 class OVCFacility(models.Model):
