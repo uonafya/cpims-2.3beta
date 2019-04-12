@@ -62,12 +62,12 @@ $(document).ready(function() {
             var HIV_positive_not_on_arv_m = [[2, HIV_positive_not_on_arv]] ;
 
 
-            alert("plotting "+ hiv_positive_m);
-            alert("plotting "+ hiv_positive_f);
-            alert("plotting "+ HIV_positive_on_arv_m);
-            alert("plotting "+ HIV_positive_on_arv_f);
-            alert("plotting "+ HIV_positive_not_on_arv_m);
-            alert("plotting "+ HIV_positive_not_on_arv_f);
+            console.log("plotting "+ hiv_positive_m);
+            console.log("plotting "+ hiv_positive_f);
+            console.log("plotting "+ HIV_positive_on_arv_m);
+            console.log("plotting "+ HIV_positive_on_arv_f);
+            console.log("plotting "+ HIV_positive_not_on_arv_m);
+            console.log("plotting "+ HIV_positive_not_on_arv_f);
 			var data3= [
 						{ data: hiv_positive_m, color: blueDark, label: 'Male HIV positive', bars: { fillColor: blueDark } } ,
 						{ data: hiv_positive_f, color: red, label: 'Female HIV positive', bars: { fillColor: red } } ,
@@ -76,7 +76,6 @@ $(document).ready(function() {
 						{ data: HIV_positive_not_on_arv_m, color: blueDark, label: 'Male HIV positive not on arv', bars: { fillColor: blueDark } } ,
 						{ data: HIV_positive_not_on_arv_f, color: red, label: 'Female HIV positive not on arv', bars: { fillColor: red } } ,
 					];
-            alert("plotting ");
 			$.plot($("#domain_hiv_status"), data3, options);
 
 			var previousXValue = null;

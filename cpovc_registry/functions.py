@@ -29,6 +29,48 @@ organisation_id_prefix = 'U'
 benficiary_id_prefix = 'B'
 workforce_id_prefix = 'W'
 
+def fetch_locality_data():
+    rows2, desc2 = run_sql_data(None,
+                                ''' 
+                                SELECT area_id,area_type_id,area_name,parent_area_id, 
+                                     CASE
+                                          WHEN tt.area_type_id = 'GWRD' THEN
+                                            (select parent_area_id from list_geo list_ge where list_ge.area_id=tt.parent_area_id limit 1)
+                                          ELSE
+                                            Null
+                                      END AS "grand_parent" 
+                                   FROM 
+                                ( SELECT area_id,area_type_id,area_name,parent_area_id  FROM public.list_geo order by area_id) as tt
+                                    
+                                ''')
+    org_list={}
+    for x in rows2:
+        # print x
+        if(x['AREA_ID'] not in org_list and x['PARENT_AREA_ID'] == None):
+            org_list[x['AREA_ID']] = {'name': x['AREA_NAME']+ " county", 'siblings': {}}
+        elif(x['AREA_ID'] in org_list and x['PARENT_AREA_ID'] == None):
+            pass
+        elif( x['AREA_TYPE_ID'] == 'GDIS'): # constituency
+            if (x['PARENT_AREA_ID'] in org_list):
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]={}
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name']=x['AREA_NAME']+ " sub-county"
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['siblings'] = {}
+            else:
+                org_list[x['AREA_ID']] = {'name': x['AREA_NAME'], 'siblings': {}}
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']] = {}
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x['AREA_NAME']+ " sub-county"
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['siblings'] = {}
+        elif( x['AREA_TYPE_ID'] == 'GWRD'): # ward
+            if (x['GRAND_PARENT'] in org_list):
+                if(x['PARENT_AREA_ID'] in org_list[x['GRAND_PARENT']]['siblings']):
+                    org_list[x['GRAND_PARENT']]['siblings'][x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]= {}
+                    org_list[x['GRAND_PARENT']]['siblings'][x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name']=x['AREA_NAME']
+
+    return org_list
+        # gender = x['GENDER']
+        # OrderedDict([('AREA_ID', 93), ('AREA_TYPE_ID', u'GDIS'), ('AREA_NAME', u'North Horr'), ('PARENT_AREA_ID', 10)])
+        # OrderedDict([('AREA_ID', 23), ('AREA_TYPE_ID', u'GPRV'), ('AREA_NAME', u'Turkana'), ('PARENT_AREA_ID', None)])
+
 
 def get_public_dash_ovc_hiv_status(level='national',sub_level=''):
     # "SELECT count(ovccount) FROM public.hiv_status where "
