@@ -950,7 +950,7 @@ jQuery(document).ready(function() {
            return false;
         }
        //var caregiver_cpims = $("#caregiver_cpims_id").val();
-       var ccpims = '0';
+       var ccpims = caregiver_cpims;
        $("#log").removeClass( "alert alert-danger fade in" );
 
        chtml = '<input id="cc_'+ccpims+'_cpid" name="cc_'+ccpims+'_cpid" value="'+ccpims+'" type="hidden">';
@@ -964,14 +964,14 @@ jQuery(document).ready(function() {
        chtml += '<input id="cc_'+ccpims+'_idno" name="cc_'+ccpims+'_idno" value="'+ c_idno +'" type="hidden">';
        chtml += '<input id="cc_'+ccpims+'_tel" name="cc_'+ccpims+'_tel" value="'+ c_tel +'" type="hidden">';
        $('#caregiver_new').html(chtml);
-       
+
        $.ajax({
            type: "POST",
            url: "{% url 'person_actions' %}",
            data: $("#new_person").serialize() + "&edit_type=6",
            success: function(data)
            {
-               var caregiver_cpims = data.caregiver_id;
+               var caregiver_cpims = ccpims;
                $('#caregiver_new').empty();
                //$("#cc_0_cpid").val(cp_id);
                //$("#cc_0_did").html(cp_id);
