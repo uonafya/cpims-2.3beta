@@ -391,6 +391,7 @@ def ovc_registration(request, ovc_id, edit=0):
                     hh_hiv, hh_alive, hh_death = hiv_status, 'AYES', None
 
                 membership=get_hh_members(hh_m)
+                print 'membership', membership
                 if not membership:
                     OVCHHMembers(
                         house_hold_id=hh_id, person_id=hh_m,
