@@ -38,10 +38,11 @@ function destroyChosenDropDownList(elementId) {
 function populateOrgunitList(data,elementId) {
     $(elementId).empty();
     $(elementId).append("<option></option>");
-    $.each(data, function (index, objValue) {
-        var elementToAppend = '<option data-id="' + objValue.id + '" data-name="' + objValue.name + '">' + objValue.name + '</option>';
+    $.each(data, function (key, objValue) {
+        var elementToAppend = '<option data-id="' + key + '" data-name="' + objValue.name + '">' + objValue.name + '</option>';
         $(elementId).append(elementToAppend);
     });
+
 }
 
 
@@ -87,14 +88,18 @@ $('#county-organisation-unit').on('change', function (event) {
     });
 
     initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit");
-
+    fetchHivStatsFromServer('county',selectedCountyId);
+    fetchCascade90FromServer('county',selectedCountyId);
 });
 
 //sub county event handler
 $('#countituency-organisation-unit').on('change', function (event) {
-    var selectedCountyId = $("#countituency-organisation-unit option:selected").attr('data-id');
+console.log($("#countituency-organisation-unit option:selected"));
+    var selectedSubCountyId = $("#countituency-organisation-unit option:selected").attr('data-id');
     var selectedSubCountyName=$("#countituency-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedSubCountyName);
+    fetchHivStatsFromServer('subcounty',selectedSubCountyId);
+    fetchCascade90FromServer('subcounty',selectedSubCountyId);
 
 });
 
@@ -107,6 +112,7 @@ function fetchOrganisationUnitData(){
         encode: true,
         success: function (data, textStatus, jqXHR) {
             localityData=data;
+            console.log(data);
             $.each(data, function( key, value ) {
 
                 var elementToAppend = '<option data-id="' + key + '" data-name="' + value.name + '">' + value.name + '</option>';

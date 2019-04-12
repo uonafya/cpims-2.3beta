@@ -9,10 +9,10 @@ legend.x=-30;
 legend.y=25
 legend.layout='horizontal';
 
-function fetchHivStatsFromServer(org_level,org_sub_level){
+function fetchHivStatsFromServer(org_level,area_id){
      $.ajax({
         type: 'GET', // define the type of HTTP verb we want to use
-        url: '/hiv_stats_pub_data/'+org_level+'/'+org_sub_level+'/', // the url from server we that we want to use
+        url: '/hiv_stats_pub_data/'+org_level+'/'+area_id+'/', // the url from server we that we want to use
         contentType: 'application/json; charset=utf-8',
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,

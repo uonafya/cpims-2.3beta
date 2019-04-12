@@ -15,6 +15,7 @@ function fetchCascade90FromServer(org_level,org_sub_level){
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");
+            alert("error");
             console.log(response.responseText);
         }
 

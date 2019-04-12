@@ -21,10 +21,10 @@ def public_dash(request):
         print 'dashboard error - %s' % (str(e))
         raise e
 
-def get_pub_data(request,org_level,org_level_sub_level):
+def get_pub_data(request,org_level,area_id):
     print org_level
-    print org_level_sub_level
-    main_dash_data=get_public_dash_ovc_hiv_status(org_level,org_level_sub_level)
+    print area_id
+    main_dash_data=get_public_dash_ovc_hiv_status(org_level,area_id)
     return JsonResponse(main_dash_data, content_type='application/json',
                         safe=False)
 
@@ -34,11 +34,9 @@ def get_locality_data(request):
     return JsonResponse(locality_data, content_type='application/json',
                         safe=False)
 
-def get_hiv_suppression_data(request,org_level,org_level_sub_level):
+def get_hiv_suppression_data(request,org_level,area_id):
 
-    print org_level
-    print org_level_sub_level
-    hiv_suppression_data=get_ovc_hiv_status(request,None,org_level,org_level_sub_level)
+    hiv_suppression_data=get_ovc_hiv_status(request,None,org_level,area_id)
     return JsonResponse(hiv_suppression_data, content_type='application/json',
                         safe=False)
 
