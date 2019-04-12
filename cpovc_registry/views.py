@@ -512,6 +512,8 @@ def new_person(request):
             person_types = [person_type]
             if 'TBGR' != person_type and is_caregiver:
                 person_types.append('TBGR')
+            if person_type == 'TBGR':
+                designation = 'CCGV'
             # Get the type of children
             if 'TBVC' in person_types:
                 designation = 'COVC' if child_ovc == 'AYES' else 'CGOC'
