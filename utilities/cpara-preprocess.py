@@ -32,11 +32,11 @@ with open('/home/fegati/py_projects/cpims_scripts/nilinde-cpara-data-entries.csv
         event_records_count += 1
         try:
             event = OVCCareEvents(event_type_id='CPARA', event_counter=0, event_score=1,
-                                  date_of_event=convert_date(row['Date of assessment'], fmt='%d/%m/%Y'),
-                                  date_of_previous_event=convert_date(row['Date of assessment'], fmt='%d/%m/%Y'),
+                                  date_of_event=convert_date(row['doa'], fmt='%d/%m/%Y'),
+                                  date_of_previous_event=convert_date(row['doa'], fmt='%d/%m/%Y'),
                                   created_by=1, timestamp_created=datetime.datetime.now(), is_void=False,
-                                  person=RegPerson.objects.get(id=int(row['OVC CPIMSID'])),
-                                  house_hold=OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person_id=int(row['OVC CPIMSID'])).house_hold_id))
+                                  person=RegPerson.objects.get(id=int(row['ovc-cpims-id'])),
+                                  house_hold=OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person_id=int(row['ovc-cpims-id'])).house_hold_id))
             # save the event instance
             event.save()
             answers = {k: row[k] for k in keys}
@@ -47,21 +47,21 @@ with open('/home/fegati/py_projects/cpims_scripts/nilinde-cpara-data-entries.csv
                     'domain': OVCCareQuestions.objects.get(question=item).domain,
                     'event': event,
                     'household': OVCHouseHold.objects.get(
-                        id=OVCHHMembers.objects.get(person_id=int(row['OVC CPIMSID'])).house_hold_id),
+                        id=OVCHHMembers.objects.get(person_id=int(row['ovc-cpims-id'])).house_hold_id),
                     'question': OVCCareQuestions.objects.get(question=item),
-                    'date_of_event': convert_date(row['Date of assessment'], fmt='%d/%m/%Y'),
+                    'date_of_event': convert_date(row['doa'], fmt='%d/%m/%Y'),
                     'question_code': OVCCareQuestions.objects.get(question=item).code
                 })
                 # construct cpara instance for each each answer in each question
-                cpara = OVCCareCpara(person=RegPerson.objects.get(id=int(row['OVC CPIMSID'])),
+                cpara = OVCCareCpara(person=RegPerson.objects.get(id=int(row['ovc-cpims-id'])),
                                      answer=answers[item],
                                      question_type=OVCCareQuestions.objects.get(question=item).question_type,
                                      domain=OVCCareQuestions.objects.get(question=item).domain,
                                      event=event,
                                      household=OVCHouseHold.objects.get(
-                                         id=OVCHHMembers.objects.get(person_id=int(row['OVC CPIMSID'])).house_hold_id),
+                                         id=OVCHHMembers.objects.get(person_id=int(row['ovc-cpims-id'])).house_hold_id),
                                      question=OVCCareQuestions.objects.get(question=item),
-                                     date_of_event=convert_date(row['Date of assessment'], fmt='%d/%m/%Y')
+                                     date_of_event=convert_date(row['doa'], fmt='%d/%m/%Y')
                                      )
                 # save the cpara instance
                 cpara.save()
@@ -69,7 +69,7 @@ with open('/home/fegati/py_projects/cpims_scripts/nilinde-cpara-data-entries.csv
 
         except:
             pass
-        print(event.event)
+        # print(event.event)
         # filter answers from each row based on question codes
 
 print("Event Records:{}, CPARA Records:{}".format(event_records_count,cpara_records_count))
