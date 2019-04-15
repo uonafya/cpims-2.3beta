@@ -27,6 +27,8 @@ urlpatterns = patterns(
         name='pivot_rawdata'),
     url(r'^datim/$', 'reports_ovc_pivot',
         name='pivot_ovc_reports'),
+    url(r'^datim_mer/$', 'reports_ovc_datim_mer_pivot',
+        name='pivot_ovc_reports_mer'),
     url(r'^pepfar/$', 'reports_ovc_pepfar',
         name='pivot_ovc_pepfar'),
     url(r'^kpi/$', 'reports_ovc_kpi',

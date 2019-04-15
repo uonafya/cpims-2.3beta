@@ -971,7 +971,11 @@ jQuery(document).ready(function() {
            data: $("#new_person").serialize() + "&edit_type=6",
            success: function(data)
            {
-               var caregiver_cpims = ccpims;
+               if (ccpims > 0) {
+                   var caregiver_cpims = ccpims;
+               }else {
+                   var caregiver_cpims = data.caregiver_id;
+               }
                $('#caregiver_new').empty();
                //$("#cc_0_cpid").val(cp_id);
                //$("#cc_0_did").html(cp_id);

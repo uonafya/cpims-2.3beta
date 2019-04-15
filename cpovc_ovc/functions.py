@@ -356,7 +356,7 @@ def ovc_registration(request, ovc_id, edit=0):
         if edit == 0:
             # Create House Hold and populate members
             caretaker_id = int(cgs[caretaker][0])
-            hhid=get_house_hold(caretaker)
+            hhid=get_house_hold(caretaker_id)
             if not hhid:
                 new_hh=OVCHouseHold(
                     head_person_id=caretaker,
@@ -364,11 +364,11 @@ def ovc_registration(request, ovc_id, edit=0):
                 )
                 new_hh.save()
                 hh_id=new_hh.pk
-                new_hh = OVCHouseHold(
-                head_person_id=caretaker,
-                head_identifier=caretaker_id),
-                new_hh.save()
-                hh_id = new_hh.pk
+                # new_hh = OVCHouseHold(
+                # head_person_id=caretaker,
+                # head_identifier=caretaker_id),
+                # new_hh.save()
+                # hh_id = new_hh.pk
 
             else:
                 hh_id=hhid.id
@@ -391,6 +391,7 @@ def ovc_registration(request, ovc_id, edit=0):
                     hh_hiv, hh_alive, hh_death = hiv_status, 'AYES', None
 
                 membership=get_hh_members(hh_m)
+                print 'membership', membership
                 if not membership:
                     OVCHHMembers(
                         house_hold_id=hh_id, person_id=hh_m,
