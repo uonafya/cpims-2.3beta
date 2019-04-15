@@ -112,3 +112,4 @@ cpovc_ovc/migrations/
 cpovc_registry/migrations/
 cpovc_reports/migrations/
 cpovc_settings/migrations/
+cpims/settings.py

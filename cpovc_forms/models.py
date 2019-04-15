@@ -698,7 +698,7 @@ class OVCFamilyCare(models.Model):
 
 class OVCCareEvents(models.Model):
     event = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    event_type_id = models.CharField(max_length=4)
+    event_type_id = models.CharField(max_length=10)
     event_counter = models.IntegerField(default=0)
     event_score = models.IntegerField(null=True, default=0)
     date_of_event = models.DateField(default=timezone.now)
