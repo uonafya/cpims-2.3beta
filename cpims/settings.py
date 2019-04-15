@@ -90,8 +90,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': cpims_db_instance,
         'USER': cpims_db_user,
-        'PASSWORD': cpims_db_pass,
-        'HOST': '41.89.94.99',
+        'PASSWORD': cpims_db_pass,       
+        'HOST': '41.89.94.99',        
         'PORT': cpims_db_port, }
 }
 
