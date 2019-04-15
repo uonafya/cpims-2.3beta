@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ['*']
 
 cpims_db_host = os.environ.get('CPIMS_HOST') if os.environ.get('CPIMS_HOST') else 'localhost'
 cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else 'postgres'
-cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'dcs_live'
+cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'cpims'
 cpims_db_port = os.environ.get('CPIMS_PORT') if os.environ.get('CPIMS_PORT') else '5432'
 cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else 'postgres'
 
