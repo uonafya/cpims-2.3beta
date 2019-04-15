@@ -878,154 +878,138 @@ jQuery(document).ready(function() {
             buttonClass: 'btn btn-white'
             });
 
-    
-        $('#add_caregiver').click(function() {
-            //id_no_adult_caregiver
-            var rel_type_id = $("#relationship_type_id").val();
-            var rel_type = $("#relationship_type_id option:selected").text();
-            var caregiver_cpims = $("#caregiver_cpims_id").val();
-            var grid_cpims = $("#cc_"+caregiver_cpims+"_cpid").val();
+    $('#add_caregiver').click(function() {
+        //id_no_adult_caregiver
+        var rel_type_id = $("#relationship_type_id").val();
+        var rel_type = $("#relationship_type_id option:selected").text();
+        var caregiver_cpims = $("#caregiver_cpims_id").val();
+        var grid_cpims = $("#cc_"+caregiver_cpims+"_cpid").val();
 
-            var c_fname = $("#id_caregiver_firstname").val();
-            var c_sname = $("#id_caregiver_surname").val();
-            var c_oname = $("#id_caregiver_othernames").val();
-            var c_gender = $("#caregiver_gender_id").val();
-            var c_dob = $("#caregiver_dob").val();
-            var child_subcounty = $("#living_in_subcounty").val();
+        var c_fname = $("#id_caregiver_firstname").val();
+        var c_sname = $("#id_caregiver_surname").val();
+        var c_oname = $("#id_caregiver_othernames").val();
+        var c_gender = $("#caregiver_gender_id").val();
+        var c_dob = $("#caregiver_dob").val();
+        var child_subcounty = $("#living_in_subcounty").val();
 
-            if ($('#id_is_cpims_caregiver').is(":checked")){
-                var is_cpims = 'Yes';
-                var caregiver = $("#caregiver_id").val();
-            }else{
-                var is_cpims = 'No';
-                var caregiver = c_fname + ' ' + c_sname;
+        if ($('#id_is_cpims_caregiver').is(":checked")){
+            var is_cpims = 'Yes';
+            var caregiver = $("#caregiver_id").val();
+        }else{
+            var is_cpims = 'No';
+            var caregiver = c_fname + ' ' + c_sname;
+        }
+
+        if ($('#id_no_adult_caregiver').is(":checked")){
+            var is_adult = 'No';
+        }else{
+            var is_adult = 'Yes';
+        }
+        var c_idno;
+        $('#log').empty();
+        $("#log").addClass( "alert alert-danger fade in" );
+        if ((c_fname == '') || (c_sname == '')){
+           $('#log').html('Please provide first name and surname.');
+           return false;
+        }
+        if (is_cpims == 'Yes'){
+            if ((caregiver_cpims == '') || (caregiver_cpims_id == '')){
+               $('#log').html('Search for caregiver.');
+               return false;
             }
+        }else{
+            $("#caregiver_cpims_id").val('0');
+        }
+        if (c_gender == ''){
+           $('#log').html('Please select Sex');
+           return false;
+        }
+        if (rel_type_id == ''){
+           $('#log').html('Please select Relationship');
+           return false;
+        }
+        {% if request.session.reg_ovc %}
+        c_idno = $("#caregiver_idno").val();
+        c_tel = $("#caregiver_tel").val();
+        if (c_idno == ''){
+           $('#log').html('Please enter National ID for Caregiver.');
+           return false;
+        }
+        {% else %}
+        var c_idno = '';
+        var c_tel = '';
+        {% endif %}
 
-            if ($('#id_no_adult_caregiver').is(":checked")){
-                var is_adult = 'No';
-            }else{
-                var is_adult = 'Yes';
-            }
-            var c_idno;
-            $('#log').empty();
-            $("#log").addClass( "alert alert-danger fade in" );
-            if ((c_fname == '') || (c_sname == '')){
-            $('#log').html('Please provide first name and surname.');
-            return false;
-            }
-            if (is_cpims == 'Yes'){
-                if ((caregiver_cpims == '') || (caregiver_cpims_id == '')){
-                $('#log').html('Search for caregiver.');
-                return false;
-                }
-            }else{
-                $("#caregiver_cpims_id").val('0');
-            }
-            if (c_gender == ''){
-            $('#log').html('Please select Sex');
-            return false;
-            }
-            if (rel_type_id == ''){
-            $('#log').html('Please select Relationship');
-            return false;
-            }
-            {% if request.session.reg_ovc %}
-            c_idno = $("#caregiver_idno").val();
-            c_tel = $("#caregiver_tel").val();
-            if (c_idno == ''){
-            $('#log').html('Please enter National ID for Caregiver.');
-            return false;
-            }
-            {% else %}
-            var c_idno = '';
-            var c_tel = '';
-            {% endif %}
+        if (child_subcounty == ''){
+           $('#log').html('Please select living in sub county for the child first before attaching caregiver.');
+           return false;
+        }
+        if (typeof grid_cpims !== 'undefined'){
+           $('#log').html('Caregiver already added.');
+           clear_guardian();
+           return false;
+        }
+       //var caregiver_cpims = $("#caregiver_cpims_id").val();
+       var ccpims = caregiver_cpims;
+       $("#log").removeClass( "alert alert-danger fade in" );
 
-            if (child_subcounty == ''){
-            $('#log').html('Please select living in sub county for the child first before attaching caregiver.');
-            return false;
-            }
-            if (typeof grid_cpims !== 'undefined'){
-            $('#log').html('Caregiver already added.');
-            clear_guardian();
-            return false;
-            }
-        //var caregiver_cpims = $("#caregiver_cpims_id").val();
-        var ccpims = '0';
-        $("#log").removeClass( "alert alert-danger fade in" );
+       chtml = '<input id="cc_'+ccpims+'_cpid" name="cc_'+ccpims+'_cpid" value="'+ccpims+'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_ctype" name="cc_'+ccpims+'_ctype" value="'+rel_type_id+'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_adult" name="cc_'+ccpims+'_adult" value="'+is_adult +'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_gender" name="cc_'+ccpims+'_gender" value="'+ c_gender +'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_dob" name="cc_'+ccpims+'_dob" value="'+ c_dob +'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_fname" name="cc_'+ccpims+'_fname" value="'+ c_fname +'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_sname" name="cc_'+ccpims+'_sname" value="'+ c_sname +'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_oname" name="cc_'+ccpims+'_oname" value="'+ c_oname +'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_idno" name="cc_'+ccpims+'_idno" value="'+ c_idno +'" type="hidden">';
+       chtml += '<input id="cc_'+ccpims+'_tel" name="cc_'+ccpims+'_tel" value="'+ c_tel +'" type="hidden">';
+       $('#caregiver_new').html(chtml);
 
-        chtml = '<input id="cc_'+ccpims+'_cpid" name="cc_'+ccpims+'_cpid" value="'+ccpims+'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_ctype" name="cc_'+ccpims+'_ctype" value="'+rel_type_id+'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_adult" name="cc_'+ccpims+'_adult" value="'+is_adult +'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_gender" name="cc_'+ccpims+'_gender" value="'+ c_gender +'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_dob" name="cc_'+ccpims+'_dob" value="'+ c_dob +'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_fname" name="cc_'+ccpims+'_fname" value="'+ c_fname +'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_sname" name="cc_'+ccpims+'_sname" value="'+ c_sname +'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_oname" name="cc_'+ccpims+'_oname" value="'+ c_oname +'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_idno" name="cc_'+ccpims+'_idno" value="'+ c_idno +'" type="hidden">';
-        chtml += '<input id="cc_'+ccpims+'_tel" name="cc_'+ccpims+'_tel" value="'+ c_tel +'" type="hidden">';
-        $('#caregiver_new').html(chtml);
-        if (!$('#id_is_cpims_caregiver').prop('checked') == true){
-            $.ajax({
-                type: "POST",
-                url: "{% url 'person_actions' %}",
-                data: $("#new_person").serialize() + "&edit_type=6",
-                success: function(data)
-                {
-                    var caregiver_cpims = data.caregiver_id;
-                    $('#caregiver_new').empty();
-                    //$("#cc_0_cpid").val(cp_id);
-                    //$("#cc_0_did").html(cp_id);
-                    
-                    $("#log_cgiver").addClass( "alert alert-success fade in" );
-                    $('#log_cgiver').html('Caregiver attached Successfully');
-                    // Set all fields to blank
-                    clear_guardian();
-                },
-                error: function(){
-                    $("#log_cgiver").addClass( "alert alert-danger fade in" );
-                    $('#log_cgiver').html("Error attaching caregiver")
-                }
-                });
-            }
+       $.ajax({
+           type: "POST",
+           url: "{% url 'person_actions' %}",
+           data: $("#new_person").serialize() + "&edit_type=6",
+           success: function(data)
+           {
+               var caregiver_cpims = ccpims;
+               $('#caregiver_new').empty();
+               //$("#cc_0_cpid").val(cp_id);
+               //$("#cc_0_did").html(cp_id);
+               var cbtn = '<button id = "'+caregiver_cpims+'" type="button" class="btn btn-danger remove_cg"><i class="fa fa-trash-o"></i></button>';
 
-            //dispCareGvrOnTable
-            var cbtn = '<button id = "'+ccpims+'" type="button" class="btn btn-danger remove_cg"><i class="fa fa-trash-o"></i></button>';
-            chtml = '<tr id="gd_tr_'+ccpims+'">';
-            chtml += '<td><input id="cc_'+ccpims+'_cpid" name="cc_'+ccpims+
-            '_cpid" value="'+ccpims+'" type="hidden">';
-
-            chtml += '<span id="cc_'+ccpims+'_did">'+ ccpims +
-            '</span></td><td>'+ c_fname + ' '+ c_sname + ' '+ c_oname +'</td>';
-
-            chtml += '<td><input id="cc_'+ccpims+'_ctype" name="cc_'+ccpims+
-            '_ctype" value="'+rel_type_id+'" type="hidden">'+ rel_type +'</td>';
-
-            chtml += '<td><input id="cc_'+ccpims+'_adult" name="cc_'+ccpims+
-            '_adult" value="'+is_adult +'" type="hidden">';
-
-            chtml += '<input id="cc_'+ccpims+'_gender" name="cc_'+ccpims+
-            '_gender" value="'+ c_gender +'" type="hidden">';
-
-            chtml += '<input id="cc_'+ccpims+'_dob" name="cc_'+ccpims+
-            '_dob" value="'+ c_dob +'" type="hidden">';
-
-            chtml += '<input id="cc_'+ccpims+'_fname" name="cc_'+ccpims+
+               chtml = '<tr id="gd_tr_'+caregiver_cpims+'">';
+               chtml += '<td><input id="cc_'+caregiver_cpims+'_cpid" name="cc_'+caregiver_cpims+
+               '_cpid" value="'+caregiver_cpims+'" type="hidden">';
+               chtml += '<span id="cc_'+caregiver_cpims+'_did">'+ caregiver_cpims +
+               '</span></td><td>'+ caregiver +'</td>';
+               chtml += '<td><input id="cc_'+caregiver_cpims+'_ctype" name="cc_'+caregiver_cpims+
+               '_ctype" value="'+rel_type_id+'" type="hidden">'+ rel_type +'</td>';
+               chtml += '<td><input id="cc_'+caregiver_cpims+'_adult" name="cc_'+caregiver_cpims+
+               '_adult" value="'+is_adult +'" type="hidden">';
+               chtml += '<input id="cc_'+caregiver_cpims+'_gender" name="cc_'+caregiver_cpims+
+               '_gender" value="'+ c_gender +'" type="hidden">';
+               chtml += '<input id="cc_'+caregiver_cpims+'_dob" name="cc_'+caregiver_cpims+
+               '_dob" value="'+ c_dob +'" type="hidden">';
+               chtml += '<input id="cc_'+caregiver_cpims+'_fname" name="cc_'+caregiver_cpims+
                 '_fname" value="'+ c_fname +'" type="hidden">';
-
-            chtml += '<input id="cc_'+ccpims+'_sname" name="cc_'+ccpims+
-            '_sname" value="'+ c_sname +'" type="hidden">';
-
-            chtml += '<input id="cc_'+ccpims+'_oname" name="cc_'+
-            ccpims+'_oname" value="'+ c_oname +'" type="hidden">';
-
-            chtml += is_adult +'</td><td>'+ cbtn +'</td></tr>';
-
-            $('#caregivers tbody').append(chtml);
-            //dispCareGvrOnTable
-        $('#modal-caregiver').modal('hide');
-        });
-    
+               chtml += '<input id="cc_'+caregiver_cpims+'_sname" name="cc_'+caregiver_cpims+
+               '_sname" value="'+ c_sname +'" type="hidden">';
+               chtml += '<input id="cc_'+caregiver_cpims+'_oname" name="cc_'+
+                caregiver_cpims+'_oname" value="'+ c_oname +'" type="hidden">';
+               chtml += is_adult +'</td><td>'+ cbtn +'</td></tr>';
+               $('#caregivers tbody').append(chtml);
+               $("#log_cgiver").addClass( "alert alert-success fade in" );
+               $('#log_cgiver').html('Caregiver attached Successfully');
+               // Set all fields to blank
+               clear_guardian();
+           },
+            error: function(){
+                $("#log_cgiver").addClass( "alert alert-danger fade in" );
+                $('#log_cgiver').html("Error attaching caregiver")
+            }
+         });
+       $('#modal-caregiver').modal('hide');
+    });
     $('#add_sibling, #proc_sibling').click(function() {
         //id_no_adult_caregiver
         var clicked = $(this).attr('id');
