@@ -91,7 +91,8 @@ DATABASES = {
         'NAME': cpims_db_instance,
         'USER': cpims_db_user,
         'PASSWORD': cpims_db_pass,
-        'HOST': '41.89.94.104',        
+        # 'HOST': '41.89.94.104',        
+        'HOST': '41.89.94.99',        
         'PORT': cpims_db_port, }
 }
 
