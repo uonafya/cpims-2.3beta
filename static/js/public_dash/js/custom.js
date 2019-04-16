@@ -1,5 +1,7 @@
 var localityApi='/get_locality_data/';
 var localityData='';
+var selectedCountySiblingsList=''; //list of countituency in the selected county
+
 $(document).ready(function () {
 
     var chartsContext = {
@@ -88,6 +90,9 @@ $('#county-organisation-unit').on('change', function (event) {
     $('#ward-organisation-unit').prop("disabled", false); // Element(s) are now enabled.
     $.each(localityDataToDisplay, function( key, value ) {
         populateOrgunitList(value.siblings,'#countituency-organisation-unit',true);
+        console.log("county siblings list ");
+        console.log(value.siblings);
+        selectedCountySiblingsList=value.siblings;
         $.each(value.siblings, function( constituencyKey, constituencyValue ) {
             populateOrgunitList(constituencyValue.siblings,'#ward-organisation-unit',false);
         });
@@ -99,6 +104,7 @@ $('#county-organisation-unit').on('change', function (event) {
     fetchCascade90FromServer('county',selectedCountyId);
 });
 
+
 //sub county event handler
 $('#countituency-organisation-unit').on('change', function (event) {
 console.log($("#countituency-organisation-unit option:selected"));
@@ -108,7 +114,16 @@ console.log($("#countituency-organisation-unit option:selected"));
     fetchHivStatsFromServer('subcounty',selectedSubCountyId);
     fetchCascade90FromServer('subcounty',selectedSubCountyId);
 
+    $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
+        if(selectedSubCountyId==constituencyKey){
+            destroyChosenDropDownList('#ward-organisation-unit');
+            populateOrgunitList(constituencyValue.siblings,'#ward-organisation-unit',false);
+        }
+    });
+    initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit");
+
 });
+
 
 function fetchOrganisationUnitData(){
     $.ajax({
