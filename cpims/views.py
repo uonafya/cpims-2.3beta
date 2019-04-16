@@ -3,7 +3,7 @@ import memcache
 from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import JsonResponse
-from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status,get_ovc_hiv_status,fetch_locality_data
+from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status,get_ovc_hiv_status,fetch_locality_data,fetch_total_ovc_ever
 from cpovc_main.functions import get_dict
 from cpovc_access.functions import access_request
 from django.contrib.auth.decorators import login_required
@@ -21,6 +21,16 @@ def public_dash(request):
         print 'dashboard error - %s' % (str(e))
         raise e
 
+def public_dash_1(request):
+    """Some default page for the home page / Dashboard."""
+    try:
+        print "we are here"
+        # vals = get_dashboard(request)
+        return render(request, 'public_dash_1.html')
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
+
 def get_pub_data(request,org_level,area_id):
     print org_level
     print area_id
@@ -33,6 +43,14 @@ def get_locality_data(request):
     locality_data=fetch_locality_data()
     return JsonResponse(locality_data, content_type='application/json',
                         safe=False)
+
+# ###################
+def get_total_ovc_ever(request):
+    print "total ovc ever"
+    total_ovc_ever=fetch_total_ovc_ever()
+    return JsonResponse(total_ovc_ever, content_type='application/json',
+                        safe=False)
+# ###################
 
 def get_hiv_suppression_data(request,org_level,area_id):
 

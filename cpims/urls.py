@@ -26,10 +26,13 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     # url(r'^$', 'cpovc_auth.views.log_in', name='home'),
     url(r'^public_dash/', 'cpims.views.public_dash', name='public_dash'),
+    url(r'^public_dash_1/', 'cpims.views.public_dash_1', name='public_dash_1'),
     # APIs
     url(r'^get_locality_data/', 'cpims.views.get_locality_data', name='get_locality_data'),
     url(r'^hiv_stats_pub_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_pub_data', name='get_pub_data'),
     url(r'^get_hiv_suppression_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_hiv_suppression_data', name='get_hiv_suppression_data'),
+    # ####
+    url(r'^get_total_ovc_ever/', 'cpims.views.get_total_ovc_ever', name='get_total_ovc_ever'),
     # endAPIs
     url(r'^$', 'cpims.views.home', name='home'),
     # url(r'^home/$', 'cpims.views.home', name='home'),

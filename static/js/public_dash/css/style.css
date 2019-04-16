@@ -1300,3 +1300,35 @@ color: #333;
 	
 }
 
+
+
+
+/* CUSTOM */
+.main-inner{
+	min-height: 74vh;
+}
+.row{
+	margin-bottom: 10px;
+}
+.card{
+	background: #fff;
+	border-radius: 4px;
+	padding: 3px;
+
+	-webkit-box-shadow: 0px 0px 8px -1px rgba(161,161,161,1);
+	-moz-box-shadow: 0px 0px 8px -1px rgba(161,161,161,1);
+	box-shadow: 0px 0px 8px -1px rgba(161,161,161,1);
+}
+.card-body{
+	padding: 15px;
+}
+.card-title{
+	padding-bottom: 3px;
+	border-bottom: 1px solid #ccccff;
+	font-weight: bold;
+	color: #616980;
+}
+.card-text{
+	font-weight: bolder;
+}
+/* CUSTOM */

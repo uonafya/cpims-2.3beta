@@ -29,6 +29,8 @@ organisation_id_prefix = 'U'
 benficiary_id_prefix = 'B'
 workforce_id_prefix = 'W'
 
+def fetch_total_ovc_ever():
+    return 15670829
 
 def fetch_locality_data():
     rows2, desc2 = run_sql_data(None,
