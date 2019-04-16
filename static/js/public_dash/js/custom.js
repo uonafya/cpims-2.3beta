@@ -85,13 +85,11 @@ $('#county-organisation-unit').on('change', function (event) {
         }
     });
 
-    //enable sub county list element;
+    //enable sub county & ward list element; Load siblings subcounty and ward based on selected county
     $('#countituency-organisation-unit').prop("disabled", false); // Element(s) are now enabled.
     $('#ward-organisation-unit').prop("disabled", false); // Element(s) are now enabled.
     $.each(localityDataToDisplay, function( key, value ) {
         populateOrgunitList(value.siblings,'#countituency-organisation-unit',true);
-        console.log("county siblings list ");
-        console.log(value.siblings);
         selectedCountySiblingsList=value.siblings;
         $.each(value.siblings, function( constituencyKey, constituencyValue ) {
             populateOrgunitList(constituencyValue.siblings,'#ward-organisation-unit',false);
@@ -114,6 +112,7 @@ $('#countituency-organisation-unit').on('change', function (event) {
     fetchHivStatsFromServer('subcounty',selectedSubCountyId);
     fetchCascade90FromServer('subcounty',selectedSubCountyId);
 
+    //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
         if(selectedSubCountyId==constituencyKey){
             destroyChosenDropDownList('#ward-organisation-unit');
@@ -123,9 +122,18 @@ $('#countituency-organisation-unit').on('change', function (event) {
         }
     });
     initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit");
-
 });
 
+// ward event handler
+$('#ward-organisation-unit').on('change', function (event) {
+    console.log($("#countituency-organisation-unit option:selected"));
+    var selectedWardId = $("#ward-organisation-unit option:selected").attr('data-id');
+    var selectedWardName=$("#ward-organisation-unit option:selected").attr('data-name');
+    $('.org-unit-label').html(selectedWardName);
+    fetchHivStatsFromServer('ward',selectedWardId);
+    fetchCascade90FromServer('ward',selectedWardId);
+
+});
 
 function fetchOrganisationUnitData(){
     $.ajax({

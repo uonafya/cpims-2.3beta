@@ -93,6 +93,14 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
                                     '''Select count(*),gender,art_status,hiv_status from public.persons where area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
                                         (SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
                                               group by gender,art_status,hiv_status'''.format(area_id))
+    elif (level == 'subcounty'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
+                                              group by gender,art_status,hiv_status'''.format(area_id))
+    elif (level == 'ward'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where area_id='{}'
+                                              group by gender,art_status,hiv_status'''.format(area_id))
     else:
         print '''Select count(*),gender,art_status,hiv_status from public.persons where area_id in (SELECT area_id from list_geo where parent_area_id='{}')
       group by gender,art_status,hiv_status'''.format(
