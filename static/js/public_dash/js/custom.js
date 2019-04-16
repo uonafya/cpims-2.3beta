@@ -28,6 +28,14 @@ $(document).ready(function () {
 });
 
 
+$(document).ready(function () {
+    initOrganisationUnitChosenDropDown('label','#funding-mechanism');
+    initOrganisationUnitChosenDropDown('label','#cluster-unit',"150px");
+    initOrganisationUnitChosenDropDown('label','#cbo-unit',"150px");
+
+});
+
+
 function destroyChosenDropDownList(elementId) {
     try {
         $(elementId).chosen("destroy");
@@ -49,11 +57,11 @@ function populateOrgunitList(data,elementId,empyList) {
 }
 
 
-var initOrganisationUnitChosenDropDown = function initOrganisationUnitChosenDropDown(orgType,id) {
+var initOrganisationUnitChosenDropDown = function initOrganisationUnitChosenDropDown(label,id, _width) {
     $(id).chosen({
-        placeholder_text_single: "Select " + orgType + ": ",
+        placeholder_text_single: "Select " + label + ": ",
         no_results_text: "No results found!",
-        width: "200px"
+        width: _width
     });
 };
 
@@ -69,6 +77,7 @@ function cloneObject(obj) {
     }
     return clone;
 }
+
 
 //county event handler
 $('#county-organisation-unit').on('change', function (event) {
@@ -96,8 +105,8 @@ $('#county-organisation-unit').on('change', function (event) {
         });
     });
 
-    initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit");
-    initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit");
+    initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit","200px");
+    initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit","200px");
     fetchHivStatsFromServer('county',selectedCountyId);
     fetchCascade90FromServer('county',selectedCountyId);
 });
@@ -121,7 +130,7 @@ $('#countituency-organisation-unit').on('change', function (event) {
             populateOrgunitList(constituencyValue.siblings,'#ward-organisation-unit',true);
         }
     });
-    initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit");
+    initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit","200px");
 });
 
 // ward event handler
@@ -134,6 +143,39 @@ $('#ward-organisation-unit').on('change', function (event) {
     fetchCascade90FromServer('ward',selectedWardId);
 
 });
+
+
+//funding mechanism event handler
+$('#funding-mechanism').on('change', function (event) {
+     var selectedPartnerId = $("#funding-mechanism option:selected").val();
+     var selectedPartnerValue=$("#funding-mechanism option:selected").attr('data-value');
+     if(selectedPartnerId.toLowerCase()==0){ //usaid
+        destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
+        $('#cluster-unit').prop("disabled", false); // Element(s) are now enabled.
+        initOrganisationUnitChosenDropDown('label','#cluster-unit',"150px");
+
+//        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+        fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
+
+     }else{
+         destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
+         $('#cluster-unit').prop("disabled", true);
+         initOrganisationUnitChosenDropDown('label','#cluster-unit',"150px");
+     }
+});
+
+//funding mechanism event handler
+$('#cluster-unit').on('change', function (event) {
+     var selectedClusterId = $("#cluster-unit option:selected").val();
+     var selectedClusterValue=$("#cluster-unit option:selected").attr('data-value');
+
+//        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+    fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
+
+});
+
+
+
 
 function fetchOrganisationUnitData(){
     $.ajax({

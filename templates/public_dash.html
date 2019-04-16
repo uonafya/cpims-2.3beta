@@ -84,8 +84,12 @@
             }
 
             .mainnav {
-                margin-top:20px !important;
+
+                list-style: none;
                 }
+            .mainnav li{
+                display: inline-block;
+            }
             .subnavbar .container > ul > li {
                 border-left: 0px solid #d9d9d9;
                 margin-right: 10px;
@@ -143,6 +147,51 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+                <!--<ul class="nav navbar-nav pull-left">-->
+
+
+                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
+                <!--class="icon-cog"></i> Locality <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--&lt;!&ndash;<li id="ward"><a href="javascript:;">Ward</a></li>&ndash;&gt;-->
+                <!--<li id="national" class="dropdown-submenu">-->
+                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">National</a>-->
+                <!--<ul id="national-level" class="dropdown-menu rm">-->
+
+
+                <!--</ul>-->
+                <!--</li>-->
+
+                <!--</ul>-->
+                <!--</li>-->
+
+
+                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
+                <!--class="icon-user"></i> Suppression <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="javascript:;">Viral Load</a></li>-->
+                <!--<li><a href="javascript:;">Stats</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
+                <!--class="icon-cog"></i> Implementing Partner <b class="caret"></b></a>-->
+                <!--<ul class="dropdown-menu">-->
+                <!--<li><a href="javascript:;">Pepfar</a></li>-->
+                <!--<li><a href="javascript:;">Usaid</a></li>-->
+                <!--<li><a href="javascript:;">DOD</a></li>-->
+                <!--<li><a href="javascript:;">CDC</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+                <!--</ul>-->
+
+                <form class="navbar-form navbar-right navbar-search">
+
+                    <input type="text" class="search-query" placeholder="Search">
+
+                    <button type="submit" class="btn btn-xs btn-default nav-search-btn">Search</button>
+                </form>
+
+
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </div>
@@ -151,29 +200,89 @@
 
 <div class="subnavbar">
     <div class="subnavbar-inner">
-        <div class="container" style="margin-left: inherit ">
+        <div class="container" style="margin-left: inherit;width: 100%; ">
+            <!--<ul class="mainnav">-->
+            <!--<li class="active"><a href="#"><i class="icon-dashboard"></i><span>Dashboard</span> </a></li>-->
 
-            <ul class="mainnav 20px">
+            <!--<li><a href="#"><i class="icon-list-alt"></i><span>Reports</span> </a></li>-->
+            <!--<li><a href="#"><i class="icon-bar-chart"></i><span>Charts</span> </a></li>-->
+            <!--<li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i-->
+            <!--class="icon-long-arrow-down"></i><span>Drops</span> <b class="caret"></b></a>-->
+            <!--<ul class="dropdown-menu">-->
+            <!--<li><a class="logo" href="#">CPIMS DASHBOARD</a></li>-->
+            <!--<li><a href="#">FAQ</a></li>-->
+
+            <!--</ul>-->
+            <!--</li>-->
+            <!--<li><a href="{% url 'home' %}"><i class="icon-signin"></i> <span>Login</span> </a></li>-->
+            <!--</ul>-->
+            <ul class="mainnav" style="margin-top:20px;width: 100%;">
                 <li class="active" style="margin-right: 30px;">
-                    <select class="form-control" id="county-organisation-unit" >
+                    <select style="width: 284px;" id="county-organisation-unit">
                         <option value="" disabled selected>Select County:</option>
                     </select>
                 </li>
 
-                <li class="active" style="margin-right: 30px; " >
-                    <select class="form-control" id="countituency-organisation-unit" disabled>
+                <li class="active" style="margin-right: 30px; ">
+                    <select id="countituency-organisation-unit" disabled>
                         <option value="" disabled selected>Select sub-county:</option>
                     </select>
                 </li>
 
-                <li class="active" style="margin-right: 30px; " >
-                    <select class="form-control" id="ward-organisation-unit" disabled>
+                <li class="active" style="margin-right: 30px; ">
+                    <select id="ward-organisation-unit" disabled>
                         <option value="" disabled selected>Select ward:</option>
                     </select>
                 </li>
 
+                <!--<li style="width: 200px; margin-right: 10px;" class="active">-->
+                <!--<p class="org-unit-label">Kenya</p>-->
+                <!--</li>-->
+
+                <!--<li style="height: 25px;">-->
+
+                <!--<a style="padding-top:3px;" class="btn btn-primary" href="#" role="button">Filter</a>-->
+
+                <!--</li>-->
+
+
+                <li style="float: right;"  class="active pull-right">
+
+                    <ul class="mainnav">
+
+                        <li class="active">
+                            <select id="funding-mechanism">
+                                <option value="" disabled selected>Funding Meachanism:</option>
+                                <option data-value="funding_mechanism" value="0"  > USAID</option>
+                                <option data-value="funding_mechanism" value="1"  > CDC</option>
+                                <option data-value="funding_mechanism" value="2"  > DOD</option>
+                                <option data-value="funding_mechanism" value="3"  > Others</option>
+                            </select>
+                        </li>
+
+                        <li class="active">
+                            <select id="cluster-unit" disabled>
+                                <option data-value="cluster" value="" disabled selected>Cluster:</option>
+                                <option data-value="cluster" value="0b3bed3b-8e96-4173-80c3-dbaca5750c5b"  > Nilinde</option>
+                                <option data-value="cluster" value="9d40cb90-23ce-447c-969f-3888b96cdf16"  > Mwendo</option>
+                                <option data-value="cluster" value="7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1"  > Case</option>
+                                <option data-value="cluster" value="bcc9e119-388f-4840-93b3-1ee7e07d3ffa" > AMPATHPlus</option>
+                                <option data-value="cluster" value="8949ab03-a430-44d0-a94c-4457118b9485" > Cogri</option>
+                            </select>
+                        </li>
+
+                        <li class="active">
+                            <select id="cbo-unit" disabled>
+                                <option value="" disabled selected>CBO:</option>
+                            </select>
+                        </li>
+
+                    </ul>
+                </li>
+
 
             </ul>
+
 
         </div>
         <!-- /container -->
