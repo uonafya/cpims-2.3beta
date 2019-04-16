@@ -155,10 +155,6 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
     except Exception, e:
         pass
 
-    print "------==========------------=======-----"
-    print level
-    print "user super: ", super_user
-    print "------==========------------=======-----2"
     with connection.cursor() as cursor:
         try:
 
