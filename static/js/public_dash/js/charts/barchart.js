@@ -1,28 +1,25 @@
 function barChart(elementId,the_title,the_x_axis,the_series){
-    console.log('barchart summoned');
-    console.log('elementId: '+elementId);
-    console.log('the_title: '+the_title);
-    console.log('the_x_axis: '+the_x_axis);
-    console.log('the_series: '+JSON.stringify(the_series));
 
-    Highcharts.Chart({
+    Highcharts.chart(elementId, {
         chart: {
-            renderTo: elementId,
             type: 'column'
         },
         title: {
             text: the_title
         },
+        subtitle: {
+            text: ''
+        },
         xAxis: {
             categories: the_x_axis,
             title: {
-                text: null
+                text: 'Period'
             }
         },
         yAxis: {
             min: 0,
             title: {
-                text: '',
+                text: 'Population',
                 align: 'high'
             },
             labels: {
@@ -30,11 +27,10 @@ function barChart(elementId,the_title,the_x_axis,the_series){
             }
         },
         tooltip: {
-            // formatter: function() {
-            //     return ''+ this.series.name +': '+ this.y +' millions';
-            // }
-            headerFormat: '<b>{point.x}</b><br/>',
-            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            formatter: function() {
+                return ''+
+                    this.series.name +': '+ this.y +' ';
+            }
         },
         plotOptions: {
             bar: {
@@ -57,6 +53,16 @@ function barChart(elementId,the_title,the_x_axis,the_series){
         credits: {
             enabled: false
         },
+        colors: [
+            '#F2784B',
+            '#1BA39C',
+            '#913D88',
+            '#4d79ff',
+            '#80ff00',
+            '#ff8000',
+            '#00ffff',
+            '#ff4000'
+        ],
         series: the_series
     });
     

@@ -20,16 +20,19 @@ def public_dash(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
-
-def public_dash_1(request):
+# ####################
+# ####################
+def public_dashboard(request,p_dash):
     """Some default page for the home page / Dashboard."""
     try:
         print "we are here"
         # vals = get_dashboard(request)
-        return render(request, 'public_dash_1.html')
+        return render(request, 'public_dash_' + p_dash + '.html')
+        # return render(request, 'public_dash_1.html')
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
+# ####################
 
 def get_pub_data(request,org_level,area_id):
     print org_level
