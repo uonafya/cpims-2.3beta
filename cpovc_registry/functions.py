@@ -120,16 +120,19 @@ def get_ovc_hiv_status_funding_partner(level, org_unit_id):
 
     if (level=='cluster'):
         rows2, desc2 = run_sql_data(None,
-                                    '''
-                                        
-                                        
-                                    '''.format(org_unit_id))
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
+                        join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
+                        where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id='{}')
+                                                  group by person.gender,person.art_status,person.hiv_status'''.format(org_unit_id))
 
 
     if (level=='cbo_unit'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from public.persons where area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
-                                              group by gender,art_status,hiv_status'''.format(org_unit_id))
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
+                                      join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
+                                      where person.child_cbo_id ='{}'
+                                        group by person.gender,person.art_status,person.hiv_status'''.format(
+                                        org_unit_id))
 
     return rows2, desc2
 

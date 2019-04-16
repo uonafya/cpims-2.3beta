@@ -156,7 +156,7 @@ $('#funding-mechanism').on('change', function (event) {
         $('#cluster-unit').prop("disabled", false); // Element(s) are now enabled.
         initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
 
-//        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
         fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
 
      }else{
@@ -184,7 +184,7 @@ $('#cluster-unit').on('change', function (event) {
      });
      initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
 
-//        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+    fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
     fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
 
 });
@@ -193,10 +193,10 @@ $('#cluster-unit').on('change', function (event) {
 //cbo event handler
 $('#cbo-unit').on('change', function (event) {
      var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
-     var selectedClusterValue=$("#cbo-unit option:selected").attr('data-value');
+     var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
 
-//        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
-    fetchCascade90FromServer(selectedClusterValue,selectedCboId);
+    fetchHivStatsFromServer(selectedCboValue,selectedCboId);
+    fetchCascade90FromServer(selectedCboValue,selectedCboId);
 
 });
 
