@@ -1,5 +1,7 @@
 var localityApi='/get_locality_data/';
+var cboApi= '/fetch_cbo_list/'
 var localityData='';
+var cboData='';
 var selectedCountySiblingsList=''; //list of countituency in the selected county
 
 $(document).ready(function () {
@@ -29,9 +31,9 @@ $(document).ready(function () {
 
 
 $(document).ready(function () {
-    initOrganisationUnitChosenDropDown('label','#funding-mechanism');
-    initOrganisationUnitChosenDropDown('label','#cluster-unit',"150px");
-    initOrganisationUnitChosenDropDown('label','#cbo-unit',"150px");
+    initOrganisationUnitChosenDropDown('funding mechanism','#funding-mechanism');
+    initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
+    initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"150px");
 
 });
 
@@ -152,29 +154,51 @@ $('#funding-mechanism').on('change', function (event) {
      if(selectedPartnerId.toLowerCase()==0){ //usaid
         destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
         $('#cluster-unit').prop("disabled", false); // Element(s) are now enabled.
-        initOrganisationUnitChosenDropDown('label','#cluster-unit',"150px");
+        initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
 
-//        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
         fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
 
      }else{
          destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
          $('#cluster-unit').prop("disabled", true);
-         initOrganisationUnitChosenDropDown('label','#cluster-unit',"150px");
+         initOrganisationUnitChosenDropDown('CBO','#cluster-unit',"150px");
      }
 });
 
-//funding mechanism event handler
+//cluster event handler
 $('#cluster-unit').on('change', function (event) {
      var selectedClusterId = $("#cluster-unit option:selected").val();
      var selectedClusterValue=$("#cluster-unit option:selected").attr('data-value');
 
-//        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+     destroyChosenDropDownList('#cbo-unit');
+     $('#cbo-unit').prop("disabled", false); // Element(s) are now enabled.
+     $('#cbo-unit').empty();
+     $('#cbo-unit').append("<option></option>");
+     $.each(cboData, function( index, cboObject ) {
+        if(cboObject['cluster_id']==selectedClusterId){
+            console.log("match");
+            var elementToAppend = '<option data-value="cbo_unit" data-id="' + cboObject['id'] + '" data-name="' + cboObject['name'] + '">' + cboObject['name'] + '</option>';
+            $("#cbo-unit").append(elementToAppend);
+        }
+     });
+     initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
+
+    fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
     fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
 
 });
 
 
+//cbo event handler
+$('#cbo-unit').on('change', function (event) {
+     var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
+     var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
+
+    fetchHivStatsFromServer(selectedCboValue,selectedCboId);
+    fetchCascade90FromServer(selectedCboValue,selectedCboId);
+
+});
 
 
 function fetchOrganisationUnitData(){
@@ -205,6 +229,29 @@ function fetchOrganisationUnitData(){
         }
 
     });
+}
+
+
+function fetchCBOData(){
+    $.ajax({
+        type: 'GET', // define the type of HTTP verb we want to use
+        url: cboApi, // the url from server we that we want to use
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json', // what type of data do we expect back from the server
+        encode: true,
+        success: function (data, textStatus, jqXHR) {
+            cboData=data;
+            console.log("cbo data");
+            console.log(data);
+        },
+        error: function (response, request) {
+            //    console.log("got an error fetching wards");
+            var parsed_data = response.responseText;
+        }
+    });
 
 }
+
+
 fetchOrganisationUnitData();
+fetchCBOData();

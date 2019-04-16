@@ -78,7 +78,7 @@
             barChart(elementId,the_title,the_x_axis,the_series)
         // });
     }
-    function ExitedHseld(data){
+    function displayExitedHseld(data){
         // $.each(data, function (index, objValue) {
            var elementId="hsehld_exits";
            var the_x_axis= ['Jan 2018', 'Feb 2018', 'Mar 2018', 'Apr 2018', 'May 2018']
