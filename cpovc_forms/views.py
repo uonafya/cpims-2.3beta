@@ -8656,7 +8656,6 @@ def case_plan_template(request, id):
             person=RegPerson.objects.get(pk=int(id)),
             house_hold=house_hold
         )
-        new_events_pk = ovccareevent.pk
 
         my_request=request.POST.get('final_submission')
 
@@ -8675,14 +8674,13 @@ def case_plan_template(request, id):
                 my_service=all_data['services']
                 my_responsible=all_data['responsible']
                 my_date_completed=all_data['date']
-                my_date_of_prev_evnt=all_data['date_first_cpara']
-                my_date_of_caseplan=all_data['CPT_DATE_CASEPLAN']
+                my_date_of_prev_evnt=timezone.now()
+                my_date_of_caseplan=timezone.now()
                 my_results=all_data['results']
                 my_reason=all_data['reasons']
-                my_initial_caseplan=all_data['if_first_cpara']
 
-                if my_initial_caseplan=='AYES':
-                    my_date_of_prev_evnt=my_date_of_caseplan
+                # if my_initial_caseplan=='AYES':
+                #     my_date_of_prev_evnt=my_date_of_caseplan
 
                     # User.objects.filter(first_name__startswith='R').values('first_name', 'last_name')
                 xyz=RegPerson.objects.filter(id=caregiver_id).values('id')
@@ -8690,7 +8688,6 @@ def case_plan_template(request, id):
 
                 for service in my_service:
                     OVCCareCasePlan(
-                            initial_caseplan=my_initial_caseplan,
                             domain=my_domain,
                             goal=my_goal,
                             person_id = id,
@@ -8701,15 +8698,14 @@ def case_plan_template(request, id):
                             # cp_service = SetupList.objects.get(item_id = service),
                             cp_service = service,
                             responsible= my_responsible,
-                            date_of_previous_event=convert_date(my_date_of_prev_evnt, fmt='%Y-%m-%d'),
-                            date_of_event=convert_date(my_date_of_caseplan, fmt='%Y-%m-%d'),
+                            date_of_previous_event=my_date_of_prev_evnt,
+                            date_of_event=my_date_of_caseplan,
                             form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
                             completion_date = convert_date(my_date_completed, fmt='%Y-%m-%d'),
                             results=my_results,
                             reasons=my_reason,
                             case_plan_status='D',
-                            event= OVCCareEvents.objects.get(event=new_events_pk)
-
+                            event=ovccareevent
                             ).save()
                 msg = 'Case Plan Template saved successful'
                 messages.add_message(request, messages.INFO, msg)
@@ -8722,8 +8718,6 @@ def case_plan_template(request, id):
     ovc_id = int(id)
     child = RegPerson.objects.get(is_void=False, id=ovc_id)
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-
-
     form = CasePlanTemplate()
     return render(request,
                   'forms/case_plan_template.html',
