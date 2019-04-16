@@ -20,7 +20,7 @@ def public_dash(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
-# ####################
+        
 # ####################
 def public_dashboard(request,p_dash):
     """Some default page for the home page / Dashboard."""
@@ -52,9 +52,9 @@ def get_locality_data(request):
                         safe=False)
 
 # ###################
-def get_total_ovc_ever(request):
+def get_total_ovc_ever(request,org_level,area_id):
     print "total ovc ever"
-    total_ovc_ever=fetch_total_ovc_ever()
+    total_ovc_ever=fetch_total_ovc_ever(request,None,org_level,area_id)
     return JsonResponse(total_ovc_ever, content_type='application/json',
                         safe=False)
 # ###################

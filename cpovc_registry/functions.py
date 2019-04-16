@@ -29,8 +29,21 @@ organisation_id_prefix = 'U'
 benficiary_id_prefix = 'B'
 workforce_id_prefix = 'W'
 
-def fetch_total_ovc_ever():
-    return 15670829
+def fetch_total_ovc_ever(request, org_ids, level='', area_id=''):
+    total_ovc_ever = []
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(
+                "Select count(distinct id)  from ovc_registration"
+            )
+            row = cursor.fetchone()
+            total_ovc_ever.append(row[0])
+
+        except Exception, e:
+            print 'error on fetch_total_ovc_ever - %s' % (str(e))
+
+    return total_ovc_ever
+    
 
 def fetch_locality_data():
     rows2, desc2 = run_sql_data(None,

@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^hiv_stats_pub_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_pub_data', name='get_pub_data'),
     url(r'^get_hiv_suppression_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_hiv_suppression_data', name='get_hiv_suppression_data'),
     # ####
-    url(r'^get_total_ovc_ever/', 'cpims.views.get_total_ovc_ever', name='get_total_ovc_ever'),
+    url(r'^get_total_ovc_ever/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_ovc_ever', name='get_total_ovc_ever'),
     url(r'^fetch_cbo_list/', 'cpims.views.fetch_cbo_list', name='fetch_cbo_list'),
     # endAPIs
     url(r'^$', 'cpims.views.home', name='home'),
