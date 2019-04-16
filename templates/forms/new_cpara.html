@@ -551,12 +551,11 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12 containsTable">
                                             <div class="form-group">
                                                 <input type="text" class="hidden" name="q3p6" value=""/>
-                                                {% if siblings or osiblings %}
-                                                    <table class="table table-condensed table-responsive">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Child Name</th>
-                                                                <th>3.6 Do you know how many pills you should take each day?</th>
+                                                <table class="table table-condensed table-responsive">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Child Name</th>
+                                                            <th>3.6 Do you know how many pills you should take each day?</th>
                                                                 <th>3.7 Can you name/identify the medication that you take each day?</th>
                                                                 <th>3.8 Do you remember when you last visited the health clinic?</th>
                                                                 <th>3.9 Do you know when you have your next appointment at the health clinic?</th>
@@ -564,6 +563,7 @@ print(blu.sing("'Happy'"))
                                                                 <!--<th>Age</th>-->
                                                             </tr>
                                                         </thead>
+                                                    {% if siblings or osiblings %}
                                                         <tbody>
                                                             {% for sibling in siblings %}
                                                             <tr>
@@ -657,13 +657,19 @@ print(blu.sing("'Happy'"))
                                                             </td>
                                                         </tr>
                                                         </tbody>
-                                                    </table>
-                                                    {% else %}
-                                                        <br>
-                                                        <div class="alert alert-warning">
-                                                            <p>&nbsp;No relative details provided for this person.</p>
-                                                        </div>
+                                                        {% else %}
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="6">
+                                                                    <br>
+                                                                    <div class="alert alert-warning">
+                                                                        <p>&nbsp;No relative details provided for this person.</p>
+                                                                    </div>
+                                                                <td>
+                                                            <tr>
+                                                        <tbody>
                                                     {% endif %}
+                                                    </table>
                                             </div>
                                         </div>
                                         <hr>
