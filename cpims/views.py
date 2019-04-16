@@ -3,7 +3,7 @@ import memcache
 from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import JsonResponse
-from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status,get_ovc_hiv_status,fetch_locality_data
+from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status,get_ovc_hiv_status,fetch_locality_data,get_cbo_list
 from cpovc_main.functions import get_dict
 from cpovc_access.functions import access_request
 from django.contrib.auth.decorators import login_required
@@ -26,6 +26,10 @@ def get_pub_data(request,org_level,area_id):
     print area_id
     main_dash_data=get_public_dash_ovc_hiv_status(org_level,area_id)
     return JsonResponse(main_dash_data, content_type='application/json',
+                        safe=False)
+
+def fetch_cbo_list(request):
+    return JsonResponse(get_cbo_list(), content_type='application/json',
                         safe=False)
 
 def get_locality_data(request):

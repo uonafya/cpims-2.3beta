@@ -74,6 +74,66 @@ def fetch_locality_data():
     # OrderedDict([('AREA_ID', 23), ('AREA_TYPE_ID', u'GPRV'), ('AREA_NAME', u'Turkana'), ('PARENT_AREA_ID', None)])
 
 
+def get_cbo_list():
+    cbo_list=[]
+    rows2, desc2 = run_sql_data(None,
+                                ''' 
+                                select DISTINCT ovc_cluster_cbo.cluster_id  as cluster_id, org_unit_name,reg_org_unit.id as id from reg_org_unit inner join 
+                                ovc_cluster_cbo on ovc_cluster_cbo.cbo_id=reg_org_unit.id
+                                where reg_org_unit.id 
+                                in(SELECT cbo_id FROM public.ovc_cluster_cbo where cluster_id in  ('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                                                                 'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                )) 
+                                 and 
+                                 cluster_id in
+                                 ('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                 'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                 )
+                                ''')
+    for x in rows2:
+        print "data here"
+        print x
+        _cbo={}
+
+        _cbo['name']=x['ORG_UNIT_NAME']
+        _cbo['id']=x['ID']
+        _cbo['cluster_id']=x['CLUSTER_ID']
+
+        cbo_list.append(_cbo)
+
+    return cbo_list
+
+
+def get_ovc_hiv_status_funding_partner(level, org_unit_id):
+    if (level=='funding_mechanism'):
+        print "the fundingg mechanisms"
+        print org_unit_id
+        if(org_unit_id == '0'): # usaid
+            rows2, desc2 = run_sql_data(None,
+                                        '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
+                        join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
+                        where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                      in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                          'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                          ))
+                                                  group by person.gender,person.art_status,person.hiv_status''')
+
+    if (level=='cluster'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''
+                                        
+                                        
+                                    '''.format(org_unit_id))
+
+
+    if (level=='cbo_unit'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
+                                              group by gender,art_status,hiv_status'''.format(org_unit_id))
+
+    return rows2, desc2
+
+
 def get_public_dash_ovc_hiv_status(level='national', area_id=''):
     # "SELECT count(ovccount) FROM public.hiv_status where "
     print "line ====="
@@ -101,6 +161,8 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
         rows2, desc2 = run_sql_data(None,
                                     '''Select count(*),gender,art_status,hiv_status from public.persons where area_id='{}'
                                               group by gender,art_status,hiv_status'''.format(area_id))
+    elif(level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
+        rows2, desc2=get_ovc_hiv_status_funding_partner(level, area_id)
     else:
         print '''Select count(*),gender,art_status,hiv_status from public.persons where area_id in (SELECT area_id from list_geo where parent_area_id='{}')
       group by gender,art_status,hiv_status'''.format(
@@ -171,17 +233,19 @@ def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor,super_user=Fa
                                    )) group by ovc_reg.hiv_status,ovc_reg.art_status'''
             )
     if (level=='cluster'):
-        print "the fundin mechanisms cluster"
-        print org_unit_id
-        print '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
-             join persons person on person.person_id=ovc_reg.person_id
-             where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id ='{}' 
-                                           ) group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(org_unit_id)
+
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
              join persons person on person.person_id=ovc_reg.person_id
              where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                            ) group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(org_unit_id)
+        )
+
+    if (level=='cbo_unit'):
+        cursor.execute(
+            '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
+             join persons person on person.person_id=ovc_reg.person_id
+             where person.child_cbo_id = '{}' group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(org_unit_id)
         )
     return cursor
 
@@ -232,15 +296,15 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
 
     with connection.cursor() as cursor:
         try:
-            if(level=='funding_mechanism' or level == 'cluster'):
-                super_user=False
+
             print "The level =================>"
             print level
-            if (level == 'county' or level == 'subcounty' or level == 'ward' or super_user or level == 'national'): # drill by geo location
-                cursor=get_hiv_dashboard_stats_geo_level(request, org_ids, cursor,super_user, level, area_id)
-            elif(level == 'funding_mechanism' or level == 'cluster'):  # drill by cbo
+            if (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):  # drill by cbo
                 print "funding_mechanism called"
-                cursor = get_hiv_dashboard_stats_partner_level(request, org_ids, cursor,super_user, level, area_id)
+                super_user = False
+                cursor = get_hiv_dashboard_stats_partner_level(request, org_ids, cursor, super_user, level, area_id)
+            elif (level == 'county' or level == 'subcounty' or level == 'ward' or super_user or level == 'national'): # drill by geo location
+                cursor=get_hiv_dashboard_stats_geo_level(request, org_ids, cursor,super_user, level, area_id)
             else:
                 cursor.execute(
                     "select count(*),art_status,hiv_status from ovc_registration where child_cbo_id in ({0}) group by hiv_status,art_status".format(
