@@ -241,7 +241,7 @@ function OpenForm(id)
 {
     $('#form-chooser-dialog').modal('show');
 
-    $("#form_type").change(function(e) 
+    $("#form_type").change(function(e)
     {
         var form_type = $("#form_type").val();
         if(form_type == 'FCSI') 
@@ -259,7 +259,19 @@ function OpenForm(id)
         if(form_type == 'FSCA') 
         { 
             return window.location.href='{% url 'new_form1b' id=0 %}'.replace("0", id); 
-        }    
+        }
+        if(form_type == 'CPR')
+        {
+            return window.location.href='{% url 'new_cpara' id=0 %}'.replace("0", id);
+        }
+        if(form_type == 'CPT')
+        {
+            return window.location.href='{% url 'new_caseplan' id=0 %}'.replace("0", id);
+        }
+        if(form_type == 'WB')
+        {
+            return window.location.href='{% url 'new_wellbeing' id=0 %}'.replace("0", id);
+        }
     });
         
     $("#form_type").multiselect("clearSelection");
