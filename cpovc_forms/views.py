@@ -8675,16 +8675,14 @@ def case_plan_template(request, id):
                 my_responsible=all_data['responsible']
                 my_date_completed=all_data['date']
                 my_date_of_prev_evnt=timezone.now()
-                my_date_of_caseplan=timezone.now()
+                my_date_of_caseplan=all_data['CPT_DATE_CASEPLAN']
                 my_results=all_data['results']
                 my_reason=all_data['reasons']
-
                 # if my_initial_caseplan=='AYES':
                 #     my_date_of_prev_evnt=my_date_of_caseplan
 
                     # User.objects.filter(first_name__startswith='R').values('first_name', 'last_name')
                 xyz=RegPerson.objects.filter(id=caregiver_id).values('id')
-                print ('mmmmm', xyz)
 
                 for service in my_service:
                     OVCCareCasePlan(
@@ -8699,7 +8697,7 @@ def case_plan_template(request, id):
                             cp_service = service,
                             responsible= my_responsible,
                             date_of_previous_event=my_date_of_prev_evnt,
-                            date_of_event=my_date_of_caseplan,
+                            date_of_event=convert_date(my_date_of_caseplan, fmt='%Y-%m-%d'),
                             form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
                             completion_date = convert_date(my_date_completed, fmt='%Y-%m-%d'),
                             results=my_results,
