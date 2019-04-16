@@ -35,14 +35,15 @@ function destroyChosenDropDownList(elementId) {
 }
 
 
-function populateOrgunitList(data,elementId) {
-    $(elementId).empty();
-    $(elementId).append("<option></option>");
+function populateOrgunitList(data,elementId,empyList) {
+    if(empyList){
+        $(elementId).empty();
+        $(elementId).append("<option></option>");
+    }
     $.each(data, function (key, objValue) {
         var elementToAppend = '<option data-id="' + key + '" data-name="' + objValue.name + '">' + objValue.name + '</option>';
         $(elementId).append(elementToAppend);
     });
-
 }
 
 
@@ -50,7 +51,7 @@ var initOrganisationUnitChosenDropDown = function initOrganisationUnitChosenDrop
     $(id).chosen({
         placeholder_text_single: "Select " + orgType + ": ",
         no_results_text: "No results found!",
-        width: "284px"
+        width: "200px"
     });
 };
 
@@ -74,19 +75,25 @@ $('#county-organisation-unit').on('change', function (event) {
     var selectedCountyName=$("#county-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedCountyName);
     destroyChosenDropDownList('#countituency-organisation-unit');
+    destroyChosenDropDownList('#ward-organisation-unit');
 
     $.each(localityData, function (key, objValue) {  // filter out countituency int that county
-
         if(key!=selectedCountyId){
             delete localityDataToDisplay[key];
         }
     });
+
     //enable sub county list element;
     $('#countituency-organisation-unit').prop("disabled", false); // Element(s) are now enabled.
+    $('#ward-organisation-unit').prop("disabled", false); // Element(s) are now enabled.
     $.each(localityDataToDisplay, function( key, value ) {
-        populateOrgunitList(value.siblings,'#countituency-organisation-unit');
+        populateOrgunitList(value.siblings,'#countituency-organisation-unit',true);
+        $.each(value.siblings, function( constituencyKey, constituencyValue ) {
+            populateOrgunitList(constituencyValue.siblings,'#ward-organisation-unit',false);
+        });
     });
 
+    initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit");
     initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit");
     fetchHivStatsFromServer('county',selectedCountyId);
     fetchCascade90FromServer('county',selectedCountyId);
@@ -120,7 +127,8 @@ function fetchOrganisationUnitData(){
 
             });
             initOrganisationUnitChosenDropDown("County:","#county-organisation-unit");
-            initOrganisationUnitChosenDropDown("County:","#countituency-organisation-unit");
+            initOrganisationUnitChosenDropDown("Sub county:","#countituency-organisation-unit");
+            initOrganisationUnitChosenDropDown("Ward:","#ward-organisation-unit");
             console.log("localityData");
             console.log(localityData);
         },

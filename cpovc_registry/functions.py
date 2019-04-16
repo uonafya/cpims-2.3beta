@@ -54,12 +54,12 @@ def fetch_locality_data():
         elif (x['AREA_TYPE_ID'] == 'GDIS'):  # constituency
             if (x['PARENT_AREA_ID'] in org_list):
                 org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']] = {}
-                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x['AREA_NAME'] + " sub-county"
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x['AREA_NAME']
                 org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['siblings'] = {}
             else:
                 org_list[x['AREA_ID']] = {'name': x['AREA_NAME'], 'siblings': {}}
                 org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']] = {}
-                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x['AREA_NAME'] + " sub-county"
+                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x['AREA_NAME']
                 org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['siblings'] = {}
         elif (x['AREA_TYPE_ID'] == 'GWRD'):  # ward
             if (x['GRAND_PARENT'] in org_list):
@@ -149,23 +149,21 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
 
 
 def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_id=''):
-    print "-------------------- 3"
     ovc_unknown_count, ovc_HSTN, on_art, not_on_art, ovc_HSTP = 0, 0, 0, 0, 0
     try:
         ids = ','.join(str(e) for e in org_ids)
     except Exception, e:
         pass
 
-    print "======================= suppression starts === 1"
+    print "------==========------------=======-----"
     print level
-    print super_user
+    print "user super: ", super_user
+    print "------==========------------=======-----2"
     with connection.cursor() as cursor:
         try:
-            print "======================= suppression starts === 2"
 
             if (level == 'county'):
 
-                print "======================= suppression starts === 3"
                 cursor.execute(
                     '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
                     join persons person on person.person_id=ovc_reg.person_id
@@ -173,19 +171,35 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
                                                             (SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
                     group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(area_id)
                 )
+            elif (level == 'subcounty'): #constituency
+
+                super_user=False # set false to prevent next condition from running.
+                cursor.execute(
+                    '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
+                    join persons person on person.person_id=ovc_reg.person_id
+                    where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                    group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(area_id)
+                )
+            elif (level == 'ward'):
+
+                super_user=False # set false to prevent next condition from running.
+                cursor.execute(
+                    '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
+                    join persons person on person.person_id=ovc_reg.person_id
+                    where person.area_id='{}'
+                    group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(area_id)
+                )
 
             elif (super_user or level == 'national'):
-                print "======================= suppression starts === 4"
+
                 cursor.execute(
                     '''select count(*),art_status,hiv_status from ovc_registration  group by hiv_status,art_status'''
                 )
             else:
-                print "======================= suppression starts === 5"
                 cursor.execute(
                     "select count(*),art_status,hiv_status from ovc_registration where child_cbo_id in ({0}) group by hiv_status,art_status".format(
                         ids)
                 )
-            print "======================= suppression starts === 6"
             row = cursor.fetchall()
             on_art = 0
             ovc_HSTP = 0
@@ -206,7 +220,6 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
 
         except Exception, e:
             print 'error on dashs - %s' % (str(e))
-    print "------------------------5"
     print ovc_unknown_count, ovc_HSTN, on_art, not_on_art, ovc_HSTP
     return ovc_unknown_count, ovc_HSTN, on_art, not_on_art, ovc_HSTP
 
@@ -291,9 +304,7 @@ def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
         print 'dash chart error - %s' % (str(e))
         hiv_status['ovc_unknown_count_rate'] = 0
         #raise e
-    print "-------------------- 11"
     hiv_status_list_envelop.append(hiv_status)
-    print "-------------------- 1get_hiv_suppression_stats2"
     return hiv_status_list_envelop
 
 
