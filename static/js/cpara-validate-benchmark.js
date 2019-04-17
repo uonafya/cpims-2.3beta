@@ -112,7 +112,8 @@ $('input[name=cp17b]').change(function (e) {
     else if(cp17b === 'ANNO'){cp17b = 0;}
 
     benchmarkScore =  parseFloat(cp1b) + parseFloat(cp2b) + parseFloat(cp3b) + parseFloat(cp4b) + parseFloat(cp5b) + parseFloat(cp6b) + parseFloat(cp7b) + parseFloat(cp8b) + parseFloat(cp9b) + parseFloat(cp10b) + parseFloat(cp11b) + parseFloat(cp12b) + parseFloat(cp13b) + parseFloat(cp14b) + parseFloat(cp15b) + parseFloat(cp16b) + parseFloat(cp17b);
-
+    console.log('benchmark score is =>' + benchmarkScore);
+    
     $('input[name=cp74q]').val(benchmarkScore);
 });
 
