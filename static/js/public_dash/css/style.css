@@ -137,6 +137,7 @@ a.logo:hover {
     
 .subnavbar-inner {
 	height: 60px;
+	padding: 15px;
 	background: #fff;
 	border-bottom: 1px solid #d6d6d6;
 }
@@ -1330,5 +1331,15 @@ color: #333;
 }
 .card-text{
 	font-weight: bolder;
+}
+
+.navbar .nav > li > a {
+    font-size: 13px;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+	color: rgb(39, 102, 150) !important;
+	background: rgb(232, 237, 240);
+	/* background-color: rgb(75, 130, 242); */
+	text-decoration: underline;
 }
 /* CUSTOM */

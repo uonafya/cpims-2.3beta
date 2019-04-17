@@ -26,7 +26,9 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     # url(r'^$', 'cpovc_auth.views.log_in', name='home'),
     url(r'^public_dash/', 'cpims.views.public_dash', name='public_dash'),
-    url(r'^public_dashboard/(?P<p_dash>.*)/', 'cpims.views.public_dashboard', name='public_dashboard'),
+    url(r'^public_dashboard/registration/', 'cpims.views.public_dashboard_reg', name='public_dashboard_reg'),
+    url(r'^public_dashboard/hivstat/', 'cpims.views.public_dashboard_hivstat', name='public_dashboard_hivstat'),
+    url(r'^public_dashboard/served/', 'cpims.views.public_dashboard_served', name='public_dashboard_served'),
     # APIs
     url(r'^get_locality_data/', 'cpims.views.get_locality_data', name='get_locality_data'),
     url(r'^hiv_stats_pub_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_pub_data', name='get_pub_data'),

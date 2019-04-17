@@ -22,13 +22,30 @@ def public_dash(request):
         raise e
         
 # ####################
-def public_dashboard(request,p_dash):
-    """Some default page for the home page / Dashboard."""
+def public_dashboard_reg(request):
     try:
         print "we are here"
         # vals = get_dashboard(request)
-        return render(request, 'public_dash_' + p_dash + '.html')
-        # return render(request, 'public_dash_1.html')
+        # return render(request, 'public_dash_' + p_dash + '.html')
+        return render(request, 'public_dash/reg.html')
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
+def public_dashboard_hivstat(request):
+    try:
+        print "we are here"
+        # vals = get_dashboard(request)
+        # return render(request, 'public_dash_' + p_dash + '.html')
+        return render(request, 'public_dash/hivstat.html')
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
+def public_dashboard_served(request):
+    try:
+        print "we are here"
+        # vals = get_dashboard(request)
+        # return render(request, 'public_dash_' + p_dash + '.html')
+        return render(request, 'public_dash/served.html')
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
