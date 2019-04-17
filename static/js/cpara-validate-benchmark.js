@@ -36,83 +36,152 @@ var benchmarkScore = 0;
 $('input[name=cp74q]').attr('readonly', true);
 
 // disable benchmark editing 
-$('input[name=cp1b]').attr('disabled', true); $('input[name=cp2b]').attr('disabled', true); $('input[name=cp3b]').attr('disabled', true); $('input[name=cp4b]').attr('disabled', true); $('input[name=cp5b]').attr('disabled', true); $('input[name=cp6b]').attr('disabled', true); $('input[name=cp7b]').attr('disabled', true); $('input[name=cp8b]').attr('disabled', true); $('input[name=cp9b]').attr('disabled', true); $('input[name=cp10b]').attr('disabled', true); $('input[name=cp11b]').attr('disabled', true); $('input[name=cp12b]').attr('disabled', true); $('input[name=cp13b]').attr('disabled', true); $('input[name=cp14b]').attr('disabled', true); $('input[name=cp15b]').attr('disabled', true); $('input[name=cp16b]').attr('disabled', true); $('input[name=cp17b]').attr('disabled', true);
+// $('input[name=cp1b]').attr('disabled', true);
+$('input[name=cp1b]').click(function(){return false;});
+
+// $('input[name=cp2b]').attr('disabled', true);
+$('input[name=cp2b]').click(function(){return false;});
+
+// $('input[name=cp3b]').attr('disabled', true);
+$('input[name=cp3b]').click(function(){return false;});
+
+// $('input[name=cp4b]').attr('disabled', true);
+$('input[name=cp4b]').click(function(){return false;});
+
+// $('input[name=cp5b]').attr('disabled', true);
+$('input[name=cp5b]').click(function(){return false;});
+
+// $('input[name=cp6b]').attr('disabled', true);
+$('input[name=cp6b]').click(function(){return false;});
+
+// $('input[name=cp7b]').attr('disabled', true);
+$('input[name=cp7b]').click(function(){return false;});
+
+// $('input[name=cp8b]').attr('disabled', true);
+$('input[name=cp8b]').click(function(){return false;});
+
+// $('input[name=cp9b]').attr('disabled', true);
+$('input[name=cp9b]').click(function(){return false;});
+
+// $('input[name=cp10b]').attr('disabled', true);
+$('input[name=cp10b]').click(function(){return false;});
+
+// $('input[name=cp11b]').attr('disabled', true);
+$('input[name=cp11b]').click(function(){return false;});
+
+// $('input[name=cp12b]').attr('disabled', true);
+$('input[name=cp12b]').click(function(){return false;});
+
+// $('input[name=cp13b]').attr('disabled', true);
+$('input[name=cp13b]').click(function(){return false;});
+
+// $('input[name=cp14b]').attr('disabled', true);
+$('input[name=cp14b]').click(function(){return false;});
+
+// $('input[name=cp15b]').attr('disabled', true);
+$('input[name=cp15b]').click(function(){return false;});
+
+// $('input[name=cp16b]').attr('disabled', true);
+$('input[name=cp16b]').click(function(){return false;});
+
+// $('input[name=cp17b]').attr('disabled', true);
+$('input[name=cp17b]').click(function(){return false;});
+
+
 // disable benchmark editing
 
 // benchmark score after change of last benchmark radio
 // $('input[name=cp17b], input[name=cp1b], input[name=cp2b], input[name=cp3b], input[name=cp4b], input[name=cp5b], input[name=cp6b], input[name=cp7b], input[name=cp8b], input[name=cp9b], input[name=cp10b], input[name=cp11b], input[name=cp12b], input[name=cp13b], input[name=cp14b], input[name=cp15b], input[name=cp16b], input[name=cp17b]').change(function (e) { 
-$('input[name=cp17b]').change(function (e) { 
 
+// $('input[name=cp17b]').change(function (e) {  
+$('input[type=radio]').change(function (e) {  
     var cp1b = $('input[name=cp1b]:checked').val();
     if(cp1b === 'AYES'){cp1b = 1;}
-    else if(cp1b === 'ANNO'){cp1b = 0;}
-    
+    else{cp1b = 0;}
+    console.log('benchScore cp1b=> '+cp1b);
+
     var cp2b = $('input[name=cp2b]:checked').val();
     if(cp2b === 'AYES'){cp2b = 1;}
-    else if(cp2b === 'ANNO'){cp2b = 0;}
-    
+    else{cp2b = 0;}
+    console.log('benchScore cp2b=> '+cp2b);
+
     var cp3b = $('input[name=cp3b]:checked').val();
     if(cp3b === 'AYES'){cp3b = 1;}
-    else if(cp3b === 'ANNO'){cp3b = 0;}
-    
+    else{cp3b = 0;}
+    console.log('benchScore cp3b=> '+cp3b);
+
     var cp4b = $('input[name=cp4b]:checked').val();
     if(cp4b === 'AYES'){cp4b = 1;}
-    else if(cp4b === 'ANNO'){cp4b = 0;}
-    
+    else{cp4b = 0;}
+    console.log('benchScore cp4b=> '+cp4b);
+
     var cp5b = $('input[name=cp5b]:checked').val();
     if(cp5b === 'AYES'){cp5b = 1;}
-    else if(cp5b === 'ANNO'){cp5b = 0;}
-    
+    else{cp5b = 0;}
+    console.log('benchScore cp5b=> '+cp5b);
+
     var cp6b = $('input[name=cp6b]:checked').val();
     if(cp6b === 'AYES'){cp6b = 1;}
-    else if(cp6b === 'ANNO'){cp6b = 0;}
-    
+    else{cp6b = 0;}
+    console.log('benchScore cp6b=> '+cp6b);
+
     var cp7b = $('input[name=cp7b]:checked').val();
     if(cp7b === 'AYES'){cp7b = 1;}
-    else if(cp7b === 'ANNO'){cp7b = 0;}
-    
+    else{cp7b = 0;}
+    console.log('benchScore cp7b=> '+cp7b);
+
     var cp8b = $('input[name=cp8b]:checked').val();
     if(cp8b === 'AYES'){cp8b = 1;}
-    else if(cp8b === 'ANNO'){cp8b = 0;}
-    
+    else{cp8b = 0;}
+    console.log('benchScore cp8b=> '+cp8b);
+
     var cp9b = $('input[name=cp9b]:checked').val();
     if(cp9b === 'AYES'){cp9b = 1;}
-    else if(cp9b === 'ANNO'){cp9b = 0;}
-    
+    else{cp9b = 0;}
+    console.log('benchScore cp9b=> '+cp9b);
+
     var cp10b = $('input[name=cp10b]:checked').val();
     if(cp10b === 'AYES'){cp10b = 1;}
-    else if(cp10b === 'ANNO'){cp10b = 0;}
-    
+    else{cp10b = 0;}
+    console.log('benchScore cp10b=> '+cp10b);
+
     var cp11b = $('input[name=cp11b]:checked').val();
     if(cp11b === 'AYES'){cp11b = 1;}
-    else if(cp11b === 'ANNO'){cp11b = 0;}
-    
+    else{cp11b = 0;}
+    console.log('benchScore cp11b=> '+cp11b);
+
     var cp12b = $('input[name=cp12b]:checked').val();
     if(cp12b === 'AYES'){cp12b = 1;}
-    else if(cp12b === 'ANNO'){cp12b = 0;}
-    
+    else{cp12b = 0;}
+    console.log('benchScore cp12b=> '+cp12b);
+
     var cp13b = $('input[name=cp13b]:checked').val();
     if(cp13b === 'AYES'){cp13b = 1;}
-    else if(cp13b === 'ANNO'){cp13b = 0;}
-    
+    else{cp13b = 0;}
+    console.log('benchScore cp13b=> '+cp13b);
+
     var cp14b = $('input[name=cp14b]:checked').val();
     if(cp14b === 'AYES'){cp14b = 1;}
-    else if(cp14b === 'ANNO'){cp14b = 0;}
-    
+    else{cp14b = 0;}
+    console.log('benchScore cp14b=> '+cp14b);
+
     var cp15b = $('input[name=cp15b]:checked').val();
     if(cp15b === 'AYES'){cp15b = 1;}
-    else if(cp15b === 'ANNO'){cp15b = 0;}
-    
+    else{cp15b = 0;}
+    console.log('benchScore cp15b=> '+cp15b);
+
     var cp16b = $('input[name=cp16b]:checked').val();
     if(cp16b === 'AYES'){cp16b = 1;}
-    else if(cp16b === 'ANNO'){cp16b = 0;}
-    
+    else{cp16b = 0;}
+    console.log('benchScore cp16b=> '+cp16b);
+
     var cp17b = $('input[name=cp17b]:checked').val();
     if(cp17b === 'AYES'){cp17b = 1;}
-    else if(cp17b === 'ANNO'){cp17b = 0;}
-
+    else{cp17b = 0;}
+    console.log('benchScore cp17b=> '+cp17b);
+    
     benchmarkScore =  parseFloat(cp1b) + parseFloat(cp2b) + parseFloat(cp3b) + parseFloat(cp4b) + parseFloat(cp5b) + parseFloat(cp6b) + parseFloat(cp7b) + parseFloat(cp8b) + parseFloat(cp9b) + parseFloat(cp10b) + parseFloat(cp11b) + parseFloat(cp12b) + parseFloat(cp13b) + parseFloat(cp14b) + parseFloat(cp15b) + parseFloat(cp16b) + parseFloat(cp17b);
-    console.log('benchmark score is =>' + benchmarkScore);
+    console.log('TOTAL benchScore=> '+benchmarkScore);
     
     $('input[name=cp74q]').val(benchmarkScore);
 });
@@ -142,9 +211,9 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
         $('input[name='+inputName+']').change(function() {
             var thisval = $(this).val();
             if(thisval !== arrayOfExpectedValues[inde]){
-                $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
+                // $('input[name='+idOfBenchmarkQn+']').removeAttr('disabled');
                 $('input[name='+idOfBenchmarkQn+'][value=ANNO]').prop("checked", true);
-                $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
+                // $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
                 if(thisval === arrayOfExpectedValues[inde]){
                     actualValNo = actualValNo + 1;
                 }else{

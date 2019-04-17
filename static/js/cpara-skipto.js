@@ -32,7 +32,7 @@
 function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
     // $('input[name="'+inputToCheck+'"][value="'+rightValue+'"]').on('change', function () {
     $('input[name="'+inputToCheck+'"]').on('change', function () {
-        console.log('onchanging,,,');
+        // console.log('onchanging,,,');
         
         var theval = $('input[name="'+inputToCheck+'"]').val();
         // textbox, numbers, dates etc
@@ -50,15 +50,15 @@ function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
 
         // cater for checkbox
         if($('input[name="'+inputToCheck+'"]').attr('type') == 'checkbox'){
-            console.log("checkbox with Name: "+inputToCheck+" found");
+            // console.log("checkbox with Name: "+inputToCheck+" found");
             var valFromInput = '';
             $.each($(this), function (chind, eachbx) {
                 if($(this).is(':checked')){
-                    console.log("TICKED checkbox with Name: "+inputToCheck+" found");
+                    // console.log("TICKED checkbox with Name: "+inputToCheck+" found");
                     var unDo = false;
                     skipToQn(inputToCheck,toQnID,toTabID,unDo);
                 }else{
-                    console.log("UNDO ticked checkbox with Name: "+inputToCheck);
+                    // console.log("UNDO ticked checkbox with Name: "+inputToCheck);
                     var unDo = true;
                     skipToQn(inputToCheck,toQnID,toTabID,unDo);
                 }
@@ -69,15 +69,15 @@ function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
         // cater for radio
         if($('input[name="'+inputToCheck+'"]').attr('type') == 'radio'){
             var valFromInput = $('input[name="'+inputToCheck+'"]:checked').val();
-            console.log("radio with Name: "+inputToCheck+" found");
-            console.log("valFromInput======> "+valFromInput);
+            // console.log("radio with Name: "+inputToCheck+" found");
+            // console.log("valFromInput======> "+valFromInput);
             if(valFromInput === rightValue){
-                console.log("TICKED radio with Name: "+inputToCheck+" found. rightValue="+rightValue+" & valFromInput="+valFromInput);
+                // console.log("TICKED radio with Name: "+inputToCheck+" found. rightValue="+rightValue+" & valFromInput="+valFromInput);
                 // console.log("valFromInput: "+valFromInput+" & rightValue: "+rightValue);
                 var unDo = false;
                 skipToQn(inputToCheck,toQnID,toTabID,unDo);
             }else if(valFromInput !== rightValue){
-                console.log("undoing... ");
+                // console.log("undoing... ");
                 var unDo = true;
                 skipToQn(inputToCheck,toQnID,toTabID,unDo);
             }
@@ -119,7 +119,7 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             console.log("skipping to Qn: "+toQnID+" on Tab: "+toTabID);
         }
         if(unDo){
-            console.log("undoing2... ");
+            // console.log("undoing2... ");
             $("td").attr("tabindex", "-1");
             $(".form-group").attr("tabindex", "-1");
             $('input[name="'+inputToCheck+'"]').closest("td").attr("tabindex", "1");
