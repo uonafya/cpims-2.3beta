@@ -19,7 +19,8 @@
     triggerSkip('chd_ovr_10ys','ANNO','cp62q','4');
     triggerSkip('adole_in_vc_train','ANNO','cp74q','5');
     
-    triggerSkip('cp49q','AYES','q12p4','4');
+    // triggerSkip('cp49q','AYES','q12p4','4');
+    triggerSkip('cp49q','AYES','o5y_cd_hse','4');
     triggerSkip('cp50q','ANNO','q12p4','4');
 // endQuestionSkipLogic
 
@@ -100,9 +101,11 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             // $('input[name="'+inputToCheck+'"]').closest(".form-group").nextUntil(destinationT, "tr").addClass('hidden');
             
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('input').attr('data-parsley-required', false).removeAttr('required');
-
+            
             //tick AYES for skipped qns
-            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('input[value=AYES]').prop("checked", true)
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('input[value=AYES]').prop("checked", true);
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('tr').not(':last-of-type').find('td').not(':first-of-type').css('background', '#dddddd');
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('td input[type=radio]').attr('disabled', 'disabled').attr('data-parsley-required', false).removeAttr('required');
             //tick AYES for skipped qns
 
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12:not(.containsTable)").nextUntil(destinationT, ".col-md-12:not(.containsTable)").find('.form-group').not('.note-info').addClass('hidden').after('<span id="skyp"><br><i style="color: grey;">Skipped question</i><br/></span>');
@@ -126,6 +129,15 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").removeClass('hidden');
 
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.form-group').removeClass('hidden').after('');
+            //UNtick AYES for skipped qns
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('input[value=AYES]').prop("checked", false);
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('tr').not(':last-of-type').find('td').not(':first-of-type').css('background', '##ffffff');
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('td input[type=radio]').removeAttr('disabled');
+            //UNtick AYES for skipped qns
+            //benchmark=no for skipped qns
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.form-group.note-info input[value="ANNO"]').prop('checked',true);
+            //benchmark=no for skipped qns
+
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('#skyp').remove();
 
             // $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".form-group").find('input').attr('required');

@@ -196,6 +196,9 @@ function validDate(dateFieldName, radioToCheck, rightValue, wrongValue) {
 			$('input[name='+dateFieldName+']').attr('disabled', true);
 			$('input[name='+dateFieldName+']').removeAttr('required');
 			$('input[name='+dateFieldName+']').attr('data-parsley-required', false);
+			$('input[name='+dateFieldName+']').removeClass('parsley-error');
+            var dpid = $('input[name='+dateFieldName+']').attr('data-parsley-id');
+            $('#parsley-id-'+dpid).addClass('hidden');
 		}else if(valu === wrongValue){
 			$('input[name='+dateFieldName+']').attr('data-parsley-required', true);
 			$('input[name='+dateFieldName+']').val('');
