@@ -79,7 +79,7 @@ print(blu.sing("'Happy'"))
             </div>
             <div class="panel-body">
             	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="false"
-                name="form-wizard-hhva" id="new_hhva">
+                name="form-wizard-hhva" id="new_hhva" novalidate>
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-12">
@@ -2231,8 +2231,8 @@ print(blu.sing("'Happy'"))
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 
-<script src="{% static 'js/cpara-skipto.js' %}"></script>
-<script src="{% static 'js/cpara-validate-benchmark.js' %}"></script>
+{#<script src="{% static 'js/cpara-skipto.js' %}"></script>#}
+{#<script src="{% static 'js/cpara-validate-benchmark.js' %}"></script>#}
 <script>
 jQuery(document).ready(function()
 {

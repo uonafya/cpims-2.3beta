@@ -8492,6 +8492,7 @@ def form_bursary(request, id):
 def new_cpara(request, id):
     if request.method == 'POST':
         data = request.POST
+
         child = RegPerson.objects.get(id=id)
         house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
         date_of_event = data.get('d_o_a')
