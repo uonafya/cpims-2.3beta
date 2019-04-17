@@ -132,115 +132,131 @@ function AddRow() {
     let if_first_cpara = $('input[name=if_first_cpara]:checked').val();
     let date_first_cpara = $('input[name=date_first_cpara]').val();
     let CPT_DATE_CASEPLAN = $('input[name=CPT_DATE_CASEPLAN]').val();
+    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == ''){
+        $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid red');
+        $('#CPT_DATE_CASEPLAN_state').empty();
+        $('input[name=CPT_DATE_CASEPLAN]').after("<small id='CPT_DATE_CASEPLAN_state' style='color: red'>This field is required</small>");
+        var proceed = false;
+    }else{
+        var proceed = true;
+
+    }
     let results = $('#id_CPT_RESULTS option:selected').val();
     let reasons = $('#id_CPT_REASONS').val();
 
-    // domain
-    $('#row_'+randomID+' > td#tbl_domain').html( $('select[name=CPT_DOMAIN] option[value='+domain+']').text() + '<input type="hidden" name="h_CPT_DOMAIN" value="'+domain+'" />');
-    // -domain
+    if(proceed){
 
-    // goal
+        // domain
+        $('#row_'+randomID+' > td#tbl_domain').html( $('select[name=CPT_DOMAIN] option[value='+domain+']').text() + '<input type="hidden" name="h_CPT_DOMAIN" value="'+domain+'" />');
+        // -domain
+
+        // goal
         $('#row_'+randomID+' > td#tbl_goal').html( $('.goals_cell > div:not(.hidden) > select option:selected').text() + '<input type="hidden" name="h_CPT_GOAL" value="'+goal+'" />');
-    // -goal
+        // -goal
 
-    // gaps
+        // gaps
         $('#row_'+randomID+' > td#tbl_needs').html( $('.gaps_cell > div:not(.hidden) > select option:selected').text() + '<input type="hidden" name="h_CPT_GAPS" value="'+gaps+'" />');
-    // -gaps
+        // -gaps
 
-    // actions
+        // actions
         $('#row_'+randomID+' > td#tbl_actions').html( $('.actions_cell > div:not(.hidden) > select option[value='+actions+']').text() + '<input type="hidden" name="h_CPT_ACTIONS" value="'+actions+'" />');
-    // -actions
+        // -actions
 
-    // services
-    $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').empty();
-    $('.services_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
-        var txt4 = stripHTML($(this).text());
-        if(txt4 === 'Select all'){}else{
-            $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').append( '<li>'+txt4+'</li>' );
-        }
-    });
-    $('#row_'+randomID+' > td#tbl_services').append('<input type="hidden" name="h_CPT_SERVICES" value="'+services+'" />');
-    // -services
+        // services
+        $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').empty();
+        $('.services_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
+            var txt4 = stripHTML($(this).text());
+            if(txt4 === 'Select all'){}else{
+                $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').append( '<li>'+txt4+'</li>' );
+            }
+        });
+        $('#row_'+randomID+' > td#tbl_services').append('<input type="hidden" name="h_CPT_SERVICES" value="'+services+'" />');
+        // -services
 
-    $('#row_'+randomID+' > td#tbl_repsonsible').html( $('select[name=CPT_RESPONSIBLE] option[value='+responsibl+']').text() + '<input type="hidden" name="h_CPT_RESPONSIBLE" value="'+responsibl+'" />');
-    $('#row_'+randomID+' > td#tbl_datecompleted').html(date + '<input type="hidden" name="h_CPT_DATE" value="'+date+'" />');
-    $('#row_'+randomID+' > td#tbl_results').html( $('select[name=CPT_RESULTS] option[value='+results+']').text() + '<input type="hidden" name="h_CPT_RESULTS" value="'+results+'" />');
-    $('#row_'+randomID+' td#tbl_reasons').html('<div>'+reasons+'</div>' + '<input type="hidden" name="h_CPT_REASONS" value="'+reasons+'" />');
-    $('#row_'+randomID+' td#tbl_acts').html('<a href="#" class="removerow btn btn-xs btn-danger"><i class="fa fa-trash"></i> Remove</a>');
-    
-    console.log(
-        'LOG: '+JSON.stringify({
-            1: domain,
-            2: goal,    
-            3: gaps,
-            4: actions,
-            5: services,
-            6: responsibl,
-            7: date,
-            8: results,
-            9: reasons
-        })
-    )
+        $('#row_'+randomID+' > td#tbl_repsonsible').html( $('select[name=CPT_RESPONSIBLE] option[value='+responsibl+']').text() + '<input type="hidden" name="h_CPT_RESPONSIBLE" value="'+responsibl+'" />');
+        $('#row_'+randomID+' > td#tbl_datecompleted').html(date + '<input type="hidden" name="h_CPT_DATE" value="'+date+'" />');
+        $('#row_'+randomID+' > td#tbl_results').html( $('select[name=CPT_RESULTS] option[value='+results+']').text() + '<input type="hidden" name="h_CPT_RESULTS" value="'+results+'" />');
+        $('#row_'+randomID+' td#tbl_reasons').html('<div>'+reasons+'</div>' + '<input type="hidden" name="h_CPT_REASONS" value="'+reasons+'" />');
+        $('#row_'+randomID+' td#tbl_acts').html('<a href="#" class="removerow btn btn-xs btn-danger"><i class="fa fa-trash"></i> Remove</a>');
 
-    final_input['domain'].push(domain);
-    final_input['goal'].push(goal);
-    final_input['gaps'].push(gaps);
-    final_input['actions'].push(actions);
-    final_input['services'].push(services);
-    final_input['responsible'].push(responsibl);
-    final_input['date'].push(date);
-    final_input['results'].push(results);
-    final_input['reasons'].push(reasons);
-    final_input['if_first_cpara'].push(if_first_cpara);
-    final_input['date_first_cpara'].push(date_first_cpara);
-    final_input['CPT_DATE_CASEPLAN'].push(CPT_DATE_CASEPLAN);
+        console.log(
+            'LOG: '+JSON.stringify({
+                1: domain,
+                2: goal,
+                3: gaps,
+                4: actions,
+                5: services,
+                6: responsibl,
+                7: date,
+                8: results,
+                9: reasons
+            })
+        )
 
-    $('#row_'+randomID+' > td#tbl_acts > .removerow').click(function (e) { 
-        e.preventDefault();
-        $('#row_'+randomID).empty();
-        $('#row_'+randomID).remove();
+        final_input['domain'].push(domain);
+        final_input['goal'].push(goal);
+        final_input['gaps'].push(gaps);
+        final_input['actions'].push(actions);
+        final_input['services'].push(services);
+        final_input['responsible'].push(responsibl);
+        final_input['date'].push(date);
+        final_input['results'].push(results);
+        final_input['reasons'].push(reasons);
+        final_input['if_first_cpara'].push(if_first_cpara);
+        final_input['date_first_cpara'].push(date_first_cpara);
+        final_input['CPT_DATE_CASEPLAN'].push(CPT_DATE_CASEPLAN);
 
-        // $(this).closest('tr').empty();
-        // $(this).closest('tr').remove();
-    });
+        $('#row_'+randomID+' > td#tbl_acts > .removerow').click(function (e) {
+            e.preventDefault();
+            $('#row_'+randomID).empty();
+            $('#row_'+randomID).remove();
+
+            // $(this).closest('tr').empty();
+            // $(this).closest('tr').remove();
+        });
+    }
 
 }
 var fd2 = [];
 $('#submit-caseplan').click(function (e) { 
     // e.preventDefault();
     // console.log("final_input: "+JSON.stringify(final_input));
-    $.each(final_input['domain'], function (indexDomain, oneDomain) { 
-        var answrs = {};
-         
-        answrs['domain'] = [];
-        answrs['goal'] = [];
-        answrs['gaps'] = [];
-        answrs['actions'] = [];
-        answrs['services'] = [];
-        answrs['responsible'] = [];
-        answrs['date'] = [];
-        answrs['results'] = [];
-        answrs['reasons'] = [];
-        answrs['if_first_cpara'] = [];
-        answrs['date_first_cpara'] = [];
-        answrs['CPT_DATE_CASEPLAN'] = [];
+    var date_of_caseplan = $('input[name=CPT_DATE_CASEPLAN]').val();
 
-        answrs['domain'] = final_input['domain'][indexDomain];
-        answrs['goal'] = final_input['goal'][indexDomain];
-        answrs['gaps'] = final_input['gaps'][indexDomain];
-        answrs['actions'] = final_input['actions'][indexDomain];
-        answrs['services'] = final_input['services'][indexDomain];
-        answrs['responsible'] = final_input['responsible'][indexDomain];
-        answrs['date'] = final_input['date'][indexDomain];
-        answrs['results'] = final_input['results'][indexDomain];
-        answrs['reasons'] = final_input['reasons'][indexDomain];
-        answrs['if_first_cpara'] = final_input['if_first_cpara'][indexDomain];
-        answrs['date_first_cpara'] = final_input['date_first_cpara'][indexDomain];
-        answrs['CPT_DATE_CASEPLAN'] = final_input['CPT_DATE_CASEPLAN'][indexDomain];
+        $.each(final_input['domain'], function (indexDomain, oneDomain) {
+            var answrs = {};
 
-        fd2.push(answrs);
-    });
-    console.log("answrs: "+JSON.stringify(fd2));
-    $('input[name=final_submission').val(JSON.stringify(fd2));
-    $('#new_f1a').submit();
+            answrs['domain'] = [];
+            answrs['goal'] = [];
+            answrs['gaps'] = [];
+            answrs['actions'] = [];
+            answrs['services'] = [];
+            answrs['responsible'] = [];
+            answrs['date'] = [];
+            answrs['results'] = [];
+            answrs['reasons'] = [];
+            answrs['if_first_cpara'] = [];
+            answrs['date_first_cpara'] = [];
+            answrs['CPT_DATE_CASEPLAN'] = [];
+
+            answrs['domain'] = final_input['domain'][indexDomain];
+            answrs['goal'] = final_input['goal'][indexDomain];
+            answrs['gaps'] = final_input['gaps'][indexDomain];
+            answrs['actions'] = final_input['actions'][indexDomain];
+            answrs['services'] = final_input['services'][indexDomain];
+            answrs['responsible'] = final_input['responsible'][indexDomain];
+            answrs['date'] = final_input['date'][indexDomain];
+            answrs['results'] = final_input['results'][indexDomain];
+            answrs['reasons'] = final_input['reasons'][indexDomain];
+            answrs['if_first_cpara'] = final_input['if_first_cpara'][indexDomain];
+            answrs['date_first_cpara'] = final_input['date_first_cpara'][indexDomain];
+            answrs['CPT_DATE_CASEPLAN'] = final_input['CPT_DATE_CASEPLAN'][indexDomain];
+
+            fd2.push(answrs);
+        });
+        console.log("answrs: "+JSON.stringify(fd2));
+        $('input[name=final_submission').val(JSON.stringify(fd2));
+        $('#new_f1a').submit();
+
+
 });
