@@ -8494,6 +8494,7 @@ def new_cpara(request, id):
         data = request.POST
 
         child = RegPerson.objects.get(id=id)
+        care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
         house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
         date_of_event = data.get('d_o_a')
         event = OVCCareEvents.objects.create(
@@ -8510,6 +8511,7 @@ def new_cpara(request, id):
                 question=question,
                 answer=data.get(question.code.lower()),
                 house_hold=house_hold,
+                caregiver=care_giver,
                 event=event,
                 date_event=convert_date(date_of_event, fmt='%Y-%m-%d'),
                 exceptions=exceptions
@@ -8567,7 +8569,7 @@ def new_cpara(request, id):
 
     ward = SetupGeography.objects.get(area_id=ward_id)
     subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    # county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     if ward.area_type_id == 'GLTL':
         # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
