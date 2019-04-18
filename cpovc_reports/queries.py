@@ -1289,7 +1289,7 @@ group by person_id) as fp where scnts > 0;
 QUERIES['ovc_served_list'] = '''
 select * from vw_cpims_list_served where cbo_id in ({cbos})
 AND date_of_service between '{start_date}' and '{end_date}'
-AND service_provided != '' and service_provided is not null;
+AND service != '' and service is not null;
 '''
 
 
