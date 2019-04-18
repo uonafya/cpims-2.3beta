@@ -8584,18 +8584,24 @@ def new_cpara(request, id):
             all_geos_wards.append(geo_name)
     if all_geos:
         geos = ', '.join(all_geos)
+    else:
+        geos = None
     if all_geos_wards:
         geo_wards = ', '.join(all_geos_wards)
+    else:
+        geo_wards = None
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    child.pgeos = geos
     child.geo_wards = geo_wards
-
-    ward_id = int(child.geo_wards)
-
-    ward = SetupGeography.objects.get(area_id=ward_id)
-    subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    if child.geo_wards is None:
+        ward = None
+        subcounty = None
+        county = None
+    else:
+        ward_id = int(child.geo_wards)
+        ward = SetupGeography.objects.get(area_id=ward_id)
+        subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     # orgunit = RegPersonsOrgUnits.objects.get(person=child)
     form = CparaAssessment()
