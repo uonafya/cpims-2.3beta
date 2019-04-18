@@ -2169,6 +2169,7 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                         <div class="col-md-6">
                                                             {{ form.cp74q }}
+                                                            <input type="hidden" name="bench_array"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -2231,8 +2232,8 @@ print(blu.sing("'Happy'"))
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 
-{#<script src="{% static 'js/cpara-skipto.js' %}"></script>#}
-{#<script src="{% static 'js/cpara-validate-benchmark.js' %}"></script>#}
+<script src="{% static 'js/cpara-skipto.js' %}"></script>
+<script src="{% static 'js/cpara-validate-benchmark.js' %}"></script>
 <script>
 jQuery(document).ready(function()
 {
