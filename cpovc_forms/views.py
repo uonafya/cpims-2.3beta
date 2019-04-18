@@ -8568,21 +8568,34 @@ def new_cpara(request, id):
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
 
     house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-    
-    ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
+
+    # Get child geo
+    child_geos = RegPersonsGeo.objects.select_related().filter(
+        person=child, is_void=False, date_delinked=None)
+    all_geos_county, all_geos_wards, all_geos = [], [], []
+    for person_geo in child_geos:
+        geo_name = str(person_geo.area.area_id)
+        geo_type = person_geo.area.area_type_id
+        if geo_type == 'GPRV':
+            all_geos_county.append(geo_name)
+        elif geo_type == 'GDIS':
+            all_geos.append(geo_name)
+        else:
+            all_geos_wards.append(geo_name)
+    if all_geos:
+        geos = ', '.join(all_geos)
+    if all_geos_wards:
+        geo_wards = ', '.join(all_geos_wards)
+    if all_geos_county:
+        geo_county = ', '.join(all_geos_county)
+    child.pgeos = geos
+    child.geo_wards = geo_wards
+
+    ward_id = int(child.geo_wards)
 
     ward = SetupGeography.objects.get(area_id=ward_id)
     subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
     county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-
-    if ward.area_type_id == 'GLTL':
-        # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
-        subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-    elif ward.area_type_id == 'GDIS':
-        subcounty = ward
-        ward = ''
-        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     # orgunit = RegPersonsOrgUnits.objects.get(person=child)
     form = CparaAssessment()
@@ -9054,22 +9067,32 @@ def new_wellbeing(request, id):
         is_void=False, house_hold_id=hhid).order_by("-hh_head")
 
     hhmembers = hhmqs.exclude(person_id=ovcreg.caretaker_id)
+    # Get child geo
+    child_geos = RegPersonsGeo.objects.select_related().filter(
+        person=child, is_void=False, date_delinked=None)
+    all_geos_county, all_geos_wards, all_geos = [], [], []
+    for person_geo in child_geos:
+        geo_name = str(person_geo.area.area_id)
+        geo_type = person_geo.area.area_type_id
+        if geo_type == 'GPRV':
+            all_geos_county.append(geo_name)
+        elif geo_type == 'GDIS':
+            all_geos.append(geo_name)
+        else:
+            all_geos_wards.append(geo_name)
+    if all_geos:
+        geos = ', '.join(all_geos)
+    if all_geos_wards:
+        geo_wards = ', '.join(all_geos_wards)
+    if all_geos_county:
+        geo_county = ', '.join(all_geos_county)
+    child.pgeos = geos
+    child.geo_wards = geo_wards
 
-
-    ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
-
+    ward_id = int(child.geo_wards)
     ward = SetupGeography.objects.get(area_id=ward_id)
     subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-    # county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-
-    if ward.area_type_id == 'GLTL':
-        # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
-        subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-    elif ward.area_type_id == 'GDIS':
-        subcounty = ward
-        ward = ''
-        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     form = Wellbeing(initial={'household_id': household_id, 'caretaker_id': caretaker_id, })
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
@@ -9090,7 +9113,7 @@ def new_wellbeing(request, id):
                       'person_sex_type': person_sex_type,
                       'oguardians': oguardians,
                       
-                    #   'county': county,
+                      'county': county,
                       'ward': ward,
                       'subcounty': subcounty,
                       'care_giver': care_giver
