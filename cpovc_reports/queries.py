@@ -1288,7 +1288,7 @@ group by person_id) as fp where scnts > 0;
 # List of OVC Served
 QUERIES['ovc_served_list'] = '''
 select * from vw_cpims_list_served where cbo_id in ({cbos})
-AND date_of_service between '{start_date}' and '{end_date}')
+AND date_of_service between '{start_date}' and '{end_date}'
 AND and service_provided != '' and service_provided is not null;
 '''
 
@@ -2892,7 +2892,7 @@ Select * from vw_cpims_case_plan
 WHERE cbo_id in ({cbos}) AND (vw_cpims_case_plan.date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['served_two_quaters'] = '''
-select * from * vw_cpims_two_quarters
+select * from vw_cpims_two_quarters
 WHERE cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['benchmark'] = '''
