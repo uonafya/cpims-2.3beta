@@ -549,7 +549,7 @@ def save_bursary(request, person_id):
         return True
 
 
-def save_cpara_form_by_domain(id, question, answer, house_hold, event, date_event, exceptions=[]):
+def save_cpara_form_by_domain(id, question, answer, house_hold, caregiver, event, date_event, exceptions=[]):
     answer_value = {
         'AYES': 'Yes',
         'ANNO': 'No',
@@ -559,10 +559,14 @@ def save_cpara_form_by_domain(id, question, answer, house_hold, event, date_even
         answer = 'No'
     if question.code.lower() not in exceptions:
         answer = answer_value[answer]
+    if question.code.lower() == 'cp2d':
+        if answer is not '':
+            answer = convert_date(answer)
     try:
         OVCCareCpara.objects.create(
             person_id=id,
             question=question,
+            caregiver=caregiver,
             answer=answer,
             household=house_hold,
             question_type=question.question_type,

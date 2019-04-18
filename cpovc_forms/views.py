@@ -8573,7 +8573,7 @@ def new_cpara(request, id):
 
     ward = SetupGeography.objects.get(area_id=ward_id)
     subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    # county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     if ward.area_type_id == 'GLTL':
         # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
