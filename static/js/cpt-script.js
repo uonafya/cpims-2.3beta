@@ -85,7 +85,7 @@ final_input['date_first_cpara'] = [];
 final_input['CPT_DATE_CASEPLAN'] = [];
 function AddRow() {    
     var randomID = randomNo();
-    $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_repsonsible"></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
+    
     
     let domain = $('#id_CPT_DOMAIN option:selected').val();
     
@@ -139,13 +139,16 @@ function AddRow() {
         var proceed = false;
     }else{
         var proceed = true;
-
     }
+    $('input[name=CPT_DATE_CASEPLAN]').change(function (e) { 
+        $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid #9fa2a5');
+        $('#CPT_DATE_CASEPLAN_state').empty();
+    });
     let results = $('#id_CPT_RESULTS option:selected').val();
     let reasons = $('#id_CPT_REASONS').val();
 
     if(proceed){
-
+        $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_repsonsible"></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
         // domain
         $('#row_'+randomID+' > td#tbl_domain').html( $('select[name=CPT_DOMAIN] option[value='+domain+']').text() + '<input type="hidden" name="h_CPT_DOMAIN" value="'+domain+'" />');
         // -domain

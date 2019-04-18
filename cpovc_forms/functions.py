@@ -565,6 +565,10 @@ def save_cpara_form_by_domain(id, question, answer, house_hold, caregiver, event
         answer = 'No'
     if question.code.lower() not in exceptions:
         answer = answer_value[answer]
+    if question.code.lower() == 'cp2d':
+        if answer is not '':
+            answer = convert_date(answer)
+            answer = answer.date().strftime(format='%Y-%m-%d')
     try:
         OVCCareCpara.objects.create(
             person_id=id,
