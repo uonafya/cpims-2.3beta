@@ -9092,13 +9092,15 @@ def new_wellbeing(request, id):
         geo_wards = ', '.join(all_geos_wards)
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    child.pgeos = geos
-    child.geo_wards = geo_wards
-
-    ward_id = int(child.geo_wards)
-    ward = SetupGeography.objects.get(area_id=ward_id)
-    subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
+    if child.geo_wards is None:
+        ward = None
+        subcounty = None
+        county = None
+    else:
+        ward_id = int(child.geo_wards)
+        ward = SetupGeography.objects.get(area_id=ward_id)
+        subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
+        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     form = Wellbeing(initial={'household_id': household_id, 'caretaker_id': caretaker_id, })
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
