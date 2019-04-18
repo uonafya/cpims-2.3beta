@@ -972,7 +972,6 @@ class OVCCareCpara(models.Model):
     date_of_previous_event =models.DateField(null=True, blank=True)
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
-    timestamp_created = models.DateTimeField(default=timezone.now)
     timestamp_updated = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
