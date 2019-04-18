@@ -8521,26 +8521,30 @@ def new_cpara(request, id):
             'ANNO': 0,
             0: 0
         }
+        
+        print('benchmark_score = ',data.get('bench_array'))
+        bench_score = json.loads(data.get('bench_array'))
+
         # Saving Benchmarks
         OVCCareBenchmarkScore.objects.create(
             household=house_hold,
-            bench_mark_1=answer_value[data.get('cp1b', 0)],
-            bench_mark_2=answer_value[data.get('cp2b', 0)],
-            bench_mark_3=answer_value[data.get('cp3b', 0)],
-            bench_mark_4=answer_value[data.get('cp4b', 0)],
-            bench_mark_5=answer_value[data.get('cp5b', 0)],
-            bench_mark_6=answer_value[data.get('cp6b', 0)],
-            bench_mark_7=answer_value[data.get('cp7b', 0)],
-            bench_mark_8=answer_value[data.get('cp8b', 0)],
-            bench_mark_9=answer_value[data.get('cp9b', 0)],
-            bench_mark_10=answer_value[data.get('cp10b', 0)],
-            bench_mark_11=answer_value[data.get('cp11b', 0)],
-            bench_mark_12=answer_value[data.get('cp12b', 0)],
-            bench_mark_13=answer_value[data.get('cp13b', 0)],
-            bench_mark_14=answer_value[data.get('cp14b', 0)],
-            bench_mark_15=answer_value[data.get('cp15b', 0)],
-            bench_mark_16=answer_value[data.get('cp16b', 0)],
-            bench_mark_17=answer_value[data.get('cp17b', 0)],
+            bench_mark_1=bench_score[0],
+            bench_mark_2=bench_score[1],
+            bench_mark_3=bench_score[2],
+            bench_mark_4=bench_score[3],
+            bench_mark_5=bench_score[4],
+            bench_mark_6=bench_score[5],
+            bench_mark_7=bench_score[6],
+            bench_mark_8=bench_score[7],
+            bench_mark_9=bench_score[8],
+            bench_mark_10=bench_score[9],
+            bench_mark_11=bench_score[10],
+            bench_mark_12=bench_score[11],
+            bench_mark_13=bench_score[12],
+            bench_mark_14=bench_score[13],
+            bench_mark_15=bench_score[14],
+            bench_mark_16=bench_score[15],
+            bench_mark_17=bench_score[16],
             event=event,
             care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id),
         )

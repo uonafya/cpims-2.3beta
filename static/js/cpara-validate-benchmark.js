@@ -183,7 +183,30 @@ $('input[type=radio]').change(function (e) {
     benchmarkScore =  parseFloat(cp1b) + parseFloat(cp2b) + parseFloat(cp3b) + parseFloat(cp4b) + parseFloat(cp5b) + parseFloat(cp6b) + parseFloat(cp7b) + parseFloat(cp8b) + parseFloat(cp9b) + parseFloat(cp10b) + parseFloat(cp11b) + parseFloat(cp12b) + parseFloat(cp13b) + parseFloat(cp14b) + parseFloat(cp15b) + parseFloat(cp16b) + parseFloat(cp17b);
     console.log('TOTAL benchScore=> '+benchmarkScore);
     
+    var bench_array = [];
+    
+    bench_array.push( cp1b );
+    bench_array.push( cp2b );
+    bench_array.push( cp3b );
+    bench_array.push( cp4b );
+    bench_array.push( cp5b );
+    bench_array.push( cp6b );
+    bench_array.push( cp7b );
+    bench_array.push( cp8b );
+    bench_array.push( cp9b );
+    bench_array.push( cp10b );
+    bench_array.push( cp11b );
+    bench_array.push( cp12b );
+    bench_array.push( cp13b );
+    bench_array.push( cp14b );
+    bench_array.push( cp15b );
+    bench_array.push( cp16b );
+    bench_array.push( cp17b );
     $('input[name=cp74q]').val(benchmarkScore);
+    $('input[name=bench_array]').val(JSON.stringify(bench_array));
+    console.log('benchmark_score => '+JSON.stringify(bench_array));
+    
+    
 });
 
 // benchmark score after change of last benchmark radio
