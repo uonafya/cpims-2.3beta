@@ -8,6 +8,8 @@ from cpovc_registry.functions import get_geo_list, get_all_geo_list
 from cpovc_registry.models import RegOrgUnit
 from cpovc_main.models import SchoolList
 # New lists
+hiv_status_list = get_list('hiv_status_id', 'Please Select HIV Status')
+
 WB_AD_GEN_5_ChoiceList=WB_AD_SAF_32_6_CHOICELIST=WB_AD_SAF_32_2_CHOICELIST=WB_AD_SAF_28_CHOICELIST=WB_AD_SAF_27_1_CHOICELIST=WB_AD_SAF_26_CHOICELIST=WB_AD_HEL_24_1_CHOICELIST=WB_AD_HEL_21_1_CHOICELIST=WB_AD_SCH_7_CHOICELIST=WB_AD_SCH_12_2_CHOICELIST=WB_AD_HEL_20_4_CHOICELIST=WB_AD_SCH_13_2_CHOICELIST = (('TBD1', 'TBD1'), ('TBD2', 'TBD2'),('TBD3', 'TBD3'))
 YESNO_CHOICES = (('AYES', 'Yes'), ('ANNO', 'No'))
 CPARA_MONITORING_CASE_CHOICES = (('1', 'First'), ('2', 'Second'), ('3', 'Third'))
@@ -6303,3 +6305,26 @@ class WellbeingAdolescentForm(forms.Form):
                'rows': '2'})
         )
     
+class HIV_status_form(forms.Form):
+    hiv_status = forms.ChoiceField(
+        choices=hiv_status_list,
+        initial='0',
+        required=True,
+        widget=forms.Select(
+            attrs={'class': 'form-control',
+                   'data-parsley-required': "true",
+                   'id': 'hiv_status',
+                   'style': 'width: 20%'
+                   }))
+
+    date_of_event=forms.DateField(
+        widget=forms.TextInput(
+        attrs={'placeholder': 'date of event',
+               'class': 'form-control',
+               'id': 'date_of_event',
+               'style': 'width: 20%'}
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+               
+        )
+    )
