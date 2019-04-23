@@ -252,6 +252,5 @@ function fetchCBOData(){
 
 }
 
-
 fetchOrganisationUnitData();
 fetchCBOData();

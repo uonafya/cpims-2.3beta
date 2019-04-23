@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^get_locality_data/', 'cpims.views.get_locality_data', name='get_locality_data'),
     url(r'^hiv_stats_pub_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_pub_data', name='get_pub_data'),
     url(r'^get_hiv_suppression_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_hiv_suppression_data', name='get_hiv_suppression_data'),
+    url(r'^get_ever_tested_hiv/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_ever_tested_hiv', name='get_ever_tested_hiv'),
     url(r'^fetch_cbo_list/', 'cpims.views.fetch_cbo_list', name='fetch_cbo_list'),
     # endAPIs
     url(r'^$', 'cpims.views.home', name='home'),

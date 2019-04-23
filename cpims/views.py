@@ -3,7 +3,8 @@ import memcache
 from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import JsonResponse
-from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status,get_ovc_hiv_status,fetch_locality_data,get_cbo_list
+from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status,\
+    get_ovc_hiv_status,fetch_locality_data,get_cbo_list,get_ever_tested_for_HIV
 from cpovc_main.functions import get_dict
 from cpovc_access.functions import access_request
 from django.contrib.auth.decorators import login_required
@@ -44,6 +45,10 @@ def get_hiv_suppression_data(request,org_level,area_id):
     return JsonResponse(hiv_suppression_data, content_type='application/json',
                         safe=False)
 
+def get_ever_tested_hiv(request,org_level,area_id):
+    ever_tested=get_ever_tested_for_HIV(request,None,org_level,area_id)
+    return JsonResponse(ever_tested, content_type='application/json',
+                        safe=False)
 
 @login_required(login_url='/login/')
 def home(request):

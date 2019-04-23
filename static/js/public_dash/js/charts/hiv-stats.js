@@ -19,6 +19,7 @@ function fetchHivStatsFromServer(org_level,area_id){
         success: function (data, textStatus, jqXHR) {
             displayHivStatus(data);
             displayArtStatus(data);
+            displayOVCEverTestedForHIV(data);
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");
@@ -28,6 +29,24 @@ function fetchHivStatsFromServer(org_level,area_id){
     });
 }
 
+function displayOVCEverTestedForHIV(data){
+    $.each(data, function (index, objValue) {
+       var elementId="ever_tested";
+       var categoriee= ['Ever Tested for HIV']
+       var titlee = 'OVC EVER TESTED FOR HIV';
+       var female=objValue.hiv_positive_f+objValue.HIV_negative_f;
+       var male=objValue.hiv_positive_m+objValue.HIV_negative_m;
+       var serie = [{
+                        name: 'Female',
+                        data: [female]
+                    }, {
+                        name: 'Male',
+                        data: [male]
+                    }];
+
+       stackedBar(elementId,titlee,categoriee,serie,'normal',legend);
+    });
+}
 
 function displayHivStatus(data){
     $.each(data, function (index, objValue) {

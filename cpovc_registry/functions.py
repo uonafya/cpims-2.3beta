@@ -299,9 +299,6 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
 
     with connection.cursor() as cursor:
         try:
-
-            print "The level =================>"
-            print level
             if (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):  # drill by cbo
                 print "funding_mechanism called"
                 super_user = False
@@ -335,6 +332,11 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
             print 'error on dashs - %s' % (str(e))
     print ovc_unknown_count, ovc_HSTN, on_art, not_on_art, ovc_HSTP
     return ovc_unknown_count, ovc_HSTN, on_art, not_on_art, ovc_HSTP
+
+
+def get_ever_tested_for_HIV(request, org_ids, level='', area_id=''):
+
+    pass
 
 
 def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
