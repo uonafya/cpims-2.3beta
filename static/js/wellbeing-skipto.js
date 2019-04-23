@@ -10,8 +10,14 @@
     triggerSkip('WB_HEL_16_1','NODISABILITY','WB_HEL_17_1','3');
 
     // Q17 -> Q29
-    triggerSkip('WB_HEL_17_1','ANNO','WB_SAF_31_1','4');
+    // triggerSkip('WB_HEL_17_1','ANNO','WB_SAF_31_1','4');
     triggerSkip('WB_HEL_17_1','AREFUSE','WB_SAF_31_1','4');
+    $('input[name=WB_HEL_17_1][value="ANNO"]').click(function (e) { 
+        triggerSkip('WB_HEL_17_1','ANNO','WB_SAF_31_1','4');
+    });
+    $('input[name=WB_HEL_17_1][value="AREFUSE"]').click(function (e) { 
+        triggerSkip('WB_HEL_17_1','AREFUSE','WB_SAF_31_1','4');
+    });
 
     // Q18 -> Q29
     triggerSkip('WB_HEL_18_1','ANNO','WB_SAF_31_1','4');
@@ -44,7 +50,7 @@
 
 // ------------------------CORE-------------------------
 function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
-    $('input[name="'+inputToCheck+'"][value="'+rightValue+'"]').on('change', function () {
+    $('input[name="'+inputToCheck+'"]').on('change', function () {
         
         // textbox, numbers, dates etc
         if($('input[name="'+inputToCheck+'"]').attr('type') == 'date' || $('input[name="'+inputToCheck+'"]').attr('type') == 'text' || $('input[name="'+inputToCheck+'"]').attr('type') == 'number'){
@@ -81,11 +87,13 @@ function triggerSkip(inputToCheck,rightValue,toQnID,toTabID) {
         if($('input[name="'+inputToCheck+'"]').attr('type') == 'radio'){
             console.log("radio with Name: "+inputToCheck+" found");
             var valFromInput = $('input[name="'+inputToCheck+'"]:checked').val();
-            if(valFromInput == rightValue){
+            console.log("valFromInput======> "+valFromInput);
+            if(valFromInput === rightValue){
                 console.log("TICKED radio with Name: "+inputToCheck+" found");
                 var unDo = false;
                 skipToQn(inputToCheck,toQnID,toTabID,unDo);
-            }else{
+            }else if(valFromInput !== rightValue){
+                console.log("UNDO tick radio with Name: "+inputToCheck+" found");
                 var unDo = true;
                 skipToQn(inputToCheck,toQnID,toTabID,unDo);
             }
@@ -101,12 +109,17 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $("td").attr("tabindex", "-1");
             $('input[name="'+toQnID+'"]').closest("td").attr("tabindex", "1");
             $('input[name="'+toQnID+'"]').closest("td").focus();
-            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").addClass('hidden').after('<tr class="skyp"><td colspan="3" class="text-center"><i style="color: grey;">Skipped question</i></td></tr>');
+            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('.skyp').remove();
+            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('td').not('.skyp').addClass('hidden');
+            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").append('<td colspan="3" class="skyp text-center"><i style="color: grey;">Skipped question</i></td>');
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('input, select, textarea').attr('data-parsley-required', false).removeAttr('required');
             $('input[name="'+toQnID+'"]').closest("td").css('outline', 'thick double #32a1ce');
             console.log("skipping to Qn: "+toQnID+" on Tab: "+toTabID);
         }
         if(unDo){
+            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('td.hidden').removeClass('hidden');
+            $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('.skyp').remove();
+
             $("td").attr("tabindex", "-1");
             $('input[name="'+inputToCheck+'"]').closest("td").attr("tabindex", "1");
             $('input[name="'+inputToCheck+'"]').closest("td").focus();

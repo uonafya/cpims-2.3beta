@@ -316,6 +316,7 @@ function hideQn(qnID) {
     $('#' + qnID).prop("disabled", true);
     $('#' + qnID).val("");
     $('#' + qnID).removeAttr('required');
+    $('#' + qnID).attr('data-parsley-required', false);
 }
 function unhideQn(qnID) {
     // $('#' + qnID).removeClass('hidden');
@@ -327,6 +328,7 @@ function unhideQn(qnID) {
     // endCheck
     $('#' + qnID).removeAttr('disabled');
     $('#' + qnID).attr('required');
+    $('#' + qnID).attr('data-parsley-required', true);
 }
 
 

@@ -8492,9 +8492,11 @@ def form_bursary(request, id):
 def new_cpara(request, id):
     if request.method == 'POST':
         data = request.POST
+
         child = RegPerson.objects.get(id=id)
+        care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
         house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-        date_of_event = data.get('cp2d')
+        date_of_event = data.get('d_o_a')
         event = OVCCareEvents.objects.create(
             event_type_id='cpr',
             created_by=request.user.id,
@@ -8509,8 +8511,9 @@ def new_cpara(request, id):
                 question=question,
                 answer=data.get(question.code.lower()),
                 house_hold=house_hold,
+                caregiver=care_giver,
                 event=event,
-                date_event=convert_date(date_of_event),
+                date_event=convert_date(date_of_event, fmt='%Y-%m-%d'),
                 exceptions=exceptions
             )
         answer_value = {
@@ -8518,26 +8521,30 @@ def new_cpara(request, id):
             'ANNO': 0,
             0: 0
         }
+        
+        print('benchmark_score = ',data.get('bench_array'))
+        bench_score = json.loads(data.get('bench_array'))
+
         # Saving Benchmarks
         OVCCareBenchmarkScore.objects.create(
             household=house_hold,
-            bench_mark_1=answer_value[data.get('cp1b', 0)],
-            bench_mark_2=answer_value[data.get('cp2b', 0)],
-            bench_mark_3=answer_value[data.get('cp3b', 0)],
-            bench_mark_4=answer_value[data.get('cp4b', 0)],
-            bench_mark_5=answer_value[data.get('cp5b', 0)],
-            bench_mark_6=answer_value[data.get('cp6b', 0)],
-            bench_mark_7=answer_value[data.get('cp7b', 0)],
-            bench_mark_8=answer_value[data.get('cp8b', 0)],
-            bench_mark_9=answer_value[data.get('cp9b', 0)],
-            bench_mark_10=answer_value[data.get('cp10b', 0)],
-            bench_mark_11=answer_value[data.get('cp11b', 0)],
-            bench_mark_12=answer_value[data.get('cp12b', 0)],
-            bench_mark_13=answer_value[data.get('cp13b', 0)],
-            bench_mark_14=answer_value[data.get('cp14b', 0)],
-            bench_mark_15=answer_value[data.get('cp15b', 0)],
-            bench_mark_16=answer_value[data.get('cp16b', 0)],
-            bench_mark_17=answer_value[data.get('cp17b', 0)],
+            bench_mark_1=bench_score[0],
+            bench_mark_2=bench_score[1],
+            bench_mark_3=bench_score[2],
+            bench_mark_4=bench_score[3],
+            bench_mark_5=bench_score[4],
+            bench_mark_6=bench_score[5],
+            bench_mark_7=bench_score[6],
+            bench_mark_8=bench_score[7],
+            bench_mark_9=bench_score[8],
+            bench_mark_10=bench_score[9],
+            bench_mark_11=bench_score[10],
+            bench_mark_12=bench_score[11],
+            bench_mark_13=bench_score[12],
+            bench_mark_14=bench_score[13],
+            bench_mark_15=bench_score[14],
+            bench_mark_16=bench_score[15],
+            bench_mark_17=bench_score[16],
             event=event,
             care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id),
         )
@@ -8561,20 +8568,39 @@ def new_cpara(request, id):
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
 
     house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-    
-    ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
 
-    ward = SetupGeography.objects.get(area_id=ward_id)
-    subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-
-    if ward.area_type_id == 'GLTL':
-        # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
+    # Get child geo
+    child_geos = RegPersonsGeo.objects.select_related().filter(
+        person=child, is_void=False, date_delinked=None)
+    all_geos_county, all_geos_wards, all_geos = [], [], []
+    for person_geo in child_geos:
+        geo_name = str(person_geo.area.area_id)
+        geo_type = person_geo.area.area_type_id
+        if geo_type == 'GPRV':
+            all_geos_county.append(geo_name)
+        elif geo_type == 'GDIS':
+            all_geos.append(geo_name)
+        else:
+            all_geos_wards.append(geo_name)
+    if all_geos:
+        geos = ', '.join(all_geos)
+    else:
+        geos = None
+    if all_geos_wards:
+        geo_wards = ', '.join(all_geos_wards)
+    else:
+        geo_wards = None
+    if all_geos_county:
+        geo_county = ', '.join(all_geos_county)
+    child.geo_wards = geo_wards
+    if child.geo_wards is None:
+        ward = None
+        subcounty = None
+        county = None
+    else:
+        ward_id = int(child.geo_wards)
+        ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-    elif ward.area_type_id == 'GDIS':
-        subcounty = ward
-        ward = ''
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     # orgunit = RegPersonsOrgUnits.objects.get(person=child)
@@ -8656,7 +8682,6 @@ def case_plan_template(request, id):
             person=RegPerson.objects.get(pk=int(id)),
             house_hold=house_hold
         )
-        new_events_pk = ovccareevent.pk
 
         my_request=request.POST.get('final_submission')
 
@@ -8675,22 +8700,18 @@ def case_plan_template(request, id):
                 my_service=all_data['services']
                 my_responsible=all_data['responsible']
                 my_date_completed=all_data['date']
-                my_date_of_prev_evnt=all_data['date_first_cpara']
+                my_date_of_prev_evnt=timezone.now()
                 my_date_of_caseplan=all_data['CPT_DATE_CASEPLAN']
                 my_results=all_data['results']
                 my_reason=all_data['reasons']
-                my_initial_caseplan=all_data['if_first_cpara']
-
-                if my_initial_caseplan=='AYES':
-                    my_date_of_prev_evnt=my_date_of_caseplan
+                # if my_initial_caseplan=='AYES':
+                #     my_date_of_prev_evnt=my_date_of_caseplan
 
                     # User.objects.filter(first_name__startswith='R').values('first_name', 'last_name')
                 xyz=RegPerson.objects.filter(id=caregiver_id).values('id')
-                print ('mmmmm', xyz)
 
                 for service in my_service:
                     OVCCareCasePlan(
-                            initial_caseplan=my_initial_caseplan,
                             domain=my_domain,
                             goal=my_goal,
                             person_id = id,
@@ -8701,15 +8722,14 @@ def case_plan_template(request, id):
                             # cp_service = SetupList.objects.get(item_id = service),
                             cp_service = service,
                             responsible= my_responsible,
-                            date_of_previous_event=convert_date(my_date_of_prev_evnt, fmt='%Y-%m-%d'),
+                            date_of_previous_event=my_date_of_prev_evnt,
                             date_of_event=convert_date(my_date_of_caseplan, fmt='%Y-%m-%d'),
                             form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
                             completion_date = convert_date(my_date_completed, fmt='%Y-%m-%d'),
                             results=my_results,
                             reasons=my_reason,
                             case_plan_status='D',
-                            event= OVCCareEvents.objects.get(event=new_events_pk)
-
+                            event=ovccareevent
                             ).save()
                 msg = 'Case Plan Template saved successful'
                 messages.add_message(request, messages.INFO, msg)
@@ -8722,8 +8742,6 @@ def case_plan_template(request, id):
     ovc_id = int(id)
     child = RegPerson.objects.get(is_void=False, id=ovc_id)
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-
-
     form = CasePlanTemplate()
     return render(request,
                   'forms/case_plan_template.html',
@@ -8960,7 +8978,7 @@ def new_wellbeing(request, id):
             house_hold = OVCHouseHold.objects.get(pk=hse_uuid)
             person = RegPerson.objects.get(pk=int(caretker_id))
             event_type_id = 'FHSA'
-            date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'))
+            date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'), fmt='%Y-%m-%d')
 
             """ Save Wellbeing-event """
             event_counter = OVCCareEvents.objects.filter(
@@ -9003,7 +9021,7 @@ def new_wellbeing(request, id):
         msg = 'wellbeing save error: (%s)' % (str(e))
         messages.add_message(request, messages.ERROR, msg)
         print 'Error saving wellbeing : %s' % str(e)
-        print  e
+        print e
         return HttpResponseRedirect(reverse(forms_registry))
 
     # get household members/ caretaker/ household_id
@@ -9055,26 +9073,37 @@ def new_wellbeing(request, id):
         is_void=False, house_hold_id=hhid).order_by("-hh_head")
 
     hhmembers = hhmqs.exclude(person_id=ovcreg.caretaker_id)
-
-
-    ward_id = RegPersonsGeo.objects.filter(person=child).order_by('-date_linked').first().area_id
-
-    ward = SetupGeography.objects.get(area_id=ward_id)
-    subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-    county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-
-    if ward.area_type_id == 'GLTL':
-        # ward = SetupGeography.objects.get(area_id =ward.parent_area_id)
+    # Get child geo
+    child_geos = RegPersonsGeo.objects.select_related().filter(
+        person=child, is_void=False, date_delinked=None)
+    all_geos_county, all_geos_wards, all_geos = [], [], []
+    for person_geo in child_geos:
+        geo_name = str(person_geo.area.area_id)
+        geo_type = person_geo.area.area_type_id
+        if geo_type == 'GPRV':
+            all_geos_county.append(geo_name)
+        elif geo_type == 'GDIS':
+            all_geos.append(geo_name)
+        else:
+            all_geos_wards.append(geo_name)
+    if all_geos:
+        geos = ', '.join(all_geos)
+    if all_geos_wards:
+        geo_wards = ', '.join(all_geos_wards)
+    if all_geos_county:
+        geo_county = ', '.join(all_geos_county)
+    if child.geo_wards is None:
+        ward = None
+        subcounty = None
+        county = None
+    else:
+        ward_id = int(child.geo_wards)
+        ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
-        county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
-    elif ward.area_type_id == 'GDIS':
-        subcounty = ward
-        ward = ''
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
 
     form = Wellbeing(initial={'household_id': household_id, 'caretaker_id': caretaker_id, })
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-
     
     return render(request,
                   'forms/new_wellbeing.html',
@@ -9112,7 +9141,7 @@ def new_wellbeingadolescent(request, id):
             house_holds = OVCHouseHold.objects.get(pk=hse_uuid)
             person = RegPerson.objects.get(pk=int(id))
             event_type_id = 'FHSA'
-            date_of_wellbeing_event = convert_date(datetime.today().strftime('%d-%b-%Y'))
+            date_of_wellbeing_event = timezone.now()
 
             """ Save Wellbeing-event """
             # get event counter
@@ -9141,7 +9170,7 @@ def new_wellbeingadolescent(request, id):
                     answer=answer,
                     household=house_holds,
                     event=ovccareevent,
-                    date_of_event=convert_date(datetime.today().strftime('%d-%b-%Y')),
+                    date_of_event=timezone.now(),
                     domain=question.domain,
                     question_type=question.question_type
                     )

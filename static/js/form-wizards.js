@@ -40,7 +40,7 @@ var handleBootstrapWizardsValidation = function() {
                 return false;
             }
         }
-        if (ui.nextIndex == 3) {
+        if (ui.nextIndex == 4) {
             $("#mysubmit").addClass( "btn-primary" ).removeAttr("disabled");
         }else{
             $("#mysubmit").removeClass( "btn-primary" ).attr("disabled", "disabled");

@@ -404,7 +404,6 @@ def ovc_view(request, id):
                         'art_status_id', 'school_type_id',
                         'class_level_id']
         vals = get_dict(field_name=check_fields)
-        
 
         care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
         return render(request, 'ovc/view_child.html',
@@ -415,7 +414,11 @@ def ovc_view(request, id):
                        'hhmembers': hhmembers, 'school': school,
                        'care_giver' :care_giver,
                        'services': services, 'allow_edit': allow_edit,
-                       'suppression': vl_sup})
+                       'suppression': vl_sup,
+                       'cpara_count': 0,
+                       'case_plan_count': 0,
+                       'well_being_count': 0
+                       })
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
         # raise e

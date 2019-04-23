@@ -79,7 +79,7 @@ print(blu.sing("'Happy'"))
             </div>
             <div class="panel-body">
             	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="false"
-                name="form-wizard-hhva" id="new_hhva">
+                name="form-wizard-hhva" id="new_hhva" novalidate>
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-12">
@@ -551,12 +551,11 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12 containsTable">
                                             <div class="form-group">
                                                 <input type="text" class="hidden" name="q3p6" value=""/>
-                                                {% if siblings or osiblings %}
-                                                    <table class="table table-condensed table-responsive">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Child Name</th>
-                                                                <th>3.6 Do you know how many pills you should take each day?</th>
+                                                <table class="table table-condensed table-responsive">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Child Name</th>
+                                                            <th>3.6 Do you know how many pills you should take each day?</th>
                                                                 <th>3.7 Can you name/identify the medication that you take each day?</th>
                                                                 <th>3.8 Do you remember when you last visited the health clinic?</th>
                                                                 <th>3.9 Do you know when you have your next appointment at the health clinic?</th>
@@ -564,6 +563,7 @@ print(blu.sing("'Happy'"))
                                                                 <!--<th>Age</th>-->
                                                             </tr>
                                                         </thead>
+                                                    {% if siblings or osiblings %}
                                                         <tbody>
                                                             {% for sibling in siblings %}
                                                             <tr>
@@ -657,13 +657,19 @@ print(blu.sing("'Happy'"))
                                                             </td>
                                                         </tr>
                                                         </tbody>
-                                                    </table>
-                                                    {% else %}
-                                                        <br>
-                                                        <div class="alert alert-warning">
-                                                            <p>&nbsp;No relative details provided for this person.</p>
-                                                        </div>
+                                                        {% else %}
+                                                        <tbody>
+                                                            <tr>
+                                                                <td colspan="6">
+                                                                    <br>
+                                                                    <div class="alert alert-warning">
+                                                                        <p>&nbsp;No relative details provided for this person.</p>
+                                                                    </div>
+                                                                <td>
+                                                            <tr>
+                                                        <tbody>
                                                     {% endif %}
+                                                    </table>
                                             </div>
                                         </div>
                                         <hr>
@@ -981,7 +987,7 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <!-- </div>
 
                                         <div class="row">
                                             <div class="col-md-12">
@@ -989,7 +995,7 @@ print(blu.sing("'Happy'"))
                                                 <h4><u>Questions to caregiver or child(ren) ten years and over</u></h4>
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row"> -->
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp31q_Qn">
                                                     <div class="col-md-9">
@@ -1483,17 +1489,17 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                 </div>
                                                 <hr>
-                                            </div>
+                                            <!-- </div>
 
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>12.4 Question for all child(ren) five years and over.</u></h4>
                                                     <hr>
                                                 </div>
-                                            </div>
+                                            <!-- </div>
 
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="o5y_cd_hse_Qn">
                                                         <div class="col-md-9">
@@ -1666,15 +1672,13 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <!-- </div> -->
 
-                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>Question for child(ren) over 10 years.</u></h4>
                                                     <hr>
                                                 </div>
-                                            </div>
 
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
@@ -1916,6 +1920,7 @@ print(blu.sing("'Happy'"))
                                             </div>
                                         </div>
                                 </div> 
+                                </div> 
                                 <!-- end wizard step-4 --> 
                                 
                                 <!-- begin wizard step-5 -->
@@ -1929,7 +1934,7 @@ print(blu.sing("'Happy'"))
                                                     <h4>Questions for the caregiver: </h4>
                                                 </div>
                                             </div>
-
+                                            <hr>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp66q_Qn">
@@ -1941,7 +1946,9 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp67q_Qn">
                                                         <div class="col-md-9">
@@ -1949,23 +1956,32 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             <!-- <label class="radio-inline"> -->
-                                                            {{form.cp67q}}
+                                                                {{form.cp67q}}
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                 </div>
-                                                <hr>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp68q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">16.3 Are all children between ages 6-17 years progressing from one level to the other in
-                                                                school? Note: if possible, please ask to see report card. </label>
+                                                            <label class="control-label formlabel">16.3 Are all children between ages 6-17 years progressing from one level to the other in school? Note: if possible, please ask to see report card. </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp68q}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <br/>
+                                                    <h4><u>Adolescents enrolled in vocational training program are demonstrating that they are progressing.</u></h4>
+                                                    <hr>
+                                                </div>
+
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp69q_Qn">
                                                         <div class="col-md-9">
@@ -1978,7 +1994,6 @@ print(blu.sing("'Happy'"))
                                                 </div>
                                                 <hr>
                                             </div>
-
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <br/>
@@ -1986,20 +2001,21 @@ print(blu.sing("'Happy'"))
                                                     <hr>
                                                 </div>
                                             </div>
-
+                                            <hr/>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp70q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">16.5 Could you tell me what you like about school? What is one example of something that
-                                                                you learned this week? </label>
+                                                            <label class="control-label formlabel">16.5 Could you tell me what you like about school? What is one example of something that you learned this week? </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp70q}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group note note-info" id="cp16b_Qn">
                                                         <div class="col-md-9">
@@ -2010,18 +2026,14 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
                                             </div>
-
+                                            <hr>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>Adolescents enrolled in vocational training program are demonstrating that they are progressing.</u></h4>
                                                     <hr>
                                                 </div>
-                                            </div>
-
-                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group leadqn note note-default" id="adole_in_vc_train_Qn">
                                                         <div class="col-md-9">
@@ -2039,17 +2051,15 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
                                             </div>
-
+                                            <hr>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>Questions to caregiver.</u></h4>
-                                                    <hr>
                                                 </div>
                                             </div>
-
+                                            <hr>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp71q_Qn">
@@ -2061,7 +2071,9 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp72q_Qn">
                                                         <div class="col-md-9">
@@ -2072,81 +2084,87 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
                                             </div>
-
+                                            <hr>
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>Questions to adolescent in vocational training</u></h4>
-                                                    <hr>
-                                                </div>
+                                                </div>                      
                                             </div>
-
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% if siblings or osiblings %}
-                                                            <table class="table table-condensed table-responsive">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th>Child Name</th>
-                                                                    <th>17.3 Do you regularly attend your vocational training? Please tell me something that you liked learning the past month.<th>
-                                        
-                                        
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {% for sibling in siblings %}
-                                                                    <tr>
-                                                                        <td><a href="{% url 'view_person' id=sibling.sibling_person.id %}">{{ sibling.sibling_person.full_name }}</a></td>
-                                                                        <td id={{ sibling.sibling_person.id }}_q17p3_Qn>
-                                                                            <label class="radio-inline">
-                                                                                <input type="radio" name={{ sibling.sibling_person.id }}_q17p3 value="AYES">
-                                                                                    Yes
-                                                                            </label>
-                                                                            <label class="radio-inline">
-                                                                                <input type="radio" name={{ sibling.sibling_person.id }}_q17p3 value="ANNO">
-                                                                                    No
-                                                                            </label>
-                                                                        </td>
-                                        
-                                                                    </tr>
-                                                                    {% endfor %}
-                                                                    {% for osibling in osiblings %}
-                                                                    <tr>
-                                                                        <td><a href="{% url 'view_person' id=osibling.child_person.id %}">{{ osibling.child_person.full_name }}</a></td>
-                                                                        <td>
-                                                                        {% if osibling.child_person.sex_id == 'SFEM' %}
-                                                                        Sister
-                                                                        {% else %}
-                                                                        Brother
-                                                                        {% endif %}
-                                                                        </td>
-                                                                        <!-- <td>{{ osibling.child_person.age }}</td> -->
-                                                                    </tr>
-                                                                    {% endfor %}
-                                                                <tr>
-                                                                    <td class="semi-bold">
-                                                                        Tick <u>Yes</u> if <u>YES</u> for all children
-                                                                    </td>
-                                                                    <td id="cp73q_Qn">
-                                                                        <div class="col-md-3 text-left">
-                                                                            {{ form.cp73q }}
-                                                                        </div>
-                                                                    </td>
-                                        
-                                                                </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        {% else %}
-                                                            <br>
-                                                            <div class="alert alert-info">
-                                                                <p>&nbsp;No relative details provided for this person.</p>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-condensed table-responsive">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>Child Name</th>
+                                                                            <th>17.3 Do you regularly attend your vocational training? Please tell me something that you liked learning the past month.<th>
+                                                                                
+                                                                                
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                            {% for sibling in siblings %}
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a href="{% url 'view_person' id=sibling.sibling_person.id %}">{{ sibling.sibling_person.full_name }}</a>
+                                                                                </td>
+                                                                                <td id={{ sibling.sibling_person.id }}_q17p3_Qn>
+                                                                                    <label class="radio-inline">
+                                                                                        <input type="radio" name={{ sibling.sibling_person.id }}_q17p3 value="AYES"/>
+                                                                                        Yes
+                                                                                    </label>
+                                                                                    <label class="radio-inline">
+                                                                                        <input type="radio" name={{ sibling.sibling_person.id }}_q17p3 value="ANNO"/>
+                                                                                        No
+                                                                                    </label>
+                                                                                </td> 
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                            {% for osibling in osiblings %}
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a href="{% url 'view_person' id=osibling.child_person.id %}">{{ osibling.child_person.full_name }}</a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    {% if osibling.child_person.sex_id == 'SFEM' %}
+                                                                                    Sister
+                                                                                    {% else %}
+                                                                                    Brother
+                                                                                    {% endif %}
+                                                                                </td>
+                                                                                <!-- <td>{{ osibling.child_person.age }}</td> -->
+                                                                            </tr>
+                                                                            {% endfor %}
+                                                                            <tr>
+                                                                                <td class="semi-bold">
+                                                                                    Tick <u>Yes</u> if <u>YES</u> for all children
+                                                                                </td>
+                                                                                <td id="cp73q_Qn">
+                                                                                    <div class="col-md-3 text-left">
+                                                                                        {{ form.cp73q }}
+                                                                                    </div>
+                                                                                </td>
+                                                                                
+                                                                            </tr>
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
+                                                        {% else %}
+                                                        <br>
+                                                        <div class="alert alert-info">
+                                                            <p>&nbsp;No relative details provided for this person.</p>
+                                                        </div>
                                                         {% endif %}
-                                                    </div>
-                                                    
-                                                <hr>
+                                                    </div>     
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group note note-info" id="cp17b_Qn">
                                                         <div class="col-md-9">
@@ -2157,7 +2175,9 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp74q_Qn">
                                                         <div class="col-md-6">
@@ -2165,14 +2185,25 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                         <div class="col-md-6">
                                                             {{ form.cp74q }}
+                                                            <input type="hidden" name="bench_array"/>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                </div> 
+                                            <hr>
+                                            </div>
+                                        </div> 
+                                    </div> 
                                 <!-- end wizard step-5 -->
-
+                                <!-- begin wizard step-6 -->
+                                <div class="wizard-step-6">
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end wizard step-6 -->
                             </div>
                         </div>
                     </div>

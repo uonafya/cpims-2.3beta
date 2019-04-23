@@ -960,6 +960,7 @@ class OVCCareBenchmarkScore(models.Model):
 class OVCCareCpara(models.Model):
     cpara_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
+    caregiver = models.ForeignKey(RegPerson, on_delete=models.CASCADE, related_name='cpara_caregiver')
     question_code = models.CharField(max_length=10, null=False, blank=True)
     question = models.ForeignKey('OVCCareQuestions')
     answer = models.CharField(max_length=15)
@@ -971,7 +972,6 @@ class OVCCareCpara(models.Model):
     date_of_previous_event =models.DateField(null=True, blank=True)
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
-    timestamp_created = models.DateTimeField(default=timezone.now)
     timestamp_updated = models.DateTimeField(auto_now=True)
 
     def __unicode__(self):
@@ -989,9 +989,9 @@ class OVCCareCpara(models.Model):
 
 
 class OVCCareWellbeing(models.Model):
-    #well_being_id = models.AutoField(primary_key=True)
     well_being_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
+    caregiver = models.ForeignKey(RegPerson, on_delete=models.CASCADE, related_name='wellbeing_caregiver')
     question_code = models.CharField(max_length=10, null=False, blank=True)
     question = models.ForeignKey('OVCCareQuestions')
     answer = models.CharField(max_length=250)
@@ -1024,7 +1024,7 @@ class OVCCareCasePlan(models.Model):
     domain = models.CharField(max_length=50)
     goal = models.CharField(max_length=255)
     person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
-    caregiver = models.ForeignKey(RegPerson, on_delete=models.CASCADE, related_name='wellbieng_caregiver')
+    caregiver = models.ForeignKey(RegPerson, on_delete=models.CASCADE, related_name='caseplan_caregiver')
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     need = models.CharField(max_length=255)
     priority = models.CharField(max_length=255)

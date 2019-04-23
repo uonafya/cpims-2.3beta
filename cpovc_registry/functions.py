@@ -497,6 +497,7 @@ def get_super_user_hiv_dashboard_stats(request, org_ids):
 
             ovc_unknown_count = ovc_reg_all_count - ovc_reg_known_count
 
+
             cursor.execute(
                 "select count(*) from ovc_registration where art_status='ARAR'"
 
@@ -637,7 +638,7 @@ def dashboard():
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
         person_types = RegPersonsTypes.objects.filter(
             is_void=False, date_ended=None).values(
-            'person_type_id').annotate(dc=Count('person_type_id'))
+                'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
             vals[person_type['person_type_id']] = person_type['dc']
         dash['children'] = vals['TBVC']
@@ -674,7 +675,7 @@ def dashboard():
         # Case categories Top 5
         case_categories = pending_cases.values(
             'case_category').annotate(unit_count=Count(
-            'case_category')).order_by('-unit_count')
+                'case_category')).order_by('-unit_count')
         dash['case_regs'] = case_regs
         dash['case_cats'] = case_categories
     except Exception, e:
@@ -704,7 +705,7 @@ def ovc_dashboard(request):
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
         person_types = RegPersonsTypes.objects.filter(
             is_void=False, date_ended=None).values(
-            'person_type_id').annotate(dc=Count('person_type_id'))
+                'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
             vals[person_type['person_type_id']] = person_type['dc']
         dash['children'] = vals['TBVC']
@@ -895,7 +896,7 @@ def ovc_dashboard(request):
             person_id__in=child_ids)
         case_criteria = cases.values(
             'criteria').annotate(unit_count=Count(
-            'criteria')).order_by('-unit_count')
+                'criteria')).order_by('-unit_count')
         dash['child_regs'] = child_regs
         dash['ovc_regs'] = ovc_regs
         dash['case_regs'] = case_regs
@@ -1370,7 +1371,7 @@ def save_sibling(request, attached_sb, person_id):
                     defaults={'child_person_id': person_id,
                               'sibling_person_id': sibling_id,
                               'date_linked': todate, 'remarks': sibling_rmk,
-                              'is_void': False}, )
+                              'is_void': False},)
                 # Use Owners location details to create/update sibling details
                 copy_locations(person_id, sibling_id, request)
                 new_sib_ids.append(sibling_id)
@@ -1405,7 +1406,7 @@ def copy_locations(person_id, relative_id, request):
                               'person_id': relative_id,
                               'area_type': area_type,
                               'date_linked': todate,
-                              'is_void': False}, )
+                              'is_void': False},)
         else:
             print 'Child does not exist but create CG'
             area_id = request.POST.get('living_in_subcounty')
@@ -1415,7 +1416,7 @@ def copy_locations(person_id, relative_id, request):
                           'person_id': relative_id,
                           'area_type': 'GLTL',
                           'date_linked': todate,
-                          'is_void': False}, )
+                          'is_void': False},)
     except Exception, e:
         raise e
 
@@ -1430,7 +1431,7 @@ def save_person_extids(identifier_types, person_id):
                 is_void=False,
                 defaults={'person_id': person_id, 'identifier': identifier,
                           'identifier_type_id': identifier_type,
-                          'is_void': False}, )
+                          'is_void': False},)
     except Exception, e:
         raise e
     else:
@@ -1601,18 +1602,18 @@ def auto_suggest_person(request, query, qid=0):
                     person_ids = RegPersonsTypes.objects.filter(
                         person_type_id=person_type, person_id__in=porgs,
                         is_void=False).values_list(
-                        'person_id', flat=True)
+                            'person_id', flat=True)
                 else:
                     person_ids = RegPersonsTypes.objects.filter(
                         person_type_id=person_type,
                         is_void=False).values_list(
-                        'person_id', flat=True)
+                            'person_id', flat=True)
             else:
                 wf_ids = ['TWNE', 'TWGE', 'TWVL']
                 person_ids = RegPersonsTypes.objects.filter(
                     person_type_id__in=wf_ids, person_id__in=porgs,
                     is_void=False).values_list(
-                    'person_id', flat=True)
+                        'person_id', flat=True)
             queryset = RegPerson.objects.filter(
                 id__in=person_ids, is_void=False)
             field_names = ['surname', 'email', 'first_name', 'other_names']
@@ -1990,7 +1991,7 @@ def save_contacts(contact_id, contact_value, org_unit):
             contact_detail_type_id=contact_id, org_unit_id=org_unit,
             defaults={'contact_detail_type_id': contact_id,
                       'contact_detail': contact_value,
-                      'org_unit_id': org_unit, 'is_void': False}, )
+                      'org_unit_id': org_unit, 'is_void': False},)
     except Exception, e:
         error = 'Error searching org unit -%s' % (str(e))
         print error
@@ -2024,7 +2025,7 @@ def save_external_ids(identifier_id, identifier_value, org_unit):
             identifier_type_id=identifier_id, org_unit_id=org_unit,
             defaults={'identifier_type_id': identifier_id,
                       'identifier_value': identifier_value,
-                      'org_unit_id': org_unit, 'is_void': False}, )
+                      'org_unit_id': org_unit, 'is_void': False},)
     except Exception, e:
         error = 'Error searching org unit -%s' % (str(e))
         print error
@@ -2068,12 +2069,12 @@ def save_geo_location(area_ids, org_unit, existing_ids=[]):
             if area_id not in delink_list:
                 geo, created = RegOrgUnitGeography.objects.update_or_create(
                     area_id=area_id, org_unit_id=org_unit,
-                    defaults={'date_linked': date_linked, 'is_void': False}, )
+                    defaults={'date_linked': date_linked, 'is_void': False},)
         if delink_list:
             for i, area_id in enumerate(delink_list):
                 geo, created = RegOrgUnitGeography.objects.update_or_create(
                     area_id=area_id, org_unit_id=org_unit,
-                    defaults={'date_delinked': date_linked, 'is_void': True}, )
+                    defaults={'date_delinked': date_linked, 'is_void': True},)
     except Exception, e:
         error = 'Error linking area to org unit -%s' % (str(e))
         print error
@@ -2153,10 +2154,8 @@ def org_id_generator(modelid):
 
 def luhn_checksum(check_number):
     """http://en.wikipedia.org/wiki/Luhn_algorithm ."""
-
     def digits_of(n):
         return [int(d) for d in str(n)]
-
     digits = digits_of(check_number)
     odd_digits = digits[-1::-2]
     even_digits = digits[-2::-2]
