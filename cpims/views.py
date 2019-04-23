@@ -3,8 +3,7 @@ import memcache
 from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import JsonResponse
-from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status,\
-    get_ovc_hiv_status,fetch_locality_data,get_cbo_list,get_ever_tested_for_HIV
+from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status, get_cbo_list, get_ovc_hiv_status, get_ever_tested_for_HIV, fetch_locality_data,fetch_total_ovc_ever, fetch_total_ovc_ever_exited, fetch_total_wout_bcert_at_enrol
 from cpovc_main.functions import get_dict
 from cpovc_access.functions import access_request
 from django.contrib.auth.decorators import login_required
@@ -22,7 +21,7 @@ def public_dash(request):
         print 'dashboard error - %s' % (str(e))
         raise e
         
-# ####################
+# #################### Dash
 def public_dashboard_reg(request):
     try:
         print "we are here"
@@ -50,7 +49,7 @@ def public_dashboard_served(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
-# ####################
+# #################### endDash
 
 def get_pub_data(request,org_level,area_id):
     print org_level
@@ -69,13 +68,23 @@ def get_locality_data(request):
     return JsonResponse(locality_data, content_type='application/json',
                         safe=False)
 
-# ###################
+# ################### dash
 def get_total_ovc_ever(request,org_level,area_id):
     print "total ovc ever"
     total_ovc_ever=fetch_total_ovc_ever(request,None,org_level,area_id)
     return JsonResponse(total_ovc_ever, content_type='application/json',
                         safe=False)
-# ###################
+def get_total_ovc_ever_exited(request,org_level,area_id):
+    print "total ovc ever exited"
+    total_ovc_ever_exited=fetch_total_ovc_ever_exited(request,None,org_level,area_id)
+    return JsonResponse(total_ovc_ever_exited, content_type='application/json',
+                        safe=False)
+def get_total_wout_bcert_at_enrol(request,org_level,area_id):
+    print "without birthcert at enrolment"
+    total_wout_bcert_at_enrol=fetch_total_wout_bcert_at_enrol(request,None,org_level,area_id)
+    return JsonResponse(total_wout_bcert_at_enrol, content_type='application/json',
+                        safe=False)
+# ################### endDash
 
 def get_hiv_suppression_data(request,org_level,area_id):
 

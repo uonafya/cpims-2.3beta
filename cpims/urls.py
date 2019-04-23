@@ -29,14 +29,19 @@ urlpatterns = [
     url(r'^public_dashboard/registration/', 'cpims.views.public_dashboard_reg', name='public_dashboard_reg'),
     url(r'^public_dashboard/hivstat/', 'cpims.views.public_dashboard_hivstat', name='public_dashboard_hivstat'),
     url(r'^public_dashboard/served/', 'cpims.views.public_dashboard_served', name='public_dashboard_served'),
+
     # APIs
     url(r'^get_locality_data/', 'cpims.views.get_locality_data', name='get_locality_data'),
     url(r'^hiv_stats_pub_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_pub_data', name='get_pub_data'),
     url(r'^get_hiv_suppression_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_hiv_suppression_data', name='get_hiv_suppression_data'),
-    url(r'^get_ever_tested_hiv/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_ever_tested_hiv', name='get_ever_tested_hiv'),
-    url(r'^get_total_ovc_ever/(?P<org_level>\w+)/(?P<area_id>.*)/',
+    # ####
+    url(r'^get_total_ovc_ever/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_ovc_ever', name='get_total_ovc_ever'),
+    url(r'^get_total_ovc_ever_exited/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_ovc_ever_exited', name='get_total_ovc_ever_exited'),
+    url(r'^get_total_wout_bcert_at_enrol/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_wout_bcert_at_enrol', name='get_total_wout_bcert_at_enrol'),
     url(r'^fetch_cbo_list/', 'cpims.views.fetch_cbo_list', name='fetch_cbo_list'),
+    url(r'^get_ever_tested_hiv/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_ever_tested_hiv', name='get_ever_tested_hiv'),
     # endAPIs
+
     url(r'^$', 'cpims.views.home', name='home'),
     # url(r'^home/$', 'cpims.views.home', name='home'),
     url(r'^accounts/request/$', 'cpims.views.access', name='access'),
