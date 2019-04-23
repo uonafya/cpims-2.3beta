@@ -1,21 +1,23 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CPIMS - Dashboard </title>
+    <title>CPIMS - Public Dashboard - Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link href="../static/js/public_dash/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'js/public_dash/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
           rel="stylesheet">
-    <link href="../static/js/public_dash/css/font-awesome.css" rel="stylesheet">
-    <link href="../static/js/public_dash/css/style.css" rel="stylesheet">
-    <link href="../static/js/public_dash/css/pages/dashboard.css" rel="stylesheet">
-    <link href="../static/js/public_dash/js/chosen/chosen.css" rel="stylesheet" type="text/css"/>
+    <link href="{% static 'js/public_dash/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'js/public_dash/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'js/public_dash/css/pages/dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'js/public_dash/js/chosen/chosen.css' %}" rel="stylesheet" type="text/css"/>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js' %}"></script>
     <![endif]-->
 
     <style>
@@ -101,7 +103,7 @@
                 float: left;
                 width: 45px;
                 margin-top: 2px;
-                background:url('../static/img/logo.png') left center no-repeat;
+                background: url("{% static 'img/logo.png' %}") left center no-repeat;
             }
 
             .org-unit-label {
@@ -146,52 +148,23 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                <!--<ul class="nav navbar-nav pull-left">-->
-
-
-                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
-                <!--class="icon-cog"></i> Locality <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--&lt;!&ndash;<li id="ward"><a href="javascript:;">Ward</a></li>&ndash;&gt;-->
-                <!--<li id="national" class="dropdown-submenu">-->
-                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">National</a>-->
-                <!--<ul id="national-level" class="dropdown-menu rm">-->
-
-
-                <!--</ul>-->
-                <!--</li>-->
-
-                <!--</ul>-->
-                <!--</li>-->
-
-
-                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
-                <!--class="icon-user"></i> Suppression <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="javascript:;">Viral Load</a></li>-->
-                <!--<li><a href="javascript:;">Stats</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
-                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
-                <!--class="icon-cog"></i> Implementing Partner <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="javascript:;">Pepfar</a></li>-->
-                <!--<li><a href="javascript:;">Usaid</a></li>-->
-                <!--<li><a href="javascript:;">DOD</a></li>-->
-                <!--<li><a href="javascript:;">CDC</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
-                <!--</ul>-->
-
-                <form class="navbar-form navbar-right navbar-search">
-
-                    <input type="text" class="search-query" placeholder="Search">
-
-                    <button type="submit" class="btn btn-xs btn-default nav-search-btn">Search</button>
-                </form>
-
-
+                <ul class="nav navbar-nav pull-right">
+                    <li class="active">
+                        <a href="/public_dashboard/registration/"><i class="icon-user"></i> Registration</a>
+                    </li>
+                    <li>
+                        <a href="/public_dashboard/hivstat/"><i class="icon-user"></i> HIV-STAT</a>
+                    </li>
+                    <li>
+                        <a href="/public_dashboard/served/"><i class="icon-user"></i> Served</a>
+                    </li>
+                    <!-- <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-cog"></i> Option <b class="caret"></b> </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:;">Dropdown</a></li>
+                        </ul>
+                    </li> -->
+                </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </div>
@@ -200,56 +173,29 @@
 
 <div class="subnavbar">
     <div class="subnavbar-inner">
-        <div class="container" style="margin-left: inherit;width: 100%; ">
-            <!--<ul class="mainnav">-->
-            <!--<li class="active"><a href="#"><i class="icon-dashboard"></i><span>Dashboard</span> </a></li>-->
+        <div class="container">
 
-            <!--<li><a href="#"><i class="icon-list-alt"></i><span>Reports</span> </a></li>-->
-            <!--<li><a href="#"><i class="icon-bar-chart"></i><span>Charts</span> </a></li>-->
-            <!--<li class="dropdown"><a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"> <i-->
-            <!--class="icon-long-arrow-down"></i><span>Drops</span> <b class="caret"></b></a>-->
-            <!--<ul class="dropdown-menu">-->
-            <!--<li><a class="logo" href="#">CPIMS DASHBOARD</a></li>-->
-            <!--<li><a href="#">FAQ</a></li>-->
-
-            <!--</ul>-->
-            <!--</li>-->
-            <!--<li><a href="{% url 'home' %}"><i class="icon-signin"></i> <span>Login</span> </a></li>-->
-            <!--</ul>-->
-            <ul class="mainnav" style="margin-top:20px;width: 100%;">
+            <ul class="mainnav 20px">
                 <li class="active" style="margin-right: 30px;">
-                    <select style="width: 284px;" id="county-organisation-unit">
+                    <select class="form-control" id="county-organisation-unit" >
                         <option value="" disabled selected>Select County:</option>
                     </select>
                 </li>
 
-                <li class="active" style="margin-right: 30px; ">
-                    <select id="countituency-organisation-unit" disabled>
+                <li class="active" style="margin-right: 30px; " >
+                    <select class="form-control" id="countituency-organisation-unit" disabled>
                         <option value="" disabled selected>Select sub-county:</option>
                     </select>
                 </li>
 
-                <li class="active" style="margin-right: 30px; ">
-                    <select id="ward-organisation-unit" disabled>
+                <li class="active" style="margin-right: 30px; " >
+                    <select class="form-control" id="ward-organisation-unit" disabled>
                         <option value="" disabled selected>Select ward:</option>
                     </select>
                 </li>
 
-                <!--<li style="width: 200px; margin-right: 10px;" class="active">-->
-                <!--<p class="org-unit-label">Kenya</p>-->
-                <!--</li>-->
-
-                <!--<li style="height: 25px;">-->
-
-                <!--<a style="padding-top:3px;" class="btn btn-primary" href="#" role="button">Filter</a>-->
-
-                <!--</li>-->
-
-
                 <li style="float: right;"  class="active pull-right">
-
                     <ul class="mainnav">
-
                         <li class="active">
                             <select id="funding-mechanism">
                                 <option value="" disabled selected>Funding Meachanism:</option>
@@ -259,7 +205,6 @@
                                 <option data-value="funding_mechanism" value="3"  > Others</option>
                             </select>
                         </li>
-
                         <li class="active">
                             <select id="cluster-unit" disabled>
                                 <option data-value="cluster" value="" disabled selected>Cluster:</option>
@@ -270,19 +215,15 @@
                                 <option data-value="cluster" value="8949ab03-a430-44d0-a94c-4457118b9485" > Cogri</option>
                             </select>
                         </li>
-
                         <li class="active">
                             <select id="cbo-unit" disabled>
                                 <option value="" disabled selected>CBO:</option>
                             </select>
                         </li>
-
                     </ul>
                 </li>
 
-
             </ul>
-
 
         </div>
         <!-- /container -->
@@ -293,23 +234,64 @@
 
 <div class="main">
     <div class="main-inner">
+        
+        
         <div id="charts-board" class="container-fluid">
             <div class="row">
-                <div id="art_status_chart" class="col-sm-6"></div>
-                <div id="hiv_status_chart" class="col-sm-6"></div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">OVCs ever registered</h5>
+                            <h1 class="card-text" id="all_ovc_reg"></h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">OVCs ever exited</h5>
+                            <h1 class="card-text" id="all_ovc_exit"></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body" id="new_ovc_registrations">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body" id="active_ovc">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body" id="ovc_exits">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body" id="hsehld_exits">
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <br>
 
-            <div class="row">
-                <div id="cascade_90_chart" class="col-sm-6"></div>
-                <div id="cascade_ovc_hivstat_chart" class="col-sm-6"></div>
-            </div>
-            <br>
-            <div class="row">
-                <div id="ever_tested" class="col-sm-6"></div>
-            </div>
-            <br>
         </div>
+
+        
         <!-- /container -->
     </div>
     <!-- /main-inner -->
@@ -334,21 +316,20 @@
 
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script src="../static/js/public_dash/js/jquery-3.3.1.min.js"></script>
+<script src="{% static 'js/public_dash/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/public_dash/js/charts/highcharts.js' %}"></script>
 
-<script src="../static/js/public_dash/js/base.js"></script>
-<script src="../static/js/public_dash/js/bootstrap.min.js"></script>
+<script src="{% static 'js/public_dash/js/base.js' %}"></script>
+<script src="{% static 'js/public_dash/js/bootstrap.min.js' %}"></script>
 <script language="javascript" type="text/javascript"></script>
 
-<script src="../static/js/public_dash/js/jquery-ui.min.js"></script>
-<script src="../static/js/public_dash/js/charts/highcharts.js"></script>
+<script src="{% static 'js/public_dash/js/jquery-ui.min.js' %}"></script>
 
-<script src="../static/js/public_dash/js/charts/stacked-bar.js"></script>
+<script src="{% static 'js/public_dash/js/charts/barchart.js' %}"></script>
 
-<script src="../static/js/public_dash/js/charts/hiv-stats.js"></script>
-<script src="../static/js/public_dash/js/charts/cascade-90-90-90.js"></script>
-<script src="../static/js/public_dash/js/chosen/chosen.jquery.js" type="text/javascript"></script>
-<script src="../static/js/public_dash/js/custom.js"></script>
+<script src="{% static 'js/public_dash/js/chosen/chosen.jquery.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/public_dash/js/charts/pubdash_reg.js' %}"></script>
+<script src="{% static 'js/public_dash/js/custom.js' %}"></script>
 
 
 </body>

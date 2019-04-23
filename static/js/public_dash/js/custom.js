@@ -42,7 +42,7 @@ function destroyChosenDropDownList(elementId) {
     try {
         $(elementId).chosen("destroy");
     } catch (err) {
-        console.log(err);
+        // console.log(err);
     }
 }
 
@@ -116,7 +116,7 @@ $('#county-organisation-unit').on('change', function (event) {
 
 //sub county event handler
 $('#countituency-organisation-unit').on('change', function (event) {
-    console.log($("#countituency-organisation-unit option:selected"));
+    // console.log($("#countituency-organisation-unit option:selected"));
     var selectedSubCountyId = $("#countituency-organisation-unit option:selected").attr('data-id');
     var selectedSubCountyName=$("#countituency-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedSubCountyName);
@@ -127,8 +127,8 @@ $('#countituency-organisation-unit').on('change', function (event) {
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
         if(selectedSubCountyId==constituencyKey){
             destroyChosenDropDownList('#ward-organisation-unit');
-            console.log("county siblings to show wards ");
-        console.log(constituencyValue.siblings);
+            // console.log("county siblings to show wards ");
+        // console.log(constituencyValue.siblings);
             populateOrgunitList(constituencyValue.siblings,'#ward-organisation-unit',true);
         }
     });
@@ -137,7 +137,7 @@ $('#countituency-organisation-unit').on('change', function (event) {
 
 // ward event handler
 $('#ward-organisation-unit').on('change', function (event) {
-    console.log($("#countituency-organisation-unit option:selected"));
+    // console.log($("#countituency-organisation-unit option:selected"));
     var selectedWardId = $("#ward-organisation-unit option:selected").attr('data-id');
     var selectedWardName=$("#ward-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedWardName);
@@ -210,18 +210,18 @@ function fetchOrganisationUnitData(){
         encode: true,
         success: function (data, textStatus, jqXHR) {
             localityData=data;
-            console.log(data);
+            // console.log(data);
             $.each(data, function( key, value ) {
 
                 var elementToAppend = '<option data-id="' + key + '" data-name="' + value.name + '">' + value.name + '</option>';
                 $("#county-organisation-unit").append(elementToAppend);
 
             });
-            initOrganisationUnitChosenDropDown("County:","#county-organisation-unit","200px");
-            initOrganisationUnitChosenDropDown("Sub county:","#countituency-organisation-unit","200px");
-            initOrganisationUnitChosenDropDown("Ward:","#ward-organisation-unit","200px");
-            console.log("localityData");
-            console.log(localityData);
+            initOrganisationUnitChosenDropDown("County:","#county-organisation-unit");
+            initOrganisationUnitChosenDropDown("Sub county:","#countituency-organisation-unit");
+            initOrganisationUnitChosenDropDown("Ward:","#ward-organisation-unit");
+            // console.log("localityData");
+            // console.log(localityData);
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");

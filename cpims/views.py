@@ -21,6 +21,36 @@ def public_dash(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
+        
+# ####################
+def public_dashboard_reg(request):
+    try:
+        print "we are here"
+        # vals = get_dashboard(request)
+        # return render(request, 'public_dash_' + p_dash + '.html')
+        return render(request, 'public_dash/reg.html')
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
+def public_dashboard_hivstat(request):
+    try:
+        print "we are here"
+        # vals = get_dashboard(request)
+        # return render(request, 'public_dash_' + p_dash + '.html')
+        return render(request, 'public_dash/hivstat.html')
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
+def public_dashboard_served(request):
+    try:
+        print "we are here"
+        # vals = get_dashboard(request)
+        # return render(request, 'public_dash_' + p_dash + '.html')
+        return render(request, 'public_dash/served.html')
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
+# ####################
 
 def get_pub_data(request,org_level,area_id):
     print org_level
@@ -38,6 +68,14 @@ def get_locality_data(request):
     locality_data=fetch_locality_data()
     return JsonResponse(locality_data, content_type='application/json',
                         safe=False)
+
+# ###################
+def get_total_ovc_ever(request,org_level,area_id):
+    print "total ovc ever"
+    total_ovc_ever=fetch_total_ovc_ever(request,None,org_level,area_id)
+    return JsonResponse(total_ovc_ever, content_type='application/json',
+                        safe=False)
+# ###################
 
 def get_hiv_suppression_data(request,org_level,area_id):
 
@@ -84,7 +122,7 @@ def get_dashboard(request):
         summary['cases'] = '{:,}'.format(dash['case_records'])
         summary['pending'] = '{:08}'.format(dash['pending_cases'])
         #summary['hiv_status'] = dash['hiv_status']
-        
+
         # OVC care
         odash = ovc_dashboard(request)
         ovc = {}
