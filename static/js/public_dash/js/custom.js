@@ -3,31 +3,8 @@ var cboApi= '/fetch_cbo_list/'
 var localityData='';
 var cboData='';
 var selectedCountySiblingsList=''; //list of countituency in the selected county
-
-$(document).ready(function () {
-
-    var chartsContext = {
-        currentOrgLevel: "national"
-    };
-
-    $( ".dropdown-menu li" ).click(function(event) {
-        if( $(this).attr("id") == 'national' && chartsContext.currentOrgLevel !='national'){
-            fetchHivStatsFromServer('national');
-            chartsContext.currentOrgLevel ='national'
-        }else if( $(this).attr("id") == 'county' && chartsContext.currentOrgLevel !='county'){
-            fetchHivStatsFromServer('county');
-            chartsContext.currentOrgLevel ='county';
-        }else if( $(this).attr("id") == 'constituency' && chartsContext.currentOrgLevel !='constituency'){
-            fetchHivStatsFromServer('constituency');
-            chartsContext.currentOrgLevel ='constituency';
-        }else if( $(this).attr("id") == 'ward' && chartsContext.currentOrgLevel !='ward'){
-            fetchHivStatsFromServer('ward');
-            chartsContext.currentOrgLevel ='ward';
-        }else {
-        }
-
-    });
-});
+var pages=['served','hivstats']
+var currentPage='';
 
 
 $(document).ready(function () {
@@ -107,11 +84,16 @@ $('#county-organisation-unit').on('change', function (event) {
         });
     });
 
+
     initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit","200px");
     initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit","200px");
-    fetchHivStatsFromServer('county',selectedCountyId);
-    fetchActiveOvcHivStats('county',selectedCountyId);
-    fetchCascade90FromServer('county',selectedCountyId);
+
+    if(currentPage==pages[1]){
+        fetchHivStatsFromServer('county',selectedCountyId);
+        fetchActiveOvcHivStats('county',selectedCountyId);
+        fetchCascade90FromServer('county',selectedCountyId);
+    }
+
 });
 
 
@@ -121,10 +103,11 @@ $('#countituency-organisation-unit').on('change', function (event) {
     var selectedSubCountyId = $("#countituency-organisation-unit option:selected").attr('data-id');
     var selectedSubCountyName=$("#countituency-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedSubCountyName);
-    fetchHivStatsFromServer('subcounty',selectedSubCountyId);
-    fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
-    fetchCascade90FromServer('subcounty',selectedSubCountyId);
-
+    if(currentPage==pages[1]){
+        fetchHivStatsFromServer('subcounty',selectedSubCountyId);
+        fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
+        fetchCascade90FromServer('subcounty',selectedSubCountyId);
+    }
     //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
         if(selectedSubCountyId==constituencyKey){
@@ -143,9 +126,11 @@ $('#ward-organisation-unit').on('change', function (event) {
     var selectedWardId = $("#ward-organisation-unit option:selected").attr('data-id');
     var selectedWardName=$("#ward-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedWardName);
-    fetchHivStatsFromServer('ward',selectedWardId);
-    fetchActiveOvcHivStats('ward',selectedWardId);
-    fetchCascade90FromServer('ward',selectedWardId);
+    if(currentPage==pages[1]){
+        fetchHivStatsFromServer('ward',selectedWardId);
+        fetchActiveOvcHivStats('ward',selectedWardId);
+        fetchCascade90FromServer('ward',selectedWardId);
+    }
 
 });
 
@@ -158,10 +143,12 @@ $('#funding-mechanism').on('change', function (event) {
         destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
         $('#cluster-unit').prop("disabled", false); // Element(s) are now enabled.
         initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
-
-        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
-        fetchActiveOvcHivStats(selectedPartnerValue,selectedPartnerId);
-        fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
+        
+        if(currentPage==pages[1]){
+            fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+            fetchActiveOvcHivStats(selectedPartnerValue,selectedPartnerId);
+            fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
+        }
 
      }else{
          destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
@@ -187,10 +174,11 @@ $('#cluster-unit').on('change', function (event) {
         }
      });
      initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
-
-    fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
-    fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
-    fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
+    if(currentPage==pages[1]){
+        fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
+        fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
+        fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
+    }
 
 });
 
@@ -200,9 +188,11 @@ $('#cbo-unit').on('change', function (event) {
      var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
      var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
 
-    fetchHivStatsFromServer(selectedCboValue,selectedCboId);
-    fetchActiveOvcHivStats(selectedCboValue,selectedCboId);
-    fetchCascade90FromServer(selectedCboValue,selectedCboId);
+    if(currentPage==pages[1]){
+        fetchHivStatsFromServer(selectedCboValue,selectedCboId);
+        fetchActiveOvcHivStats(selectedCboValue,selectedCboId);
+        fetchCascade90FromServer(selectedCboValue,selectedCboId);
+    }
 
 });
 
