@@ -245,7 +245,7 @@ def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
             rows2, desc2 = run_sql_data(None,
                                         '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
                         join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
-                        where is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                        where person.is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                       in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                           'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                           ))
@@ -255,7 +255,7 @@ def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
         rows2, desc2 = run_sql_data(None,
                                     '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
                         join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
-                        where is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id='{}')
+                        where person.is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id='{}')
                                                   group by person.gender,person.art_status,person.hiv_status'''.format(
                                         org_unit_id))
 
@@ -263,7 +263,7 @@ def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
         rows2, desc2 = run_sql_data(None,
                                     '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
                                       join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
-                                      where is_active=true and person.child_cbo_id ='{}'
+                                      where person.is_active=true and person.child_cbo_id ='{}'
                                         group by person.gender,person.art_status,person.hiv_status'''.format(
                                         org_unit_id))
 
@@ -294,6 +294,7 @@ def _get_ovc_active_hiv_status(level='national', area_id=''):
                                     '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id='{}'
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
+        print "level reached ===============>"
         rows2, desc2 = get_ovc_active_hiv_status_funding_partner(level, area_id)
     else:
 

@@ -110,6 +110,7 @@ $('#county-organisation-unit').on('change', function (event) {
     initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit","200px");
     initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit","200px");
     fetchHivStatsFromServer('county',selectedCountyId);
+    fetchActiveOvcHivStats('county',selectedCountyId);
     fetchCascade90FromServer('county',selectedCountyId);
 });
 
@@ -121,6 +122,7 @@ $('#countituency-organisation-unit').on('change', function (event) {
     var selectedSubCountyName=$("#countituency-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedSubCountyName);
     fetchHivStatsFromServer('subcounty',selectedSubCountyId);
+    fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
     fetchCascade90FromServer('subcounty',selectedSubCountyId);
 
     //change ward list based on selected counstiuency
@@ -142,6 +144,7 @@ $('#ward-organisation-unit').on('change', function (event) {
     var selectedWardName=$("#ward-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedWardName);
     fetchHivStatsFromServer('ward',selectedWardId);
+    fetchActiveOvcHivStats('ward',selectedWardId);
     fetchCascade90FromServer('ward',selectedWardId);
 
 });
@@ -157,6 +160,7 @@ $('#funding-mechanism').on('change', function (event) {
         initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
 
         fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+        fetchActiveOvcHivStats(selectedPartnerValue,selectedPartnerId);
         fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
 
      }else{
@@ -185,6 +189,7 @@ $('#cluster-unit').on('change', function (event) {
      initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
 
     fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
+    fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
     fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
 
 });
@@ -196,6 +201,7 @@ $('#cbo-unit').on('change', function (event) {
      var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
 
     fetchHivStatsFromServer(selectedCboValue,selectedCboId);
+    fetchActiveOvcHivStats(selectedCboValue,selectedCboId);
     fetchCascade90FromServer(selectedCboValue,selectedCboId);
 
 });
