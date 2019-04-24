@@ -29,6 +29,7 @@ organisation_id_prefix = 'U'
 benficiary_id_prefix = 'B'
 workforce_id_prefix = 'W'
 
+
 def fetch_total_ovc_ever(request, org_ids, level='', area_id=''):
     total_ovc_ever = []
     with connection.cursor() as cursor:
@@ -43,7 +44,7 @@ def fetch_total_ovc_ever(request, org_ids, level='', area_id=''):
             print 'error on fetch_total_ovc_ever - %s' % (str(e))
 
     return total_ovc_ever
-    
+
 
 def fetch_locality_data():
     rows2, desc2 = run_sql_data(None,
@@ -57,7 +58,7 @@ def fetch_locality_data():
                                       END AS "grand_parent" 
                                    FROM 
                                 ( SELECT area_id,area_type_id,area_name,parent_area_id  FROM public.list_geo order by area_id) as tt
-                                    
+
                                 ''')
     org_list = {}
     for x in rows2:
@@ -90,7 +91,7 @@ def fetch_locality_data():
 
 
 def get_cbo_list():
-    cbo_list=[]
+    cbo_list = []
     rows2, desc2 = run_sql_data(None,
                                 ''' 
                                 select DISTINCT ovc_cluster_cbo.cluster_id  as cluster_id, org_unit_name,reg_org_unit.id as id from reg_org_unit inner join 
@@ -108,11 +109,11 @@ def get_cbo_list():
     for x in rows2:
         print "data here"
         print x
-        _cbo={}
+        _cbo = {}
 
-        _cbo['name']=x['ORG_UNIT_NAME']
-        _cbo['id']=x['ID']
-        _cbo['cluster_id']=x['CLUSTER_ID']
+        _cbo['name'] = x['ORG_UNIT_NAME']
+        _cbo['id'] = x['ID']
+        _cbo['cluster_id'] = x['CLUSTER_ID']
 
         cbo_list.append(_cbo)
 
@@ -120,10 +121,10 @@ def get_cbo_list():
 
 
 def get_ovc_hiv_status_funding_partner(level, org_unit_id):
-    if (level=='funding_mechanism'):
+    if (level == 'funding_mechanism'):
         print "the fundingg mechanisms"
         print org_unit_id
-        if(org_unit_id == '0'): # usaid
+        if (org_unit_id == '0'):  # usaid
             rows2, desc2 = run_sql_data(None,
                                         '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
                         join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
@@ -133,15 +134,15 @@ def get_ovc_hiv_status_funding_partner(level, org_unit_id):
                                           ))
                                                   group by person.gender,person.art_status,person.hiv_status''')
 
-    if (level=='cluster'):
+    if (level == 'cluster'):
         rows2, desc2 = run_sql_data(None,
                                     '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
                         join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
                         where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id='{}')
-                                                  group by person.gender,person.art_status,person.hiv_status'''.format(org_unit_id))
+                                                  group by person.gender,person.art_status,person.hiv_status'''.format(
+                                        org_unit_id))
 
-
-    if (level=='cbo_unit'):
+    if (level == 'cbo_unit'):
         rows2, desc2 = run_sql_data(None,
                                     '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
                                       join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
@@ -179,8 +180,8 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
         rows2, desc2 = run_sql_data(None,
                                     '''Select count(*),gender,art_status,hiv_status from public.persons where area_id='{}'
                                               group by gender,art_status,hiv_status'''.format(area_id))
-    elif(level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
-        rows2, desc2=get_ovc_hiv_status_funding_partner(level, area_id)
+    elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
+        rows2, desc2 = get_ovc_hiv_status_funding_partner(level, area_id)
     else:
         print '''Select count(*),gender,art_status,hiv_status from public.persons where area_id in (SELECT area_id from list_geo where parent_area_id='{}')
       group by gender,art_status,hiv_status'''.format(
@@ -214,7 +215,7 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
             hiv_domain_status['hiv_positive_f'] += x['COUNT']
         if "2a. (ii) OVC_HIVSTAT: HIV+ on ARV" in domain and gender == 'Female':
             hiv_domain_status['HIV_positive_on_arv_f'] += x['COUNT']
-        if "2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV" in domain and gender == 'Female':
+        if "2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV" in domain and gender == 'Female' and '2a. (i) OVC_HIVSTAT: HIV+' in hiv_stats:
             hiv_domain_status['HIV_positive_not_on_arv_f'] += x['COUNT']
         if "2b. OVC_HIVSTAT: HIV-" in hiv_stats and gender == 'Female':
             hiv_domain_status['HIV_negative_f'] += x['COUNT']
@@ -224,7 +225,7 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
             hiv_domain_status['hiv_positive_m'] += x['COUNT']
         if "2a. (ii) OVC_HIVSTAT: HIV+ on ARV" in domain and gender == 'Male':
             hiv_domain_status['HIV_positive_on_arv_m'] += x['COUNT']
-        if "2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV" in domain and gender == 'Male':
+        if "2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV" in domain and gender == 'Male' and '2a. (i) OVC_HIVSTAT: HIV+' in hiv_stats:
             hiv_domain_status['HIV_positive_not_on_arv_m'] += x['COUNT']
         if "2b. OVC_HIVSTAT: HIV-" in hiv_stats and gender == 'Male':
             hiv_domain_status['HIV_negative_m'] += x['COUNT']
@@ -236,11 +237,121 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
     return hiv_domain_status_list_envelop
 
 
-def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor,super_user=False, level='', org_unit_id=''):
-    if (level=='funding_mechanism'):
+def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
+    if (level == 'funding_mechanism'):
+        print "the fundingg mechanisms"
+        print org_unit_id
+        if (org_unit_id == '0'):  # usaid
+            rows2, desc2 = run_sql_data(None,
+                                        '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
+                        join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
+                        where is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                      in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                          'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                          ))
+                                                  group by person.gender,person.art_status,person.hiv_status''')
+
+    if (level == 'cluster'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
+                        join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
+                        where is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id='{}')
+                                                  group by person.gender,person.art_status,person.hiv_status'''.format(
+                                        org_unit_id))
+
+    if (level == 'cbo_unit'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.persons person
+                                      join ovc_registration ovc_reg on person.person_id=ovc_reg.person_id
+                                      where is_active=true and person.child_cbo_id ='{}'
+                                        group by person.gender,person.art_status,person.hiv_status'''.format(
+                                        org_unit_id))
+
+    return rows2, desc2
+
+
+def _get_ovc_active_hiv_status(level='national', area_id=''):
+    # "SELECT count(ovccount) FROM public.hiv_status where "
+    print "line ====="
+    print level
+    print area_id
+    rows2, desc2 = 0, 0
+    if level == 'national':
+        rows2, desc2 = run_sql_data(None,
+                                    "Select count(*),gender,art_status,hiv_status from public.persons where is_active=true group by gender,art_status,hiv_status")
+    elif (level == 'county'):
+
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                        (SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
+                                              group by gender,art_status,hiv_status'''.format(area_id))
+    elif (level == 'subcounty'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
+                                              group by gender,art_status,hiv_status'''.format(area_id))
+    elif (level == 'ward'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id='{}'
+                                              group by gender,art_status,hiv_status'''.format(area_id))
+    elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
+        rows2, desc2 = get_ovc_active_hiv_status_funding_partner(level, area_id)
+    else:
+
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (SELECT area_id from list_geo where parent_area_id='{}')
+  group by gender,art_status,hiv_status'''.format(
+                                        area_id))
+
+    hiv_domain_status_list_envelop = []
+    hiv_domain_status = {}
+    hiv_domain_status['hiv_positive_f'] = 0
+    hiv_domain_status['HIV_positive_on_arv_f'] = 0
+    hiv_domain_status['HIV_positive_not_on_arv_f'] = 0
+    hiv_domain_status['HIV_negative_f'] = 0
+    hiv_domain_status['HIV_unknown_status_f'] = 0
+    hiv_domain_status['hiv_positive_m'] = 0
+    hiv_domain_status['HIV_positive_on_arv_m'] = 0
+    hiv_domain_status['HIV_positive_not_on_arv_m'] = 0
+    hiv_domain_status['HIV_negative_m'] = 0
+    hiv_domain_status['HIV_unknown_status_m'] = 0
+
+    for x in rows2:
+        print x
+        domain = x['ART_STATUS']
+        hiv_stats = x['HIV_STATUS']
+        gender = x['GENDER']
+
+        if "2a. (i) OVC_HIVSTAT: HIV+" in hiv_stats and gender == 'Female':
+            hiv_domain_status['hiv_positive_f'] += x['COUNT']
+        if "2a. (ii) OVC_HIVSTAT: HIV+ on ARV" in domain and gender == 'Female':
+            hiv_domain_status['HIV_positive_on_arv_f'] += x['COUNT']
+        if "2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV" in domain and gender == 'Female' and '2a. (i) OVC_HIVSTAT: HIV+' in hiv_stats:
+            hiv_domain_status['HIV_positive_not_on_arv_f'] += x['COUNT']
+        if "2b. OVC_HIVSTAT: HIV-" in hiv_stats and gender == 'Female':
+            hiv_domain_status['HIV_negative_f'] += x['COUNT']
+        if "HIV Status NOT Known" in hiv_stats and gender == 'Female':
+            hiv_domain_status['HIV_unknown_status_f'] += x['COUNT']
+        if "2a. (i) OVC_HIVSTAT: HIV+" in hiv_stats and gender == 'Male':
+            hiv_domain_status['hiv_positive_m'] += x['COUNT']
+        if "2a. (ii) OVC_HIVSTAT: HIV+ on ARV" in domain and gender == 'Male':
+            hiv_domain_status['HIV_positive_on_arv_m'] += x['COUNT']
+        if "2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV" in domain and gender == 'Male' and '2a. (i) OVC_HIVSTAT: HIV+' in hiv_stats:
+            hiv_domain_status['HIV_positive_not_on_arv_m'] += x['COUNT']
+        if "2b. OVC_HIVSTAT: HIV-" in hiv_stats and gender == 'Male':
+            hiv_domain_status['HIV_negative_m'] += x['COUNT']
+        if 'HIV Status NOT Known' in hiv_stats:
+            hiv_domain_status['HIV_unknown_status_m'] += x['COUNT']
+
+    # print hiv_domain_status
+    hiv_domain_status_list_envelop.append(hiv_domain_status)
+    return hiv_domain_status_list_envelop
+
+
+def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor, super_user=False, level='', org_unit_id=''):
+    if (level == 'funding_mechanism'):
         print "the fundin mechanisms"
         print org_unit_id
-        if(org_unit_id == '0'): # usaid
+        if (org_unit_id == '0'):  # usaid
             print "running query"
             cursor.execute(
                 '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
@@ -250,8 +361,7 @@ def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor,super_user=Fa
                                    'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                    )) group by ovc_reg.hiv_status,ovc_reg.art_status'''
             )
-    if (level=='cluster'):
-
+    if (level == 'cluster'):
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
              join persons person on person.person_id=ovc_reg.person_id
@@ -259,7 +369,7 @@ def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor,super_user=Fa
                                            ) group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(org_unit_id)
         )
 
-    if (level=='cbo_unit'):
+    if (level == 'cbo_unit'):
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from ovc_registration ovc_reg
              join persons person on person.person_id=ovc_reg.person_id
@@ -268,7 +378,7 @@ def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor,super_user=Fa
     return cursor
 
 
-def get_hiv_dashboard_stats_geo_level(request, org_ids, cursor,super_user=False, level='', area_id=''):
+def get_hiv_dashboard_stats_geo_level(request, org_ids, cursor, super_user=False, level='', area_id=''):
     if (level == 'county'):
 
         cursor.execute(
@@ -318,8 +428,9 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
                 print "funding_mechanism called"
                 super_user = False
                 cursor = get_hiv_dashboard_stats_partner_level(request, org_ids, cursor, super_user, level, area_id)
-            elif (level == 'county' or level == 'subcounty' or level == 'ward' or super_user or level == 'national'): # drill by geo location
-                cursor=get_hiv_dashboard_stats_geo_level(request, org_ids, cursor,super_user, level, area_id)
+            elif (
+                    level == 'county' or level == 'subcounty' or level == 'ward' or super_user or level == 'national'):  # drill by geo location
+                cursor = get_hiv_dashboard_stats_geo_level(request, org_ids, cursor, super_user, level, area_id)
             else:
                 cursor.execute(
                     "select count(*),art_status,hiv_status from ovc_registration where child_cbo_id in ({0}) group by hiv_status,art_status".format(
@@ -350,7 +461,6 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
 
 
 def get_ever_tested_for_HIV(request, org_ids, level='', area_id=''):
-
     pass
 
 
@@ -384,14 +494,14 @@ def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
     except Exception, e:
         print 'dash chart error - %s' % (str(e))
         hiv_status['on_art_rate'] = 0
-        #raise e
+        # raise e
     try:
         x = float(hiv_status['not_on_art']) / float(hiv_status['ovc_HSTP']) * 100
         hiv_status['not_on_art_rate'] = "%.2f" % x
     except Exception, e:
         print 'dash chart error - %s' % (str(e))
         hiv_status['not_on_art_rate'] = 0
-        #raise e
+        # raise e
 
     try:
         x = float(supression[0]) / float(hiv_status['on_art']) * 100
@@ -399,7 +509,7 @@ def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
     except Exception, e:
         print 'dash chart error - %s' % (str(e))
         hiv_status['suppresed_rate'] = 0
-        #raise e
+        # raise e
 
     try:
         x = float(supression[1]) / float(hiv_status['on_art']) * 100
@@ -407,7 +517,7 @@ def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
     except Exception, e:
         print 'dash chart error - %s' % (str(e))
         hiv_status['not_suppresed_rate'] = 0
-        #raise e
+        # raise e
     print "-------------------- 9"
     ovc_total = hiv_status['ovc_HSTP'] + hiv_status['ovc_HSTN'] + hiv_status['ovc_unknown_count']
     print "-------------------- 10"
@@ -417,7 +527,7 @@ def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
     except Exception, e:
         print 'dash chart error - %s' % (str(e))
         hiv_status['ovc_HSTP_rate'] = 0
-        #raise e
+        # raise e
 
     try:
         x = float(hiv_status['ovc_HSTN']) / float(ovc_total) * 100
@@ -425,7 +535,7 @@ def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
     except Exception, e:
         print 'dash chart error - %s' % (str(e))
         hiv_status['ovc_HSTN_rate'] = 0
-        #raise e
+        # raise e
 
     try:
         x = float(hiv_status['ovc_unknown_count']) / float(ovc_total) * 100
@@ -433,7 +543,7 @@ def get_ovc_hiv_status(request, org_ids, level='', area_id=''):
     except Exception, e:
         print 'dash chart error - %s' % (str(e))
         hiv_status['ovc_unknown_count_rate'] = 0
-        #raise e
+        # raise e
     hiv_status_list_envelop.append(hiv_status)
     return hiv_status_list_envelop
 
@@ -513,7 +623,6 @@ def get_super_user_hiv_dashboard_stats(request, org_ids):
             ovc_HSTP = row[0]
 
             ovc_unknown_count = ovc_reg_all_count - ovc_reg_known_count
-
 
             cursor.execute(
                 "select count(*) from ovc_registration where art_status='ARAR'"
@@ -655,7 +764,7 @@ def dashboard():
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
         person_types = RegPersonsTypes.objects.filter(
             is_void=False, date_ended=None).values(
-                'person_type_id').annotate(dc=Count('person_type_id'))
+            'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
             vals[person_type['person_type_id']] = person_type['dc']
         dash['children'] = vals['TBVC']
@@ -692,7 +801,7 @@ def dashboard():
         # Case categories Top 5
         case_categories = pending_cases.values(
             'case_category').annotate(unit_count=Count(
-                'case_category')).order_by('-unit_count')
+            'case_category')).order_by('-unit_count')
         dash['case_regs'] = case_regs
         dash['case_cats'] = case_categories
     except Exception, e:
@@ -722,7 +831,7 @@ def ovc_dashboard(request):
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
         person_types = RegPersonsTypes.objects.filter(
             is_void=False, date_ended=None).values(
-                'person_type_id').annotate(dc=Count('person_type_id'))
+            'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
             vals[person_type['person_type_id']] = person_type['dc']
         dash['children'] = vals['TBVC']
@@ -913,7 +1022,7 @@ def ovc_dashboard(request):
             person_id__in=child_ids)
         case_criteria = cases.values(
             'criteria').annotate(unit_count=Count(
-                'criteria')).order_by('-unit_count')
+            'criteria')).order_by('-unit_count')
         dash['child_regs'] = child_regs
         dash['ovc_regs'] = ovc_regs
         dash['case_regs'] = case_regs
@@ -1388,7 +1497,7 @@ def save_sibling(request, attached_sb, person_id):
                     defaults={'child_person_id': person_id,
                               'sibling_person_id': sibling_id,
                               'date_linked': todate, 'remarks': sibling_rmk,
-                              'is_void': False},)
+                              'is_void': False}, )
                 # Use Owners location details to create/update sibling details
                 copy_locations(person_id, sibling_id, request)
                 new_sib_ids.append(sibling_id)
@@ -1423,7 +1532,7 @@ def copy_locations(person_id, relative_id, request):
                               'person_id': relative_id,
                               'area_type': area_type,
                               'date_linked': todate,
-                              'is_void': False},)
+                              'is_void': False}, )
         else:
             print 'Child does not exist but create CG'
             area_id = request.POST.get('living_in_subcounty')
@@ -1433,7 +1542,7 @@ def copy_locations(person_id, relative_id, request):
                           'person_id': relative_id,
                           'area_type': 'GLTL',
                           'date_linked': todate,
-                          'is_void': False},)
+                          'is_void': False}, )
     except Exception, e:
         raise e
 
@@ -1448,7 +1557,7 @@ def save_person_extids(identifier_types, person_id):
                 is_void=False,
                 defaults={'person_id': person_id, 'identifier': identifier,
                           'identifier_type_id': identifier_type,
-                          'is_void': False},)
+                          'is_void': False}, )
     except Exception, e:
         raise e
     else:
@@ -1619,18 +1728,18 @@ def auto_suggest_person(request, query, qid=0):
                     person_ids = RegPersonsTypes.objects.filter(
                         person_type_id=person_type, person_id__in=porgs,
                         is_void=False).values_list(
-                            'person_id', flat=True)
+                        'person_id', flat=True)
                 else:
                     person_ids = RegPersonsTypes.objects.filter(
                         person_type_id=person_type,
                         is_void=False).values_list(
-                            'person_id', flat=True)
+                        'person_id', flat=True)
             else:
                 wf_ids = ['TWNE', 'TWGE', 'TWVL']
                 person_ids = RegPersonsTypes.objects.filter(
                     person_type_id__in=wf_ids, person_id__in=porgs,
                     is_void=False).values_list(
-                        'person_id', flat=True)
+                    'person_id', flat=True)
             queryset = RegPerson.objects.filter(
                 id__in=person_ids, is_void=False)
             field_names = ['surname', 'email', 'first_name', 'other_names']
@@ -2008,7 +2117,7 @@ def save_contacts(contact_id, contact_value, org_unit):
             contact_detail_type_id=contact_id, org_unit_id=org_unit,
             defaults={'contact_detail_type_id': contact_id,
                       'contact_detail': contact_value,
-                      'org_unit_id': org_unit, 'is_void': False},)
+                      'org_unit_id': org_unit, 'is_void': False}, )
     except Exception, e:
         error = 'Error searching org unit -%s' % (str(e))
         print error
@@ -2042,7 +2151,7 @@ def save_external_ids(identifier_id, identifier_value, org_unit):
             identifier_type_id=identifier_id, org_unit_id=org_unit,
             defaults={'identifier_type_id': identifier_id,
                       'identifier_value': identifier_value,
-                      'org_unit_id': org_unit, 'is_void': False},)
+                      'org_unit_id': org_unit, 'is_void': False}, )
     except Exception, e:
         error = 'Error searching org unit -%s' % (str(e))
         print error
@@ -2086,12 +2195,12 @@ def save_geo_location(area_ids, org_unit, existing_ids=[]):
             if area_id not in delink_list:
                 geo, created = RegOrgUnitGeography.objects.update_or_create(
                     area_id=area_id, org_unit_id=org_unit,
-                    defaults={'date_linked': date_linked, 'is_void': False},)
+                    defaults={'date_linked': date_linked, 'is_void': False}, )
         if delink_list:
             for i, area_id in enumerate(delink_list):
                 geo, created = RegOrgUnitGeography.objects.update_or_create(
                     area_id=area_id, org_unit_id=org_unit,
-                    defaults={'date_delinked': date_linked, 'is_void': True},)
+                    defaults={'date_delinked': date_linked, 'is_void': True}, )
     except Exception, e:
         error = 'Error linking area to org unit -%s' % (str(e))
         print error
@@ -2171,8 +2280,10 @@ def org_id_generator(modelid):
 
 def luhn_checksum(check_number):
     """http://en.wikipedia.org/wiki/Luhn_algorithm ."""
+
     def digits_of(n):
         return [int(d) for d in str(n)]
+
     digits = digits_of(check_number)
     odd_digits = digits[-1::-2]
     even_digits = digits[-2::-2]
