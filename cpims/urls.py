@@ -26,6 +26,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     # url(r'^$', 'cpovc_auth.views.log_in', name='home'),
     url(r'^$', 'cpims.views.home', name='home'),
+    url(r'^dashboard/(?P<did>\d+)$', 'cpims.views.dashboards',
+        name='dashboards'),
     url(r'^accounts/request/$', 'cpims.views.access', name='access'),
     url(r'^accounts/terms/(?P<id>\d+)/$', 'cpovc_access.views.terms',
         name='terms'),

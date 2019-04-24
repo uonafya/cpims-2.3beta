@@ -1,11 +1,17 @@
 {% load app_class %}
 <ul class="nav">
 	<li class="nav-header">Navigation</li>
-	<li class="has-sub {{ request.path|get_class:'/' }}">
-		<a href="{% url 'home' %}">
+	<li class="has-sub {{ request.path|get_class:'/' }} {{ request.path|get_class:'dashboard' }}">
+		<a href="#">
+			<b class="caret pull-right"></b>
 		    <i class="fa fa-laptop"></i>
 		    <span>Home</span>
 	    </a>
+	    <ul class="sub-menu">
+	    	<li><a href="{% url 'home' %}">My Dashboard</a></li>
+			<li><a href="{% url 'dashboards' did=1 %}">CP Dashboard</a></li>
+			<li><a href="{% url 'dashboards' did=2 %}">MER Dashboard</a></li>
+		</ul>
 	</li>
 	
 	<li class="has-sub {{ request.path|get_class:'registry' }}">

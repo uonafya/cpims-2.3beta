@@ -1,0 +1,750 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} CASE Plan Achievement Assessment Dashboard {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">OVC Care</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-bar-chart"></i> CASE Plan Achievement Assessment Dashboard - <small>
+{% if request.session.ou_primary_name %} {{ request.session.ou_primary_name }} {% else %}  National {% endif %}
+</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-8">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">CASE Assessment Results Summary </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="20%">Assessment Results</th>
+                            <th>Total # of HouseHold</th>
+                            <th># of Children Enrolled</th>
+                            <th>Total # of Children in the Household</th>
+                            <th># of Children NOT Enrolled</th>
+                            <th>% Pathway Performance</th>                                               
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-right">
+                            <td class="text-left">On path to CPA</td>
+                            <td>4,174</td>
+                            <td>7,895</td>
+                            <td>14,642</td>
+                            <td>6,747</td>
+                            <td>99.8 %</td>
+                        </tr>
+                        <tr class="text-right">
+                            <td class="text-left">Caseplan Achieved</td>
+                            <td>8</td>
+                            <td>15</td>
+                            <td>27</td>
+                            <td>12</td>
+                            <td>0.2 %</td>
+                        </tr>
+                        <tr>
+                            <th>TOTAL</th>
+                            <th class="text-right">4,182</th>
+                            <th class="text-right">7,910</th>
+                            <th class="text-right">14,669</th>
+                            <th class="text-right">6,759</th>
+                            <th class="text-right">100 %</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end panel body -->
+
+        </div>
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Healthy Domain Performance </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <div id="healthy_container"><center><div class="page_loader"></div></center></div>  
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Stable Domain Performance </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <div id="stable_container" style="height: 300px; margin: 0 auto;"><center><div class="page_loader"></div></center></div>  
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Safe Domain Performance </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <div id="safe_container"><center><div class="page_loader"></div></center></div>  
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Schooled Domain Performance </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <div id="schooled_container" style="height: 180px; margin: 0 auto;"><center><div class="page_loader"></div></center></div>
+            </div>
+            <!-- end panel body -->
+        </div>
+    </div>
+    <div class="col-md-4">
+        <!-- end panel -->
+        <div class="panel panel-default" data-sortable-id="index-1">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">CASE Plan Achievement</h4>
+            </div>
+            <div class="panel-body">
+                <div id="cpa_container" style="height: 200px; margin: 0 auto;"><center><div class="page_loader"></div></center></div>  
+            </div>
+        </div>
+        <!-- end panel -->
+        <div class="panel panel-default" data-sortable-id="index-1">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Categorization of HH Scoring 0 - 17</h4>
+            </div>
+            <div class="panel-body">
+                <div id="score_container"><center><div class="page_loader"></div></center></div>  
+            </div>
+        </div>
+        <!-- end panel -->
+        <div class="panel panel-default" data-sortable-id="index-1">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Overall Domain Performance all Counties</h4>
+            </div>
+            <div class="panel-body">
+                <div id="domain_container"><center><div class="page_loader"></div></center></div>  
+            </div>
+        </div>
+        <!-- end panel -->
+        <div class="panel panel-default" data-sortable-id="index-1">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Domain Performance by County</h4>
+            </div>
+            <div class="panel-body">
+                <div id="county_container"><center><div class="page_loader"></div></center></div>  
+            </div>
+        </div>
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Households Vs Number of OVC </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <table class="table  table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th colspan="3">On path to CPA</th>
+                            <th colspan="3">Case Plan Achieved</th>
+                            <th colspan="3">All Assessments</th>                                               
+                        </tr>
+                        <tr>
+                            <th>County</th>
+                            <th>Total # of HouseHold</th>
+                            <th>Total # of Children in the Household</th>
+                            <th># of Children Enrolled</th>
+                            <th>Total # of HouseHold</th>
+                            <th>Total # of Children in the Household</th>
+                            <th># of Children Enrolled</th>
+                            <th>Total # of HouseHold</th>
+                            <th>Total # of Children in the Household</th>
+                            <th># of Children Enrolled</th>                                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for val in domains %}
+                        <tr>
+                            <td>{{ val.name }}</td>
+                            <td>{{ val.v1 }}</td>
+                            <td>{{ val.v2 }}</td>
+                            <td>{{ val.v3 }}</td>
+                            <td>{{ val.v4 }}</td>
+                            <td>{{ val.v5 }}</td>
+                            <td>{{ val.v6 }}</td>
+                            <td>{{ val.v7 }}</td>
+                            <td>{{ val.v8 }}</td>
+                            <td>{{ val.v9 }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for val in tdomains %}
+                        <tr>
+                            <th>TOTALS</th>
+                            <th>{{ val.tv1 }}</th>
+                            <th>{{ val.tv2 }}</th>
+                            <th>{{ val.tv3 }}</th>
+                            <th>{{ val.tv4 }}</th>
+                            <th>{{ val.tv5 }}</th>
+                            <th>{{ val.tv6 }}</th>
+                            <th>{{ val.tv7 }}</th>
+                            <th>{{ val.tv8 }}</th>
+                            <th>{{ val.tv9 }}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end panel body -->
+        </div>
+    </div>
+</div>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Performance By Benchmarks </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <table class="table  table-bordered">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th colspan="6">Healthy</th>
+                            <th colspan="4">Stable</th>
+                            <th colspan="5">Safe</th>
+                            <th colspan="2">Schooled</th>                                            
+                        </tr>
+                        <tr>
+                            <th>County</th>
+                            <th>BM1</th>
+                            <th>BM2</th>
+                            <th>BM3</th>
+                            <th>BM4</th>
+                            <th>BM5</th>
+                            <th>BM6</th>
+                            <th>BM7</th>
+                            <th>BM8</th>
+                            <th>BM9</th>
+                            <th>BM10</th>
+                            <th>BM11</th>
+                            <th>BM12</th>
+                            <th>BM13</th>
+                            <th>BM14</th>
+                            <th>BM15</th>
+                            <th>BM16</th>
+                            <th>BM17</th>                                      
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for val in bmarks %}
+                        <tr>
+                            <td>{{ val.name }}</td>
+                            <td>{{ val.v1 }}</td>
+                            <td>{{ val.v2 }}</td>
+                            <td>{{ val.v3 }}</td>
+                            <td>{{ val.v4 }}</td>
+                            <td>{{ val.v5 }}</td>
+                            <td>{{ val.v6 }}</td>
+                            <td>{{ val.v7 }}</td>
+                            <td>{{ val.v8 }}</td>
+                            <td>{{ val.v9 }}</td>
+                            <td>{{ val.v10 }}</td>
+                            <td>{{ val.v11 }}</td>
+                            <td>{{ val.v12 }}</td>
+                            <td>{{ val.v13 }}</td>
+                            <td>{{ val.v14 }}</td>
+                            <td>{{ val.v15 }}</td>
+                            <td>{{ val.v16 }}</td>
+                            <td>{{ val.v17 }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for val in tbmarks %}
+                        <tr>
+                            <th>TOTALS</th>
+                            <th>{{ val.tv1 }}</th>
+                            <th>{{ val.tv2 }}</th>
+                            <th>{{ val.tv3 }}</th>
+                            <th>{{ val.tv4 }}</th>
+                            <th>{{ val.tv5 }}</th>
+                            <th>{{ val.tv6 }}</th>
+                            <th>{{ val.tv7 }}</th>
+                            <th>{{ val.tv8 }}</th>
+                            <th>{{ val.tv9 }}</th>
+                            <th>{{ val.tv10 }}</th>
+                            <th>{{ val.tv11 }}</th>
+                            <th>{{ val.tv12 }}</th>
+                            <th>{{ val.tv13 }}</th>
+                            <th>{{ val.tv14 }}</th>
+                            <th>{{ val.tv15 }}</th>
+                            <th>{{ val.tv16 }}</th>
+                            <th>{{ val.tv17 }}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end panel body -->
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/highcharts/highcharts.js' %}"></script>
+<script src="{% static 'plugins/highcharts/modules/exporting.js' %}"></script>
+<script src="{% static 'plugins/highcharts/modules/offline-exporting.js' %}"></script>
+<!--[if lt IE 9]>
+<script src="{% static 'plugins/highcharts/modules/oldie.js' %}"></script>
+<![endif]-->
+<script>
+    $(document).ready(function() {
+    var example = 'pie-legend', 
+        theme = 'default';                   
+        // Build the chart
+        Highcharts.chart('cpa_container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        distance: -20
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Percentage Achievement',
+                colorByPoint: true,
+                data: [{
+                    name: 'On Path to CPA',
+                    y: 61.41,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Case Plan Achieved',
+                    y: 11.84,
+                    color: '#fc8d59',
+                }]
+            }]
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+    var example = 'pie-legend', 
+        theme = 'default';                   
+        // Build the chart
+        Highcharts.chart('score_container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        distance: -40
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'HH scoring 0 to 16',
+                colorByPoint: true,
+                data: [{
+                    name: '0 - 7 Score',
+                    y: 41.41,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: '8 - 16 Score',
+                    y: 11.84,
+                    color: '#fc8d59',
+                }]
+            }]
+        });
+    });
+</script>
+<script>
+$(document).ready(function() {
+var example = 'bar-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('healthy_container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['BM6: Children living with chronic illness/disability receive treatment',
+                         'BM5: Adolescents and their caregivers have knowledge to decrease their HIV risk',
+                         'BM4: Enrolled women/ adolescent girls who are/become pregnant receive HIV testing',
+                         'BM3: HIV+ persons in the household have been on ART for last 12 months',
+                         'BM2: Caregivers know the HIV+ status of the children they care as well as their own',
+                         'BM1: HIV Risk assessment done and HIV testing referrals completed']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            reversed: true,
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Male',
+            data: [70, 50, 80, 70, 60, 40]
+        }]
+    });             
+});
+</script>
+<script>
+$(document).ready(function() {
+var example = 'bar-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('stable_container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['BM7: HH able to provide a minimum of two meals/day',
+                         'BM8: HH able to pay for child(ren)’s basic needs',
+                         'BM9: HH able to pay for emergency expenses.',
+                         'BM10:The caregiver has demonstrated knowledge on access to critical services']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            reversed: true,
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Male',
+            data: [70, 50, 55, 45]
+        }]
+    });             
+});
+</script>
+<script>
+$(document).ready(function() {
+var example = 'bar-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('safe_container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['BM11: Child-headed HHs have received child and social protection services',
+                         'BM12: All children in the HH able to participate in daily activities and engage with others',
+                         'BM13: Children at risk of abuse have been referred to and are receiving appropriate services',
+                         'BM14: Caregivers can identify individual or group providing social or emotional support',
+                         'BM15: Caregivers have completed a parenting skills or able to clearly articulate positive parenting']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            reversed: true,
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Male',
+            data: [70, 50, 45, 76, 80]
+        }]
+    });             
+});
+</script>
+<script>
+$(document).ready(function() {
+var example = 'bar-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('schooled_container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['BM16 : All 6-17 children enrolled and attend school regularly',
+                         'BM17 : Adolescents enrolled in vocational attendregularly']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            reversed: true,
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Male',
+            data: [70, 50]
+        }]
+    });             
+});
+</script>
+<script>
+$(document).ready(function() {
+var example = 'column-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('domain_container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['Healthy', 'Stable', 'Safe', 'Schooled']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: false,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                }
+            }
+        },
+        series: [{
+            name: 'Achievement',
+            data: [50, 30, 40, 70]
+        }]
+    });             
+});
+</script>
+<script>
+$(document).ready(function() {
+var example = 'column-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('county_container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['Kisumu', 'Siaya', 'Nandi']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: false,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                }
+            }
+        },
+        series: [{
+            name: 'County Performance',
+            data: [50, 30, 40]
+        }]
+    });             
+});
+</script>
+{% endblock %}

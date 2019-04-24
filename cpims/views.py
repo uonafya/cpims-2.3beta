@@ -22,6 +22,40 @@ def home(request):
         raise e
 
 
+@login_required(login_url='/login/')
+def dashboards(request, did):
+    """Some default page for the home page / Dashboard."""
+    try:
+        dash_id = int(did)
+        dashes = {1: 'cp_dashboard', 2: 'mer_dashboard'}
+        dash_tmpl = '%s.html' % dashes[dash_id]
+        vals = {'domains': [{'name': 'Kisumu', 'v1': 9, 'v2': 8, 'v3': 7,
+                             'v4': 6, 'v5': 5, 'v6': 4, 'v7': 3, 'v8': 2,
+                             'v9': 1}],
+                'tdomains': [{'name': 'Kisumu', 'tv1': 9, 'tv2': 8, 'tv3': 7,
+                              'tv4': 6, 'tv5': 5, 'tv6': 4, 'tv7': 3, 'tv8': 2,
+                              'tv9': 1}],
+                'bmarks': [{'name': 'Kisumu', 'v1': 9, 'v2': 8, 'v3': 7,
+                            'v4': 6, 'v5': 5, 'v6': 4, 'v7': 3, 'v8': 2,
+                            'v9': 1, 'v10': 4, 'v11': 3, 'v12': 2, 'v13': 4,
+                            'v14': 3, 'v15': 2, 'v16': 4, 'v17': 3}],
+                'tbmarks': [{'name': 'Kisumu', 'tv1': 9, 'tv2': 8, 'tv3': 7,
+                             'tv4': 6, 'tv5': 5, 'tv6': 4, 'tv7': 3, 'tv8': 2,
+                             'tv9': 1, 'tv10': 4, 'tv11': 3, 'tv12': 2,
+                             'tv13': 4, 'tv14': 3, 'tv15': 2, 'tv16': 4,
+                             'tv17': 3}],
+                'tgmarks': [{'name': 'Kisumu', 'tv1': 9, 'tv2': 8, 'tv3': 7,
+                             'tv4': 6, 'tv5': 5, 'tv6': 4, 'tv7': 3, 'tv8': 2,
+                             'tv9': 1, 'tv10': 4, 'tv11': 3, 'tv12': 2,
+                             'tv13': 4, 'tv14': 3, 'tv15': 2, 'tv16': 4,
+                             'tv17': 3}]
+                }
+        return render(request, dash_tmpl, vals)
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
+
+
 def get_dashboard(request):
     """Some default page for the home page / Dashboard."""
     my_dates, my_cvals = [], []

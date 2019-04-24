@@ -1,0 +1,601 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} MER Indicators Dashboard {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">OVC Care</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header"><i class="fa fa-bar-chart"></i> MER Indicators Dashboard - <small>
+{% if request.session.ou_primary_name %} {{ request.session.ou_primary_name }} {% else %}  National {% endif %}
+</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">MER Reporting Summary </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th width="15%">Ward</th>
+                            <th>Total # of OVC</th>
+                            <th>Total # of Active OVC</th>
+                            <th>Total # of Exited OVC</th>
+                            <th>Total # of Graduated OVC</th>
+                            <th>Total # of Served OVC</th>
+                            <th>Total # CP Updated</th>
+                            <th>Total # CP Monitored</th>
+                            <th>Total # of Served Caregivers</th>                                               
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-right">
+                            <td class="text-left">A</td>
+                            <td>4,174</td>
+                            <td>7,895</td>
+                            <td>7,895</td>
+                            <td>14,642</td>
+                            <td>6,747</td>
+                            <td>6,747</td>
+                            <td>6,747</td>
+                            <td>99.8 %</td>
+                        </tr>
+                        <tr>
+                            <th>TOTAL</th>
+                            <th class="text-right">4,182</th>
+                            <th class="text-right">7,910</th>
+                            <th class="text-right">7,910</th>
+                            <th class="text-right">14,669</th>
+                            <th class="text-right">6,759</th>
+                            <th class="text-right">6,759</th>
+                            <th class="text-right">6,759</th>
+                            <th class="text-right">100 %</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- end panel body -->
+
+        </div>
+    </div>
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-8">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">OVC_HIVSTAT </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <div id="healthy_container"><center><div class="page_loader"></div></center></div>  
+            </div>
+            <!-- end panel body -->
+        </div>
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">OVC_SERV </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <div id="stable_container" style="height: 340px; margin: 0 auto;"><center><div class="page_loader"></div></center></div>  
+            </div>
+            <!-- end panel body -->
+        </div>
+    </div>
+    <div class="col-md-4">     
+        <!-- end panel -->
+        <div class="panel panel-default" data-sortable-id="index-1">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">OVC_HIVSTAT</h4>
+            </div>
+            <div class="panel-body">
+                <div id="score_container" style="height: 200px; margin: 0 auto;"><center><div class="page_loader"></div></center></div>  
+            </div>
+        </div>
+        <!-- end panel -->
+        <div class="panel panel-default" data-sortable-id="index-1">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">OVC_SERV</h4>
+            </div>
+            <div class="panel-body">
+                <div id="cpa_container" style="height: 200px; margin: 0 auto;"><center><div class="page_loader"></div></center></div>  
+            </div>
+        </div>
+        <!-- end panel -->
+        <div class="panel panel-default" data-sortable-id="index-1">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">PEPFAR Services Summary</h4>
+            </div>
+            <div class="panel-body">
+                <div id="domain_container" style="height: 250px; margin: 0 auto;"><center><div class="page_loader"></div></center></div>  
+            </div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">OVC_SERV Details </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                <table class="table  table-bordered">
+                    <thead>
+                        <tr>
+                            <th rowspan="4">Ward</th>
+                            <th colspan="14">Beneficiaries</th>
+                            <th colspan="4">Transferred</th>
+                            <th colspan="2">Exited</th>                                             
+                        </tr>
+                        <tr>
+                            <th colspan="12">Active</th>
+                            <th colspan="2">Graduated</th>
+                            <th colspan="2">To a PEPFAR-supported partner</th>
+                            <th colspan="2">To a Non-PEPFAR-supported partner</th>
+                            <th colspan="2">Exited without graduation</th>                                           
+                        </tr>
+                        <tr>
+                            <th colspan="2">a. 1yrs </th>
+                            <th colspan="2">b. 1-4yrs</th>
+                            <th colspan="2">c. 5-9yrs</th>
+                            <th colspan="2">d. 10-14yrs</th>
+                            <th colspan="2">e. 15-17yrs</th>
+                            <th colspan="2">f. 18-24yrs</th>
+                            <th colspan="2"></th>
+                            <th colspan="2"></th>
+                            <th colspan="2"></th>
+                            <th colspan="2"></th>
+                        </tr>
+                        <tr>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                            <th>M</th>
+                            <th>F</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for val in domains %}
+                        <tr>
+                            <td>{{ val.name }}</td>
+                            <td>{{ val.v1 }}</td>
+                            <td>{{ val.v2 }}</td>
+                            <td>{{ val.v3 }}</td>
+                            <td>{{ val.v4 }}</td>
+                            <td>{{ val.v5 }}</td>
+                            <td>{{ val.v6 }}</td>
+                            <td>{{ val.v7 }}</td>
+                            <td>{{ val.v8 }}</td>
+                            <td>{{ val.v9 }}</td>
+                            <td>{{ val.v9 }}</td>
+                            <td>{{ val.v1 }}</td>
+                            <td>{{ val.v2 }}</td>
+                            <td>{{ val.v3 }}</td>
+                            <td>{{ val.v4 }}</td>
+                            <td>{{ val.v5 }}</td>
+                            <td>{{ val.v6 }}</td>
+                            <td>{{ val.v7 }}</td>
+                            <td>{{ val.v8 }}</td>
+                            <td>{{ val.v9 }}</td>
+                            <td>{{ val.v9 }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for val in tdomains %}
+                        <tr>
+                            <th>TOTALS</th>
+                            <th>{{ val.tv1 }}</th>
+                            <th>{{ val.tv2 }}</th>
+                            <th>{{ val.tv3 }}</th>
+                            <th>{{ val.tv4 }}</th>
+                            <th>{{ val.tv5 }}</th>
+                            <th>{{ val.tv6 }}</th>
+                            <th>{{ val.tv7 }}</th>
+                            <th>{{ val.tv8 }}</th>
+                            <th>{{ val.tv9 }}</th>
+                            <th>{{ val.tv1 }}</th>
+                            <th>{{ val.tv2 }}</th>
+                            <th>{{ val.tv3 }}</th>
+                            <th>{{ val.tv4 }}</th>
+                            <th>{{ val.tv5 }}</th>
+                            <th>{{ val.tv6 }}</th>
+                            <th>{{ val.tv7 }}</th>
+                            <th>{{ val.tv8 }}</th>
+                            <th>{{ val.tv9 }}</th>
+                            <th>{{ val.tv9 }}</th>
+                            <th>{{ val.tv9 }}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end panel body -->
+        </div>
+    </div>
+</div>
+
+<!-- begin row -->
+<div class="row">
+  <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-default">
+            <div class="panel-heading">                   
+                <h4 class="panel-title">Graduation Benchmarks </h4>
+            </div>
+            <!-- start panel body -->
+            <div class="panel-body">
+                 <table class="table  table-bordered">
+                    <thead>
+                        <tr>
+                            <th rowspan="2">Ward</th>
+                            <th colspan="4">Healthy</th>
+                            <th>Stable</th>
+                            <th colspan="2">Safe</th>
+                            <th colspan="1">Schooled</th>                                            
+                        </tr>
+                        <tr>
+                            <th>1. Known HIV status (or test not required)</th>
+                            <th>2. Virally suppressed</th>
+                            <th>3. Knowledgeable about HIV prevention</th>
+                            <th>4. Not malnourished</th>
+                            <th>5. Improved financial stability</th>
+                            <th>6. No violence</th>
+                            <th>7. Not in a child-headed household</th>
+                            <th>8. Children in school</th>                                     
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for val in bmarks %}
+                        <tr>
+                            <td>{{ val.name }}</td>
+                            <td>{{ val.v1 }}</td>
+                            <td>{{ val.v2 }}</td>
+                            <td>{{ val.v3 }}</td>
+                            <td>{{ val.v4 }}</td>
+                            <td>{{ val.v5 }}</td>
+                            <td>{{ val.v6 }}</td>
+                            <td>{{ val.v7 }}</td>
+                            <td>{{ val.v8 }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% for val in tbmarks %}
+                        <tr>
+                            <th>TOTALS</th>
+                            <th>{{ val.tv1 }}</th>
+                            <th>{{ val.tv2 }}</th>
+                            <th>{{ val.tv3 }}</th>
+                            <th>{{ val.tv4 }}</th>
+                            <th>{{ val.tv5 }}</th>
+                            <th>{{ val.tv6 }}</th>
+                            <th>{{ val.tv7 }}</th>
+                            <th>{{ val.tv8 }}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <!-- end panel body -->
+        </div>
+    </div>
+</div>
+
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/highcharts/highcharts.js' %}"></script>
+<script src="{% static 'plugins/highcharts/modules/exporting.js' %}"></script>
+<script src="{% static 'plugins/highcharts/modules/offline-exporting.js' %}"></script>
+<!--[if lt IE 9]>
+<script src="{% static 'plugins/highcharts/modules/oldie.js' %}"></script>
+<![endif]-->
+<script>
+    $(document).ready(function() {
+    var example = 'pie-legend', 
+        theme = 'default';                   
+        // Build the chart
+        Highcharts.chart('cpa_container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        distance: -20
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'OVC Served',
+                colorByPoint: true,
+                data: [{
+                    name: 'Served',
+                    y: 61.41,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'Not Served',
+                    y: 11.84,
+                    color: '#fc8d59',
+                }]
+            }]
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+    var example = 'pie-legend', 
+        theme = 'default';                   
+        // Build the chart
+        Highcharts.chart('score_container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '{point.percentage:.1f} %',
+                        distance: -40
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                name: 'OVC_HIVSTAT',
+                colorByPoint: true,
+                data: [{
+                    name: 'HIV +Ve',
+                    y: 41.41,
+                    sliced: true,
+                    selected: true
+                }, {
+                    name: 'HIV -Ve',
+                    y: 11.84,
+                }, {
+                    name: 'Status Unknown',
+                    y: 11.84,
+                    color: '#fc8d59',
+                }]
+            }]
+        });
+    });
+</script>
+<script>
+$(document).ready(function() {
+var example = 'bar-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('healthy_container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['HIV positive currently on ART',
+                         'HIV positive not currently on ART / ART status unknown',
+                         'HIV negative',
+                         'HIV test not required based on risk assessment',
+                         'HIV status unknown']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            reversed: true,
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Male',
+            data: [70, 50, 80, 70, 60]
+        }]
+    });             
+});
+</script>
+<script>
+$(document).ready(function() {
+var example = 'bar-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('stable_container', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['Active beneficiaries',
+                         'Graduated beneficiaries',
+                         'Transferred out to a PEPFAR-supported partner.',
+                         'Transferred out to a non-PEPFAR-supported partner',
+                         'Exited without graduation']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            reversed: true,
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+            name: 'Male',
+            data: [70, 50, 55, 45, 65]
+        }]
+    });             
+});
+</script>
+
+<script>
+$(document).ready(function() {
+var example = 'column-stacked', 
+    theme = 'default';
+                    
+    Highcharts.chart('domain_container', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: ''
+        },
+        xAxis: {
+            categories: ['Not Served', '1 or 2 Services', '3 or More Services']
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: ''
+            },
+            stackLabels: {
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
+                }
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        credits: {
+            enabled: false
+        },
+        tooltip: {
+            headerFormat: '<b>{point.x}</b><br/>',
+            pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+        },
+        plotOptions: {
+            column: {
+                stacking: 'normal',
+                dataLabels: {
+                    enabled: false,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                }
+            }
+        },
+        series: [{
+            name: 'Services',
+            data: [50, 30, 40]
+        }]
+    });             
+});
+</script>
+{% endblock %}
