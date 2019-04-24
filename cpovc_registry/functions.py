@@ -16,6 +16,8 @@ from .models import (
 
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCEligibility
 
+from django.core.serializers.json import DjangoJSONEncoder
+
 from cpovc_auth.models import CPOVCUserRoleGeoOrg
 from cpovc_forms.models import (
     OVCCaseRecord, OVCCaseCategory, OVCCaseGeo, OVCCareServices)
@@ -30,21 +32,20 @@ benficiary_id_prefix = 'B'
 workforce_id_prefix = 'W'
 
 # publicDash--
+
 def fetch_total_ovc_ever(request, org_ids, level='', area_id=''):
     total_ovc_ever = []
     with connection.cursor() as cursor:
         try:
             cursor.execute(
-                "Select count(distinct id)  from ovc_registration"
+                "Select count(distinct id) from ovc_registration"
             )
             row = cursor.fetchone()
             total_ovc_ever.append(row[0])
-
         except Exception, e:
             print 'error on fetch_total_ovc_ever - %s' % (str(e))
-
     return total_ovc_ever
-
+    
 def fetch_total_ovc_ever_exited(request, org_ids, level='', area_id=''):
     total_ovc_ever_exited = []
     with connection.cursor() as cursor:
@@ -54,10 +55,8 @@ def fetch_total_ovc_ever_exited(request, org_ids, level='', area_id=''):
             )
             row = cursor.fetchone()
             total_ovc_ever_exited.append(row[0])
-
         except Exception, e:
             print 'error on fetch_total_ovc_ever_exited - %s' % (str(e))
-
     return total_ovc_ever_exited
     
 def fetch_total_wout_bcert_at_enrol(request, org_ids, level='', area_id=''):
@@ -69,11 +68,131 @@ def fetch_total_wout_bcert_at_enrol(request, org_ids, level='', area_id=''):
             )
             row = cursor.fetchone()
             total_wout_bcert_at_enrol.append(row[0])
-
         except Exception, e:
             print 'error on fetch_total_wout_bcert_at_enrol - %s' % (str(e))
-
     return total_wout_bcert_at_enrol
+
+def fetch_total_w_bcert_2date(request, org_ids, level='', area_id=''):
+    total_w_bcert_2date = []
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(
+                "Select count(distinct id)  from ovc_registration where has_bcert=true"
+            )
+            row = cursor.fetchone()
+            total_w_bcert_2date.append(row[0])
+        except Exception, e:
+            print 'error on fetch_total_w_bcert_2date - %s' % (str(e))
+    return total_w_bcert_2date
+    
+def fetch_total_s_bcert_aft_enrol(request, org_ids, level='', area_id=''):
+    total_s_bcert_aft_enrol = []
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(
+                "Select count(distinct id)  from ovc_registration where has_bcert=true"
+            )
+            row = cursor.fetchone()
+            total_s_bcert_aft_enrol.append(row[0])
+        except Exception, e:
+            print 'error on fetch_total_s_bcert_aft_enrol - %s' % (str(e))
+    return total_s_bcert_aft_enrol
+    
+def fetch_new_ovcregs_by_period(request,org_ids,level='',area_id='',month_year=''):
+    # print 'oooop running fetch_new_ovcregs_by_period month_year='+month_year+" \n "
+    month_year = json.loads(month_year)
+    new_ovcregs_by_period = []
+    for m_y in month_year:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(
+                    "Select count(distinct id) from ovc_registration where (select date_part('month', registration_date))={} and (select date_part('year', registration_date))={}".format(m_y[0],m_y[1])
+                )
+                for record in cursor:
+                    new_ovcregs_by_period.append(record[0])
+            except Exception, e:
+                print 'error on fetch_new_ovcregs_by_period - %s' % (str(e))
+    return new_ovcregs_by_period
+    
+def fetch_active_ovcs_by_period(request,org_ids,level='',area_id='',month_year=''):
+    # print 'oooop running fetch_active_ovcs_by_period month_year='+month_year+" \n "
+    month_year = json.loads(month_year)
+    active_ovcs_by_period = []
+    for m_y in month_year:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(
+                    "Select count(distinct id) from ovc_registration where is_active=true and (select date_part('month', registration_date))={} and (select date_part('year', registration_date))={}".format(m_y[0],m_y[1])
+                )
+                for record in cursor:
+                    active_ovcs_by_period.append(record[0])
+            except Exception, e:
+                print 'error on fetch_active_ovcs_by_period - %s' % (str(e))
+    return active_ovcs_by_period
+    
+def fetch_exited_ovcs_by_period(request,org_ids,level='',area_id='',month_year=''):
+    # print 'oooop running fetch_exited_ovcs_by_period month_year='+month_year+" \n "
+    month_year = json.loads(month_year)
+    exited_ovcs_by_period = []
+    for m_y in month_year:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(
+                    "Select count(distinct id) from ovc_registration where is_active=false and (select date_part('month', registration_date))={} and (select date_part('year', registration_date))={}".format(m_y[0],m_y[1])
+                )
+                for record in cursor:
+                    exited_ovcs_by_period.append(record[0])
+            except Exception, e:
+                print 'error on fetch_exited_ovcs_by_period - %s' % (str(e))
+    return exited_ovcs_by_period
+    
+def fetch_exited_hsehlds_by_period(request,org_ids,level='',area_id='',month_year=''):
+    # print 'oooop running fetch_exited_hsehlds_by_period month_year='+month_year+" \n "
+    month_year = json.loads(month_year)
+    exited_hsehlds_by_period = []
+    for m_y in month_year:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(
+                    "Select count(distinct id) from ovc_household where is_void=true and (select date_part('month', created_at))={} and (select date_part('year', created_at))={}".format(m_y[0],m_y[1])
+                )
+                for record in cursor:
+                    exited_hsehlds_by_period.append(record[0])
+            except Exception, e:
+                print 'error on fetch_exited_hsehlds_by_period - %s' % (str(e))
+    return exited_hsehlds_by_period
+    
+def fetch_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=''):
+    # print 'oooop running fetch_served_bcert_by_period month_year='+month_year+" \n "
+    month_year = json.loads(month_year)
+    served_bcert_by_period = []
+    for m_y in month_year:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(
+                    "Select count(distinct id) from ovc_registration where has_bcert=true and hiv_status='DEMO' and (select date_part('month', created_at))={} and (select date_part('year', created_at))={}".format(m_y[0],m_y[1])
+                )
+                for record in cursor:
+                    served_bcert_by_period.append(record[0])
+            except Exception, e:
+                print 'error on fetch_served_bcert_by_period - %s' % (str(e))
+    return served_bcert_by_period
+    
+def fetch_u5_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=''):
+    # print 'oooop running fetch_u5_served_bcert_by_period month_year='+month_year+" \n "
+    month_year = json.loads(month_year)
+    u5_served_bcert_by_period = []
+    for m_y in month_year:
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute(
+                    "Select count(distinct id) from ovc_registration where has_bcert=true and hiv_status='DEMO' and (select date_part('month', created_at))={} and (select date_part('year', created_at))={}".format(m_y[0],m_y[1])
+                )
+                for record in cursor:
+                    u5_served_bcert_by_period.append(record[0])
+            except Exception, e:
+                print 'error on fetch_u5_served_bcert_by_period - %s' % (str(e))
+    return u5_served_bcert_by_period
     
 # --publicDash--
 
