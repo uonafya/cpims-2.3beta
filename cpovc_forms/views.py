@@ -21,7 +21,7 @@ from cpovc_forms.forms import (
     ResidentialForm, OVC_FT3hForm, SearchForm, OVCCareSearchForm,
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
     BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
-    GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm, HIV_status_form)
+    GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm)
 from .models import (
     OVCEconomicStatus, OVCFamilyStatus, OVCReferral, OVCHobbies, OVCFriends,
     OVCDocuments, OVCMedical, OVCCaseRecord, OVCNeeds, OVCCaseCategory,
@@ -9218,34 +9218,31 @@ def new_wellbeingadolescent(request, id):
 
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-def hiv_status(request, id):
+def hiv_status(request):
     try:
         if request.method == 'POST':
-            child = RegPerson.objects.get(id=id)
-            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-            event_type_id = 'FHSA'
-            date_of_wellbeing_event = timezone.now()
-
-            """ Save Hiv-status-event """
-            # get event counter
+            child=request.POST.get('child')
+            child_id=RegPerson.objects.get(id=child)
+            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child_id).house_hold_id)
+            event_type_id = 'HIVS'
             event_counter = OVCCareEvents.objects.filter(
-                event_type_id=event_type_id, person=id, is_void=False).count()
-                # save event
+                event_type_id=event_type_id, person=child, is_void=False).count()
+
             ovccareevent=OVCCareEvents.objects.create(
                 event_type_id=event_type_id,
                 event_counter=event_counter,
                 event_score=0,
                 created_by=request.user.id,
-                person=RegPerson.objects.get(pk=int(id)),
+                person=RegPerson.objects.get(pk=int(child)),
                 house_hold=house_hold,
-                date_of_event=request.POST.get('date_of_event')
+                date_of_event=timezone.now()
                 )
-
+            
             OVCHivStatus(
-                person = RegPerson.objects.get(pk=int(id)),
+                person = RegPerson.objects.get(pk=int(child)),
                 hiv_status = request.POST.get('hiv_status'),
                 event = ovccareevent,
-                date_of_event =request.POST.get('date_of_event')
+                date_of_event =request.POST.get('date_of_testing')
                 ).save()
 
             msg = 'HIV status updated successful'
@@ -9253,30 +9250,11 @@ def hiv_status(request, id):
 
             url = reverse('ovc_view', kwargs={'id': id})
             return HttpResponseRedirect(url)
+
     except Exception, e:
         msg = 'hiv status save error : (%s)' % (str(e))
         messages.add_message(request, messages.ERROR, msg)
         print 'Error saving hiv status : %s' % str(e)
         return HttpResponseRedirect(reverse(forms_home))
 
-
-    # get child data
-    init_data = RegPerson.objects.filter(pk=id)
-    check_fields = ['sex_id', 'relationship_type_id']
-    vals = get_dict(field_name=check_fields)
-    ovc_id = int(id)
-    child = RegPerson.objects.get(is_void=False, id=ovc_id)
-
-    form = HIV_status_form()
-    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-
-    return render(request,
-                  'forms/hiv_status.html',
-                  {
-                      'form': form,
-                      'init_data': init_data,
-                      'vals': vals,
-                      'person': id,
-                      'care_giver':care_giver
-
-                  })   
+  

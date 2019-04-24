@@ -261,6 +261,9 @@
                     <div class="col-md-2">
                       <a href="#modal-viralload" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Viral Load details </button></a>
                     </div>
+                    <div class="col-md-2">
+                            <a href="#modal-hiv" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> HIV </button></a>
+                    </div>
                 </div>
             </fieldset>
         </div>
@@ -509,6 +512,40 @@
             </div>
         </div>
     </div>
+    <!-- begin modal -->
+    <div class="modal fade" id="modal-hiv" role="dialog">
+        <div class="modal-dialog">
+        
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">HIV Status</h4>
+            </div>
+            <div class="modal-body">
+           <form>
+               {% csrf_token %}
+               <div class="col-md-8">
+                   <label>Date of HIV testing</label>
+                    {{form.date_of_testing}}
+
+               </div>
+               
+               <div class="col-md-8">
+                   <label> HIV Status</label>
+                    {{form.hiv_status}}
+               </div>
+               
+               <button type="button" class="form-group btn btn-primary m-r-5" name='btn-hiv' id='btn_hiv'>submit</button>
+           </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
     <!-- # end modal-dialog -->
      <!-- # start modal-dialog -->
     <div class="modal fade" id="modal-viralload">
@@ -733,6 +770,73 @@
         $('#messages').show();
         //$(location).attr('href', '{% url 'ovc_view' id=child.id %}');
     });  
+
+
+
+
+    $('#btn_hiv').click(function(ev) {
+        ev.preventDefault();
+        // alert('abdi')
+        var date_of_testing=$('#date_of_event').val();
+        var hiv_status=$('#hiv_status').val();
+        var csrftoken = $.cookie('csrftoken');
+        var child="{{child.id}}";
+        console.log('abdiiii ' +date_of_testing);
+        console.log('Moha ' +hiv_status);
+        console.log('WEWEW ' +child);
+
+        var csrftoken = $.cookie('csrftoken');
+        var values = {
+                      'hiv_status': hiv_status,
+                      'date_of_testing': date_of_testing,
+                      'child':child,
+                      'csrfmiddlewaretoken': csrftoken };
+        if(date_of_testing && hiv_status){
+            $.ajax({
+                type: "POST",
+                data: values,
+                dataType: "json",
+                url: "{% url 'hiv_status' %}",
+                success: function(data){
+                    $('#messages').html('HIV status update was successful' );
+                    $('#messages').show();
+                    // Redirect to view
+                    // $('#modal-hiv').modal('toggle');
+                    // $(location).attr('href', '{% url 'ovc_view' id=child.id %}');
+                },
+                // error: function(){
+                //     $('#messages').html("Error");
+                //     $('#messages').show();
+                // }
+            });
+        }else{
+            $('#vmessage').html('Please fill the date' );
+            $("#vmessage").addClass( "alert alert-danger fade in" ); 
+        }
+        $('#messages').removeClass('alert-danger').addClass('alert-success');
+        $('#messages').html('HIV status added successful' );
+        $('#messages').show();
+        $('#modal-hiv').find('button.close').trigger('click');
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     $('#oexit').click(function() {
         $('#ovcreg_form').parsley().validate("primary4");
@@ -987,5 +1091,11 @@
         
     }
 </script>
+<script>
+
+        $('#date_of_event').datepicker({
+            format: 'yyyy-mm-dd',
+        });
+        </script>
 
 {% endblock %}

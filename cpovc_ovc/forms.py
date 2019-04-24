@@ -287,3 +287,16 @@ class OVCRegistrationForm(forms.Form):
         attrs={'class': 'form-control',
                'placeholder': 'Organization name exiting to',
                'id': 'exit_org_name'}))
+
+    date_of_testing=forms.DateField(
+        widget=forms.TextInput(
+        attrs={'placeholder': 'date of Testing',
+               'class': 'form-control',
+                'autocomplete': 'off',
+               'id': 'date_of_event',
+               'style': 'width: 20%'}
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+               
+        )
+    )
