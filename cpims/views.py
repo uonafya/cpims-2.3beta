@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import JsonResponse
 from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status, \
-    get_ovc_hiv_status, fetch_locality_data, get_cbo_list, get_ever_tested_for_HIV, _get_ovc_active_hiv_status
+    get_ovc_hiv_status, fetch_locality_data,fetch_total_ovc_ever, fetch_total_ovc_ever_exited, fetch_total_wout_bcert_at_enrol, get_cbo_list, get_ever_tested_for_HIV, _get_ovc_active_hiv_status
 from cpovc_main.functions import get_dict
 from cpovc_access.functions import access_request
 from django.contrib.auth.decorators import login_required
@@ -21,9 +21,8 @@ def public_dash(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
-
-
-# ####################
+        
+# #################### Dash
 def public_dashboard_reg(request):
     try:
         print "we are here"
@@ -33,8 +32,6 @@ def public_dashboard_reg(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
-
-
 def public_dashboard_hivstat(request):
     try:
         print "we are here"
@@ -45,7 +42,6 @@ def public_dashboard_hivstat(request):
         print 'dashboard error - %s' % (str(e))
         raise e
 
-
 def public_dashboard_served(request):
     try:
         print "we are here"
@@ -55,14 +51,12 @@ def public_dashboard_served(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
+# #################### endDash
 
-
-# ####################
-
-def get_pub_data(request, org_level, area_id):
+def get_pub_data(request,org_level,area_id):
     print org_level
     print area_id
-    main_dash_data = get_public_dash_ovc_hiv_status(org_level, area_id)
+    main_dash_data=get_public_dash_ovc_hiv_status(org_level,area_id)
     return JsonResponse(main_dash_data, content_type='application/json',
                         safe=False)
 
@@ -79,35 +73,40 @@ def fetch_cbo_list(request):
     return JsonResponse(get_cbo_list(), content_type='application/json',
                         safe=False)
 
-
 def get_locality_data(request):
     print "locality data"
-    locality_data = fetch_locality_data()
+    locality_data=fetch_locality_data()
     return JsonResponse(locality_data, content_type='application/json',
                         safe=False)
 
-
-# ###################
-def get_total_ovc_ever(request, org_level, area_id):
+# ################### dash
+def get_total_ovc_ever(request,org_level,area_id):
     print "total ovc ever"
-    total_ovc_ever = fetch_total_ovc_ever(request, None, org_level, area_id)
+    total_ovc_ever=fetch_total_ovc_ever(request,None,org_level,area_id)
     return JsonResponse(total_ovc_ever, content_type='application/json',
                         safe=False)
+def get_total_ovc_ever_exited(request,org_level,area_id):
+    print "total ovc ever exited"
+    total_ovc_ever_exited=fetch_total_ovc_ever_exited(request,None,org_level,area_id)
+    return JsonResponse(total_ovc_ever_exited, content_type='application/json',
+                        safe=False)
+def get_total_wout_bcert_at_enrol(request,org_level,area_id):
+    print "without birthcert at enrolment"
+    total_wout_bcert_at_enrol=fetch_total_wout_bcert_at_enrol(request,None,org_level,area_id)
+    return JsonResponse(total_wout_bcert_at_enrol, content_type='application/json',
+                        safe=False)
+# ################### endDash
 
+def get_hiv_suppression_data(request,org_level,area_id):
 
-# ###################
-
-def get_hiv_suppression_data(request, org_level, area_id):
-    hiv_suppression_data = get_ovc_hiv_status(request, None, org_level, area_id)
+    hiv_suppression_data=get_ovc_hiv_status(request,None,org_level,area_id)
     return JsonResponse(hiv_suppression_data, content_type='application/json',
                         safe=False)
 
-
-def get_ever_tested_hiv(request, org_level, area_id):
-    ever_tested = get_ever_tested_for_HIV(request, None, org_level, area_id)
+def get_ever_tested_hiv(request,org_level,area_id):
+    ever_tested=get_ever_tested_for_HIV(request,None,org_level,area_id)
     return JsonResponse(ever_tested, content_type='application/json',
                         safe=False)
-
 
 @login_required(login_url='/login/')
 def home(request):
@@ -142,7 +141,7 @@ def get_dashboard(request):
         summary['workforce'] = '{:,}'.format(dash['workforce_members'])
         summary['cases'] = '{:,}'.format(dash['case_records'])
         summary['pending'] = '{:08}'.format(dash['pending_cases'])
-        # summary['hiv_status'] = dash['hiv_status']
+        #summary['hiv_status'] = dash['hiv_status']
 
         # OVC care
         odash = ovc_dashboard(request)
@@ -226,7 +225,7 @@ def get_dashboard(request):
                 'dvals': dvals, 'cvals': cvals, 'data': summary,
                 'ovals': ovals, 'ovc': ovc, 'omvals': omdata,
                 'ofvals': ofdata}
-        mc.set(user_key, vals, 6 * 60 * 60)
+        mc.set(user_key, vals, 6 * 60 * 60 )
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
