@@ -213,7 +213,7 @@
             if(parseFloat(the_month) < 10){the_month = '0'+the_month;}
             var the_year = dateparts[1];
             m_y_array.push(the_month);
-            m_y_array.push(the_year-1);
+            m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
         $.ajax({
@@ -416,7 +416,7 @@
     function displayExitedOVCRegs(the_data, months_arr){
            var elementId="ovc_exits";
            var the_x_axis= months_arr;
-           var the_title = 'OVC Exited from the program withn period';
+           var the_title = 'OVC Exited from the program within period';
            var the_series = [
                                 // { name: 'Female', data: [3896, 3979, 1798, 7687, 4565] },
                                 // { name: 'Male', data: [1396, 1979, 7908, 4767, 5365] }
