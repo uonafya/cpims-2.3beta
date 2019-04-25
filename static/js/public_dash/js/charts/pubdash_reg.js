@@ -23,12 +23,29 @@
 
     });
 
+    $('#period').change(function (e) { 
+        var per_val = $(this).find('option:selected').val();
+        var months_arr2=getMonths(per_val);
+        // 1
+        fetchNewOVCRegs('national',"",months_arr2);
+        fetchActiveOVCs('national',"",months_arr2);
+        // 1
+        // 2
+        fetchExitedOVCRegs('national',"",months_arr2);
+        fetchExitedHseld('national',"",months_arr2);
+        // 2
+        // 3
+        fetchServedBCert('national',"",months_arr2);
+        fetchU5ServedBcert('national',"",months_arr2);
+        // 3        
+    });
+
     function getMonths(periodType) {
         if(periodType == undefined || periodType == null || periodType == ''){
             periodType = 12;
         }
         cur_year = new Date().getFullYear();
-        cur_month = new Date('January 17, 1995 03:24:00').getMonth();
+        cur_month = new Date().getMonth();
         var months_arr = [];
         if(periodType == 12){
             if(parseFloat(cur_month) < 9){
