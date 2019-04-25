@@ -2,23 +2,23 @@
         var org_level='national';
         var months_arr=getMonths();
         // 1
-        fetchTotalOVCsEver('national',"");
-        fetchNewOVCRegs('national',"",months_arr);
-        fetchActiveOVCs('national',"",months_arr);
+        fetchTotalOVCsEver('national',"0");
+        fetchNewOVCRegs('national',"0",months_arr);
+        fetchActiveOVCs('national',"0",months_arr);
         // 1
 
         // 2
-        fetchTotalOVCsEverExited('national',"");
-        fetchExitedOVCRegs('national',"",months_arr);
-        fetchExitedHseld('national',"",months_arr);
+        fetchTotalOVCsEverExited('national',"0");
+        fetchExitedOVCRegs('national',"0",months_arr);
+        fetchExitedHseld('national',"0",months_arr);
         // 2
 
         // 3
-        fetchWoBCertAtEnrol('national',"")
-        fetchServedBCert('national',"",months_arr)
-        fetchWithBCertToDate('national',"")
-        fetchServedBCertAftEnrol('national',"")
-        fetchU5ServedBcert('national',"",months_arr)
+        fetchWoBCertAtEnrol('national',"0")
+        fetchServedBCert('national',"0",months_arr)
+        fetchWithBCertToDate('national',"0")
+        fetchServedBCertAftEnrol('national',"0")
+        fetchU5ServedBcert('national',"0",months_arr)
         // 3
 
     });
@@ -27,16 +27,16 @@
         var per_val = $(this).find('option:selected').val();
         var months_arr2=getMonths(per_val);
         // 1
-        fetchNewOVCRegs('national',"",months_arr2);
-        fetchActiveOVCs('national',"",months_arr2);
+        fetchNewOVCRegs('national',"0",months_arr2);
+        fetchActiveOVCs('national',"0",months_arr2);
         // 1
         // 2
-        fetchExitedOVCRegs('national',"",months_arr2);
-        fetchExitedHseld('national',"",months_arr2);
+        fetchExitedOVCRegs('national',"0",months_arr2);
+        fetchExitedHseld('national',"0",months_arr2);
         // 2
         // 3
-        fetchServedBCert('national',"",months_arr2);
-        fetchU5ServedBcert('national',"",months_arr2);
+        fetchServedBCert('national',"0",months_arr2);
+        fetchU5ServedBcert('national',"0",months_arr2);
         // 3        
     });
 
