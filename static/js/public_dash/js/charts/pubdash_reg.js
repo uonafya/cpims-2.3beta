@@ -213,7 +213,7 @@
             if(parseFloat(the_month) < 10){the_month = '0'+the_month;}
             var the_year = dateparts[1];
             m_y_array.push(the_month);
-            m_y_array.push(the_year);
+            m_y_array.push(the_year-1);
             month_year.push(m_y_array);
         });
         $.ajax({
