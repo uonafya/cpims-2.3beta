@@ -1,0 +1,362 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>CPIMS - Public Dashboard - HIVSTAT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="{% static 'js/public_dash/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
+          rel="stylesheet">
+    <link href="{% static 'js/public_dash/css/font-awesome.css' %}" rel="stylesheet">
+    <link href="{% static 'js/public_dash/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'js/public_dash/css/pages/dashboard.css' %}" rel="stylesheet">
+    <link href="{% static 'js/public_dash/js/chosen/chosen.css' %}" rel="stylesheet" type="text/css"/>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js' %}"></script>
+    <![endif]-->
+
+    <style>
+        .subnavbar .dropdown-menu .rm::before {
+                content: '';
+                display: none;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+                border-bottom-color: initial;
+                position: initial;
+                top: initial;
+                left: initial;
+            }
+
+            .subnavbar .dropdown-menu .rm::after {
+                display: none;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+                position: initial;
+                top: initial;
+                left: initial;
+            }
+
+            .dropdown-submenu {
+                position:relative;
+            }
+            .dropdown-submenu>.dropdown-menu {
+                top:0;
+                left:100%;
+                margin-top:-6px;
+                margin-left:-1px;
+                -webkit-border-radius:0 6px 6px 6px;
+                -moz-border-radius:0 6px 6px 6px;
+                border-radius:0 6px 6px 6px;
+            }
+            .dropdown-submenu:hover>.dropdown-menu {
+                display:block;
+            }
+            .dropdown-submenu>a:after {
+                display:block;
+                content:" ";
+                float:right;
+                width:0;
+                height:0;
+                border-color:transparent;
+                border-style:solid;
+                border-width:5px 0 5px 5px;
+                border-left-color:#cccccc;
+                margin-top:5px;
+                margin-right:-10px;
+            }
+            .dropdown-submenu:hover>a:after {
+                border-left-color:#ffffff;
+            }
+            .dropdown-submenu.pull-left {
+                float:none;
+            }
+            .dropdown-submenu.pull-left>.dropdown-menu {
+                left:-100%;
+                margin-left:10px;
+                -webkit-border-radius:6px 0 6px 6px;
+                -moz-border-radius:6px 0 6px 6px;
+                border-radius:6px 0 6px 6px;
+            }
+
+            .mainnav {
+
+                list-style: none;
+                }
+            .mainnav li{
+                display: inline-block;
+            }
+            .subnavbar .container > ul > li {
+                border-left: 0px solid #d9d9d9;
+                margin-right: 10px;
+            }
+
+            .logo-img {
+                display: inline-block;
+                height:40px;
+                float: left;
+                width: 45px;
+                margin-top: 2px;
+                background: url("{% static 'img/logo.png' %}") left center no-repeat;
+            }
+
+            .org-unit-label {
+                background-color: #1ba39c;
+                height: 25px ! important;
+                /* border-radius: 5px; */
+                width: 100%;
+                text-align: left;
+                padding-left: 5px;
+            }
+
+            .chosen-single {
+                text-align: left;
+            }
+
+            /* .chosen-container{
+                margin-right:20px;
+            } */
+
+    </style>
+
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <div class="logo-img">
+
+                </div>
+                <a class="logo navbar-brand " style="font-weight: bold; color: white" href="#">CPIMS DASHBOARD</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </div>
+</nav>
+
+
+<div class="subnavbar">
+    <div class="subnavbar-inner">
+        <div class="container">
+
+            <ul class="mainnav 20px">
+                <li class="active" style="margin-right: 30px;">
+                    <select class="form-control" id="county-organisation-unit" >
+                        <option value="" disabled selected>Select County:</option>
+                    </select>
+                </li>
+
+                <li class="active" style="margin-right: 30px; " >
+                    <select class="form-control" id="countituency-organisation-unit" disabled>
+                        <option value="" disabled selected>Select sub-county:</option>
+                    </select>
+                </li>
+
+                <li class="active" style="margin-right: 30px; " >
+                    <select class="form-control" id="ward-organisation-unit" disabled>
+                        <option value="" disabled selected>Select ward:</option>
+                    </select>
+                </li>
+
+                <li style="float: right;"  class="active pull-right">
+                    <ul class="mainnav">
+                        <li class="active">
+                            <select id="funding-mechanism">
+                                <option value="" disabled selected>Funding Meachanism:</option>
+                                <option data-value="funding_mechanism" value="0"  > USAID</option>
+                                <option data-value="funding_mechanism" value="1"  > CDC</option>
+                                <option data-value="funding_mechanism" value="2"  > DOD</option>
+                                <option data-value="funding_mechanism" value="3"  > Others</option>
+                            </select>
+                        </li>
+                        <li class="active">
+                            <select id="cluster-unit" disabled>
+                                <option data-value="cluster" value="" disabled selected>Cluster:</option>
+                                <option data-value="cluster" value="0b3bed3b-8e96-4173-80c3-dbaca5750c5b"  > Nilinde</option>
+                                <option data-value="cluster" value="9d40cb90-23ce-447c-969f-3888b96cdf16"  > Mwendo</option>
+                                <option data-value="cluster" value="7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1"  > Case</option>
+                                <option data-value="cluster" value="bcc9e119-388f-4840-93b3-1ee7e07d3ffa" > AMPATHPlus</option>
+                                <option data-value="cluster" value="8949ab03-a430-44d0-a94c-4457118b9485" > Cogri</option>
+                            </select>
+                        </li>
+                        <li class="active">
+                            <select id="cbo-unit" disabled>
+                                <option value="" disabled selected>CBO:</option>
+                            </select>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /subnavbar-inner -->
+</div>
+<!-- /subnavbar -->
+
+<div class="main">
+    <div class="main-inner">
+        
+        <div class="row">
+            <div class="col-md-12">
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        Page 1
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/2/">Page 2</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/3/">Page 3</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/4/">Page 4</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/5/">Page 5</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/6/">Page 6</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/7/">Page 7</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/8/">Page 8</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/9/">Page 9</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        
+        <div id="charts-board" class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">OVCs ever registered</h5>
+                            <h1 class="card-text" id="all_ovc_reg"></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body" id="new_ovc_registrations">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body" id="active_ovc">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+        </div>
+
+        <div class="row">
+                <div class="col-md-12">
+                <ol class="breadcrumb pull-right">
+                    <li>
+                        Page 1
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/2/">Page 2</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/3/">Page 3</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/4/">Page 4</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/5/">Page 5</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/6/">Page 6</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/7/">Page 7</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/8/">Page 8</a>
+                    </li>
+                    <li class="active">
+                        <a href="/public_dashboard/9/">Page 9</a>
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /main-inner -->
+</div>
+<!-- /main -->
+
+<!-- /extra -->
+<div class="footer">
+    <div class="footer-inner">
+        <div class="container">
+            <div class="row">
+                <div class="span12"> &copy; 2018 <a href="#">CPIMS DASHBAORD</a>.</div>
+                <!-- /span12 -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /footer-inner -->
+</div>
+<!-- /footer -->
+
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="{% static 'js/public_dash/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/public_dash/js/charts/highcharts.js' %}"></script>
+
+<script src="{% static 'js/public_dash/js/base.js' %}"></script>
+<script src="{% static 'js/public_dash/js/bootstrap.min.js' %}"></script>
+<script language="javascript" type="text/javascript"></script>
+
+<script src="{% static 'js/public_dash/js/jquery-ui.min.js' %}"></script>
+
+<script src="{% static 'js/public_dash/js/charts/barchart.js' %}"></script>
+
+<script src="{% static 'js/public_dash/js/chosen/chosen.jquery.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/public_dash/js/charts/pubdash_1.js' %}"></script>
+<script src="{% static 'js/public_dash/js/custom.js' %}"></script>
+
+
+</body>
+</html>
+
