@@ -98,36 +98,102 @@ def fetch_total_s_bcert_aft_enrol(request, org_ids, level='', area_id=''):
             print 'error on fetch_total_s_bcert_aft_enrol - %s' % (str(e))
     return total_s_bcert_aft_enrol
     
+
+    
 def fetch_new_ovcregs_by_period(request,org_ids,level='',area_id='',month_year=''):
     # print 'oooop running fetch_new_ovcregs_by_period month_year='+month_year+" \n "
     month_year = json.loads(month_year)
     new_ovcregs_by_period = []
     for m_y in month_year:
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute(
-                    "Select count(distinct id) from ovc_registration where (select date_part('month', registration_date))={} and (select date_part('year', registration_date))={}".format(m_y[0],m_y[1])
-                )
-                for record in cursor:
-                    new_ovcregs_by_period.append(record[0])
-            except Exception, e:
-                print 'error on fetch_new_ovcregs_by_period - %s' % (str(e))
+        if (level == 'national' or level == ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        new_ovcregs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_new_ovcregs_by_period (national) - %s' % (str(e))
+        elif (level == 'county' and area_id != ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}'))) and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        new_ovcregs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_new_ovcregs_by_period (county) - %s' % (str(e))
+        elif (level == 'subcounty' and area_id != ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}'))) and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        new_ovcregs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_new_ovcregs_by_period (subounty) - %s' % (str(e))
+        elif (level == 'ward' and area_id != ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}'))) and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        new_ovcregs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_new_ovcregs_by_period (ward) - %s' % (str(e))
     return new_ovcregs_by_period
     
+
+
 def fetch_active_ovcs_by_period(request,org_ids,level='',area_id='',month_year=''):
     # print 'oooop running fetch_active_ovcs_by_period month_year='+month_year+" \n "
     month_year = json.loads(month_year)
     active_ovcs_by_period = []
     for m_y in month_year:
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute(
-                    "Select count(distinct id) from ovc_registration where is_active=true and (select date_part('month', registration_date))={} and (select date_part('year', registration_date))={}".format(m_y[0],m_y[1])
-                )
-                for record in cursor:
-                    active_ovcs_by_period.append(record[0])
-            except Exception, e:
-                print 'error on fetch_active_ovcs_by_period - %s' % (str(e))
+        if (level == 'national' or level == ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where ovc_reg.is_active=true and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        active_ovcs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_active_ovcs_by_period (national) - %s' % (str(e))
+        elif (level == 'county' and area_id != ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}'))) and ovc_reg.is_active=true and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        active_ovcs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_active_ovcs_by_period (county) - %s' % (str(e))
+        elif (level == 'subcounty' and area_id != ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}'))) and ovc_reg.is_active=true and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        active_ovcs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_active_ovcs_by_period (subounty) - %s' % (str(e))
+        elif (level == 'ward' and area_id != ''):
+            with connection.cursor() as cursor:
+                try:
+                    cursor.execute(
+                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}'))) and ovc_reg.is_active=true and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
+                    )
+                    for record in cursor:
+                        active_ovcs_by_period.append(record[0])
+                except Exception, e:
+                    print 'error on fetch_active_ovcs_by_period (ward) - %s' % (str(e))
     return active_ovcs_by_period
     
 def fetch_exited_ovcs_by_period(request,org_ids,level='',area_id='',month_year=''):

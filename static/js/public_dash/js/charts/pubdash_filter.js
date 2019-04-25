@@ -109,9 +109,9 @@ $('#county-organisation-unit').on('change', function (event) {
 
     initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit","200px");
     initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit","200px");
-    fetchHivStatsFromServer('county',selectedCountyId);
-    fetchActiveOvcHivStats('county',selectedCountyId);
-    fetchCascade90FromServer('county',selectedCountyId);
+    // fetchHivStatsFromServer('county',selectedCountyId);
+    // fetchActiveOvcHivStats('county',selectedCountyId);
+    // fetchCascade90FromServer('county',selectedCountyId);
 
     //-----reg-----
     ouChange('county',selectedCountyId);    
@@ -125,9 +125,9 @@ $('#countituency-organisation-unit').on('change', function (event) {
     var selectedSubCountyId = $("#countituency-organisation-unit option:selected").attr('data-id');
     var selectedSubCountyName=$("#countituency-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedSubCountyName);
-    fetchHivStatsFromServer('subcounty',selectedSubCountyId);
-    fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
-    fetchCascade90FromServer('subcounty',selectedSubCountyId);
+    // fetchHivStatsFromServer('subcounty',selectedSubCountyId);
+    // fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
+    // fetchCascade90FromServer('subcounty',selectedSubCountyId);
 
     //-----reg-----
         ouChange('subcounty',selectedSubCountyId)
@@ -151,9 +151,9 @@ $('#ward-organisation-unit').on('change', function (event) {
     var selectedWardId = $("#ward-organisation-unit option:selected").attr('data-id');
     var selectedWardName=$("#ward-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedWardName);
-    fetchHivStatsFromServer('ward',selectedWardId);
-    fetchActiveOvcHivStats('ward',selectedWardId);
-    fetchCascade90FromServer('ward',selectedWardId);
+    // fetchHivStatsFromServer('ward',selectedWardId);
+    // fetchActiveOvcHivStats('ward',selectedWardId);
+    // fetchCascade90FromServer('ward',selectedWardId);
 
     //-----reg-----
         ouChange('ward',selectedWardId);    
@@ -170,9 +170,9 @@ $('#funding-mechanism').on('change', function (event) {
         $('#cluster-unit').prop("disabled", false); // Element(s) are now enabled.
         initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
 
-        fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
-        fetchActiveOvcHivStats(selectedPartnerValue,selectedPartnerId);
-        fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
+        // fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
+        // fetchActiveOvcHivStats(selectedPartnerValue,selectedPartnerId);
+        // fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
 
      }else{
          destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
@@ -199,9 +199,9 @@ $('#cluster-unit').on('change', function (event) {
      });
      initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
 
-    fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
-    fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
-    fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
+    // fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
+    // fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
+    // fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
 
 });
 
@@ -258,8 +258,8 @@ function fetchCBOData(){
         encode: true,
         success: function (data, textStatus, jqXHR) {
             cboData=data;
-            console.log("cbo data");
-            console.log(data);
+            // console.log("cbo data");
+            // console.log(data);
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");

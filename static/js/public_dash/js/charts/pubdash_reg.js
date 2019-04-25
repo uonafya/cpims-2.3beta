@@ -40,6 +40,24 @@
         // 3        
     });
 
+    function ouChange(levl,ouid) {
+      var months_array=getMonths();
+      // ---reg---
+        // 1
+        fetchNewOVCRegs(levl,ouid,months_array);
+        fetchActiveOVCs(levl,ouid,months_array);
+        // 1
+        // 2
+        fetchExitedOVCRegs(levl,ouid,months_array);
+        fetchExitedHseld(levl,ouid,months_array);
+        // 2
+        // 3
+        fetchServedBCert(levl,ouid,months_array);
+        fetchU5ServedBcert(levl,ouid,months_array);
+        // 3       
+      // ---reg---
+    }
+
     function getMonths(periodType) {
         if(periodType == undefined || periodType == null || periodType == ''){
             periodType = 12;
@@ -479,13 +497,3 @@
     //--3--
     // -----------------display-----------------
     
-    
-    //sleep function
-    // function sleep(milliseconds) {
-    // 	var start = new Date().getTime();
-    // 	for (var i = 0; i < 1e7; i++) {
-    // 		if ((new Date().getTime() - start) > milliseconds) {
-    // 			break;
-    // 		}
-    // 	}
-    // }
