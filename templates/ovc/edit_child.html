@@ -523,21 +523,56 @@
               <h4 class="modal-title">HIV Status</h4>
             </div>
             <div class="modal-body">
-           <form>
-               {% csrf_token %}
-               <div class="col-md-8">
-                   <label>Date of HIV testing</label>
-                    {{form.date_of_testing}}
-
-               </div>
-               
-               <div class="col-md-8">
-                   <label> HIV Status</label>
-                    {{form.hiv_status}}
-               </div>
-               
-               <button type="button" class="form-group btn btn-primary m-r-5" name='btn-hiv' id='btn_hiv'>submit</button>
+        <form id="hivstatus">
+            <div class="row">
+                {% csrf_token %}
+                <div  class="col-md-6">
+                    <label>Date of HIV testing</label>
+                        {{form.date_of_testing}}
+                        
+                </div>
+                <div class="col-md-6">
+                    <label> HIV Status</label>
+                        {{form.hiv_statuss}}
+                </div>
+                <div class="col-md-12">
+                <button type="button" class="btn btn-primary m-r-5" name='btn-hiv' id='btn_hiv'>submit</button>
+                </div>
+                </div>
            </form>
+            </div>
+            <div>
+                    {% if hiv_data %}
+                    <table border="1">
+                            <tr>
+                              <th>HIV STATUS</th>
+                              <th>DATE OF TESTING</th> 
+                            </tr>
+                            {% for data in hiv_data %}
+                            {% if data.hiv_status = "HSTP" %}
+                            <tr>
+                                <td>Positive</td>
+                                <td>{{data.date_of_event}}</td>
+                            </tr>
+                            {% elif data.hiv_status = "HSTN" %}
+                            <tr>
+                                <td>Negative</td>
+                                <td>{{data.date_of_event}}</td>
+                            </tr>
+                            {% elif data.hiv_status = "HSKN" %}
+                            <tr>
+                                <td>Not Known</td>
+                                <td>{{data.date_of_event}}</td>
+                            </tr>
+                            {% endif %}
+                           
+                            {% endfor %}
+                         </table>
+
+                    {% else %}
+                    <p>No data available</p>
+                    {% endif %}
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -776,22 +811,22 @@
 
     $('#btn_hiv').click(function(ev) {
         ev.preventDefault();
-        // alert('abdi')
         var date_of_testing=$('#date_of_event').val();
-        var hiv_status=$('#hiv_status').val();
+        var hiv_statuss=$('#hiv_statuss option:selected').val();
+        // alert(hiv_statuss);
         var csrftoken = $.cookie('csrftoken');
         var child="{{child.id}}";
         console.log('abdiiii ' +date_of_testing);
-        console.log('Moha ' +hiv_status);
+        console.log('Moha ' +hiv_statuss);
         console.log('WEWEW ' +child);
 
         var csrftoken = $.cookie('csrftoken');
         var values = {
-                      'hiv_status': hiv_status,
+                      'hiv_statuss': hiv_statuss,
                       'date_of_testing': date_of_testing,
                       'child':child,
                       'csrfmiddlewaretoken': csrftoken };
-        if(date_of_testing && hiv_status){
+        if(date_of_testing && hiv_statuss){
             $.ajax({
                 type: "POST",
                 data: values,
@@ -801,8 +836,8 @@
                     $('#messages').html('HIV status update was successful' );
                     $('#messages').show();
                     // Redirect to view
-                    // $('#modal-hiv').modal('toggle');
-                    // $(location).attr('href', '{% url 'ovc_view' id=child.id %}');
+                    $('#modal-hiv').modal('toggle');
+                    $(location).attr('href', '{% url 'ovc_view' id=child.id %}');
                 },
                 // error: function(){
                 //     $('#messages').html("Error");

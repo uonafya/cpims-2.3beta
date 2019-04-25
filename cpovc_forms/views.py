@@ -9237,19 +9237,17 @@ def hiv_status(request):
                 house_hold=house_hold,
                 date_of_event=timezone.now()
                 )
-            
+            hiv_status = request.POST.get('hiv_statuss')
+            print ('llllll', hiv_status)
             OVCHivStatus(
                 person = RegPerson.objects.get(pk=int(child)),
-                hiv_status = request.POST.get('hiv_status'),
+                hiv_status = request.POST.get('hiv_statuss'),
                 event = ovccareevent,
                 date_of_event =request.POST.get('date_of_testing')
                 ).save()
 
             msg = 'HIV status updated successful'
             messages.add_message(request, messages.INFO, msg)
-
-            url = reverse('ovc_view', kwargs={'id': id})
-            return HttpResponseRedirect(url)
 
     except Exception, e:
         msg = 'hiv status save error : (%s)' % (str(e))
