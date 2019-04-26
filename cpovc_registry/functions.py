@@ -10,9 +10,9 @@ from cpovc_main.functions import convert_date, get_dict
 from django.db.models import Q, Count
 from .models import (
     RegOrgUnitContact, RegOrgUnit, RegOrgUnitExternalID, RegOrgUnitGeography,
-    RegPersonsOrgUnits, RegPersonsExternalIds, RegPerson, RegPersonsGeo,
-    RegPersonsTypes, RegPersonsSiblings, RegPersonsAuditTrail, AppUser,
-    RegOrgUnitsAuditTrail, OVCHouseHold, PersonsMaster)
+    Regpublic.vw_cpims_registrationOrgUnits, Regpublic.vw_cpims_registrationExternalIds, RegPerson, Regpublic.vw_cpims_registrationGeo,
+    Regpublic.vw_cpims_registrationTypes, Regpublic.vw_cpims_registrationSiblings, Regpublic.vw_cpims_registrationAuditTrail, AppUser,
+    RegOrgUnitsAuditTrail, OVCHouseHold, public.vw_cpims_registrationMaster)
 
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCEligibility
 
@@ -105,7 +105,7 @@ def fetch_new_ovcregs_by_period(request,org_ids,level='',area_id='',month_year='
     month_year = json.loads(month_year)
     new_ovcregs_by_period = []
     for m_y in month_year:
-        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join persons person on person.id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
+        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join public.vw_cpims_registration person on person.id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
         funding_mech_sql = ""
         geo_sql = ""
         #---- funding mech, cluster, cbo
@@ -156,7 +156,7 @@ def fetch_active_ovcs_by_period(request,org_ids,level='',area_id='',month_year='
     active_ovcs_by_period = []
     for m_y in month_year:
 
-        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join persons person on person.id=ovc_reg.person_id where ovc_reg.is_active=true and (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
+        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join public.vw_cpims_registration person on person.id=ovc_reg.person_id where ovc_reg.is_active=true and (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
         funding_mech_sql = ""
         geo_sql = ""
         #---- funding mech, cluster, cbo
@@ -204,7 +204,7 @@ def fetch_exited_ovcs_by_period(request,org_ids,level='',area_id='',month_year='
     month_year = json.loads(month_year)
     exited_ovcs_by_period = []
     for m_y in month_year:
-        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join persons person on person.id=ovc_reg.person_id where ovc_reg.is_active=false and (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
+        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join public.vw_cpims_registration person on person.id=ovc_reg.person_id where ovc_reg.is_active=false and (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
         funding_mech_sql = ""
         geo_sql = ""
         #---- funding mech, cluster, cbo
@@ -252,7 +252,7 @@ def fetch_exited_hsehlds_by_period(request,org_ids,level='',area_id='',month_yea
     month_year = json.loads(month_year)
     exited_hsehlds_by_period = []
     for m_y in month_year:
-        base_sql = "Select count(*) from  public.ovc_household  ovc_reg join persons person on person.id=ovc_reg.head_person_id where ovc_reg.is_void=true and (select date_part('month', ovc_reg.created_at))="+m_y[0]+" and (select date_part('year', ovc_reg.created_at))="+m_y[1]+""
+        base_sql = "Select count(*) from  public.ovc_household  ovc_reg join public.vw_cpims_registration person on person.id=ovc_reg.head_person_id where ovc_reg.is_void=true and (select date_part('month', ovc_reg.created_at))="+m_y[0]+" and (select date_part('year', ovc_reg.created_at))="+m_y[1]+""
         funding_mech_sql = ""
         geo_sql = ""
         funding_mech_sql = ""
@@ -411,7 +411,7 @@ def get_ovc_hiv_status_funding_partner(level, org_unit_id):
         print org_unit_id
         if(org_unit_id == '0'): # usaid
             rows2, desc2 = run_sql_data(None,
-                                        '''Select count(*),person.gender,person.art_status ,person.hiv_status from persons person
+                                        '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.vw_cpims_registration person
                         join  public.ovc_registration  ovc_reg on person.id=ovc_reg.person_id
                         where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                       in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
@@ -421,7 +421,7 @@ def get_ovc_hiv_status_funding_partner(level, org_unit_id):
 
     if (level=='cluster'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from persons person
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.vw_cpims_registration person
                         join  public.ovc_registration  ovc_reg on person.id=ovc_reg.person_id
                         where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id='{}')
                                                   group by person.gender,person.art_status,person.hiv_status'''.format(org_unit_id))
@@ -429,7 +429,7 @@ def get_ovc_hiv_status_funding_partner(level, org_unit_id):
 
     if (level=='cbo_unit'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from persons person
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.vw_cpims_registration person
                                       join  public.ovc_registration  ovc_reg on person.id=ovc_reg.person_id
                                       where person.child_cbo_id ='{}'
                                         group by person.gender,person.art_status,person.hiv_status'''.format(
@@ -446,34 +446,34 @@ def get_public_dash_ovc_hiv_status(level='national', area_id=''):
     rows2, desc2 = 0, 0
     if level == 'national':
         rows2, desc2 = run_sql_data(None,
-                                    "Select count(*),gender,art_status,hiv_status from persons group by gender,art_status,hiv_status")
+                                    "Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration group by gender,art_status,hiv_status")
     elif (level == 'county'):
-        print '''Select count(*),gender,art_status,hiv_status from persons where area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+        print '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
                     (SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
                           group by gender,art_status,hiv_status count(*),gender,art_status,hiv_status  group by gender,art_status,hiv_status'''.format(
             area_id)
 
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
                                         (SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif (level == 'subcounty'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif (level == 'ward'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where area_id='{}'
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where area_id='{}'
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif(level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
         rows2, desc2=get_ovc_hiv_status_funding_partner(level, area_id)
     else:
-        print '''Select count(*),gender,art_status,hiv_status from persons where area_id in (SELECT area_id from list_geo where parent_area_id='{}')
+        print '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where area_id in (SELECT area_id from list_geo where parent_area_id='{}')
       group by gender,art_status,hiv_status'''.format(
             area_id)
 
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where area_id in (SELECT area_id from list_geo where parent_area_id='{}')
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where area_id in (SELECT area_id from list_geo where parent_area_id='{}')
   group by gender,art_status,hiv_status'''.format(
                                         area_id))
 
@@ -528,7 +528,7 @@ def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
         print org_unit_id
         if (org_unit_id == '0'):  # usaid
             rows2, desc2 = run_sql_data(None,
-                                        '''Select count(*),person.gender,person.art_status ,person.hiv_status from persons person
+                                        '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.vw_cpims_registration person
                         join  public.ovc_registration  ovc_reg on person.id=ovc_reg.person_id
                         where person.is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                       in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
@@ -538,7 +538,7 @@ def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
 
     if (level == 'cluster'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from persons person
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.vw_cpims_registration person
                         join  public.ovc_registration  ovc_reg on person.id=ovc_reg.person_id
                         where person.is_active=true and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id='{}')
                                                   group by person.gender,person.art_status,person.hiv_status'''.format(
@@ -546,7 +546,7 @@ def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
 
     if (level == 'cbo_unit'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from persons person
+                                    '''Select count(*),person.gender,person.art_status ,person.hiv_status from public.vw_cpims_registration person
                                       join  public.ovc_registration  ovc_reg on person.id=ovc_reg.person_id
                                       where person.is_active=true and person.child_cbo_id ='{}'
                                         group by person.gender,person.art_status,person.hiv_status'''.format(
@@ -563,20 +563,20 @@ def _get_ovc_active_hiv_status(level='national', area_id=''):
     rows2, desc2 = 0, 0
     if level == 'national':
         rows2, desc2 = run_sql_data(None,
-                                    "Select count(*),gender,art_status,hiv_status from persons where is_active=true group by gender,art_status,hiv_status")
+                                    "Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where is_active=true group by gender,art_status,hiv_status")
     elif (level == 'county'):
 
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
                                         (SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif (level == 'subcounty'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif (level == 'ward'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where is_active=true and area_id='{}'
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where is_active=true and area_id='{}'
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
         print "level reached ===============>"
@@ -584,7 +584,7 @@ def _get_ovc_active_hiv_status(level='national', area_id=''):
     else:
 
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from persons where is_active=true and area_id in (SELECT area_id from list_geo where parent_area_id='{}')
+                                    '''Select count(*),gender,art_status,hiv_status from public.vw_cpims_registration where is_active=true and area_id in (SELECT area_id from list_geo where parent_area_id='{}')
   group by gender,art_status,hiv_status'''.format(
                                         area_id))
 
@@ -641,7 +641,7 @@ def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor, super_user=F
             print "running query"
             cursor.execute(
                 '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from  public.ovc_registration  ovc_reg
-                 join persons person on person.id=ovc_reg.person_id
+                 join public.vw_cpims_registration person on person.id=ovc_reg.person_id
                  where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                    'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
@@ -651,7 +651,7 @@ def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor, super_user=F
 
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from  public.ovc_registration  ovc_reg
-             join persons person on person.id=ovc_reg.person_id
+             join public.vw_cpims_registration person on person.id=ovc_reg.person_id
              where person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                            ) group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(org_unit_id)
         )
@@ -659,7 +659,7 @@ def get_hiv_dashboard_stats_partner_level(request, org_ids, cursor, super_user=F
     if (level=='cbo_unit'):
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from  public.ovc_registration  ovc_reg
-             join persons person on person.id=ovc_reg.person_id
+             join public.vw_cpims_registration person on person.id=ovc_reg.person_id
              where person.child_cbo_id = '{}' group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(org_unit_id)
         )
     return cursor
@@ -670,7 +670,7 @@ def get_hiv_dashboard_stats_geo_level(request, org_ids, cursor, super_user=False
 
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from  public.ovc_registration  ovc_reg
-            join persons person on person.id=ovc_reg.person_id
+            join public.vw_cpims_registration person on person.id=ovc_reg.person_id
             where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
                                                     (SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
             group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(area_id)
@@ -680,7 +680,7 @@ def get_hiv_dashboard_stats_geo_level(request, org_ids, cursor, super_user=False
         super_user = False  # set false to prevent next condition from running.
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from  public.ovc_registration  ovc_reg
-            join persons person on person.id=ovc_reg.person_id
+            join public.vw_cpims_registration person on person.id=ovc_reg.person_id
             where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
             group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(area_id)
         )
@@ -689,7 +689,7 @@ def get_hiv_dashboard_stats_geo_level(request, org_ids, cursor, super_user=False
         super_user = False  # set false to prevent next condition from running.
         cursor.execute(
             '''select count(*),ovc_reg.art_status,ovc_reg.hiv_status from  public.ovc_registration  ovc_reg
-            join persons person on person.id=ovc_reg.person_id
+            join public.vw_cpims_registration person on person.id=ovc_reg.person_id
             where person.area_id='{}'
             group by ovc_reg.hiv_status,ovc_reg.art_status'''.format(area_id)
         )
@@ -1050,7 +1050,7 @@ def dashboard():
     try:
         dash = {}
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
-        person_types = RegPersonsTypes.objects.filter(
+        person_types = Regpublic.vw_cpims_registrationTypes.objects.filter(
             is_void=False, date_ended=None).values(
                 'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
@@ -1067,7 +1067,7 @@ def dashboard():
         case_counts = case_records.count()
         dash['case_records'] = case_counts
         # Workforce members
-        workforce_members = RegPersonsExternalIds.objects.filter(
+        workforce_members = Regpublic.vw_cpims_registrationExternalIds.objects.filter(
             identifier_type_id='IWKF', is_void=False).count()
         dash['workforce_members'] = workforce_members
         # Case categories to find pending cases
@@ -1117,7 +1117,7 @@ def ovc_dashboard(request):
         today = datetime.now()
         start_date = today - timedelta(days=30)
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
-        person_types = RegPersonsTypes.objects.filter(
+        person_types = Regpublic.vw_cpims_registrationTypes.objects.filter(
             is_void=False, date_ended=None).values(
                 'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
@@ -1142,7 +1142,7 @@ def ovc_dashboard(request):
             case_id__summon_status=True).count()
         dash['pending_cases'] = pending_count
         # Child registrations
-        ptypes = RegPersonsTypes.objects.filter(
+        ptypes = Regpublic.vw_cpims_registrationTypes.objects.filter(
             person_type_id='TBVC', is_void=False,
             date_ended=None).values_list('person_id', flat=True)
         # All linked CBOS
@@ -1156,7 +1156,7 @@ def ovc_dashboard(request):
         orgs_count = len(org_ids) - 1 if len(org_ids) > 1 else 1
         dash['org_units'] = orgs_count
         # Case records counts
-        person_orgs = RegPersonsOrgUnits.objects.select_related().filter(
+        person_orgs = Regpublic.vw_cpims_registrationOrgUnits.objects.select_related().filter(
             org_unit_id__in=org_ids, is_void=False,
             date_delinked=None).values_list('person_id', flat=True)
         users_count = AppUser.objects.filter(
@@ -1413,11 +1413,11 @@ def get_index_child(child_id):
     """Method to get the index child."""
     try:
         index_id = 0
-        siblings = RegPersonsSiblings.objects.select_related().filter(
+        siblings = Regpublic.vw_cpims_registrationSiblings.objects.select_related().filter(
             child_person_id=child_id, is_void=False, date_delinked=None)
         # Reverse relationship
         if not siblings:
-            siblings = RegPersonsSiblings.objects.select_related().filter(
+            siblings = Regpublic.vw_cpims_registrationSiblings.objects.select_related().filter(
                 sibling_person_id=child_id, is_void=False,
                 date_delinked=None)
         for sibling in siblings:
@@ -1460,20 +1460,20 @@ def get_chvs(person_id):
     try:
         cbo_detail = {'': "Select CHV"}
         # Get my organisation unit / CBO
-        org_units = RegPersonsOrgUnits.objects.filter(
+        org_units = Regpublic.vw_cpims_registrationOrgUnits.objects.filter(
             is_void=False, person_id=person_id).values_list(
             'org_unit_id', flat=True)
         org_list = [org for org in org_units]
         org_child = get_unit_parent(org_list)
         org_units = org_list + org_child
         # Get all chvs attached to this org unit / CBO
-        person_ids = RegPersonsOrgUnits.objects.filter(
+        person_ids = Regpublic.vw_cpims_registrationOrgUnits.objects.filter(
             is_void=False, org_unit_id__in=org_units).values_list(
             'person_id', flat=True)
         # Filter by types
-        persons = RegPersonsTypes.objects.filter(
+        public.vw_cpims_registration = Regpublic.vw_cpims_registrationTypes.objects.filter(
             is_void=False, person_type_id='TWVL', person_id__in=person_ids)
-        for person in persons:
+        for person in public.vw_cpims_registration:
             cbo_detail[person.id] = person.person.full_name
         chvs = cbo_detail.items()
     except Exception, e:
@@ -1544,12 +1544,12 @@ def person_duplicate(request, person='child'):
             children_qs = children_qs.filter(
                 other_names__iexact=other_names)
         # Check in Geo locations
-        pers_geo = RegPersonsGeo.objects.filter(
+        pers_geo = Regpublic.vw_cpims_registrationGeo.objects.filter(
             area_id=sub_county, is_void=False)
         pers_geo = pers_geo.values_list("person__id")
         children_qs = children_qs.filter(id__in=pers_geo)
         if ward:
-            ward_geo = RegPersonsGeo.objects.filter(
+            ward_geo = Regpublic.vw_cpims_registrationGeo.objects.filter(
                 area_id=ward, is_void=False)
             ward_geo = ward_geo.values_list("person__id")
             children_qs = children_qs.filter(id__in=ward_geo)
@@ -1674,7 +1674,7 @@ def create_geo_list(geo_dict, form_items, geo_type='GLTW'):
                 if geo_item:
                     geo_dict[int(geo_item)] = geo_type
     except Exception, e:
-        print 'Error creating persons geos - %s' % (str(e))
+        print 'Error creating public.vw_cpims_registration geos - %s' % (str(e))
         return geo_dict
     else:
         return geo_dict
@@ -1698,7 +1698,7 @@ def save_audit_trail(request, params, audit_type='Person'):
             person_id = params['person_id']
             if date_recorded_paper:
                 paper_date = convert_date(date_recorded_paper)
-            RegPersonsAuditTrail(
+            Regpublic.vw_cpims_registrationAuditTrail(
                 transaction_type_id=transaction_type_id,
                 interface_id=interface_id,
                 date_recorded_paper=paper_date,
@@ -1779,7 +1779,7 @@ def save_sibling(request, attached_sb, person_id):
                         exit_date=None, created_at=todate)
                     ovc.save()
 
-                nsib, created = RegPersonsSiblings.objects.update_or_create(
+                nsib, created = Regpublic.vw_cpims_registrationSiblings.objects.update_or_create(
                     child_person_id=person_id, is_void=False,
                     sibling_person_id=sibling_id,
                     defaults={'child_person_id': person_id,
@@ -1808,13 +1808,13 @@ def copy_locations(person_id, relative_id, request):
     """Method to copy owners locations to sibling / guardian."""
     try:
         todate = timezone.now()
-        owner_locations = RegPersonsGeo.objects.filter(
+        owner_locations = Regpublic.vw_cpims_registrationGeo.objects.filter(
             is_void=False, date_delinked=None, person_id=person_id)
         if owner_locations:
             for oloc in owner_locations:
                 area_id = oloc.area_id
                 area_type = oloc.area_type
-                nloc, created = RegPersonsGeo.objects.update_or_create(
+                nloc, created = Regpublic.vw_cpims_registrationGeo.objects.update_or_create(
                     person_id=relative_id, area_id=area_id, is_void=False,
                     defaults={'area_id': area_id,
                               'person_id': relative_id,
@@ -1824,7 +1824,7 @@ def copy_locations(person_id, relative_id, request):
         else:
             print 'Child does not exist but create CG'
             area_id = request.POST.get('living_in_subcounty')
-            nloc, created = RegPersonsGeo.objects.update_or_create(
+            nloc, created = Regpublic.vw_cpims_registrationGeo.objects.update_or_create(
                 person_id=relative_id, area_id=area_id, is_void=False,
                 defaults={'area_id': area_id,
                           'person_id': relative_id,
@@ -1840,7 +1840,7 @@ def save_person_extids(identifier_types, person_id):
     try:
         for identifier_type in identifier_types:
             identifier = identifier_types[identifier_type]
-            location, created = RegPersonsExternalIds.objects.update_or_create(
+            location, created = Regpublic.vw_cpims_registrationExternalIds.objects.update_or_create(
                 person_id=person_id, identifier_type_id=identifier_type,
                 is_void=False,
                 defaults={'person_id': person_id, 'identifier': identifier,
@@ -1857,7 +1857,7 @@ def save_person_type(person_types, person_id):
     try:
         now = timezone.now()
         for i, p_type in enumerate(person_types):
-            RegPersonsTypes(
+            Regpublic.vw_cpims_registrationTypes(
                 person_id=person_id,
                 person_type_id=p_type,
                 date_began=now,
@@ -1875,7 +1875,7 @@ def remove_person_type(person_types, person_id):
         now = timezone.now()
         for i, type_id in enumerate(person_types):
             person_area = get_object_or_404(
-                RegPersonsTypes, pk=type_id,
+                Regpublic.vw_cpims_registrationTypes, pk=type_id,
                 person_id=person_id, is_void=False)
             person_area.date_ended = now
             person_area.save(update_fields=["date_ended"])
@@ -1891,7 +1891,7 @@ def save_locations(area_ids, person_id):
         now = timezone.now()
         for area_id in area_ids:
             area_type = area_ids[area_id]
-            RegPersonsGeo(
+            Regpublic.vw_cpims_registrationGeo(
                 person_id=person_id,
                 area_id=area_id,
                 area_type=area_type,
@@ -1910,7 +1910,7 @@ def remove_locations(area_ids, person_id):
         now = timezone.now()
         for area_id in area_ids:
             person_area = get_object_or_404(
-                RegPersonsGeo, pk=area_id, person_id=person_id, is_void=False)
+                Regpublic.vw_cpims_registrationGeo, pk=area_id, person_id=person_id, is_void=False)
             person_area.date_delinked = now
             person_area.is_void = True
             person_area.save(update_fields=["date_delinked", "is_void"])
@@ -2001,30 +2001,30 @@ def auto_suggest_person(request, query, qid=0):
         # Get IDS
         ext_ids = {}
         if psearch:
-            pids = RegPersonsExternalIds.objects.filter(
+            pids = Regpublic.vw_cpims_registrationExternalIds.objects.filter(
                 identifier=psearch, identifier_type_id='INTL',
                 is_void=False)
             person_list = pids.values_list('person_id', flat=True)
-            persons = RegPerson.objects.filter(
+            public.vw_cpims_registration = RegPerson.objects.filter(
                 id__in=person_list, is_void=False)
         else:
-            porgs = RegPersonsOrgUnits.objects.filter(
+            porgs = Regpublic.vw_cpims_registrationOrgUnits.objects.filter(
                 org_unit_id__in=org_ids).values_list('person_id', flat=True)
             # Filters for external ids
             if query_id in detail_list:
                 if reg_ovc:
-                    person_ids = RegPersonsTypes.objects.filter(
+                    person_ids = Regpublic.vw_cpims_registrationTypes.objects.filter(
                         person_type_id=person_type, person_id__in=porgs,
                         is_void=False).values_list(
                             'person_id', flat=True)
                 else:
-                    person_ids = RegPersonsTypes.objects.filter(
+                    person_ids = Regpublic.vw_cpims_registrationTypes.objects.filter(
                         person_type_id=person_type,
                         is_void=False).values_list(
                             'person_id', flat=True)
             else:
                 wf_ids = ['TWNE', 'TWGE', 'TWVL']
-                person_ids = RegPersonsTypes.objects.filter(
+                person_ids = Regpublic.vw_cpims_registrationTypes.objects.filter(
                     person_type_id__in=wf_ids, person_id__in=porgs,
                     is_void=False).values_list(
                         'person_id', flat=True)
@@ -2034,12 +2034,12 @@ def auto_suggest_person(request, query, qid=0):
             q_filter = Q()
             for field in field_names:
                 q_filter |= Q(**{"%s__icontains" % field: query})
-            persons = queryset.filter(q_filter)
-            pids = RegPersonsExternalIds.objects.filter(
+            public.vw_cpims_registration = queryset.filter(q_filter)
+            pids = Regpublic.vw_cpims_registrationExternalIds.objects.filter(
                 person_id__in=person_ids, identifier_type_id='INTL')
         for pid in pids:
             ext_ids[pid.person_id] = pid.identifier
-        for person in persons:
+        for person in public.vw_cpims_registration:
             person_id = person.pk
             onames = person.other_names if person.other_names else ''
             names = '%s %s %s' % (person.first_name, person.surname,
@@ -2092,7 +2092,7 @@ def auto_suggest_person(request, query, qid=0):
                 val['label'] = '%s (%s)' % (name, len(cases))
             results.append(val)
     except Exception, e:
-        print 'error checking persons - %s' % (str(e))
+        print 'error checking public.vw_cpims_registration - %s' % (str(e))
         return []
     else:
         return results
@@ -2164,7 +2164,7 @@ def get_specific_orgs(user_id, i_type=0):
     org_detail, result = {'': 'Select Parent Unit'}, ()
     try:
         org_ids = []
-        org_lists = RegPersonsOrgUnits.objects.select_related().filter(
+        org_lists = Regpublic.vw_cpims_registrationOrgUnits.objects.select_related().filter(
             person_id=user_id, is_void=False)
         if org_lists:
             org_detail, org_ids = create_olists(
@@ -2194,8 +2194,8 @@ def get_specific_geos(list_ids, registry='orgs', reg_type=[]):
     """Get specific Geography based on user id."""
     try:
         orgs = {}
-        if registry == 'persons':
-            geos = RegPersonsGeo.objects.select_related().filter(
+        if registry == 'public.vw_cpims_registration':
+            geos = Regpublic.vw_cpims_registrationGeo.objects.select_related().filter(
                 person_id__in=list_ids, is_void=False, date_delinked=None)
             # For getting all area ids for geo-locations
             for geo in geos:
@@ -2209,7 +2209,7 @@ def get_specific_geos(list_ids, registry='orgs', reg_type=[]):
                         orgs[person_id].append(area_name)
         elif registry == 'person_orgs':
             print 'pps', list_ids
-            geos = RegPersonsOrgUnits.objects.select_related().filter(
+            geos = Regpublic.vw_cpims_registrationOrgUnits.objects.select_related().filter(
                 person_id__in=list_ids, is_void=False)
             # For getting all geo ids for org units
             for geo in geos:
@@ -2232,9 +2232,9 @@ def get_specific_geos(list_ids, registry='orgs', reg_type=[]):
                     orgs[person_id].append(org_name)
         elif registry == 'person_types':
             person_types = get_dict(field_name=['person_type_id'])
-            geos = RegPersonsTypes.objects.select_related().filter(
+            geos = Regpublic.vw_cpims_registrationTypes.objects.select_related().filter(
                 person_id__in=list_ids, is_void=False, date_ended=None)
-            # For getting all person type ids for persons
+            # For getting all person type ids for public.vw_cpims_registration
             for geo in geos:
                 person_id = geo.person_id
                 type_id = geo.person_type_id
@@ -2460,7 +2460,7 @@ def get_external_ids(org_id):
         return ext_ids
 
 
-def perform_audit_persons(org_id):
+def perform_audit_public.vw_cpims_registration(org_id):
     """TO DO."""
     try:
         ext_ids = RegOrgUnitExternalID.objects.filter(
@@ -2617,7 +2617,7 @@ def get_meta_data(request):
 def check_duplicate(person_uid):
     """Method to check duplicates."""
     try:
-        person = PersonsMaster(id=person_uid)
+        person = public.vw_cpims_registrationMaster(id=person_uid)
         person.save()
     except Exception as e:
         print 'error in duplicate page check - %s' % (str(e))
@@ -2627,7 +2627,7 @@ def check_duplicate(person_uid):
 
 
 def search_person_ft(request, search_string, ptype, incl_dead):
-    """Method to search for persons."""
+    """Method to search for public.vw_cpims_registration."""
     try:
         cids = []
         reg_ovc = request.session.get('reg_ovc', 0)
@@ -2648,7 +2648,7 @@ def search_person_ft(request, search_string, ptype, incl_dead):
             sql = query % (vals, person_type, other_filter)
         else:
             # Other than OVC
-            query = ("SELECT reg_person.id as id FROM reg_person INNER JOIN persons_types "
+            query = ("SELECT reg_person.id as id FROM reg_person INNER JOIN public.vw_cpims_registration_types "
                      " ON reg_person.id=person_id AND person_type_id = '%s' WHERE to_tsvector"
                      "(first_name || ' ' || surname || ' '"
                      " || COALESCE(other_names,''))"
