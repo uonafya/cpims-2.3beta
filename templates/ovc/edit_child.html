@@ -545,22 +545,27 @@
                     {% if hiv_data %}
                     <table class="table table-striped table-bordered">
                             <tr>
+                                <th>#</th>
                               <th>HIV STATUS</th>
                               <th>DATE OF TESTING</th> 
+                              
                             </tr>
                             {% for data in hiv_data %}
                             {% if data.hiv_status = "HSTP" %}
                             <tr>
+                                <td>{{ forloop.counter }}</td>
                                 <td>Positive</td>
                                 <td>{{data.date_of_event}}</td>
                             </tr>
                             {% elif data.hiv_status = "HSTN" %}
                             <tr>
+                                <td>{{ forloop.counter }}</td>
                                 <td>Negative</td>
                                 <td>{{data.date_of_event}}</td>
                             </tr>
                             {% elif data.hiv_status = "HSKN" %}
                             <tr>
+                                    <td>{{ forloop.counter }}</td>
                                 <td>Not Known</td>
                                 <td>{{data.date_of_event}}</td>
                             </tr>
