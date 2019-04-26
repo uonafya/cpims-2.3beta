@@ -161,6 +161,10 @@ $('#ward-organisation-unit').on('change', function (event) {
 });
 
 
+$('#period').change(function (e) { 
+    ouChange('national',"0",'none','none');
+});
+
 //funding mechanism event handler
 $('#funding-mechanism').on('change', function (event) {
      var selectedPartnerId = $("#funding-mechanism option:selected").val();

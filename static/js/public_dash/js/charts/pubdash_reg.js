@@ -2,24 +2,6 @@
         ouChange('national',"0",'none','none');
     });
 
-    $('#period').change(function (e) { 
-        // var per_val = $(this).find('option:selected').val();
-        // var months_arr2=getMonths(per_val);
-        ouChange('national',"0",'none','none');
-        // 1
-            // fetchNewOVCRegs('national',"0",months_arr2,'none','none');
-            // fetchActiveOVCs('national',"0",months_arr2,'none','none');
-        // 1
-        // 2
-            // fetchExitedOVCRegs('national',"0",months_arr2,'none','none');
-            // fetchExitedHseld('national',"0",months_arr2,'none','none');
-        // 2
-        // 3
-            // fetchServedBCert('national',"0",months_arr2);
-            // fetchU5ServedBcert('national',"0",months_arr2);
-        // 3        
-    });
-
     function ouChange(levl,ouid,fcc,fcc_val) {
         showLoad(true);
         if(levl == undefined || levl == null || levl == ''){ levl = 'national'; }
