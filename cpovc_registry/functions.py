@@ -10,9 +10,9 @@ from cpovc_main.functions import convert_date, get_dict
 from django.db.models import Q, Count
 from .models import (
     RegOrgUnitContact, RegOrgUnit, RegOrgUnitExternalID, RegOrgUnitGeography,
-    Regpublic.vw_cpims_registrationOrgUnits, Regpublic.vw_cpims_registrationExternalIds, RegPerson, Regpublic.vw_cpims_registrationGeo,
-    Regpublic.vw_cpims_registrationTypes, Regpublic.vw_cpims_registrationSiblings, Regpublic.vw_cpims_registrationAuditTrail, AppUser,
-    RegOrgUnitsAuditTrail, OVCHouseHold, public.vw_cpims_registrationMaster)
+    RegPersonsOrgUnits, RegPersonsExternalIds, RegPerson, RegPersonsGeo,
+    RegPersonsTypes, RegPersonsSiblings, RegPersonsAuditTrail, AppUser,
+    RegOrgUnitsAuditTrail, OVCHouseHold, PersonsMaster)
 
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCEligibility
 
@@ -1050,7 +1050,7 @@ def dashboard():
     try:
         dash = {}
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
-        person_types = Regpublic.vw_cpims_registrationTypes.objects.filter(
+        person_types = RegPersonsTypes.objects.filter(
             is_void=False, date_ended=None).values(
                 'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
@@ -1067,7 +1067,7 @@ def dashboard():
         case_counts = case_records.count()
         dash['case_records'] = case_counts
         # Workforce members
-        workforce_members = Regpublic.vw_cpims_registrationExternalIds.objects.filter(
+        workforce_members = RegPersonsExternalIds.objects.filter(
             identifier_type_id='IWKF', is_void=False).count()
         dash['workforce_members'] = workforce_members
         # Case categories to find pending cases
@@ -1117,7 +1117,7 @@ def ovc_dashboard(request):
         today = datetime.now()
         start_date = today - timedelta(days=30)
         vals = {'TBVC': 0, 'TBGR': 0, 'TWGE': 0, 'TWNE': 0}
-        person_types = Regpublic.vw_cpims_registrationTypes.objects.filter(
+        person_types = RegPersonsTypes.objects.filter(
             is_void=False, date_ended=None).values(
                 'person_type_id').annotate(dc=Count('person_type_id'))
         for person_type in person_types:
@@ -1142,7 +1142,7 @@ def ovc_dashboard(request):
             case_id__summon_status=True).count()
         dash['pending_cases'] = pending_count
         # Child registrations
-        ptypes = Regpublic.vw_cpims_registrationTypes.objects.filter(
+        ptypes = RegPersonsTypes.objects.filter(
             person_type_id='TBVC', is_void=False,
             date_ended=None).values_list('person_id', flat=True)
         # All linked CBOS
@@ -1156,7 +1156,7 @@ def ovc_dashboard(request):
         orgs_count = len(org_ids) - 1 if len(org_ids) > 1 else 1
         dash['org_units'] = orgs_count
         # Case records counts
-        person_orgs = Regpublic.vw_cpims_registrationOrgUnits.objects.select_related().filter(
+        person_orgs = RegPersonsOrgUnits.objects.select_related().filter(
             org_unit_id__in=org_ids, is_void=False,
             date_delinked=None).values_list('person_id', flat=True)
         users_count = AppUser.objects.filter(
@@ -1413,11 +1413,11 @@ def get_index_child(child_id):
     """Method to get the index child."""
     try:
         index_id = 0
-        siblings = Regpublic.vw_cpims_registrationSiblings.objects.select_related().filter(
+        siblings = RegPersonsSiblings.objects.select_related().filter(
             child_person_id=child_id, is_void=False, date_delinked=None)
         # Reverse relationship
         if not siblings:
-            siblings = Regpublic.vw_cpims_registrationSiblings.objects.select_related().filter(
+            siblings = RegPersonsSiblings.objects.select_related().filter(
                 sibling_person_id=child_id, is_void=False,
                 date_delinked=None)
         for sibling in siblings:
@@ -1460,20 +1460,20 @@ def get_chvs(person_id):
     try:
         cbo_detail = {'': "Select CHV"}
         # Get my organisation unit / CBO
-        org_units = Regpublic.vw_cpims_registrationOrgUnits.objects.filter(
+        org_units = RegPersonsOrgUnits.objects.filter(
             is_void=False, person_id=person_id).values_list(
             'org_unit_id', flat=True)
         org_list = [org for org in org_units]
         org_child = get_unit_parent(org_list)
         org_units = org_list + org_child
         # Get all chvs attached to this org unit / CBO
-        person_ids = Regpublic.vw_cpims_registrationOrgUnits.objects.filter(
+        person_ids = RegPersonsOrgUnits.objects.filter(
             is_void=False, org_unit_id__in=org_units).values_list(
             'person_id', flat=True)
         # Filter by types
-        public.vw_cpims_registration = Regpublic.vw_cpims_registrationTypes.objects.filter(
+        public.vw_cpims_registration = RegPersonsTypes.objects.filter(
             is_void=False, person_type_id='TWVL', person_id__in=person_ids)
-        for person in public.vw_cpims_registration:
+        for person in persons:
             cbo_detail[person.id] = person.person.full_name
         chvs = cbo_detail.items()
     except Exception, e:
@@ -1544,12 +1544,12 @@ def person_duplicate(request, person='child'):
             children_qs = children_qs.filter(
                 other_names__iexact=other_names)
         # Check in Geo locations
-        pers_geo = Regpublic.vw_cpims_registrationGeo.objects.filter(
+        pers_geo = RegPersonsGeo.objects.filter(
             area_id=sub_county, is_void=False)
         pers_geo = pers_geo.values_list("person__id")
         children_qs = children_qs.filter(id__in=pers_geo)
         if ward:
-            ward_geo = Regpublic.vw_cpims_registrationGeo.objects.filter(
+            ward_geo = RegPersonsGeo.objects.filter(
                 area_id=ward, is_void=False)
             ward_geo = ward_geo.values_list("person__id")
             children_qs = children_qs.filter(id__in=ward_geo)
@@ -1698,7 +1698,7 @@ def save_audit_trail(request, params, audit_type='Person'):
             person_id = params['person_id']
             if date_recorded_paper:
                 paper_date = convert_date(date_recorded_paper)
-            Regpublic.vw_cpims_registrationAuditTrail(
+            RegPersonsAuditTrail(
                 transaction_type_id=transaction_type_id,
                 interface_id=interface_id,
                 date_recorded_paper=paper_date,
@@ -1779,7 +1779,7 @@ def save_sibling(request, attached_sb, person_id):
                         exit_date=None, created_at=todate)
                     ovc.save()
 
-                nsib, created = Regpublic.vw_cpims_registrationSiblings.objects.update_or_create(
+                nsib, created = RegPersonsSiblings.objects.update_or_create(
                     child_person_id=person_id, is_void=False,
                     sibling_person_id=sibling_id,
                     defaults={'child_person_id': person_id,
@@ -1808,13 +1808,13 @@ def copy_locations(person_id, relative_id, request):
     """Method to copy owners locations to sibling / guardian."""
     try:
         todate = timezone.now()
-        owner_locations = Regpublic.vw_cpims_registrationGeo.objects.filter(
+        owner_locations = RegPersonsGeo.objects.filter(
             is_void=False, date_delinked=None, person_id=person_id)
         if owner_locations:
             for oloc in owner_locations:
                 area_id = oloc.area_id
                 area_type = oloc.area_type
-                nloc, created = Regpublic.vw_cpims_registrationGeo.objects.update_or_create(
+                nloc, created = RegPersonsGeo.objects.update_or_create(
                     person_id=relative_id, area_id=area_id, is_void=False,
                     defaults={'area_id': area_id,
                               'person_id': relative_id,
@@ -1824,7 +1824,7 @@ def copy_locations(person_id, relative_id, request):
         else:
             print 'Child does not exist but create CG'
             area_id = request.POST.get('living_in_subcounty')
-            nloc, created = Regpublic.vw_cpims_registrationGeo.objects.update_or_create(
+            nloc, created = RegPersonsGeo.objects.update_or_create(
                 person_id=relative_id, area_id=area_id, is_void=False,
                 defaults={'area_id': area_id,
                           'person_id': relative_id,
@@ -1840,7 +1840,7 @@ def save_person_extids(identifier_types, person_id):
     try:
         for identifier_type in identifier_types:
             identifier = identifier_types[identifier_type]
-            location, created = Regpublic.vw_cpims_registrationExternalIds.objects.update_or_create(
+            location, created = RegPersonsExternalIds.objects.update_or_create(
                 person_id=person_id, identifier_type_id=identifier_type,
                 is_void=False,
                 defaults={'person_id': person_id, 'identifier': identifier,
@@ -1857,7 +1857,7 @@ def save_person_type(person_types, person_id):
     try:
         now = timezone.now()
         for i, p_type in enumerate(person_types):
-            Regpublic.vw_cpims_registrationTypes(
+            RegPersonsTypes(
                 person_id=person_id,
                 person_type_id=p_type,
                 date_began=now,
@@ -1875,7 +1875,7 @@ def remove_person_type(person_types, person_id):
         now = timezone.now()
         for i, type_id in enumerate(person_types):
             person_area = get_object_or_404(
-                Regpublic.vw_cpims_registrationTypes, pk=type_id,
+                RegPersonsTypes, pk=type_id,
                 person_id=person_id, is_void=False)
             person_area.date_ended = now
             person_area.save(update_fields=["date_ended"])
@@ -1891,7 +1891,7 @@ def save_locations(area_ids, person_id):
         now = timezone.now()
         for area_id in area_ids:
             area_type = area_ids[area_id]
-            Regpublic.vw_cpims_registrationGeo(
+            RegPersonsGeo(
                 person_id=person_id,
                 area_id=area_id,
                 area_type=area_type,
@@ -1910,7 +1910,7 @@ def remove_locations(area_ids, person_id):
         now = timezone.now()
         for area_id in area_ids:
             person_area = get_object_or_404(
-                Regpublic.vw_cpims_registrationGeo, pk=area_id, person_id=person_id, is_void=False)
+                RegPersonsGeo, pk=area_id, person_id=person_id, is_void=False)
             person_area.date_delinked = now
             person_area.is_void = True
             person_area.save(update_fields=["date_delinked", "is_void"])
@@ -2001,30 +2001,30 @@ def auto_suggest_person(request, query, qid=0):
         # Get IDS
         ext_ids = {}
         if psearch:
-            pids = Regpublic.vw_cpims_registrationExternalIds.objects.filter(
+            pids = RegPersonsExternalIds.objects.filter(
                 identifier=psearch, identifier_type_id='INTL',
                 is_void=False)
             person_list = pids.values_list('person_id', flat=True)
             public.vw_cpims_registration = RegPerson.objects.filter(
                 id__in=person_list, is_void=False)
         else:
-            porgs = Regpublic.vw_cpims_registrationOrgUnits.objects.filter(
+            porgs = RegPersonsOrgUnits.objects.filter(
                 org_unit_id__in=org_ids).values_list('person_id', flat=True)
             # Filters for external ids
             if query_id in detail_list:
                 if reg_ovc:
-                    person_ids = Regpublic.vw_cpims_registrationTypes.objects.filter(
+                    person_ids = RegPersonsTypes.objects.filter(
                         person_type_id=person_type, person_id__in=porgs,
                         is_void=False).values_list(
                             'person_id', flat=True)
                 else:
-                    person_ids = Regpublic.vw_cpims_registrationTypes.objects.filter(
+                    person_ids = RegPersonsTypes.objects.filter(
                         person_type_id=person_type,
                         is_void=False).values_list(
                             'person_id', flat=True)
             else:
                 wf_ids = ['TWNE', 'TWGE', 'TWVL']
-                person_ids = Regpublic.vw_cpims_registrationTypes.objects.filter(
+                person_ids = RegPersonsTypes.objects.filter(
                     person_type_id__in=wf_ids, person_id__in=porgs,
                     is_void=False).values_list(
                         'person_id', flat=True)
@@ -2035,11 +2035,11 @@ def auto_suggest_person(request, query, qid=0):
             for field in field_names:
                 q_filter |= Q(**{"%s__icontains" % field: query})
             public.vw_cpims_registration = queryset.filter(q_filter)
-            pids = Regpublic.vw_cpims_registrationExternalIds.objects.filter(
+            pids = RegPersonsExternalIds.objects.filter(
                 person_id__in=person_ids, identifier_type_id='INTL')
         for pid in pids:
             ext_ids[pid.person_id] = pid.identifier
-        for person in public.vw_cpims_registration:
+        for person in persons:
             person_id = person.pk
             onames = person.other_names if person.other_names else ''
             names = '%s %s %s' % (person.first_name, person.surname,
@@ -2164,7 +2164,7 @@ def get_specific_orgs(user_id, i_type=0):
     org_detail, result = {'': 'Select Parent Unit'}, ()
     try:
         org_ids = []
-        org_lists = Regpublic.vw_cpims_registrationOrgUnits.objects.select_related().filter(
+        org_lists = RegPersonsOrgUnits.objects.select_related().filter(
             person_id=user_id, is_void=False)
         if org_lists:
             org_detail, org_ids = create_olists(
@@ -2194,8 +2194,8 @@ def get_specific_geos(list_ids, registry='orgs', reg_type=[]):
     """Get specific Geography based on user id."""
     try:
         orgs = {}
-        if registry == 'public.vw_cpims_registration':
-            geos = Regpublic.vw_cpims_registrationGeo.objects.select_related().filter(
+        if registry == 'persons':
+            geos = RegPersonsGeo.objects.select_related().filter(
                 person_id__in=list_ids, is_void=False, date_delinked=None)
             # For getting all area ids for geo-locations
             for geo in geos:
@@ -2209,7 +2209,7 @@ def get_specific_geos(list_ids, registry='orgs', reg_type=[]):
                         orgs[person_id].append(area_name)
         elif registry == 'person_orgs':
             print 'pps', list_ids
-            geos = Regpublic.vw_cpims_registrationOrgUnits.objects.select_related().filter(
+            geos = RegPersonsOrgUnits.objects.select_related().filter(
                 person_id__in=list_ids, is_void=False)
             # For getting all geo ids for org units
             for geo in geos:
@@ -2232,9 +2232,9 @@ def get_specific_geos(list_ids, registry='orgs', reg_type=[]):
                     orgs[person_id].append(org_name)
         elif registry == 'person_types':
             person_types = get_dict(field_name=['person_type_id'])
-            geos = Regpublic.vw_cpims_registrationTypes.objects.select_related().filter(
+            geos = RegPersonsTypes.objects.select_related().filter(
                 person_id__in=list_ids, is_void=False, date_ended=None)
-            # For getting all person type ids for public.vw_cpims_registration
+            # For getting all person type ids for persons
             for geo in geos:
                 person_id = geo.person_id
                 type_id = geo.person_type_id
@@ -2460,7 +2460,7 @@ def get_external_ids(org_id):
         return ext_ids
 
 
-def perform_audit_public.vw_cpims_registration(org_id):
+def perform_audit_persons(org_id):
     """TO DO."""
     try:
         ext_ids = RegOrgUnitExternalID.objects.filter(
@@ -2617,7 +2617,7 @@ def get_meta_data(request):
 def check_duplicate(person_uid):
     """Method to check duplicates."""
     try:
-        person = public.vw_cpims_registrationMaster(id=person_uid)
+        person = PersonsMaster(id=person_uid)
         person.save()
     except Exception as e:
         print 'error in duplicate page check - %s' % (str(e))
@@ -2627,7 +2627,7 @@ def check_duplicate(person_uid):
 
 
 def search_person_ft(request, search_string, ptype, incl_dead):
-    """Method to search for public.vw_cpims_registration."""
+    """Method to search for persons."""
     try:
         cids = []
         reg_ovc = request.session.get('reg_ovc', 0)
@@ -2648,7 +2648,7 @@ def search_person_ft(request, search_string, ptype, incl_dead):
             sql = query % (vals, person_type, other_filter)
         else:
             # Other than OVC
-            query = ("SELECT reg_person.id as id FROM reg_person INNER JOIN public.vw_cpims_registration_types "
+            query = ("SELECT reg_person.id as id FROM reg_person INNER JOIN persons_types "
                      " ON reg_person.id=person_id AND person_type_id = '%s' WHERE to_tsvector"
                      "(first_name || ' ' || surname || ' '"
                      " || COALESCE(other_names,''))"
