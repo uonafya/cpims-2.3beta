@@ -3,14 +3,14 @@
         var months_arr=getMonths();
         // 1
         fetchTotalOVCsEver('national',"0");
-        fetchNewOVCRegs('national',"0",months_arr);
-        fetchActiveOVCs('national',"0",months_arr);
+        fetchNewOVCRegs('national',"0",months_arr,'none','none');
+        fetchActiveOVCs('national',"0",months_arr,'none','none');
         // 1
 
         // 2
         fetchTotalOVCsEverExited('national',"0");
-        fetchExitedOVCRegs('national',"0",months_arr);
-        fetchExitedHseld('national',"0",months_arr);
+        fetchExitedOVCRegs('national',"0",months_arr,'none','none');
+        fetchExitedHseld('national',"0",months_arr,'none','none');
         // 2
 
         // 3
@@ -27,12 +27,12 @@
         var per_val = $(this).find('option:selected').val();
         var months_arr2=getMonths(per_val);
         // 1
-        fetchNewOVCRegs('national',"0",months_arr2);
-        fetchActiveOVCs('national',"0",months_arr2);
+        fetchNewOVCRegs('national',"0",months_arr2,'none','none');
+        fetchActiveOVCs('national',"0",months_arr2,'none','none');
         // 1
         // 2
-        fetchExitedOVCRegs('national',"0",months_arr2);
-        fetchExitedHseld('national',"0",months_arr2);
+        fetchExitedOVCRegs('national',"0",months_arr2,'none','none');
+        fetchExitedHseld('national',"0",months_arr2,'none','none');
         // 2
         // 3
         fetchServedBCert('national',"0",months_arr2);
@@ -40,16 +40,18 @@
         // 3        
     });
 
-    function ouChange(levl,ouid) {
+    function ouChange(levl,ouid,fcc,fcc_val) {
+      console.log('running ouChange() -> fcc='+fcc+' & fcc_val='+fcc_val);
+      
       var months_array=getMonths();
       // ---reg---
         // 1
-        fetchNewOVCRegs(levl,ouid,months_array);
-        fetchActiveOVCs(levl,ouid,months_array);
+        fetchNewOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+        fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
         // 1
         // 2
-        fetchExitedOVCRegs(levl,ouid,months_array);
-        fetchExitedHseld(levl,ouid,months_array);
+        fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+        fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
         // 2
         // 3
         fetchServedBCert(levl,ouid,months_array);
@@ -132,7 +134,7 @@
             }
         });
     }
-    function fetchNewOVCRegs(org_level,area_id,months_arr){
+    function fetchNewOVCRegs(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -144,9 +146,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url = '/get_new_ovcregs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
         $.ajax({
             type: 'GET',
-            url: '/get_new_ovcregs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+            url: the_url,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             encode: true,
@@ -159,7 +162,7 @@
         });
     }
 
-    function fetchActiveOVCs(org_level,area_id,months_arr){
+    function fetchActiveOVCs(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -171,9 +174,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url = '/get_active_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
          $.ajax({
             type: 'GET',
-            url: '/get_active_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+            url: the_url,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             encode: true,
@@ -204,7 +208,7 @@
            }
        });
    }
-   function fetchExitedOVCRegs(org_level,area_id,months_arr){
+   function fetchExitedOVCRegs(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -216,9 +220,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url='/get_exited_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
         $.ajax({
            type: 'GET',
-           url: '/get_exited_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+           url: the_url,
            contentType: 'application/json; charset=utf-8',
            dataType: 'json',
            encode: true,
@@ -230,7 +235,7 @@
            }
        });
    }
-   function fetchExitedHseld(org_level,area_id,months_arr){
+   function fetchExitedHseld(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -242,9 +247,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url = '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
         $.ajax({
            type: 'GET',
-           url: '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+           url: the_url,
            contentType: 'application/json; charset=utf-8',
            dataType: 'json',
            encode: true,
@@ -458,7 +464,7 @@
            var the_series = [
                                 // { name: 'Female', data: [1196, 979, 3791, 3680, 3565] },
                                 // { name: 'Male', data: [2396, 3979, 7798, 2767, 7565] }
-                                { name: 'OVCs', data: data }
+                                { name: 'DEMO', data: data }
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series)
@@ -488,7 +494,7 @@
            var the_series = [
                                 // { name: 'Female', data: [1987, 2500, 2687, 1230, 4021] },
                                 // { name: 'Male', data: [4570, 2000, 6798, 3290, 5675] }
-                                { name: 'OVCs', data: data }
+                                { name: 'DEMO', data: data }
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series)

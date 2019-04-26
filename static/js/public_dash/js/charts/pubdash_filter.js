@@ -114,7 +114,7 @@ $('#county-organisation-unit').on('change', function (event) {
     // fetchCascade90FromServer('county',selectedCountyId);
 
     //-----reg-----
-    ouChange('county',selectedCountyId);    
+    ouChange('county',selectedCountyId,'none','none');    
     //-----reg-----
 });
 
@@ -130,7 +130,7 @@ $('#countituency-organisation-unit').on('change', function (event) {
     // fetchCascade90FromServer('subcounty',selectedSubCountyId);
 
     //-----reg-----
-        ouChange('subcounty',selectedSubCountyId)
+        ouChange('subcounty',selectedSubCountyId,'none','none')
     //-----reg-----
 
     //change ward list based on selected counstiuency
@@ -156,7 +156,7 @@ $('#ward-organisation-unit').on('change', function (event) {
     // fetchCascade90FromServer('ward',selectedWardId);
 
     //-----reg-----
-        ouChange('ward',selectedWardId);    
+        ouChange('ward',selectedWardId,'none','none');    
     //-----reg-----
 });
 
@@ -170,9 +170,7 @@ $('#funding-mechanism').on('change', function (event) {
         $('#cluster-unit').prop("disabled", false); // Element(s) are now enabled.
         initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
 
-        // fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
-        // fetchActiveOvcHivStats(selectedPartnerValue,selectedPartnerId);
-        // fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
+        ouChange('national','0',selectedPartnerValue,selectedPartnerId); 
 
      }else{
          destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
@@ -199,21 +197,19 @@ $('#cluster-unit').on('change', function (event) {
      });
      initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
 
-    // fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
-    // fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
-    // fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
-
+    ouChange('national','0',selectedClusterValue,selectedClusterId); 
+    
 });
 
 
 //cbo event handler
 $('#cbo-unit').on('change', function (event) {
-     var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
-     var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
+    var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
+    var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
 
-    fetchHivStatsFromServer(selectedCboValue,selectedCboId);
-    fetchActiveOvcHivStats(selectedCboValue,selectedCboId);
-    fetchCascade90FromServer(selectedCboValue,selectedCboId);
+    
+    ouChange('national','0',selectedCboValue,selectedCboId); 
+    
 
 });
 
