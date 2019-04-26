@@ -1,26 +1,5 @@
     $(document).ready(function () {
-        var org_level='national';
-        var months_arr=getMonths();
-        // 1
-        fetchTotalOVCsEver('national',"0");
-        fetchNewOVCRegs('national',"0",months_arr,'none','none');
-        fetchActiveOVCs('national',"0",months_arr,'none','none');
-        // 1
-
-        // 2
-        fetchTotalOVCsEverExited('national',"0");
-        fetchExitedOVCRegs('national',"0",months_arr,'none','none');
-        fetchExitedHseld('national',"0",months_arr,'none','none');
-        // 2
-
-        // 3
-        fetchWoBCertAtEnrol('national',"0")
-        fetchServedBCert('national',"0",months_arr)
-        fetchWithBCertToDate('national',"0")
-        fetchServedBCertAftEnrol('national',"0")
-        fetchU5ServedBcert('national',"0",months_arr)
-        // 3
-
+        ouChange('national',"0",'none','none');
     });
 
     $('#period').change(function (e) { 
@@ -41,23 +20,45 @@
     });
 
     function ouChange(levl,ouid,fcc,fcc_val) {
-      console.log('running ouChange() -> fcc='+fcc+' & fcc_val='+fcc_val);
+        showLoad(true);
+        if(levl == undefined || levl == null || levl == ''){ levl = 'national'; }
+        if(ouid == undefined || ouid == null || ouid == ''){ ouid = '0'; }
+        if(fcc == undefined || fcc == null || fcc == ''){ fcc = 'none'; }
+        if(fcc_val == undefined || fcc_val == null || fcc_val == ''){ fcc_val = 'none'; }
+
+        var periodVal = $(this).find('option:selected').val();
+        var months_array=getMonths();
+        if(periodVal == undefined || periodVal == null){ months_array=getMonths(periodVal); }
+        
+        console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
       
-      var months_array=getMonths();
-      // ---reg---
-        // 1
-        fetchNewOVCRegs(levl,ouid,months_array,fcc,fcc_val);
-        fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
-        // 1
-        // 2
-        fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
-        fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
-        // 2
-        // 3
-        fetchServedBCert(levl,ouid,months_array);
-        fetchU5ServedBcert(levl,ouid,months_array);
-        // 3       
-      // ---reg---
+        // ---reg---
+            // 1
+            fetchNewOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+            fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
+            fetchTotalOVCsEver('national',"0");
+            // 1
+            // 2
+            fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+            fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
+            fetchTotalOVCsEverExited('national',"0");
+            // 2
+            // 3
+            fetchServedBCert(levl,ouid,months_array);
+            fetchU5ServedBcert(levl,ouid,months_array);
+            fetchWoBCertAtEnrol('national',"0")
+            fetchServedBCert('national',"0",months_array)
+            fetchWithBCertToDate('national',"0")
+            fetchServedBCertAftEnrol('national',"0")
+            fetchU5ServedBcert('national',"0",months_array)
+            // 3    
+            
+            // fetchNewOVCRegs('national',"0",months_arr,'none','none');
+            // fetchActiveOVCs('national',"0",months_arr,'none','none');
+            // fetchExitedOVCRegs('national',"0",months_arr,'none','none');
+            // fetchExitedHseld('national',"0",months_arr,'none','none');
+
+        // ---reg---
     }
 
     function getMonths(periodType) {
@@ -395,6 +396,7 @@
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
     }
     function displayActiveOVCs(the_data, months_arr){
            var elementId="active_ovc";
@@ -407,6 +409,7 @@
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
     }
     //--1--
     
@@ -429,7 +432,8 @@
                                 { name: 'OVCs', data: the_data }
                             ];
     
-            barChart(elementId,the_title,the_x_axis,the_series)
+            barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
     }
     function displayExitedHseld(data, months_arr){
         // $.each(data, function (index, objValue) {
@@ -442,7 +446,8 @@
                                 { name: 'Households', data: data }
                             ];
     
-            barChart(elementId,the_title,the_x_axis,the_series)
+            barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
         // });
     }
     //--2--

@@ -105,84 +105,47 @@ def fetch_new_ovcregs_by_period(request,org_ids,level='',area_id='',month_year='
     month_year = json.loads(month_year)
     new_ovcregs_by_period = []
     for m_y in month_year:
+        base_sql = "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
+        funding_mech_sql = ""
+        geo_sql = ""
         #---- funding mech, cluster, cbo
         if (fcc != '' or fcc_val != '' or fcc != 'none' or fcc_val != 'none'):
             print 'runningg funding-cluster-cbo filter...'
             if (fcc == 'funding_mechanism'):
                 if (fcc_val == '0'): #usaid
-                    with connection.cursor() as cursor:
-                        try:
-                            cursor.execute(
-                                "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={} and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1', 'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485')".format(m_y[0],m_y[1])
-                            )
-                            for record in cursor:
-                                new_ovcregs_by_period.append(record[0])
-                        except Exception, e:
-                            print 'error on fetch_new_ovcregs_by_period (funding_mech, usaid) - %s' % (str(e))
+                    funding_mech_sql = funding_mech_sql + " and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1', 'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485') "
+                    print '///USAID...'
             elif (fcc == 'cluster'):
-                with connection.cursor() as cursor:
-                    try:
-                        cursor.execute(
-                            "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={} and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id='{}') ".format(m_y[0],m_y[1],fcc_val)
-                        )
-                        for record in cursor:
-                            new_ovcregs_by_period.append(record[0])
-                    except Exception, e:
-                        print 'error on fetch_new_ovcregs_by_period (cluster) - %s' % (str(e))
-                pass
+                funding_mech_sql = funding_mech_sql + " and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id='"+fcc_val+"') "
+                print '///CLUSTER...'
             elif (fcc == 'cbo'):
-                with connection.cursor() as cursor:
-                    try:
-                        cursor.execute(
-                            "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={} and person.child_cbo_id='{}' ".format(m_y[0],m_y[1],fcc_val)
-                        )
-                        for record in cursor:
-                            new_ovcregs_by_period.append(record[0])
-                    except Exception, e:
-                        print 'error on fetch_new_ovcregs_by_period (cbo) - %s' % (str(e))
-                pass
+                funding_mech_sql = funding_mech_sql + " and person.child_cbo_id='"+fcc_val+"') "
+                print '///CBO...'
         #---- funding mech, cluster, cbo
-        
+
         if (level == 'national' or level == ''):
-            with connection.cursor() as cursor:
-                try:
-                    cursor.execute(
-                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(m_y[0],m_y[1])
-                    )
-                    for record in cursor:
-                        new_ovcregs_by_period.append(record[0])
-                except Exception, e:
-                    print 'error on fetch_new_ovcregs_by_period (national) - %s' % (str(e))
+            geo_sql = geo_sql + ""
+            print '///NATIONAL...'
         elif (level == 'county' and area_id != ''):
-            with connection.cursor() as cursor:
-                try:
-                    cursor.execute(
-                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}'))) and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
-                    )
-                    for record in cursor:
-                        new_ovcregs_by_period.append(record[0])
-                except Exception, e:
-                    print 'error on fetch_new_ovcregs_by_period (county) - %s' % (str(e))
+            geo_sql = geo_sql + " and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='"+area_id+"'))) "
+            print '///COUNTY...'
         elif (level == 'subcounty' and area_id != ''):
-            with connection.cursor() as cursor:
-                try:
-                    cursor.execute(
-                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id in (select area_id as ward_ids from list_geo where parent_area_id'{}') and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
-                    )
-                    for record in cursor:
-                        new_ovcregs_by_period.append(record[0])
-                except Exception, e:
-                    print 'error on fetch_new_ovcregs_by_period (subounty) - %s' % (str(e))
+            geo_sql = geo_sql + " and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id='"+area_id+"')"
+            print '///SUBCOUNTY...'
         elif (level == 'ward' and area_id != ''):
-            with connection.cursor() as cursor:
-                try:
-                    cursor.execute(
-                        "Select count(distinct id) from ovc_registration ovc_reg join persons person on person.person_id=ovc_reg.person_id where person.area_id='{}' and (select date_part('month', ovc_reg.registration_date))={} and (select date_part('year', ovc_reg.registration_date))={}".format(area_id, m_y[0],m_y[1])
-                    )
-                    for record in cursor:
-                        new_ovcregs_by_period.append(record[0])
-                except Exception, e:
-                    print 'error on fetch_new_ovcregs_by_period (ward) - %s' % (str(e))
+            geo_sql = geo_sql + " and person.area_id='"+area_id+"'"
+            print '///WARD...'
+
+        # ---------execute SQL
+        print "EXEcuting SQL... QUERY=> "+base_sql + funding_mech_sql + geo_sql
+        with connection.cursor() as cursor:
+            try:
+                cursor.execute( base_sql + funding_mech_sql + geo_sql )
+                for record in cursor:
+                    new_ovcregs_by_period.append(record[0])
+            except Exception, e:
+                print 'error on fetch_new_ovcregs_by_period (TOTALquery) - %s' % (str(e))
+        # =========execute SQL
     return new_ovcregs_by_period
     
 
