@@ -299,7 +299,6 @@ def ovc_edit(request, id):
         check_fields = ['relationship_type_id']
         vals = get_dict(field_name=check_fields)
         hiv_data=OVCHivStatus.objects.filter(person_id=ovc_id)
-        print ('ggggggg', hiv_data)
         return render(request, 'ovc/edit_child.html',
                       {'form': form, 'status': 200, 'child': child,
                        'vals': vals, 'hhold': hhold, 'extids': gparams,

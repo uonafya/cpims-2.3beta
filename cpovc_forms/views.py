@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from django.utils import timezone
@@ -9238,7 +9238,6 @@ def hiv_status(request):
                 date_of_event=timezone.now()
                 )
             hiv_status = request.POST.get('hiv_statuss')
-            print ('llllll', hiv_status)
             OVCHivStatus(
                 person = RegPerson.objects.get(pk=int(child)),
                 hiv_status = request.POST.get('hiv_statuss'),
@@ -9248,6 +9247,10 @@ def hiv_status(request):
 
             msg = 'HIV status updated successful'
             messages.add_message(request, messages.INFO, msg)
+
+            response=redirect('ovc_edit')
+            return response
+
 
     except Exception, e:
         msg = 'hiv status save error : (%s)' % (str(e))
