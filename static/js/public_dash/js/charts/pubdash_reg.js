@@ -3,19 +3,20 @@
     });
 
     $('#period').change(function (e) { 
-        var per_val = $(this).find('option:selected').val();
-        var months_arr2=getMonths(per_val);
+        // var per_val = $(this).find('option:selected').val();
+        // var months_arr2=getMonths(per_val);
+        ouChange('national',"0",'none','none');
         // 1
-        fetchNewOVCRegs('national',"0",months_arr2,'none','none');
-        fetchActiveOVCs('national',"0",months_arr2,'none','none');
+            // fetchNewOVCRegs('national',"0",months_arr2,'none','none');
+            // fetchActiveOVCs('national',"0",months_arr2,'none','none');
         // 1
         // 2
-        fetchExitedOVCRegs('national',"0",months_arr2,'none','none');
-        fetchExitedHseld('national',"0",months_arr2,'none','none');
+            // fetchExitedOVCRegs('national',"0",months_arr2,'none','none');
+            // fetchExitedHseld('national',"0",months_arr2,'none','none');
         // 2
         // 3
-        fetchServedBCert('national',"0",months_arr2);
-        fetchU5ServedBcert('national',"0",months_arr2);
+            // fetchServedBCert('national',"0",months_arr2);
+            // fetchU5ServedBcert('national',"0",months_arr2);
         // 3        
     });
 
@@ -26,9 +27,10 @@
         if(fcc == undefined || fcc == null || fcc == ''){ fcc = 'none'; }
         if(fcc_val == undefined || fcc_val == null || fcc_val == ''){ fcc_val = 'none'; }
 
-        var periodVal = $(this).find('option:selected').val();
+        var periodVal = $('#period option:selected').val();
         var months_array=getMonths();
-        if(periodVal == undefined || periodVal == null){ months_array=getMonths(periodVal); }
+        if(periodVal == undefined || periodVal == null){ periodVal = 12; }
+        months_array=getMonths(periodVal);
         
         console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
       
