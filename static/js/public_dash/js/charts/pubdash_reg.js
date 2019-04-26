@@ -49,7 +49,7 @@
         if(periodType == undefined || periodType == null || periodType == ''){
             periodType = 12;
         }
-        cur_year = new Date().getFullYear()-1;
+        cur_year = new Date().getFullYear();
         cur_month = new Date().getMonth();
         var months_arr = [];
         if(periodType == 12){
