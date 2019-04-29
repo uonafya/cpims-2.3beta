@@ -250,3 +250,64 @@ function fetchCBOData(){
 
 fetchOrganisationUnitData();
 fetchCBOData();
+
+// CUSTOM
+$('#period').chosen({
+    placeholder_text_single: "Select period ",
+    no_results_text: "No results found",
+    width: "200px"
+});
+$('#period').change(function (e) { 
+    var this_val = $(this).find('option:selected').val();
+    cur_year = new Date().getFullYear();
+    cur_month = new Date('January 17, 1995 03:24:00').getMonth();
+    var months_arr = [];
+
+    if(this_val == 12){
+        if(parseFloat(cur_month) < 9){
+            months_arr.push('10/'+(parseFloat(cur_year)-1));
+            months_arr.push('11/'+(parseFloat(cur_year)-1));
+            months_arr.push('12/'+(parseFloat(cur_year)-1));
+            months_arr.push('1/'+parseFloat(cur_year));
+            months_arr.push('2/'+parseFloat(cur_year));
+            months_arr.push('3/'+parseFloat(cur_year));
+            months_arr.push('4/'+parseFloat(cur_year));
+            months_arr.push('5/'+parseFloat(cur_year));
+            months_arr.push('6/'+parseFloat(cur_year));
+            months_arr.push('7/'+parseFloat(cur_year));
+            months_arr.push('8/'+parseFloat(cur_year));
+            months_arr.push('9/'+parseFloat(cur_year));
+        }else{
+            months_arr.push('10/'+parseFloat(cur_year));
+            months_arr.push('11/'+parseFloat(cur_year));
+            months_arr.push('12/'+parseFloat(cur_year));
+            months_arr.push('1/'+(parseFloat(cur_year)+1));
+            months_arr.push('2/'+(parseFloat(cur_year)+1));
+            months_arr.push('3/'+(parseFloat(cur_year)+1));
+            months_arr.push('4/'+(parseFloat(cur_year)+1));
+            months_arr.push('5/'+(parseFloat(cur_year)+1));
+            months_arr.push('6/'+(parseFloat(cur_year)+1));
+            months_arr.push('7/'+(parseFloat(cur_year)+1));
+            months_arr.push('8/'+(parseFloat(cur_year)+1));
+            months_arr.push('9/'+(parseFloat(cur_year)+1));
+        }
+    }else if(this_val == 6){
+        if(parseFloat(cur_month) < 2){
+            months_arr.push('10/'+(parseFloat(cur_year)-1));
+            months_arr.push('11/'+(parseFloat(cur_year)-1));
+            months_arr.push('12/'+(parseFloat(cur_year)-1));
+            months_arr.push('1/'+parseFloat(cur_year));
+            months_arr.push('2/'+parseFloat(cur_year));
+            months_arr.push('3/'+parseFloat(cur_year));
+        } else{
+            months_arr.push('4/'+parseFloat(cur_year));
+            months_arr.push('5/'+parseFloat(cur_year));
+            months_arr.push('6/'+parseFloat(cur_year));
+            months_arr.push('7/'+parseFloat(cur_year));
+            months_arr.push('8/'+parseFloat(cur_year));
+            months_arr.push('9/'+parseFloat(cur_year));
+        }
+    }
+    // alert(JSON.stringify(months_arr))
+});
+// CUSTOM

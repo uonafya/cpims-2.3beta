@@ -1342,4 +1342,16 @@ color: #333;
 	/* background-color: rgb(75, 130, 242); */
 	text-decoration: underline;
 }
+.filter-input{
+	max-width: 150px; 
+	border: 1px solid #aaa; 
+	padding: 0px 8px; 
+	height: 25px;
+	border-radius: 10px;
+	color: #111;
+	background: linear-gradient(#fff 20%, #f6f6f6 50%, #eee 52%, #f4f4f4 100%);
+	background-clip: border-box;
+	line-height: 24px;
+}
+
 /* CUSTOM */
