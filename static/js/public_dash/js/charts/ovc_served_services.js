@@ -1,12 +1,12 @@
 $(document).ready(function () {
 var org_level='national';
-fetchOvcServedStatusStats('national',"");
+fetchOvcServedStatusStats('national',"","","","");
 });
 
-function fetchOvcServedStatusStats(org_level,org_sub_level){
+function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_part_id,period_type){
      $.ajax({
         type: 'GET', // define the type of HTTP verb we want to use
-        url: '/get_hiv_suppression_data/'+org_level+'/'+org_sub_level+'/', // the url from server we that we want to use
+        url: '/get_ovc_served_stats/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/', // the url from server we that we want to use
         contentType: 'application/json; charset=utf-8',
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,

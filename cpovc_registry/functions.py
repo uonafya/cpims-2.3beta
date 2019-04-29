@@ -138,8 +138,7 @@ def get_cbo_list():
                                  )
                                 ''')
     for x in rows2:
-        print "data here"
-        print x
+
         _cbo={}
 
         _cbo['name']=x['ORG_UNIT_NAME']
@@ -493,8 +492,72 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
 
 
 def get_ever_tested_for_HIV(request, org_ids, level='', area_id=''):
-
     pass
+
+def _get_ovc_served_stats(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='semi'):
+    # "SELECT count(ovccount) FROM public.hiv_status where "
+    rows2, desc2 = 0, 0
+    base_sql='''
+        select DISTINCT ON(gender,numberofservices,time_period) gender,numberofservices,to_char(date_of_event, 'MM-YYYY') 
+            as time_period,cboactive from vw_ovc_services_served where
+        (select 
+            (CASE 
+                when (SELECT EXTRACT(month FROM date_of_event))  between 4 and 9 then 'early'
+                else 'late'
+            end) as cur_period
+            )
+        =
+        (
+        select 
+            (CASE 
+                when (SELECT EXTRACT(month FROM CURRENT_DATE)) between 4 and 9 then 'early'
+                else 'late'
+            end) as cur_period
+            ) and (SELECT EXTRACT(year FROM date_of_event))=(SELECT EXTRACT(year FROM CURRENT_DATE))
+         
+    '''
+
+    if level == 'national':
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql+'''
+                                    group by cboactive,gender,time_period,numberofservices order by gender ,numberofservices ,time_period ,cboactive 
+                                    ''')
+    elif (level == 'county'):
+
+        rows2, desc2 = run_sql_data(None,
+                                    '''
+                                        +group by cbo_id,cboactive,gender,date_of_event,numberofservices
+                                    '''.format(area_id))
+    elif (level == 'subcounty'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
+                                              group by gender,art_status,hiv_status'''.format(area_id))
+    elif (level == 'ward'):
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id='{}'
+                                              group by gender,art_status,hiv_status'''.format(area_id))
+    elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
+        print "level reached ===============>"
+        rows2, desc2 = get_ovc_active_hiv_status_funding_partner(level, area_id)
+    else:
+        rows2, desc2 = run_sql_data(None,
+                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (SELECT area_id from list_geo where parent_area_id='{}')
+                                        group by gender,art_status,hiv_status'''.format(
+                                        area_id))
+    ovc_served_with_services_list_envelop = []
+    for data in rows2:
+        # print i ," ",x['DOMAIN']
+
+        ovc_served_obj = {}
+
+        ovc_served_obj['gender']=data['GENDER']
+        ovc_served_obj['service']=data['NUMBEROFSERVICES']
+        ovc_served_obj['period']=data['TIME_PERIOD']
+        ovc_served_obj['cboactive']=data['CBOACTIVE']
+
+        ovc_served_with_services_list_envelop.append(ovc_served_obj)
+
+    return ovc_served_with_services_list_envelop
 
 
 def get_ovc_hiv_status(request, org_ids, level='', area_id=''):

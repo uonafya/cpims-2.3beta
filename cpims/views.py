@@ -4,7 +4,8 @@ from datetime import datetime, timedelta
 from django.shortcuts import render
 from django.http import JsonResponse
 from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_ovc_hiv_status, \
-    get_ovc_hiv_status, fetch_locality_data,fetch_total_ovc_ever, fetch_total_ovc_ever_exited, fetch_total_wout_bcert_at_enrol, get_cbo_list, get_ever_tested_for_HIV, _get_ovc_active_hiv_status
+    get_ovc_hiv_status, fetch_locality_data,fetch_total_ovc_ever, fetch_total_ovc_ever_exited,\
+    fetch_total_wout_bcert_at_enrol, get_cbo_list, get_ever_tested_for_HIV, _get_ovc_active_hiv_status,_get_ovc_served_stats
 from cpovc_main.functions import get_dict
 from cpovc_access.functions import access_request
 from django.contrib.auth.decorators import login_required
@@ -32,6 +33,7 @@ def public_dashboard_reg(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
+
 def public_dashboard_hivstat(request):
     try:
         print "we are here"
@@ -65,6 +67,12 @@ def get_ovc_active_hiv_status(request, org_level, area_id):
     print org_level
     print area_id
     main_dash_data = _get_ovc_active_hiv_status(org_level, area_id)
+    return JsonResponse(main_dash_data, content_type='application/json',
+                        safe=False)
+
+
+def get_ovc_served_stats(request, org_level,area_id,funding_partner,funding_part_id,period_type):
+    main_dash_data = _get_ovc_served_stats(org_level, area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(main_dash_data, content_type='application/json',
                         safe=False)
 
