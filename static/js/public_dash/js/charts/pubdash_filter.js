@@ -3,8 +3,31 @@ var cboApi= '/fetch_cbo_list/'
 var localityData='';
 var cboData='';
 var selectedCountySiblingsList=''; //list of countituency in the selected county
-var pages=['served','hivstats']
-var currentPage='';
+
+$(document).ready(function () {
+
+    var chartsContext = {
+        currentOrgLevel: "national"
+    };
+
+    $( ".dropdown-menu li" ).click(function(event) {
+        if( $(this).attr("id") == 'national' && chartsContext.currentOrgLevel !='national'){
+            fetchHivStatsFromServer('national');
+            chartsContext.currentOrgLevel ='national'
+        }else if( $(this).attr("id") == 'county' && chartsContext.currentOrgLevel !='county'){
+            fetchHivStatsFromServer('county');
+            chartsContext.currentOrgLevel ='county';
+        }else if( $(this).attr("id") == 'constituency' && chartsContext.currentOrgLevel !='constituency'){
+            fetchHivStatsFromServer('constituency');
+            chartsContext.currentOrgLevel ='constituency';
+        }else if( $(this).attr("id") == 'ward' && chartsContext.currentOrgLevel !='ward'){
+            fetchHivStatsFromServer('ward');
+            chartsContext.currentOrgLevel ='ward';
+        }else {
+        }
+
+    });
+});
 
 
 $(document).ready(function () {
@@ -86,13 +109,13 @@ $('#county-organisation-unit').on('change', function (event) {
 
     initOrganisationUnitChosenDropDown("ward","#ward-organisation-unit","200px");
     initOrganisationUnitChosenDropDown("sub county","#countituency-organisation-unit","200px");
+    // fetchHivStatsFromServer('county',selectedCountyId);
+    // fetchActiveOvcHivStats('county',selectedCountyId);
+    // fetchCascade90FromServer('county',selectedCountyId);
 
-    if(currentPage==pages[1]){
-        fetchHivStatsFromServer('county',selectedCountyId);
-        fetchActiveOvcHivStats('county',selectedCountyId);
-        fetchCascade90FromServer('county',selectedCountyId);
-    }
-
+    //-----reg-----
+    ouChange('county',selectedCountyId,'none','none');    
+    //-----reg-----
 });
 
 
@@ -102,11 +125,14 @@ $('#countituency-organisation-unit').on('change', function (event) {
     var selectedSubCountyId = $("#countituency-organisation-unit option:selected").attr('data-id');
     var selectedSubCountyName=$("#countituency-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedSubCountyName);
-    if(currentPage==pages[1]){
-        fetchHivStatsFromServer('subcounty',selectedSubCountyId);
-        fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
-        fetchCascade90FromServer('subcounty',selectedSubCountyId);
-    }
+    // fetchHivStatsFromServer('subcounty',selectedSubCountyId);
+    // fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
+    // fetchCascade90FromServer('subcounty',selectedSubCountyId);
+
+    //-----reg-----
+        ouChange('subcounty',selectedSubCountyId,'none','none')
+    //-----reg-----
+
     //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
         if(selectedSubCountyId==constituencyKey){
@@ -125,14 +151,19 @@ $('#ward-organisation-unit').on('change', function (event) {
     var selectedWardId = $("#ward-organisation-unit option:selected").attr('data-id');
     var selectedWardName=$("#ward-organisation-unit option:selected").attr('data-name');
     $('.org-unit-label').html(selectedWardName);
-    if(currentPage==pages[1]){
-        fetchHivStatsFromServer('ward',selectedWardId);
-        fetchActiveOvcHivStats('ward',selectedWardId);
-        fetchCascade90FromServer('ward',selectedWardId);
-    }
+    // fetchHivStatsFromServer('ward',selectedWardId);
+    // fetchActiveOvcHivStats('ward',selectedWardId);
+    // fetchCascade90FromServer('ward',selectedWardId);
 
+    //-----reg-----
+        ouChange('ward',selectedWardId,'none','none');    
+    //-----reg-----
 });
 
+
+$('#period').change(function (e) { 
+    ouChange('national',"0",'none','none');
+});
 
 //funding mechanism event handler
 $('#funding-mechanism').on('change', function (event) {
@@ -142,12 +173,8 @@ $('#funding-mechanism').on('change', function (event) {
         destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
         $('#cluster-unit').prop("disabled", false); // Element(s) are now enabled.
         initOrganisationUnitChosenDropDown('cluster','#cluster-unit',"150px");
-        
-        if(currentPage==pages[1]){
-            fetchHivStatsFromServer(selectedPartnerValue,selectedPartnerId);
-            fetchActiveOvcHivStats(selectedPartnerValue,selectedPartnerId);
-            fetchCascade90FromServer(selectedPartnerValue,selectedPartnerId);
-        }
+
+        ouChange('national','0',selectedPartnerValue,selectedPartnerId); 
 
      }else{
          destroyChosenDropDownList('#cluster-unit'); // to enable edit the raw html elements
@@ -173,25 +200,20 @@ $('#cluster-unit').on('change', function (event) {
         }
      });
      initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
-    if(currentPage==pages[1]){
-        fetchHivStatsFromServer(selectedClusterValue,selectedClusterId);
-        fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
-        fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
-    }
 
+    ouChange('national','0',selectedClusterValue,selectedClusterId); 
+    
 });
 
 
 //cbo event handler
 $('#cbo-unit').on('change', function (event) {
-     var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
-     var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
+    var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
+    var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
 
-    if(currentPage==pages[1]){
-        fetchHivStatsFromServer(selectedCboValue,selectedCboId);
-        fetchActiveOvcHivStats(selectedCboValue,selectedCboId);
-        fetchCascade90FromServer(selectedCboValue,selectedCboId);
-    }
+    
+    ouChange('national','0',selectedCboValue,selectedCboId); 
+    
 
 });
 
@@ -236,8 +258,8 @@ function fetchCBOData(){
         encode: true,
         success: function (data, textStatus, jqXHR) {
             cboData=data;
-            console.log("cbo data");
-            console.log(data);
+            // console.log("cbo data");
+            // console.log(data);
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");

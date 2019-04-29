@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
     # url(r'^$', 'cpovc_auth.views.log_in', name='home'),
     url(r'^public_dash/', 'cpims.views.public_dash', name='public_dash'),
+    url(r'^public_dashboard/', 'cpims.views.public_dashboard_reg', name='public_dashboard_reg'),
     url(r'^public_dashboard/registration/', 'cpims.views.public_dashboard_reg', name='public_dashboard_reg'),
     url(r'^public_dashboard/hivstat/', 'cpims.views.public_dashboard_hivstat', name='public_dashboard_hivstat'),
     url(r'^public_dashboard/served/', 'cpims.views.public_dashboard_served', name='public_dashboard_served'),
@@ -42,10 +43,15 @@ urlpatterns = [
     url(r'^get_total_s_bcert_aft_enrol/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_s_bcert_aft_enrol', name='get_total_s_bcert_aft_enrol'),
     url(r'^fetch_cbo_list/', 'cpims.views.fetch_cbo_list', name='fetch_cbo_list'),
     url(r'^get_ever_tested_hiv/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_ever_tested_hiv', name='get_ever_tested_hiv'),
-    url(r'^get_new_ovcregs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_new_ovcregs_by_period', name='get_new_ovcregs_by_period'),
-    url(r'^get_active_ovcs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_active_ovcs_by_period', name='get_active_ovcs_by_period'),
-    url(r'^get_exited_ovcs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_exited_ovcs_by_period', name='get_exited_ovcs_by_period'),
-    url(r'^get_exited_hsehlds_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_exited_hsehlds_by_period', name='get_exited_hsehlds_by_period'),
+
+    url(r'^get_new_ovcregs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/(?P<fcc>\w+)/(?P<fcc_val>.*)/', 'cpims.views.get_new_ovcregs_by_period', name='get_new_ovcregs_by_period'),
+
+    url(r'^get_active_ovcs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/(?P<fcc>\w+)/(?P<fcc_val>.*)/', 'cpims.views.get_active_ovcs_by_period', name='get_active_ovcs_by_period'),
+
+    url(r'^get_exited_ovcs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/(?P<fcc>\w+)/(?P<fcc_val>.*)/', 'cpims.views.get_exited_ovcs_by_period', name='get_exited_ovcs_by_period'),
+
+    url(r'^get_exited_hsehlds_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/(?P<fcc>\w+)/(?P<fcc_val>.*)/', 'cpims.views.get_exited_hsehlds_by_period', name='get_exited_hsehlds_by_period'),
+
     url(r'^get_served_bcert_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_served_bcert_by_period', name='get_served_bcert_by_period'),
     url(r'^get_u5_served_bcert_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_u5_served_bcert_by_period', name='get_u5_served_bcert_by_period'),
     url(r'^get_ovc_served_stats/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_ovc_served_stats', name='get_ovc_served_stats'),

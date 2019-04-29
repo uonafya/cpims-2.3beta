@@ -1,34 +1,56 @@
     $(document).ready(function () {
-        var org_level='national';
-        var months_arr=getMonths();
-        // 1
-        fetchTotalOVCsEver('national',"");
-        fetchNewOVCRegs('national',"",months_arr);
-        fetchActiveOVCs('national',"",months_arr);
-        // 1
-
-        // 2
-        fetchTotalOVCsEverExited('national',"");
-        fetchExitedOVCRegs('national',"",months_arr);
-        fetchExitedHseld('national',"",months_arr);
-        // 2
-
-        // 3
-        fetchWoBCertAtEnrol('national',"")
-        fetchServedBCert('national',"",months_arr)
-        fetchWithBCertToDate('national',"")
-        fetchServedBCertAftEnrol('national',"")
-        fetchU5ServedBcert('national',"",months_arr)
-        // 3
-
+        ouChange('national',"0",'none','none');
     });
+
+    function ouChange(levl,ouid,fcc,fcc_val) {
+        showLoad(true);
+        if(levl == undefined || levl == null || levl == ''){ levl = 'national'; }
+        if(ouid == undefined || ouid == null || ouid == ''){ ouid = '0'; }
+        if(fcc == undefined || fcc == null || fcc == ''){ fcc = 'none'; }
+        if(fcc_val == undefined || fcc_val == null || fcc_val == ''){ fcc_val = 'none'; }
+
+        var periodVal = $('#period option:selected').val();
+        var months_array=getMonths();
+        if(periodVal == undefined || periodVal == null){ periodVal = 12; }
+        months_array=getMonths(periodVal);
+        
+        console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
+      
+        // ---reg---
+            // 1
+            fetchNewOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+            fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
+            fetchTotalOVCsEver('national',"0");
+            // 1
+            // 2
+            fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+            fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
+            fetchTotalOVCsEverExited('national',"0");
+            // 2
+            // 3
+            fetchServedBCert(levl,ouid,months_array);
+            fetchU5ServedBcert(levl,ouid,months_array);
+            fetchWoBCertAtEnrol('national',"0")
+            fetchServedBCert('national',"0",months_array)
+            fetchWithBCertToDate('national',"0")
+            fetchServedBCertAftEnrol('national',"0")
+            fetchU5ServedBcert('national',"0",months_array)
+            // 3    
+            
+            // fetchNewOVCRegs('national',"0",months_arr,'none','none');
+            // fetchActiveOVCs('national',"0",months_arr,'none','none');
+            // fetchExitedOVCRegs('national',"0",months_arr,'none','none');
+            // fetchExitedHseld('national',"0",months_arr,'none','none');
+
+        // ---reg---
+    }
 
     function getMonths(periodType) {
         if(periodType == undefined || periodType == null || periodType == ''){
             periodType = 12;
         }
         cur_year = new Date().getFullYear();
-        cur_month = new Date('January 17, 1995 03:24:00').getMonth();
+        cur_month = new Date().getMonth();
         var months_arr = [];
         if(periodType == 12){
             if(parseFloat(cur_month) < 9){
@@ -97,7 +119,7 @@
             }
         });
     }
-    function fetchNewOVCRegs(org_level,area_id,months_arr){
+    function fetchNewOVCRegs(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -109,9 +131,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url = '/get_new_ovcregs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
         $.ajax({
             type: 'GET',
-            url: '/get_new_ovcregs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+            url: the_url,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             encode: true,
@@ -124,7 +147,7 @@
         });
     }
 
-    function fetchActiveOVCs(org_level,area_id,months_arr){
+    function fetchActiveOVCs(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -136,9 +159,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url = '/get_active_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
          $.ajax({
             type: 'GET',
-            url: '/get_active_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+            url: the_url,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             encode: true,
@@ -169,7 +193,7 @@
            }
        });
    }
-   function fetchExitedOVCRegs(org_level,area_id,months_arr){
+   function fetchExitedOVCRegs(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -181,9 +205,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url='/get_exited_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
         $.ajax({
            type: 'GET',
-           url: '/get_exited_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+           url: the_url,
            contentType: 'application/json; charset=utf-8',
            dataType: 'json',
            encode: true,
@@ -195,7 +220,7 @@
            }
        });
    }
-   function fetchExitedHseld(org_level,area_id,months_arr){
+   function fetchExitedHseld(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
             var m_y_array = [];
@@ -207,9 +232,10 @@
             m_y_array.push(the_year);
             month_year.push(m_y_array);
         });
+        var the_url = '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
         $.ajax({
            type: 'GET',
-           url: '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/',
+           url: the_url,
            contentType: 'application/json; charset=utf-8',
            dataType: 'json',
            encode: true,
@@ -354,6 +380,7 @@
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
     }
     function displayActiveOVCs(the_data, months_arr){
            var elementId="active_ovc";
@@ -366,6 +393,7 @@
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
     }
     //--1--
     
@@ -381,14 +409,15 @@
     function displayExitedOVCRegs(the_data, months_arr){
            var elementId="ovc_exits";
            var the_x_axis= months_arr;
-           var the_title = 'OVC Exited from the program withn period';
+           var the_title = 'OVC Exited from the program within period';
            var the_series = [
                                 // { name: 'Female', data: [3896, 3979, 1798, 7687, 4565] },
                                 // { name: 'Male', data: [1396, 1979, 7908, 4767, 5365] }
                                 { name: 'OVCs', data: the_data }
                             ];
     
-            barChart(elementId,the_title,the_x_axis,the_series)
+            barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
     }
     function displayExitedHseld(data, months_arr){
         // $.each(data, function (index, objValue) {
@@ -401,7 +430,8 @@
                                 { name: 'Households', data: data }
                             ];
     
-            barChart(elementId,the_title,the_x_axis,the_series)
+            barChart(elementId,the_title,the_x_axis,the_series);
+            showLoad(false);
         // });
     }
     //--2--
@@ -423,7 +453,7 @@
            var the_series = [
                                 // { name: 'Female', data: [1196, 979, 3791, 3680, 3565] },
                                 // { name: 'Male', data: [2396, 3979, 7798, 2767, 7565] }
-                                { name: 'OVCs', data: data }
+                                { name: 'DEMO', data: data }
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series)
@@ -453,7 +483,7 @@
            var the_series = [
                                 // { name: 'Female', data: [1987, 2500, 2687, 1230, 4021] },
                                 // { name: 'Male', data: [4570, 2000, 6798, 3290, 5675] }
-                                { name: 'OVCs', data: data }
+                                { name: 'DEMO', data: data }
                             ];
     
             barChart(elementId,the_title,the_x_axis,the_series)
@@ -462,13 +492,3 @@
     //--3--
     // -----------------display-----------------
     
-    
-    //sleep function
-    // function sleep(milliseconds) {
-    // 	var start = new Date().getTime();
-    // 	for (var i = 0; i < 1e7; i++) {
-    // 		if ((new Date().getTime() - start) > milliseconds) {
-    // 			break;
-    // 		}
-    // 	}
-    // }
