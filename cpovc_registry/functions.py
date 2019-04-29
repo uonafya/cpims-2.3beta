@@ -142,6 +142,7 @@ def fetch_new_ovcregs_by_period(request,org_ids,level='',area_id='',month_year='
             try:
                 cursor.execute( base_sql + funding_mech_sql + geo_sql )
                 for record in cursor:
+
                     new_ovcregs_by_period.append(record[0])
             except Exception, e:
                 print 'error on fetch_new_ovcregs_by_period (NEW) - %s' % (str(e))
@@ -777,21 +778,25 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                                     group by cboactive,gender,time_period,numberofservices order by gender ,numberofservices ,time_period ,cboactive 
                                     ''')
     elif (level == 'county'):
-
         rows2, desc2 = run_sql_data(None,
-                                    '''
-                                        +group by cbo_id,cboactive,gender,date_of_event,numberofservices
+                                    base_sql + '''
+                                        and countyid={0} group by cbo_id,cboactive,gender,date_of_event,numberofservices
                                     '''.format(area_id))
     elif (level == 'subcounty'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (select area_id as ward_ids from list_geo where parent_area_id='{}')
-                                              group by gender,art_status,hiv_status'''.format(area_id))
+                                    base_sql + '''
+                                        and 
+                                        ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        group by cbo_id,cboactive,gender,date_of_event,numberofservices
+                                    '''.format(area_id))
+
     elif (level == 'ward'):
         rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id='{}'
-                                              group by gender,art_status,hiv_status'''.format(area_id))
+                                    base_sql + '''
+                                        and ward={0} group by cbo_id,cboactive,gender,date_of_event,numberofservices
+                                    '''.format(area_id))
+
     elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
-        print "level reached ===============>"
         rows2, desc2 = get_ovc_active_hiv_status_funding_partner(level, area_id)
     else:
         rows2, desc2 = run_sql_data(None,

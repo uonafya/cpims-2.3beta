@@ -11,7 +11,9 @@ function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_par
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,
         success: function (data, textStatus, jqXHR) {
-            displayOvcServedStatusStat(data);
+            displayOvcServedWith1or2Services(data);
+            displayOvcServedWith3orMoreServices(data);
+            displayNotServed(data);
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");
@@ -22,49 +24,87 @@ function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_par
     });
 }
 
-function displayOvcServedStatusStat(cascadeData){
-    var elementId="notKnownAtEnrolment";
-    var categoriee= ['HIV Status', 'Art Status', 'Suppression']
-    var titlee = 'CASCADE 90-90-90';
-    $.each(cascadeData, function (index, objValue) {
-            console.log(objValue.ovc_HSTP_rate);
-             var serie = [  {
-                                name: 'Unknown Status',
-                                data: [[0,parseFloat(objValue.ovc_unknown_count_rate)]],
-                                stack: 'one'
-                            }, {
-                                name: 'Negative',
-                                data: [[0,parseFloat(objValue.ovc_HSTN_rate)]],
-                                stack: 'one'
-                            }, {
-                                name: 'Positive',
-                                data: [[0,parseFloat(objValue.ovc_HSTP_rate)]],
-                                stack: 'one'
-                            }, {
-                                name: 'Not on ART',
-                                data: [[1,parseFloat(objValue.not_on_art_rate)]],
-                                stack: 'two'
-                            }, {
-                                name: 'On ART',
-                                data: [[1,parseFloat(objValue.on_art_rate)]],
-                                stack: 'two'
-                            }, {
-                                name: 'Suppressed',
-                                data: [[3,parseFloat(objValue.suppresed_rate) ]],
-                                stack: 'two'
-                            }, {
-                                name: 'Not Suppressed',
-                                data: [[3,parseFloat(objValue.not_suppresed_rate)]],
-                                stack: 'two'
-                            }];
-           var legend = {}
-           legend.verticalAlign='bottom';
-           legend.x=-5;
-           legend.y=15
-           legend.layout='vertical';
-           stackedBar(elementId,titlee,categoriee,serie,'percent',legend);
 
-     });
-}
+function displayOvcServedWith1or2Services(data){
+
+        // $.each(data, function (index, objValue) {
+           var elementId="ovc_served_with_1or2_services";
+           var the_x_axis= []
+           var the_title = 'OVC served with 1 or 2 services';
+
+            var female={name: 'female',data: []};
+            var male={name: 'male',data: []};
+            $.each(data, function (index, objValue) {
+
+                if(objValue['service']=='1or2 Services'){
+                    the_x_axis.push(objValue['period']);
+                    if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
+                    else female['data'].push(objValue['cboactive']);
+                }
+
+            });
+
+           var the_series = [
+                                female,
+                                male
+                            ];
+            barChart(elementId,the_title,the_x_axis,the_series)
+        // });
+    }
+
+    function displayOvcServedWith3orMoreServices(data){
+
+        // $.each(data, function (index, objValue) {
+           var elementId="ovc_served_with_3_services";
+           var the_x_axis= []
+           var the_title = 'OVC served with 3 or more services';
+
+            var female={name: 'female',data: []};
+            var male={name: 'male',data: []};
+            $.each(data, function (index, objValue) {
+
+                if(objValue['service']=='3orMore Services'){
+                    the_x_axis.push(objValue['period']);
+                    if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
+                    else female['data'].push(objValue['cboactive']);
+                }
+
+            });
+
+           var the_series = [
+                                female,
+                                male
+                            ];
+            barChart(elementId,the_title,the_x_axis,the_series)
+        // });
+    }
+
+    function displayNotServed(data){
+
+        // $.each(data, function (index, objValue) {
+           var elementId="not_served";
+           var the_x_axis= []
+           var the_title = 'Ovc Not Served';
+
+            var female={name: 'female',data: []};
+            var male={name: 'male',data: []};
+            $.each(data, function (index, objValue) {
+                console.log("gone ");
+                console.log(objValue['service']);
+                if(objValue['service']=='Not Served'){
+                    the_x_axis.push(objValue['period']);
+                    if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
+                    else female['data'].push(objValue['cboactive']);
+                }
+            });
+
+           var the_series = [
+                                female,
+                                male
+                            ];
+            barChart(elementId,the_title,the_x_axis,the_series)
+        // });
+    }
+
 
 

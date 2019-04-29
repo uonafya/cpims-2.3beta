@@ -91,6 +91,8 @@ $('#county-organisation-unit').on('change', function (event) {
         fetchHivStatsFromServer('county',selectedCountyId);
         fetchActiveOvcHivStats('county',selectedCountyId);
         fetchCascade90FromServer('county',selectedCountyId);
+    }else if(currentPage==pages[0]){
+        fetchOvcServedStatusStats('county',selectedCountyId,'','','semi')
     }
 
 });
@@ -106,6 +108,8 @@ $('#countituency-organisation-unit').on('change', function (event) {
         fetchHivStatsFromServer('subcounty',selectedSubCountyId);
         fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
         fetchCascade90FromServer('subcounty',selectedSubCountyId);
+    }else if(currentPage==pages[0]){
+        fetchOvcServedStatusStats('subcounty',selectedSubCountyId,'','','semi')
     }
     //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
@@ -129,6 +133,8 @@ $('#ward-organisation-unit').on('change', function (event) {
         fetchHivStatsFromServer('ward',selectedWardId);
         fetchActiveOvcHivStats('ward',selectedWardId);
         fetchCascade90FromServer('ward',selectedWardId);
+    }else if(currentPage==pages[0]){
+        fetchOvcServedStatusStats('ward',selectedWardId,'','','semi')
     }
 
 });
