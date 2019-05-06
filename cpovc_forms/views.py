@@ -8253,7 +8253,7 @@ def manage_service_category(request):
                 if index == 1:
                     # Get services
                     servicecategory = SetupList.objects.get(
-                        field_name='olmis_domain_id', item_id=domain_id)
+                        field_name='olmis_domain_id', item_id=domain_id, is_void=False)
                     service_sub_category = servicecategory.item_sub_category
 
                     if not service_sub_category:
@@ -8262,7 +8262,7 @@ def manage_service_category(request):
                                                           'status': 0})
                     else:
                         servicecategories = SetupList.objects.filter(
-                            field_name=service_sub_category)
+                            field_name=service_sub_category, is_void=False)
                         for servicecategory in servicecategories:
                             jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
                                                               'item_sub_category_id': servicecategory.item_id,
@@ -8271,7 +8271,7 @@ def manage_service_category(request):
                 if index == 2:
                     # Get assessments
                     assessmentcategory = SetupList.objects.get(
-                        field_name='olmis_assessment_domain_id', item_id=domain_id)
+                        field_name='olmis_assessment_domain_id', item_id=domain_id, is_void=False)
                     assessment_sub_category = assessmentcategory.item_sub_category
                     print 'assessmentcategory.item_sub_category -- %s' % assessmentcategory.item_sub_category
 
@@ -8281,7 +8281,7 @@ def manage_service_category(request):
                                                           'status': 0})
                     else:
                         assessmentcategories = SetupList.objects.filter(
-                            field_name=assessment_sub_category)
+                            field_name=assessment_sub_category, is_void=False)
                         for assessmentcategory in assessmentcategories:
                             jsonServiceCategoriesData.append({'item_sub_category': assessmentcategory.item_description,
                                                               'item_sub_category_id': str(assessmentcategory.item_id),
@@ -8289,12 +8289,12 @@ def manage_service_category(request):
                 if index == 3:
                     # Get fieldname
                     setuplist = SetupList.objects.filter(
-                        item_id=domain_id, field_name__icontains='olmis')
+                        item_id=domain_id, field_name__icontains='olmis', is_void=False)
 
                     for s in setuplist:
                         # Get assessments service status
                         assessmentstatuscategorys = SetupList.objects.filter(
-                            field_name='' + s.item_sub_category + '')
+                            field_name='' + s.item_sub_category + '', is_void=False)
                         if assessmentstatuscategorys:
                             for assessmentstatuscategory in assessmentstatuscategorys:
                                 jsonServiceCategoriesData.append({'item_sub_category': assessmentstatuscategory.item_description,
@@ -8317,7 +8317,7 @@ def manage_service_category(request):
                                     _item_ids.append(_itemx_)
                         for _item_id in _item_ids:
                             setuplist = SetupList.objects.filter(
-                                item_id=_item_id, field_name__icontains='olmis')
+                                item_id=_item_id, field_name__icontains='olmis', is_void=False)
                             for s in setuplist:
                                 jsonServiceCategoriesData.append({'item_sub_category': s.item_description,
                                                                   'item_sub_category_id': str(s.item_id),
