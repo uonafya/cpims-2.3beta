@@ -752,9 +752,30 @@ def get_ever_tested_for_HIV(request, org_ids, level='', area_id=''):
 def _get_ovc_served_stats(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='semi'):
     # "SELECT count(ovccount) FROM public.hiv_status where "
     rows2, desc2 = 0, 0
-    base_sql='''
-        select DISTINCT ON(gender,numberofservices,time_period) gender,numberofservices,to_char(date_of_event, 'MM-YYYY') 
-            as time_period,cboactive from vw_ovc_services_served where
+    period_span=''
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+
+    base_sql=''
+
+    if(currentMonth==10): # start of a new period (october)
+        yr=currentYear+1
+        period_span=str(currentYear)+'/'+str(yr)
+        base_sql = '''    
+                select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                 from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
+            period_span,currentYear,yr)
+    else:
+        yr=currentYear-1
+        period_span = str(yr) + '/' + str(currentYear)
+        base_sql = '''    
+                select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                 from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
+            period_span, yr,currentYear)
+
+
+
+    bi_annually_condition='''
         (select 
             (CASE 
                 when (SELECT EXTRACT(month FROM date_of_event))  between 4 and 9 then 'early'
@@ -768,32 +789,48 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                 when (SELECT EXTRACT(month FROM CURRENT_DATE)) between 4 and 9 then 'early'
                 else 'late'
             end) as cur_period
-            ) and (SELECT EXTRACT(year FROM date_of_event))=(SELECT EXTRACT(year FROM CURRENT_DATE))
-         
+            )
+             
+        and (SELECT EXTRACT(month FROM date_of_event)) <= (SELECT EXTRACT(month FROM CURRENT_DATE))
+    '''
+    current_year=" and (SELECT EXTRACT(year FROM date_of_event))=(SELECT EXTRACT(year FROM CURRENT_DATE)) "
+
+    current_and_previous_year = ''' and (SELECT EXTRACT(year FROM date_of_event)) between (SELECT EXTRACT(year FROM CURRENT_DATE - INTERVAL '1 year' ) )
+                                    and (SELECT EXTRACT(year FROM CURRENT_DATE))
+                                '''
+    annually_condition='''
+        
     '''
 
     if level == 'national':
         rows2, desc2 = run_sql_data(None,
                                     base_sql+'''
-                                    group by cboactive,gender,time_period,numberofservices order by gender ,numberofservices ,time_period ,cboactive 
+                                    group by gender,numberofservices
                                     ''')
+        print base_sql+'''
+                                    group by gender,numberofservices
+                                    '''
     elif (level == 'county'):
         rows2, desc2 = run_sql_data(None,
-                                    base_sql + '''
-                                        and countyid={0} group by cbo_id,cboactive,gender,date_of_event,numberofservices
+                                    base_sql  + '''
+                                        and countyid={0} group by 
+                                        gender,numberofservices
                                     '''.format(area_id))
+        print base_sql  + '''
+                                        and countyid={0} group by gender,numberofservices
+                                    '''.format(area_id)
     elif (level == 'subcounty'):
         rows2, desc2 = run_sql_data(None,
-                                    base_sql + '''
+                                    base_sql  + '''
                                         and 
                                         ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-                                        group by cbo_id,cboactive,gender,date_of_event,numberofservices
+                                        group by gender,numberofservices
                                     '''.format(area_id))
 
     elif (level == 'ward'):
         rows2, desc2 = run_sql_data(None,
-                                    base_sql + '''
-                                        and ward={0} group by cbo_id,cboactive,gender,date_of_event,numberofservices
+                                    base_sql  + '''
+                                        and ward={0} group by gender,numberofservices
                                     '''.format(area_id))
 
     elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
