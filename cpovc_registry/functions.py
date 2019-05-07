@@ -749,7 +749,7 @@ def get_hiv_dashboard_stats(request, org_ids, super_user=False, level='', area_i
 def get_ever_tested_for_HIV(request, org_ids, level='', area_id=''):
     pass
 
-def _get_ovc_served_stats(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='semi'):
+def _get_ovc_served_stats(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='annual'):
     # "SELECT count(ovccount) FROM public.hiv_status where "
     rows2, desc2 = 0, 0
     period_span=''
@@ -758,58 +758,60 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
 
     base_sql=''
 
-    if(currentMonth==10): # start of a new period (october)
+
+    print "period ==========>"
+    print currentMonth
+    print period_typ
+    print currentMonth is not 10
+    print period_typ=='annual'
+
+    if(currentMonth==10 and period_typ=='annual'): # start of a new period (october)
         yr=currentYear+1
-        period_span=str(currentYear)+'/'+str(yr)
+        period_span='APR '+str(currentYear)+'/'+str(yr)
         base_sql = '''    
                 select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
                  from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
             period_span,currentYear,yr)
-    else:
+    elif(currentMonth is not 10 and period_typ=='annual'):
+        print "not 10 ======================>"
         yr=currentYear-1
-        period_span = str(yr) + '/' + str(currentYear)
+        period_span = 'APR '+str(yr) + '/' + str(currentYear)
         base_sql = '''    
                 select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
                  from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
             period_span, yr,currentYear)
 
+    if(period_typ=='semi' and (currentMonth>=10 and currentMonth<=3)):
+        if(currentMonth>=1 and currentMonth<=3):
+            yr = currentYear - 1
+            start_year = yr
+            end_year = currentYear
+        else:
+            start_year=currentYear
+            end_year=currentYear+1
+        period_span = str(start_year) + '/' + str(end_year)
+        base_sql = '''    
+                        select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                         from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'mar-31-{}'    '''.format(
+            period_span, start_year, end_year)
 
+    elif(period_typ=='semi' and (currentMonth>=3 and currentMonth<=9)):
+        period_span = str(currentYear)
+        base_sql = '''    
+                                select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                                 from vw_ovc_services_served where date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
+            period_span, currentYear, currentYear)
 
-    bi_annually_condition='''
-        (select 
-            (CASE 
-                when (SELECT EXTRACT(month FROM date_of_event))  between 4 and 9 then 'early'
-                else 'late'
-            end) as cur_period
-            )
-        =
-        (
-        select 
-            (CASE 
-                when (SELECT EXTRACT(month FROM CURRENT_DATE)) between 4 and 9 then 'early'
-                else 'late'
-            end) as cur_period
-            )
-             
-        and (SELECT EXTRACT(month FROM date_of_event)) <= (SELECT EXTRACT(month FROM CURRENT_DATE))
-    '''
-    current_year=" and (SELECT EXTRACT(year FROM date_of_event))=(SELECT EXTRACT(year FROM CURRENT_DATE)) "
-
-    current_and_previous_year = ''' and (SELECT EXTRACT(year FROM date_of_event)) between (SELECT EXTRACT(year FROM CURRENT_DATE - INTERVAL '1 year' ) )
-                                    and (SELECT EXTRACT(year FROM CURRENT_DATE))
-                                '''
-    annually_condition='''
-        
-    '''
 
     if level == 'national':
+        print "national level +==============>"
+        print base_sql
+        print "end level +==============>"
         rows2, desc2 = run_sql_data(None,
                                     base_sql+'''
                                     group by gender,numberofservices
                                     ''')
-        print base_sql+'''
-                                    group by gender,numberofservices
-                                    '''
+
     elif (level == 'county'):
         rows2, desc2 = run_sql_data(None,
                                     base_sql  + '''

@@ -5,7 +5,7 @@ var cboData='';
 var selectedCountySiblingsList=''; //list of countituency in the selected county
 var pages=['served','hivstats']
 var currentPage='';
-
+var period='annual'
 
 $(document).ready(function () {
     initOrganisationUnitChosenDropDown('funding mechanism','#funding-mechanism');
@@ -57,6 +57,11 @@ function cloneObject(obj) {
     return clone;
 }
 
+
+$('#period').on('change', function (event) {
+var periodVal = $("#period option:selected").attr('data-value');
+    fetchOvcServedStatusStats('county',selectedCountyId,'','','semi')
+});
 
 //county event handler
 $('#county-organisation-unit').on('change', function (event) {
