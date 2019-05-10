@@ -6,7 +6,7 @@
             "item_category": "Domain", 
             "user_configurable": "False", 
             "field_name": "olmis_domain_id", 
-            "item_sub_category": "olmis_education_service_id", 
+            "item_sub_category": "olmis_education_service_id",
             "is_void": "False", 
             "item_id": "DEDU", 
             "item_description_short": "Education",
