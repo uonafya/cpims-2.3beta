@@ -844,7 +844,19 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                                                )) group by gender,numberofservices'''
                                             )
 
+        if (funding_partner == 'cluster'):
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                         and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                               )  group by gender,numberofservices'''.format(funding_part_id)
+                                        )
 
+        if (funding_partner == 'cbo_unit'):
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                                     and cbo_id = '{}' group by gender,numberofservices'''.format(
+                                            funding_part_id)
+                                        )
 
     else:
         rows2, desc2 = run_sql_data(None,

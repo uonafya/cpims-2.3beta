@@ -185,7 +185,7 @@ $('#funding-mechanism').on('change', function (event) {
         }else if(currentPage==pages[0]){
             fundingPartnerLevel=selectedPartnerValue;
             selectedPartner=selectedPartnerId;
-            fetchOvcServedStatusStats('none',0,selectedPartnerValue,selectedPartnerId,period);
+            fetchOvcServedStatusStats('none',0,fundingPartnerLevel,selectedPartner,period);
         }
 
      }else{
@@ -218,7 +218,7 @@ $('#cluster-unit').on('change', function (event) {
         fetchActiveOvcHivStats(selectedClusterValue,selectedClusterId);
         fetchCascade90FromServer(selectedClusterValue,selectedClusterId);
     }else if(currentPage==pages[0]){
-        fundingPartnerLevel=selectedPartnerValue;
+        fundingPartnerLevel=selectedClusterValue;
         selectedPartner=selectedClusterId;
         fetchOvcServedStatusStats('none',0,fundingPartnerLevel,selectedPartner,period);
     }
@@ -237,7 +237,7 @@ $('#cbo-unit').on('change', function (event) {
         fetchActiveOvcHivStats(selectedCboValue,selectedCboId);
         fetchCascade90FromServer(selectedCboValue,selectedCboId);
     }else if(currentPage==pages[0]){
-        fundingPartnerLevel=selectedPartnerValue;
+        fundingPartnerLevel=selectedCboValue;
         selectedPartner=selectedCboId;
         fetchOvcServedStatusStats('none',0,fundingPartnerLevel,selectedPartner,period);
     }
