@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from django.utils import timezone
@@ -32,7 +32,7 @@ from .models import (
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations,
-    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics)
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
@@ -9215,3 +9215,47 @@ def new_wellbeingadolescent(request, id):
                       'care_giver':care_giver
 
                   })
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def hiv_status(request):
+    try:
+        if request.method == 'POST':
+            child=request.POST.get('child')
+            child_id=RegPerson.objects.get(id=child)
+            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child_id).house_hold_id)
+            event_type_id = 'HIVS'
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=child, is_void=False).count()
+
+            ovccareevent=OVCCareEvents.objects.create(
+                event_type_id=event_type_id,
+                event_counter=event_counter,
+                event_score=0,
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(child)),
+                house_hold=house_hold,
+                date_of_event=timezone.now()
+                )
+            hiv_status = request.POST.get('hiv_statuss')
+            OVCHivStatus(
+                person = RegPerson.objects.get(pk=int(child)),
+                hiv_status = request.POST.get('hiv_statuss'),
+                event = ovccareevent,
+                date_of_event =request.POST.get('date_of_testing')
+                ).save()
+
+            msg = 'HIV status updated successful'
+            messages.add_message(request, messages.INFO, msg)
+
+            response=redirect('ovc_edit')
+            return response
+
+
+    except Exception, e:
+        msg = 'hiv status save error : (%s)' % (str(e))
+        messages.add_message(request, messages.ERROR, msg)
+        print 'Error saving hiv status : %s' % str(e)
+        return HttpResponseRedirect(reverse(forms_home))
+
+  

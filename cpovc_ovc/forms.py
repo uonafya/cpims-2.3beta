@@ -218,7 +218,7 @@ class OVCRegistrationForm(forms.Form):
         widget=forms.Select(
             attrs={'class': 'form-control',
                    'data-parsley-required': "true",
-                   'id': 'hiv_status'}))
+                   'id':'hiv_status'}))
 
     school_level = forms.ChoiceField(
         choices=school_level_list,
@@ -287,3 +287,23 @@ class OVCRegistrationForm(forms.Form):
         attrs={'class': 'form-control',
                'placeholder': 'Organization name exiting to',
                'id': 'exit_org_name'}))
+
+    date_of_testing=forms.DateField(
+        widget=forms.TextInput(
+        attrs={'placeholder': 'date of Testing',
+               'class': 'form-control',
+                'autocomplete': 'off',
+               'id': 'date_of_event'}
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+               
+        )
+    )
+    hiv_statuss = forms.ChoiceField(
+        choices=hiv_status_list,
+        initial='0',
+        required=True,
+        widget=forms.Select(
+            attrs={'class': 'form-control',
+                   'data-parsley-required': "true",
+                   'id':'hiv_statuss'}))
