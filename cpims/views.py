@@ -72,7 +72,7 @@ def get_ovc_active_hiv_status(request, org_level, area_id):
 
 
 def get_ovc_served_stats(request, org_level,area_id,funding_partner,funding_part_id,period_type):
-    main_dash_data = _get_ovc_served_stats(org_level, area_id,funding_partner,funding_part_id,'annual')
+    main_dash_data = _get_ovc_served_stats(org_level, area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(main_dash_data, content_type='application/json',
                         safe=False)
 

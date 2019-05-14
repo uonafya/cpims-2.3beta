@@ -1,6 +1,6 @@
 $(document).ready(function () {
 var org_level='national';
-fetchOvcServedStatusStats('national',"","","","");
+fetchOvcServedStatusStats('national',"","","","annual");
 });
 
 function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_part_id,period_type){

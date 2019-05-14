@@ -755,15 +755,9 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
     period_span=''
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
-
+    print "test ======>"
+    print level, area_id,funding_partner,funding_part_id,period_typ
     base_sql=''
-
-
-    print "period ==========>"
-    print currentMonth
-    print period_typ
-    print currentMonth is not 10
-    print period_typ=='annual'
 
     if(currentMonth==10 and period_typ=='annual'): # start of a new period (october)
         yr=currentYear+1
@@ -773,13 +767,14 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                  from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
             period_span,currentYear,yr)
     elif(currentMonth is not 10 and period_typ=='annual'):
-        print "not 10 ======================>"
         yr=currentYear-1
         period_span = 'APR '+str(yr) + '/' + str(currentYear)
         base_sql = '''    
                 select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
                  from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
             period_span, yr,currentYear)
+        print "base sql annual ======>"
+        print base_sql
 
     if(period_typ=='semi' and (currentMonth>=10 and currentMonth<=3)):
         if(currentMonth>=1 and currentMonth<=3):
@@ -801,7 +796,8 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                                 select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
                                  from vw_ovc_services_served where date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
             period_span, currentYear, currentYear)
-
+        print "base sql semi ======>"
+        print base_sql
 
     if level == 'national':
         print "national level +==============>"
@@ -835,8 +831,21 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                                         and ward={0} group by gender,numberofservices
                                     '''.format(area_id))
 
-    elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
-        rows2, desc2 = get_ovc_active_hiv_status_funding_partner(level, area_id)
+    elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
+        print "not 10th month 0"
+        if (funding_partner == 'funding_mechanism'):
+            if (funding_part_id == '0'):  # usaid
+
+                rows2, desc2 = run_sql_data(None,
+                        base_sql  + '''
+                             and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                           in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                               'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                               )) group by gender,numberofservices'''
+                                            )
+
+
+
     else:
         rows2, desc2 = run_sql_data(None,
                                     '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (SELECT area_id from list_geo where parent_area_id='{}')
