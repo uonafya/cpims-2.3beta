@@ -721,7 +721,7 @@ class OVCCareAssessment(models.Model):
     assessment_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     domain = models.CharField(max_length=4)   
     service = models.CharField(max_length=4)
-    service_status = models.CharField(max_length=4)
+    service_status = models.CharField(max_length=7)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
     service_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
     is_void = models.BooleanField(default=False)
