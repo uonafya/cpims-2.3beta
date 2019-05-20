@@ -763,14 +763,14 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
         yr=currentYear+1
         period_span='APR '+str(currentYear)+'/'+str(yr)
         base_sql = '''    
-                select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
                  from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
             period_span,currentYear,yr)
     elif(currentMonth is not 10 and period_typ=='annual'):
         yr=currentYear-1
         period_span = 'APR '+str(yr) + '/' + str(currentYear)
         base_sql = '''    
-                select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
                  from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
             period_span, yr,currentYear)
         print "base sql annual ======>"
@@ -786,14 +786,14 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
             end_year=currentYear+1
         period_span = str(start_year) + '/' + str(end_year)
         base_sql = '''    
-                        select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                        select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
                          from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'mar-31-{}'    '''.format(
             period_span, start_year, end_year)
 
     elif(period_typ=='semi' and (currentMonth>=3 and currentMonth<=9)):
         period_span = str(currentYear)
         base_sql = '''    
-                                select sum(cboactive) as cboactive ,'{}' as time_period,gender,numberofservices
+                                select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
                                  from vw_ovc_services_served where date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
             period_span, currentYear, currentYear)
         print "base sql semi ======>"
