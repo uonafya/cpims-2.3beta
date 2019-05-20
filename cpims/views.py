@@ -114,9 +114,9 @@ def get_total_s_bcert_aft_enrol(request,org_level,area_id):
     return JsonResponse(total_s_bcert_aft_enrol, content_type='application/json', safe=False)
 
                     #--------graphs-byperiod-------#
-def get_new_ovcregs_by_period(request,org_level,area_id,month_year,fcc,fcc_val):
+def get_new_ovcregs_by_period(request, org_level,area_id,funding_partner,funding_part_id,period_type):
     # print "new ovcregs by period with month_year="+month_year
-    new_ovcregs_by_period=fetch_new_ovcregs_by_period(request,None,org_level,area_id,month_year,fcc,fcc_val)
+    new_ovcregs_by_period=fetch_new_ovcregs_by_period(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(new_ovcregs_by_period, content_type='application/json', safe=False)
 
 def get_active_ovcs_by_period(request,org_level,area_id,month_year,fcc,fcc_val):

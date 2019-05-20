@@ -240,6 +240,10 @@ $('#cbo-unit').on('change', function (event) {
         fundingPartnerLevel=selectedCboValue;
         selectedPartner=selectedCboId;
         fetchOvcServedStatusStats('none',0,fundingPartnerLevel,selectedPartner,period);
+    }else if (currentPage==pages[2]){
+        fundingPartnerLevel=selectedCboValue;
+        selectedPartner=selectedCboId;
+        fetchNewOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
     }
 
 });

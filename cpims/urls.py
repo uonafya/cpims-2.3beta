@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^fetch_cbo_list/', 'cpims.views.fetch_cbo_list', name='fetch_cbo_list'),
     url(r'^get_ever_tested_hiv/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_ever_tested_hiv', name='get_ever_tested_hiv'),
 
-    url(r'^get_new_ovcregs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/(?P<fcc>\w+)/(?P<fcc_val>.*)/', 'cpims.views.get_new_ovcregs_by_period', name='get_new_ovcregs_by_period'),
+    url(r'^get_new_ovcregs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_new_ovcregs_by_period', name='get_new_ovcregs_by_period'),
 
     url(r'^get_active_ovcs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/(?P<fcc>\w+)/(?P<fcc_val>.*)/', 'cpims.views.get_active_ovcs_by_period', name='get_active_ovcs_by_period'),
 
