@@ -119,14 +119,14 @@ def get_new_ovcregs_by_period(request, org_level,area_id,funding_partner,funding
     new_ovcregs_by_period=fetch_new_ovcregs_by_period(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(new_ovcregs_by_period, content_type='application/json', safe=False)
 
-def get_active_ovcs_by_period(request,org_level,area_id,month_year,fcc,fcc_val):
+def get_active_ovcs_by_period(request, org_level,area_id,funding_partner,funding_part_id,period_type):
     # print "active ovcregs by period with month_year="+month_year
-    active_ovcs_by_period=fetch_active_ovcs_by_period(request,None,org_level,area_id,month_year,fcc,fcc_val)
+    active_ovcs_by_period=fetch_active_ovcs_by_period(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(active_ovcs_by_period, content_type='application/json', safe=False)
 
-def get_exited_ovcs_by_period(request,org_level,area_id,month_year,fcc,fcc_val):
+def get_exited_ovcs_by_period(request, org_level,area_id,funding_partner,funding_part_id,period_type):
     # print "exited ovcregs by period with month_year="+month_year
-    exited_ovcs_by_period=fetch_exited_ovcs_by_period(request,None,org_level,area_id,month_year,fcc,fcc_val)
+    exited_ovcs_by_period=fetch_exited_ovcs_by_period(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(exited_ovcs_by_period, content_type='application/json', safe=False)
 
 def get_exited_hsehlds_by_period(request,org_level,area_id,month_year,fcc,fcc_val):

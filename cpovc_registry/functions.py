@@ -251,106 +251,303 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
 
 
 
+def fetch_active_ovcs_by_period(request, level,area_id,funding_partner,funding_part_id,period_typ):
+    # print 'oooop running fetch_new_ovcregs_by_period month_year='+month_year+" \n "
+
+    rows2, desc2 = 0, 0
+    period_span = ''
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+
+    if (currentMonth == 10 and period_typ == 'annual'):  # start of a new period (october)
+        yr = currentYear + 1
+        period_span = str(currentYear) + '/' + str(yr)
+        base_sql = '''    
+                          Select count(*) as count,person.gender as gender,'{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                          ovc_reg.is_active=true and ovc_reg.registration_date between 'oct-01-{}' and 'Sept-30-{}' 
+                             '''.format(
+            period_span, currentYear, yr)
+
+    elif (currentMonth is not 10 and period_typ == 'annual'):
+        yr = currentYear - 1
+        period_span = str(yr) + '/' + str(currentYear)
+        base_sql = '''    
+                          Select count(*) as count,person.gender as gender,'{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                          ovc_reg.is_active=true and ovc_reg.registration_date between 'oct-01-{}' and 'Sept-30-{}'
+                             '''.format(
+            period_span, yr, currentYear)
+
+    if (period_typ == 'semi' and (currentMonth >= 10 and currentMonth <= 3)):
+        if (currentMonth >= 1 and currentMonth <= 3):
+            yr = currentYear - 1
+            start_year = yr
+            end_year = currentYear
+        else:
+            start_year = currentYear
+            end_year = currentYear + 1
+        period_span = str(start_year) + '/' + str(end_year)
+        base_sql = '''    
+                          Select count(*) as count,person.gender as gender,'{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                          ovc_reg.is_active=true and ovc_reg.registration_date between 'oct-01-{}' and 'mar-31-{}' 
+                             '''.format(
+            period_span, start_year, end_year)
 
 
 
-def fetch_active_ovcs_by_period(request,org_ids,level='',area_id='',month_year='',fcc='',fcc_val=''):
-    # print 'oooop running fetch_active_ovcs_by_period month_year='+month_year+" \n "
-    month_year = json.loads(month_year)
-    active_ovcs_by_period = []
-    for m_y in month_year:
+    elif (period_typ == 'semi' and (currentMonth >= 3 and currentMonth <= 9)):
+        period_span = str(currentYear)
+        base_sql = '''    
+                          Select count(*) as count,person.gender as gender, '{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                          ovc_reg.is_active=true and ovc_reg.registration_date between 'apr-01-{}' and 'sep-30-{}'
+                             '''.format(
+            period_span, currentYear, currentYear)
 
-        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where ovc_reg.is_active=true and (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
-        funding_mech_sql = ""
-        geo_sql = ""
-        #---- funding mech, cluster, cbo
-        if (fcc != '' or fcc_val != '' or fcc != 'none' or fcc_val != 'none'):
-            print 'runningg funding-cluster-cbo filter (active)...'
-            if (fcc == 'funding_mechanism'):
-                if (fcc_val == '0'): #usaid
-                    funding_mech_sql = funding_mech_sql + " and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1', 'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485') "
-                    print '///USAID...'
-            elif (fcc == 'cluster'):
-                funding_mech_sql = funding_mech_sql + " and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id='"+fcc_val+"') "
-                print '///CLUSTER...'
-            elif (fcc == 'cbo'):
-                funding_mech_sql = funding_mech_sql + " and person.child_cbo_id='"+fcc_val+"') "
-                print '///CBO...'
-        #---- funding mech, cluster, cbo
+    #  level = 'national', area_id = '', funding_partner = '', funding_part_id = '', period_typ = 'annual'
+    ############
+    if level == 'national':
+        print "national level +==============>"
+        print base_sql + '''
+                                              group by gender
+                                              '''
+        print "end level +==============>"
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                              group by gender
+                                              ''')
 
-        if (level == 'national' or level == ''):
-            geo_sql = geo_sql + ""
-            print '///NATIONAL...'
-        elif (level == 'county' and area_id != ''):
-            geo_sql = geo_sql + " and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='"+area_id+"'))) "
-            print '///COUNTY...'
-        elif (level == 'subcounty' and area_id != ''):
-            geo_sql = geo_sql + " and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id='"+area_id+"')"
-            print '///SUBCOUNTY...'
-        elif (level == 'ward' and area_id != ''):
-            geo_sql = geo_sql + " and person.area_id='"+area_id+"'"
-            print '///WARD...'
+    elif (level == 'county'):
+        print "county level =========>"
 
-        # ---------execute SQL
-        print "EXEcuting active SQL... QUERY=> "+base_sql + funding_mech_sql + geo_sql
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute( base_sql + funding_mech_sql + geo_sql )
-                for record in cursor:
-                    active_ovcs_by_period.append(record[0])
-            except Exception, e:
-                print 'error on fetch_active_ovcs_by_period (ACTIVE) - %s' % (str(e))
-        # =========execute SQL
-    return active_ovcs_by_period
-    
-def fetch_exited_ovcs_by_period(request,org_ids,level='',area_id='',month_year='',fcc='',fcc_val=''):
-    # print 'oooop running fetch_exited_ovcs_by_period month_year='+month_year+" \n "
-    month_year = json.loads(month_year)
-    exited_ovcs_by_period = []
-    for m_y in month_year:
-        base_sql = "Select count(*) from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where ovc_reg.is_active=false and (select date_part('month', ovc_reg.registration_date))="+m_y[0]+" and (select date_part('year', ovc_reg.registration_date))="+m_y[1]+""
-        funding_mech_sql = ""
-        geo_sql = ""
-        #---- funding mech, cluster, cbo
-        if (fcc != '' or fcc_val != '' or fcc != 'none' or fcc_val != 'none'):
-            print 'runningg funding-cluster-cbo filter (active)...'
-            if (fcc == 'funding_mechanism'):
-                if (fcc_val == '0'): #usaid
-                    funding_mech_sql = funding_mech_sql + " and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1', 'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485') "
-                    print '///USAID...'
-            elif (fcc == 'cluster'):
-                funding_mech_sql = funding_mech_sql + " and person.child_cbo_id in (select cbo_id from  ovc_cluster_cbo  where cluster_id='"+fcc_val+"') "
-                print '///CLUSTER...'
-            elif (fcc == 'cbo'):
-                funding_mech_sql = funding_mech_sql + " and person.child_cbo_id='"+fcc_val+"') "
-                print '///CBO...'
-        #---- funding mech, cluster, cbo
+        print base_sql + '''
+                                                  and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                                  select area_id as sub_county from list_geo where parent_area_id in
+                                                  (select area_id as county from list_geo where area_id ='{}'))) group by 
+                                                  gender
+                                              '''.format(area_id)
 
-        if (level == 'national' or level == ''):
-            geo_sql = geo_sql + ""
-            print '///NATIONAL...'
-        elif (level == 'county' and area_id != ''):
-            geo_sql = geo_sql + " and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in((SELECT area_id as constituency_ids from list_geo where parent_area_id='"+area_id+"'))) "
-            print '///COUNTY...'
-        elif (level == 'subcounty' and area_id != ''):
-            geo_sql = geo_sql + " and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id='"+area_id+"')"
-            print '///SUBCOUNTY...'
-        elif (level == 'ward' and area_id != ''):
-            geo_sql = geo_sql + " and person.area_id='"+area_id+"'"
-            print '///WARD...'
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                                  and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                                  select area_id as sub_county from list_geo where parent_area_id in
+                                                  (select area_id as county from list_geo where area_id ='{}'))) group by 
+                                                  gender
+                                              '''.format(area_id))
 
-        # ---------execute SQL
-        print "EXEcuting exited SQL... QUERY=> "+base_sql + funding_mech_sql + geo_sql
-        with connection.cursor() as cursor:
-            try:
-                cursor.execute( base_sql + funding_mech_sql + geo_sql )
-                for record in cursor:
-                    exited_ovcs_by_period.append(record[0])
-            except Exception, e:
-                print 'error on fetch_exited_ovcs_by_period (EXITED) - %s' % (str(e))
-        # =========execute SQL
-    return exited_ovcs_by_period
-    
+    elif (level == 'subcounty'):
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                                  and 
+                                                  person.area_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                                  group by gender
+                                              '''.format(area_id))
+        print base_sql + '''
+                                  and 
+                                  ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                  group by gender
+                              '''.format(area_id)
+
+    elif (level == 'ward'):
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                                  and person.area_id={0} group by gender
+                                              '''.format(area_id))
+        print base_sql + '''
+                                                  and person.area_id={0} group by gender
+                                              '''.format(area_id)
+
+
+    elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
+        print "not 10th month 0"
+        if (funding_partner == 'funding_mechanism'):
+            if (funding_part_id == '0'):  # usaid
+
+                rows2, desc2 = run_sql_data(None,
+                                            base_sql + '''
+                                       and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                                     in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                                         'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                                         )) group by gender'''
+                                            )
+
+        if (funding_partner == 'cluster'):
+            print "=======> cluster"
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                                   and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                                         )  group by gender'''.format(funding_part_id)
+                                        )
+
+        if (funding_partner == 'cbo_unit'):
+            print "=======> cbo_unit"
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                                               and person.child_cbo_id = '{}' group by gender'''.format(
+                                            funding_part_id)
+                                        )
+    ovc_active_within_period = []
+    for data in rows2:
+        # print i ," ",x['DOMAIN']
+
+        ovc_active = {}
+
+        ovc_active['gender'] = data['GENDER']
+        ovc_active['period'] = data['TIME_PERIOD']
+        ovc_active['count'] = data['COUNT']
+
+        ovc_active_within_period.append(ovc_active)
+
+    return ovc_active_within_period
+
+
+def fetch_exited_ovcs_by_period(request, level,area_id,funding_partner,funding_part_id,period_typ):
+    rows2, desc2 = 0, 0
+    period_span = ''
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+
+    if (currentMonth == 10 and period_typ == 'annual'):  # start of a new period (october)
+        yr = currentYear + 1
+        period_span = str(currentYear) + '/' + str(yr)
+        base_sql = '''    
+                              Select count(*) as count,person.gender as gender,ovc_reg.is_active as active,'{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                              (ovc_reg.is_active=true or ovc_reg.is_active=false) and ovc_reg.registration_date between 'oct-01-{}' and 'Sept-30-{}' 
+                                 '''.format(
+            period_span, currentYear, yr)
+
+    elif (currentMonth is not 10 and period_typ == 'annual'):
+        yr = currentYear - 1
+        period_span = str(yr) + '/' + str(currentYear)
+        base_sql = '''    
+                              Select count(*) as count,person.gender as gender,ovc_reg.is_active as active,'{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                              (ovc_reg.is_active=true or ovc_reg.is_active=false)  and ovc_reg.registration_date between 'oct-01-{}' and 'Sept-30-{}'
+                                 '''.format(
+            period_span, yr, currentYear)
+
+    if (period_typ == 'semi' and (currentMonth >= 10 and currentMonth <= 3)):
+        if (currentMonth >= 1 and currentMonth <= 3):
+            yr = currentYear - 1
+            start_year = yr
+            end_year = currentYear
+        else:
+            start_year = currentYear
+            end_year = currentYear + 1
+        period_span = str(start_year) + '/' + str(end_year)
+        base_sql = '''    
+                              Select count(*) as count,person.gender as gender,ovc_reg.is_active as active,'{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                              (ovc_reg.is_active=true or ovc_reg.is_active=false)  and ovc_reg.registration_date between 'oct-01-{}' and 'mar-31-{}' 
+                                 '''.format(
+            period_span, start_year, end_year)
+
+
+
+    elif (period_typ == 'semi' and (currentMonth >= 3 and currentMonth <= 9)):
+        period_span = str(currentYear)
+        base_sql = '''    
+                              Select count(*) as count,person.gender as gender,ovc_reg.is_active as active, '{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
+                              (ovc_reg.is_active=true or ovc_reg.is_active=false)  and ovc_reg.registration_date between 'apr-01-{}' and 'sep-30-{}'
+                                 '''.format(
+            period_span, currentYear, currentYear)
+
+    #  level = 'national', area_id = '', funding_partner = '', funding_part_id = '', period_typ = 'annual'
+    ############
+    if level == 'national':
+        print "national level +==============>"
+        print base_sql + '''
+                                                  group by gender,ovc_reg.is_active
+                                                  '''
+        print "end level +==============>"
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                                  group by gender,ovc_reg.is_active
+                                                  ''')
+
+    elif (level == 'county'):
+        print "county level =========>"
+
+        print base_sql + '''
+                                                      and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                                      select area_id as sub_county from list_geo where parent_area_id in
+                                                      (select area_id as county from list_geo where area_id ='{}'))) group by 
+                                                      gender,ovc_reg.is_active
+                                                  '''.format(area_id)
+
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                                      and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                                      select area_id as sub_county from list_geo where parent_area_id in
+                                                      (select area_id as county from list_geo where area_id ='{}'))) group by 
+                                                      gender,ovc_reg.is_active
+                                                  '''.format(area_id))
+
+    elif (level == 'subcounty'):
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                                      and 
+                                                      person.area_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                                      group by gender,ovc_reg.is_active
+                                                  '''.format(area_id))
+        print base_sql + '''
+                                      and 
+                                      ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                      group by gender,ovc_reg.is_active
+                                  '''.format(area_id)
+
+    elif (level == 'ward'):
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql + '''
+                                                      and person.area_id={0} group by gender,ovc_reg.is_active
+                                                  '''.format(area_id))
+        print base_sql + '''
+                                                      and person.area_id={0} group by gender,ovc_reg.is_active
+                                                  '''.format(area_id)
+
+
+    elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
+        print "not 10th month 0"
+        if (funding_partner == 'funding_mechanism'):
+            if (funding_part_id == '0'):  # usaid
+
+                rows2, desc2 = run_sql_data(None,
+                                            base_sql + '''
+                                           and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                                         in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                                             'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                                             )) group by gender,ovc_reg.is_active'''
+                                            )
+
+        if (funding_partner == 'cluster'):
+            print "=======> cluster"
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                                       and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                                             )  group by gender,ovc_reg.is_active'''.format(funding_part_id)
+                                        )
+
+        if (funding_partner == 'cbo_unit'):
+            print "=======> cbo_unit"
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                                                   and person.child_cbo_id = '{}' group by gender,ovc_reg.is_active'''.format(
+                                            funding_part_id)
+                                        )
+    ovc_active_within_period = []
+    for data in rows2:
+        # print i ," ",x['DOMAIN']
+
+        ovc_active = {}
+
+        ovc_active['gender'] = data['GENDER']
+        ovc_active['period'] = data['TIME_PERIOD']
+        ovc_active['count'] = data['COUNT']
+        ovc_active['active'] = data['ACTIVE']
+
+        ovc_active_within_period.append(ovc_active)
+    print "and we retunr ===============>"
+    print ovc_active_within_period
+    return ovc_active_within_period
+
+
+
 def fetch_exited_hsehlds_by_period(request,org_ids,level='',area_id='',month_year='',fcc='',fcc_val=''):
     # print 'oooop running fetch_exited_hsehlds_by_period month_year='+month_year+" \n "
     month_year = json.loads(month_year)

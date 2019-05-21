@@ -1,6 +1,7 @@
     $(document).ready(function () {
         ouChange('national',"0",'none','none');
         fetchNewOVCRegs('national',"","","","annual");
+        fetchExitedAndActiveOVCRegs('national',"","","","annual");
     });
 
     function ouChange(levl,ouid,fcc,fcc_val) {
@@ -133,34 +134,7 @@
         });
     }
 
-    function fetchActiveOVCs(org_level,area_id,months_arr,fcc,fcc_val){
-        var month_year = [];
-        $.each(months_arr, function (indx, monthyr) {
-            var m_y_array = [];
-            var dateparts = monthyr.split('/', 2);
-            var the_month = dateparts[0];
-            if(parseFloat(the_month) < 10){the_month = '0'+the_month;}
-            var the_year = dateparts[1];
-            m_y_array.push(the_month);
-            m_y_array.push(the_year);
-            month_year.push(m_y_array);
-        });
-        var the_url = '/get_active_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
-         $.ajax({
-            type: 'GET',
-            url: the_url,
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            encode: true,
-            success: function (data, textStatus, jqXHR) {
-             //   displayActiveOVCs(data,months_arr);
-            },
-            error: function (response, request) {
-                console.log(response.responseText);
-            }
-    
-        });
-    }
+
     //--1--
 
     //--2--
@@ -179,33 +153,27 @@
            }
        });
    }
-   function fetchExitedOVCRegs(org_level,area_id,months_arr,fcc,fcc_val){
-        var month_year = [];
-        $.each(months_arr, function (indx, monthyr) {
-            var m_y_array = [];
-            var dateparts = monthyr.split('/', 2);
-            var the_month = dateparts[0];
-            if(parseFloat(the_month) < 10){the_month = '0'+the_month;}
-            var the_year = dateparts[1];
-            m_y_array.push(the_month);
-            m_y_array.push(the_year);
-            month_year.push(m_y_array);
-        });
-        var the_url='/get_exited_ovcs_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
+   function fetchExitedAndActiveOVCRegs(org_level,area_id,funding_partner,funding_part_id,period_type){
+
+        var the_url = '/get_exited_ovcs_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
-           type: 'GET',
-           url: the_url,
-           contentType: 'application/json; charset=utf-8',
-           dataType: 'json',
-           encode: true,
-           success: function (data, textStatus, jqXHR) {
-             //  displayExitedOVCRegs(data, months_arr);
-           },
-           error: function (response, request) {
-               console.log(response.responseText);
-           }
-       });
+            type: 'GET',
+            url: the_url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            encode: true,
+            success: function (data, textStatus, jqXHR) {
+            console.log("the data is: ========>");
+            console.log(data);
+            displayExitedOVCRegs(data);
+            displayActiveOVCs(data);
+            },
+            error: function (response, request) {
+                console.log(response.responseText);
+            }
+        });
    }
+
    function fetchExitedHseld(org_level,area_id,months_arr,fcc,fcc_val){
         var month_year = [];
         $.each(months_arr, function (indx, monthyr) {
@@ -357,14 +325,13 @@
     }
     function displayNewOVCRegs(data, months_arr){
 
-            var elementId="new_ovc_registrations";
+           var elementId="new_ovc_registrations";
            var the_x_axis= []
            var the_title = 'New OVCs within period';
 
             var female={name: 'female',data: []};
             var male={name: 'male',data: []};
             $.each(data, function (index, objValue) {
-                console.log("The service =====>");
                 console.log(objValue);
                 the_x_axis.push(objValue['period']);
                 if(objValue['gender']=='Male') male['data'].push(objValue['count']);
@@ -377,21 +344,34 @@
                             ];
             barChart(elementId,the_title,the_x_axis,the_series)
 
-
     }
-    function displayActiveOVCs(the_data, months_arr){
+
+    function displayActiveOVCs(data){
+
            var elementId="active_ovc";
-           var the_x_axis= months_arr;
+           var the_x_axis= []
            var the_title = 'Active OVCs within period';
-           var the_series = [
-                                // { name: 'Female', data: [3896, 3979, 9798, 1687, 565] },
-                                // { name: 'Male', data: [396, 979, 798, 767, 565] }
-                                { name: 'OVCs', data: the_data }
-                            ];
 
-            barChart(elementId,the_title,the_x_axis,the_series);
-            showLoad(false);
+            var female={name: 'female',data: []};
+            var male={name: 'male',data: []};
+            $.each(data, function (index, objValue) {
+                console.log("The service =====>");
+                console.log(objValue);
+                the_x_axis.push(objValue['period']);
+                if(objValue['active']==true){
+                    if(objValue['gender']=='Male') male['data'].push(objValue['count']);
+                    else female['data'].push(objValue['count']);
+                }
+            });
+
+           var the_series = [
+                                female,
+                                male
+                            ];
+            barChart(elementId,the_title,the_x_axis,the_series)
+
     }
+
     //--1--
 
     //--2--
@@ -403,19 +383,30 @@
         // });
         $('#'+elementId).html(val);
     }
-    function displayExitedOVCRegs(the_data, months_arr){
+    function displayExitedOVCRegs(data, months_arr){
            var elementId="ovc_exits";
-           var the_x_axis= months_arr;
+           var the_x_axis= []
            var the_title = 'OVC Exited from the program within period';
-           var the_series = [
-                                // { name: 'Female', data: [3896, 3979, 1798, 7687, 4565] },
-                                // { name: 'Male', data: [1396, 1979, 7908, 4767, 5365] }
-                                { name: 'OVCs', data: the_data }
-                            ];
 
-            barChart(elementId,the_title,the_x_axis,the_series);
-            showLoad(false);
+            var female={name: 'female',data: []};
+            var male={name: 'male',data: []};
+            $.each(data, function (index, objValue) {
+                console.log(objValue);
+                the_x_axis.push(objValue['period']);
+                if(objValue['active']==false){
+                    if(objValue['gender']=='Male') male['data'].push(objValue['count']);
+                    else female['data'].push(objValue['count']);
+                }
+
+            });
+
+           var the_series = [
+                                female,
+                                male
+                            ];
+            barChart(elementId,the_title,the_x_axis,the_series)
     }
+
     function displayExitedHseld(data, months_arr){
         // $.each(data, function (index, objValue) {
            var elementId="hsehld_exits";

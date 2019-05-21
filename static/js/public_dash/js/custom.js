@@ -73,10 +73,12 @@ $('#period').on('change', function (event) {
         fetchOvcServedStatusStats('none','0',fundingPartnerLevel,selectedPartner,period);
     }else if(currentDrillOption=='funding' && currentPage==pages[2]){
         fetchNewOVCRegs('none','0',fundingPartnerLevel,selectedPartner,period);
+        fetchActiveOVCs('none','0',fundingPartnerLevel,selectedPartner,period);
     }else if(currentDrillOption=='locality' && currentPage==pages[0]){
         fetchOvcServedStatusStats(localityLevel,selectedOrgId,'','',period);
     }else if(currentDrillOption=='locality' && currentPage==pages[2]){
         fetchNewOVCRegs(localityLevel,selectedOrgId,'','',period);
+        fetchExitedAndActiveOVCRegs(localityLevel,selectedOrgId,'','',period);
     }
 });
 
@@ -119,8 +121,8 @@ $('#county-organisation-unit').on('change', function (event) {
     }else if(currentPage==pages[0]){
         fetchOvcServedStatusStats(localityLevel,selectedCountyId,'','',period)
     }else if (currentPage==pages[2]){
-
         fetchNewOVCRegs(localityLevel,selectedCountyId,'','',period);
+        fetchExitedAndActiveOVCRegs(localityLevel,selectedCountyId,'','',period);
     }
 
 });
@@ -143,6 +145,7 @@ $('#countituency-organisation-unit').on('change', function (event) {
         fetchOvcServedStatusStats(localityLevel,selectedSubCountyId,'','',period)
     }else if (currentPage==pages[2]){
         fetchNewOVCRegs(localityLevel,selectedSubCountyId,'','',period);
+        fetchExitedAndActiveOVCRegs(localityLevel,selectedSubCountyId,'','',period);
     }
     //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
@@ -172,8 +175,8 @@ $('#ward-organisation-unit').on('change', function (event) {
     }else if(currentPage==pages[0]){
         fetchOvcServedStatusStats(localityLevel,selectedWardId,'','',period)
     }else if (currentPage==pages[2]){
-
         fetchNewOVCRegs(localityLevel,selectedWardId,'','',period);
+        fetchExitedAndActiveOVCRegs(localityLevel,selectedWardId,'','',period);
     }
 
 });
@@ -201,6 +204,7 @@ $('#funding-mechanism').on('change', function (event) {
             fundingPartnerLevel=selectedPartnerValue;
             selectedPartner=selectedPartnerId;
             fetchNewOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
+            fetchExitedAndActiveOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
         }
 
      }else{
@@ -240,6 +244,8 @@ $('#cluster-unit').on('change', function (event) {
         fundingPartnerLevel=selectedClusterValue;
         selectedPartner=selectedClusterId;
         fetchNewOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
+        fetchExitedAndActiveOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
+
     }
 
 });
@@ -263,6 +269,7 @@ $('#cbo-unit').on('change', function (event) {
         fundingPartnerLevel=selectedCboValue;
         selectedPartner=selectedCboId;
         fetchNewOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
+        fetchExitedAndActiveOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
     }
 
 });
