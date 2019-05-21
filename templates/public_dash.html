@@ -120,6 +120,33 @@
             /* .chosen-container{
                 margin-right:20px;
             } */
+            
+            /* Page Menus */
+            ul.menu {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+             /* background-color: #333; */
+            }
+
+            ul.menu li {
+              float: left;
+            }
+
+            ul.menu li a {
+              display: block;
+              color: white;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+              font-size: 15px;
+            }
+
+            ul.menu li a:hover {
+              background-color: #ffffff ;
+              color: #276696;
+            }
 
     </style>
 
@@ -147,48 +174,14 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                <!--<ul class="nav navbar-nav pull-left">-->
-
-
-                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
-                <!--class="icon-cog"></i> Locality <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--&lt;!&ndash;<li id="ward"><a href="javascript:;">Ward</a></li>&ndash;&gt;-->
-                <!--<li id="national" class="dropdown-submenu">-->
-                <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">National</a>-->
-                <!--<ul id="national-level" class="dropdown-menu rm">-->
-
-
-                <!--</ul>-->
-                <!--</li>-->
-
-                <!--</ul>-->
-                <!--</li>-->
-
-
-                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
-                <!--class="icon-user"></i> Suppression <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="javascript:;">Viral Load</a></li>-->
-                <!--<li><a href="javascript:;">Stats</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
-                <!--<li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown"><i-->
-                <!--class="icon-cog"></i> Implementing Partner <b class="caret"></b></a>-->
-                <!--<ul class="dropdown-menu">-->
-                <!--<li><a href="javascript:;">Pepfar</a></li>-->
-                <!--<li><a href="javascript:;">Usaid</a></li>-->
-                <!--<li><a href="javascript:;">DOD</a></li>-->
-                <!--<li><a href="javascript:;">CDC</a></li>-->
-                <!--</ul>-->
-                <!--</li>-->
-                <!--</ul>-->
 
                 <form class="navbar-form navbar-right navbar-search">
 
-                    <input type="text" class="search-query" placeholder="Search">
-
-                    <button type="submit" class="btn btn-xs btn-default nav-search-btn">Search</button>
+                     <ul class="menu">
+                      <li><a class="active" href="/public_dash/e">Hiv Stats</a></li>
+                      <li><a href="/public_dashboard/registration">Registration</a></li>
+                      <li><a href="/public_dashboard/served/">Served</a></li>
+                    </ul>
                 </form>
 
 

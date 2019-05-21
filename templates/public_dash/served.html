@@ -105,7 +105,7 @@
                 float: left;
                 width: 45px;
                 margin-top: 2px;
-                background:url('../static/img/logo.png') left center no-repeat;
+                background:url('../../static/img/logo.png') left center no-repeat;
             }
 
             .org-unit-label {
@@ -125,6 +125,32 @@
                 margin-right:20px;
             } */
 
+            /* Page Menus */
+            ul.menu {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+             /* background-color: #333; */
+            }
+
+            ul.menu li {
+              float: left;
+            }
+
+            ul.menu li a {
+              display: block;
+              color: white;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+              font-size: 15px;
+            }
+
+            ul.menu li a:hover {
+              background-color: #ffffff ;
+              color: #276696;
+            }
 
     </style>
 
@@ -155,9 +181,12 @@
 
                 <form class="navbar-form navbar-right navbar-search">
 
-                    <input type="text" class="search-query" placeholder="Search">
+                     <ul class="menu">
+                      <li><a class="active" href="/public_dash/e">Hiv Stats</a></li>
+                      <li><a href="/public_dashboard/registration">Registration</a></li>
+                      <li><a href="/public_dashboard/served/">Served</a></li>
+                    </ul>
 
-                    <button type="submit" class="btn btn-xs btn-default nav-search-btn">Search</button>
                 </form>
 
 

@@ -21,6 +21,19 @@ $(document).ready(function () {
 });
 
 
+function resetFundingMechanismOptions(){
+    $("#funding-mechanism").val('').trigger("chosen:updated");
+    $("#cluster-unit").val('').trigger("chosen:updated");
+    $("#cbo-unit").val('').trigger("chosen:updated");
+}
+
+
+function resetOrgUnitOptions(){
+    $("#county-organisation-unit").val('').trigger("chosen:updated");
+    $("#countituency-organisation-unit").val('').trigger("chosen:updated");
+    $("#ward-organisation-unit").val('').trigger("chosen:updated");
+}
+
 function destroyChosenDropDownList(elementId) {
     try {
         $(elementId).chosen("destroy");
@@ -86,6 +99,8 @@ $('#period').on('change', function (event) {
 
 //county event handler
 $('#county-organisation-unit').on('change', function (event) {
+
+    resetFundingMechanismOptions();
     currentDrillOption='locality';
     localityLevel='county';
     var localityDataToDisplay= cloneObject(localityData);
@@ -133,6 +148,7 @@ $('#county-organisation-unit').on('change', function (event) {
 
 //sub county event handler
 $('#countituency-organisation-unit').on('change', function (event) {
+    resetFundingMechanismOptions();
     currentDrillOption='locality';
     localityLevel='subcounty';
     // console.log($("#countituency-organisation-unit option:selected"));
@@ -165,6 +181,7 @@ $('#countituency-organisation-unit').on('change', function (event) {
 
 // ward event handler
 $('#ward-organisation-unit').on('change', function (event) {
+    resetFundingMechanismOptions();
     currentDrillOption='locality';
     localityLevel='ward';
     // console.log($("#countituency-organisation-unit option:selected"));
@@ -189,6 +206,7 @@ $('#ward-organisation-unit').on('change', function (event) {
 
 //funding mechanism event handler
 $('#funding-mechanism').on('change', function (event) {
+    resetOrgUnitOptions();
     currentDrillOption='funding';
      var selectedPartnerId = $("#funding-mechanism option:selected").val();
      var selectedPartnerValue=$("#funding-mechanism option:selected").attr('data-value');
@@ -222,6 +240,7 @@ $('#funding-mechanism').on('change', function (event) {
 
 //cluster event handler
 $('#cluster-unit').on('change', function (event) {
+    resetOrgUnitOptions();
     currentDrillOption='funding';
      var selectedClusterId = $("#cluster-unit option:selected").val();
      var selectedClusterValue=$("#cluster-unit option:selected").attr('data-value');
@@ -260,6 +279,7 @@ $('#cluster-unit').on('change', function (event) {
 
 //cbo event handler
 $('#cbo-unit').on('change', function (event) {
+    resetOrgUnitOptions();
     currentDrillOption='funding';
      var selectedCboId = $("#cbo-unit option:selected").attr('data-id');
      var selectedCboValue=$("#cbo-unit option:selected").attr('data-value');
