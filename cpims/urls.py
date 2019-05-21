@@ -50,7 +50,7 @@ urlpatterns = [
 
     url(r'^get_exited_ovcs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_exited_ovcs_by_period', name='get_exited_ovcs_by_period'),
 
-    url(r'^get_exited_hsehlds_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/(?P<fcc>\w+)/(?P<fcc_val>.*)/', 'cpims.views.get_exited_hsehlds_by_period', name='get_exited_hsehlds_by_period'),
+    url(r'^get_exited_hsehlds_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_exited_hsehlds_by_period', name='get_exited_hsehlds_by_period'),
 
     url(r'^get_served_bcert_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_served_bcert_by_period', name='get_served_bcert_by_period'),
     url(r'^get_u5_served_bcert_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_u5_served_bcert_by_period', name='get_u5_served_bcert_by_period'),

@@ -1,40 +1,44 @@
-    $(document).ready(function () {
-        ouChange('national',"0",'none','none');
-        fetchNewOVCRegs('national',"","","","annual");
-        fetchExitedAndActiveOVCRegs('national',"","","","annual");
-    });
+function ouChange(levl,ouid,fcc,fcc_val) {
+    showLoad(true);
+    if(levl == undefined || levl == null || levl == ''){ levl = 'national'; }
+    if(ouid == undefined || ouid == null || ouid == ''){ ouid = '0'; }
+    if(fcc == undefined || fcc == null || fcc == ''){ fcc = 'none'; }
+    if(fcc_val == undefined || fcc_val == null || fcc_val == ''){ fcc_val = 'none'; }
 
-    function ouChange(levl,ouid,fcc,fcc_val) {
-        showLoad(true);
-        if(levl == undefined || levl == null || levl == ''){ levl = 'national'; }
-        if(ouid == undefined || ouid == null || ouid == ''){ ouid = '0'; }
-        if(fcc == undefined || fcc == null || fcc == ''){ fcc = 'none'; }
-        if(fcc_val == undefined || fcc_val == null || fcc_val == ''){ fcc_val = 'none'; }
+    var periodVal = $('#period option:selected').val();
+    var months_array=getMonths();
+    if(periodVal == undefined || periodVal == null){ periodVal = 12; }
+    months_array=getMonths(periodVal);
 
-        var periodVal = $('#period option:selected').val();
-        var months_array=getMonths();
-        if(periodVal == undefined || periodVal == null){ periodVal = 12; }
-        months_array=getMonths(periodVal);
-        
-        console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
-      
+    console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
 
-//            fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
-//            fetchTotalOVCsEver('national',"0");
+
+//    fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
+//    fetchTotalOVCsEver('national',"0");
 //
-//            fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
-//            fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
-//            fetchTotalOVCsEverExited('national',"0");
+//    fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+//    fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
+//    fetchTotalOVCsEverExited('national',"0");
 //
-//            fetchServedBCert(levl,ouid,months_array);
-//            fetchU5ServedBcert(levl,ouid,months_array);
-//            fetchWoBCertAtEnrol('national',"0")
-//            fetchServedBCert('national',"0",months_array)
-//            fetchWithBCertToDate('national',"0")
-//            fetchServedBCertAftEnrol('national',"0")
-//            fetchU5ServedBcert('national',"0",months_array)
+//    fetchServedBCert(levl,ouid,months_array);
+//    fetchU5ServedBcert(levl,ouid,months_array);
+//    fetchWoBCertAtEnrol('national',"0")
+//    fetchServedBCert('national',"0",months_array)
+//    fetchWithBCertToDate('national',"0")
+//    fetchServedBCertAftEnrol('national',"0")
+//    fetchU5ServedBcert('national',"0",months_array)
 
     }
+
+
+
+$(document).ready(function () {
+    ouChange('national',"0",'none','none');
+    fetchNewOVCRegs('national',"","","","annual");
+    fetchExitedAndActiveOVCRegs('national',"","","","annual");
+    fetchExitedHseld('national',"","","","annual");
+});
+
 
     function getMonths(periodType) {
         if(periodType == undefined || periodType == null || periodType == ''){
@@ -174,34 +178,22 @@
         });
    }
 
-   function fetchExitedHseld(org_level,area_id,months_arr,fcc,fcc_val){
-        var month_year = [];
-        $.each(months_arr, function (indx, monthyr) {
-            var m_y_array = [];
-            var dateparts = monthyr.split('/', 2);
-            var the_month = dateparts[0];
-            if(parseFloat(the_month) < 10){the_month = '0'+the_month;}
-            var the_year = dateparts[1];
-            m_y_array.push(the_month);
-            m_y_array.push(the_year);
-            month_year.push(m_y_array);
-        });
-        var the_url = '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+encodeURIComponent(JSON.stringify(month_year))+'/'+fcc+'/'+fcc_val+'/';
+   function fetchExitedHseld(org_level,area_id,funding_partner,funding_part_id,period_type){
+        var the_url = '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
-           type: 'GET',
-           url: the_url,
-           contentType: 'application/json; charset=utf-8',
-           dataType: 'json',
-           encode: true,
-           success: function (data, textStatus, jqXHR) {
-               
-             //  displayExitedHseld(data,months_arr);
-           },
-           error: function (response, request) {
-               console.log(response.responseText);
-           }
-   
-       });
+            type: 'GET',
+            url: the_url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            encode: true,
+            success: function (data, textStatus, jqXHR) {
+
+            displayExitedHseld(data);
+            },
+            error: function (response, request) {
+                console.log(response.responseText);
+            }
+        });
    }
    //--2--
 
@@ -408,19 +400,21 @@
     }
 
     function displayExitedHseld(data, months_arr){
-        // $.each(data, function (index, objValue) {
-           var elementId="hsehld_exits";
-           var the_x_axis= months_arr
-           var the_title = 'HouseHolds Exited from the program within period';
-           var the_series = [
-                                // { name: 'Female', data: [3896, 3979, 9798, 1687, 565] },
-                                // { name: 'Male', data: [396, 979, 798, 767, 565] }
-                                { name: 'Households', data: data }
-                            ];
+       var elementId="hsehld_exits";
+       var the_x_axis= []
+       var the_title = 'HouseHolds Exited from the program within period';
 
-            barChart(elementId,the_title,the_x_axis,the_series);
-            showLoad(false);
-        // });
+        var graph_data={name: 'House Hold',data: []};
+        $.each(data, function (index, objValue) {
+            the_x_axis.push(objValue['period']);
+                graph_data['data'].push(objValue['count']);
+        });
+
+       var the_series = [
+                            graph_data
+                        ];
+        barChart(elementId,the_title,the_x_axis,the_series);
+
     }
     //--2--
 

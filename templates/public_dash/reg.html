@@ -129,16 +129,6 @@
 
 </head>
 <body>
-<!--<div class="pagetint hidden">-->
-<!--<div class="cover"></div>-->
-<!--<div class="loader">-->
-<!--<svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 50;" xml:space="preserve">-->
-<!--<path fill="#276696" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">-->
-<!--<animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform>-->
-<!--</path>-->
-<!--</svg>-->
-<!--</div>-->
-<!--</div>-->
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="navbar-inner">
@@ -160,23 +150,16 @@
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav pull-right">
-                    <li class="active">
-                        <a href="/public_dashboard/registration/"><i class="icon-user"></i> Registration</a>
-                    </li>
-                    <li>
-                        <a href="/public_dashboard/hivstat/"><i class="icon-user"></i> HIV-STAT</a>
-                    </li>
-                    <li>
-                        <a href="/public_dashboard/served/"><i class="icon-user"></i> Served</a>
-                    </li>
-                    <!-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-cog"></i> Option <b class="caret"></b> </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="javascript:;">Dropdown</a></li>
-                        </ul>
-                    </li> -->
-                </ul>
+
+
+                <form class="navbar-form navbar-right navbar-search">
+
+                    <input type="text" class="search-query" placeholder="Search">
+
+                    <button type="submit" class="btn btn-xs btn-default nav-search-btn">Search</button>
+                </form>
+
+
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </div>
@@ -185,78 +168,73 @@
 
 <div class="subnavbar">
     <div class="subnavbar-inner">
-        <div class="container-fluid">
-            <div class="col-md-12">
+        <div class="container" style="margin-left: inherit;width: 100%; ">
 
-                <ul class="mainnav 20px">
+            <ul class="mainnav" style="width: 100%;">
+                <li class="active" style="margin-right: 30px;">
+                    <select style="width: 284px;" id="county-organisation-unit">
+                        <option value="" disabled selected>Select County:</option>
+                    </select>
+                </li>
+
+                <li class="active" style="margin-right: 30px; ">
+                    <select id="countituency-organisation-unit" disabled>
+                        <option value="" disabled selected>Select sub-county:</option>
+                    </select>
+                </li>
+
+                <li class="active" style="margin-right: 30px; ">
+                    <select id="ward-organisation-unit" disabled>
+                        <option value="" disabled selected>Select ward:</option>
+                    </select>
+                </li>
+
+                <li class="active">
+                    <select id="period">
+                        <option data-value="annual" value="semi"  > Annually</option>
+                        <option data-value="semi" value="annual"  > Semi Annually</option>
+
+                    </select>
+                </li>
+
+                <li style="float: right;"  class="active pull-right">
+
+                    <ul class="mainnav">
+
+                        <li class="active">
+                            <select id="funding-mechanism">
+                                <option value="" disabled selected>Funding Meachanism:</option>
+                                <option data-value="funding_mechanism" value="0"  > USAID</option>
+                                <option data-value="funding_mechanism" value="1"  > CDC</option>
+                                <option data-value="funding_mechanism" value="2"  > DOD</option>
+                                <option data-value="funding_mechanism" value="3"  > Others</option>
+                            </select>
+                        </li>
+
+                        <li class="active">
+                            <select id="cluster-unit" disabled>
+                                <option data-value="cluster" value="" disabled selected>Cluster:</option>
+                                <option data-value="cluster" value="0b3bed3b-8e96-4173-80c3-dbaca5750c5b"  > Nilinde</option>
+                                <option data-value="cluster" value="9d40cb90-23ce-447c-969f-3888b96cdf16"  > Mwendo</option>
+                                <option data-value="cluster" value="7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1"  > Case</option>
+                                <option data-value="cluster" value="bcc9e119-388f-4840-93b3-1ee7e07d3ffa" > AMPATHPlus</option>
+                                <option data-value="cluster" value="8949ab03-a430-44d0-a94c-4457118b9485" > Cogri</option>
+                            </select>
+                        </li>
+
+                        <li class="active">
+                            <select id="cbo-unit" disabled>
+                                <option value="" disabled selected>CBO:</option>
+                            </select>
+                        </li>
+
+                    </ul>
+                </li>
 
 
-                    <li class="active" style="margin-right: 30px;">
-                        <select style="width: 284px;" id="county-organisation-unit">
-                            <option value="" disabled selected>Select County:</option>
-                        </select>
-                    </li>
-
-                    <li class="active" style="margin-right: 30px; ">
-                        <select id="countituency-organisation-unit" disabled>
-                            <option value="" disabled selected>Select sub-county:</option>
-                        </select>
-                    </li>
-
-                    <li class="active" style="margin-right: 30px; ">
-                        <select id="ward-organisation-unit" disabled>
-                            <option value="" disabled selected>Select ward:</option>
-                        </select>
-                    </li>
+            </ul>
 
 
-                    <li class="active">
-                        <select id="period">
-                            <option data-value="annual" value="semi"> Annually</option>
-                            <option data-value="semi" value="annual"> Semi Annually</option>
-
-                        </select>
-                    </li>
-
-
-                    <li style="float: right;" class="active pull-right">
-                        <ul class="mainnav">
-                            <li class="active">
-                                <select id="funding-mechanism">
-                                    <option value="" disabled selected>Funding Mechanism:</option>
-                                    <option data-value="funding_mechanism" value="0"> USAID</option>
-                                    <option data-value="funding_mechanism" value="1"> CDC</option>
-                                    <option data-value="funding_mechanism" value="2"> DOD</option>
-                                    <option data-value="funding_mechanism" value="3"> Others</option>
-                                </select>
-                            </li>
-                            <li class="active">
-                                <select id="cluster-unit" disabled>
-                                    <option data-value="cluster" value="" disabled selected>Cluster:</option>
-                                    <option data-value="cluster" value="0b3bed3b-8e96-4173-80c3-dbaca5750c5b"> Nilinde
-                                    </option>
-                                    <option data-value="cluster" value="9d40cb90-23ce-447c-969f-3888b96cdf16"> Mwendo
-                                    </option>
-                                    <option data-value="cluster" value="7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1"> Case
-                                    </option>
-                                    <option data-value="cluster" value="bcc9e119-388f-4840-93b3-1ee7e07d3ffa">
-                                        AMPATHPlus
-                                    </option>
-                                    <option data-value="cluster" value="8949ab03-a430-44d0-a94c-4457118b9485"> Cogri
-                                    </option>
-                                </select>
-                            </li>
-                            <li class="active">
-                                <select id="cbo-unit" disabled>
-                                    <option value="" disabled selected>CBO:</option>
-                                </select>
-                            </li>
-                        </ul>
-                    </li>
-
-                </ul>
-
-            </div>
         </div>
         <!-- /container -->
     </div>
@@ -311,52 +289,27 @@
                     </div>
                 </div>
             </div>
-            <hr/>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="new_ovc_registrations">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="active_ovc">
+            <!--<hr/>-->
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <hr/>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="ovc_exits">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="hsehld_exits">
+                <div id="new_ovc_registrations" class="col-sm-6"></div>
+                <div id="active_ovc" class="col-sm-6"></div>
+            </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <br>
+
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="ovc_s_bcert">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="ovc_u5_s_bcert">
-                        </div>
-                    </div>
-                </div>
+                <div id="ovc_exits" class="col-sm-6"></div>
+                <div id="hsehld_exits" class="col-sm-6"></div>
             </div>
+
+            <br>
+
+            <div class="row">
+                <div id="ovc_s_bcert" class="col-sm-6"></div>
+                <div id="ovc_u5_s_bcert" class="col-sm-6"></div>
+            </div>
+
             <br>
 
         </div>
@@ -366,14 +319,13 @@
     </div>
     <!-- /main-inner -->
 </div>
-<!-- /main -->
 
 <!-- /extra -->
 <div class="footer">
     <div class="footer-inner">
         <div class="container">
             <div class="row">
-                <div class="span12"> &copy; 2018 <a href="#">CPIMS DASHBAORD</a>.</div>
+                <div class="span12"> &copy; 2019 <a href="#">CPIMS DASHBAORD</a>.</div>
                 <!-- /span12 -->
             </div>
             <!-- /row -->
@@ -401,8 +353,6 @@
 <script src="{% static 'js/public_dash/js/custom.js' %}"></script>
 <script src="{% static 'js/public_dash/js/charts/pubdash_reg.js' %}"></script>
 <script src="{% static 'js/public_dash/js/reg_config.js' %}"></script>
-<!--<script src="{% static 'js/public_dash/js/charts/pubdash_filter.js' %}"></script>-->
-<!-- <script src="{% static 'js/public_dash/js/custom.js' %}"></script> -->
 
 
 </body>
