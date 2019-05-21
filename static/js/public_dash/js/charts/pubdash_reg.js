@@ -17,33 +17,22 @@
         
         console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
       
-        // ---reg---
-            // 1
-           // fetchNewOVCRegs(levl,ouid,months_array,fcc,fcc_val);
-            fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
-            fetchTotalOVCsEver('national',"0");
-            // 1
-            // 2
-            fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
-            fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
-            fetchTotalOVCsEverExited('national',"0");
-            // 2
-            // 3
-            fetchServedBCert(levl,ouid,months_array);
-            fetchU5ServedBcert(levl,ouid,months_array);
-            fetchWoBCertAtEnrol('national',"0")
-            fetchServedBCert('national',"0",months_array)
-            fetchWithBCertToDate('national',"0")
-            fetchServedBCertAftEnrol('national',"0")
-            fetchU5ServedBcert('national',"0",months_array)
-            // 3    
-            
-            // fetchNewOVCRegs('national',"0",months_arr,'none','none');
-            // fetchActiveOVCs('national',"0",months_arr,'none','none');
-            // fetchExitedOVCRegs('national',"0",months_arr,'none','none');
-            // fetchExitedHseld('national',"0",months_arr,'none','none');
 
-        // ---reg---
+//            fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
+//            fetchTotalOVCsEver('national',"0");
+//
+//            fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+//            fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
+//            fetchTotalOVCsEverExited('national',"0");
+//
+//            fetchServedBCert(levl,ouid,months_array);
+//            fetchU5ServedBcert(levl,ouid,months_array);
+//            fetchWoBCertAtEnrol('national',"0")
+//            fetchServedBCert('national',"0",months_array)
+//            fetchWithBCertToDate('national',"0")
+//            fetchServedBCertAftEnrol('national',"0")
+//            fetchU5ServedBcert('national',"0",months_array)
+
     }
 
     function getMonths(periodType) {
@@ -102,35 +91,6 @@
         // return JSON.stringify(months_arr)
         return months_arr
     }
-
-
-
-    //cluster event handler
-$('#cluster-unit').on('change', function (event) {
-    currentDrillOption='funding';
-     var selectedClusterId = $("#cluster-unit option:selected").val();
-     var selectedClusterValue=$("#cluster-unit option:selected").attr('data-value');
-
-     destroyChosenDropDownList('#cbo-unit');
-     $('#cbo-unit').prop("disabled", false); // Element(s) are now enabled.
-     $('#cbo-unit').empty();
-     $('#cbo-unit').append("<option></option>");
-     $.each(cboData, function( index, cboObject ) {
-        if(cboObject['cluster_id']==selectedClusterId){
-            console.log("match");
-            var elementToAppend = '<option data-value="cbo_unit" data-id="' + cboObject['id'] + '" data-name="' + cboObject['name'] + '">' + cboObject['name'] + '</option>';
-            $("#cbo-unit").append(elementToAppend);
-        }
-     });
-     initOrganisationUnitChosenDropDown('CBO','#cbo-unit',"200px");
-
-        fundingPartnerLevel=selectedClusterValue;
-        selectedPartner=selectedClusterId;
-        fetchOvcServedStatusStats('none',0,fundingPartnerLevel,selectedPartner,period);
-
-
-});
-
 
 
 
@@ -395,22 +355,20 @@ $('#cluster-unit').on('change', function (event) {
         // });
         $('#'+elementId).html(val);
     }
-    function displayNewOVCRegs(the_data, months_arr){
+    function displayNewOVCRegs(data, months_arr){
 
-           var elementId="new_ovc_registrations";
+            var elementId="new_ovc_registrations";
            var the_x_axis= []
            var the_title = 'New OVCs within period';
 
             var female={name: 'female',data: []};
             var male={name: 'male',data: []};
             $.each(data, function (index, objValue) {
-                console.log("gone ");
-                console.log(objValue['service']);
-                if(objValue['service']=='Not Served'){
-                    the_x_axis.push(objValue['time_period']);
-                    if(objValue['gender']=='Male') male['data'].push(objValue['count']);
-                    else female['data'].push(objValue['count']);
-                }
+                console.log("The service =====>");
+                console.log(objValue);
+                the_x_axis.push(objValue['period']);
+                if(objValue['gender']=='Male') male['data'].push(objValue['count']);
+                else female['data'].push(objValue['count']);
             });
 
            var the_series = [
@@ -419,7 +377,7 @@ $('#cluster-unit').on('change', function (event) {
                             ];
             barChart(elementId,the_title,the_x_axis,the_series)
 
-            showLoad(false);
+
     }
     function displayActiveOVCs(the_data, months_arr){
            var elementId="active_ovc";

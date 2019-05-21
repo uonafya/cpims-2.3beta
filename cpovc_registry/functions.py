@@ -120,7 +120,7 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
 
     elif (currentMonth is not 10 and period_typ == 'annual'):
         yr = currentYear - 1
-        period_span = 'APR ' + str(yr) + '/' + str(currentYear)
+        period_span = str(yr) + '/' + str(currentYear)
         base_sql = '''    
                     Select count(*) as count,person.gender as gender,'{}' as time_period from  public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id where
                     ovc_reg.registration_date between 'oct-01-{}' and 'Sept-30-{}'
@@ -157,7 +157,9 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
     ############
     if level == 'national':
         print "national level +==============>"
-        print base_sql
+        print base_sql + '''
+                                        group by gender
+                                        '''
         print "end level +==============>"
         rows2, desc2 = run_sql_data(None,
                                     base_sql + '''
@@ -165,27 +167,44 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
                                         ''')
 
     elif (level == 'county'):
+        print "county level =========>"
+
+        print base_sql + '''
+                                            and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                            select area_id as sub_county from list_geo where parent_area_id in
+                                            (select area_id as county from list_geo where area_id ='{}'))) group by 
+                                            gender
+                                        '''.format(area_id)
+
         rows2, desc2 = run_sql_data(None,
                                     base_sql + '''
-                                            and countyid={0} group by 
-                                            gender,numberofservices
+                                            and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
+                                            select area_id as sub_county from list_geo where parent_area_id in
+                                            (select area_id as county from list_geo where area_id ='{}'))) group by 
+                                            gender
                                         '''.format(area_id))
-        print base_sql + '''
-                                            and countyid={0} group by gender
-                                        '''.format(area_id)
+
     elif (level == 'subcounty'):
         rows2, desc2 = run_sql_data(None,
                                     base_sql + '''
                                             and 
-                                            ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                            person.area_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
                                             group by gender
                                         '''.format(area_id))
+        print base_sql  + '''
+                            and 
+                            ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                            group by gender
+                        '''.format(area_id)
 
     elif (level == 'ward'):
         rows2, desc2 = run_sql_data(None,
                                     base_sql + '''
-                                            and ward={0} group by gender,numberofservices
+                                            and person.area_id={0} group by gender
                                         '''.format(area_id))
+        print base_sql + '''
+                                            and person.area_id={0} group by gender
+                                        '''.format(area_id)
 
 
     elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
@@ -202,6 +221,7 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
                                             )
 
         if (funding_partner == 'cluster'):
+            print "=======> cluster"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                              and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
@@ -209,6 +229,7 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
                                         )
 
         if (funding_partner == 'cbo_unit'):
+            print "=======> cbo_unit"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                                          and person.child_cbo_id = '{}' group by gender'''.format(
