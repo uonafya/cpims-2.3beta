@@ -33,7 +33,7 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 
 $(document).ready(function () {
-    ouChange('national',"0",'none','none');
+    //ouChange('national',"0",'none','none');
     fetchNewOVCRegs('national',"","","","annual");
     fetchExitedAndActiveOVCRegs('national',"","","","annual");
     fetchExitedHseld('national',"","","","annual");
