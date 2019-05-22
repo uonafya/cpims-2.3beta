@@ -1,6 +1,6 @@
 $(document).ready(function () {
 var org_level='national';
-fetchCascade90FromServer('national',"");
+fetchCascade90FromServer('national',"none");
 });
 
 function fetchCascade90FromServer(org_level,org_sub_level){
