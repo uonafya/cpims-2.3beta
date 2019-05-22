@@ -1,6 +1,6 @@
 $(document).ready(function () {
 var org_level='national';
-fetchHivNotKnownFromServer('national',"");
+fetchHivNotKnownFromServer('national',"none");
 });
 
 function fetchHivNotKnownFromServer(org_level,org_sub_level){
