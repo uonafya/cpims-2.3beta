@@ -2,16 +2,16 @@ var localityApi='/get_locality_data/';
 var cboApi= '/fetch_cbo_list/'
 var localityData='';
 var cboData='';
-var selectedCountySiblingsList=''; //list of countituency in the selected county
+var selectedCountySiblingsList='none'; //list of countituency in the selected county
 var pages=['served','hivstats']
 var currentPage='';
 
 var period='annual'
 var currentDrillOption='locality' //weather drill by locality or by funding partner 'locality' or 'funding'
 var localityLevel='national';
-var fundingPartnerLevel='';
-var selectedPartner='';
-var selectedOrgId='';
+var fundingPartnerLevel='none';
+var selectedPartner='none';
+var selectedOrgId='none';
 
 $(document).ready(function () {
     initOrganisationUnitChosenDropDown('funding mechanism','#funding-mechanism');
@@ -89,11 +89,11 @@ $('#period').on('change', function (event) {
         fetchExitedAndActiveOVCRegs('none','0',fundingPartnerLevel,selectedPartner,period);
         fetchExitedHseld('none','0',fundingPartnerLevel,selectedPartner,period);
     }else if(currentDrillOption=='locality' && currentPage==pages[0]){
-        fetchOvcServedStatusStats(localityLevel,selectedOrgId,'','',period);
+        fetchOvcServedStatusStats(localityLevel,selectedOrgId,'none','none',period);
     }else if(currentDrillOption=='locality' && currentPage==pages[2]){
-        fetchNewOVCRegs(localityLevel,selectedOrgId,'','',period);
-        fetchExitedAndActiveOVCRegs(localityLevel,selectedOrgId,'','',period);
-        fetchExitedHseld(localityLevel,selectedOrgId,'','',period);
+        fetchNewOVCRegs(localityLevel,selectedOrgId,'none','none',period);
+        fetchExitedAndActiveOVCRegs(localityLevel,selectedOrgId,'none','none',period);
+        fetchExitedHseld(localityLevel,selectedOrgId,'none','none',period);
     }
 });
 
@@ -136,11 +136,11 @@ $('#county-organisation-unit').on('change', function (event) {
         fetchActiveOvcHivStats('county',selectedCountyId);
         fetchCascade90FromServer('county',selectedCountyId);
     }else if(currentPage==pages[0]){
-        fetchOvcServedStatusStats(localityLevel,selectedCountyId,'','',period)
+        fetchOvcServedStatusStats(localityLevel,selectedCountyId,'none','none',period)
     }else if (currentPage==pages[2]){
-        fetchNewOVCRegs(localityLevel,selectedCountyId,'','',period);
+        fetchNewOVCRegs(localityLevel,selectedCountyId,'none','none',period);
         fetchExitedAndActiveOVCRegs(localityLevel,selectedCountyId,'','',period);
-        fetchExitedHseld(localityLevel,selectedCountyId,'','',period);
+        fetchExitedHseld(localityLevel,selectedCountyId,'none','none',period);
     }
 
 });
@@ -161,11 +161,11 @@ $('#countituency-organisation-unit').on('change', function (event) {
         fetchActiveOvcHivStats('subcounty',selectedSubCountyId);
         fetchCascade90FromServer('subcounty',selectedSubCountyId);
     }else if(currentPage==pages[0]){
-        fetchOvcServedStatusStats(localityLevel,selectedSubCountyId,'','',period)
+        fetchOvcServedStatusStats(localityLevel,selectedSubCountyId,'none','none',period)
     }else if (currentPage==pages[2]){
-        fetchNewOVCRegs(localityLevel,selectedSubCountyId,'','',period);
-        fetchExitedAndActiveOVCRegs(localityLevel,selectedSubCountyId,'','',period);
-        fetchExitedHseld(localityLevel,selectedSubCountyId,'','',period);
+        fetchNewOVCRegs(localityLevel,selectedSubCountyId,'none','none',period);
+        fetchExitedAndActiveOVCRegs(localityLevel,selectedSubCountyId,'none','none',period);
+        fetchExitedHseld(localityLevel,selectedSubCountyId,'none','none',period);
     }
     //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
@@ -194,11 +194,11 @@ $('#ward-organisation-unit').on('change', function (event) {
         fetchActiveOvcHivStats('ward',selectedWardId);
         fetchCascade90FromServer('ward',selectedWardId);
     }else if(currentPage==pages[0]){
-        fetchOvcServedStatusStats(localityLevel,selectedWardId,'','',period)
+        fetchOvcServedStatusStats(localityLevel,selectedWardId,'none','none',period)
     }else if (currentPage==pages[2]){
-        fetchNewOVCRegs(localityLevel,selectedWardId,'','',period);
-        fetchExitedAndActiveOVCRegs(localityLevel,selectedWardId,'','',period);
-        fetchExitedHseld(localityLevel,selectedWardId,'','',period);
+        fetchNewOVCRegs(localityLevel,selectedWardId,'none','none',period);
+        fetchExitedAndActiveOVCRegs(localityLevel,selectedWardId,'none','none',period);
+        fetchExitedHseld(localityLevel,selectedWardId,'none','none',period);
     }
 
 });

@@ -34,9 +34,9 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 $(document).ready(function () {
     //ouChange('national',"0",'none','none');
-    fetchNewOVCRegs('national',"","","","annual");
-    fetchExitedAndActiveOVCRegs('national',"","","","annual");
-    fetchExitedHseld('national',"","","","annual");
+    fetchNewOVCRegs('national',"none","none","none","annual");
+    fetchExitedAndActiveOVCRegs('national',"none","none","none","annual");
+    fetchExitedHseld('national',"none","none","none","annual");
 });
 
 

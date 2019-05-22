@@ -1,7 +1,7 @@
 $(document).ready(function () {
 var org_level='national';
-fetchHivStatsFromServer('national',"");
-fetchActiveOvcHivStats('national',"");
+fetchHivStatsFromServer('national',"none");
+fetchActiveOvcHivStats('national',"none");
 displayOvcTestedWithinPeriod("");
 displayHivPstvOvcTestedwithinperiod("");
 });
