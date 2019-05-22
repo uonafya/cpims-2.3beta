@@ -226,7 +226,29 @@
                             <fieldset>
                             <legend class="pull-left width-full">
                                 3. Caregiver protection service provision</legend>
-                                <div class="row"></div>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.PG.a %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
                                 <div class="row sbody">
                                 <div class="col-md-2 col-sm-2"><b>Services</b></div>
                                 <div class="col-md-10 col-sm-10">
@@ -292,7 +314,29 @@
 							<fieldset>
                             <legend class="pull-left width-full">
                                 5. Caregiver education status assessment and service provision</legend>
-                                <div class="row"></div>
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                <div class="col-md-10 col-sm-10">
+                                <p></p>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        {% for itm in domains.EG.a %}
+                                        <tr>
+                                            <td class="col-md-1 p-r-5">
+                                                {{ itm.id }}
+                                            </td>
+                                            <td width="80%">
+                                                <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                                </div>
+                                </div>
                                 <div class="row sbody">
                                 <div class="col-md-2 col-sm-2"><b>Services</b></div>
                                 <div class="col-md-10 col-sm-10">

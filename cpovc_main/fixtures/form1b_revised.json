@@ -1,0 +1,914 @@
+[
+    {
+        "pk": 41,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG1t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "Caregive Is unwell",
+            "field_name": "form1b_items",
+            "item_description": "HG 1t - Is unwell",
+            "the_order": 1230
+        }
+    },
+    {
+        "pk": 42,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG2t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "Caregiver does not know HIV status",
+            "field_name": "form1b_items",
+            "item_description": "HG 2t - Caregiver does not know her HIV status",
+            "the_order": 1231
+        }
+    },
+    {
+        "pk": 43,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG3t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "HIV Risk screening not done",
+            "field_name": "form1b_items",
+            "item_description": "HG 3t - HIV Risk screening not done",
+            "the_order": 1232
+        }
+    },
+    {
+        "pk": 44,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG4t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "Pregnant caregiver not receiving PMTCT services",
+            "field_name": "form1b_items",
+            "item_description": "HG 4t - Pregnant caregiver not receiving PMTCT services",
+            "the_order": 1233
+        }
+    },
+    {
+        "pk": 45,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG5t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "HIV+ caregiver not linked to treatment services",
+            "field_name": "form1b_items",
+            "item_description": "HG 5t - HIV+ caregiver not linked to treatment services",
+            "the_order": 1234
+        }
+    },
+    {
+        "pk": 46,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG6t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "HIV+ caregiver did not attend last CCC appointment",
+            "field_name": "form1b_items",
+            "item_description": "HG 6t - HIV+ caregiver did not attend last CCC appointment",
+            "the_order": 1235
+        }
+    },
+    {
+        "pk": 47,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG7t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "HIV+ caregiver not disclosed her status",
+            "field_name": "form1b_items",
+            "item_description": "HG 7t - HIV+ caregiver not disclosed her status",
+            "the_order": 1236
+        }
+    },
+    {
+        "pk": 48,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG8t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "Caregiver does not know Viral Load result",
+            "field_name": "form1b_items",
+            "item_description": "HG 8t - Caregiver does not know Viral Load result",
+            "the_order": 1237
+        }
+    },
+    {
+        "pk": 49,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG9t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "Is not a member of a health insurance plan e.g. NHIF",
+            "field_name": "form1b_items",
+            "item_description": "HG 9t - Is not a member of a health insurance plan e.g. NHIF",
+            "the_order": 1238
+        }
+    },
+    {
+        "pk": 50,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG10t",
+            "is_void": "False",
+            "item_sub_category": "1a",
+            "item_description_short": "Household has no kitchen garden that is productive",
+            "field_name": "form1b_items",
+            "item_description": "HG 10t - Household has no kitchen garden that is productive",
+            "the_order": 1239
+        }
+    },
+    {
+        "pk": 51,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG1s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Caregiver provided with HIV risk screening service",
+            "field_name": "form1b_items",
+            "item_description": "HG 1s - Caregiver provided with HIV risk screening service",
+            "the_order": 1240
+        }
+    },
+    {
+        "pk": 52,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG2s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Pregnant caregiver accessed PMTCT services",
+            "field_name": "form1b_items",
+            "item_description": "HG 2s - Pregnant caregiver accessed PMTCT services",
+            "the_order": 1241
+        }
+    },
+    {
+        "pk": 53,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG3s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Accessed testing and treatment services",
+            "field_name": "form1b_items",
+            "item_description": "HG 3s - Accessed testing and treatment services",
+            "the_order": 1242
+        }
+    },
+    {
+        "pk": 54,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG4s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Provided with transport to testing and treatment services",
+            "field_name": "form1b_items",
+            "item_description": "HG 4s - Provided with transport to testing and treatment services",
+            "the_order": 1243
+        }
+    },
+    {
+        "pk": 55,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG5s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Escorted to testing and treatment services",
+            "field_name": "form1b_items",
+            "item_description": "HG 5s - Escorted to testing and treatment services",
+            "the_order": 1244
+        }
+    },
+    {
+        "pk": 56,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG6s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Caregiver provided with ART adherence counseling",
+            "field_name": "form1b_items",
+            "item_description": "HG 6s - Caregiver provided with ART adherence counseling",
+            "the_order": 1245
+        }
+    },
+    {
+        "pk": 57,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG7s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "HIV+ caregiver linked to support group for support",
+            "field_name": "form1b_items",
+            "item_description": "HG 7s - HIV+ caregiver linked to support group for support",
+            "the_order": 1246
+        }
+    },
+    {
+        "pk": 58,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG8s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Caregiver supported to disclose HIV status",
+            "field_name": "form1b_items",
+            "item_description": "HG 8s - Caregiver supported to disclose HIV status",
+            "the_order": 1247
+        }
+    },
+    {
+        "pk": 59,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG9s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Provided with information about health insurance plan e.g NHIF",
+            "field_name": "form1b_items",
+            "item_description": "HG 9s - Provided with information about health insurance plan e.g NHIF",
+            "the_order": 1248
+        }
+    },
+    {
+        "pk": 60,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG10s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Provided with health (including HIV) and nutrition education",
+            "field_name": "form1b_items",
+            "item_description": "HG 10s - Provided with health (including HIV) and nutrition education",
+            "the_order": 1249
+        }
+    },
+    {
+        "pk": 61,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG11s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Provided with emergency food support",
+            "field_name": "form1b_items",
+            "item_description": "HG 11s - Provided with emergency food support",
+            "the_order": 1250
+        }
+    },
+    {
+        "pk": 62,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG12s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Registered in a health insurance plan",
+            "field_name": "form1b_items",
+            "item_description": "Health and nutrition- (Healthy) - Registered in a health insurance plan",
+            "the_order": 1251
+        }
+    },
+    {
+        "pk": 63,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG13s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Provided with counselling on stress management",
+            "field_name": "form1b_items",
+            "item_description": "Health and nutrition- (Healthy) - Provided with counselling on stress management",
+            "the_order": 1252
+        }
+    },
+    {
+        "pk": 64,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HG14s",
+            "is_void": "False",
+            "item_sub_category": "1s",
+            "item_description_short": "Household trained in kitchen gardening",
+            "field_name": "form1b_items",
+            "item_description": "Health and nutrition- (Healthy) - Household trained in kitchen gardening",
+            "the_order": 1253
+        }
+    },
+    {
+        "pk": 65,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "PG1t",
+            "is_void": "False",
+            "item_sub_category": "3a",
+            "item_description_short": "Reported an incident of abuse, violence or exploitation in 3 months",
+            "field_name": "form1b_items",
+            "item_description": "PG 1t - Household reported an incident of abuse, violence or exploitation in the last 3 months",
+            "the_order": 1254
+        }
+    },
+    {
+        "pk": 66,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "PG1s",
+            "is_void": "False",
+            "item_sub_category": "3s",
+            "item_description_short": "Information on importance of legal documents e.g. ID, title deed, death certificate",
+            "field_name": "form1b_items",
+            "item_description": "PG 1s - Caregiver provided with information on importance of legal documents e.g. ID, title deed, death certificate",
+            "the_order": 1255
+        }
+    },
+    {
+        "pk": 67,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "PG2s",
+            "is_void": "False",
+            "item_sub_category": "3s",
+            "item_description_short": "sensitized on Child protection issues",
+            "field_name": "form1b_items",
+            "item_description": "PG 2s - Caregiver sensitized on Child protection issues (abuse, violence prevention, social safety nets)",
+            "the_order": 1256
+        }
+    },
+    {
+        "pk": 68,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "SG1s",
+            "is_void": "False",
+            "item_sub_category": "3s",
+            "item_description_short": "mentored on child care and positive parenting skills",
+            "field_name": "form1b_items",
+            "item_description": "SG 1s - Caregiver mentored on child care and positive parenting skills",
+            "the_order": 1257
+        }
+    },
+    {
+        "pk": 69,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "SG2s",
+            "is_void": "False",
+            "item_sub_category": "3s",
+            "item_description_short": "Engage & communicate with adolescent on sensitive sexual reproductive health services and rights",
+            "field_name": "form1b_items",
+            "item_description": "SG 2s - Caregiver trained to engage & communicate with adolescent on sensitive topics sexual reproductive health services and rights",
+            "the_order": 1258
+        }
+    },
+    {
+        "pk": 70,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "SG3s",
+            "is_void": "False",
+            "item_sub_category": "3s",
+            "item_description_short": "Caregiver trained on child care and positive parenting skills",
+            "field_name": "form1b_items",
+            "item_description": "SG 3s - Caregiver trained on child care and positive parenting skills",
+            "the_order": 1259
+        }
+    },
+    {
+        "pk": 71,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "SG4s",
+            "is_void": "False",
+            "item_sub_category": "3s",
+            "item_description_short": "Caregiver trained on succession planning",
+            "field_name": "form1b_items",
+            "item_description": "SG 4s - Caregiver trained on succession planning",
+            "the_order": 1260
+        }
+    },
+    {
+        "pk": 72,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "SG5s",
+            "is_void": "False",
+            "item_sub_category": "3s",
+            "item_description_short": "Caregiver sensitized on succession planning",
+            "field_name": "form1b_items",
+            "item_description": "SG 5s - Caregiver sensitized on succession planning",
+            "the_order": 1261
+        }
+    },
+    {
+        "pk": 73,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "EG1t",
+            "is_void": "False",
+            "item_sub_category": "5a",
+            "item_description_short": "Supports children  with homework",
+            "field_name": "form1b_items",
+            "item_description": "EG 1t - Caregiver supports children through assistance with homework",
+            "the_order": 1262
+        }
+    },
+    {
+        "pk": 74,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "EG2t",
+            "is_void": "False",
+            "item_sub_category": "5a",
+            "item_description_short": "Tracking child's school attendance and progress",
+            "field_name": "form1b_items",
+            "item_description": "EG 2t - Caregiver tracking child's school attendance and progress",
+            "the_order": 1263
+        }
+    },
+    {
+        "pk": 75,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "EG 1s",
+            "is_void": "False",
+            "item_sub_category": "5s",
+            "item_description_short": "Caregiver supports children through assistance with homework",
+            "field_name": "form1b_items",
+            "item_description": "EG 1s - Caregiver supports children through assistance with homework",
+            "the_order": 1264
+        }
+    },
+    {
+        "pk": 76,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "EG 2s",
+            "is_void": "False",
+            "item_sub_category": "5s",
+            "item_description_short": "Caregiver tracking child's school attendance and progress",
+            "field_name": "form1b_items",
+            "item_description": "EG 2s - Caregiver tracking child's school attendance and progress",
+            "the_order": 1265
+        }
+    },
+    {
+        "pk": 77,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "EG 3s",
+            "is_void": "False",
+            "item_sub_category": "5s",
+            "item_description_short": "Attends adult Literacy classes",
+            "field_name": "form1b_items",
+            "item_description": "EG 3s - Attends adult Literacy classes",
+            "the_order": 1266
+        }
+    },
+    {
+        "pk": 78,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE1t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "not able to meet basic needs",
+            "field_name": "form1b_items",
+            "item_description": "HE 1t - Household not able to meet basic needs",
+            "the_order": 1267
+        }
+    },
+    {
+        "pk": 79,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE 2t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "Not able to meet daily emergency needs",
+            "field_name": "form1b_items",
+            "item_description": "HE 2t - Household not able to meet daily emergency needs",
+            "the_order": 1268
+        }
+    },
+    {
+        "pk": 80,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE3t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "NOT enrolled in any cash transfer scheme",
+            "field_name": "form1b_items",
+            "item_description": "HE 3t - Household NOT enrolled in any cash transfer scheme",
+            "the_order": 1269
+        }
+    },
+    {
+        "pk": 81,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE4t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "Enrolled in cash transfer for elderly",
+            "field_name": "form1b_items",
+            "item_description": "HE 4t - Household enrolled in cash transfer for elderly",
+            "the_order": 1270
+        }
+    },
+    {
+        "pk": 82,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE5t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "Enrolled in cash transfer for severely disabled",
+            "field_name": "form1b_items",
+            "item_description": "HE 5t - Household enrolled in cash transfer for severely disabled",
+            "the_order": 1271
+        }
+    },
+    {
+        "pk": 83,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE6t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "enrolled in cash transfer for OVC",
+            "field_name": "form1b_items",
+            "item_description": "HE 6t - Household enrolled in cash transfer for OVC",
+            "the_order": 1272
+        }
+    },
+    {
+        "pk": 84,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE7t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "member(s) not engaged in savings and credit group activities",
+            "field_name": "form1b_items",
+            "item_description": "HE 7t - Household member(s) not engaged in savings and credit group activities",
+            "the_order": 1273
+        }
+    },
+    {
+        "pk": 85,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE8t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "not saving money periodically to cushion against unexpected expenses",
+            "field_name": "form1b_items",
+            "item_description": "HE 8t - Household not saving money periodically to cushion against unexpected expenses",
+            "the_order": 1274
+        }
+    },
+    {
+        "pk": 86,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE9t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "does not own productive asset e.g small stock, small machines, tools",
+            "field_name": "form1b_items",
+            "item_description": "HE 9t - Household does not own productive asset e.g small stock, small machines, tools",
+            "the_order": 1275
+        }
+    },
+    {
+        "pk": 87,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE10t",
+            "is_void": "False",
+            "item_sub_category": "6a",
+            "item_description_short": "does not have source of income/livelihood",
+            "field_name": "form1b_items",
+            "item_description": "HE 10t - Household does not have source of income/livelihood",
+            "the_order": 1276
+        }
+    },
+    {
+        "pk": 88,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE1s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "linked to cash transfer for the elderly",
+            "field_name": "form1b_items",
+            "item_description": "HE 1s - Household linked to cash transfer for the elderly",
+            "the_order": 1277
+        }
+    },
+    {
+        "pk": 89,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE2s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "linked to cash transfer for OVC",
+            "field_name": "form1b_items",
+            "item_description": "HE 2s - Household linked to cash transfer for OVC",
+            "the_order": 1278
+        }
+    },
+    {
+        "pk": 90,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE3s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "linked to cash transfer for the severely disabled",
+            "field_name": "form1b_items",
+            "item_description": "HE 3s - Household linked to cash transfer for the severely disabled",
+            "the_order": 1279
+        }
+    },
+    {
+        "pk": 91,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE4s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "member(s) engaged in savings and lending group activity",
+            "field_name": "form1b_items",
+            "item_description": "HE 4s - Household member(s) engaged in savings and lending group activity",
+            "the_order": 1280
+        }
+    },
+    {
+        "pk": 92,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE5s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "member engaged in Merry-go-round activity",
+            "field_name": "form1b_items",
+            "item_description": "HE 5s - Household member engaged in Merry-go-round activity",
+            "the_order": 1281
+        }
+    },
+    {
+        "pk": 93,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE6s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "provided with productive asset e.g small stock, small machines, tools",
+            "field_name": "form1b_items",
+            "item_description": "HE 6s - Household provided with productive asset e.g small stock, small machines, tools",
+            "the_order": 1282
+        }
+    },
+    {
+        "pk": 94,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE7s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "engaged in income generating activity e.g small business, casual labour, farming",
+            "field_name": "form1b_items",
+            "item_description": "HE 7s - Household engaged in income generating activity e.g small business, casual labour, farming",
+            "the_order": 1283
+        }
+    },
+    {
+        "pk": 95,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE8s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "Household member(s) trained on financial literacy",
+            "field_name": "form1b_items",
+            "item_description": "HE 8s - Household member(s) trained on financial literacy",
+            "the_order": 1284
+        }
+    },
+    {
+        "pk": 96,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE9s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "Household member(s) trained on intensive farming, post-harvest management",
+            "field_name": "form1b_items",
+            "item_description": "HE 9s - Household member(s) trained on intensive farming, post-harvest management",
+            "the_order": 1285
+        }
+    },
+    {
+        "pk": 97,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Form 1B Items",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HE10s",
+            "is_void": "False",
+            "item_sub_category": "6s",
+            "item_description_short": "Household trained on small business management & entrepreneurship",
+            "field_name": "form1b_items",
+            "item_description": "HE 10s - Household trained on small business management & entrepreneurship",
+            "the_order": 1286
+        }
+    }
+]

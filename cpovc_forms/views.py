@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from django.utils import timezone
@@ -32,7 +32,7 @@ from .models import (
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations,
-    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics)
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
@@ -8253,7 +8253,7 @@ def manage_service_category(request):
                 if index == 1:
                     # Get services
                     servicecategory = SetupList.objects.get(
-                        field_name='olmis_domain_id', item_id=domain_id)
+                        field_name='olmis_domain_id', item_id=domain_id, is_void=False)
                     service_sub_category = servicecategory.item_sub_category
 
                     if not service_sub_category:
@@ -8262,7 +8262,7 @@ def manage_service_category(request):
                                                           'status': 0})
                     else:
                         servicecategories = SetupList.objects.filter(
-                            field_name=service_sub_category)
+                            field_name=service_sub_category, is_void=False)
                         for servicecategory in servicecategories:
                             jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
                                                               'item_sub_category_id': servicecategory.item_id,
@@ -8271,7 +8271,7 @@ def manage_service_category(request):
                 if index == 2:
                     # Get assessments
                     assessmentcategory = SetupList.objects.get(
-                        field_name='olmis_assessment_domain_id', item_id=domain_id)
+                        field_name='olmis_assessment_domain_id', item_id=domain_id, is_void=False)
                     assessment_sub_category = assessmentcategory.item_sub_category
                     print 'assessmentcategory.item_sub_category -- %s' % assessmentcategory.item_sub_category
 
@@ -8281,7 +8281,7 @@ def manage_service_category(request):
                                                           'status': 0})
                     else:
                         assessmentcategories = SetupList.objects.filter(
-                            field_name=assessment_sub_category)
+                            field_name=assessment_sub_category, is_void=False)
                         for assessmentcategory in assessmentcategories:
                             jsonServiceCategoriesData.append({'item_sub_category': assessmentcategory.item_description,
                                                               'item_sub_category_id': str(assessmentcategory.item_id),
@@ -8289,12 +8289,12 @@ def manage_service_category(request):
                 if index == 3:
                     # Get fieldname
                     setuplist = SetupList.objects.filter(
-                        item_id=domain_id, field_name__icontains='olmis')
+                        item_id=domain_id, field_name__icontains='olmis', is_void=False)
 
                     for s in setuplist:
                         # Get assessments service status
                         assessmentstatuscategorys = SetupList.objects.filter(
-                            field_name='' + s.item_sub_category + '')
+                            field_name='' + s.item_sub_category + '', is_void=False)
                         if assessmentstatuscategorys:
                             for assessmentstatuscategory in assessmentstatuscategorys:
                                 jsonServiceCategoriesData.append({'item_sub_category': assessmentstatuscategory.item_description,
@@ -8317,7 +8317,7 @@ def manage_service_category(request):
                                     _item_ids.append(_itemx_)
                         for _item_id in _item_ids:
                             setuplist = SetupList.objects.filter(
-                                item_id=_item_id, field_name__icontains='olmis')
+                                item_id=_item_id, field_name__icontains='olmis', is_void=False)
                             for s in setuplist:
                                 jsonServiceCategoriesData.append({'item_sub_category': s.item_description,
                                                                   'item_sub_category_id': str(s.item_id),
@@ -9215,3 +9215,47 @@ def new_wellbeingadolescent(request, id):
                       'care_giver':care_giver
 
                   })
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def hiv_status(request):
+    try:
+        if request.method == 'POST':
+            child=request.POST.get('child')
+            child_id=RegPerson.objects.get(id=child)
+            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child_id).house_hold_id)
+            event_type_id = 'HIVS'
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=child, is_void=False).count()
+
+            ovccareevent=OVCCareEvents.objects.create(
+                event_type_id=event_type_id,
+                event_counter=event_counter,
+                event_score=0,
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(child)),
+                house_hold=house_hold,
+                date_of_event=timezone.now()
+                )
+            hiv_status = request.POST.get('hiv_statuss')
+            OVCHivStatus(
+                person = RegPerson.objects.get(pk=int(child)),
+                hiv_status = request.POST.get('hiv_statuss'),
+                event = ovccareevent,
+                date_of_event =request.POST.get('date_of_testing')
+                ).save()
+
+            msg = 'HIV status updated successful'
+            messages.add_message(request, messages.INFO, msg)
+
+            response=redirect('ovc_edit')
+            return response
+
+
+    except Exception, e:
+        msg = 'hiv status save error : (%s)' % (str(e))
+        messages.add_message(request, messages.ERROR, msg)
+        print 'Error saving hiv status : %s' % str(e)
+        return HttpResponseRedirect(reverse(forms_home))
+
+  

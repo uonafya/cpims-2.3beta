@@ -240,6 +240,9 @@ urlpatterns = patterns(
         'new_wellbeing', name='new_wellbeing'),
     #wellbeing Adolescent
     url(r'^wellbeingadolescent/new/(?P<id>\d+)/$',
-        'new_wellbeingadolescent', name='new_wellbeingadolescent')
+        'new_wellbeingadolescent', name='new_wellbeingadolescent'),
+    # hiv_status
+    url(r'^HIVstatus/$',
+        'hiv_status', name='hiv_status'),
 
 )

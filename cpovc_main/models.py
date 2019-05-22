@@ -78,9 +78,9 @@ class SetupGeography(models.Model):
 class SetupList(models.Model):
     """List used for drop downs and other selections."""
 
-    item_id = models.CharField(max_length=4)
+    item_id = models.CharField(max_length=7)
     item_description = models.CharField(max_length=255)
-    item_description_short = models.CharField(max_length=26, null=True)
+    item_description_short = models.CharField(max_length=100, null=True)
     item_category = models.CharField(max_length=255, null=True, blank=True)
     item_sub_category = models.CharField(max_length=255, null=True, blank=True)
     the_order = models.IntegerField(null=True)

@@ -1,0 +1,1218 @@
+[
+    {
+        "pk": 20070,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DEDU",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id",
+            "item_description_short": "Education - (Schooled)",
+            "field_name": "olmis_domain_id",
+            "item_description": "Education - (Schooled)",
+            "the_order": 1
+        }
+    },
+    {
+        "pk": 20071,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DHNU",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id",
+            "item_description_short": "Health and nutrition- (Healthy)",
+            "field_name": "olmis_domain_id",
+            "item_description": "Health and nutrition- (Healthy)",
+            "the_order": 2
+        }
+    },
+    {
+        "pk": 20072,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DHES",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id",
+            "item_description_short": "Economic Strengthening - (Stable)",
+            "field_name": "olmis_domain_id",
+            "item_description": "Economic Strengthening - (Stable)",
+            "the_order": 3
+        }
+    },
+    {
+        "pk": 20073,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DPRO",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id",
+            "item_description_short": "Protection- (Safe)",
+            "field_name": "olmis_domain_id",
+            "item_description": "Protection- (Safe)",
+            "the_order": 4
+        }
+    },
+    {
+        "pk": 20074,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DPSS",
+            "is_void": "False",
+            "item_sub_category": "olmis_pss_service_id",
+            "item_description_short": "Psychosocial Support",
+            "field_name": "olmis_domain_id",
+            "item_description": "Psychosocial Support",
+            "the_order": 5
+        }
+    },
+    {
+        "pk": 20075,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DSHC",
+            "is_void": "False",
+            "item_sub_category": "olmis_shelter_service_id",
+            "item_description_short": "Shelter and Care",
+            "field_name": "olmis_domain_id",
+            "item_description": "Shelter and Care",
+            "the_order": 6
+        }
+    },
+    {
+        "pk": 20076,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 1s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Child immunization on schedule/complete [under 5 years only]",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 1s  -  Child immunization on schedule/complete [under 5 years only]",
+            "the_order": 7
+        }
+    },
+    {
+        "pk": 20077,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 2s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Referred and received growth monitoring services [under 5 years only]",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 2s  -  Referred and received growth monitoring services [under 5 years only]",
+            "the_order": 8
+        }
+    },
+    {
+        "pk": 20078,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 3s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Child living with disability referred and linked to appropriate services",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 3s  -  Child living with disability referred and linked to appropriate services",
+            "the_order": 9
+        }
+    },
+    {
+        "pk": 20079,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 4s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Adolescent pregnant and linked to PMTCT/ANC services",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 4s - Adolescent is pregnant and linked to PMTCT/ANC services(check Mother/child booklet)",
+            "the_order": 10
+        }
+    },
+    {
+        "pk": 20080,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 5s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Child < 18 months born to HIV +ve mother HEI services",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 5s - Child under 18 months born to HIV +ve mother, referred for HEI services",
+            "the_order": 11
+        }
+    },
+    {
+        "pk": 20081,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 6s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "HIV +ve child refered and linked to HIV treatment",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 6s  -  HIV +ve child refered and linked to HIV treatment",
+            "the_order": 12
+        }
+    },
+    {
+        "pk": 20082,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 7s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Viral load results received",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 7s  - Viral load results received [child on HIV treatment for more than 3 mths]",
+            "the_order": 13
+        }
+    },
+    {
+        "pk": 20083,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 8s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "HIV status disclosure process initiated",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 8s  -  HIV status disclosure process initiated (6 years and above)",
+            "the_order": 14
+        }
+    },
+    {
+        "pk": 20084,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 9s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "HIV disclosure complete",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 9s  -  HIV disclosure complete (12 years and above)",
+            "the_order": 15
+        }
+    },
+    {
+        "pk": 20085,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 10s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_1",
+            "item_description_short": "Child with chronic condition referred to appropriate health services",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 10s - Child with chronic condition referred to appropriate health services",
+            "the_order": 16
+        }
+    },
+    {
+        "pk": 20086,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 11s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "HIV +ve child Escorted to care and treatment",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 11s  -  HIV +ve child Escorted to care and treatment",
+            "the_order": 17
+        }
+    },
+    {
+        "pk": 20087,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 12s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Child provided with HIV prevention education",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 12s  -  Child provided with HIV prevention education [10 years and above]",
+            "the_order": 18
+        }
+    },
+    {
+        "pk": 20088,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 13s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_1",
+            "item_description_short": "Child at risk of HIV and completed referral for HIV test",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 13s  -   Child at risk of HIV reffered and completed referral for HIV test",
+            "the_order": 19
+        }
+    },
+    {
+        "pk": 20089,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 14s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Child referred and treated for illness",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 14s  -  Child referred and treated for illness",
+            "the_order": 20
+        }
+    },
+    {
+        "pk": 20090,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 15s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "HIV+ve child provided with transport money to clinic",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 15s  -  HIV+ve child provided with transport money to clinic",
+            "the_order": 21
+        }
+    },
+    {
+        "pk": 20091,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 16s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Provided with health and nutrition education",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 16s  -  Provided with health and nutrition education",
+            "the_order": 22
+        }
+    },
+    {
+        "pk": 20092,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "HN 17s",
+            "is_void": "False",
+            "item_sub_category": "olmis_health_service_id_0",
+            "item_description_short": "Child linked for nutritional support",
+            "field_name": "olmis_health_service_id",
+            "item_description": "HN 17s  -  Child linked for nutritional support",
+            "the_order": 23
+        }
+    },
+    {
+        "pk": 20093,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "ES 1s",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id_0",
+            "item_description_short": "Transition plan developed",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "ES 1s  -  Transition plan developed",
+            "the_order": 24
+        }
+    },
+    {
+        "pk": 20094,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "ES 2s",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id_0",
+            "item_description_short": "Linked to a job opportunity",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "ES 2s  -  Linked to a job opportunity",
+            "the_order": 25
+        }
+    },
+    {
+        "pk": 20095,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "ES 3s",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id_0",
+            "item_description_short": "Received business skills training",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "ES 3s  -  Received business skills training",
+            "the_order": 26
+        }
+    },
+    {
+        "pk": 20096,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "ES 4s",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id_0",
+            "item_description_short": "Received Start up kit",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "ES 4s  -  Received Start up kit",
+            "the_order": 27
+        }
+    },
+    {
+        "pk": 20097,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "ES 5s",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id_0",
+            "item_description_short": "Youth trained on entrepreneurship skills",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "ES 5s  -  Youth trained on entrepreneurship skills",
+            "the_order": 28
+        }
+    },
+    {
+        "pk": 20098,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "ES 6s",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id_0",
+            "item_description_short": "Youth trained in savings group methodology e.g YSLA [above 17yrs and out of school]",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "ES 6s  -  Youth trained in savings group methodology e.g YSLA [above 17yrs and out of school]",
+            "the_order": 29
+        }
+    },
+    {
+        "pk": 20099,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "ES 7s",
+            "is_void": "False",
+            "item_sub_category": "olmis_hes_service_id_0",
+            "item_description_short": "Youth trained on life skills and employability skills [above 17yrs and out of school]",
+            "field_name": "olmis_hes_service_id",
+            "item_description": "ES 7s  -  Youth trained on life skills and employability skills [above 17yrs and out of school]",
+            "the_order": 30
+        }
+    },
+    {
+        "pk": 20100,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 1t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child headed household",
+            "field_name": "",
+            "item_description": "CP 1t  -  Child headed household",
+            "the_order": 31
+        }
+    },
+    {
+        "pk": 20101,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 4t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child/Adolescent has signs of violence, abuse, neglect or exploitation",
+            "field_name": "",
+            "item_description": "CP 4t  -  Child/Adolescent has signs of violence, abuse, neglect or exploitation",
+            "the_order": 32
+        }
+    },
+    {
+        "pk": 20102,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 5t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child/Adolescent aware of where to get help when abused",
+            "field_name": "",
+            "item_description": "CP 5t  -  Child/Adolescent aware of where to get help when abused",
+            "the_order": 33
+        }
+    },
+    {
+        "pk": 20103,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 6t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Has legal documents (e.g birth certificate and/or ID)",
+            "field_name": "",
+            "item_description": "CP 6t  -  Has legal documents (e.g birth certificate and/or ID)",
+            "the_order": 34
+        }
+    },
+    {
+        "pk": 20104,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 7t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child does not participate in daily activities",
+            "field_name": "",
+            "item_description": "CP 7t  -  Child does not participate in daily activities",
+            "the_order": 35
+        }
+    },
+    {
+        "pk": 20105,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 8t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child is sad, withdrawn or has unusal behavior",
+            "field_name": "",
+            "item_description": "CP 8t  -  Child is sad, withdrawn or has unusal behavior",
+            "the_order": 36
+        }
+    },
+    {
+        "pk": 20106,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 9t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child (above 10 years) NOT participating in life skills sessions",
+            "field_name": "",
+            "item_description": "CP 9t  -  Child (above 10 years) NOT participating in life skills sessions",
+            "the_order": 37
+        }
+    },
+    {
+        "pk": 20107,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 1s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Linked to adult caregiver",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 1s  -  Linked to adult caregiver",
+            "the_order": 38
+        }
+    },
+    {
+        "pk": 20108,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 2s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Child/Adolescent reffered and Linked for post violence care.",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 2s  -  Child/Adolescent reffered and Linked for post violence care.",
+            "the_order": 39
+        }
+    },
+    {
+        "pk": 20109,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 3s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Child placed in a safe environment",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 3s  -  Child placed in a safe environment (e.g, with relatives, foster care, temporary care)",
+            "the_order": 40
+        }
+    },
+    {
+        "pk": 20110,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 4s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Provided with information on how to protect themselves from HIV, abuse including GBV",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 4s  -  Provided with information on how to protect themselves from HIV, abuse including GBV",
+            "the_order": 41
+        }
+    },
+    {
+        "pk": 20111,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 5s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Provided with medical attention in cases of abuse",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 5s  -  Provided with medical attention in cases of abuse",
+            "the_order": 42
+        }
+    },
+    {
+        "pk": 20112,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 6s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Provided with legal assistance in cases of abuse",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 6s  -  Provided with legal assistance in cases of abuse",
+            "the_order": 43
+        }
+    },
+    {
+        "pk": 20113,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 7s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Provided with information on child rights and responsibilities",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 7s  -  Provided with information on child rights and responsibilities",
+            "the_order": 44
+        }
+    },
+    {
+        "pk": 20114,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 8s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Provided with legal documents (e.g, birth certificate)",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 8s  -  Provided with legal documents (e.g, birth certificate)",
+            "the_order": 45
+        }
+    },
+    {
+        "pk": 20115,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP12s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Child (above 10 years) participated in life skills sessions",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP12s  -  Child (above 10 years) participated in life skills sessions",
+            "the_order": 46
+        }
+    },
+    {
+        "pk": 20116,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 10s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Provided with basic counseling services",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 10s  -  Provided with basic counseling services",
+            "the_order": 47
+        }
+    },
+    {
+        "pk": 20117,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CP 11s",
+            "is_void": "False",
+            "item_sub_category": "olmis_protection_service_id_0",
+            "item_description_short": "Child [Below 5 yrs] provided with stimulating activities by person above 15yr",
+            "field_name": "olmis_protection_service_id",
+            "item_description": "CP 11s  -  Child [Below 5 yrs] provided with stimulating activities by person above 15yr",
+            "the_order": 48
+        }
+    },
+    {
+        "pk": 20118,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 1t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Not enrolled in school/pre-school",
+            "field_name": "",
+            "item_description": "CE 1t  -  Not enrolled in school/pre-school",
+            "the_order": 49
+        }
+    },
+    {
+        "pk": 20119,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 2t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Missed school for five or more days in past month",
+            "field_name": "",
+            "item_description": "CE 2t  -  Missed school for five or more days in past month",
+            "the_order": 50
+        }
+    },
+    {
+        "pk": 20120,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 3t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Progressed from one class to another (e.g class 1 to 2)",
+            "field_name": "",
+            "item_description": "CE 3t  -  Progressed from one class to another (e.g class 1 to 2)",
+            "the_order": 51
+        }
+    },
+    {
+        "pk": 20121,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE6t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child dropped out of school",
+            "field_name": "",
+            "item_description": "CE6t  -  Child dropped out of school",
+            "the_order": 52
+        }
+    },
+    {
+        "pk": 20122,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 4t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Transitioned from one level to another (e.g. primary to secondary)",
+            "field_name": "",
+            "item_description": "CE 4t  -  Transitioned from one level to another (e.g. primary to secondary)",
+            "the_order": 53
+        }
+    },
+    {
+        "pk": 20123,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 5t",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Youth eligible for vocational training (above 17 years and out of school)",
+            "field_name": "",
+            "item_description": "CE 5t  -  Youth eligible for vocational training (above 17 years and out of school)",
+            "the_order": 54
+        }
+    },
+    {
+        "pk": 20124,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 1r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Sickness",
+            "field_name": "",
+            "item_description": "CE 1r  -  Sickness",
+            "the_order": 55
+        }
+    },
+    {
+        "pk": 20125,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 2r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Lacks scholastic materials",
+            "field_name": "",
+            "item_description": "CE 2r  -  Lacks scholastic materials",
+            "the_order": 56
+        }
+    },
+    {
+        "pk": 20126,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 3r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Lacks school fees",
+            "field_name": "",
+            "item_description": "CE 3r  -  Lacks school fees",
+            "the_order": 57
+        }
+    },
+    {
+        "pk": 20127,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 5r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Lacks school levies",
+            "field_name": "",
+            "item_description": "CE 5r  -  Lacks school levies",
+            "the_order": 58
+        }
+    },
+    {
+        "pk": 20128,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 6r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Child does not want to go to school",
+            "field_name": "",
+            "item_description": "CE 6r  -  Child does not want to go to school",
+            "the_order": 59
+        }
+    },
+    {
+        "pk": 20129,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 7r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Lack of parental follow up",
+            "field_name": "",
+            "item_description": "CE 7r  -  Lack of parental follow up",
+            "the_order": 60
+        }
+    },
+    {
+        "pk": 20130,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 8r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Taking care of sick household member",
+            "field_name": "",
+            "item_description": "CE 8r  -  Taking care of sick household member",
+            "the_order": 61
+        }
+    },
+    {
+        "pk": 20131,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 9r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Lacks sanitary towels",
+            "field_name": "",
+            "item_description": "CE 9r  -  Lacks sanitary towels",
+            "the_order": 62
+        }
+    },
+    {
+        "pk": 20132,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 10r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Engaged in child labour",
+            "field_name": "",
+            "item_description": "CE 10r  -  Engaged in child labour",
+            "the_order": 63
+        }
+    },
+    {
+        "pk": 20133,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE12r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Pregnancy",
+            "field_name": "",
+            "item_description": "CE12r  -  Pregnancy",
+            "the_order": 64
+        }
+    },
+    {
+        "pk": 20134,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Monitor",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 11r",
+            "is_void": "False",
+            "item_sub_category": "",
+            "item_description_short": "Other (specify)",
+            "field_name": "",
+            "item_description": "CE 11r  -  Other (specify)",
+            "the_order": 65
+        }
+    },
+    {
+        "pk": 20135,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 1s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Enrolled back to school (Including teenage mothers)",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE 1s  -  Enrolled back to school (Including teenage mothers)",
+            "the_order": 66
+        }
+    },
+    {
+        "pk": 20136,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE9s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Child monitoried to regularly attend school",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE9s  -  Child monitoried to regularly attend school",
+            "the_order": 67
+        }
+    },
+    {
+        "pk": 20137,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE10s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Enrolled in vocational training",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE10s  -  Enrolled in vocational training",
+            "the_order": 68
+        }
+    },
+    {
+        "pk": 20138,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE11s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Child referred for education support",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE11s  -  Child referred for education support",
+            "the_order": 69
+        }
+    },
+    {
+        "pk": 20139,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE12s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Child provided with  counseling and enrolled back to school",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE12s  -  Child provided with  counseling and enrolled back to school",
+            "the_order": 70
+        }
+    },
+    {
+        "pk": 20140,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 2s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "School levies paid",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE 2s  -  School levies paid",
+            "the_order": 71
+        }
+    },
+    {
+        "pk": 20141,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 3s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "School fees paid",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE 3s  -  School fees paid",
+            "the_order": 72
+        }
+    },
+    {
+        "pk": 20142,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 4s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Scholastic materials provided",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE 4s  -  Scholastic materials provided",
+            "the_order": 73
+        }
+    },
+    {
+        "pk": 20143,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 5s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Sanitary pads provided",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE 5s  -  Sanitary pads provided",
+            "the_order": 74
+        }
+    },
+    {
+        "pk": 20144,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 7s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "Adolescent received start up kit",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE 7s  -  Adolescent received start up kit",
+            "the_order": 75
+        }
+    },
+    {
+        "pk": 20145,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "CE 8s",
+            "is_void": "False",
+            "item_sub_category": "olmis_education_service_id_0",
+            "item_description_short": "School uniform provided",
+            "field_name": "olmis_education_service_id",
+            "item_description": "CE 8s  -  School uniform provided",
+            "the_order": 76
+        }
+    }
+]

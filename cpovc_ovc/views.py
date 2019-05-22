@@ -163,7 +163,7 @@ def ovc_register(request, id):
         print "error with OVC registration - %s" % (str(e))
         raise e
 
-
+from cpovc_forms.models import OVCHivStatus
 @login_required(login_url='/')
 @is_allowed_ous(['RGM', 'RGU', 'DSU', 'STD'])
 def ovc_edit(request, id):
@@ -257,6 +257,7 @@ def ovc_edit(request, id):
         exit_date = None
         if creg.exit_date:
             exit_date = creg.exit_date.strftime('%d-%b-%Y')
+
         all_values = {'reg_date': date_reg, 'cbo_uid': creg.org_unique_id,
                       'cbo_uid_check': creg.org_unique_id,
                       'has_bcert': bcert, 'disb': disb,
@@ -297,12 +298,15 @@ def ovc_edit(request, id):
 
         check_fields = ['relationship_type_id']
         vals = get_dict(field_name=check_fields)
+        hiv_data=OVCHivStatus.objects.filter(person_id=ovc_id).order_by('date_of_event')
+        print ('ggggggg', hiv_data)
         return render(request, 'ovc/edit_child.html',
                       {'form': form, 'status': 200, 'child': child,
                        'vals': vals, 'hhold': hhold, 'extids': gparams,
                        'hhmembers': hhmembers, 'levels': levels,
                        'sch_class': sch_class, 'siblings': siblings,
-                       'ctaker': ctaker, 'vloads': vloads})
+                       'ctaker': ctaker, 'vloads': vloads,
+                       'hiv_data':hiv_data})
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
         # raise e
