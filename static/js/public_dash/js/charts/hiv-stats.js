@@ -53,11 +53,11 @@ function fetchActiveOvcHivStats(org_level,area_id){
 function displayOvcTestedWithinPeriod(data){
         // $.each(data, function (index, objValue) {
            var elementId="Ovc_Tested_Within_Period";
-           var the_x_axis= ['Oct 2018', 'Nov 2018', 'Dec 2018', 'Jan 2019', 'Feb 2019', 'Mar 2019',, 'Apr 2019']
+           var the_x_axis= ['Oct 2018', 'Nov 2018', 'Dec 2018', 'Jan 2019', 'Feb 2019', 'Mar 2019', 'Apr 2019']
            var the_title = 'OVC TESTED WITHIN PERIOD';
            var the_series = [
-                                { name: 'Female', data: [3896, 3979, 1798, 7687, 4565,7908, 4767] },
-                                { name: 'Male', data: [1396, 1979, 7908, 4767, 5365, 3979, 1798] }
+                                { name: 'Demo Female', data: [3896, 3979, 1798, 7687, 4565,7908, 4767] },
+                                { name: 'Demo Male', data: [1396, 1979, 7908, 4767, 5365, 3979, 1798] }
                             ];
             barChart(elementId,the_title,the_x_axis,the_series)
         // });
@@ -66,11 +66,11 @@ function displayOvcTestedWithinPeriod(data){
 function displayHivPstvOvcTestedwithinperiod(data){
         // $.each(data, function (index, objValue) {
            var elementId="Hiv_Pstv_Ovc_Tested_within_period";
-           var the_x_axis= ['Oct 2018', 'Nov 2018', 'Dec 2018', 'Jan 2019', 'Feb 2019', 'Mar 2019',, 'Apr 2019']
+           var the_x_axis= ['Oct 2018', 'Nov 2018', 'Dec 2018', 'Jan 2019', 'Feb 2019', 'Mar 2019', 'Apr 2019']
            var the_title = 'HIV+ OVC Tested within period';
            var the_series = [
-                                { name: 'Female', data: [3896, 3979, 1798, 7687, 4565,7908, 4767] },
-                                { name: 'Male', data: [1396, 1979, 7908, 4767, 5365, 3979, 1798] }
+                                { name: 'Demo Female', data: [3896, 3979, 1798, 7687, 4565,7908, 4767] },
+                                { name: 'Demo Male', data: [1396, 1979, 7908, 4767, 5365, 3979, 1798] }
                             ];
 
             barChart(elementId,the_title,the_x_axis,the_series)

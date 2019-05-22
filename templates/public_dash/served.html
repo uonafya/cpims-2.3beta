@@ -1,13 +1,14 @@
 {% load staticfiles %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>CPIMS - Public Dashboard - Served</title>
+    <title>CPIMS - Dashboard </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
     <link href="{% static 'js/public_dash/css/bootstrap.min.css' %}" rel="stylesheet">
+
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600"
           rel="stylesheet">
     <link href="{% static 'js/public_dash/css/font-awesome.css' %}" rel="stylesheet">
@@ -17,8 +18,9 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js' %}"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
 
     <style>
         .subnavbar .dropdown-menu .rm::before {
@@ -103,7 +105,7 @@
                 float: left;
                 width: 45px;
                 margin-top: 2px;
-                background: url("{% static 'img/logo.png' %}") left center no-repeat;
+                background:url('../../static/img/logo.png') left center no-repeat;
             }
 
             .org-unit-label {
@@ -122,6 +124,33 @@
             /* .chosen-container{
                 margin-right:20px;
             } */
+
+            /* Page Menus */
+            ul.menu {
+              list-style-type: none;
+              margin: 0;
+              padding: 0;
+              overflow: hidden;
+             /* background-color: #333; */
+            }
+
+            ul.menu li {
+              float: left;
+            }
+
+            ul.menu li a {
+              display: block;
+              color: white;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+              font-size: 15px;
+            }
+
+            ul.menu li a:hover {
+              background-color: #ffffff ;
+              color: #276696;
+            }
 
     </style>
 
@@ -149,6 +178,18 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
+
+                <form class="navbar-form navbar-right navbar-search">
+
+                     <ul class="menu">
+                      <li><a class="active" href="/public_dash/e">Hiv Stats</a></li>
+                      <li><a href="/public_dashboard/registration">Registration</a></li>
+                      <li><a href="/public_dashboard/served/">Served</a></li>
+                    </ul>
+
+                </form>
+
+
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </div>
@@ -157,57 +198,76 @@
 
 <div class="subnavbar">
     <div class="subnavbar-inner">
-        <div class="container">
+        <div class="container" style="margin-left: inherit;width: 100%; ">
 
-            <ul class="mainnav 20px">
+            <ul class="mainnav" style="width: 100%;">
                 <li class="active" style="margin-right: 30px;">
-                    <select class="form-control" id="county-organisation-unit" >
+                    <select style="width: 284px;" id="county-organisation-unit">
                         <option value="" disabled selected>Select County:</option>
                     </select>
                 </li>
 
-                <li class="active" style="margin-right: 30px; " >
-                    <select class="form-control" id="countituency-organisation-unit" disabled>
+                <li class="active" style="margin-right: 30px; ">
+                    <select id="countituency-organisation-unit" disabled>
                         <option value="" disabled selected>Select sub-county:</option>
                     </select>
                 </li>
 
-                <li class="active" style="margin-right: 30px; " >
-                    <select class="form-control" id="ward-organisation-unit" disabled>
+                <li class="active" style="margin-right: 30px; ">
+                    <select id="ward-organisation-unit" disabled>
                         <option value="" disabled selected>Select ward:</option>
                     </select>
                 </li>
 
-                <li style="float: right;"  class="active pull-right">
+                <li class="active">
+                    <select id="period">
+                        <option data-value="annual" value="semi"> Annually</option>
+                        <option data-value="semi" value="annual"> Semi Annually</option>
+
+                    </select>
+                </li>
+
+                <li style="float: right;" class="active pull-right">
+
                     <ul class="mainnav">
+
                         <li class="active">
                             <select id="funding-mechanism">
                                 <option value="" disabled selected>Funding Meachanism:</option>
-                                <option data-value="funding_mechanism" value="0"  > USAID</option>
-                                <option data-value="funding_mechanism" value="1"  > CDC</option>
-                                <option data-value="funding_mechanism" value="2"  > DOD</option>
-                                <option data-value="funding_mechanism" value="3"  > Others</option>
+                                <option data-value="funding_mechanism" value="0"> USAID</option>
+                                <option data-value="funding_mechanism" value="1"> CDC</option>
+                                <option data-value="funding_mechanism" value="2"> DOD</option>
+                                <option data-value="funding_mechanism" value="3"> Others</option>
                             </select>
                         </li>
+
                         <li class="active">
                             <select id="cluster-unit" disabled>
                                 <option data-value="cluster" value="" disabled selected>Cluster:</option>
-                                <option data-value="cluster" value="0b3bed3b-8e96-4173-80c3-dbaca5750c5b"  > Nilinde</option>
-                                <option data-value="cluster" value="9d40cb90-23ce-447c-969f-3888b96cdf16"  > Mwendo</option>
-                                <option data-value="cluster" value="7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1"  > Case</option>
-                                <option data-value="cluster" value="bcc9e119-388f-4840-93b3-1ee7e07d3ffa" > AMPATHPlus</option>
-                                <option data-value="cluster" value="8949ab03-a430-44d0-a94c-4457118b9485" > Cogri</option>
+                                <option data-value="cluster" value="0b3bed3b-8e96-4173-80c3-dbaca5750c5b"> Nilinde
+                                </option>
+                                <option data-value="cluster" value="9d40cb90-23ce-447c-969f-3888b96cdf16"> Mwendo
+                                </option>
+                                <option data-value="cluster" value="7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1"> Case</option>
+                                <option data-value="cluster" value="bcc9e119-388f-4840-93b3-1ee7e07d3ffa"> AMPATHPlus
+                                </option>
+                                <option data-value="cluster" value="8949ab03-a430-44d0-a94c-4457118b9485"> Cogri
+                                </option>
                             </select>
                         </li>
+
                         <li class="active">
                             <select id="cbo-unit" disabled>
                                 <option value="" disabled selected>CBO:</option>
                             </select>
                         </li>
+
                     </ul>
                 </li>
 
+
             </ul>
+
 
         </div>
         <!-- /container -->
@@ -218,109 +278,24 @@
 
 <div class="main">
     <div class="main-inner">
-        
-        <div class="row">
-            <div class="col-md-12">
-                <ol class="breadcrumb pull-right">
-                    <li>
-                        Page 1
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/2/">Page 2</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/3/">Page 3</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/4/">Page 4</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/5/">Page 5</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/6/">Page 6</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/7/">Page 7</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/8/">Page 8</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/9/">Page 9</a>
-                    </li>
-                </ol>
-            </div>
-        </div>
-        
         <div id="charts-board" class="container-fluid">
             <div class="row">
-                <div class="col-md-2 col-sm-2 col-xs-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">OVCs ever exited</h5>
-                            <h1 class="card-text" id="all_ovc_exit"></h1>
-                        </div>
-                    </div>
-                </div>
+                <div id="ovc_served_with_1or2_services" class="col-sm-6"></div>
+                <div id="ovc_served_with_3_services" class="col-sm-6"></div>
             </div>
-            <hr/>
+            <br>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="ovc_exits">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card">
-                        <div class="card-body" id="hsehld_exits">
-
-                        </div>
-                    </div>
-                </div>
+                <div id="not_served" class="col-sm-6"></div>
             </div>
             <br>
 
         </div>
+        <br>
 
-        <div class="row">
-                <div class="col-md-12">
-                <ol class="breadcrumb pull-right">
-                    <li>
-                        Page 1
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/2/">Page 2</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/3/">Page 3</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/4/">Page 4</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/5/">Page 5</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/6/">Page 6</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/7/">Page 7</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/8/">Page 8</a>
-                    </li>
-                    <li class="active">
-                        <a href="/public_dashboard/9/">Page 9</a>
-                    </li>
-                </ol>
-            </div>
-        </div>
-        <!-- /container -->
     </div>
-    <!-- /main-inner -->
+    <!-- /container -->
 </div>
+<!-- /main-inner -->
 <!-- /main -->
 
 <!-- /extra -->
@@ -328,7 +303,7 @@
     <div class="footer-inner">
         <div class="container">
             <div class="row">
-                <div class="span12"> &copy; 2018 <a href="#">CPIMS DASHBAORD</a>.</div>
+                <div class="span12"> &copy; 2019 <a href="#">CPIMS DASHBAORD</a>.</div>
                 <!-- /span12 -->
             </div>
             <!-- /row -->
@@ -346,15 +321,15 @@
 
 <script src="{% static 'js/public_dash/js/base.js' %}"></script>
 <script src="{% static 'js/public_dash/js/bootstrap.min.js' %}"></script>
-<script language="javascript" type="text/javascript"></script>
 
 <script src="{% static 'js/public_dash/js/jquery-ui.min.js' %}"></script>
 
 <script src="{% static 'js/public_dash/js/charts/barchart.js' %}"></script>
 
 <script src="{% static 'js/public_dash/js/chosen/chosen.jquery.js' %}" type="text/javascript"></script>
-<script src="{% static 'js/public_dash/js/charts/pubdash_2.js' %}"></script>
+<script src="{% static 'js/public_dash/js/charts/ovc_served_services.js' %}"></script>
 <script src="{% static 'js/public_dash/js/custom.js' %}"></script>
+<script src="{% static 'js/public_dash/js/served_config.js' %}"></script>
 
 
 </body>
