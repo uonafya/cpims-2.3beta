@@ -418,21 +418,23 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
     if (currentMonth == 10 and period_typ == 'annual'):  # start of a new period (october)
         yr = currentYear + 1
         period_span = str(currentYear) + '/' + str(yr)
-
-        base_sql = '''    
-             Select count(*) as count,{} as time_period from 
-             public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id 
-             where ovc_reg.is_void=true and ovc_reg.created_at between 'oct-01-{}' and 'Sept-30-{}' 
-                                     '''.format(
+        base_sql='''
+            Select count(*) as count,{} as time_period from  public.ovc_household  
+            ovc_reg join public.persons person on person.person_id=ovc_reg.head_person_id 
+            where ovc_reg.is_void=true and
+             ovc_reg.created_at between 'oct-01-{}' and 'Sept-30-{}'
+        '''.format(
             period_span, currentYear, yr)
+
 
     elif (currentMonth is not 10 and period_typ == 'annual'):
         yr = currentYear - 1
         period_span = str(yr) + '/' + str(currentYear)
         base_sql = '''    
-                                  Select count(*) as count,{} as time_period from 
-             public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id 
-             where ovc_reg.is_void=true and ovc_reg.created_at between 'oct-01-{}' and 'Sept-30-{}'
+                                  Select count(*) as count,{} as time_period from  public.ovc_household  
+            ovc_reg join public.persons person on person.person_id=ovc_reg.head_person_id 
+            where ovc_reg.is_void=true and
+             ovc_reg.created_at between 'oct-01-{}' and 'Sept-30-{}'
                                      '''.format(
             period_span, yr, currentYear)
 
@@ -446,9 +448,10 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
             end_year = currentYear + 1
         period_span = str(start_year) + '/' + str(end_year)
         base_sql = '''    
-                                  Select count(*) as count,{} as time_period from 
-             public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id 
-             where ovc_reg.is_void=true and ovc_reg.created_at between 'oct-01-{}' and 'mar-31-{}' 
+                                  Select count(*) as count,{} as time_period from  public.ovc_household  
+            ovc_reg join public.persons person on person.person_id=ovc_reg.head_person_id 
+            where ovc_reg.is_void=true and
+             ovc_reg.created_at between 'oct-01-{}' and 'mar-31-{}' 
                                      '''.format(
             period_span, start_year, end_year)
 
@@ -457,9 +460,10 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
     elif (period_typ == 'semi' and (currentMonth >= 3 and currentMonth <= 9)):
         period_span = str(currentYear)
         base_sql = '''    
-                                  Select count(*) as count,{} as time_period from 
-             public.ovc_registration  ovc_reg join public.persons person on person.person_id=ovc_reg.person_id 
-             where ovc_reg.is_void=true and ovc_reg.created_at between 'apr-01-{}' and 'sep-30-{}'
+                                  Select count(*) as count,{} as time_period from  public.ovc_household  
+            ovc_reg join public.persons person on person.person_id=ovc_reg.head_person_id 
+            where ovc_reg.is_void=true and
+             ovc_reg.created_at between 'apr-01-{}' and 'sep-30-{}'
                                      '''.format(
             period_span, currentYear, currentYear)
 
