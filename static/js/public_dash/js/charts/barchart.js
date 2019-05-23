@@ -33,12 +33,14 @@ function barChart(elementId,the_title,the_x_axis,the_series){
             }
         },
         plotOptions: {
-            bar: {
+            column: {
                 dataLabels: {
-                    enabled: true
+                    enabled: true,
+                    color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black'
                 }
             }
         },
+
         legend: {
             layout: 'vertical',
             align: 'right',
