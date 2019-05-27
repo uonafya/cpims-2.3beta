@@ -1373,4 +1373,9 @@ div.loader{
 	padding: 25px;
 	border-radius: 9px;
 }
+.navbar-right ul.menu li.active a{
+/* .navbar-right ul.menu li a.active{ */
+	color: #276696;
+	background: #ffffff;
+}
 /* CUSTOM */

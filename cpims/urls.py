@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^public_dashboard/registration/', 'cpims.views.public_dashboard_reg', name='public_dashboard_reg'),
     url(r'^public_dashboard/hivstat/', 'cpims.views.public_dashboard_hivstat', name='public_dashboard_hivstat'),
     url(r'^public_dashboard/served/', 'cpims.views.public_dashboard_served', name='public_dashboard_served'),
+    url(r'^public_dashboard/cpara/', 'cpims.views.public_dashboard_cpara', name='public_dashboard_cpara'),
     url(r'^public_dash/', 'cpims.views.public_dash', name='public_dash'),
     url(r'^public_dashboard/', 'cpims.views.public_dashboard_reg', name='public_dashboard_reg'),
     # APIs

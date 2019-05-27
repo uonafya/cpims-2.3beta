@@ -53,6 +53,16 @@ def public_dashboard_served(request):
     except Exception, e:
         print 'dashboard error - %s' % (str(e))
         raise e
+
+def public_dashboard_cpara(request):
+    try:
+        print "we are here"
+        # vals = get_dashboard(request)
+        # return render(request, 'public_dash_' + p_dash + '.html')
+        return render(request, 'public_dash/cpara.html')
+    except Exception, e:
+        print 'dashboard error - %s' % (str(e))
+        raise e
 # #################### endDash
 
 def get_pub_data(request,org_level,area_id):
