@@ -34,9 +34,9 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 $(document).ready(function () {
     //ouChange('national',"0",'none','none');
-    fetchNewOVCRegs('national',"none","none","none","annual");
-    fetchExitedAndActiveOVCRegs('national',"none","none","none","annual");
-    fetchExitedHseld('national',"none","none","none","annual");
+    fetchCPARAResults('national',"none","none","none","annual");
+    fetchHHScoringCat('national',"none","none","none","annual");
+    fetchDomainPerformance('national',"none","none","none","annual");
 });
 
 
@@ -117,7 +117,7 @@ $(document).ready(function () {
             }
         });
     }
-    function fetchNewOVCRegs(org_level,area_id,funding_partner,funding_part_id,period_type){
+    function fetchCPARAResults(org_level,area_id,funding_partner,funding_part_id,period_type){
 
         var the_url = '/get_new_ovcregs_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
@@ -130,6 +130,26 @@ $(document).ready(function () {
             console.log("the data is: ========>");
             console.log(data);
             displayCPARAResults(data);
+
+            },
+            error: function (response, request) {
+                console.log(response.responseText);
+            }
+        });
+    }
+    function fetchHHScoringCat(org_level,area_id,funding_partner,funding_part_id,period_type){
+
+        var the_url = '/get_new_ovcregs_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+        $.ajax({
+            type: 'GET',
+            url: the_url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            encode: true,
+            success: function (data, textStatus, jqXHR) {
+            console.log("the data is: ========>");
+            console.log(data);
+            displayHHScoringCat(data);
 
             },
             error: function (response, request) {
@@ -157,7 +177,7 @@ $(document).ready(function () {
            }
        });
    }
-   function fetchExitedAndActiveOVCRegs(org_level,area_id,funding_partner,funding_part_id,period_type){
+   function fetchDomainPerformance(org_level,area_id,funding_partner,funding_part_id,period_type){
 
         var the_url = '/get_exited_ovcs_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
@@ -169,7 +189,6 @@ $(document).ready(function () {
             success: function (data, textStatus, jqXHR) {
             console.log("the data is: ========>");
             console.log(data);
-            displayExitedOVCRegs(data);
             displayDomainPerformance(data);
             },
             error: function (response, request) {
@@ -178,23 +197,6 @@ $(document).ready(function () {
         });
    }
 
-   function fetchExitedHseld(org_level,area_id,funding_partner,funding_part_id,period_type){
-        var the_url = '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
-        $.ajax({
-            type: 'GET',
-            url: the_url,
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json',
-            encode: true,
-            success: function (data, textStatus, jqXHR) {
-
-            displayExitedHseld(data);
-            },
-            error: function (response, request) {
-                console.log(response.responseText);
-            }
-        });
-   }
    //--2--
 
    //--3--
@@ -319,144 +321,106 @@ $(document).ready(function () {
             pieChart(elementId,the_title,the_series)
 
     }
+    function displayHHScoringCat(data, months_arr){
+
+            var elementId="hh_scoring_categorization";
+            var the_title = 'Categorization of HHs scoring 0-16';
+            var score_0_7 = 60.80
+            var score_8_16 = 39.20
+            var the_data = { name: 'Result', data: [{name: 'Score 0-7',y: score_0_7}, {name: 'Score 8-16',y: score_8_16}] };
+
+            var the_series = [the_data];
+            pieChart(elementId,the_title,the_series)
+
+    }
 
     function displayDomainPerformance(data){
 
-            var elementId_healthy="dmn_perf_Healthy";
-            var elementId_stable="dmn_perf_Stable";
-            var elementId_safe="dmn_perf_Safe";
-            var elementId_schooled="dmn_perf_Schooled";
-            var the_x_axis= [];
-            var the_title = 'Overall domain performance';
+        // var female={name: 'female',data: []};
+            // var male={name: 'male',data: []};
+            // $.each(data, function (index, objValue) {
+            //     console.log("The service =====>");
+            //     console.log(objValue);
+            //     the_x_axis.push(objValue['period']);
+            //     if(objValue['active']==true){
+            //         if(objValue['gender']=='Male') male['data'].push(objValue['count']);
+            //         else female['data'].push(objValue['count']);
+            //     }
+            // });
+            // var the_series = [male,female];
 
-            var female={name: 'female',data: []};
-            var male={name: 'male',data: []};
+        //overall
+        var elementId_overall="dmn_perf_overall";
+        var the_title_overall = 'Overall domains performance in all counties';
+        var o_healthy_data=30;
+        var o_stable_data=12;
+        var o_safe_data=76;
+        var o_schooled_data=20;
+        var o_x_values={name: 'Domain',data: [o_healthy_data, o_stable_data, o_safe_data, o_schooled_data]};
+        var o_x_axis = ['Healthy','Stable','Safe','Schooled'];
+        var the_series_overall = [o_x_values];
+        barChart(elementId_overall,the_title_overall,o_x_axis,the_series_overall)
+        //overall
+        
+        //healthy
+        var elementId_healthy="dmn_perf_Healthy";
+        var the_title_healthy = 'Healthy domain performance';
+        var health_x_axis = [
+            "BM1: HIV Risk assessment done and HIV testing referrals completed",
+            "BM2: Caregivers know the HIV+ status of the children they care as well as their own",
+            "BM3: HIV+ persons in the household have been on ART for last 12 months",
+            "BM4: Enrolled women/ adolescent girls who are/become pregnant receive HIV testing",
+            "BM5: Adolescents and their caregivers have knowledge to decrease their HIV risk",
+            "BM6: Children living with chronic illness/disability receive treatment"
+        ];
+        var health_x_values = {name: 'Healthy', data: [36, 120, 86, 59, 26, 64]}
+        var the_series_healthy = [health_x_values];
+        columnChart(elementId_healthy,the_title_healthy,health_x_axis,the_series_healthy)
+        //healthy
+        
+        //stable
+        var elementId_stable="dmn_perf_Stable";
+        var the_title_stable = 'Stable domain performance';
+        var stable_x_axis = [
+            "BM7: HH able to provide a minimum of two meals/day",
+            "BM8: HH able to pay for child(ren)’s basic needs",
+            "BM9: HH able to pay for emergency expenses.",
+            "BM10:The caregiver has demonstrated knowledge on access to critical services"
+        ];
+        var stable_x_values = {name: 'Stable', data: [30, 14, 18, 58]}
+        var the_series_stable = [stable_x_values];
+        barChart(elementId_stable,the_title_stable,stable_x_axis,the_series_stable)
+        //stable
 
-            $.each(data, function (index, objValue) {
-                console.log("The service =====>");
-                console.log(objValue);
-                the_x_axis.push(objValue['period']);
-                if(objValue['active']==true){
-                    if(objValue['gender']=='Male') male['data'].push(objValue['count']);
-                    else female['data'].push(objValue['count']);
-                }
-            });
+        //safe
+        var elementId_safe="dmn_perf_Safe";
+        var the_title_safe = 'Safe domain performance';
+        var safe_x_axis = [
+            "BM11: Child-headed HHs have received child and social protection services",
+            "BM12: All children in the HH able to participate in daily activities and engage with others",
+            "BM13: Children at risk of abuse have been referred to and are receiving appropriate services",
+            "BM14: Caregivers can identify individual or group providing social or emotional support",
+            "BM15: Caregivers have completed a parenting skills or able to clearly articulate positive parenting"
+        ];
+        var safe_x_values = {name: 'Safe', data: [53, 18, 30, 55, 56]}
+        var the_series_safe = [safe_x_values];
+        columnChart(elementId_safe,the_title_safe,safe_x_axis,the_series_safe)
+        //safe
+        
+        //schooled
+        var elementId_schooled="dmn_perf_Schooled";
+        var the_title_schooled = 'Schooled domain performance';
+        var schooled_x_axis = [
+            "BM16: All 6-17 children enrolled and attend school regularly",
+            "BM17: Adolescents enrolled in vocational attend regularly"
+        ];
+        var schooled_x_values = {name: 'Schooled', data: [39, 50]}
+        var the_series_schooled = [schooled_x_values];
+        barChart(elementId_schooled,the_title_schooled,schooled_x_axis,the_series_schooled)
+        //schooled
 
-            var the_series = [
-                                female,
-                                male
-                            ];
-            columnChart(elementId_healthy,the_title,the_x_axis,the_series)
-            // stackedBar(elementId,titlee,categoriee,serie,stackType,legend)
+            
 
     }
 
-    //--1--
-
-    //--2--
-    function displayTotalOVCsEverExited(data){
-        var val = data;
-        var elementId="all_ovc_exit";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
-        $('#'+elementId).html(val);
-    }
-    function displayExitedOVCRegs(data, months_arr){
-           var elementId="ovc_exits";
-           var the_x_axis= []
-           var the_title = 'OVC Exited from the program within period';
-
-            var female={name: 'female',data: []};
-            var male={name: 'male',data: []};
-            $.each(data, function (index, objValue) {
-                console.log(objValue);
-                the_x_axis.push(objValue['period']);
-                if(objValue['active']==false){
-                    if(objValue['gender']=='Male') male['data'].push(objValue['count']);
-                    else female['data'].push(objValue['count']);
-                }
-
-            });
-
-           var the_series = [
-                                female,
-                                male
-                            ];
-            barChart(elementId,the_title,the_x_axis,the_series)
-    }
-
-    function displayExitedHseld(data, months_arr){
-       var elementId="hsehld_exits";
-       var the_x_axis= []
-       var the_title = 'HouseHolds Exited from the program within period';
-
-        var graph_data={name: 'House Hold',data: []};
-        $.each(data, function (index, objValue) {
-            the_x_axis.push(objValue['period']);
-                graph_data['data'].push(objValue['count']);
-        });
-
-       var the_series = [
-                            graph_data
-                        ];
-        barChart(elementId,the_title,the_x_axis,the_series);
-
-    }
-    //--2--
-
-    //--3--
-    function displayWoBCertAtEnrol(data){
-        var val = data;
-        var elementId="all_ovc_wout_bcert";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
-        $('#'+elementId).html(val);
-    }
-    function displayServedBCert(data,months_arr){
-        // $.each(data, function (index, objValue) {
-           var elementId="ovc_s_bcert";
-           var the_x_axis= months_arr
-           var the_title = 'OVC served with Birth Certificate within period';
-           var the_series = [
-                                // { name: 'Female', data: [1196, 979, 3791, 3680, 3565] },
-                                // { name: 'Male', data: [2396, 3979, 7798, 2767, 7565] }
-                                { name: 'DEMO', data: data }
-                            ];
-
-            barChart(elementId,the_title,the_x_axis,the_series)
-        // });
-    }
-    function displayWithBCertToDate(data){
-        var val = data;
-        var elementId="all_ovc_w_bcert_2date";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
-        $('#'+elementId).html(val);
-    }
-    function displayServedBCertAftEnrol(data){
-        var val = data;
-        var elementId="all_ovc_s_bcert_aft_enrol";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
-        $('#'+elementId).html(val);
-    }
-    function displayU5ServedBcert(data,months_arr){
-        // $.each(data, function (index, objValue) {
-           var elementId="ovc_u5_s_bcert";
-           var the_x_axis= months_arr
-           var the_title = 'OVC 5yrs and below served with Birth Certificate within period';
-           var the_series = [
-                                // { name: 'Female', data: [1987, 2500, 2687, 1230, 4021] },
-                                // { name: 'Male', data: [4570, 2000, 6798, 3290, 5675] }
-                                { name: 'DEMO', data: data }
-                            ];
-
-            barChart(elementId,the_title,the_x_axis,the_series)
-        // });
-    }
-    //--3--
     // -----------------display-----------------

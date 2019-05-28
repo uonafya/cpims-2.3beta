@@ -13,13 +13,13 @@ function columnChart(elementId,the_title,the_x_axis,the_series){
         xAxis: {
             categories: the_x_axis,
             title: {
-                text: 'Period'
+                text: ''
             }
         },
         yAxis: {
             min: 0,
             title: {
-                text: 'Population',
+                text: '',
                 align: 'high'
             },
             labels: {
