@@ -7421,7 +7421,7 @@ def manage_form1a_events(request):
     jsonForm1AEventsData = []
     try:
         person = request.POST.get('person')
-        ovccareevents = OVCCareEvents.objects.filter(person=person, event_type_id='FSAM', is_void=False)
+        ovccareevents = OVCCareEvents.objects.filter(person=person, event_type_id='FSAM')
 
         for ovccareevent in ovccareevents:
             event_type = None
@@ -7435,23 +7435,23 @@ def manage_form1a_events(request):
             event_date = ovccareevent.date_of_event
 
             ## get Assessment
-            ovccareassessments = OVCCareAssessment.objects.filter(event=ovccareevent.pk, is_void=False)
+            ovccareassessments = OVCCareAssessment.objects.filter(event=ovccareevent.pk)
             for ovccareassessment in ovccareassessments:
                 assessments.append(translate(ovccareassessment.service) + '(' + translate(ovccareassessment.service_status) + ')')
                 event_keywords.append(ovccareassessment.service)
 
             ## get CriticalEvents
-            ovccriticalevents = OVCCareEAV.objects.filter(event=ovccareevent.pk, is_void=False)
+            ovccriticalevents = OVCCareEAV.objects.filter(event=ovccareevent.pk)
             for ovccriticalevent in ovccriticalevents:
                 critical_events.append(translate(ovccriticalevent.value))
 
             ## get Prioritys
-            ovcprioritys = OVCCarePriority.objects.filter(event=ovccareevent.pk, is_void=False)
+            ovcprioritys = OVCCarePriority.objects.filter(event=ovccareevent.pk)
             for ovcpriority in ovcprioritys:
                 prioritys.append(translate(ovcpriority.service))
 
             ## get Services
-            ovccareservices = OVCCareServices.objects.filter(event=ovccareevent.pk, is_void=False)
+            ovccareservices = OVCCareServices.objects.filter(event=ovccareevent.pk)
             for ovccareservice in ovccareservices:
                 services.append(translate(ovccareservice.service_provided))
 
