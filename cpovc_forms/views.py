@@ -31,7 +31,7 @@ from .models import (
     OVCAdverseEventsFollowUp, OVCAdverseEventsOtherFollowUp,
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
-    OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations,
+    OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations, OVCCareF1B,
     OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
@@ -6871,12 +6871,51 @@ def new_form1b(request, id):
     domains = create_form_fields(ffs)
     # print ffsd
     form = OVCF1AForm(initial={'person': id, 'caretaker_id': cid})
-    f1bs = OVCCareEvents.objects.filter(
-        event_type_id='FM1B', person_id=cid)
+    f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid)
+
+    for f11b in f1bs:
+        print('f1b', f11b.event)
+    
+    ev_data = []
+    event_keywords = []
+    for ovc_evt in f1bs:
+        sservi = []
+        assem = []
+        
+        # ovccareassems = OVCCareAssessment.objects.filter(event=ovc_evt)
+        ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt)
+        
+        for ovccareassem in ovccareassems:
+            full_f1b_qn_assess = SetupList.objects.filter(item_id=ovccareassem.entity,item_sub_category__icontains='a')
+            full_f1b_qn_servi = SetupList.objects.filter(item_id=ovccareassem.entity,item_sub_category__icontains='s')
+            for one_f1b_qn_assess in full_f1b_qn_assess:
+                assem.append({
+                    # 'event_type': 'ASSESSMENTS',
+                    'data': str( '(' + one_f1b_qn_assess.item_id + ') ' + one_f1b_qn_assess.item_description)
+                })
+
+            for one_f1b_qn_servi in full_f1b_qn_servi:
+                sservi.append({
+                    # 'event_type': 'SERVICES',
+                    'data': str( '(' + one_f1b_qn_servi.item_id + ') ' + one_f1b_qn_servi.item_description)
+                })
+
+        ev_data.append({
+            'event_key': str(ovc_evt.pk),
+            'ev_date': ovc_evt.date_of_event.strftime('%d-%b-%Y'),
+            'ev_person': id,
+            'services': sservi,
+            'assessments': assem,
+        })
+    
+
+
     return render(request,
                   'forms/new_form1b.html',
                   {'form': form, 'data': init_data,
                    'vals': vals, 'domains': domains, 'ovc': ovc,
+                   'ev_data': ev_data,
+                #    'services': sservi, 'assessments': assem,
                    'form1b_allowed': f1b_allow, 'f1bs': f1bs})
 
 
@@ -7209,7 +7248,7 @@ def update_form1a(request):
                                     service_grouping_id = ovc_care_services[0].service_grouping_id
                                 ).save()
 
-            msg = 'Saved Successful'
+            msg = 'Saved Successfully'
             jsonResponse.append({'msg': msg})
     except Exception, e:
         print e
@@ -7374,6 +7413,55 @@ def delete_form1a(request, id, btn_event_type, btn_event_pk):
                         safe=False)
 
 
+
+
+@login_required(login_url='/')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def delete_form1b(request, id, btn_event_pk):
+    jsonForm1BData = []
+    msg=''
+    try:
+        event_id = uuid.UUID(btn_event_pk)
+        d_event= OVCCareEvents.objects.filter(pk=event_id)[0].timestamp_created
+        delta=get_days_difference(d_event)
+        if delta < 30:
+            event = OVCCareEvents.objects.filter(pk=event_id)
+            if event:
+
+                # delete assessment
+                assesm = OVCCareAssessment.objects.filter(event=event)
+                if assesm:
+                    assesm.delete()
+                    msg = "Deleted successfully"
+
+                # delete services
+                servi = OVCCareServices.objects.filter(event=event)
+                if servi:
+                    servi.delete()
+                    msg = "Deleted successfully"
+                
+                # delete f1b
+                f1bin = OVCCareF1B.objects.filter(event=event)
+                if f1bin:
+                    f1bin.delete()
+                    msg = "Deleted successfully"
+                    
+                # delete event
+                event.delete()
+                msg = "Deleted successfully"
+        else:
+            msg = "Can't delete after 30 days"
+    except Exception, e:
+        msg = 'An error occured : %s' %str(e)
+        print str(e)
+    jsonForm1BData.append({ 'msg': msg })
+    return JsonResponse(jsonForm1BData,
+                        content_type='application/json',
+                        safe=False)
+
+
+                        
+
 @login_required(login_url='/')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def delete_previous_event_entry(request, btn_event_type, entry_id):
@@ -7488,6 +7576,64 @@ def manage_form1a_events(request):
         return JsonResponse(jsonForm1AEventsData,
                             content_type='application/json',
                             safe=False)
+
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def manage_form1b_events(request):
+    msg = ''
+    jsonForm1BEventsData = []
+    try:
+        person = request.POST.get('person')
+        ovccareevents = OVCCareEvents.objects.filter(person=person, event_type_id='FM1B')
+        for ovccareevent in ovccareevents:
+            event_type = None
+            event_details = None
+            services = []
+            event_keywords=[]
+            event_keyword_group=[]
+            assessments = []
+            event_date = ovccareevent.date_of_event
+
+            ## get Assessment
+            ovccareassessments = OVCCareAssessment.objects.filter(event=ovccareevent.pk)
+            for ovccareassessment in ovccareassessments:
+                assessments.append(translate(ovccareassessment.service) + '(' + translate(ovccareassessment.service_status) + ')')
+                event_keywords.append(ovccareassessment.service)
+
+            ## get Services
+            ovccareservices = OVCCareServices.objects.filter(event=ovccareevent.pk)
+            for ovccareservice in ovccareservices:
+                services.append(translate(ovccareservice.service_provided))
+
+
+            if(True): 
+                event_type = 'SERVICES'
+                event_details = ', '.join(services)
+            elif(False): 
+                event_type = 'ASSESSMENT'
+                event_details = ', '.join(assessments)
+                event_keyword_group= ', '.join(event_keywords)
+            
+            jsonForm1BEventsData.append({
+                            'event_pk': str(ovccareevent.pk),
+                            'event_type': event_type,
+                            'event_details': event_details,
+                            'event_keyword_group': event_keyword_group,
+                            'event_date': event_date.strftime('%d-%b-%Y')
+                        }) 
+        print jsonForm1BEventsData
+        return JsonResponse(jsonForm1BEventsData,
+                            content_type='application/json',
+                            safe=False)     
+    except Exception, e:
+        msg = 'An error occured : %s' %str(e)
+        print str(e)
+        jsonForm1BEventsData.append({ 'msg': msg })
+        return JsonResponse(jsonForm1BEventsData,
+                            content_type='application/json',
+                            safe=False)
+
 
 
 @login_required

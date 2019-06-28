@@ -187,6 +187,7 @@ urlpatterns = patterns(
         'view_csi', name='view_csi'),
     url(r'^csi/delete/(?P<id>\w+)/$',
         'delete_csi', name='delete_csi'),
+        
     # OVC Care - Form1A
     url(r'^form1a/new/(?P<id>\d+)/$',
         'form1a_events', name='form1a_events'),
@@ -204,9 +205,17 @@ urlpatterns = patterns(
             'delete_previous_event_entry', name='delete_previous_event_entry'),
     url(r'^form1a/manage/$',
         'manage_form1a_events', name='manage_form1a_events'),
+    # end OVC Care - Form1A
+
     # OVC Care - Form1B
     url(r'^form1b/new/(?P<id>\d+)/$',
         'new_form1b', name='new_form1b'),
+    url(r'^form1b/delete/(?P<id>\d+)/(?P<btn_event_pk>.+)/$',
+        'delete_form1b', name='delete_form1b'),
+    url(r'^form1b/manage/$',
+        'manage_form1b_events', name='manage_form1b_events'),
+    # OVC Care - Form1B
+
     # OVC Care - HHVA
     url(r'^hhva/new/(?P<id>\d+)/$',
         'new_hhva', name='new_hhva'),
