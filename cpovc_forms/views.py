@@ -7424,7 +7424,7 @@ def delete_form1b(request, id, btn_event_pk):
         event_id = uuid.UUID(btn_event_pk)
         d_event= OVCCareEvents.objects.filter(pk=event_id)[0].timestamp_created
         delta=get_days_difference(d_event)
-        if delta < 30:
+        if delta < 60:
             event = OVCCareEvents.objects.filter(pk=event_id)
             if event:
 
