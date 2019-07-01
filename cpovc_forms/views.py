@@ -6873,8 +6873,6 @@ def new_form1b(request, id):
     form = OVCF1AForm(initial={'person': id, 'caretaker_id': cid})
     f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid)
 
-    for f11b in f1bs:
-        print('f1b', f11b.event)
     
     ev_data = []
     event_keywords = []
@@ -7450,7 +7448,7 @@ def delete_form1b(request, id, btn_event_pk):
                 event.delete()
                 msg = "Deleted successfully"
         else:
-            msg = "Can't delete after 30 days"
+            msg = "Can't delete after 60 days"
     except Exception, e:
         msg = 'An error occured : %s' %str(e)
         print str(e)
@@ -8755,6 +8753,29 @@ def new_cpara(request, id):
     child = RegPerson.objects.get(is_void=False, id=ovc_id)
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
 
+    # PAST CPARA
+    past_cpara = []
+    cpara_events = OVCCareEvents.objects.filter(event_type_id='cpr', person_id=child.id)
+    if cpara_events:
+        for one_cpara_event in cpara_events:
+            event_detail = ""
+            cpara_data = OVCCareCpara.objects.filter(event=one_cpara_event)
+            if cpara_data:
+                for one_cpara_data in cpara_data:
+                    qn_string = str(one_cpara_data.question_code) + " (" + str(one_cpara_data.answer) + "), "
+                    event_detail = event_detail + qn_string
+            else:
+                event_detail = "No answered questions found"
+            past_cpara.append({
+                'ev_date': one_cpara_event.date_of_event,
+                'ev_person': child.id,
+                'ev_type': 'CPARA',
+                'ev_id': str(one_cpara_event.pk),
+                'ev_detail': str(event_detail)
+            })
+        
+
+
     return render(request,
                   'forms/new_cpara.html',
                   {
@@ -8770,10 +8791,48 @@ def new_cpara(request, id):
                       'ward': ward,
                       'subcounty': subcounty,
                       'county': county,
-                      'care_giver':care_giver
+                      'care_giver': care_giver,
+                      'past_cpara': past_cpara
                     #   'orgunit' : orgunit,
 
                   })
+
+
+
+
+@login_required(login_url='/')
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def delete_cpara(request, id, btn_event_pk):
+    jsonCPARAData = []
+    msg=''
+    try:
+        event_id = uuid.UUID(btn_event_pk)
+        d_event= OVCCareEvents.objects.filter(pk=event_id)[0].timestamp_created
+        delta=get_days_difference(d_event)
+        if delta < 60:
+            event = OVCCareEvents.objects.filter(pk=event_id)
+            if event:
+                # delete cpara
+                ovcpara = OVCCareCpara.objects.filter(event=event)
+                if ovcpara:
+                    ovcpara.delete()
+                    msg = "Deleted successfully"
+                # delete event
+                event.delete()
+                msg = "Deleted successfully"
+        else:
+            msg = "Can't delete after 60 days"
+    except Exception, e:
+        msg = 'An error occured : %s' %str(e)
+        print str(e)
+    jsonCPARAData.append({ 'msg': msg })
+    return JsonResponse(jsonCPARAData,
+                        content_type='application/json',
+                        safe=False)
+
+
+
+
 
 
 def convert_tuple_choices_to_dict(tuple_list):

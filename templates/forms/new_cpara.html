@@ -59,8 +59,9 @@ print(blu.sing("'Happy'"))
 <!-- end page-header -->
 
 <div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
-    <span class="close" data-dismiss="alert">�</span>
+    <!-- <span class="close" data-dismiss="alert">x</span> -->
     <i class="fa fa-info fa-2x pull-left"></i>
+    <p></p>
     <span class="invalid-form-message" id="invalid-form-message"></span>
 </div>
 
@@ -2240,6 +2241,61 @@ print(blu.sing("'Happy'"))
         </div>
         <!-- end panel -->
 
+        <div class="row" id="past-cpara">
+            <div class="col-md-12">
+                <h5 class="text-bold">PAST CPARA</h5>
+                <div class="bcwhite br5 p-20">
+                    <table class="table table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Event date</th>
+                                <th>Event type</th>
+                                <th>Details</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for one_past_event in past_cpara %}
+                                <!-- <script>alert('{{one_past_event.ev_id}}')</script> -->
+                                <tr>
+                                    <td valign="center" style="text-align: center;vertical-align: middle;">{{forloop.counter}}</td>
+                                    <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_date}}</td>
+                                    <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_type}}</td>
+                                    <td valign="center" style="text-align: center;vertical-align: middle;" width="40%"><small>{{one_past_event.ev_detail}}</small></td>
+                                    <td valign="center" style="text-align: center;vertical-align: middle;">
+                                            <a class="btn btn-danger" data-toggle="modal" href='#del_cpara_e'> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                                            <div class="modal fade" id="del_cpara_e">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            <h4 class="modal-title">Delete this event</h4>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete the <b>{{one_past_event.ev_date}}</b> event?
+                                                            <input type="hidden" name="ev_person" id="ev_person" value="{{one_past_event.ev_person}}"/>
+                                                            <input type="hidden" name="ev_key" id="ev_key" value="{{one_past_event.ev_id}}"/>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <script>
+                                                                var pid = document.getElementById("ev_person").value;
+                                                                var ev_key = document.getElementById("ev_key").value;
+                                                            </script>
+                                                            <button type="button" class="btn btn-danger" onclick="deleteCPARAentry( pid,ev_key )" id="del_cpara_{{forloop.counter}}">Yes, DELETE</button>
+                                                            <button type="button" class="btn btn-default" data-dismiss="modal">No, cancel</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                    </td>
+                                </tr>  
+                            {% endfor %}  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- end col-12 -->
 
@@ -2290,6 +2346,39 @@ jQuery(document).ready(function()
 	
 });
 
-
 </script>
+
+
+<script>
+        function deleteCPARAentry(personId,btn_event_pk){
+            $('#del_cpara_e').modal('hide');
+            var cparaUrlToDelete= "{% url 'delete_cpara' id=1234 btn_event_pk=3456 %}".replace(/1234/, personId.toString()).replace(/3456/, btn_event_pk.toString());
+            $.ajax({
+                url: cparaUrlToDelete,
+                dataType: 'json',
+                method: 'GET',
+                success: function(result)
+                {
+                    if (result[0].msg.includes("30")){
+                        $('#messages').removeClass('alert-success').addClass('alert-danger').css({'display': 'block'});
+                        $('#messages p').html(result[0].msg);
+    
+                    }else{
+                        $('#messages').addClass('alert-success').removeClass('alert-danger').css({'display': 'block'});
+                        $('#messages p').html(result[0].msg);
+                        var url = "{% url 'new_cpara' id=1234%}".replace(/1234/, personId.toString());
+                        window.open(url,"_self");
+                    }
+                    console.log("delered");
+                },
+                error: function(xhr, status, error){
+                    alert('not deleted ==> status: '+ JSON.stringify(status) + ' & error: '+JSON.stringify(error));
+                    $('#messages').css({'display': 'block'}).removeClass('alert-success').addClass('alert-danger');
+                    $('#messages p').html(result[0].msg);
+                    console.log("errorr delering");
+                }
+            });
+        }
+    
+    </script>
 {% endblock %}
