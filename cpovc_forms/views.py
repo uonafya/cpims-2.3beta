@@ -7273,7 +7273,7 @@ def edit_form1a(request, id, btn_event_type, btn_event_pk):
 
     print 'check delta'
     print delta
-    if delta < 30:
+    if delta < 90:
         if btn_event_type == 'ASSESSMENT':
             ovc_care_assessments = OVCCareAssessment.objects.filter(event=event_obj)
 
@@ -7369,7 +7369,7 @@ def edit_form1a(request, id, btn_event_type, btn_event_pk):
                            'vals': vals, 'event_pk': btn_event_pk, 'event_type': btn_event_type,
                            'priority_lists': priority_lists, 'date_of_event_edit': date_of_event_edit})
     else:
-        err_msgg = "Can't alter after 30 days"
+        err_msgg = "Can't alter after 90 days"
         # return HttpResponseRedirect(reverse('form1a_events', args=(id,)))
         return render(request,
                       'forms/form1a_events.html',
@@ -7387,7 +7387,7 @@ def delete_form1a(request, id, btn_event_type, btn_event_pk):
         event_id = uuid.UUID(btn_event_pk)
         d_event= OVCCareEvents.objects.filter(pk=event_id)[0].timestamp_created
         delta=get_days_difference(d_event)
-        if delta < 30:
+        if delta < 90:
             event = OVCCareEvents.objects.filter(pk=event_id)
             print "we are here"
             if event:
@@ -7401,7 +7401,7 @@ def delete_form1a(request, id, btn_event_type, btn_event_pk):
                     OVCCareServices.objects.filter(event=event).delete()
                 msg = 'Deleted successfully'
         else:
-            msg = "Can't delete after 30 days"
+            msg = "Can't delete after 90 days"
     except Exception, e:
         msg = 'An error occured : %s' %str(e)
         print str(e)
@@ -7422,7 +7422,7 @@ def delete_form1b(request, id, btn_event_pk):
         event_id = uuid.UUID(btn_event_pk)
         d_event= OVCCareEvents.objects.filter(pk=event_id)[0].timestamp_created
         delta=get_days_difference(d_event)
-        if delta < 60:
+        if delta < 90:
             event = OVCCareEvents.objects.filter(pk=event_id)
             if event:
 
@@ -7448,7 +7448,7 @@ def delete_form1b(request, id, btn_event_pk):
                 event.delete()
                 msg = "Deleted successfully"
         else:
-            msg = "Can't delete after 60 days"
+            msg = "Can't delete after 90 days"
     except Exception, e:
         msg = 'An error occured : %s' %str(e)
         print str(e)
@@ -8809,7 +8809,7 @@ def delete_cpara(request, id, btn_event_pk):
         event_id = uuid.UUID(btn_event_pk)
         d_event= OVCCareEvents.objects.filter(pk=event_id)[0].timestamp_created
         delta=get_days_difference(d_event)
-        if delta < 60:
+        if delta < 90:
             event = OVCCareEvents.objects.filter(pk=event_id)
             if event:
                 # delete cpara
@@ -8821,7 +8821,7 @@ def delete_cpara(request, id, btn_event_pk):
                 event.delete()
                 msg = "Deleted successfully"
         else:
-            msg = "Can't delete after 60 days"
+            msg = "Can't delete after 90 days"
     except Exception, e:
         msg = 'An error occured : %s' %str(e)
         print str(e)
