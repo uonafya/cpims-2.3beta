@@ -9407,9 +9407,18 @@ def hiv_status(request):
 
 # New HIV Screening Tool 
 @login_required
-#@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivscreeningtool(request, id):
-    form = HIV_SCREENING_FORM()
+    try:
+        init_data = RegPerson.objects.filter(pk=id)
+        check_fields = ['sex_id']
+        vals = get_dict(field_name=check_fields)
+        print(vals)
+        form = HIV_SCREENING_FORM(initial={'person': id})
+    except:
+        pass
+
     return render(request,
                   'forms/new_hivscreeningtool.html',
-                  {'form':form,})
+                  {'form': form, 'init_data': init_data,
+                   'vals': vals})

@@ -24,21 +24,18 @@
 <!-- end breadcrumb -->
 
 <!-- begin page-header -->
-
-<!-- {% for data in init_data %} -->
-<!-- {{care_giver}} || {{care_giver.sex_id|gen_value:vals }} -->
+{% for data in init_data %}
 <h1 class="page-header">Forms
-    <small>HIV Screening Tool <b> 
-        <!-- {{ data.first_name }} {{ data.surname }} |
-            {% if data.date_of_birth|gen_age == 0 %}
-            UNDER 1 YEAR
-            {% else %}
-            {{ data.date_of_birth|gen_age }} YRS
-            {% endif %} -->
-        </b></small>
+    <small>HIV Screening Tool<b> &nbsp; {{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | 
+        {% if data.date_of_birth|gen_age == 0 %}
+                    UNDER 1 YEAR
+                {% else %}
+                    {{ data.date_of_birth|gen_age }} YRS 
+                {% endif %}</b></small>
+        </b>
 </h1>
+{% endfor %}
 
-<!-- {% endfor %} -->
 <!-- end page-header -->
 
 <div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
