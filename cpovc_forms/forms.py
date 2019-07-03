@@ -6215,9 +6215,16 @@ class HIV_SCREENING_FORM(forms.Form):
                'class': 'form-control',
                'name': 'HIV_RA_1A',
                'id': 'HIV_RA_1A',
+<<<<<<< HEAD
                'autocomplete': "off",
                'data-parsley-required': "true",
                'data-parsley-group': 'group0'
+=======
+               'autocomplete': "off"
+            # ,
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+>>>>>>> master
         }))
 
     HIV_RA_1B = forms.ChoiceField(

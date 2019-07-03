@@ -239,6 +239,9 @@ urlpatterns = patterns(
     # OVC Care - CPARA Form
     url(r'^cpara/new/(?P<id>\d+)/$',
         'new_cpara', name='new_cpara'),
+    url(r'^cpara/delete/(?P<id>\d+)/(?P<btn_event_pk>.+)/$',
+        'delete_cpara', name='delete_cpara'),
+
     # OVC Care - Case Plan Template
     url(r'^caseplan/new/(?P<id>\d+)/$',
         'case_plan_template', name='new_caseplan'),
