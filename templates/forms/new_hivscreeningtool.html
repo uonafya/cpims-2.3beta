@@ -26,7 +26,7 @@
 <!-- begin page-header -->
 {% for data in init_data %}
 <h1 class="page-header">Forms
-    <small>HIV Screening Tool<b> &nbsp; {{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | 
+    <small>HIV Screening Tool<b> &nbsp;{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | 
         {% if data.date_of_birth|gen_age == 0 %}
                     UNDER 1 YEAR
                 {% else %}
