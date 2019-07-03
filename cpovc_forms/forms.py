@@ -6204,4 +6204,260 @@ class WellbeingAdolescentForm(forms.Form):
             #    'data-parsley-group': 'group0',
                'rows': '2'})
         )
+
+# HIV Screening Form
+class HIV_SCREENING_FORM(forms.Form):
+
+    HIV_RA_1A = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date Of Assessement'),
+               'class': 'form-control',
+               'name': 'HIV_RA_1A',
+               'id': 'HIV_RA_1A',
+               'autocomplete': "off"
+            # ,
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+        }))
+
+    HIV_RA_1B = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_STATUS = forms.ChoiceField(
+        choices = (('HIV_POSTIVE', 'HIV_Positive'),('HIV_NEGATIVE', 'HIV_Negative'),),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_1C = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+
+    HIV_RA_2Q1 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_2Q2 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+    
+    HIV_RA_2Q3 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_2Q4 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_2Q5 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_2Q6 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_2Q7 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_2Q8 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_3Q1 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_3Q1_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Report Date'),
+               'class': 'form-control',
+               'name': 'HIV_RA_3Q1_DATE',
+               'id': 'HIV_RA_3Q1_DATE',
+               'autocomplete': "off"
+            # ,
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+    }))
+
+    HIV_RA_3Q2 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_3Q2_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Report Date'),
+               'class': 'form-control',
+               'name': 'HIV_RA_3Q2_DATE',
+               'id': 'HIV_RA_3Q2_DATE',
+               'autocomplete': "off"
+            # ,
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+    }))
+
+    HIV_RA_3Q3 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RS_3Q3A = forms.CharField(
+        widget = forms.Textarea(
+        attrs = {'placeholder': _('Response'),
+               'class': 'form-control',
+               'id': 'HIV_RS_3Q3A',
+            #    'data-parsley-group': 'group0',
+               'rows': '2'})
+               )
+    
+    HIV_RA_3Q3B = forms.ChoiceField(
+        choices = (('HIV_POSTIVE', 'HIV_Positive'), ('HIV_NEGATIVE', 'HIV_NEGATIVE'), ('HIV_UNKOWN', 'HIV_UNKOWN/UNDISCLOSED')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+    
+    HIV_RA_3Q3_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Report Date'),
+               'class': 'form-control',
+               'name': 'HIV_RA_3Q3_DATE',
+               'id': 'HIV_RA_3Q3_DATE',
+               'autocomplete': "off"
+            # ,
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+    }))
+
+    HIV_RA_3Q4 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_3Q4_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Report Date'),
+               'class': 'form-control',
+               'name': 'HIV_RA_3Q4_DATE',
+               'id': 'HIV_RA_3Q4_DATE',
+               'autocomplete': "off"
+            # ,
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+    }))
+
+    HIV_RA_3Q5 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RA_3Q5_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Report Date'),
+               'class': 'form-control',
+               'name': 'HIV_RA_3Q5_DATE',
+               'id': 'HIV_RA_3Q5_DATE',
+               'autocomplete': "off"
+            # ,
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
+    }))
+
+    HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Facility Name'),
+               'class': 'form-control',
+               'id': 'HIV_RA_3Q6',
+            #    'data-parsley-group': 'group0'
+               }))
+
+
+    
+    
+    
     
