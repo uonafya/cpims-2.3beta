@@ -5,11 +5,11 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
-from datetime import date
+from datetime import (date, datetime)
 from .forms import OVCSearchForm, OVCRegistrationForm
 from cpovc_registry.models import (
     RegPerson, RegPersonsGuardians, RegPersonsSiblings, RegPersonsExternalIds)
-from cpovc_main.functions import get_dict
+from cpovc_main.functions import (get_dict, get_days_difference)
 from .models import (
     OVCRegistration, OVCHHMembers, OVCEligibility, OVCViralload)
 from .functions import (
@@ -198,8 +198,26 @@ def ovc_edit(request, id):
         hhmqs = OVCHHMembers.objects.filter(
             is_void=False, house_hold_id=hhid).order_by("-hh_head")
         # Viral Load
+       
         vloads = OVCViralload.objects.filter(
             is_void=False, person_id=ovc_id).order_by("-viral_date")
+        vlist=[]
+        for vl in vloads:
+            obj={}
+            obj['viral_date']=vl.viral_date
+            obj['viral_load']=vl.viral_load
+
+           
+
+            delta = get_days_difference(vl.viral_date)
+            print delta
+
+            if (delta) < 183 :
+                obj['status']=0
+            else:
+                obj['status']=1 
+
+            vlist.append(obj)
         # add caregivers hiv status
         hhmembers = hhmqs.exclude(person_id=child.id)
         # Get guardians and siblings ids
@@ -300,12 +318,17 @@ def ovc_edit(request, id):
         vals = get_dict(field_name=check_fields)
         hiv_data=OVCHivStatus.objects.filter(person_id=ovc_id).order_by('date_of_event')
         print ('ggggggg', hiv_data)
+
+        #date manenos
+        date_langu = datetime.now().month
+        
+       
         return render(request, 'ovc/edit_child.html',
                       {'form': form, 'status': 200, 'child': child,
                        'vals': vals, 'hhold': hhold, 'extids': gparams,
                        'hhmembers': hhmembers, 'levels': levels,
                        'sch_class': sch_class, 'siblings': siblings,
-                       'ctaker': ctaker, 'vloads': vloads,
+                       'ctaker': ctaker, 'vloads': vlist, 'mydate': date_langu, 
                        'hiv_data':hiv_data})
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
