@@ -8736,13 +8736,13 @@ def new_cpara(request, id):
         geo_wards = None
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    child.geo_wards = geo_wards
-    if child.geo_wards is None:
+    #geo_wards = geo_wards
+    if geo_wards is None:
         ward = None
         subcounty = None
         county = None
     else:
-        ward_id = int(child.geo_wards)
+        ward_id = int(geo_wards)
         ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
@@ -9297,12 +9297,12 @@ def new_wellbeing(request, id):
         geo_wards = ', '.join(all_geos_wards)
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    if child.geo_wards is None:
+    if geo_wards is None:
         ward = None
         subcounty = None
         county = None
     else:
-        ward_id = int(child.geo_wards)
+        ward_id = int(geo_wards)
         ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)

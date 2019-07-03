@@ -127,7 +127,6 @@ class RegPerson(models.Model):
     is_void = models.BooleanField(default=False)
     created_by = models.ForeignKey(AppUser, null=True)
     created_at = models.DateField(default=timezone.now)
-    geo_wards = models.CharField(max_length=14,null=True)
 
     def _get_persons_data(self):
         _reg_persons_data = RegPerson.objects.all().order_by('-id')
