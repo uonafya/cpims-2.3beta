@@ -412,8 +412,8 @@ def ovc_view(request, id):
         siblings = RegPersonsSiblings.objects.filter(
             is_void=False, child_person_id=child.id)
         # Get services
-        servs = {'FSAM': 'f1a', 'FCSI': 'fcsi', 'FHSA': 'fhva'}
-        services = {'f1a': 0, 'fcsi': 0, 'fhva': 0}
+        servs = {'FSAM': 'f1a', 'FCSI': 'fcsi', 'FHSA': 'fhva',   'cpr': 'cpr',  'wba': 'wba', 'CPAR': 'CPAR', 'WBG': 'WBG' }
+        services = {'f1a': 0, 'fcsi': 0, 'fhva': 0, 'cpr': 0,  'wba': 0, 'CPAR': 0, 'WBG': 0}
         sqs = OVCCareEvents.objects.filter(
             Q(person_id=child.id) | Q(house_hold_id=hhid))
         sqs = sqs.filter(is_void=False).values(
@@ -442,9 +442,9 @@ def ovc_view(request, id):
                        'care_giver' :care_giver,
                        'services': services, 'allow_edit': allow_edit,
                        'suppression': vl_sup,
-                       'cpara_count': 0,
-                       'case_plan_count': 0,
-                       'well_being_count': 0
+                       'cpara_count': services,
+                       'case_plan_count': services,
+                       'well_being_count': services
                        })
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))

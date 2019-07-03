@@ -9182,7 +9182,7 @@ def new_wellbeing(request, id):
             hse_uuid = uuid.UUID(household_id)
             house_hold = OVCHouseHold.objects.get(pk=hse_uuid)
             person = RegPerson.objects.get(pk=int(caretker_id))
-            event_type_id = 'FHSA'
+            event_type_id = 'WBG'
             date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'), fmt='%Y-%m-%d')
 
             """ Save Wellbeing-event """
