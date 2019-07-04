@@ -12,10 +12,30 @@ def get_all_models():
     return all_models
 
 
-def get_model_fields(model_class):
+def get_model_fields():
     """
     Get all the fields in  a model and returns their type.
     """
+    all_models =  get_all_models()
+    models_data = []
+    for model in all_models:
+        fields = model._meta.fields
+        field_data = []
+        for field in fields:
+            field_data.append(
+                {
+                    "field_name": field.name,
+                    "field_type": field.__class__.__name__
+                }
+            )
+            
+        models_data.append(
+            {
+                model.__name__: field_data
+            }
+        )
+    return models_data
+        
 
 def compare_values(model_class, operator, value):
     """
