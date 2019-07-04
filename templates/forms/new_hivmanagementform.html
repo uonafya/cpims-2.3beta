@@ -7,6 +7,7 @@
 <link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
 <link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
 <link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet">
 <link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
 <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
 {% endblock %}
@@ -63,7 +64,7 @@
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
                     name="form-wizard-hhva" id="new_hhva">
                     {% csrf_token %}
-                    <div id="wizard-hhva">
+                    <div id="wizard-hivmanagementform">
                         <ol>
 
                             <li>
@@ -94,25 +95,27 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                           <td>1a</td>
+                                           <td>1</td>
                                             <td>Date confirmed HIV Positive</td>
                                             <td>
-                                                {{ form.HIV_MGMT_1_A }}
+                                                {{ form_arvtherapy.HIV_MGMT_1_A }}
                                             </td>
                                             <td style="background-color: grey"></td>
                                         </tr>
                                         <tr>
-                                            <td>1b</td>
+                                            <td>2a</td>
                                             <td>Date initiated on Treatment</td>
-                                            <td> </td>
+                                            <td> 
+                                                    {{ form_arvtherapy.HIV_MGMT_1_B }}
+                                            </td>
                                             <td style="background-color: grey"></td>
                                             
                                         </tr>
                                         <tr>
-                                            <td>1c</td>
+                                            <td>2b</td>
                                             <td>Baseline viral load for HEI</td>
                                             <td>
-                                                    
+                                                    {{ form_arvtherapy.HIV_MGMT_1_C }}
                                             </td>
                                             <td style="background-color: grey">
                                             </td>
@@ -120,35 +123,46 @@
                                         </tr>
 
                                         <tr>
-                                            <td>1c</td>
+                                                <td>3</td>
+                                                <td>Date started on 1st Line</td>
+                                                <td style="background-color: grey">
+                                                    
+                                                </td>
+                                                <td>
+                                                        {{ form_arvtherapy.HIV_MGMT_1_D }}
+                                                </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>4</td>
                                             <td>Substitution of ARVs within 1st Line Regimen</td>
                                             <td>
-                                                   
+                                                    {{ form_arvtherapy.HIV_MGMT_1_E }}
                                             </td>
                                             <td>
-
+                                                    {{ form_arvtherapy.HIV_MGMT_1_E_DATE }}
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td>1c</td>
+                                            <td>5</td>
                                             <td>Switch to 2nd Line (or Substitute within 2nd Line)</td>
                                             <td>
-                                                    
+                                                    {{ form_arvtherapy.HIV_MGMT_1_F }}
                                             </td>
                                             <td>
-
+                                                    {{ form_arvtherapy.HIV_MGMT_1_F_DATE }}
                                             </td>
                                         </tr>
 
                                         <tr>
-                                            <td>1c</td>
+                                            <td>6</td>
                                             <td>Switch to 3rd Line (or Substitute within 3nd Line)</td>
                                             <td>
-
+                                                    {{ form_arvtherapy.HIV_MGMT_1_G }}
                                             </td>
                                             <td>
-
+                                                    {{ form_arvtherapy.HIV_MGMT_1_G_DATE }}
                                             </td>
                                         </tr>
                                         
@@ -183,8 +197,7 @@
                                             <td>Visit date  
                                             </td>
                                             <td>
-                                                    
-
+                                                    {{ form.HIV_MGMT_2_A }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -193,7 +206,7 @@
                                                 Duration on ARTs (in months)
                                             </td>
                                             <td>
-                                                    
+                                                {{ form.HIV_MGMT_2_B }}
 
                                             </td>
                                         </tr>
@@ -205,8 +218,7 @@
 
                                             </td>
                                             <td>
-                                             
-
+                                                    {{ form.HIV_MGMT_2_C }}
                                             </td>
                                         </tr>
                                         
@@ -216,7 +228,7 @@
                                                 MUAC
                                             </td>
                                             <td>
-                                            
+                                                    {{ form.HIV_MGMT_2_D }}
 
                                             </td>
                                         </tr>
@@ -227,6 +239,7 @@
                                             </td>
                                             <td>
                                                 
+                                                    {{ form.HIV_MGMT_2_E }}
 
                                             </td>
                                         </tr>
@@ -234,7 +247,7 @@
                                             <td>Q6</td>
                                             <td> ARV drugs - Duration for drugs </td>
                                             <td>
-                                                   
+                                                    {{ form.HIV_MGMT_2_F }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -243,8 +256,7 @@
                                                 Adherence Counseling
                                             </td>
                                             <td>
-                                                    
-
+                                                    {{ form.HIV_MGMT_2_G }}
                                             </td>
                                             
                                         </tr>
@@ -256,7 +268,7 @@
                                                      Treatment supporter
                                                 </td>
                                                 <td>
-                                                        
+                                                    {{ form.HIV_MGMT_2_H_1 }}
                                                 </td>
                                                 
                                         </tr>
@@ -267,7 +279,7 @@
                                                     Treatment supporter-Others
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_H_2 }}
 
                                                 </td>
                                                 
@@ -279,8 +291,7 @@
                                                     Treatment supporter-Sex
                                                 </td>
                                                 <td>
-                                                        
-
+                                                        {{ form.HIV_MGMT_2_H_3 }}
                                                 </td>
                                                 
                                         </tr>
@@ -291,7 +302,7 @@
                                                         Treatment supporter-Age
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_H_4 }}
 
                                                 </td>
                                                 
@@ -303,7 +314,7 @@
                                                     Treatment supporter-HIV_Status
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_H_5 }}
 
                                                 </td>
                                                 
@@ -315,7 +326,8 @@
                                                     Lab Investigations-Viral load results
                                                 </td>
                                                 <td>
-                                                        
+                                                    
+                                                    {{ form.HIV_MGMT_2_I_1 }}   
 
                                                 </td>
                                                 
@@ -327,7 +339,7 @@
                                                     Lab Investigations - Date
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_I_DATE }}   
 
                                                 </td>
                                                 
@@ -339,7 +351,8 @@
                                                     Detectable (>401 cp/ml)Viral load interventions
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_J }}   
+
 
                                                 </td>
                                                 
@@ -350,7 +363,7 @@
                                                         Disclosure 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_K }}   
 
                                                 </td>    
                                         </tr>
@@ -361,7 +374,7 @@
                                                         Nutritional assessment-MUAC Score 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_L_1 }} 
 
                                                 </td>
                                                 
@@ -373,7 +386,7 @@
                                                 </td>
                                                 <td>
                                                         
-
+                                                        {{ form.HIV_MGMT_2_L_2 }} 
                                                 </td>
                                                 
                                         </tr>
@@ -384,7 +397,7 @@
                                                         Nutritional Support 
                                                 </td>
                                                 <td>
-                                                        
+                                                         {{ form.HIV_MGMT_2_M }} 
 
                                                 </td>
                                                 
@@ -396,7 +409,8 @@
                                                     Enrolled in support group(status) 
                                                 </td>
                                                 <td>
-                                                        
+                                                    
+                                                    {{ form.HIV_MGMT_2_N }}   
 
                                                 </td>
                                                 
@@ -408,8 +422,7 @@
                                                         Enrolled in NHIF? 
                                                 </td>
                                                 <td>
-                                                        
-
+                                                        {{ form.HIV_MGMT_2_O_1 }}
                                                 </td>
                                                 
                                         </tr>
@@ -420,31 +433,40 @@
                                                     Enrolled in NHIF -Status? 
                                                 </td>
                                                 <td>
-                                                        
-
+                                                    {{ form.HIV_MGMT_2_O_2 }}
                                                 </td>
                                                 
                                         </tr>
 
                                         <tr>
                                                 <td>Q23</td>
+                                                <td>
+                                                    Referral services (specify)
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_P }}
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q24</td>
                                                 <td>
                                                     Date of Next Appointment 
                                                 </td>
                                                 <td>
-                                                        
-
+                                                        {{ form.HIV_MGMT_2_Q }}
                                                 </td>
                                                 
                                         </tr>
 
                                         <tr>
-                                                <td>Q23</td>
+                                                <td>Q25</td>
                                                 <td>
                                                     Peer Educator Name and Contacts  
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.HIV_MGMT_2_R }}   
 
                                                 </td>
                                                 
@@ -499,12 +521,21 @@
 
 <script>
         $( function() {
-          $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q1_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q2_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q3_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q4_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q5_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+
+          $("#HIV_MGMT_1_A").datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_B" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_D" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_E_DATE").datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_F_DATE").datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_G_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_2_A" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_2_I_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_2_Q").datepicker({ format: 'yyyy-mm-dd' }).val();
+
+          $(document).ready(function () {
+                $("#wizard-hivmanagementform").bwizard();
+            });
+
         } );
 </script>
 
