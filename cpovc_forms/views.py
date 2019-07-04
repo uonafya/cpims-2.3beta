@@ -21,7 +21,9 @@ from cpovc_forms.forms import (
     ResidentialForm, OVC_FT3hForm, SearchForm, OVCCareSearchForm,
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
     BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
-    GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm)
+    GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm, HIV_SCREENING_FORM,
+    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM)
+
 from .models import (
     OVCEconomicStatus, OVCFamilyStatus, OVCReferral, OVCHobbies, OVCFriends,
     OVCDocuments, OVCMedical, OVCCaseRecord, OVCNeeds, OVCCaseCategory,
@@ -9463,4 +9465,42 @@ def hiv_status(request):
         print 'Error saving hiv status : %s' % str(e)
         return HttpResponseRedirect(reverse(forms_home))
 
-  
+
+# New HIV Screening Tool 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_hivscreeningtool(request, id):
+    try:
+        init_data = RegPerson.objects.filter(pk=id)
+        check_fields = ['sex_id']
+        vals = get_dict(field_name=check_fields)
+        print(vals)
+        form = HIV_SCREENING_FORM(initial={'person': id})
+    except:
+        pass
+
+    return render(request,
+                  'forms/new_hivscreeningtool.html',
+                  {'form': form, 'init_data': init_data,
+                   'vals': vals})
+
+# New HIV Manangement Form 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_hivmanagementform(request, id):
+    try:
+        init_data = RegPerson.objects.filter(pk=id)
+        check_fields = ['sex_id']
+        vals = get_dict(field_name=check_fields)
+        print(vals)
+        form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+        form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+    except:
+        pass
+
+    return render(request,
+                  'forms/new_hivmanagementform.html',
+                  {'form': form, 
+                   'form_arvtherapy': form_arvtherapy,
+                  'init_data': init_data,
+                   'vals': vals})

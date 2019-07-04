@@ -256,5 +256,13 @@ urlpatterns = patterns(
     # hiv_status
     url(r'^HIVstatus/$',
         'hiv_status', name='hiv_status'),
+        
+    # HIV Risk Assessment Form
+    url(r'^hivscreeningtool/new/(?P<id>\d+)/$',
+        'new_hivscreeningtool', name='new_hivscreeningtool'),
+
+     # HIV Risk Management Form
+    url(r'^hivmanagementform/new/(?P<id>\d+)/$',
+        'new_hivmanagementform', name='new_hivmanagementform'),
 
 )
