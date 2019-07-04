@@ -6455,6 +6455,374 @@ class HIV_SCREENING_FORM(forms.Form):
             #    'data-parsley-group': 'group0'
                }))
 
+# HIV Management - Visitation Form 
+class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
+    
+    HIV_MGMT_2_A = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Visit Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_2_A',
+               'id': 'HIV_MGMT_2_A',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    HIV_MGMT_2_B = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Value'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+               }))
+    
+    HIV_MGMT_2_C = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Value'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+               }))
+
+    HIV_MGMT_2_D = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Value'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+               }))
+    
+    HIV_MGMT_2_E = forms.ChoiceField(
+        choices = (('Good', 'Good'),('Fair', 'Fair'),('Poor', 'Poor')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_F = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Value'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+        }))
+    
+    HIV_MGMT_2_G = forms.ChoiceField(
+        choices = (('TreatmentPreparation', 'Treatment Preparation'),
+        ('BoosterAdherence', 'Booster Adherence'),
+        ('EnhancedAdherence', 'Enhanced Adherence')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+    
+    HIV_MGMT_2_H_1 = forms.ChoiceField(
+        choices = (('BiologicalParent', 'Biological parent'),
+        ('Sibling', 'Sibling'),
+        ('Grandparent', 'Grandparent'),
+        ('OtherRelatives', 'Other Relatives'),
+        ('Others', 'Others')
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_H_2 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Others'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+        }))
+
+    HIV_MGMT_2_H_3 = forms.ChoiceField(
+        choices = (('Male', 'Male'),('Female', 'Female'),),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_H_4 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Age'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+        }))
+
+    HIV_MGMT_2_H_5 = forms.ChoiceField(
+        choices = (('HIV_POSTIVE', 'HIV_Positive'), ('HIV_NEGATIVE', 'HIV_NEGATIVE'), ('HIV_UNKOWN', 'HIV_UNKOWN/UNDISCLOSED')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_I_1 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Viral Load Results'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+        }))
+
+    HIV_MGMT_2_I_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_2_I_DATE',
+               'id': 'HIV_MGMT_2_I_DATE',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+        }))
+
+    HIV_MGMT_2_J = forms.ChoiceField(
+        choices = (('DirectObservedTherapy', 'Direct Observed Therapy'),
+        ('CaseConferencingDone ', 'Case Conferencing done'),
+        ('CasePlanReviewed', 'Case Plan Reviewed'),
+        ('DiscussedMulti-disciplinaryTeam ', 'Discussed Multi-disciplinary Team'),
+        ('SpecialSupportGroup', 'Special Support Group')
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_K = forms.ChoiceField(
+        choices = (('NotDone', 'Not Done'),
+        ('Partial', 'Partial'),
+        ('FullDisclosure', 'Full Disclosure'),
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_L_1 = forms.ChoiceField(
+        choices = (('Red', 'Red'),
+        ('Yellow', 'Yellow'),
+        ('Green', 'Green'),
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_L_2 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Viral Load Results'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+    }))
+
+    HIV_MGMT_2_M = forms.ChoiceField(
+        choices = (('TherapeuticFeeding', 'Therapeutic Feeding'),
+        ('InfantFeedingCounselling', 'Infant Feeding Counselling'),
+        ('FoodSupport', 'Food Support'),
+        ('ExclusiveBreastfeeding', 'Exclusive Breastfeeding'),
+        ('ExclusiveReplacementFeeding', 'ExclusiveReplacementFeeding'),
+        ('MixedFeeding', 'Mixed Feeding')
+        
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_N = forms.ChoiceField(
+        choices = (('Active', 'Active'),
+        ('Dormant', 'Dormant'),
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_O_1 = forms.ChoiceField(
+        choices = (('Yes', 'Yes'),
+        ('No', 'No'),
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_O_2 = forms.ChoiceField(
+        choices = (('Active', 'Active'),
+        ('Dormant', 'Dormant'),
+        ),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_2_P = forms.CharField(widget=forms.Textarea(
+        attrs={'placeholder': _('Services'),
+               'class': 'form-control',
+               'rows': '2',
+               'id': 'HIV_MGMT_2_P',
+               #'data-parsley-required': "true",
+               'data-parsley-group': 'group2'}))
+    
+    HIV_MGMT_2_Q = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_2_Q',
+               'id': 'HIV_MGMT_2_Q',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+        }))
+    
+    HIV_MGMT_2_R = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+    }))
+ 
+# HIV Manangement - ARV Therapy
+class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
+
+    HIV_MGMT_1_A = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_1_A',
+               'id': 'HIV_MGMT_1_A',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+        }))
+
+    HIV_MGMT_1_B = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_1_B',
+               'id': 'HIV_MGMT_1_B',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+        }))
+
+    HIV_MGMT_1_C = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Viral Load Value'),
+               'class': 'form-control' ,
+               'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+               }))
+
+    HIV_MGMT_1_D = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_1_D',
+               'id': 'HIV_MGMT_1_D',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+        }))
+    
+    HIV_MGMT_1_E = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_1_F = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_1_G = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_MGMT_1_E_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_1_E_DATE',
+               'id': 'HIV_MGMT_1_E_DATE',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+    
+    HIV_MGMT_1_F_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_1_F_DATE',
+               'id': 'HIV_MGMT_1_F_DATE',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+    
+    HIV_MGMT_1_G_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'HIV_MGMT_1_G_DATE',
+               'id': 'HIV_MGMT_1_G_DATE',
+               'autocomplete': "off",
+               'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+    
 
     
     
