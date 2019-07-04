@@ -63,7 +63,9 @@
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
                     name="form-wizard-hhva" id="new_hhva">
                     {% csrf_token %}
-                    <div id="wizard-hhva">
+                    {{ form.errors }}
+                    {{ form.non_field_errors }}
+                    <div id="wizard-hivsct">
                         <ol>
 
                             <li>
@@ -231,6 +233,7 @@
                                         <tr>
                                                 <td>Q8</td>
                                                 <td>
+                                                    <h>?????? availability in the models</h>
                                                 Did the child/Adolescent/youth have a YES to at least one of the above questions?
                                                 </td>
                                                 <td>
@@ -239,6 +242,32 @@
                                                 </td>
                                                 
                                             </tr>
+
+                                            <tr>
+                                                    <td>Q9</td>
+                                                    <td>
+                                                        <h>HIV STATUS ONE</h>
+                                                    hiv STATUS xxxxxxxxxxxxxxxxxx
+                                                    </td>
+                                                    <td>
+                                                            {{ form.HIV_RA_HIV }}
+    
+                                                    </td>
+                                                    
+                                                </tr>
+
+                                                <tr>
+                                                        <td>Q10</td>
+                                                        <td>
+                                                            <h>HIV STATUS ONE</h>
+                                                        hiv STATUS xxxxxxxxxxxxxxxxxx
+                                                        </td>
+                                                        <td>
+                                                                {{ form.HIV_RA_HIVU }}
+        
+                                                        </td>
+                                                        
+                                                    </tr>
                                     </tbody>
                                 </table>
 
@@ -294,7 +323,7 @@
                                             3
                                             </td>
                                             <td>
-                                            Was a formal referral made for HIV testing?  
+                                            Was the referal for HIV testing completed?  
                                             </td>
                                             <td>
                                                     {{ form.HIV_RA_3Q3 }}
@@ -313,7 +342,7 @@
   
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3A }}
+                                                    {{ form.HIV_RS_3Q3A }}
                                             </td>
                                             <td style="background-color: grey">
 
@@ -429,12 +458,17 @@
 
 <script>
         $( function() {
-          $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q1_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q2_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q3_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q4_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q5_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q1_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q2_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q3_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q4_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q5_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+
+            $(document).ready(function () {
+                $("#wizard-hivsct").bwizard();
+            });
+
         } );
 </script>
 
