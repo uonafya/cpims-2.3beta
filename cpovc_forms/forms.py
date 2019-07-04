@@ -6454,6 +6454,14 @@ class HIV_SCREENING_FORM(forms.Form):
                'id': 'HIV_RA_3Q6',
             #    'data-parsley-group': 'group0'
                }))
+               
+# HIV Management - Visitation Form 
+class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
+    pass
+
+# HIV Manangement - ARV Therapy
+class HIV_MANAGEMENT_ARV_THERAPY(forms.Form):
+    pass
 
 
     
