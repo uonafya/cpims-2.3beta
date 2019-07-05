@@ -6473,14 +6473,14 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
                'name': 'HIV_MGMT_2_A',
                'id': 'HIV_MGMT_2_A',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+             #  'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
 
     HIV_MGMT_2_B = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+             #  'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6488,7 +6488,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+            #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6496,7 +6496,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_D = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+            #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6513,7 +6513,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_F = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+            #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6546,7 +6546,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_H_2 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Others'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6563,7 +6563,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_H_4 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Age'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6580,7 +6580,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_I_1 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6593,7 +6593,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
                'name': 'HIV_MGMT_2_I_DATE',
                'id': 'HIV_MGMT_2_I_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+         #      'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
 
@@ -6638,7 +6638,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_L_2 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
     }))
@@ -6708,14 +6708,14 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
                'name': 'HIV_MGMT_2_Q',
                'id': 'HIV_MGMT_2_Q',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+       #        'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
     
     HIV_MGMT_2_R = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _(''),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+       #        'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
     }))
@@ -6731,7 +6731,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_A',
                'id': 'HIV_MGMT_1_A',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+            #   'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
 
@@ -6743,14 +6743,14 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_B',
                'id': 'HIV_MGMT_1_B',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+       #        'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
 
     HIV_MGMT_1_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+       #        'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6763,7 +6763,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_D',
                'id': 'HIV_MGMT_1_D',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+         #      'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
     
@@ -6802,7 +6802,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_E_DATE',
                'id': 'HIV_MGMT_1_E_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+           #    'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     
@@ -6814,7 +6814,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_F_DATE',
                'id': 'HIV_MGMT_1_F_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+        #       'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     
@@ -6826,7 +6826,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_G_DATE',
                'id': 'HIV_MGMT_1_G_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
+          #     'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     

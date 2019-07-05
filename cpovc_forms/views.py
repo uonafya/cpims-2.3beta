@@ -22,7 +22,7 @@ from cpovc_forms.forms import (
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
     BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
     GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm, HIV_SCREENING_FORM,
-    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM)
+    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM,)
 
 from .models import (
     OVCEconomicStatus, OVCFamilyStatus, OVCReferral, OVCHobbies, OVCFriends,
@@ -34,7 +34,7 @@ from .models import (
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations, OVCCareF1B,
-    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus)
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus, OVCHIVManagement)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
@@ -9595,20 +9595,78 @@ def new_hivscreeningtool(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
-    try:
-        init_data = RegPerson.objects.filter(pk=id)
-        check_fields = ['sex_id']
-        vals = get_dict(field_name=check_fields)
-        print(vals)
-        form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
-        form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
-    except:
-        pass
+    form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+    if request.method == 'POST':
+        #print request.POST
+        try:
+            person = RegPerson.objects.get(id=id)
+            OVCHIVManagement(
+                person=person,
+                Height=request.POST.get('HIV_MGMT_2_C'),
+                Hiv_Confirmed_Date = request.POST.get('HIV_MGMT_1_A'),
+                Treatment_initiated_Date = request.POST.get('HIV_MGMT_1_B'),
+                FirstLine_Start_Date = request.POST.get('HIV_MGMT_1_D'),
+                Substitution_FirstLine_ARV = request.POST.get('HIV_MGMT_1_E_DATE'),
+                Substitution_FirstLine_Date = request.POST.get('HIV_MGMT_1_E_DATE'),
+                Switch_SecondLine_ARV = request.POST.get('HIV_MGMT_1_F'),
+                Switch_SecondLine_Date = request.POST.get('HIV_MGMT_1_F_DATE'),
+                Switch_ThirdLine_ARV = request.POST.get('HIV_MGMT_1_G'),
+                Switch_ThirdLine_Date = request.POST.get('HIV_MGMT_1_G_DATE'),
+                Visit_Date = request.POST.get('HIV_MGMT_2_A'),
+                Duration_ART = request.POST.get('HIV_MGMT_2_B'),
+                MUAC = request.POST.get('HIV_MGMT_2_D'),
+                Adherence = request.POST.get('HIV_MGMT_2_E'),
+                Adherence_Drugs_Duration = request.POST.get('HIV_MGMT_2_F'),
+                Adherence_counselling = request.POST.get('HIV_MGMT_2_G'),
+                Treatment_Supporter_Relationship = request.POST.get('HIV_MGMT_2_H_1'),
+                Treatment_Supporter_Gender = request.POST.get('HIV_MGMT_2_H_3'),
+                Treatment_Supporter_Age = request.POST.get('HIV_MGMT_2_H_4'),
+                Treament_Supporter_HIV = request.POST.get('HIV_MGMT_2_H_5'),
+                Viral_Load_Results = request.POST.get('HIV_MGMT_2_I_1'),
+                Viral_Load_Date = request.POST.get('HIV_MGMT_2_I_DATE'),
+                Detectable_ViralLoad_Interventions = request.POST.get('HIV_MGMT_2_J'),
+                # Support_group_Enrollment=request.POST.get(''),
+                Support_group_Status = request.POST.get('HIV_MGMT_2_N'),
+                NHIF_Enrollment = request.POST.get('HIV_MGMT_2_O_1'),
+                NHIF_Status = request.POST.get('HIV_MGMT_2_O_2'),
+                Referral_Services = request.POST.get('HIV_MGMT_2_P'),
+                Disclosure = request.POST.get('HIV_MGMT_2_K'),
+                MUAC_Score = request.POST.get('HIV_MGMT_2_L_1'),
+                BMI = request.POST.get('HIV_MGMT_2_L_2'),
+                NextAppointment_Date = request.POST.get('HIV_MGMT_2_Q'),
+                Nutritional_Support = request.POST.get('HIV_MGMT_2_M'),
+                Peer_Educator_Name = request.POST.get('HIV_MGMT_2_R'),
+                # Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_R')
+                # event=request.POST.get('')
+                # is_void=request.POST.get('')
+                date_of_event = request.POST.get(''),
+                timestamp_created = request.POST.get(''),
+                timestamp_updated = request.POST.get('')
+            ).save()
 
-    return render(request,
-                  'forms/new_hivmanagementform.html',
-                  {'form': form, 
-                   'form_arvtherapy': form_arvtherapy,
-                  'init_data': init_data,
-                  'the_child': the_child,
-                   'vals': vals})
+            print "insert test complete"
+        except:
+            print "insertion failed"
+            from django.db import connection
+            print connection.queries[-1]
+
+        form = OVCSearchForm(data=request.POST)
+        return render(request, 'ovc/home.html', {'form': form, 'status': 200})
+    else:
+        try:
+            init_data = RegPerson.objects.filter(pk=id)
+            check_fields = ['sex_id']
+            vals = get_dict(field_name=check_fields)
+            print(vals)
+            form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            return render(request,
+                          'forms/new_hivmanagementform.html',
+                          {'form': form,
+                           'form_arvtherapy': form_arvtherapy,
+                           'init_data': init_data,
+                           'vals': vals})
+        except:
+            pass
+
+
+
