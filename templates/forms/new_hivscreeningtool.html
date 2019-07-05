@@ -61,9 +61,9 @@
             </div>
             <div class="panel-body">
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
-                    name="form-wizard-hhva" id="new_hhva">
+                    name="form-wizard-hhva" id="new_hivsct">
                     {% csrf_token %}
-                    <div id="wizard-hhva">
+                    <div id="wizard-hivsct">
                         <ol>
 
                             <li>
@@ -151,7 +151,7 @@
                                         <tr>
                                            <td colspan="3"> <strong>Child Assessment(&lt 15years)</strong> </td> 
                                         </tr>
-                                        <tr>
+                                        <tr class="section_a">
                                             <td>Q1</td>
                                             <td>Is the biological father/mother of the child living/ lived with HIV?  
                                             </td>
@@ -160,7 +160,7 @@
 
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_a">
                                             <td>Q2</td>
                                             <td>Has the child been persistently sick/malnurished in the past 3 months without improvement?
                                                 </td>
@@ -170,7 +170,7 @@
                                             </td>
                                         </tr>
                                     
-                                        <tr>
+                                        <tr class="section_a">
                                             <td>Q3</td>
                                             <td>
                                             Is the child exposed to sexual abuse (defiled/raped) or has been physically forced to have sexual intercouse?
@@ -185,7 +185,7 @@
                                             <td colspan="3"> <strong>Adolescent Assessment(&gt 15years)</strong> </td> 
                                         </tr>
                                         
-                                        <tr>
+                                        <tr class="section_b">
                                             <td>Q4</td>
                                             <td>
                                                     Have you been persistently sick in the past 3 months without improvement?
@@ -195,7 +195,7 @@
 
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_b">
                                             <td>Q5</td>
                                             <td>
                                                     Have you been sexually abuse (defiled) or been physically forced to have sexual intercourse?
@@ -206,14 +206,14 @@
 
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_b">
                                             <td>Q6</td>
                                             <td>Have you had sexual intercourse in the past 6 months?                                                </td>
                                             <td>
                                                     {{ form.HIV_RA_2Q6 }}
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_b">
                                             <td>Q7</td>
                                             <td>
                                             Do you have any Symptoms of sexually transmitted infections? {Penial/Vaginal sores, unusual discharge or Pain)
@@ -429,13 +429,40 @@
 
 <script>
         $( function() {
-          $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q1_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q2_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q3_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q4_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q5_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+
+            $('#wizard-hivsct').bwizard();
+            $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q1_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q2_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q3_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q4_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RA_3Q5_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            
         } );
+
+        function disableSection(section_class) {
+            $('.'+section_class).find('td').css({'cursor':'no-drop'});
+            $('.'+section_class).find('td','label','input','select').css({'color':'#afafaf'});
+            $('.'+section_class).find('label').css({'color':'#afafaf'});
+            $('.'+section_class).find('input','select').attr('disabled', true).removeAttr('required', true);
+            console.log('disableSection '+section_class+' done');
+        }
+
 </script>
+    <!-- Skip logic -->
+    {% if data.date_of_birth|gen_age > 15 %}
+        <script>
+            $(document).ready(function () {
+                disableSection('section_a')
+            });
+        </script>
+    {% else %}
+        <script>
+            $(document).ready(function () {
+                disableSection('section_b')
+            });
+        </script>
+    {% endif %}
+    <!-- Skip logic -->
 
 {% endblock %}
