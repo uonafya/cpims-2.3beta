@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'cpovc_ovc',
     'import_export',
     'rest_framework',
+    'data_cleanup',
 )
 
 MIDDLEWARE_CLASSES = (
