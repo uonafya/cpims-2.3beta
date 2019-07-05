@@ -245,6 +245,8 @@ urlpatterns = patterns(
     # OVC Care - Case Plan Template
     url(r'^caseplan/new/(?P<id>\d+)/$',
         'case_plan_template', name='new_caseplan'),
+    url(r'^caseplan/update/(?P<ovcid>\d+)/(?P<event_id>.+)/$',
+        'update_caseplan', name='update_caseplan'),
     url(r'^caseplan-monitoring/new/(?P<id>\d+)/$', 'new_case_plan_monitoring', name='new_caseplan_monitoring'),
 
     #wellbeing Adult and Child
@@ -260,5 +262,9 @@ urlpatterns = patterns(
     # HIV Risk Assessment Form
     url(r'^hivscreeningtool/new/(?P<id>\d+)/$',
         'new_hivscreeningtool', name='new_hivscreeningtool'),
+
+     # HIV Risk Management Form
+    url(r'^hivmanagementform/new/(?P<id>\d+)/$',
+        'new_hivmanagementform', name='new_hivmanagementform'),
 
 )

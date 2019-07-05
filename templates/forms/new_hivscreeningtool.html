@@ -436,6 +436,8 @@
 
 <script>
         $( function() {
+
+            $('#wizard-hivsct').bwizard();
             $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
@@ -449,5 +451,20 @@
 
         } );
 </script>
+    <!-- Skip logic -->
+    {% if data.date_of_birth|gen_age > 15 %}
+        <script>
+            $(document).ready(function () {
+                disableSection('section_a')
+            });
+        </script>
+    {% else %}
+        <script>
+            $(document).ready(function () {
+                disableSection('section_b')
+            });
+        </script>
+    {% endif %}
+    <!-- Skip logic -->
 
 {% endblock %}

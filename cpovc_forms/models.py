@@ -1032,6 +1032,7 @@ class OVCCareCasePlan(models.Model):
     cp_service = models.CharField(max_length=10)
     responsible = models.CharField(max_length=50)
     completion_date = models.DateField(default=timezone.now)
+    actual_completion_date = models.DateField(default=timezone.now)
     results = models.CharField(max_length=300)
     reasons = models.CharField(max_length=300)
     form = models.ForeignKey(OVCCareForms)
