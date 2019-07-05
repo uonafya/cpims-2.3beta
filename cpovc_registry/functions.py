@@ -560,7 +560,8 @@ def fetch_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=
             except Exception, e:
                 print 'error on fetch_served_bcert_by_period - %s' % (str(e))
     return served_bcert_by_period
-    
+
+
 def fetch_u5_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=''):
     # print 'oooop running fetch_u5_served_bcert_by_period month_year='+month_year+" \n "
     month_year = json.loads(month_year)
@@ -1769,6 +1770,33 @@ def save_household(index_child, members):
                      members=hh_members).save()
     except Exception as e:
         print 'error creating household - %s ' % (str(e))
+        pass
+
+
+def add_household_members(index_child, member):
+    try:
+        child = OVCRegistration.objects.get(person=index_child)
+        caretaker = child.caretaker
+        household = caretaker.ovchousehold_set.first()
+        mbr = OVCHHMembers.objects.create(
+            house_hold=household,
+            person_id=member,
+            member_type='tst',
+        )
+        print 'added household member -' + str(mbr.id)
+    except Exception as e:
+        print 'error adding household - %s ' % (str(e))
+        pass
+
+
+def update_household(index_child, member):
+    """Method to update households."""
+    try:
+        hh = OVCHouseHold.objects.get(index_child=index_child)
+        hh.members += str(member) + ','
+        hh.save()
+    except Exception as e:
+        print 'error updating household - %s ' % (str(e))
         pass
 
 

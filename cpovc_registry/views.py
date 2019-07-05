@@ -22,7 +22,7 @@ from .functions import (
     save_audit_trail, create_geo_list, counties_from_aids, get_user_details,
     get_list_types, geos_from_aids, person_duplicate, copy_locations,
     unit_duplicate, get_temp, save_household, get_household, get_index_child,
-    check_duplicate, search_person_ft)
+    check_duplicate, search_person_ft, update_household, add_household_members)
 from cpovc_auth.models import AppUser
 from cpovc_registry.models import (
     RegOrgUnit, RegOrgUnitContact, RegPerson, RegPersonsOrgUnits,
@@ -1631,6 +1631,8 @@ def person_actions(request):
                         relationship = attached_cg[ncg]['ctype']
                         child_headed = True if is_adult == 'No' else False
                         if edit_type == 3:
+                            update_household(index_child=person_id, member=cpims_id)
+                            add_household_members(index_child=person_id, member=cpims_id)
                             g_count = RegPersonsGuardians.objects.filter(
                                 guardian_person_id=cpims_id,
                                 child_person_id=person_id, is_void=False,
