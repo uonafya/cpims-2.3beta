@@ -8906,6 +8906,7 @@ def case_plan_template(request, id):
                 my_action=all_data['actions']
                 my_service=all_data['services']
                 my_responsible=all_data['responsible']
+                my_actual_completion_date=all_data['actual_date']
                 my_date_completed=all_data['date']
                 my_date_of_prev_evnt=timezone.now()
                 my_date_of_caseplan=all_data['CPT_DATE_CASEPLAN']
@@ -8933,6 +8934,7 @@ def case_plan_template(request, id):
                             date_of_event=convert_date(my_date_of_caseplan, fmt='%Y-%m-%d'),
                             form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
                             completion_date = convert_date(my_date_completed, fmt='%Y-%m-%d'),
+                            actual_completion_date = convert_date(my_actual_completion_date, fmt='%Y-%m-%d'),
                             results=my_results,
                             reasons=my_reason,
                             case_plan_status='D',
@@ -8965,70 +8967,84 @@ def case_plan_template(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def update_caseplan(request, event_id, ovcid):
+    
     this_eventt = OVCCareEvents.objects.get(event_type_id='CPAR', pk=event_id)
     this_event_pk = this_eventt.event
+    child = RegPerson.objects.get(id=ovcid)
 
     if request.method == 'POST':
-        child = RegPerson.objects.get(id=ovcid)
-        try:
-            my_request=request.POST.get('final_submission')
+        d_event = OVCCareEvents.objects.filter(pk=event_id)[0].timestamp_created
+        delta = get_days_difference(d_event)
+        print "stop 1"
+        print delta
+        print 'check delta'
+        print delta
+        if delta < 90:
+            try:
+                my_request=request.POST.get('final_submission')
 
-            child = RegPerson.objects.get(id=ovcid)
-            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-            
-            care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-            caregiver_id=OVCRegistration.objects.get(person=child).caretaker_id
+                child = RegPerson.objects.get(id=ovcid)
+                house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+                
+                care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+                caregiver_id=OVCRegistration.objects.get(person=child).caretaker_id
 
 
-            if my_request:
-                caseplandata= json.loads(my_request)
-                for all_data in caseplandata:
-                    my_domain=all_data['domain']
-                    my_goal=all_data['goal']
-                    my_gap=all_data['gaps']
-                    my_action=all_data['actions']
-                    my_service=all_data['services']
-                    my_responsible=all_data['responsible']
-                    my_date_completed=all_data['date']
-                    my_date_of_prev_evnt=timezone.now()
-                    my_date_of_caseplan=all_data['CPT_DATE_CASEPLAN']
-                    my_results=all_data['results']
-                    my_reason=all_data['reasons']
+                if my_request:
+                    caseplandata= json.loads(my_request)
+                    for all_data in caseplandata:
+                        my_domain=all_data['domain']
+                        my_goal=all_data['goal']
+                        my_gap=all_data['gaps']
+                        my_action=all_data['actions']
+                        my_service=all_data['services']
+                        my_responsible=all_data['responsible']
+                        my_date_completed=all_data['date']
+                        my_actual_completion_date=all_data['actual_date']
+                        my_date_of_prev_evnt=timezone.now()
+                        my_date_of_caseplan=all_data['CPT_DATE_CASEPLAN']
+                        my_results=all_data['results']
+                        my_reason=all_data['reasons']
 
-                xyz=RegPerson.objects.filter(id=caregiver_id).values('id')
+                    xyz=RegPerson.objects.filter(id=caregiver_id).values('id')
 
-                for service in my_service:
-                    print('person_id', id)
-                    print('person_ovcid', ovcid)
-                    print('caregiver_id', caregiver_id)
-                    OVCCareCasePlan(
-                        domain=my_domain,
-                        goal=my_goal,
-                        person_id = ovcid,
-                        caregiver_id=caregiver_id,
-                        household = house_hold,
-                        need=my_gap,
-                        priority=my_action,
-                        cp_service = service,
-                        responsible= my_responsible,
-                        date_of_previous_event=my_date_of_prev_evnt,
-                        date_of_event=convert_date(my_date_of_caseplan, fmt='%Y-%m-%d'),
-                        form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
-                        completion_date = convert_date(my_date_completed, fmt='%Y-%m-%d'),
-                        results=my_results,
-                        reasons=my_reason,
-                        case_plan_status='D',
-                        event_id=this_event_pk
-                    ).save()
-                    
-            msg = 'Case Plan updated successfully'
-            messages.add_message(request, messages.INFO, msg)
+                    for service in my_service:
+                        print('person_id', id)
+                        print('person_ovcid', ovcid)
+                        print('caregiver_id', caregiver_id)
+                        OVCCareCasePlan(
+                            domain=my_domain,
+                            goal=my_goal,
+                            person_id = ovcid,
+                            caregiver_id=caregiver_id,
+                            household = house_hold,
+                            need=my_gap,
+                            priority=my_action,
+                            cp_service = service,
+                            responsible= my_responsible,
+                            date_of_previous_event=my_date_of_prev_evnt,
+                            date_of_event=convert_date(my_date_of_caseplan, fmt='%Y-%m-%d'),
+                            form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
+                            completion_date = convert_date(my_date_completed, fmt='%Y-%m-%d'),
+                            actual_completion_date = convert_date(my_actual_completion_date, fmt='%Y-%m-%d'),
+                            results=my_results,
+                            reasons=my_reason,
+                            case_plan_status='D',
+                            event_id=this_event_pk
+                        ).save()
+                        
+                msg = 'Case Plan updated successfully'
+                messages.add_message(request, messages.INFO, msg)
+                url = reverse('ovc_view', kwargs={'id': ovcid})
+                return HttpResponseRedirect(url)
+            except Exception as e:
+                print 'error updating caseplan - %s' % (str(e))
+                return False
+        else:
+            err_msgg = "Can't update after 30 days"
+            msg = "Can't update after 30 days"
             url = reverse('ovc_view', kwargs={'id': ovcid})
             return HttpResponseRedirect(url)
-        except Exception as e:
-            print 'error updating caseplan - %s' % (str(e))
-            return False
-
     form = CasePlanTemplate()
     ovc_id = int(ovcid)
     child = RegPerson.objects.get(is_void=False, id=ovc_id)
