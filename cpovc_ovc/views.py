@@ -114,7 +114,7 @@ def ovc_register(request, id):
         if request.method == 'POST':
             form = OVCRegistrationForm(guids=pids, data=request.POST)
             print request.POST
-            ovc_registration(request, ovc_id)
+            ovc_registration(request, ovc_id) 
             msg = "OVC Registration completed successfully"
             messages.info(request, msg)
             url = reverse('ovc_view', kwargs={'id': ovc_id})
@@ -449,7 +449,7 @@ def ovc_view(request, id):
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
         # raise e
-        msg= "Error occured during ovc view"
+        msg= "Error occured during ovc view - Complete initial registration form"
         messages.error(request, msg)
         url=reverse('ovc_register', kwargs={'id':id})
         return HttpResponseRedirect(url)
