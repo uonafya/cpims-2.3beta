@@ -6491,6 +6491,21 @@ td:focus{
 .well td ul{
     list-style: none;
 }
+.text-gray{
+    color: gray;
+}
+.text-grey{
+    color: grey;
+}
+.text-black{
+    color: black;
+}
+.well-primary{
+    background-color: #eef;
+}
+.bcclear{
+    background: transparent;
+}
 /*DanChanges*/
 
 

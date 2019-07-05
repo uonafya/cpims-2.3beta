@@ -14,6 +14,7 @@ jQuery(document).ready(function()
     $('input, select').attr('required', true);
     $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .domain_cell > select, #id_CPT_RESPONSIBLE').prepend('<option value="" disabled selected>Pick an item</option>');
     $('#CPT_DATE').datepicker({ format: 'yyyy-mm-dd' });
+    $('#CPT_ACTUAL_DATE_COMPLETION').datepicker({ format: 'yyyy-mm-dd' });
     $('input[name=CPT_DATE_CASEPLAN]').datepicker({ format: 'yyyy-mm-dd' });
     $('input[name=date_first_cpara]').datepicker({ format: 'yyyy-mm-dd' });
 
@@ -78,6 +79,7 @@ final_input['actions'] = [];
 final_input['services'] = [];
 final_input['responsible'] = [];
 final_input['date'] = [];
+final_input['actual_date'] = [];
 final_input['results'] = [];
 final_input['reasons'] = [];
 final_input['if_first_cpara'] = [];
@@ -129,6 +131,7 @@ function AddRow() {
     let responsibl = $('#id_CPT_RESPONSIBLE option:selected').val();
 
     let date = $('#CPT_DATE').val();
+    let actual_date = $('#CPT_ACTUAL_DATE_COMPLETION').val();
     let if_first_cpara = $('input[name=if_first_cpara]:checked').val();
     let date_first_cpara = $('input[name=date_first_cpara]').val();
     let CPT_DATE_CASEPLAN = $('input[name=CPT_DATE_CASEPLAN]').val();
@@ -191,8 +194,9 @@ function AddRow() {
                 5: services,
                 6: responsibl,
                 7: date,
-                8: results,
-                9: reasons
+                8: actual_date,
+                9: results,
+                10: reasons
             })
         )
 
@@ -203,6 +207,7 @@ function AddRow() {
         final_input['services'].push(services);
         final_input['responsible'].push(responsibl);
         final_input['date'].push(date);
+        final_input['actual_date'].push(actual_date);
         final_input['results'].push(results);
         final_input['reasons'].push(reasons);
         final_input['if_first_cpara'].push(if_first_cpara);
@@ -236,6 +241,7 @@ $('#submit-caseplan').click(function (e) {
             answrs['services'] = [];
             answrs['responsible'] = [];
             answrs['date'] = [];
+            answrs['actual_date'] = [];
             answrs['results'] = [];
             answrs['reasons'] = [];
             answrs['if_first_cpara'] = [];
@@ -249,6 +255,7 @@ $('#submit-caseplan').click(function (e) {
             answrs['services'] = final_input['services'][indexDomain];
             answrs['responsible'] = final_input['responsible'][indexDomain];
             answrs['date'] = final_input['date'][indexDomain];
+            answrs['actual_date'] = final_input['actual_date'][indexDomain];
             answrs['results'] = final_input['results'][indexDomain];
             answrs['reasons'] = final_input['reasons'][indexDomain];
             answrs['if_first_cpara'] = final_input['if_first_cpara'][indexDomain];
