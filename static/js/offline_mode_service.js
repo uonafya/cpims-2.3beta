@@ -6,6 +6,16 @@ let OfflineModeService = function () {
     "use strict";
 
     let offlineModeClient = {
+        isConnectionOn: true,
+
+        connectivityCheckSecondsInterval: 60000,
+
+        connectionNotificationElementId: undefined,
+
+        onlineModeMenuItemsSelector: undefined,
+
+        connectivityCheckUrl: undefined,
+
         lastOnlineTime: undefined,
 
         lastOfflineTime: undefined,
@@ -42,17 +52,40 @@ let OfflineModeService = function () {
             keys.forEach(this.remove);
         },
 
-        isConnectivityActive: function () {
+        checkConnectivity: function () {
+            let me = this;
+            $.ajax({
+                url: this.connectivityCheckUrl,
+                type: "GET",
+                success: function () {
+                    me.isConnectionOn = true;
 
+                } ,
+                error: function () {
+                    me.isConnectionOn = false;
+                }
+            });
+        },
+
+        periodicallyCheckConnectivity: function() {
+            setInterval(() => {
+               this.checkConnectivity();
+               this.notifyConnectivityStatus();
+            }, this.connectivityCheckSecondsInterval);
         },
 
         notifyConnectivityStatus: function() {
-            if (this.isConnectivityActive()) {
-                console.log("active menu");
-                console.log("show abnner");
+
+            if (this.isConnectionOn) {
+                $(this.onlineModeMenuItemsSelector).show();
+                $(this.connectionNotificationElementId).html("You are now online, offline mode switched off");
+                $(this.connectionNotificationElementId).addClass('alert-info');
+                $(this.connectionNotificationElementId).removeClass('alert-danger');
             } else {
-                console.log("deactive menu");
-                console.log("show banner");
+                $(this.onlineModeMenuItemsSelector).hide();
+                $(this.connectionNotificationElementId).html("Switching to offline mode, no internet connection");
+                $(this.connectionNotificationElementId).removeClass('alert-info');
+                $(this.connectionNotificationElementId).addClass('alert-danger');
             }
 
         },
@@ -99,16 +132,27 @@ let OfflineModeService = function () {
     };
 
     return {
-        client: function () {
+        client: function (connectivityCheckUrl, connectionNotificationElementId, onlineModeMenuItemsSelector, connectivityCheckSecondsInterval) {
             console.log("Initializing offline mode client");
             // implement it as a singleton to ensure we have only one instance of it
             if (window.offlineModeClient === undefined) {
+                offlineModeClient.connectivityCheckUrl = connectivityCheckUrl;
+                offlineModeClient.connectionNotificationElementId = $("#" + connectionNotificationElementId);
+                offlineModeClient.onlineModeMenuItemsSelector = $("." + onlineModeMenuItemsSelector);
                 offlineModeClient.lastOfflineTime = null;
                 offlineModeClient.lastOnlineTime = (new Date()).getTime();
+                offlineModeClient.connectivityCheckSecondsInterval = connectivityCheckSecondsInterval;
+                offlineModeClient.checkConnectivity();
+                offlineModeClient.notifyConnectivityStatus();
+                offlineModeClient.periodicallyCheckConnectivity();
                 window.offlineModeClient = offlineModeClient;
             }
 
             return window.offlineModeClient;
+        },
+
+        onLoginEventHandler: function () {
+            console.log("Handling on login event handler");
         }
     };
 };
