@@ -1196,3 +1196,41 @@ class OVCCareQuestions(models.Model):
 
     def __unicode__(self):
         return str(self.question_id)
+
+
+class OVCHIVRiskScreening(models.Model):
+    risk_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    person = models.ForeignKey(RegPerson)
+    test_done_when= models.BooleanField(default=False)
+    test_donewhen_result=models.BooleanField(default=False)
+    caregiver_know_status= models.BooleanField()
+    caregiver_knowledge_yes=models.CharField(max_length=50, null=False)
+    parent_PLWH= models.BooleanField(default=False)
+    child_sick_malnourished= models.BooleanField(default=False)
+    child_sexual_abuse= models.BooleanField(default=False)
+    adol_sick= models.BooleanField(default=False)
+    adol_sexual_abuse= models.BooleanField(default=False)
+    sex= models.BooleanField(default=False)
+    sti= models.BooleanField(default=False)
+    hiv_test_required= models.BooleanField(default=False)
+    parent_consent_testing= models.BooleanField(default=False)
+    referral_made= models.BooleanField(default=False)
+    referral_made_date=models.DateTimeField(default=timezone.now)
+    referral_completed= models.BooleanField(default=False)
+    not_completed=models.CharField(max_length=50, null=False)
+    test_result=models.CharField(max_length=20, null=False)
+    art_referral= models.BooleanField(default=False)
+    art_referral_date=models.DateTimeField(default=timezone.now)
+    art_referral_completed= models.BooleanField(default=False)
+    art_referral_completed_date=models.DateTimeField(default=timezone.now)
+    facility=models.CharField(max_length=20, null=False)
+    event = models.ForeignKey(OVCCareEvents)
+    is_void = models.BooleanField(default=False)
+    date_of_event = models.DateField()
+    timestamp_created = models.DateTimeField(default=timezone.now)
+    timestamp_updated = models.DateTimeField(default=timezone.now)
+    
+    class Meta:
+        db_table = 'ovc_risk_screening'
+    def __unicode__(self):
+        return str(self.risk_id)

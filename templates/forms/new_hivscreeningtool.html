@@ -109,18 +109,19 @@
                                         </tr>
                                         <tr>
                                             <td>1b</td>
-                                            <td>Does the caregiver know the status of the child?  /Does the Adolescent and youth (>15)  years know his/her status?</td>
-                                            <td> {{ form.HIV_RA_1B }}</td>
-                                            <td> {{ form.HIV_RA_STATUS }}</td>
+                                            <td>Does the caregiver know the status of the child?  /Does the Adolescent and youth (>15) years know his/her status?</td>
+                                            <td> {{ form.HIV_RS_01 }}</td>
+                                            <td> {{ form.HIV_RS_02 }}</td>
                                             
                                         </tr>
                                         <tr>
                                             <td>1c</td>
                                             <td>Was the HIV test done less than 6 months ago?</td>
                                             <td>
-                                                    {{ form.HIV_RA_1C }}
+                                                    {{ form.HIV_RS_03 }}
                                             </td>
-                                            <td style="background-color: grey">
+                                            <td>
+                                                {{form.HIV_RS_03A}}
                                             </td>
 
                                         </tr>
@@ -158,7 +159,7 @@
                                             <td>Is the biological father/mother of the child living/ lived with HIV?  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q1 }}
+                                                    {{ form.HIV_RS_04 }}
 
                                             </td>
                                         </tr>
@@ -167,7 +168,7 @@
                                             <td>Has the child been persistently sick/malnurished in the past 3 months without improvement?
                                                 </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q2 }}
+                                                    {{ form.HIV_RS_05 }}
 
                                             </td>
                                         </tr>
@@ -179,7 +180,7 @@
 
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q3 }}
+                                                    {{ form.HIV_RS_06 }}
 
                                             </td>
                                         </tr>
@@ -193,7 +194,7 @@
                                                     Have you been persistently sick in the past 3 months without improvement?
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q4 }}
+                                                    {{ form.HIV_RS_07 }}
 
                                             </td>
                                         </tr>
@@ -204,7 +205,7 @@
 
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q5 }}
+                                                    {{ form.HIV_RS_08 }}
 
                                             </td>
                                         </tr>
@@ -212,7 +213,7 @@
                                             <td>Q6</td>
                                             <td>Have you had sexual intercourse in the past 6 months?                                                </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q6 }}
+                                                    {{ form.HIV_RS_09 }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -221,7 +222,7 @@
                                             Do you have any Symptoms of sexually transmitted infections? {Penial/Vaginal sores, unusual discharge or Pain)
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q7 }}
+                                                    {{ form.HIV_RS_10 }}
 
                                             </td>
                                             
@@ -233,41 +234,18 @@
                                         <tr>
                                                 <td>Q8</td>
                                                 <td>
-                                                    <h>?????? availability in the models</h>
                                                 Did the child/Adolescent/youth have a YES to at least one of the above questions?
                                                 </td>
                                                 <td>
-                                                        {{ form.HIV_RA_2Q8 }}
+                                                        {{ form.HIV_RS_11 }}
 
                                                 </td>
                                                 
                                             </tr>
 
-                                            <tr>
-                                                    <td>Q9</td>
-                                                    <td>
-                                                        <h>HIV STATUS ONE</h>
-                                                    hiv STATUS xxxxxxxxxxxxxxxxxx
-                                                    </td>
-                                                    <td>
-                                                            {{ form.HIV_RA_HIV }}
-    
-                                                    </td>
-                                                    
-                                                </tr>
+                                
 
-                                                <tr>
-                                                        <td>Q10</td>
-                                                        <td>
-                                                            <h>HIV STATUS ONE</h>
-                                                        hiv STATUS xxxxxxxxxxxxxxxxxx
-                                                        </td>
-                                                        <td>
-                                                                {{ form.HIV_RA_HIVU }}
-        
-                                                        </td>
-                                                        
-                                                    </tr>
+                                        
                                     </tbody>
                                 </table>
 
@@ -296,10 +274,10 @@
                                         Does the parent accept HIV testing for the child?
                                         </td>
                                         <td>
-                                            {{ form.HIV_RA_3Q1 }}
+                                            {{ form.HIV_RS_14 }}
                                         </td>
                                         <td>
-                                            {{ form.HIV_RA_3Q1_DATE }}
+                                            {{ form.HIV_RS_15 }}
                                         </td>
 
                                     </tr>
@@ -311,10 +289,10 @@
                                         Was a formal referral made for HIV testing?  
                                         </td>
                                         <td>
-                                            {{ form.HIV_RA_3Q2 }}
+                                            {{ form.HIV_RS_16 }}
                                          </td>
                                          <td>
-                                            {{ form.HIV_RA_3Q2_DATE }}
+                                            {{ form.HIV_RS_17 }}
                                         </td>
                                     </tr>
 
@@ -326,10 +304,10 @@
                                             Was the referal for HIV testing completed?  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3 }}
+                                                    {{ form.HIV_RS_18 }}
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3_DATE }}
+                                                    {{ form.HIV_RS_19 }}
                                             </td>
                                     </tr>
 
@@ -342,7 +320,7 @@
   
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RS_3Q3A }}
+                                                    {{ form.HIV_RS_18A }}
                                             </td>
                                             <td style="background-color: grey">
 
@@ -358,7 +336,7 @@
  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3B }}
+                                                    {{ form.HIV_RS_18B }}
                                                     
                                             </td>
                                             <td style="background-color: grey">
@@ -374,10 +352,10 @@
                                             If HIV positive(3b), was the child referred for ART?
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q4 }}
+                                                    {{ form.HIV_RS_21 }}
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q4_DATE }}
+                                                    {{ form.HIV_RS_22 }}
                                             </td>
                                     </tr>
 
@@ -389,10 +367,10 @@
                                             If HIV positive(3b), was the ART referral completed?  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q5 }}
+                                                    {{ form.HIV_RS_23 }}
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q5_DATE }}
+                                                    {{ form.HIV_RS_24 }}
                                             </td>
                                     </tr>
                                 
@@ -404,7 +382,7 @@
                                                 (If applicable) Record facility of child's enrollment
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q6 }}
+                                                    {{ form.HIV_RS_25 }}
                                                     
                                             </td>
                                             <td style="background-color: grey">
@@ -459,11 +437,11 @@
 <script>
         $( function() {
             $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
-            $("#HIV_RA_3Q1_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-            $("#HIV_RA_3Q2_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-            $("#HIV_RA_3Q3_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-            $("#HIV_RA_3Q4_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-            $("#HIV_RA_3Q5_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_19" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_22" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_24" ).datepicker({ format: 'yyyy-mm-dd' }).val();
 
             $(document).ready(function () {
                 $("#wizard-hivsct").bwizard();
