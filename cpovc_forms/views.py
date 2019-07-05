@@ -9578,6 +9578,7 @@ def hiv_status(request):
 def new_hivscreeningtool(request, id):
     try:
         init_data = RegPerson.objects.filter(pk=id)
+        the_child = RegPerson.objects.get(pk=id)
         check_fields = ['sex_id']
         vals = get_dict(field_name=check_fields)
         print(vals)
@@ -9609,4 +9610,5 @@ def new_hivmanagementform(request, id):
                   {'form': form, 
                    'form_arvtherapy': form_arvtherapy,
                   'init_data': init_data,
+                  'the_child': the_child,
                    'vals': vals})
