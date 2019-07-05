@@ -228,7 +228,15 @@
 
 	//   $('select#chv_unit_id').multiselect({'multiple': false});
 	//   $('select#cbo_unit_id').multiselect({'multiple': false});
-      </script>
-	<!-- ================== END LAZY PAGE LEVEL JS ================== -->
+    </script>
+    <script src="{% static 'js/base64.js' %}"></script>
+    <script src="{% static 'js/offline_mode_service.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            // We just need a singleton for this client
+            OfflineModeService().client();
+        });
+    </script>
+    <!-- ================== END LAZY PAGE LEVEL JS ================== -->
 </body>
 </html>
