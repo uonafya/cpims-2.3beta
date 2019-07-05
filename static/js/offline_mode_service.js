@@ -35,7 +35,11 @@ let OfflineModeService = function () {
         },
 
         remove: function (key) {
-            this.storage.removeItem(key);
+            localStorage.removeItem(key);
+        },
+
+        removeMany: function(keys) {
+            keys.forEach(this.remove);
         },
 
         isConnectivityActive: function () {
@@ -54,14 +58,14 @@ let OfflineModeService = function () {
         },
 
         appendDataToStorage: function(dataKey, data) {
-            let existingData = this.retrieve(dataKey);
+            let existingData = this.retrieveJson(dataKey);
 
             if (existingData === null) {
-                existingData = [dataToBeSubmitted];
+                existingData = [data];
             } else {
-                existingData = existingData.push(data);
+                existingData.push(data);
             }
-            this.saveJson(dataKey, existingData)
+            this.saveJson(dataKey, existingData);
         },
 
         saveFormData: function(dataKey, data, submissionUrl) {
