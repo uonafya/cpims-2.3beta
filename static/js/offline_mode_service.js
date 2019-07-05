@@ -81,6 +81,7 @@ let OfflineModeService = function () {
                 $(this.connectionNotificationElementId).html("You are now online, offline mode switched off");
                 $(this.connectionNotificationElementId).addClass('alert-info');
                 $(this.connectionNotificationElementId).removeClass('alert-danger');
+                this.submitData(this.onSubmitFormSuccess(), this.onSubmitFormError());
             } else {
                 $(this.onlineModeMenuItemsSelector).hide();
                 $(this.connectionNotificationElementId).html("Switching to offline mode, no internet connection");
@@ -107,7 +108,19 @@ let OfflineModeService = function () {
                 'data': data,
                 'savedOn': (new Date()).getTime()
             };
-            this.appendDataToStorage(dataToBeSubmitted);
+            this.appendDataToStorage(dataKey, dataToBeSubmitted);
+        },
+
+        onSubmitFormSuccess: function() {
+            return (response =>  {
+               console.log(response) ;
+            })
+        },
+
+        onSubmitFormError: function() {
+            return (response =>  {
+                console.log(response) ;
+            })
         },
 
         submitData: function (dataKey, successHandler, errorHandler) {
@@ -115,8 +128,11 @@ let OfflineModeService = function () {
             let dataToSubmit = this.retrieveJson(dataKey);
 
             if (dataToSubmit == null) {
-                return errorHandler("There is no pending data to be submitted")
+                console.log("There is no pending data to be submitted");
+                return;
             }
+
+            // Todo - purge from the storage submitted data
 
             dataToSubmit.forEach(data => {
                 $.ajax({
