@@ -4278,9 +4278,16 @@ class CasePlanTemplate(forms.Form):
         })
     )
     CPT_DATE = forms.DateField(widget=forms.TextInput(
-        attrs={'placeholder': _('Completion Date'),
+        attrs={'placeholder': _('Date to be completed'),
                'class': 'form-control',
                'id': 'CPT_DATE'
+               }))
+    CPT_ACTUAL_DATE_COMPLETION = forms.DateField(widget=forms.TextInput(
+        attrs={'placeholder': _('Actual date of completion'),
+               'class': 'form-control',
+               'id': 'CPT_ACTUAL_DATE_COMPLETION',
+               'style': 'width: 200px;',
+               'required': 'true'
                }))
     CPT_RESULTS = forms.ChoiceField(
         choices=CPT_RESULTS,

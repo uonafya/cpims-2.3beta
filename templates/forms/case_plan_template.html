@@ -175,16 +175,22 @@
 											No
 										</label>
 									</div>
-									<div class="col-md-4 hidden">
+									<div class="col-md-2 hidden">
 										<div class="form-group">
 											<label class="control-label formlabel">If No, give date of Previous Case Plan Readiness Assessment:</label><br/>
 											<input type="text" class="form-control" style="max-width: 200px;" name="date_first_cpara"/>
 										</div>
                                     </div>
-									<div class="col-md-4">
+									<div class="col-md-2">
 										<div class="form-group">
 											<label class="control-label formlabel">Date of caseplan:</label><br/>
 											<input type="text" class="form-control" style="max-width: 200px;" name="CPT_DATE_CASEPLAN"/>
+										</div>
+                                    </div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label class="control-label formlabel">Actual date of caseplan completion*:</label><br/>
+											{{form.CPT_ACTUAL_DATE_COMPLETION}}
 										</div>
                                     </div>
 								</div>
@@ -264,7 +270,7 @@
                                         <tr>
                                             <th colspan="2"><h6><b>Services</b></h6></th>
                                             <th colspan="2"><h6><b>Person Responsible</b></h6></th>
-                                            <th colspan="1"><h6><b>Date Completed</b></h6></th>
+                                            <th colspan="1"><h6><b>Date to be completed</b></h6></th>
                                             <th colspan="1"><h6><b>Results</b></h6></th>
                                             <th colspan="2"><h6><b>Reasons</b></h6></th>
                                             <th colspan="1"></th>
@@ -488,7 +494,9 @@
                                                     <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_reasons}}</small><hr class="m-t-0 m-b-0"/>
                                                 {% endfor %}
                                             </td>
-                                            <td rowspan="4" style="text-align: center;vertical-align: middle;" width="40px" valign="center"><a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-pencil"></i></a></td>
+                                            <td rowspan="4" style="text-align: center;vertical-align: middle;" width="40px" valign="center">
+                                                <a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-pencil"></i></a>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;vertical-align: middle;"><b>STABLE</b></td>
