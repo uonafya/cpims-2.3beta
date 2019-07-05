@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block page_title %} Data Clean Up{% endblock %}
+
+{% block style_code %}
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block primary %}
+<h1 class="page-header">Data Clean Up <small>Filter data</small></h1>
+
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+
+{% endblock %}
