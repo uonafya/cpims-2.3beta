@@ -19,7 +19,6 @@
 	<link href="{% static 'css/style.css' %}" rel="stylesheet" />
 	<link href="{% static 'css/style-responsive.min.css' %}" rel="stylesheet" />
 	<link href="{% static 'css/theme/default.css' %}" rel="stylesheet" id="theme" />
-	<link href="{% static 'css/selectstyle.css' %}" rel="stylesheet" />
 	<link href="{% static 'plugins/jquery-countdown/css/style.css' %}" rel="stylesheet" />
 	{% block style_code %}{% endblock %}
 	{% block extra_styling %}
@@ -173,7 +172,6 @@
 	<script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
 	<script src="{% static 'plugins/jquery-idletimer/dist/idle-timer.1.1.0.js' %}"></script>
 	<script src="{% static 'plugins/jquery-countdown/jquery.simple.timer.js' %}"></script>
-	<script src="{% static 'js/selectstyle.js' %}"></script>
 	<!-- ================== END LAZY BASE JS ================== -->
 	
 	<!-- ================== BEGIN LAZY PAGE LEVEL JS ================== -->
@@ -228,7 +226,8 @@
 	  
 
 
-	  $('select#chv_unit_id').selectstyle();
+	//   $('select#chv_unit_id').multiselect({'multiple': false});
+	//   $('select#cbo_unit_id').multiselect({'multiple': false});
       </script>
 	<!-- ================== END LAZY PAGE LEVEL JS ================== -->
 </body>
