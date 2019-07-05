@@ -2380,7 +2380,7 @@ def auto_suggest_person(request, query, qid=0):
                 identifier=psearch, identifier_type_id='INTL',
                 is_void=False)
             person_list = pids.values_list('person_id', flat=True)
-            public.persons = RegPerson.objects.filter(
+            persons = RegPerson.objects.filter(
                 id__in=person_list, is_void=False)
         else:
             porgs = RegPersonsOrgUnits.objects.filter(
@@ -2409,7 +2409,7 @@ def auto_suggest_person(request, query, qid=0):
             q_filter = Q()
             for field in field_names:
                 q_filter |= Q(**{"%s__icontains" % field: query})
-            public.persons = queryset.filter(q_filter)
+            persons = queryset.filter(q_filter)
             pids = RegPersonsExternalIds.objects.filter(
                 person_id__in=person_ids, identifier_type_id='INTL')
         for pid in pids:

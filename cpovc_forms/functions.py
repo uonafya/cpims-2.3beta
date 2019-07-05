@@ -4,7 +4,7 @@ from cpovc_registry.functions import (
 
 from cpovc_main.functions import get_general_list, convert_date
 from cpovc_forms.models import (
-    FormsAuditTrail, OVCCareF1B, OVCCareEvents, OVCEducationFollowUp, OVCCareCpara)
+    FormsAuditTrail, OVCCareF1B, OVCCareEvents, OVCEducationFollowUp, OVCCareCpara, OVCCareCasePlan)
 from cpovc_ovc.functions import get_house_hold
 from .models import OVCGokBursary
 
@@ -295,3 +295,93 @@ def save_cpara_form_by_domain(id, question, answer, house_hold, caregiver, event
         print '%s :error saving cpara - %s' % (question.code, str(e))
         return False
 
+
+# PAST CPT
+def get_past_cpt(ovc_id):
+    # past cpt
+    all_cpt_events = OVCCareEvents.objects.filter(event_type_id='CPAR', person_id=ovc_id)
+
+    caseplan_events = []
+    try:
+        for one_caseplan_event in all_cpt_events:
+            one_event_stable = []
+            one_event_safe = []
+            one_event_healthy = []
+            one_event_school = []
+
+            all_cpt = OVCCareCasePlan.objects.filter(event=one_caseplan_event)
+            if all_cpt:
+                for one_cpt in all_cpt:
+                    if one_cpt.domain == 'DHNU':
+                        one_event_healthy.append({
+                            'ev_domain': one_cpt.domain,
+                            'ev_goal': one_cpt.goal,
+                            'ev_need': one_cpt.need,
+                            'ev_priority': one_cpt.priority,
+                            'ev_services': one_cpt.cp_service,
+                            'ev_results': one_cpt.results,
+                            'ev_reasons': one_cpt.reasons,
+                            'ev_completion_date': one_cpt.completion_date.strftime('%d-%b-%Y'),
+                            'ev_responsible': one_cpt.responsible,
+                            'ev_person': ovc_id
+                        })
+                    elif one_cpt.domain == 'DHES':
+                        one_event_stable.append({
+                            'ev_domain': one_cpt.domain,
+                            'ev_goal': one_cpt.goal,
+                            'ev_need': one_cpt.need,
+                            'ev_priority': one_cpt.priority,
+                            'ev_services': one_cpt.cp_service,
+                            'ev_results': one_cpt.results,
+                            'ev_reasons': one_cpt.reasons,
+                            'ev_completion_date': one_cpt.completion_date.strftime('%d-%b-%Y'),
+                            'ev_responsible': one_cpt.responsible,
+                            'ev_person': ovc_id
+                        })
+                    elif one_cpt.domain == 'DPRO':
+                        one_event_safe.append({
+                            'ev_domain': one_cpt.domain,
+                            'ev_goal': one_cpt.goal,
+                            'ev_need': one_cpt.need,
+                            'ev_priority': one_cpt.priority,
+                            'ev_services': one_cpt.cp_service,
+                            'ev_results': one_cpt.results,
+                            'ev_reasons': one_cpt.reasons,
+                            'ev_completion_date': one_cpt.completion_date.strftime('%d-%b-%Y'),
+                            'ev_responsible': one_cpt.responsible,
+                            'ev_person': ovc_id
+                        })
+                    elif one_cpt.domain == 'DEDU':
+                        one_event_school.append({
+                            'ev_domain': one_cpt.domain,
+                            'ev_goal': one_cpt.goal,
+                            'ev_need': one_cpt.need,
+                            'ev_priority': one_cpt.priority,
+                            'ev_services': one_cpt.cp_service,
+                            'ev_results': one_cpt.results,
+                            'ev_reasons': one_cpt.reasons,
+                            'ev_completion_date': one_cpt.completion_date.strftime('%d-%b-%Y'),
+                            'ev_responsible': one_cpt.responsible,
+                            'ev_person': ovc_id
+                        })
+            caseplan_events.append({
+                'error': False,
+                'event_ovc': ovc_id,
+                'event_id': one_caseplan_event.pk,
+                'event_date': one_caseplan_event.date_of_event.strftime('%d-%b-%Y'),
+                'event_stable': one_event_stable,
+                'event_safe': one_event_safe,
+                'event_healthy': one_event_healthy,
+                'event_school': one_event_school
+            })
+        print("get_past_cpt successful::::::::::::", caseplan_events)
+        return caseplan_events
+    except Exception as e:
+        caseplan_events = []
+        caseplan_events.append({
+            'error': True,
+            'msg': '%s :error fetching past CPT - %s' % (ovc_id, str(e))
+        })
+        print '%s :error fetching past CPT - %s' % (ovc_id, str(e))
+        # return False
+        return caseplan_events
