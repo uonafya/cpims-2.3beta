@@ -9462,5 +9462,3 @@ def hiv_status(request):
         messages.add_message(request, messages.ERROR, msg)
         print 'Error saving hiv status : %s' % str(e)
         return HttpResponseRedirect(reverse(forms_home))
-
-  

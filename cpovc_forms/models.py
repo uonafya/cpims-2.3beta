@@ -719,7 +719,7 @@ class OVCCareAssessment(models.Model):
     """ This table will hold OVC Assessment Data """
 
     assessment_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    domain = models.CharField(max_length=4)   
+    domain = models.CharField(max_length=4)
     service = models.CharField(max_length=4)
     service_status = models.CharField(max_length=7)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
@@ -919,7 +919,7 @@ class OVCCareForms(models.Model):
 
 
 class OVCCareBenchmarkScore(models.Model):
-    
+
     bench_mark_score_id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     bench_mark_1 = models.IntegerField(default=0)
@@ -1196,3 +1196,92 @@ class OVCCareQuestions(models.Model):
 
     def __unicode__(self):
         return str(self.question_id)
+
+# class OVCHIVManagement(models.Model):
+#     adherence_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     person = models.ForeignKey(RegPerson)
+#     Hiv_Confirmed_Date=models.DateTimeField()
+#     Treatment_initiated_Date=models.DateTimeField()
+#     FirstLine_Start_Date=models.DateTimeField()
+#     Substitution_FirstLine_ARV= models.BooleanField(default=False)
+#     Substitution_FirstLine_Date=models.DateTimeField()
+#     Switch_SecondLine_ARV= models.BooleanField(default=False)
+#     Switch_SecondLine_Date=models.DateTimeField()
+#     Switch_ThirdLine_ARV= models.BooleanField(default=False)
+#     Switch_ThirdLine_Date=models.DateTimeField()
+#     Visit_Date=models.DateTimeField()
+#     Duration_ART=models.CharField(max_length=6, null=False)
+#     Height=models.CharField(max_length=6, null=False)
+#     MUAC=models.CharField(max_length=6, null=False)
+#     Adherence=models.CharField(max_length=20, null=False)
+#     Adherence_Drugs_Duration=models.CharField(max_length=6, null=False)
+#     Adherence_counselling=models.CharField(max_length=20, null=False)
+#     Treatment_Supporter_Relationship=models.CharField(max_length=20, null=False)
+#     Treatment_Supporter_Gender=models.BooleanField(default=False)
+#     Treatment_Supporter_Age=models.CharField(max_length=6, null=False)
+#     Treament_Supporter_HIV=models.CharField(max_length=10, null=False)
+#     Viral_Load_Results=models.CharField(max_length=6, null=False)
+#     Viral_Load_Date=models.DateTimeField()
+#     Detectable_ViralLoad_Interventions=models.CharField(max_length=50, null=False)
+#     Support_group_Enrollment=models.BooleanField(default=False)
+#     Support_group_Status=models.BooleanField(default=False)
+#     NHIF_Enrollment=models.BooleanField(default=False)
+#     NHIF_Status=models.BooleanField(default=False)
+#     Referral_Services=models.CharField(max_length=100, null=False)
+#     Peer_Educator_Name=models.CharField(max_length=100, null=False)
+#     Peer_Educator_Contact=models.CharField(max_length=20, null=False)
+#     event = models.ForeignKey(OVCCareEvents)
+#     is_void = models.BooleanField(default=False)
+#     date_of_event = models.DateField()
+#     timestamp_created = models.DateTimeField(default=timezone.now)
+#     timestamp_updated = models.DateTimeField(default=timezone.now)
+#     class Meta:
+#         db_table = 'ovc_hiv_management'
+#     def __unicode__(self):
+#         return str(self.adherence_id)
+
+
+
+
+class OVCHIVManagement(models.Model):
+    adherence_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    person = models.ForeignKey(RegPerson)
+    Hiv_Confirmed_Date=models.DateTimeField()
+    Treatment_initiated_Date=models.DateTimeField()
+    FirstLine_Start_Date=models.DateTimeField()
+    Substitution_FirstLine_ARV= models.BooleanField(default=False)
+    Substitution_FirstLine_Date=models.DateTimeField()
+    Switch_SecondLine_ARV= models.BooleanField(default=False)
+    Switch_SecondLine_Date=models.DateTimeField()
+    Switch_ThirdLine_ARV= models.BooleanField(default=False)
+    Switch_ThirdLine_Date=models.DateTimeField()
+    Visit_Date=models.DateTimeField()
+    Duration_ART=models.CharField(max_length=6, null=False)
+    Height=models.CharField(max_length=6, null=False)
+    MUAC=models.CharField(max_length=6, null=False)
+    Adherence=models.CharField(max_length=20, null=False)
+    Adherence_Drugs_Duration=models.CharField(max_length=6, null=False)
+    Adherence_counselling=models.CharField(max_length=20, null=False)
+    Treatment_Supporter_Relationship=models.CharField(max_length=20, null=False)
+    Treatment_Supporter_Gender=models.BooleanField(default=False)
+    Treatment_Supporter_Age=models.CharField(max_length=6, null=False)
+    Treament_Supporter_HIV=models.CharField(max_length=10, null=False)
+    Viral_Load_Results=models.CharField(max_length=6, null=False)
+    Viral_Load_Date=models.DateTimeField()
+    Detectable_ViralLoad_Interventions=models.CharField(max_length=50, null=False)
+    Support_group_Enrollment=models.BooleanField(default=False)
+    Support_group_Status=models.BooleanField(default=False)
+    NHIF_Enrollment=models.BooleanField(default=False)
+    NHIF_Status=models.BooleanField(default=False)
+    Referral_Services=models.CharField(max_length=100, null=False)
+    Peer_Educator_Name=models.CharField(max_length=100, null=False)
+    Peer_Educator_Contact=models.CharField(max_length=20, null=False)
+    event = models.ForeignKey(OVCCareEvents)
+    is_void = models.BooleanField(default=False)
+    date_of_event = models.DateField()
+    timestamp_created = models.DateTimeField(default=timezone.now)
+    timestamp_updated = models.DateTimeField(default=timezone.now)
+    class Meta:
+        db_table = 'ovc_hiv_management'
+    def __unicode__(self):
+        return str(self.adherence_id)
