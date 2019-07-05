@@ -150,7 +150,7 @@ Caregiver details | {{care_giver}}
                             <td class="field">CPT</td>
                             <td>{{ case_plan_count }}</td>
                             <td class="field">Well Being</td>
-                            <td>{{ well_being_count }}</td>
+                            <td>{{ well_being_count.WBG|add:well_being_count.wba }}</td>
                         </tr>
                     </tbody>
                 </table>
