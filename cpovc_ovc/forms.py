@@ -15,7 +15,8 @@ hiv_status_list = get_list('hiv_status_id', 'Please Select HIV Status')
 alive_status_list = get_list('yesno_id', '')
 art_status_list = get_list('art_status_id', 'Please Select Status')
 ovc_form_type_list = get_list('ovc_form_type_id', 'Please Select')
-ovc_form_type_list += [('CPR', 'Case Plan'), ('CPT', 'Case Plan Template'),('WB', 'Well Being')]
+ovc_form_type_list += [('CPR', 'Case Plan'), ('CPT', 'Case Plan Template'),('WB', 'Well Being'),
+                     ('WBA', 'Well Being Adolescent'), ('HVSRN', 'HIV Screening Tool'), ('HVMGT', 'HIV Management Form')]
 eligibility_list = get_list('eligibility_criteria_id', '')
 death_cause_list = get_list('death_cause_id', 'Please Select Cause of Death')
 exit_list = get_list('exit_reason_id', 'Please Select one')

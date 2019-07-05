@@ -7,29 +7,6 @@ from cpovc_main.models import (SchoolList)
 from cpovc_ovc.models import (OVCHouseHold)
 
 # Create your models here.
-
-"""
-class OVCBackground(models.Model):
-    background_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid1, editable=False)
-    is_in_school = models.CharField(max_length=10, null=True)
-    not_in_school_reason = models.CharField(max_length=100, null=True)
-    school_id = models.ForeignKey(SchoolList, null=True)
-    # school_type = models.CharField(max_length=100, null=True)
-    school_admission_type = models.CharField(max_length=100, null=True)
-    class_form = models.CharField(max_length=20, null=True)
-    person = models.ForeignKey(RegPerson)
-    timestamp_created = models.DateTimeField(default=timezone.now)
-    is_void = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
-    created_by = models.IntegerField(null=True, default=404)
-
-    class Meta:
-        db_table = 'ovc_schoolinfo'
-"""
-
-
 class OVCBursary(models.Model):
     bursary_id = models.UUIDField(
         primary_key=True, default=uuid.uuid1, editable=False)
@@ -264,22 +241,6 @@ class OVCReferral(models.Model):
     class Meta:
         db_table = 'ovc_referrals'
 
-    # class OVCReferralActors(models.Model):
-    #    case_id = models.ForeignKey(OVCCaseRecord)
-    #    referral_actor = models.CharField(max_length=50)
-    #    referral_actor_description = models.CharField(max_length=250, null=True)
-    #    referral_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
-    #    timestamp_created = models.DateTimeField(default=timezone.now)
-    #    timestamp_updated = models.DateTimeField(default=timezone.now)
-    #    is_void = models.BooleanField(default=False)
-    #  sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
-
-
-#    person = models.ForeignKey(RegPerson)
-#
-#    class Meta:
-#        db_table = 'ovc_referral_actors'
-
 
 class OVCNeeds(models.Model):
     case_id = models.ForeignKey(OVCCaseRecord, on_delete=models.CASCADE)
@@ -458,26 +419,6 @@ class OVCCaseEventClosure(models.Model):
         db_table = 'ovc_case_event_closure'
 
 
-"""
-class OVCCaseEventPlacement(models.Model):
-    residential_institution = models.ForeignKey(RegOrgUnit)  # org_unit_id_vis
-    current_residential_status = models.CharField(max_length=250)
-    has_court_committal_order = models.CharField(max_length=10)
-    free_for_adoption = models.CharField(max_length=10)
-    admission_date = models.DateField(default=timezone.now)
-    departure_date = models.DateField(null=True)
-    case_event_id = models.ForeignKey(OVCCaseEvents, on_delete=models.CASCADE)
-    timestamp_created = models.DateTimeField(default=timezone.now)
-    # case_category_id = models.ForeignKey(OVCCaseCategory)
-    case_category = models.CharField(max_length=10, blank=True)
-    is_void = models.BooleanField(default=False)
-    sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
-
-    class Meta:
-        db_table = 'ovc_case_event_placement'
-"""
-
-
 class OVCReminders(models.Model):
     reminder_date = models.DateField(default=timezone.now)
     reminder_type = models.CharField(max_length=100)
@@ -525,25 +466,6 @@ class OVCPlacementFollowUp(models.Model):
     class Meta:
         db_table = 'ovc_placement_followup'
 
-
-"""
-class OVCEducationFollowUp(models.Model):
-    education_followup_id = models.UUIDField(
-        primary_key=True, default=uuid.uuid1, editable=False)
-    admitted_to_school = models.CharField(max_length=10)
-    not_in_school_reason = models.CharField(max_length=4, null=True)
-    # admission_sublevel = models.CharField(max_length=20, null=True)
-    admission_to_school_date = models.DateField(
-        default=timezone.now, null=True)
-    education_comments = models.CharField(max_length=1000, null=True)
-    person = models.ForeignKey(RegPerson)
-    timestamp_created = models.DateTimeField(default=timezone.now)
-    is_void = models.BooleanField(default=False)
-    sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
-
-    class Meta:
-        db_table = 'ovc_education_followup'
-"""
 
 
 class OVCEducationFollowUp(models.Model):
@@ -719,7 +641,7 @@ class OVCCareAssessment(models.Model):
     """ This table will hold OVC Assessment Data """
 
     assessment_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    domain = models.CharField(max_length=4)   
+    domain = models.CharField(max_length=4)
     service = models.CharField(max_length=4)
     service_status = models.CharField(max_length=7)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
@@ -919,7 +841,7 @@ class OVCCareForms(models.Model):
 
 
 class OVCCareBenchmarkScore(models.Model):
-    
+
     bench_mark_score_id=models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     bench_mark_1 = models.IntegerField(default=0)
@@ -1032,6 +954,7 @@ class OVCCareCasePlan(models.Model):
     cp_service = models.CharField(max_length=10)
     responsible = models.CharField(max_length=50)
     completion_date = models.DateField(default=timezone.now)
+    actual_completion_date = models.DateField(default=timezone.now)
     results = models.CharField(max_length=300)
     reasons = models.CharField(max_length=300)
     form = models.ForeignKey(OVCCareForms)
@@ -1196,3 +1119,47 @@ class OVCCareQuestions(models.Model):
 
     def __unicode__(self):
         return str(self.question_id)
+
+
+class OVCHIVManagement(models.Model):
+    adherence_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    person = models.ForeignKey(RegPerson)
+    Hiv_Confirmed_Date=models.DateTimeField()
+    Treatment_initiated_Date=models.DateTimeField()
+    FirstLine_Start_Date=models.DateTimeField()
+    Substitution_FirstLine_ARV= models.BooleanField(default=False)
+    Substitution_FirstLine_Date=models.DateTimeField()
+    Switch_SecondLine_ARV= models.BooleanField(default=False)
+    Switch_SecondLine_Date=models.DateTimeField()
+    Switch_ThirdLine_ARV= models.BooleanField(default=False)
+    Switch_ThirdLine_Date=models.DateTimeField()
+    Visit_Date=models.DateTimeField()
+    Duration_ART=models.CharField(max_length=6, null=False)
+    Height=models.CharField(max_length=6, null=False)
+    MUAC=models.CharField(max_length=6, null=False)
+    Adherence=models.CharField(max_length=20, null=False)
+    Adherence_Drugs_Duration=models.CharField(max_length=6, null=False)
+    Adherence_counselling=models.CharField(max_length=20, null=False)
+    Treatment_Supporter_Relationship=models.CharField(max_length=20, null=False)
+    Treatment_Supporter_Gender=models.BooleanField(default=False)
+    Treatment_Supporter_Age=models.CharField(max_length=6, null=False)
+    Treament_Supporter_HIV=models.CharField(max_length=10, null=False)
+    Viral_Load_Results=models.CharField(max_length=6, null=False)
+    Viral_Load_Date=models.DateTimeField()
+    Detectable_ViralLoad_Interventions=models.CharField(max_length=50, null=False)
+    Support_group_Enrollment=models.BooleanField(default=False)
+    Support_group_Status=models.BooleanField(default=False)
+    NHIF_Enrollment=models.BooleanField(default=False)
+    NHIF_Status=models.BooleanField(default=False)
+    Referral_Services=models.CharField(max_length=100, null=False)
+    Peer_Educator_Name=models.CharField(max_length=100, null=False)
+    Peer_Educator_Contact=models.CharField(max_length=20, null=False)
+    event = models.ForeignKey(OVCCareEvents)
+    is_void = models.BooleanField(default=False)
+    date_of_event = models.DateField()
+    timestamp_created = models.DateTimeField(default=timezone.now)
+    timestamp_updated = models.DateTimeField(default=timezone.now)
+    class Meta:
+        db_table = 'ovc_hiv_management'
+    def __unicode__(self):
+        return str(self.adherence_id)
