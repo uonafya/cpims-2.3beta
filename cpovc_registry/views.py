@@ -825,6 +825,14 @@ def view_person(request, id):
                         'contact_detail_type_id']
         vals = get_dict(field_name=check_fields)
         person = RegPerson.objects.get(pk=id)
+        m_ovcs = OVCRegistration.objects.filter(caretaker_id=person.id)
+        # print('lllllllllllllaaaayyyyyyyy', m_ovcs[0])
+        
+        my_ovcs = []
+        for one_ovc in m_ovcs:
+            my_ovcs.append(RegPerson.objects.filter(id=one_ovc.person_id))
+        # print('lllllllllllllaaaazzzzzzz', my_ovcs[0])
+        
         person_types = RegPersonsTypes.objects.filter(
             person=person, is_void=False, date_ended=None)
         person_geos = RegPersonsGeo.objects.select_related().filter(
@@ -924,7 +932,7 @@ def view_person(request, id):
         # Workforce ID
         person.workforce_id = workforce_id
         return render(request, 'registry/view_person.html',
-                      {'person_details': person, 'vals': vals,
+                      {'person_details': person, 'vals': vals, 'my_ovcs': my_ovcs,
                        'appuser': person_appuser, 'guardians': guardians,
                        'siblings': siblings, 'osiblings': osiblings,
                        'oguardians': oguardians, 'hhs': hhs})

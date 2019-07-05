@@ -71,146 +71,198 @@
                     <div class="profile-right">
                         <!-- begin profile-info -->
                         <div class="profile-info">
-                            <!-- begin table -->
-                            <div class="table-responsive">
-                                <table class="table table-profile">
-                                    <thead>
-                                        <tr>
-                                            <th width="25%"></th>
-                                            <th>
-                                            <h4>{{ person_details.first_name }} {{ person_details.surname }}
-                                                {% if person_details.other_names %}{{ person_details.other_names }}{% endif %}
-                                                <br>
-                                                <small><b>
-                                                {% if not person_details.date_of_death == None %}
-                                                    Date Of Death {{ person_details.date_of_death }}
+                            <div class="col-md-8">
+                                <!-- begin table -->
+                                <div class="table-responsive">
+                                    <table class="table table-profile">
+                                        <thead>
+                                            <tr>
+                                                <th width="25%"></th>
+                                                <th>
+                                                <h4>{{ person_details.first_name }} {{ person_details.surname }}
+                                                    {% if person_details.other_names %}{{ person_details.other_names }}{% endif %}
+                                                    <br>
+                                                    <small><b>
+                                                    {% if not person_details.date_of_death == None %}
+                                                        Date Of Death {{ person_details.date_of_death }}
+                                                    {% endif %}
+                                                    </b></small>
+                                                </h4>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="field">Person Type(s) : </td>
+                                                <td>{{ person_details.person_type_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="field">Person First Name : </td>
+                                                <td>{{ person_details.first_name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="field">Person Surname : </td>
+                                                <td>{{ person_details.surname }}</td>
+                                            </tr>
+                                            {% if person_details.other_names %}
+                                            <tr>
+                                                <td class="field">Person Other Names : </td>
+                                                <td>{{ person_details.other_names }}</td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td class="field">Sex: </td>
+                                                <td>{{ person_details.sex_id|gen_value:vals }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="field">Date Of Birth : </td>
+                                                <td>{{ person_details.date_of_birth }} (
+                                                {% if person_details.age == '116 years' or person_details.date_of_birth == None %}
+                                                Not Provided
+                                                {% else %}
+                                                {{ person_details.age }}
                                                 {% endif %}
-                                                </b></small>
-                                            </h4>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="field">Person Type(s) : </td>
-                                            <td>{{ person_details.person_type_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Person First Name : </td>
-                                            <td>{{ person_details.first_name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Person Surname : </td>
-                                            <td>{{ person_details.surname }}</td>
-                                        </tr>
-                                        {% if person_details.other_names %}
-                                        <tr>
-                                            <td class="field">Person Other Names : </td>
-                                            <td>{{ person_details.other_names }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        <tr>
-                                            <td class="field">Sex: </td>
-                                            <td>{{ person_details.sex_id|gen_value:vals }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="field">Date Of Birth : </td>
-                                            <td>{{ person_details.date_of_birth }} (
-                                            {% if person_details.age == '116 years' or person_details.date_of_birth == None %}
-                                            Not Provided
-                                            {% else %}
-                                            {{ person_details.age }}
+                                                )</td>
+                                            </tr>
+                                            <tr class="highlight">
+                                                <td class="field">Contact and Location Details</td>
+                                                <td></td>
+                                            </tr>
+                                            {% if person_details.des_phone_number %}
+                                            <tr>
+                                                <td class="field">Phone Number : </td>
+                                                <td>{{ person_details.des_phone_number }}</td>
+                                            </tr>
                                             {% endif %}
-                                            )</td>
-                                        </tr>
-                                        <tr class="highlight">
-                                            <td class="field">Contact and Location Details</td>
-                                            <td></td>
-                                        </tr>
-                                        {% if person_details.des_phone_number %}
-                                        <tr>
-                                            <td class="field">Phone Number : </td>
-                                            <td>{{ person_details.des_phone_number }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if person_details.email %}
-                                        <tr>
-                                            <td class="field">Email Address : </td>
-                                            <td>{{ person_details.email}}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% if 'TBVC' in person_details.person_types or 'TBGR' in person_details.person_types %}
-                                        <tr>
-                                            <td class="field">Living in (Sub-county) : </td>
-                                            <td>{{ person_details.pgeos }}</td>
-                                        </tr>
-                                        {% if person_details.geo_wards %}
-                                        <tr>
-                                            <td class="field">Living in (Ward) : </td>
-                                            <td>{{ person_details.geo_wards }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% else %}
-                                        {% if person_details.geo_county %}
-                                        <tr>
-                                            <td class="field">Working in (County): </td>
-                                            <td>{{ person_details.geo_county }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        <tr>
-                                            <td class="field">Working in (Sub-county): </td>
+                                            {% if person_details.email %}
+                                            <tr>
+                                                <td class="field">Email Address : </td>
+                                                <td>{{ person_details.email}}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% if 'TBVC' in person_details.person_types or 'TBGR' in person_details.person_types %}
+                                            <tr>
+                                                <td class="field">Living in (Sub-county) : </td>
+                                                <td>{{ person_details.pgeos }}</td>
+                                            </tr>
+                                            {% if person_details.geo_wards %}
+                                            <tr>
+                                                <td class="field">Living in (Ward) : </td>
+                                                <td>{{ person_details.geo_wards }}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% else %}
+                                            {% if person_details.geo_county %}
+                                            <tr>
+                                                <td class="field">Working in (County): </td>
+                                                <td>{{ person_details.geo_county }}</td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td class="field">Working in (Sub-county): </td>
+                                                <td>
+                                                {% if person_details.pgeos %}
+                                                    {{ person_details.pgeos }}
+                                                {% else %}
+                                                    National
+                                                {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% if person_details.geo_wards %}
+                                            <tr>
+                                                <td class="field">Working in (Ward): </td>
+                                                <td>{{ person_details.geo_wards }}</td>
+                                            </tr>
+                                            {% endif %}
+                                            {% endif %}
+                                            {% if person_details.porgs %}
+                                            <tr>
+                                                <td class="field">Organizational Unit(s) : </td>
+                                                <td>{{ person_details.porgs }}</td>                                          
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td class="field">Record creation details: </td>
+                                                <td>By {{ person_details.created_by.reg_person.full_name }}; on {{ person_details.created_at }}</td>                                          
+                                            </tr>
+                                            <tr>
+                                            <td class="field"></td>
                                             <td>
-                                            {% if person_details.pgeos %}
-                                                {{ person_details.pgeos }}
-                                            {% else %}
-                                                National
-                                            {% endif %}
-                                            </td>
-                                        </tr>
-                                        {% if person_details.geo_wards %}
-                                        <tr>
-                                            <td class="field">Working in (Ward): </td>
-                                            <td>{{ person_details.geo_wards }}</td>
-                                        </tr>
-                                        {% endif %}
-                                        {% endif %}
-                                        {% if person_details.porgs %}
-                                        <tr>
-                                            <td class="field">Organizational Unit(s) : </td>
-                                            <td>{{ person_details.porgs }}</td>                                          
-                                        </tr>
-                                        {% endif %}
-                                        <tr>
-                                            <td class="field">Record creation details: </td>
-                                            <td>By {{ person_details.created_by.reg_person.full_name }}; on {{ person_details.created_at }}</td>                                          
-                                        </tr>
-                                        <tr>
-                                        <td class="field"></td>
-                                        <td>
-                                            <button onclick="goBack()" class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-arrow-left"></i> &nbsp;<b>Back to search</b>&nbsp; </button>
-                                            {% if person_details.date_of_death == None %}
-                                            <button id="btn_edit_details" onClick="window.location.href='{% url 'edit_person' id=person_details.pk %}'" class="btn  btn-sm btn-primary m-r-5">
-                                            <b> Edit Person Details</b>&nbsp; <i class="fa fa-edit"></i>
-                                            </button>
-                                            {% endif %}
+                                                <button onclick="goBack()" class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-arrow-left"></i> &nbsp;<b>Back to search</b>&nbsp; </button>
+                                                {% if person_details.date_of_death == None %}
+                                                <button id="btn_edit_details" onClick="window.location.href='{% url 'edit_person' id=person_details.pk %}'" class="btn  btn-sm btn-primary m-r-5">
+                                                <b> Edit Person Details</b>&nbsp; <i class="fa fa-edit"></i>
+                                                </button>
+                                                {% endif %}
 
-                                            {% if person_details.person_id != None %}
-                                            <button id="btn_edit_details" onClick="window.location.href='{% url 'roles_edit' user_id=person_details.person_id %}'" class="btn  btn-sm btn-primary m-r-5">
-                                            <b> Manage Roles</b>&nbsp; <i class="fa fa-edit"></i>
-                                            </button>
-                                            {% else %}
-                                            {% if person_details.workforce_id %}
-                                            <button id="btn_create_account" type="submit" onClick="window.location.href='{% url 'new_user' id=person_details.pk %}'" class="btn  btn-sm btn-primary m-r-5">
-                                            <b>Create Account</b>&nbsp; <i class="fa fa-lock"></i>
-                                            </button>
-                                            {% endif %}
-                                            {% endif %}
-                                        </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                                {% if person_details.person_id != None %}
+                                                <button id="btn_edit_details" onClick="window.location.href='{% url 'roles_edit' user_id=person_details.person_id %}'" class="btn  btn-sm btn-primary m-r-5">
+                                                <b> Manage Roles</b>&nbsp; <i class="fa fa-edit"></i>
+                                                </button>
+                                                {% else %}
+                                                {% if person_details.workforce_id %}
+                                                <button id="btn_create_account" type="submit" onClick="window.location.href='{% url 'new_user' id=person_details.pk %}'" class="btn  btn-sm btn-primary m-r-5">
+                                                <b>Create Account</b>&nbsp; <i class="fa fa-lock"></i>
+                                                </button>
+                                                {% endif %}
+                                                {% endif %}
+                                            </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- end table -->
                             </div>
-                            <!-- end table -->
+                            <div class="col-md-4">
+                                <h4 class="title">Account details <small>
+                                {% if appuser %} 6 {% else %} 0 {% endif %}
+                                available</small></h4>
+                                <!-- begin scrollbar -->
+                                <div data-scrollbar="true" data-height="280px" class="bg-silver">
+                                    <!-- begin chats -->
+                                    {% if appuser %}
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <th>Item</th>
+                                                <th>Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Username :</td>
+                                                <td>{{ appuser.username }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last login :</td>
+                                                <td>{{ appuser.last_login }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Active :</td>
+                                                <td>{{ appuser.is_active }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date created :</td>
+                                                <td>{{ appuser.timestamp_created }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Date modified :</td>
+                                                <td>{{ appuser.timestamp_updated }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Last password change :</td>
+                                                <td>{{ appuser.password_changed_timestamp }}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    {% else %}
+                                        <br>
+                                        <p>&nbsp; Person does not have a log in account</p>
+                                    {% endif %}
+                                    <!-- end chats -->
+                                </div>
+                                <!-- end scrollbar -->
+                            </div>
                         </div>
                         <!-- end profile-info -->
                     </div>
@@ -221,58 +273,21 @@
                 <div class="profile-section">
                     <!-- begin row -->
                     <div class="row">
-                        <!-- begin col-4 -->
-                        <div class="col-md-4">
-                            <h4 class="title">Account details <small>
-                            {% if appuser %} 6 {% else %} 0 {% endif %}
-                            available</small></h4>
-                            <!-- begin scrollbar -->
-                            <div data-scrollbar="true" data-height="280px" class="bg-silver">
-                                <!-- begin chats -->
-                                {% if appuser %}
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Details</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Username :</td>
-                                            <td>{{ appuser.username }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Last login :</td>
-                                            <td>{{ appuser.last_login }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Active :</td>
-                                            <td>{{ appuser.is_active }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date created :</td>
-                                            <td>{{ appuser.timestamp_created }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Date modified :</td>
-                                            <td>{{ appuser.timestamp_updated }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Last password change :</td>
-                                            <td>{{ appuser.password_changed_timestamp }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                {% else %}
-                                    <br>
-                                    <p>&nbsp; Person does not have a log in account</p>
-                                {% endif %}
-                                <!-- end chats -->
+                        {% if person_details.person_types == 'TBGR' %}
+                            <!-- begin col-4 -->
+                            <div class="col-md-4" style="max-height: 320px; overflow-y: auto;">
+                                <h4 class="title">OVCs of this caregiver</h4>
+                                <ol>
+                                    {% for one_ovc in my_ovcs.0 %}
+                                        <li><a href="{% url 'ovc_view' id=one_ovc.id %}">
+                                            {{one_ovc.first_name}} {{one_ovc.surname}} {{one_ovc.other_names}}
+                                        </a></li>
+                                    {% endfor %}
+                                </ol>
+                                <!-- {{ person_details.person_types }} -->
                             </div>
-                            <!-- end scrollbar -->
-                        </div>
-                        <!-- end col-4 -->
+                            <!-- end col-4 -->
+                        {% endif %}
                         <!-- begin col-4 -->
                         <div class="col-md-4">
                             <h4 class="title">Other details <small>{{ person_details.pextids.count }} provided</small></h4>
