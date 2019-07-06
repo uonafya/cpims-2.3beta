@@ -82,7 +82,7 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
         _handleIsOnline: function() {
             if (this.isOfflineModeCapabilityEnabled) {
                 console.log("Handling is  online");
-                // this.submitData(this.onSubmitFormSuccess(), this.onSubmitFormError());
+                this.submitData(this._formDataKey(), this._onSubmitFormSuccess(), this._onSubmitFormError());
             }
         },
 
@@ -94,7 +94,7 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
             }
         },
 
-        appendDataToStorage: function(dataKey, data) {
+        _appendDataToStorage: function(dataKey, data) {
             let existingData = this.retrieveJson(dataKey);
 
             if (existingData === null) {
@@ -105,7 +105,7 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
             this.saveJson(dataKey, existingData);
         },
 
-        formDataKey: function () {
+        _formDataKey: function () {
             return Base64.encode("form_data_" + this.userId);
         },
 
@@ -119,10 +119,10 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
                     'savedOn': (new Date()).getTime()
                 }
             };
-            this.appendDataToStorage(this.formDataKey(), Base64.encode(dataToBeSubmitted));
+            this._appendDataToStorage(this._formDataKey(), Base64.encode(JSON.stringify(dataToBeSubmitted)));
         },
 
-        onSubmitFormSuccess: function() {
+        _onSubmitFormSuccess: function() {
             return ((index, remainingDataToSubmit) =>  {
                console.log(remainingDataToSubmit);
                // purge from the store
@@ -132,18 +132,18 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
 
                 if (unSubmittedData.length === 0) {
                     // all data has been submitted
-                    this.remove(this.formDataKey());
+                    this.remove(this._formDataKey());
 
                     $(this.connectionNotificationElementId).html("You are now online, offline mode switched off. " +
                         "All saved data has been submitted");
                 } else {
-                    this.saveJson(this.formDataKey(), unSubmittedData);
+                    this.saveJson(this._formDataKey(), unSubmittedData);
                 }
                 return unSubmittedData
             })
         },
 
-        onSubmitFormError: function() {
+        _onSubmitFormError: function() {
             return (response =>  {
                 console.log(response) ;
             })
@@ -153,19 +153,25 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
 
             let dataToSubmit = this.retrieveJson(dataKey);
 
-            if (dataToSubmit == null) {
+            if (dataToSubmit === null) {
                 console.log("There is no pending data to be submitted");
                 return;
             }
 
             dataToSubmit.filter(item => item !== undefined).forEach((toSubmit, index) => {
+                let decodedData = JSON.parse(Base64.decode(toSubmit));
+                console.log(decodedData.data);
                 $.ajax({
-                    url: data.submissionUrl,
+                    url: decodedData.submissionUrl,
                     type: "POST",
-                    data: JSON.stringify(toSubmit.data),
-                    success: (message) => {
+                    contentType: "application/json",
+                    data: JSON.stringify(decodedData.data),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+                    },
+                    success: function (message) {
                         console.log("Saved form data submitted successfully: " + message);
-                        dataToSubmit = this.onSubmitFormSuccess(index, dataToSubmit);
+                        dataToSubmit = successHandler(index, dataToSubmit);
                     },
                     error: errorHandler
                 });
