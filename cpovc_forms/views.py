@@ -8738,13 +8738,13 @@ def new_cpara(request, id):
         geo_wards = None
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    child.geo_wards = geo_wards
-    if child.geo_wards is None:
+    #geo_wards = geo_wards
+    if geo_wards is None:
         ward = None
         subcounty = None
         county = None
     else:
-        ward_id = int(child.geo_wards)
+        ward_id = int(geo_wards)
         ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
@@ -8979,7 +8979,9 @@ def update_caseplan(request, event_id, ovcid):
         print delta
         print 'check delta'
         print delta
-        if delta < 90:
+
+
+        if delta < 30:
             try:
                 my_request=request.POST.get('final_submission')
 
@@ -9290,7 +9292,7 @@ def new_wellbeing(request, id):
             hse_uuid = uuid.UUID(household_id)
             house_hold = OVCHouseHold.objects.get(pk=hse_uuid)
             person = RegPerson.objects.get(pk=int(caretker_id))
-            event_type_id = 'FHSA'
+            event_type_id = 'WBG'
             date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'), fmt='%Y-%m-%d')
 
             """ Save Wellbeing-event """
@@ -9405,12 +9407,12 @@ def new_wellbeing(request, id):
         geo_wards = ', '.join(all_geos_wards)
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    if child.geo_wards is None:
+    if geo_wards is None:
         ward = None
         subcounty = None
         county = None
     else:
-        ward_id = int(child.geo_wards)
+        ward_id = int(geo_wards)
         ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
@@ -9593,6 +9595,7 @@ def hiv_status(request):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivscreeningtool(request, id):
+
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id']
     vals = get_dict(field_name=check_fields)
@@ -9687,3 +9690,27 @@ def new_hivscreeningtool(request, id):
         form=HIV_SCREENING_FORM()
 
     return render(request,'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals':vals} )
+
+
+# New HIV Manangement Form 
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_hivmanagementform(request, id):
+    try:
+        init_data = RegPerson.objects.filter(pk=id)
+        check_fields = ['sex_id']
+        vals = get_dict(field_name=check_fields)
+        print(vals)
+        form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+        form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+    except:
+        pass
+
+    return render(request,
+                  'forms/new_hivmanagementform.html',
+                  {'form': form, 
+                   'form_arvtherapy': form_arvtherapy,
+                  'init_data': init_data,
+                  'the_child': the_child,
+                   'vals': vals})
+
