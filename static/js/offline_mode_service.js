@@ -1,5 +1,5 @@
 /*
-    A service exposing an abstractions to make the system work when there's no internet connection
+    A service exposing abstractions to make the system work when there's no internet connection
 */
 
 let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
@@ -107,6 +107,10 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
             return Base64.encode("form_data_" + this._userId);
         },
 
+        _formDataKeyStaging: function(keySalt) {
+            return this._formDataKey() + "_" + keySalt;
+        },
+
         saveFormData: function(data, submissionUrl) {
             let me = this;
             let dataToBeSubmitted = {
@@ -121,23 +125,14 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
         },
 
         _onSubmitFormSuccess: function() {
-            return ((index, remainingDataToSubmit) =>  {
-               console.log(remainingDataToSubmit);
-               // purge from the store
-                delete remainingDataToSubmit[index];
-
-                let unSubmittedData = remainingDataToSubmit.filter(item => item !== undefined);
-
-                if (unSubmittedData.length === 0) {
-                    // all data has been submitted
-                    this.remove(this._formDataKey());
-
+            return ((submittedData, remainingDataToSubmit) =>  {
+                // purge from staging store
+                this.remove(this._formDataKeyStaging(submittedData.savedOn));
+                // purge from the yet to be submitted store
+                if (remainingDataToSubmit.filter(item => item !== undefined).length === 0) {
                     $(this._connectionNotificationElementId).html("You are now online, offline mode switched off. " +
                         "All saved data has been submitted");
-                } else {
-                    this.saveJson(this._formDataKey(), unSubmittedData);
                 }
-                return unSubmittedData
             })
         },
 
@@ -145,6 +140,28 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
             return (response =>  {
                 console.log(response) ;
             })
+        },
+
+        _purgeFormDataFromStore: function(index, data) {
+            // purge from the store
+            delete data[index];
+
+            let remainingData = data.filter(item => item !== undefined);
+
+            if (remainingData.length === 0) {
+                // no remaining data, delete the key from the store completely
+                this.remove(this._formDataKey());
+            } else {
+                this.saveJson(this._formDataKey(), remainingData);
+            }
+            return remainingData
+
+        },
+
+        _moveToStagingStore: function(me, keySalt, dataItemToMoveIndex, dataItemToMove, allData) {
+            let remainingData = me._purgeFormDataFromStore(dataItemToMoveIndex, allData);
+            me.save(me._formDataKeyStaging(keySalt), Base64.encode(JSON.stringify(dataItemToMove)));
+            return remainingData;
         },
 
         submitData: function (dataKey, successHandler, errorHandler) {
@@ -155,6 +172,9 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
                 return;
             }
 
+            let moveToStagingStore = this._moveToStagingStore;
+            let me = this;
+
             dataToSubmit.filter(item => item !== undefined).forEach((toSubmit, index) => {
                 let decodedData = JSON.parse(Base64.decode(toSubmit));
                 $.ajax({
@@ -164,10 +184,11 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
                     data: JSON.stringify(decodedData.data),
                     beforeSend: function(xhr) {
                         xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+                        dataToSubmit = moveToStagingStore(me, decodedData.data.savedOn, index, decodedData, dataToSubmit);
                     },
                     success: function (message) {
                         console.log("Saved form data submitted successfully: " + message);
-                        dataToSubmit = successHandler(index, dataToSubmit);
+                        dataToSubmit = successHandler(decodedData.data, dataToSubmit);
                     },
                     error: errorHandler
                 });
