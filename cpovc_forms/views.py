@@ -34,7 +34,7 @@ from .models import (
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations, OVCCareF1B,
-    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus)
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus,OVCHIVRiskScreening)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
@@ -8738,13 +8738,13 @@ def new_cpara(request, id):
         geo_wards = None
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    child.geo_wards = geo_wards
-    if child.geo_wards is None:
+    #geo_wards = geo_wards
+    if geo_wards is None:
         ward = None
         subcounty = None
         county = None
     else:
-        ward_id = int(child.geo_wards)
+        ward_id = int(geo_wards)
         ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
@@ -8979,7 +8979,9 @@ def update_caseplan(request, event_id, ovcid):
         print delta
         print 'check delta'
         print delta
-        if delta < 90:
+
+
+        if delta < 30:
             try:
                 my_request=request.POST.get('final_submission')
 
@@ -9290,7 +9292,7 @@ def new_wellbeing(request, id):
             hse_uuid = uuid.UUID(household_id)
             house_hold = OVCHouseHold.objects.get(pk=hse_uuid)
             person = RegPerson.objects.get(pk=int(caretker_id))
-            event_type_id = 'FHSA'
+            event_type_id = 'WBG'
             date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'), fmt='%Y-%m-%d')
 
             """ Save Wellbeing-event """
@@ -9405,12 +9407,12 @@ def new_wellbeing(request, id):
         geo_wards = ', '.join(all_geos_wards)
     if all_geos_county:
         geo_county = ', '.join(all_geos_county)
-    if child.geo_wards is None:
+    if geo_wards is None:
         ward = None
         subcounty = None
         county = None
     else:
-        ward_id = int(child.geo_wards)
+        ward_id = int(geo_wards)
         ward = SetupGeography.objects.get(area_id=ward_id)
         subcounty = SetupGeography.objects.get(area_id=ward.parent_area_id)
         county = SetupGeography.objects.get(area_id=subcounty.parent_area_id)
@@ -9573,23 +9575,122 @@ def hiv_status(request):
 
 
 # New HIV Screening Tool 
+# @login_required
+# @cache_control(no_cache=True, must_revalidate=True, no_store=True)
+# def new_hivscreeningtool(request, id):
+#     try:
+#         init_data = RegPerson.objects.filter(pk=id)
+#         check_fields = ['sex_id']
+#         vals = get_dict(field_name=check_fields)
+#         print(vals)
+#         form = HIV_SCREENING_FORM(initial={'person': id})
+#     except:
+#         pass
+
+#     return render(request,
+#                   'forms/new_hivscreeningtool.html',
+#                   {'form': form, 'init_data': init_data,
+#                    'vals': vals})
+
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivscreeningtool(request, id):
-    try:
-        init_data = RegPerson.objects.filter(pk=id)
-        the_child = RegPerson.objects.get(pk=id)
-        check_fields = ['sex_id']
-        vals = get_dict(field_name=check_fields)
-        print(vals)
-        form = HIV_SCREENING_FORM(initial={'person': id})
-    except:
-        pass
 
-    return render(request,
-                  'forms/new_hivscreeningtool.html',
-                  {'form': form, 'init_data': init_data,
-                   'vals': vals})
+    init_data = RegPerson.objects.filter(pk=id)
+    check_fields = ['sex_id']
+    vals = get_dict(field_name=check_fields)
+    if request.method=='POST':
+        
+        form=HIV_SCREENING_FORM(request.POST, initial={'person':id})
+        if form.is_valid():
+            child = RegPerson.objects.get(id=id)
+            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+            event_type_id = 'HRST'
+
+            """ Save hiv_screening-event """
+            # get event counter
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=id, is_void=False).count()
+            # save event
+            ovccareevent=OVCCareEvents.objects.create(
+                event_type_id=event_type_id,
+                event_counter=event_counter,
+                event_score=0,
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(id)),
+                house_hold=house_hold
+                )
+
+            print('aaaaaaaa',request.POST.get('HIV_RS_03'))
+            # converting values AYES and ANNO to boolean true/false
+            boolean_fields = [
+                'HIV_RS_01',
+                'HIV_RS_02',
+                'HIV_RS_03', 
+                'HIV_RS_03A',
+                'HIV_RS_04',
+                'HIV_RS_05',
+                'HIV_RS_06',
+                'HIV_RS_07',
+                'HIV_RS_08',
+                'HIV_RS_09',
+                'HIV_RS_10',
+                'HIV_RS_11',
+                'HIV_RS_14',
+                'HIV_RS_16',
+                'HIV_RS_18',
+                'HIV_RS_21',
+                'HIV_RS_23',
+                
+      
+            ]
+
+            data_to_save = {}
+
+            for key, value in request.POST.iteritems():
+                if key in boolean_fields:
+                    data_to_save.update({
+                        key:  True if value == "AYES" else False
+                    })
+                else:
+                    data_to_save.update({key: value})
+
+
+            ovcscreeningtool=OVCHIVRiskScreening.objects.create(
+                person = RegPerson.objects.get(pk=int(id)),
+                date_of_event = data_to_save.get('HIV_RA_1A'),
+                test_done_when= data_to_save.get('HIV_RS_03'), #date of assesment
+                test_donewhen_result=data_to_save.get('HIV_RS_03A'),
+                caregiver_know_status= data_to_save.get('HIV_RS_01'),
+                caregiver_knowledge_yes = data_to_save.get('HIV_RS_02'),
+                parent_PLWH=data_to_save.get('HIV_RS_04'), 
+                child_sick_malnourished= data_to_save.get('HIV_RS_05'),
+                child_sexual_abuse= data_to_save.get('HIV_RS_06'),
+                adol_sick= data_to_save.get('HIV_RS_07'),
+                adol_sexual_abuse= data_to_save.get('HIV_RS_08'),
+                sex= data_to_save.get('HIV_RS_09'),
+                sti= data_to_save.get('HIV_RS_10'),
+                hiv_test_required= data_to_save.get('HIV_RS_11'),
+                parent_consent_testing= data_to_save.get('HIV_RS_14'),
+                referral_made= data_to_save.get('HIV_RS_16'),
+                referral_made_date=data_to_save.get('HIV_RS_17'),
+                referral_completed=data_to_save.get('HIV_RS_18'),
+                not_completed=data_to_save.get('HIV_RS_18A'),
+                test_result=data_to_save.get('HIV_RS_18B'),
+                art_referral= data_to_save.get('HIV_RS_21'),
+                art_referral_date=data_to_save.get('HIV_RS_22'),
+                art_referral_completed = data_to_save.get('HIV_RS_23'),
+                facility=data_to_save.get('HIV_RS_25'),
+                event = ovccareevent,
+                
+            )
+
+
+    else:
+        form=HIV_SCREENING_FORM()
+
+    return render(request,'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals':vals} )
+
 
 # New HIV Manangement Form 
 @login_required
@@ -9612,3 +9713,4 @@ def new_hivmanagementform(request, id):
                   'init_data': init_data,
                   'the_child': the_child,
                    'vals': vals})
+

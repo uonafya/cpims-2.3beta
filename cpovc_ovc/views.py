@@ -5,11 +5,11 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
-from datetime import date
+from datetime import (date, datetime)
 from .forms import OVCSearchForm, OVCRegistrationForm
 from cpovc_registry.models import (
     RegPerson, RegPersonsGuardians, RegPersonsSiblings, RegPersonsExternalIds)
-from cpovc_main.functions import get_dict
+from cpovc_main.functions import (get_dict, get_days_difference)
 from .models import (
     OVCRegistration, OVCHHMembers, OVCEligibility, OVCViralload)
 from .functions import (
@@ -114,7 +114,7 @@ def ovc_register(request, id):
         if request.method == 'POST':
             form = OVCRegistrationForm(guids=pids, data=request.POST)
             print request.POST
-            ovc_registration(request, ovc_id)
+            ovc_registration(request, ovc_id) 
             msg = "OVC Registration completed successfully"
             messages.info(request, msg)
             url = reverse('ovc_view', kwargs={'id': ovc_id})
@@ -198,8 +198,26 @@ def ovc_edit(request, id):
         hhmqs = OVCHHMembers.objects.filter(
             is_void=False, house_hold_id=hhid).order_by("-hh_head")
         # Viral Load
+       
         vloads = OVCViralload.objects.filter(
             is_void=False, person_id=ovc_id).order_by("-viral_date")
+        vlist=[]
+        for vl in vloads:
+            obj={}
+            obj['viral_date']=vl.viral_date
+            obj['viral_load']=vl.viral_load
+
+           
+
+            delta = get_days_difference(vl.viral_date)
+            print delta
+
+            if (delta) < 183 :
+                obj['status']=0
+            else:
+                obj['status']=1 
+
+            vlist.append(obj)
         # add caregivers hiv status
         hhmembers = hhmqs.exclude(person_id=child.id)
         # Get guardians and siblings ids
@@ -300,12 +318,17 @@ def ovc_edit(request, id):
         vals = get_dict(field_name=check_fields)
         hiv_data=OVCHivStatus.objects.filter(person_id=ovc_id).order_by('date_of_event')
         print ('ggggggg', hiv_data)
+
+        #date manenos
+        date_langu = datetime.now().month
+        
+       
         return render(request, 'ovc/edit_child.html',
                       {'form': form, 'status': 200, 'child': child,
                        'vals': vals, 'hhold': hhold, 'extids': gparams,
                        'hhmembers': hhmembers, 'levels': levels,
                        'sch_class': sch_class, 'siblings': siblings,
-                       'ctaker': ctaker, 'vloads': vloads,
+                       'ctaker': ctaker, 'vloads': vlist, 'mydate': date_langu, 
                        'hiv_data':hiv_data})
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
@@ -389,8 +412,8 @@ def ovc_view(request, id):
         siblings = RegPersonsSiblings.objects.filter(
             is_void=False, child_person_id=child.id)
         # Get services
-        servs = {'FSAM': 'f1a', 'FCSI': 'fcsi', 'FHSA': 'fhva'}
-        services = {'f1a': 0, 'fcsi': 0, 'fhva': 0}
+        servs = {'FSAM': 'f1a', 'FCSI': 'fcsi', 'FHSA': 'fhva',   'cpr': 'cpr',  'wba': 'wba', 'CPAR': 'CPAR', 'WBG': 'WBG' }
+        services = {'f1a': 0, 'fcsi': 0, 'fhva': 0, 'cpr': 0,  'wba': 0, 'CPAR': 0, 'WBG': 0}
         sqs = OVCCareEvents.objects.filter(
             Q(person_id=child.id) | Q(house_hold_id=hhid))
         sqs = sqs.filter(is_void=False).values(
@@ -408,7 +431,9 @@ def ovc_view(request, id):
                         'art_status_id', 'school_type_id',
                         'class_level_id']
         vals = get_dict(field_name=check_fields)
-
+        wellbeing_services = {}
+        wellbeing_services['wba']=services['wba']
+        wellbeing_services['WBG'] = services['WBG']
         care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
         return render(request, 'ovc/view_child.html',
                       {'status': 200, 'child': child, 'params': params,
@@ -419,14 +444,14 @@ def ovc_view(request, id):
                        'care_giver' :care_giver,
                        'services': services, 'allow_edit': allow_edit,
                        'suppression': vl_sup,
-                       'cpara_count': 0,
-                       'case_plan_count': 0,
-                       'well_being_count': 0
+                       'cpara_count': services['cpr'],
+                       'case_plan_count': services['CPAR'],
+                       'well_being_count': wellbeing_services
                        })
     except Exception, e:
         print "error with OVC viewing - %s" % (str(e))
         # raise e
-        msg= "Error occured during ovc view"
+        msg= "Error occured during ovc view - Complete initial registration form"
         messages.error(request, msg)
         url=reverse('ovc_register', kwargs={'id':id})
         return HttpResponseRedirect(url)
