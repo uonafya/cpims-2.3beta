@@ -6214,7 +6214,7 @@ class WellbeingAdolescentForm(forms.Form):
 
 # HIV Screening Form
 class HIV_SCREENING_FORM(forms.Form):
-
+    org_units_list = [('', 'Please Select')] + list(RegOrgUnit.objects.filter().values_list('id', 'org_unit_name'))
     HIV_RA_1A = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
@@ -6463,12 +6463,23 @@ class HIV_SCREENING_FORM(forms.Form):
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RS_25 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Facility Name'),
-               'class': 'form-control',
-               'id': 'HIV_RS_25',
-            #    'data-parsley-group': 'group0'
-               }))
+    HIV_RA_3Q6 = forms.ChoiceField(
+            choices=org_units_list,
+            initial='',
+            widget=forms.Select(
+                attrs={'class': 'form-control',
+                       'id': 'HIV_RA_3Q6'
+                      }
+            )
+    )
+                    
+    # HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
+    #     attrs={'placeholder': _('Facility Name'),
+    #            'class': 'form-control',
+    #            'id': 'HIV_RA_3Q6',
+    #         #    'data-parsley-group': 'group0'
+    #            }))
+
 
 # HIV Management - Visitation Form 
 class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):

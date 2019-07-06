@@ -440,6 +440,15 @@
         $( function() {
 
             $('#wizard-hivsct').bwizard();
+            $('#HIV_RA_3Q6').multiselect({
+                enableCaseInsensitiveFiltering: true,
+                numberDisplayed: 1,
+                maxHeight: 300,
+                buttonWidth: '100%',
+                disableIfEmpty: true,
+                enableClickableOptGroups: true,
+                buttonClass: 'btn btn-white'
+            });
             $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
