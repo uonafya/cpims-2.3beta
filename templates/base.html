@@ -225,8 +225,6 @@
 
 	  })(jQuery);
 	  
-
-
 	//   $('select#chv_unit_id').multiselect({'multiple': false});
 	//   $('select#cbo_unit_id').multiselect({'multiple': false});
     </script>
@@ -234,8 +232,12 @@
     <script src="{% static 'js/offline_mode_service.js' %}"></script>
     <script>
         $(document).ready(function() {
+            let userId = "{{ request.user.reg_person_id | escapejs }}";
+
+            let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" == "True";
+
             // We just need a singleton for this client
-            OfflineModeService().client("https://1a995c28.ngrok.io", "internet_check", "online_mode", 10000);
+            OfflineModeService(userId, offlineModeCapabilityEnabled).client("internet_check", "online_mode", 5000);
         });
     </script>
     <!-- ================== END LAZY PAGE LEVEL JS ================== -->

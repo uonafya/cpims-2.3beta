@@ -2,19 +2,21 @@
     A service exposing an abstractions to make the system work when there's no internet connection
 */
 
-let OfflineModeService = function () {
+let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
     "use strict";
 
     let offlineModeClient = {
         isConnectionOn: true,
 
+        isOfflineModeCapabilityEnabled: offlineModeCapabilityEnabled,
+
         connectivityCheckSecondsInterval: 60000,
+
+        userId: userId,
 
         connectionNotificationElementId: undefined,
 
         onlineModeMenuItemsSelector: undefined,
-
-        connectivityCheckUrl: undefined,
 
         lastOnlineTime: undefined,
 
@@ -53,18 +55,7 @@ let OfflineModeService = function () {
         },
 
         checkConnectivity: function () {
-            let me = this;
-            $.ajax({
-                url: this.connectivityCheckUrl,
-                type: "GET",
-                success: function () {
-                    me.isConnectionOn = true;
-
-                } ,
-                error: function () {
-                    me.isConnectionOn = false;
-                }
-            });
+            this.isConnectionOn = navigator.onLine;
         },
 
         periodicallyCheckConnectivity: function() {
@@ -79,16 +70,28 @@ let OfflineModeService = function () {
             if (this.isConnectionOn) {
                 $(this.onlineModeMenuItemsSelector).show();
                 $(this.connectionNotificationElementId).html("You are now online, offline mode switched off");
-                $(this.connectionNotificationElementId).addClass('alert-info');
-                $(this.connectionNotificationElementId).removeClass('alert-danger');
-                this.submitData(this.onSubmitFormSuccess(), this.onSubmitFormError());
+                this._notificationStatusBadge('alert-info', 'alert-danger');
+                this._handleIsOnline();
             } else {
                 $(this.onlineModeMenuItemsSelector).hide();
                 $(this.connectionNotificationElementId).html("Switching to offline mode, no internet connection");
-                $(this.connectionNotificationElementId).removeClass('alert-info');
-                $(this.connectionNotificationElementId).addClass('alert-danger');
+                this._notificationStatusBadge('alert-danger', 'alert-info');
             }
+        },
 
+        _handleIsOnline: function() {
+            if (this.isOfflineModeCapabilityEnabled) {
+                console.log("Handling is  online");
+                // this.submitData(this.onSubmitFormSuccess(), this.onSubmitFormError());
+            }
+        },
+
+        _notificationStatusBadge: function(badgeToAdd, badgeToRemove) {
+            // only apply the badges if offline capability is enabled
+            if (this.isOfflineModeCapabilityEnabled) {
+                $(this.connectionNotificationElementId).addClass(badgeToAdd);
+                $(this.connectionNotificationElementId).removeClass(badgeToRemove);
+            }
         },
 
         appendDataToStorage: function(dataKey, data) {
@@ -148,16 +151,16 @@ let OfflineModeService = function () {
     };
 
     return {
-        client: function (connectivityCheckUrl, connectionNotificationElementId, onlineModeMenuItemsSelector, connectivityCheckSecondsInterval) {
+        client: function (connectionNotificationElementId, onlineModeMenuItemsSelector, connectivityCheckSecondsInterval) {
             console.log("Initializing offline mode client");
             // implement it as a singleton to ensure we have only one instance of it
             if (window.offlineModeClient === undefined) {
-                offlineModeClient.connectivityCheckUrl = connectivityCheckUrl;
                 offlineModeClient.connectionNotificationElementId = $("#" + connectionNotificationElementId);
                 offlineModeClient.onlineModeMenuItemsSelector = $("." + onlineModeMenuItemsSelector);
                 offlineModeClient.lastOfflineTime = null;
                 offlineModeClient.lastOnlineTime = (new Date()).getTime();
                 offlineModeClient.connectivityCheckSecondsInterval = connectivityCheckSecondsInterval;
+                offlineModeClient.userId = userId;
                 offlineModeClient.checkConnectivity();
                 offlineModeClient.notifyConnectivityStatus();
                 offlineModeClient.periodicallyCheckConnectivity();
