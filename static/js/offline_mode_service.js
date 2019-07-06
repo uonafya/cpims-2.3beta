@@ -105,18 +105,41 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
             this.saveJson(dataKey, existingData);
         },
 
-        saveFormData: function(dataKey, data, submissionUrl) {
+        formDataKey: function () {
+            return Base64.encode("form_data_" + this.userId);
+        },
+
+        saveFormData: function(data, submissionUrl) {
+            let me = this;
             let dataToBeSubmitted = {
                 'submissionUrl': submissionUrl,
-                'data': data,
-                'savedOn': (new Date()).getTime()
+                'data': {
+                    'userId': me.userId,
+                    'payload': data,
+                    'savedOn': (new Date()).getTime()
+                }
             };
-            this.appendDataToStorage(dataKey, dataToBeSubmitted);
+            this.appendDataToStorage(this.formDataKey(), Base64.encode(dataToBeSubmitted));
         },
 
         onSubmitFormSuccess: function() {
-            return (response =>  {
-               console.log(response) ;
+            return ((index, remainingDataToSubmit) =>  {
+               console.log(remainingDataToSubmit);
+               // purge from the store
+                delete remainingDataToSubmit[index];
+
+                let unSubmittedData = remainingDataToSubmit.filter(item => item !== undefined);
+
+                if (unSubmittedData.length === 0) {
+                    // all data has been submitted
+                    this.remove(this.formDataKey());
+
+                    $(this.connectionNotificationElementId).html("You are now online, offline mode switched off. " +
+                        "All saved data has been submitted");
+                } else {
+                    this.saveJson(this.formDataKey(), unSubmittedData);
+                }
+                return unSubmittedData
             })
         },
 
@@ -135,19 +158,19 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
                 return;
             }
 
-            // Todo - purge from the storage submitted data
-
-            dataToSubmit.forEach(data => {
+            dataToSubmit.filter(item => item !== undefined).forEach((toSubmit, index) => {
                 $.ajax({
                     url: data.submissionUrl,
                     type: "POST",
-                    data: JSON.stringify(data.data),
-                    success: successHandler ,
+                    data: JSON.stringify(toSubmit.data),
+                    success: (message) => {
+                        console.log("Saved form data submitted successfully: " + message);
+                        dataToSubmit = this.onSubmitFormSuccess(index, dataToSubmit);
+                    },
                     error: errorHandler
                 });
             });
         }
-
     };
 
     return {
