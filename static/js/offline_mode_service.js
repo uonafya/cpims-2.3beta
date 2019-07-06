@@ -20,6 +20,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
 
         _storage: localStorage,
 
+        _isSavedDataSubmissionPaused: false,
+
         lastOnlineTime: undefined,
 
         lastOfflineTime: undefined,
@@ -139,6 +141,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
         _onSubmitFormError: function() {
             return (response =>  {
                 console.log(response) ;
+                // a user gets re-directed to a page with pre-filled in data. We do not want multiple re-directions in succession
+                this._isSavedDataSubmissionPaused = true;
             })
         },
 
@@ -165,7 +169,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
         },
 
         submitData: function (dataKey, successHandler, errorHandler) {
-
             let dataToSubmit = this.retrieveJson(dataKey);
 
             if (dataToSubmit === null) {
@@ -175,7 +178,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
             let moveToStagingStore = this._moveToStagingStore;
             let me = this;
 
-            dataToSubmit.filter(item => item !== undefined).forEach((toSubmit, index) => {
+            dataToSubmit.filter(item => item !== undefined && !me._isSavedDataSubmissionPaused).forEach((toSubmit, index) => {
                 let decodedData = JSON.parse(Base64.decode(toSubmit));
                 $.ajax({
                     url: decodedData.submissionUrl,
