@@ -6731,7 +6731,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_A',
                'id': 'HIV_MGMT_1_A',
                'autocomplete': "off",
-            #   'data-parsley-required': "true",
+               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
 
@@ -6743,14 +6743,14 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_B',
                'id': 'HIV_MGMT_1_B',
                'autocomplete': "off",
-       #        'data-parsley-required': "true",
+               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
 
     HIV_MGMT_1_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Value'),
                'class': 'form-control' ,
-       #        'data-parsley-required': "False"
+               'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6763,7 +6763,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_D',
                'id': 'HIV_MGMT_1_D',
                'autocomplete': "off",
-         #      'data-parsley-required': "true",
+               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
         }))
     
@@ -6772,7 +6772,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6781,7 +6781,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6790,7 +6790,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 

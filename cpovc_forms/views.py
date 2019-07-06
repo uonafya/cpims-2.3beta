@@ -9596,16 +9596,18 @@ def new_hivscreeningtool(request, id):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
     form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+    print "test"
+    print request.POST.get('HIV_MGMT_2_C')
     if request.method == 'POST':
         #print request.POST
         try:
             person = RegPerson.objects.get(id=id)
-            OVCHIVManagement(
+            qry=OVCHIVManagement(
                 person=person,
                 Height=request.POST.get('HIV_MGMT_2_C'),
                 Hiv_Confirmed_Date = request.POST.get('HIV_MGMT_1_A'),
                 Treatment_initiated_Date = request.POST.get('HIV_MGMT_1_B'),
-                FirstLine_Start_Date = request.POST.get('HIV_MGMT_1_D'),
+                FirstLine_Start_Date = request.POST.get('HIV_MGMT_1_D'), #date
                 Substitution_FirstLine_ARV = request.POST.get('HIV_MGMT_1_E_DATE'),
                 Substitution_FirstLine_Date = request.POST.get('HIV_MGMT_1_E_DATE'),
                 Switch_SecondLine_ARV = request.POST.get('HIV_MGMT_1_F'),
@@ -9625,7 +9627,7 @@ def new_hivmanagementform(request, id):
                 Viral_Load_Results = request.POST.get('HIV_MGMT_2_I_1'),
                 Viral_Load_Date = request.POST.get('HIV_MGMT_2_I_DATE'),
                 Detectable_ViralLoad_Interventions = request.POST.get('HIV_MGMT_2_J'),
-                # Support_group_Enrollment=request.POST.get(''),
+                # # # # Support_group_Enrollment=request.POST.get(''),
                 Support_group_Status = request.POST.get('HIV_MGMT_2_N'),
                 NHIF_Enrollment = request.POST.get('HIV_MGMT_2_O_1'),
                 NHIF_Status = request.POST.get('HIV_MGMT_2_O_2'),
@@ -9636,17 +9638,18 @@ def new_hivmanagementform(request, id):
                 NextAppointment_Date = request.POST.get('HIV_MGMT_2_Q'),
                 Nutritional_Support = request.POST.get('HIV_MGMT_2_M'),
                 Peer_Educator_Name = request.POST.get('HIV_MGMT_2_R'),
-                # Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_R')
-                # event=request.POST.get('')
-                # is_void=request.POST.get('')
-                date_of_event = request.POST.get(''),
-                timestamp_created = request.POST.get(''),
-                timestamp_updated = request.POST.get('')
+                Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_R')
+                # # event=request.POST.get('')
+                # # is_void=request.POST.get('')
+                #date_of_event = request.POST.get(''),
+                #timestamp_created = request.POST.get(''),
+                #timestamp_updated = request.POST.get('')
             ).save()
 
-            print "insert test complete"
-        except:
+            #print qry.query # print the execute query
+        except Exception, e:
             print "insertion failed"
+            print e
             from django.db import connection
             print connection.queries[-1]
 
