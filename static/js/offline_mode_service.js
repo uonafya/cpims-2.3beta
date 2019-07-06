@@ -2,30 +2,30 @@
     A service exposing an abstractions to make the system work when there's no internet connection
 */
 
-let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
+let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
     "use strict";
 
     let offlineModeClient = {
-        isConnectionOn: true,
+        _isConnectionOn: true,
 
-        isOfflineModeCapabilityEnabled: offlineModeCapabilityEnabled,
+        _isOfflineModeCapabilityEnabled: offlineModeCapabilityEnabled,
 
-        connectivityCheckSecondsInterval: 60000,
+        _connectivityCheckSecondsInterval: 60000,
 
-        userId: userId,
+        _userId: _userId,
 
-        connectionNotificationElementId: undefined,
+        _connectionNotificationElementId: undefined,
 
-        onlineModeMenuItemsSelector: undefined,
+        _onlineModeMenuItemsSelector: undefined,
+
+        _storage: localStorage,
 
         lastOnlineTime: undefined,
 
         lastOfflineTime: undefined,
 
-        storage: localStorage,
-
         save: function (key, data) {
-            this.storage.setItem(key, data);
+            this._storage.setItem(key, data);
         },
 
         saveJson: function(key, data) {
@@ -33,14 +33,13 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
         },
 
         retrieve: function (key) {
-            return this.storage.getItem(key);
+            return this._storage.getItem(key);
         },
 
         retrieveJson: function(key) {
             let data = this.retrieve(key);
 
             if (data === null) {
-                console.log("No data found in storage with key: " + key);
                 return null;
             }
             return JSON.parse(Base64.decode(data));
@@ -55,42 +54,41 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
         },
 
         checkConnectivity: function () {
-            this.isConnectionOn = navigator.onLine;
+            this._isConnectionOn = navigator.onLine;
         },
 
         periodicallyCheckConnectivity: function() {
             setInterval(() => {
                this.checkConnectivity();
                this.notifyConnectivityStatus();
-            }, this.connectivityCheckSecondsInterval);
+            }, this._connectivityCheckSecondsInterval);
         },
 
         notifyConnectivityStatus: function() {
 
-            if (this.isConnectionOn) {
-                $(this.onlineModeMenuItemsSelector).show();
-                $(this.connectionNotificationElementId).html("You are now online, offline mode switched off");
+            if (this._isConnectionOn) {
+                $(this._onlineModeMenuItemsSelector).show();
+                $(this._connectionNotificationElementId).html("You are now online, offline mode switched off");
                 this._notificationStatusBadge('alert-info', 'alert-danger');
                 this._handleIsOnline();
             } else {
-                $(this.onlineModeMenuItemsSelector).hide();
-                $(this.connectionNotificationElementId).html("Switching to offline mode, no internet connection");
+                $(this._onlineModeMenuItemsSelector).hide();
+                $(this._connectionNotificationElementId).html("Switching to offline mode, no internet connection");
                 this._notificationStatusBadge('alert-danger', 'alert-info');
             }
         },
 
         _handleIsOnline: function() {
-            if (this.isOfflineModeCapabilityEnabled) {
-                console.log("Handling is  online");
+            if (this._isOfflineModeCapabilityEnabled) {
                 this.submitData(this._formDataKey(), this._onSubmitFormSuccess(), this._onSubmitFormError());
             }
         },
 
         _notificationStatusBadge: function(badgeToAdd, badgeToRemove) {
             // only apply the badges if offline capability is enabled
-            if (this.isOfflineModeCapabilityEnabled) {
-                $(this.connectionNotificationElementId).addClass(badgeToAdd);
-                $(this.connectionNotificationElementId).removeClass(badgeToRemove);
+            if (this._isOfflineModeCapabilityEnabled) {
+                $(this._connectionNotificationElementId).addClass(badgeToAdd);
+                $(this._connectionNotificationElementId).removeClass(badgeToRemove);
             }
         },
 
@@ -106,7 +104,7 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
         },
 
         _formDataKey: function () {
-            return Base64.encode("form_data_" + this.userId);
+            return Base64.encode("form_data_" + this._userId);
         },
 
         saveFormData: function(data, submissionUrl) {
@@ -114,7 +112,7 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
             let dataToBeSubmitted = {
                 'submissionUrl': submissionUrl,
                 'data': {
-                    'userId': me.userId,
+                    '_userId': me._userId,
                     'payload': data,
                     'savedOn': (new Date()).getTime()
                 }
@@ -134,7 +132,7 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
                     // all data has been submitted
                     this.remove(this._formDataKey());
 
-                    $(this.connectionNotificationElementId).html("You are now online, offline mode switched off. " +
+                    $(this._connectionNotificationElementId).html("You are now online, offline mode switched off. " +
                         "All saved data has been submitted");
                 } else {
                     this.saveJson(this._formDataKey(), unSubmittedData);
@@ -154,13 +152,11 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
             let dataToSubmit = this.retrieveJson(dataKey);
 
             if (dataToSubmit === null) {
-                console.log("There is no pending data to be submitted");
                 return;
             }
 
             dataToSubmit.filter(item => item !== undefined).forEach((toSubmit, index) => {
                 let decodedData = JSON.parse(Base64.decode(toSubmit));
-                console.log(decodedData.data);
                 $.ajax({
                     url: decodedData.submissionUrl,
                     type: "POST",
@@ -180,16 +176,16 @@ let OfflineModeService = function (userId, offlineModeCapabilityEnabled) {
     };
 
     return {
-        client: function (connectionNotificationElementId, onlineModeMenuItemsSelector, connectivityCheckSecondsInterval) {
+        client: function (_connectionNotificationElementId, _onlineModeMenuItemsSelector, _connectivityCheckSecondsInterval) {
             console.log("Initializing offline mode client");
-            // implement it as a singleton to ensure we have only one instance of it
+            // Implementing it as a singleton to ensure we have only one instance of it
             if (window.offlineModeClient === undefined) {
-                offlineModeClient.connectionNotificationElementId = $("#" + connectionNotificationElementId);
-                offlineModeClient.onlineModeMenuItemsSelector = $("." + onlineModeMenuItemsSelector);
+                offlineModeClient._connectionNotificationElementId = $("#" + _connectionNotificationElementId);
+                offlineModeClient._onlineModeMenuItemsSelector = $("." + _onlineModeMenuItemsSelector);
                 offlineModeClient.lastOfflineTime = null;
                 offlineModeClient.lastOnlineTime = (new Date()).getTime();
-                offlineModeClient.connectivityCheckSecondsInterval = connectivityCheckSecondsInterval;
-                offlineModeClient.userId = userId;
+                offlineModeClient._connectivityCheckSecondsInterval = _connectivityCheckSecondsInterval;
+                offlineModeClient._userId = _userId;
                 offlineModeClient.checkConnectivity();
                 offlineModeClient.notifyConnectivityStatus();
                 offlineModeClient.periodicallyCheckConnectivity();
