@@ -6252,7 +6252,7 @@ class WellbeingAdolescentForm(forms.Form):
 
 # HIV Screening Form
 class HIV_SCREENING_FORM(forms.Form):
-
+    org_units_list = [('', 'Please Select')] + list(RegOrgUnit.objects.filter().values_list('id', 'org_unit_name'))
     HIV_RA_1A = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
@@ -6265,7 +6265,7 @@ class HIV_SCREENING_FORM(forms.Form):
                'data-parsley-group': 'group0'
         }))
 
-    HIV_RA_1B = forms.ChoiceField(
+    HIV_RS_01 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6274,8 +6274,8 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_STATUS = forms.ChoiceField(
-        choices = (('HIV_POSTIVE', 'HIV_Positive'),('HIV_NEGATIVE', 'HIV_Negative'),),
+    HIV_RS_02 = forms.ChoiceField(
+        choices = (('AYES', 'HIV_Positive'),('ANNO', 'HIV_Negative'),),
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
@@ -6283,7 +6283,25 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_1C = forms.ChoiceField(
+    HIV_RS_03 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+    HIV_RS_03A=forms.ChoiceField(
+        choices = (('AYES', 'HIV_Positive'),('ANNO', 'HIV_Negative'),),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+
+    HIV_RS_04 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6292,17 +6310,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-
-    HIV_RA_2Q1 = forms.ChoiceField(
-        choices = YESNO_CHOICES,
-        widget = forms.RadioSelect(
-        renderer=RadioCustomRenderer,
-        attrs={
-        # 'data-parsley-required': 'true',
-        # 'data-parsley-errors-container': "#errorfield"
-    }))
-
-    HIV_RA_2Q2 = forms.ChoiceField(
+    HIV_RS_05 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6311,7 +6319,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
     
-    HIV_RA_2Q3 = forms.ChoiceField(
+    HIV_RS_06 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6320,7 +6328,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q4 = forms.ChoiceField(
+    HIV_RS_07 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6329,7 +6337,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q5 = forms.ChoiceField(
+    HIV_RS_08 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6338,7 +6346,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q6 = forms.ChoiceField(
+    HIV_RS_09 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6347,7 +6355,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q7 = forms.ChoiceField(
+    HIV_RS_10 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6356,7 +6364,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q8 = forms.ChoiceField(
+    HIV_RS_11 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6365,7 +6373,7 @@ class HIV_SCREENING_FORM(forms.Form):
         'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q1 = forms.ChoiceField(
+    HIV_RS_14 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6374,20 +6382,20 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q1_DATE = forms.DateField(
+    HIV_RS_15 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q1_DATE',
-               'id': 'HIV_RA_3Q1_DATE',
+               'name': 'HIV_RS_15',
+               'id': 'HIV_RS_15',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q2 = forms.ChoiceField(
+    HIV_RS_16 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6396,20 +6404,20 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q2_DATE = forms.DateField(
+    HIV_RS_17 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q2_DATE',
-               'id': 'HIV_RA_3Q2_DATE',
+               'name': 'HIV_RS_17',
+               'id': 'HIV_RS_17',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q3 = forms.ChoiceField(
+    HIV_RS_18 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6418,17 +6426,17 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RS_3Q3A = forms.CharField(
+    HIV_RS_18A = forms.CharField(
         widget = forms.Textarea(
         attrs = {'placeholder': _('Response'),
                'class': 'form-control',
-               'id': 'HIV_RS_3Q3A',
+               'id': 'HIV_RS_18A',
             #    'data-parsley-group': 'group0',
                'rows': '2'})
                )
     
-    HIV_RA_3Q3B = forms.ChoiceField(
-        choices = (('HIV_POSTIVE', 'HIV_Positive'), ('HIV_NEGATIVE', 'HIV_NEGATIVE'), ('HIV_UNKOWN', 'HIV_UNKOWN/UNDISCLOSED')),
+    HIV_RS_18B = forms.ChoiceField(
+        choices = (('1', 'HIV_Positive'), ('2', 'HIV_NEGATIVE'), ('3', 'HIV_UNKOWN/UNDISCLOSED')),
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
@@ -6436,20 +6444,20 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
     
-    HIV_RA_3Q3_DATE = forms.DateField(
+    HIV_RS_19 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q3_DATE',
-               'id': 'HIV_RA_3Q3_DATE',
+               'name': 'HIV_RS_19',
+               'id': 'HIV_RS_19',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q4 = forms.ChoiceField(
+    HIV_RS_21 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6458,20 +6466,20 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q4_DATE = forms.DateField(
+    HIV_RS_22 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q4_DATE',
-               'id': 'HIV_RA_3Q4_DATE',
+               'name': 'HIV_RS_22',
+               'id': 'HIV_RS_22',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q5 = forms.ChoiceField(
+    HIV_RS_23 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6480,25 +6488,36 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q5_DATE = forms.DateField(
+    HIV_RS_24 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q5_DATE',
-               'id': 'HIV_RA_3Q5_DATE',
+               'name': 'HIV_RS_24',
+               'id': 'HIV_RS_24',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Facility Name'),
-               'class': 'form-control',
-               'id': 'HIV_RA_3Q6',
-            #    'data-parsley-group': 'group0'
-               }))
+    HIV_RA_3Q6 = forms.ChoiceField(
+            choices=org_units_list,
+            initial='',
+            widget=forms.Select(
+                attrs={'class': 'form-control',
+                       'id': 'HIV_RA_3Q6'
+                      }
+            )
+    )
+                    
+    # HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
+    #     attrs={'placeholder': _('Facility Name'),
+    #            'class': 'form-control',
+    #            'id': 'HIV_RA_3Q6',
+    #         #    'data-parsley-group': 'group0'
+    #            }))
+
 
 # HIV Management - Visitation Form 
 class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
