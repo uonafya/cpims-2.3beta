@@ -34,7 +34,7 @@ from .models import (
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations, OVCCareF1B,
-    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus,OVCHIVRiskScreening)
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus,OVCHIVRiskScreening,OVCHIVManagement)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
@@ -9580,7 +9580,7 @@ def hiv_status(request):
         return HttpResponseRedirect(reverse(forms_home))
 
 
-# New HIV Screening Tool 
+# New HIV Screening Tool
 # @login_required
 # @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 # def new_hivscreeningtool(request, id):
@@ -9601,13 +9601,12 @@ def hiv_status(request):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivscreeningtool(request, id):
-
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id']
     vals = get_dict(field_name=check_fields)
-    if request.method=='POST':
-        
-        form=HIV_SCREENING_FORM(request.POST, initial={'person':id})
+    if request.method == 'POST':
+
+        form = HIV_SCREENING_FORM(request.POST, initial={'person': id})
         if form.is_valid():
             child = RegPerson.objects.get(id=id)
             house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
@@ -9618,21 +9617,21 @@ def new_hivscreeningtool(request, id):
             event_counter = OVCCareEvents.objects.filter(
                 event_type_id=event_type_id, person=id, is_void=False).count()
             # save event
-            ovccareevent=OVCCareEvents.objects.create(
+            ovccareevent = OVCCareEvents.objects.create(
                 event_type_id=event_type_id,
                 event_counter=event_counter,
                 event_score=0,
                 created_by=request.user.id,
                 person=RegPerson.objects.get(pk=int(id)),
                 house_hold=house_hold
-                )
+            )
 
-            print('aaaaaaaa',request.POST.get('HIV_RS_03'))
+            print('aaaaaaaa', request.POST.get('HIV_RS_03'))
             # converting values AYES and ANNO to boolean true/false
             boolean_fields = [
                 'HIV_RS_01',
                 'HIV_RS_02',
-                'HIV_RS_03', 
+                'HIV_RS_03',
                 'HIV_RS_03A',
                 'HIV_RS_04',
                 'HIV_RS_05',
@@ -9647,8 +9646,7 @@ def new_hivscreeningtool(request, id):
                 'HIV_RS_18',
                 'HIV_RS_21',
                 'HIV_RS_23',
-                
-      
+
             ]
 
             data_to_save = {}
@@ -9656,67 +9654,164 @@ def new_hivscreeningtool(request, id):
             for key, value in request.POST.iteritems():
                 if key in boolean_fields:
                     data_to_save.update({
-                        key:  True if value == "AYES" else False
+                        key: True if value == "AYES" else False
                     })
                 else:
                     data_to_save.update({key: value})
 
-
-            ovcscreeningtool=OVCHIVRiskScreening.objects.create(
-                person = RegPerson.objects.get(pk=int(id)),
-                date_of_event = data_to_save.get('HIV_RA_1A'),
-                test_done_when= data_to_save.get('HIV_RS_03'), #date of assesment
+            ovcscreeningtool = OVCHIVRiskScreening.objects.create(
+                person=RegPerson.objects.get(pk=int(id)),
+                date_of_event=data_to_save.get('HIV_RA_1A'),
+                test_done_when=data_to_save.get('HIV_RS_03'),  # date of assesment
                 test_donewhen_result=data_to_save.get('HIV_RS_03A'),
-                caregiver_know_status= data_to_save.get('HIV_RS_01'),
-                caregiver_knowledge_yes = data_to_save.get('HIV_RS_02'),
-                parent_PLWH=data_to_save.get('HIV_RS_04'), 
-                child_sick_malnourished= data_to_save.get('HIV_RS_05'),
-                child_sexual_abuse= data_to_save.get('HIV_RS_06'),
-                adol_sick= data_to_save.get('HIV_RS_07'),
-                adol_sexual_abuse= data_to_save.get('HIV_RS_08'),
-                sex= data_to_save.get('HIV_RS_09'),
-                sti= data_to_save.get('HIV_RS_10'),
-                hiv_test_required= data_to_save.get('HIV_RS_11'),
-                parent_consent_testing= data_to_save.get('HIV_RS_14'),
-                referral_made= data_to_save.get('HIV_RS_16'),
+                caregiver_know_status=data_to_save.get('HIV_RS_01'),
+                caregiver_knowledge_yes=data_to_save.get('HIV_RS_02'),
+                parent_PLWH=data_to_save.get('HIV_RS_04'),
+                child_sick_malnourished=data_to_save.get('HIV_RS_05'),
+                child_sexual_abuse=data_to_save.get('HIV_RS_06'),
+                adol_sick=data_to_save.get('HIV_RS_07'),
+                adol_sexual_abuse=data_to_save.get('HIV_RS_08'),
+                sex=data_to_save.get('HIV_RS_09'),
+                sti=data_to_save.get('HIV_RS_10'),
+                hiv_test_required=data_to_save.get('HIV_RS_11'),
+                parent_consent_testing=data_to_save.get('HIV_RS_14'),
+                referral_made=data_to_save.get('HIV_RS_16'),
                 referral_made_date=data_to_save.get('HIV_RS_17'),
                 referral_completed=data_to_save.get('HIV_RS_18'),
                 not_completed=data_to_save.get('HIV_RS_18A'),
                 test_result=data_to_save.get('HIV_RS_18B'),
-                art_referral= data_to_save.get('HIV_RS_21'),
+                art_referral=data_to_save.get('HIV_RS_21'),
                 art_referral_date=data_to_save.get('HIV_RS_22'),
-                art_referral_completed = data_to_save.get('HIV_RS_23'),
+                art_referral_completed=data_to_save.get('HIV_RS_23'),
                 facility=data_to_save.get('HIV_RS_25'),
-                event = ovccareevent,
-                
+                event=ovccareevent,
+
             )
 
 
     else:
-        form=HIV_SCREENING_FORM()
+        form = HIV_SCREENING_FORM()
 
-    return render(request,'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals':vals} )
+    return render(request, 'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals': vals})
 
 
-# New HIV Manangement Form 
+# New HIV Manangement Form
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
-    try:
-        init_data = RegPerson.objects.filter(pk=id)
-        check_fields = ['sex_id']
-        vals = get_dict(field_name=check_fields)
-        print(vals)
-        form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
-        form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
-    except:
-        pass
+    form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+    print "test"
+    print request.POST.get('HIV_MGMT_2_C')
+    if request.method == 'POST':
+        # print request.POST
+        try:
+            person = RegPerson.objects.get(id=id)
+            qry = OVCHIVManagement(
+                person=person,
+                Height=request.POST.get('HIV_MGMT_2_C'),
+                Hiv_Confirmed_Date=request.POST.get('HIV_MGMT_1_A'),
+                Treatment_initiated_Date=request.POST.get('HIV_MGMT_1_B'),
+                FirstLine_Start_Date=request.POST.get('HIV_MGMT_1_D'),  # date
+                Substitution_FirstLine_ARV=request.POST.get('HIV_MGMT_1_E'),
+                Substitution_FirstLine_Date=request.POST.get('HIV_MGMT_1_E_DATE'),
+                Switch_SecondLine_ARV=request.POST.get('HIV_MGMT_1_F'),
+                Switch_SecondLine_Date=request.POST.get('HIV_MGMT_1_F_DATE'),
+                Switch_ThirdLine_ARV=request.POST.get('HIV_MGMT_1_G'),
+                Switch_ThirdLine_Date=request.POST.get('HIV_MGMT_1_G_DATE'),
+                Visit_Date=request.POST.get('HIV_MGMT_2_A'),
+                Duration_ART=request.POST.get('HIV_MGMT_2_B'),
+                MUAC=request.POST.get('HIV_MGMT_2_D'),
+                Adherence=request.POST.get('HIV_MGMT_2_E'),
+                Adherence_Drugs_Duration=request.POST.get('HIV_MGMT_2_F'),
+                Adherence_counselling=request.POST.get('HIV_MGMT_2_G'),
+                Treatment_Supporter_Relationship=request.POST.get('HIV_MGMT_2_H_1'),
+                Treatment_Supporter_Gender=request.POST.get('HIV_MGMT_2_H_3'),
+                Treatment_Supporter_Age=request.POST.get('HIV_MGMT_2_H_4'),
+                Treament_Supporter_HIV=request.POST.get('HIV_MGMT_2_H_5'),
+                Viral_Load_Results=request.POST.get('HIV_MGMT_2_I_1'),
+                Viral_Load_Date=request.POST.get('HIV_MGMT_2_I_DATE'),
+                Detectable_ViralLoad_Interventions=request.POST.get('HIV_MGMT_2_J'),
+                # # # # Support_group_Enrollment=request.POST.get(''),
+                Support_group_Status=request.POST.get('HIV_MGMT_2_N'),
+                NHIF_Enrollment=request.POST.get('HIV_MGMT_2_O_1'),
+                NHIF_Status=request.POST.get('HIV_MGMT_2_O_2'),
+                Referral_Services=request.POST.get('HIV_MGMT_2_P'),
+                Disclosure=request.POST.get('HIV_MGMT_2_K'),
+                MUAC_Score=request.POST.get('HIV_MGMT_2_L_1'),
+                BMI=request.POST.get('HIV_MGMT_2_L_2'),
+                NextAppointment_Date=request.POST.get('HIV_MGMT_2_Q'),
+                Nutritional_Support=request.POST.get('HIV_MGMT_2_M'),
+                Peer_Educator_Name=request.POST.get('HIV_MGMT_2_R'),
+                Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_R')
+                # # event=request.POST.get('')
+                # # is_void=request.POST.get('')
+                # date_of_event = request.POST.get(''),
+                # timestamp_created = request.POST.get(''),
+                # timestamp_updated = request.POST.get('')
+            ).save()
 
-    return render(request,
-                  'forms/new_hivmanagementform.html',
-                  {'form': form, 
-                   'form_arvtherapy': form_arvtherapy,
-                  'init_data': init_data,
-                  'the_child': the_child,
-                   'vals': vals})
+            # print qry.query # print the execute query
+        except Exception, e:
+            print "insertion failed"
+            print e
+            from django.db import connection
+            print connection.queries[-1]
 
+        form = OVCSearchForm(data=request.POST)
+        return render(request, 'ovc/home.html', {'form': form, 'status': 200})
+    else:
+        try:
+
+            print "get rqst 1"
+            init_data = RegPerson.objects.filter(pk=id)
+            print "get rqst 2"
+            check_fields = ['sex_id']
+            print "get rqst 3"
+            vals = get_dict(field_name=check_fields)
+            print "get rqst 4"
+            print(vals)
+            print "get rqst 5"
+            ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
+                                                                                        'Treatment_initiated_Date',
+                                                                                        'Substitution_FirstLine_ARV',
+                                                                                        'FirstLine_Start_Date',
+                                                                                        'Switch_SecondLine_ARV',
+                                                                                        'Switch_SecondLine_Date',
+                                                                                        'Switch_ThirdLine_ARV',
+                                                                                        'Switch_ThirdLine_Date')[0:1]
+            form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            if(ovc_hiv_obj):
+                hiv_confirmed_date = 0
+                treatment_initiated_date = 0
+                firstLine_start_date = 0
+                substitution_firstLine_arv = 0
+                substitution_firstLine_fate = 0
+                switch_thirdLine_arv = 0
+                switch_thirdLine_date = 0
+
+                for hiv_obj in ovc_hiv_obj:
+                    hiv_confirmed_date = hiv_obj[0]
+                    treatment_initiated_date = hiv_obj[1]
+                    firstLine_start_date = hiv_obj[2]
+                    substitution_firstLine_arv = hiv_obj[3]
+                    substitution_firstLine_fate = hiv_obj[4]
+                    switch_thirdLine_arv = hiv_obj[5]
+                    switch_thirdLine_date = hiv_obj[6]
+
+                form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id,
+                                                                           'HIV_MGMT_1_A': hiv_confirmed_date,
+                                                                           'HIV_MGMT_1_B': treatment_initiated_date,
+                                                                           'HIV_MGMT_1_E': substitution_firstLine_arv,
+                                                                           'HIV_MGMT_1_E_DATE': substitution_firstLine_fate,
+                                                                           'HIV_MGMT_1_G': switch_thirdLine_arv,
+                                                                           'HIV_MGMT_1_G_DATE': switch_thirdLine_date,
+                                                                           'HIV_MGMT_1_D': firstLine_start_date
+                                                                           })
+            return render(request,
+                          'forms/new_hivmanagementform.html',
+                          {'form': form,
+                           'form_arvtherapy': form_arvtherapy,
+                           'init_data': init_data,
+                           'vals': vals})
+        except:
+            pass
