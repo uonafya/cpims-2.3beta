@@ -9119,13 +9119,19 @@ def new_case_plan_monitoring(request, id):
         messages.add_message(request, messages.INFO, msg)
         url = reverse('ovc_view', kwargs={'id': id})
         return HttpResponseRedirect(url)
-    form = CparaMonitoring()
+    else:
+        form = CparaMonitoring()
 
-    ovc_id = int(id)
-    child = RegPerson.objects.get(is_void=False, id=ovc_id)
-    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        ovc_id = int(id)
+        child = RegPerson.objects.get(is_void=False, id=ovc_id)
+        care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        
+        # Show previous cpara monitoring events
+        event=OVCCareEvents.objects.filter(person_id=ovc_id).values_list('event')
+        cpara_mon_data=OVCMonitoring.objects.filter(event_id__in=event).order_by('event_date')
 
-    return render(request, 'forms/new_case_plan_monitoring.html', {'form': form, 'care_giver': care_giver})
+
+        return render(request, 'forms/new_case_plan_monitoring.html', {'form': form, 'care_giver': care_giver, 'cpara_mon_data':cpara_mon_data})
 
 
 def fetch_question(answer_item_code):
