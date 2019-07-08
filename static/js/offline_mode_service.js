@@ -2,7 +2,7 @@
     A service exposing abstractions to make the system work when there's no internet connection
 */
 
-let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
+let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFetchUrl) {
     "use strict";
 
     let offlineModeClient = {
@@ -196,6 +196,50 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
                     error: errorHandler
                 });
             });
+        },
+
+        onLoginEventHandler: function () {
+            console.log("Handling on login event handler");
+            this._initializeRegistrationData();
+
+        },
+
+        onLogoutEventHandler: function () {
+            this.isRegistrationDataInitialized = false;
+            window.offlineModeClient.remove(me._registrationDataStorageKey());
+        },
+
+        _registrationDataStorageKey: function () {
+            return Base64.encode("ovc_data_key");
+        },
+
+        isRegistrationDataInitialized: false,
+
+        _initializeRegistrationData: function () {
+            let _offlineModeClient = window.offlineModeClient;
+            let me = this;
+
+            $.ajax({
+                url: dataFetchUrl,
+                type: "GET",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+                    _offlineModeClient.remove(me._registrationDataStorageKey());
+
+                },
+                success: function (data) {
+                    console.log("Successfully initialized registration data");
+                    me.isRegistrationDataInitialized = false;
+
+                    // let dataAsJson = JSON.parse(data);
+
+                    _offlineModeClient.saveJson(me._registrationDataStorageKey(), data.data);
+                },
+                error: function () {
+                    console.log("Error initializing registration data");
+                    me.isRegistrationDataInitialized = false
+                }
+            });
         }
     };
 
@@ -218,10 +262,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled) {
 
             return window.offlineModeClient;
         },
-
-        onLoginEventHandler: function () {
-            console.log("Handling on login event handler");
-        }
     };
 };
 

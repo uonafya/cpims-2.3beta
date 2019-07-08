@@ -237,7 +237,7 @@
             let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" == "True";
 
             // We just need a singleton for this client
-            OfflineModeService(userId, offlineModeCapabilityEnabled).client("internet_check", "online_mode", 5000);
+            OfflineModeService(userId, offlineModeCapabilityEnabled, "/offline_mode/data/").client("internet_check", "online_mode", 5000);
         });
     </script>
     <!-- ================== END LAZY PAGE LEVEL JS ================== -->
