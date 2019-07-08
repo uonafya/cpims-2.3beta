@@ -14,6 +14,7 @@ from cpovc_gis import urls as gis_urls
 from cpovc_api import urls as api_urls
 from cpovc_ovc import urls as ovc_urls
 from cpovc_settings import urls as settings_urls
+from cpovc_offline_mode import urls as offline_mode_urls
 from django.contrib.auth.views import (
     password_reset_done, password_change, password_change_done)
 from cpovc_auth.views import password_reset
@@ -93,7 +94,11 @@ urlpatterns = [
         TemplateView.as_view(template_name='comodo.txt',
                              content_type='text/plain')),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt',
-                                               content_type='text/plain'))]
+                                               content_type='text/plain')),
+
+    url(r'^offline_mode/', include(offline_mode_urls)),
+]
+
 
 handler400 = 'cpims.views.handler_400'
 handler404 = 'cpims.views.handler_404'

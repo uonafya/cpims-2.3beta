@@ -326,3 +326,4 @@ def csrf_failure(request):
         return render(request, 'csrf.html', {'status': 500})
     except Exception, e:
         raise e
+
