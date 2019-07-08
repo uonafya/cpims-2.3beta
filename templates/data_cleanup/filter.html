@@ -9,12 +9,56 @@
 {% endblock %}
 
 {% block primary %}
-<h1 class="page-header">Data Clean Up <small>Filter data</small></h1>
+<h1 class="page-header">Data Clean Up <small>Filter</small></h1>
+<h2>Filters </h2>
+<form class='form' action="{% url 'data_cleanup' %}" method="POST">
+    {% csrf_token %}
+        Age Operator
+        <select name='operator' class="form-control">
+                <option>Select Operator</option>
+                <option value='='>Equals</option>
+                <option value='>'>Greater Than</option>
+                <option value='<'>Less Than</option>
+            </select>
+    <label for="age">
+        Age
+        <input type='text' name='age' class="form-control">
+    </label>
+</br>
+ <select name='school_level' class="form-control">
+    <option>Select Shool Level</option>
+    <option value='SLSE'>Secondary</option>
+    <option value='SLPR'>Primary</option>
+    <option value='SLNS'>NO School</option>
+</select>
 
-
+<button type='submit' class='btn'>Filter</button>
+</form>
+<table class="table">
+<thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>School Level</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for obj in data %}
+    <tr>
+      <td>{{ obj.first_name }} {{ obj.other_names }} </td>
+      <td>{{ obj.age }} </td>
+      <td>{{ obj.school_level }}</td>
+    </tr>
+    {% endfor %}
+    
+  </tbody>
+</table>
+                
+</div>
 {% endblock %}
 
 {% block lazy_javascript_code %}
+    
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 

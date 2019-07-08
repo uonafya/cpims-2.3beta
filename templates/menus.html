@@ -134,7 +134,21 @@
 	        <li><a href="#">Gallery Two</a></li>
 	    </ul>
 	</li>			
-	
+	<!-- Data Cleanup Link -->
+	<li class="has-sub">
+			<a href="#">
+				<b class="caret pull-right"></b>
+				<i class="fa fa-check"></i>
+				<span>Data Quality</span>
+			</a>
+			<ul class="sub-menu">
+				<li><a href="{% url 'data_cleanup' %}">Use Case 1</a></li>
+				<li><a href="#">Use Case 2</a></li>
+				<li><a href="#">Use Case 3</a></li>
+				<li><a href="#">Use Case 4</a></li>
+			</ul>
+		</li>
+		<!-- End Data Cleanup Link -->
 	<li class="has-sub">
 	    <a href="#">
 	    	<b class="caret pull-right"></b>
@@ -147,14 +161,7 @@
 	    </ul>
 	</li>
 
-	<!-- Data Cleanup Link -->
-	<li class="has-sub">
-		<a href="{% url 'data_cleanup' %}">
-		    <i class="fa fa-check"></i>
-		    <span>Data Clean Up</span>
-	    </a>
-	</li>
-	<!-- End Data Cleanup Link -->
+	
 
     <!-- begin sidebar minify button -->
 	<li><a href="#" class="sidebar-minify-btn" data-click="sidebar-minify">
