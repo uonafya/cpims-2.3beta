@@ -9687,7 +9687,7 @@ def new_hivscreeningtool(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
-    form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+
     print "test"
     print request.POST.get('HIV_MGMT_2_C')
     if request.method == 'POST':
@@ -9730,7 +9730,7 @@ def new_hivmanagementform(request, id):
                 NextAppointment_Date=request.POST.get('HIV_MGMT_2_Q'),
                 Nutritional_Support=request.POST.get('HIV_MGMT_2_M'),
                 Peer_Educator_Name=request.POST.get('HIV_MGMT_2_R'),
-                Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_R')
+                Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_S')
                 # # event=request.POST.get('')
                 # # is_void=request.POST.get('')
                 # date_of_event = request.POST.get(''),
@@ -9749,57 +9749,90 @@ def new_hivmanagementform(request, id):
         return render(request, 'ovc/home.html', {'form': form, 'status': 200})
     else:
         try:
-
-            print "get rqst 1"
             init_data = RegPerson.objects.filter(pk=id)
-            print "get rqst 2"
             check_fields = ['sex_id']
-            print "get rqst 3"
             vals = get_dict(field_name=check_fields)
-            print "get rqst 4"
-            print(vals)
-            print "get rqst 5"
-            ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
-                                                                                        'Treatment_initiated_Date',
-                                                                                        'Substitution_FirstLine_ARV',
-                                                                                        'FirstLine_Start_Date',
-                                                                                        'Switch_SecondLine_ARV',
-                                                                                        'Switch_SecondLine_Date',
-                                                                                        'Switch_ThirdLine_ARV',
-                                                                                        'Switch_ThirdLine_Date')[0:1]
+            # ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
+            #                                                                             'Treatment_initiated_Date',
+            #                                                                             'Switch_ThirdLine_Date')[0:1]
+            ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).all()[0:1]
+
             form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
             if(ovc_hiv_obj):
-                hiv_confirmed_date = 0
-                treatment_initiated_date = 0
-                firstLine_start_date = 0
-                substitution_firstLine_arv = 0
-                substitution_firstLine_fate = 0
-                switch_thirdLine_arv = 0
-                switch_thirdLine_date = 0
-
+                print "data available"
                 for hiv_obj in ovc_hiv_obj:
-                    hiv_confirmed_date = hiv_obj[0]
-                    treatment_initiated_date = hiv_obj[1]
-                    firstLine_start_date = hiv_obj[2]
-                    substitution_firstLine_arv = hiv_obj[3]
-                    substitution_firstLine_fate = hiv_obj[4]
-                    switch_thirdLine_arv = hiv_obj[5]
-                    switch_thirdLine_date = hiv_obj[6]
 
-                form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id,
+                    hiv_confirmed_date = hiv_obj.Hiv_Confirmed_Date
+                    treatment_initiated_date = hiv_obj.Treatment_initiated_Date
+                    firstLine_start_date = hiv_obj.FirstLine_Start_Date
+                    substitution_firstLine_arv = hiv_obj.Substitution_FirstLine_ARV
+                    substitution_firstLine_fate = hiv_obj.Substitution_FirstLine_Date
+                    #
+                    #
+                    switch_thirdLine_arv = hiv_obj.Switch_ThirdLine_ARV
+                    switch_thirdLine_date = hiv_obj.Switch_ThirdLine_Date
+                    Visit_Date = hiv_obj.Visit_Date
+                    Duration_ART = hiv_obj.Duration_ART
+                    #
+                    MUAC = hiv_obj.MUAC
+                    Adherence = hiv_obj.Adherence
+                    Adherence_Drugs_Duration = hiv_obj.Adherence_Drugs_Duration
+                    Adherence_counselling = hiv_obj.Adherence_counselling
+                    Treatment_Supporter_Relationship = hiv_obj.Treatment_Supporter_Relationship
+                    Treatment_Supporter_Gender = hiv_obj.Treatment_Supporter_Gender
+                    Treatment_Supporter_Age = hiv_obj.Treatment_Supporter_Age
+                    Treament_Supporter_HIV = hiv_obj.Treament_Supporter_HIV
+                    Viral_Load_Results = hiv_obj.Viral_Load_Results
+                    Viral_Load_Date = hiv_obj.Viral_Load_Date
+                    Detectable_ViralLoad_Interventions = hiv_obj.Detectable_ViralLoad_Interventions
+                    Disclosure = hiv_obj.Disclosure
+                    MUAC_Score = hiv_obj.MUAC_Score
+                    BMI = hiv_obj.BMI
+                    Nutritional_Support = hiv_obj.Nutritional_Support
+                    #
+                    Support_group_Status = hiv_obj.Support_group_Status
+                    NHIF_Enrollment = hiv_obj.NHIF_Enrollment
+                    NHIF_Status = hiv_obj.NHIF_Status
+                    Referral_Services = hiv_obj.Referral_Services
+                    NextAppointment_Date = hiv_obj.NextAppointment_Date
+                    Peer_Educator_Name = hiv_obj.Peer_Educator_Name
+                    Peer_Educator_Contact = hiv_obj.Peer_Educator_Contact
+                    print "data mapped"
+                    form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id,
                                                                            'HIV_MGMT_1_A': hiv_confirmed_date,
                                                                            'HIV_MGMT_1_B': treatment_initiated_date,
                                                                            'HIV_MGMT_1_E': substitution_firstLine_arv,
                                                                            'HIV_MGMT_1_E_DATE': substitution_firstLine_fate,
                                                                            'HIV_MGMT_1_G': switch_thirdLine_arv,
                                                                            'HIV_MGMT_1_G_DATE': switch_thirdLine_date,
-                                                                           'HIV_MGMT_1_D': firstLine_start_date
+                                                                           'HIV_MGMT_1_D': firstLine_start_date,
                                                                            })
+
+                    form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id,
+                                                                   'HIV_MGMT_2_E': Adherence,
+                                                                   'HIV_MGMT_2_I_DATE': Viral_Load_Date,
+                                                                   'HIV_MGMT_2_J': Detectable_ViralLoad_Interventions,
+                                                                   'HIV_MGMT_2_N': Support_group_Status,
+                                                                   'HIV_MGMT_2_O_1': NHIF_Enrollment,
+                                                                   'HIV_MGMT_2_O_2': NHIF_Status,
+                                                                   'HIV_MGMT_2_P': Referral_Services,
+                                                                   'HIV_MGMT_2_K': Disclosure,
+                                                                   'HIV_MGMT_2_L_1': MUAC_Score,
+                                                                   'HIV_MGMT_2_L_2': BMI,
+                                                                   'HIV_MGMT_2_Q': NextAppointment_Date,
+                                                                   'HIV_MGMT_2_M': Nutritional_Support,
+                                                                   'HIV_MGMT_2_R': Peer_Educator_Name,
+                                                                   'HIV_MGMT_2_S': Peer_Educator_Contact,
+                                                                   'HIV_MGMT_2_A': Visit_Date,
+                                                                   'HIV_MGMT_2_B': Duration_ART,
+                                                                   'HIV_MGMT_2_D': MUAC
+                                                                   })
             return render(request,
                           'forms/new_hivmanagementform.html',
                           {'form': form,
                            'form_arvtherapy': form_arvtherapy,
                            'init_data': init_data,
                            'vals': vals})
-        except:
-            pass
+        except Exception, e:
+            print e
