@@ -1,0 +1,322 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} DREAMS Service Uptake Form {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+<h1 class="page-header">Forms
+    <small>DREAMS Service Uptake Form<b> &nbsp;{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | 
+        {% if data.date_of_birth|gen_age == 0 %}
+                    UNDER 1 YEAR
+                {% else %}
+                    {{ data.date_of_birth|gen_age }} YRS 
+                {% endif %}</b></small>
+        </b>
+</h1>
+{% endfor %}
+
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i
+                            class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i
+                            class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> DREAMS Service Uptake Form </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                    name="form-wizard-hhva" id="new_hhva">
+                    {% csrf_token %}
+                    <div id="wizard-dreamsform">
+                        <ol>
+
+                            <li>
+                                BEHAVIOURAL INTERVENTIONS
+                                <small></small>
+                            </li>
+
+                            <li>
+                                BIO-MEDICAL INTERVENTIONS
+                                <small></small>
+                            </li>
+                            <li>
+                                POST-GBV CARE 
+                                    <small></small>
+                             </li>
+                             <li>
+                                SOCIAL PROTECTION
+                                    <small></small>
+                            </li>
+                            <li>
+                               OTHER INTERVENTIONS 
+                                <small></small>
+                            </li>
+                            
+                        </ol>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <h3 style="margin-top: 0;color:#55518a"> 1. BEHAVIOURAL INTERVENTIONS</h3>
+                            <div class="form-group">
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Questions</th>
+                                                <th scope="col">Answer</th>
+                                                <th scope="col">Date</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                           <td>1</td>
+                                            <td>Date confirmed HIV Positive</td>
+                                            <td>
+                                            
+                                            </td>
+                                            <td style="background-color: grey"></td>
+                                        </tr>
+                                        
+                                        
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+
+
+                        </div>
+                        <!-- end wizard step-1 -->
+
+                        <!-- begin wizard step-2 -->
+                        <div class="wizard-step-2">
+                            <h3 style="margin-top: 0;color:#55518a"> 2. BIO-MEDICAL INTERVENTIONS</h3>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Questions?</th>
+                                            <th scope="col">Options/Answers</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        
+                                        <tr>
+                                            <td>Q1</td>
+                                            <td>Visit date  
+                                            </td>
+                                            <td>
+                                                    
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+                        </div>
+                        <!-- end wizard step-2 -->
+
+                         <!-- begin wizard step-3 -->
+                         <div class="wizard-step-3">
+                                <h3 style="margin-top: 0;color:#55518a"> 3. POST-GBV CARE </h3>
+                                <div class="form-group">
+    
+                                    <table class="table table-bordered">
+                                        <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Questions</th>
+                                                    <th scope="col">Answer</th>
+                                                    <th scope="col">Date</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                               <td>1</td>
+                                                <td>Date confirmed HIV Positive</td>
+                                                <td>
+                                                
+                                                </td>
+                                                <td style="background-color: grey"></td>
+                                            </tr>
+                                            
+                                            
+                                        </tbody>
+                                    </table>
+    
+                                    <p>&nbsp;</p>
+    
+                                </div>
+    
+    
+                            </div>
+                            <!-- end wizard step-3 -->
+
+                             <!-- begin wizard step-4 -->
+                        <div class="wizard-step-4">
+                                <h3 style="margin-top: 0;color:#55518a"> 4. SOCIAL PROTECTION</h3>
+                                <div class="form-group">
+    
+                                    <table class="table table-bordered">
+                                        <thead>
+                                                <tr>
+                                                    <th scope="col">#</th>
+                                                    <th scope="col">Questions</th>
+                                                    <th scope="col">Answer</th>
+                                                    <th scope="col">Date</th>
+                                                </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                               <td>1</td>
+                                                <td>Date confirmed HIV Positive</td>
+                                                <td>
+                                                    
+                                                </td>
+                                                <td style="background-color: grey"></td>
+                                            </tr>
+                                            
+                                            
+                                        </tbody>
+                                    </table>
+    
+                                    <p>&nbsp;</p>
+    
+                                </div>
+    
+    
+                            </div>
+                            <!-- end wizard step-4 -->
+
+                             <!-- begin wizard step-5 -->
+                            <div class="wizard-step-5">
+                                    <h3 style="margin-top: 0;color:#55518a"> 5. OTHER INTERVENTIONS</h3>
+                                    <div class="form-group">
+        
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Questions</th>
+                                                        <th scope="col">Answer</th>
+                                                        <th scope="col">Date</th>
+                                                    </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                <td>1</td>
+                                                    <td>Date confirmed HIV Positive</td>
+                                                    <td>
+                                                    
+                                                    </td>
+                                                    <td style="background-color: grey"></td>
+                                                </tr>
+                                                
+                                                
+                                            </tbody>
+                                        </table>
+        
+                                        <p>&nbsp;</p>
+        
+                                    </div>
+        
+        
+                                </div>
+                            <!-- end wizard step-5 -->
+
+
+                    </div>
+
+                    <div class="panel-body panel-form">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <button id="mysubmit-hivscreeningtool" type="submit"
+                                    class="btn btn-primary">Submit</button>
+                                <a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="badge pull-right m-4">Revised: 4th July 2019</div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+
+<script>
+        $( function() {
+
+          $("#Test").datepicker({ format: 'yyyy-mm-dd' }).val();
+
+
+          $(document).ready(function () {
+                $("#wizard-dreamsform").bwizard();
+            });
+
+        } );
+</script>
+
+{% endblock %}
