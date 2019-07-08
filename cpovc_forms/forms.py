@@ -6499,6 +6499,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_B = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
+               'data-parsley-type': "number",
              #  'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6507,6 +6508,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
+               'data-parsley-type': "number",
             #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6515,6 +6517,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_D = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
+               'data-parsley-type': "number",
             #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6532,6 +6535,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_F = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
+               'data-parsley-type': "number",
             #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6599,6 +6603,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_I_1 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
+               'data-parsley-type': "number",
           #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6657,6 +6662,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_L_2 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
+               'data-parsley-type': "number",
           #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6738,7 +6744,16 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
                # ,
                #    'data-parsley-required': "False"
     }))
- 
+
+    HIV_MGMT_2_S= forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control' ,
+               'data-parsley-type': "number",
+       #        'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+    }))
+
 # HIV Manangement - ARV Therapy
 class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
 
@@ -6769,7 +6784,8 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
     HIV_MGMT_1_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-required': "False",
+               'data-parsley-type': "number",
                # ,
                #    'data-parsley-required': "False"
                }))

@@ -706,7 +706,7 @@ def forms_registry(request):
             elif form_type == 'FHSA':
                 for person in personsets:
                     household_id = None
-                    try:        
+                    try:
                         ovcreg = get_object_or_404(OVCRegistration, person=int(person.id), is_void=False)
                         if ovcreg:
                             caretaker_id = ovcreg.caretaker_id if ovcreg else None
@@ -714,7 +714,7 @@ def forms_registry(request):
                             household_id = ovchh.id if ovchh else None
                     except Exception, e:
                         print str(e)
-                    
+
                     hhva_data = OVCCareEvents.objects.filter(house_hold=household_id, event_type_id='FHSA', is_void=False)
                     if hhva_data:
                         for hhva in hhva_data:
@@ -6415,7 +6415,7 @@ def new_csi(request, id):
                 olmis_priority_service = priority_data['olmis_priority_service']
                 services = olmis_priority_service.split(',')
                 for service in services:
-                    OVCCarePriority(                    
+                    OVCCarePriority(
                         domain =olmis_priority_domain,
                         service = service,
                         event = OVCCareEvents.objects.get(pk=new_pk),
@@ -6435,7 +6435,7 @@ def new_csi(request, id):
                     olmis_service_date = convert_date(olmis_service_date)
                 olmis_service_provider = service_data['olmis_service_provider']
                 olmis_place_of_service = service_data['olmis_place_of_service']
-                OVCCareServices(                    
+                OVCCareServices(
                     service_provided = olmis_service,
                     service_provider = olmis_service_provider,
                     place_of_service = olmis_place_of_service,
@@ -6528,7 +6528,7 @@ def edit_csi(request, id):
                 """ Get Existing Priorities """
                 existingprioritys = OVCCarePriority.objects.filter(event=id, is_void=False)
                 for existingpriority in existingprioritys:
-                    existing_prioritys.append({ 
+                    existing_prioritys.append({
                         'domain': str(existingpriority.domain),
                         'service': str(existingpriority.service),
                         'service_grouping_id': str(existingpriority.service_grouping_id)
@@ -6548,18 +6548,18 @@ def edit_csi(request, id):
                         if(olmis_priority_service_status == 'new'):
                             service_grouping_id = new_guid_32()
                             for service in services:
-                                ovccarepriority = OVCCarePriority(                    
+                                ovccarepriority = OVCCarePriority(
                                     domain =olmis_priority_domain,
                                     service = service,
                                     event = OVCCareEvents.objects.get(pk=id),
                                     service_grouping_id = service_grouping_id
                                     ).save()
                         if olmis_priority_service:
-                            new_prioritys.append({ 
+                            new_prioritys.append({
                                 'domain': olmis_priority_domain,
                                 'services': olmis_priority_service,
                                 'service_grouping_id': olmis_priority_service_grouping_id
-                            }) 
+                            })
 
                 ### Cater for removed services
                 nservices = []
@@ -6571,7 +6571,7 @@ def edit_csi(request, id):
                     nservice_grouping_ids.append(str(nservice_grouping_id))
                     _nservices = nservice.split(',')
                     for _nsvc in _nservices:
-                        nservices.append(str(_nsvc))    
+                        nservices.append(str(_nsvc))
 
                 for existing_priority in existing_prioritys:
                     edomain = existing_priority['domain']
@@ -6613,7 +6613,7 @@ def edit_csi(request, id):
         return HttpResponseRedirect(reverse(forms_registry))
 
     # get main data
-    csi_events_data = OVCCareEvents.objects.get(event=id, is_void=False) 
+    csi_events_data = OVCCareEvents.objects.get(event=id, is_void=False)
 
     # get domain evaluation data
     csi_eav_data = OVCCareEAV.objects.filter(event=id, is_void=False).values('entity', 'value').order_by('entity')
@@ -6632,7 +6632,7 @@ def edit_csi(request, id):
         if not pr_grouping_id in pr_grouping_ids:
             pr_grouping_ids.append(pr_grouping_id)
 
-    pr_needs = None    
+    pr_needs = None
     domain = None
     for pr_grouping_id in pr_grouping_ids:
         services = []
@@ -6640,7 +6640,7 @@ def edit_csi(request, id):
         for pr_need in pr_needs:
             services.append(str(pr_need.service))
             domain = pr_need.domain
-        
+
         jsonPrData.append({
             "domain": domain,
             "service": services,
@@ -6695,7 +6695,7 @@ def edit_csi(request, id):
         'social_behaviour': eavdata[10],
         'shelter': eavdata[11],
         'care': eavdata[12],
-        'date_of_csi': date_of_csi      
+        'date_of_csi': date_of_csi
         })
 
     f = OVCCareEvents.objects.get(pk=id, is_void=False)
@@ -6722,7 +6722,7 @@ def view_csi(request, id):
 
     try:
         # get main data
-        csi_events_data = OVCCareEvents.objects.get(event=id, is_void=False) 
+        csi_events_data = OVCCareEvents.objects.get(event=id, is_void=False)
 
         csis = {}
         csis['HNU1'] = 'Food Security'
@@ -6756,7 +6756,7 @@ def view_csi(request, id):
             if not pr_grouping_id in pr_grouping_ids:
                 pr_grouping_ids.append(pr_grouping_id)
 
-        pr_needs = None    
+        pr_needs = None
         domain = None
         for pr_grouping_id in pr_grouping_ids:
             services = []
@@ -6764,7 +6764,7 @@ def view_csi(request, id):
             for pr_need in pr_needs:
                 services.append(str(pr_need.service))
                 domain = pr_need.domain
-            
+
             jsonPrData.append({
                 "domain": domain,
                 "service": services,
@@ -6823,7 +6823,7 @@ def view_csi(request, id):
                         'social_behaviour': eavdata['PSS2'],
                         'shelter': eavdata['SHC1'],
                         'care': eavdata['SHC2'],
-                        'date_of_csi': date_of_csi, 
+                        'date_of_csi': date_of_csi,
                         'resultsetspr': resultsetspr,
                         'resultsetssvc': resultsetssvc
                     })
@@ -6875,16 +6875,16 @@ def new_form1b(request, id):
     form = OVCF1AForm(initial={'person': id, 'caretaker_id': cid})
     f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid)
 
-    
+
     ev_data = []
     event_keywords = []
     for ovc_evt in f1bs:
         sservi = []
         assem = []
-        
+
         # ovccareassems = OVCCareAssessment.objects.filter(event=ovc_evt)
         ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt)
-        
+
         for ovccareassem in ovccareassems:
             full_f1b_qn_assess = SetupList.objects.filter(item_id=ovccareassem.entity,item_sub_category__icontains='a')
             full_f1b_qn_servi = SetupList.objects.filter(item_id=ovccareassem.entity,item_sub_category__icontains='s')
@@ -6907,7 +6907,7 @@ def new_form1b(request, id):
             'services': sservi,
             'assessments': assem,
         })
-    
+
 
 
     return render(request,
@@ -6946,7 +6946,7 @@ def save_form1a(request):
 
             event_type_id = 'FSAM'
             args = int(request.POST.get('args'))
-            person = request.POST.get('person') 
+            person = request.POST.get('person')
 
             """Save Assessment"""
             if args == 1:
@@ -7004,7 +7004,7 @@ def save_form1a(request):
                 ovccareevent.save()
                 new_pk = ovccareevent.pk
 
-                # Critical Events [CEVT]            
+                # Critical Events [CEVT]
                 my_kvals = []
                 olmis_critical_event = request.POST.getlist('olmis_critical_event') # DHES
                 for i, cevts in enumerate(olmis_critical_event):
@@ -7052,12 +7052,12 @@ def save_form1a(request):
                         olmis_priority_service = priority_data['olmis_priority_service']
                         services = olmis_priority_service.split(',')
                         for service in services:
-                            OVCCarePriority(                    
+                            OVCCarePriority(
                                 domain =olmis_priority_domain,
                                 service = service,
                                 event = OVCCareEvents.objects.get(pk=new_pk),
                                 service_grouping_id = service_grouping_id
-                                ).save() 
+                                ).save()
 
             if args == 4:
                 date_of_service = request.POST.get('date_of_service')
@@ -7086,9 +7086,9 @@ def save_form1a(request):
 
                     for service_data in olmis_service_data:
                         service_grouping_id = new_guid_32()
-                        olmis_domain = service_data['olmis_domain']                        
+                        olmis_domain = service_data['olmis_domain']
                         olmis_service_date = service_data['olmis_service_date']
-                        olmis_service_date = convert_date(olmis_service_date) if olmis_service_date != 'None' else None   
+                        olmis_service_date = convert_date(olmis_service_date) if olmis_service_date != 'None' else None
                         olmis_service = service_data['olmis_service']
                         print 'olmis_service: %s' %olmis_service
                         services = olmis_service.split(',')
@@ -7439,13 +7439,13 @@ def delete_form1b(request, id, btn_event_pk):
                 if servi:
                     servi.delete()
                     msg = "Deleted successfully"
-                
+
                 # delete f1b
                 f1bin = OVCCareF1B.objects.filter(event=event)
                 if f1bin:
                     f1bin.delete()
                     msg = "Deleted successfully"
-                    
+
                 # delete event
                 event.delete()
                 msg = "Deleted successfully"
@@ -7460,7 +7460,7 @@ def delete_form1b(request, id, btn_event_pk):
                         safe=False)
 
 
-                        
+
 
 @login_required(login_url='/')
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -7492,7 +7492,7 @@ def delete_previous_event_entry(request, btn_event_type, entry_id):
 def view_form1a(request):
     jsonForm1AData = []
     try:
-        msg = 'The page you are looking for is under construction!'        
+        msg = 'The page you are looking for is under construction!'
     except Exception, e:
         msg = 'An error occured : %s' %str(e)
         print str(e)
@@ -7544,18 +7544,18 @@ def manage_form1a_events(request):
                 services.append(translate(ovccareservice.service_provided))
 
 
-            if(services): 
+            if(services):
                 event_type = 'SERVICES'
                 event_details = ', '.join(services)
-            elif(assessments): 
+            elif(assessments):
                 event_type = 'ASSESSMENT'
                 event_details = ', '.join(assessments)
                 event_keyword_group= ', '.join(event_keywords)
-            elif(prioritys): 
+            elif(prioritys):
                 event_type = 'PRIORITY'
                 event_details = ', '.join(prioritys)
             elif(critical_events):
-                event_type = 'CRITICAL EVENT' 
+                event_type = 'CRITICAL EVENT'
                 event_details = ', '.join(critical_events)
 
             jsonForm1AEventsData.append({
@@ -7564,11 +7564,11 @@ def manage_form1a_events(request):
                             'event_details': event_details,
                             'event_keyword_group': event_keyword_group,
                             'event_date': event_date.strftime('%d-%b-%Y')
-                        }) 
+                        })
         print jsonForm1AEventsData
         return JsonResponse(jsonForm1AEventsData,
                             content_type='application/json',
-                            safe=False)     
+                            safe=False)
     except Exception, e:
         msg = 'An error occured : %s' %str(e)
         print str(e)
@@ -7607,25 +7607,25 @@ def manage_form1b_events(request):
                 services.append(translate(ovccareservice.service_provided))
 
 
-            if(True): 
+            if(True):
                 event_type = 'SERVICES'
                 event_details = ', '.join(services)
-            elif(False): 
+            elif(False):
                 event_type = 'ASSESSMENT'
                 event_details = ', '.join(assessments)
                 event_keyword_group= ', '.join(event_keywords)
-            
+
             jsonForm1BEventsData.append({
                             'event_pk': str(ovccareevent.pk),
                             'event_type': event_type,
                             'event_details': event_details,
                             'event_keyword_group': event_keyword_group,
                             'event_date': event_date.strftime('%d-%b-%Y')
-                        }) 
+                        })
         print jsonForm1BEventsData
         return JsonResponse(jsonForm1BEventsData,
                             content_type='application/json',
-                            safe=False)     
+                            safe=False)
     except Exception, e:
         msg = 'An error occured : %s' %str(e)
         print str(e)
@@ -7642,7 +7642,7 @@ def new_hhva(request, id):
     try:
         if request.method == 'POST':
             my_kvals = []
-            event_type_id = 'FHSA'            
+            event_type_id = 'FHSA'
             household_id = request.POST.get('household_id')
             date_of_hhva = request.POST.get('date_of_hhva')
             if date_of_hhva:
@@ -7695,7 +7695,7 @@ def new_hhva(request, id):
                         my_kvals.append({ "entity": "HA6", "attribute": "HA6", "value": value, "value_for": '' })
             my_kvals.append({ "entity": "HA7", "attribute": "HA7", "value": hhva_ha7, "value_for": '' })
             my_kvals.append({ "entity": "HA8", "attribute": "HA8", "value": hhva_ha8, "value_for": '' })
-            
+
 
 
             # Shelter & Care
@@ -7769,7 +7769,7 @@ def new_hhva(request, id):
 
 
             # Protection
-            hhva_ha28 = request.POST.getlist('hhva_ha28')            
+            hhva_ha28 = request.POST.getlist('hhva_ha28')
             #************************************************************
             for i, ha28 in enumerate(hhva_ha28):
                     ha28 = ha28.split(',')
@@ -7778,7 +7778,7 @@ def new_hhva(request, id):
 
             # Other Services
             hhva_ha29 = request.POST.getlist('hhva_ha29')
-            hhva_ha30 = request.POST.getlist('hhva_ha30')            
+            hhva_ha30 = request.POST.getlist('hhva_ha30')
             #************************************************************
             for i, ha29 in enumerate(hhva_ha29):
                     ha29 = ha29.split(',')
@@ -7824,7 +7824,7 @@ def new_hhva(request, id):
 
     # get household members/ caretaker/ household_id
     household_id = None
-    try:        
+    try:
         ovcreg = get_object_or_404(OVCRegistration, person_id=id, is_void=False)
         caretaker_id = ovcreg.caretaker_id if ovcreg else None
         ovchh = get_object_or_404(OVCHouseHold, head_person=caretaker_id, is_void=False)
@@ -7833,7 +7833,7 @@ def new_hhva(request, id):
         print str(e)
         msg = 'Error getting household identifier: (%s)' % (str(e))
         messages.add_message(request, messages.ERROR, msg)
-        return HttpResponseRedirect(reverse(forms_registry))  
+        return HttpResponseRedirect(reverse(forms_registry))
 
     # get relations
     guardians = RegPersonsGuardians.objects.select_related().filter(
@@ -7844,7 +7844,7 @@ def new_hhva(request, id):
     osiblings = RegPersonsSiblings.objects.select_related().filter(
         sibling_person=id, is_void=False, date_delinked=None)
     oguardians = RegPersonsGuardians.objects.select_related().filter(
-        guardian_person=id, is_void=False, date_delinked=None)  
+        guardian_person=id, is_void=False, date_delinked=None)
 
     # get child data
     init_data = RegPerson.objects.filter(pk=id)
@@ -7857,9 +7857,9 @@ def new_hhva(request, id):
                     'form': form,
                     'init_data': init_data,
                     'vals': vals,
-                    'person': id, 
+                    'person': id,
                     'guardians': guardians,
-                    'siblings': siblings, 
+                    'siblings': siblings,
                     'osiblings': osiblings,
                     'oguardians': oguardians
                 })
@@ -8667,7 +8667,7 @@ def new_cpara(request, id):
             'ANNO': 0,
             0: 0
         }
-        
+
         print('benchmark_score = ',data.get('bench_array'))
         bench_score = json.loads(data.get('bench_array'))
 
@@ -8775,7 +8775,7 @@ def new_cpara(request, id):
                 'ev_id': str(one_cpara_event.pk),
                 'ev_detail': str(event_detail)
             })
-        
+
 
 
     return render(request,
@@ -8955,7 +8955,7 @@ def case_plan_template(request, id):
 
     # past cpt
     caseplan_events = get_past_cpt(child.id)
-    
+
     return render(request,
                   'forms/case_plan_template.html',
                   {'form': form, 'init_data': init_data,
@@ -8967,7 +8967,7 @@ def case_plan_template(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def update_caseplan(request, event_id, ovcid):
-    
+
     this_eventt = OVCCareEvents.objects.get(event_type_id='CPAR', pk=event_id)
     this_event_pk = this_eventt.event
     child = RegPerson.objects.get(id=ovcid)
@@ -8987,7 +8987,7 @@ def update_caseplan(request, event_id, ovcid):
 
                 child = RegPerson.objects.get(id=ovcid)
                 house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-                
+
                 care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
                 caregiver_id=OVCRegistration.objects.get(person=child).caretaker_id
 
@@ -9034,7 +9034,7 @@ def update_caseplan(request, event_id, ovcid):
                             case_plan_status='D',
                             event_id=this_event_pk
                         ).save()
-                        
+
                 msg = 'Case Plan updated successfully'
                 messages.add_message(request, messages.INFO, msg)
                 url = reverse('ovc_view', kwargs={'id': ovcid})
@@ -9419,7 +9419,7 @@ def new_wellbeing(request, id):
 
     form = Wellbeing(initial={'household_id': household_id, 'caretaker_id': caretaker_id, })
     care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-    
+
     return render(request,
                   'forms/new_wellbeing.html',
                   {
@@ -9435,7 +9435,7 @@ def new_wellbeing(request, id):
 
                       'person_sex_type': person_sex_type,
                       'oguardians': oguardians,
-                      
+
                       'county': county,
                       'ward': ward,
                       'subcounty': subcounty,
@@ -9693,7 +9693,7 @@ def new_hivscreeningtool(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
-    form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+
     print "test"
     print request.POST.get('HIV_MGMT_2_C')
     if request.method == 'POST':
@@ -9736,7 +9736,7 @@ def new_hivmanagementform(request, id):
                 NextAppointment_Date=request.POST.get('HIV_MGMT_2_Q'),
                 Nutritional_Support=request.POST.get('HIV_MGMT_2_M'),
                 Peer_Educator_Name=request.POST.get('HIV_MGMT_2_R'),
-                Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_R')
+                Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_S')
                 # # event=request.POST.get('')
                 # # is_void=request.POST.get('')
                 # date_of_event = request.POST.get(''),
@@ -9758,47 +9758,87 @@ def new_hivmanagementform(request, id):
             init_data = RegPerson.objects.filter(pk=id)
             check_fields = ['sex_id']
             vals = get_dict(field_name=check_fields)
-            ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
-                                                                                        'Treatment_initiated_Date',
-                                                                                        'Substitution_FirstLine_ARV',
-                                                                                        'FirstLine_Start_Date',
-                                                                                        'Switch_SecondLine_ARV',
-                                                                                        'Switch_SecondLine_Date',
-                                                                                        'Switch_ThirdLine_ARV',
-                                                                                        'Switch_ThirdLine_Date')[0:1]
+            # ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
+            #                                                                             'Treatment_initiated_Date',
+            #                                                                             'Switch_ThirdLine_Date')[0:1]
+            ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).all()[0:1]
+
             form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
             if(ovc_hiv_obj):
-                hiv_confirmed_date = 0
-                treatment_initiated_date = 0
-                firstLine_start_date = 0
-                substitution_firstLine_arv = 0
-                substitution_firstLine_fate = 0
-                switch_thirdLine_arv = 0
-                switch_thirdLine_date = 0
-
+                print "data available"
                 for hiv_obj in ovc_hiv_obj:
-                    hiv_confirmed_date = hiv_obj[0]
-                    treatment_initiated_date = hiv_obj[1]
-                    firstLine_start_date = hiv_obj[2]
-                    substitution_firstLine_arv = hiv_obj[3]
-                    substitution_firstLine_fate = hiv_obj[4]
-                    switch_thirdLine_arv = hiv_obj[5]
-                    switch_thirdLine_date = hiv_obj[6]
 
-                form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id,
+                    hiv_confirmed_date = hiv_obj.Hiv_Confirmed_Date
+                    treatment_initiated_date = hiv_obj.Treatment_initiated_Date
+                    firstLine_start_date = hiv_obj.FirstLine_Start_Date
+                    substitution_firstLine_arv = hiv_obj.Substitution_FirstLine_ARV
+                    substitution_firstLine_fate = hiv_obj.Substitution_FirstLine_Date
+                    #
+                    #
+                    switch_thirdLine_arv = hiv_obj.Switch_ThirdLine_ARV
+                    switch_thirdLine_date = hiv_obj.Switch_ThirdLine_Date
+                    Visit_Date = hiv_obj.Visit_Date
+                    Duration_ART = hiv_obj.Duration_ART
+                    #
+                    MUAC = hiv_obj.MUAC
+                    Adherence = hiv_obj.Adherence
+                    Adherence_Drugs_Duration = hiv_obj.Adherence_Drugs_Duration
+                    Adherence_counselling = hiv_obj.Adherence_counselling
+                    Treatment_Supporter_Relationship = hiv_obj.Treatment_Supporter_Relationship
+                    Treatment_Supporter_Gender = hiv_obj.Treatment_Supporter_Gender
+                    Treatment_Supporter_Age = hiv_obj.Treatment_Supporter_Age
+                    Treament_Supporter_HIV = hiv_obj.Treament_Supporter_HIV
+                    Viral_Load_Results = hiv_obj.Viral_Load_Results
+                    Viral_Load_Date = hiv_obj.Viral_Load_Date
+                    Detectable_ViralLoad_Interventions = hiv_obj.Detectable_ViralLoad_Interventions
+                    Disclosure = hiv_obj.Disclosure
+                    MUAC_Score = hiv_obj.MUAC_Score
+                    BMI = hiv_obj.BMI
+                    Nutritional_Support = hiv_obj.Nutritional_Support
+                    #
+                    Support_group_Status = hiv_obj.Support_group_Status
+                    NHIF_Enrollment = hiv_obj.NHIF_Enrollment
+                    NHIF_Status = hiv_obj.NHIF_Status
+                    Referral_Services = hiv_obj.Referral_Services
+                    NextAppointment_Date = hiv_obj.NextAppointment_Date
+                    Peer_Educator_Name = hiv_obj.Peer_Educator_Name
+                    Peer_Educator_Contact = hiv_obj.Peer_Educator_Contact
+                    print "data mapped"
+                    form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id,
                                                                            'HIV_MGMT_1_A': hiv_confirmed_date,
                                                                            'HIV_MGMT_1_B': treatment_initiated_date,
                                                                            'HIV_MGMT_1_E': substitution_firstLine_arv,
                                                                            'HIV_MGMT_1_E_DATE': substitution_firstLine_fate,
                                                                            'HIV_MGMT_1_G': switch_thirdLine_arv,
                                                                            'HIV_MGMT_1_G_DATE': switch_thirdLine_date,
-                                                                           'HIV_MGMT_1_D': firstLine_start_date
+                                                                           'HIV_MGMT_1_D': firstLine_start_date,
                                                                            })
+
+                    form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id,
+                                                                   'HIV_MGMT_2_E': Adherence,
+                                                                   'HIV_MGMT_2_I_DATE': Viral_Load_Date,
+                                                                   'HIV_MGMT_2_J': Detectable_ViralLoad_Interventions,
+                                                                   'HIV_MGMT_2_N': Support_group_Status,
+                                                                   'HIV_MGMT_2_O_1': NHIF_Enrollment,
+                                                                   'HIV_MGMT_2_O_2': NHIF_Status,
+                                                                   'HIV_MGMT_2_P': Referral_Services,
+                                                                   'HIV_MGMT_2_K': Disclosure,
+                                                                   'HIV_MGMT_2_L_1': MUAC_Score,
+                                                                   'HIV_MGMT_2_L_2': BMI,
+                                                                   'HIV_MGMT_2_Q': NextAppointment_Date,
+                                                                   'HIV_MGMT_2_M': Nutritional_Support,
+                                                                   'HIV_MGMT_2_R': Peer_Educator_Name,
+                                                                   'HIV_MGMT_2_S': Peer_Educator_Contact,
+                                                                   'HIV_MGMT_2_A': Visit_Date,
+                                                                   'HIV_MGMT_2_B': Duration_ART,
+                                                                   'HIV_MGMT_2_D': MUAC
+                                                                   })
             return render(request,
                           'forms/new_hivmanagementform.html',
                           {'form': form,
                            'form_arvtherapy': form_arvtherapy,
                            'init_data': init_data,
                            'vals': vals})
-        except:
-            pass
+        except Exception, e:
+            print e
