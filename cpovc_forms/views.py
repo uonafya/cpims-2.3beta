@@ -34,7 +34,7 @@ from .models import (
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations, OVCCareF1B,
-    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus,OVCHIVRiskScreening,OVCHIVManagement)
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus,OVCHIVManagement, OVCHIVRiskScreening)
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
@@ -9580,23 +9580,6 @@ def hiv_status(request):
         return HttpResponseRedirect(reverse(forms_home))
 
 
-# New HIV Screening Tool
-# @login_required
-# @cache_control(no_cache=True, must_revalidate=True, no_store=True)
-# def new_hivscreeningtool(request, id):
-#     try:
-#         init_data = RegPerson.objects.filter(pk=id)
-#         check_fields = ['sex_id']
-#         vals = get_dict(field_name=check_fields)
-#         print(vals)
-#         form = HIV_SCREENING_FORM(initial={'person': id})
-#     except:
-#         pass
-
-#     return render(request,
-#                   'forms/new_hivscreeningtool.html',
-#                   {'form': form, 'init_data': init_data,
-#                    'vals': vals})
 
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
@@ -9608,6 +9591,7 @@ def new_hivscreeningtool(request, id):
 
         form = HIV_SCREENING_FORM(request.POST, initial={'person': id})
         if form.is_valid():
+        # if True:
             child = RegPerson.objects.get(id=id)
             house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
             event_type_id = 'HRST'
@@ -9626,7 +9610,6 @@ def new_hivscreeningtool(request, id):
                 house_hold=house_hold
             )
 
-            print('aaaaaaaa', request.POST.get('HIV_RS_03'))
             # converting values AYES and ANNO to boolean true/false
             boolean_fields = [
                 'HIV_RS_01',
@@ -9683,16 +9666,21 @@ def new_hivscreeningtool(request, id):
                 art_referral=data_to_save.get('HIV_RS_21'),
                 art_referral_date=data_to_save.get('HIV_RS_22'),
                 art_referral_completed=data_to_save.get('HIV_RS_23'),
-                facility=data_to_save.get('HIV_RS_25'),
+                facility=data_to_save.get('HIV_RA_3Q6'),
                 event=ovccareevent,
 
             )
-
+            msg = 'HIV risk screening saved successful'
+            messages.add_message(request, messages.INFO, msg)
+            url = reverse('ovc_view', kwargs={'id': id})
+            return HttpResponseRedirect(url)
 
     else:
         form = HIV_SCREENING_FORM()
+        event=OVCCareEvents.objects.filter(person_id=id).values_list('event')
+        hiv_screen=OVCHIVRiskScreening.objects.filter(event_id__in=event).order_by('date_of_event')
 
-    return render(request, 'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals': vals})
+    return render(request, 'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals': vals,'hiv_screen':hiv_screen})
 
 
 # New HIV Manangement Form

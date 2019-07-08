@@ -1147,6 +1147,16 @@ class OVCHIVRiskScreening(models.Model):
     art_referral_completed= models.BooleanField(default=False)
     art_referral_completed_date=models.DateTimeField(default=timezone.now)
     facility=models.CharField(max_length=20, null=False)
+    event = models.ForeignKey(OVCCareEvents)
+    is_void = models.BooleanField(default=False)
+    date_of_event = models.DateField()
+    timestamp_created = models.DateTimeField(default=timezone.now)
+    timestamp_updated = models.DateTimeField(default=timezone.now)
+    
+    class Meta:
+        db_table = 'ovc_risk_screening'
+    def __unicode__(self):
+        return str(self.risk_id)
 
 class OVCHIVManagement(models.Model):
     adherence_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
