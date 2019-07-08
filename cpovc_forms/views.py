@@ -9755,16 +9755,9 @@ def new_hivmanagementform(request, id):
         return render(request, 'ovc/home.html', {'form': form, 'status': 200})
     else:
         try:
-
-            print "get rqst 1"
             init_data = RegPerson.objects.filter(pk=id)
-            print "get rqst 2"
             check_fields = ['sex_id']
-            print "get rqst 3"
             vals = get_dict(field_name=check_fields)
-            print "get rqst 4"
-            print(vals)
-            print "get rqst 5"
             ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
                                                                                         'Treatment_initiated_Date',
                                                                                         'Substitution_FirstLine_ARV',
