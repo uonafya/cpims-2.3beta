@@ -30,6 +30,7 @@
         {% if data.date_of_birth|gen_age == 0 %}
                     UNDER 1 YEAR
                 {% else %}
+                    <input type="hidden" name="the_age" value="{{ data.date_of_birth|gen_age }}" id="the_age"/>
                     {{ data.date_of_birth|gen_age }} YRS 
                 {% endif %}</b></small>
         </b>
@@ -484,21 +485,16 @@
 
 </script>
     <!-- Skip logic -->
-    {% if data.date_of_birth|gen_age > 15 %}
     <script>
         $(document).ready(function () {
-            disableSection('section_a');
+            var t_age = $('#the_age').val();
+            if(t_age > 15){
+                disableSection('section_a')
+            }else{
+                disableSection('section_b')
+            }
         });
-        </script>
-    {% else %}
-        <script>
-            $(document).ready(function () {
-                disableSection('section_b');
-            });
-        </script>
-    {% endif %}
-    <!-- Skip logic -->
-    <script>
+
         $('input[name="HIV_RS_01"]').change(function (e) { 
             var this_val = $(this).val();
 
@@ -537,4 +533,5 @@
             }
         });
     </script>
+    <!-- Skip logic -->
 {% endblock %}
