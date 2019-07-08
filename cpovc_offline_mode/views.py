@@ -38,7 +38,7 @@ def fetch_data(request):
 			reg_person_id=ovc.person.id,
 			ovc_reg_id=ovc.id)
 
-		ovc_data[key] = base64.b64encode(json.dumps({
+		ovc_data[key.upper()] = base64.b64encode(json.dumps({
 			'person_id': ovc.person_id,
 			'org_unique_id': ovc.org_unique_id,
 			'first_name': ovc.person.first_name,

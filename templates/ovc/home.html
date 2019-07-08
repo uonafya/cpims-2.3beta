@@ -85,26 +85,27 @@
             </div>
             <!-- start panel body -->
             <div class="panel-body">
-               <form class="form-inline" action="{% url 'ovc_home' %}" method="POST"  data-parsley-validate="true">
+               <form class="form-inline" action="{% url 'ovc_home' %}" method="POST"  data-parsley-validate="true" id="find_ovc_form">
                    {% csrf_token %}
                     <div class="form-group m-r-10">
                         {{ form.search_name }}
                     </div>
-                    <div class="form-group m-r-10">
+                    <div class="form-group m-r-10 online_mode">
                         {{ form.search_criteria }}
                     </div>
-                    <div class="checkbox m-r-10">
+                    <div class="checkbox m-r-10 online_mode">
                         <label>
                             {{ form.person_exited }} <span>Include Exited</span>
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-search"></i>&nbsp;Search</button>
+                    <button type="submit" class="btn btn-sm btn-primary m-r-5"  id="find_ovc"><i class="fa fa-search"></i>&nbsp;Search</button>
                     <a href="{% url 'new_person' %}" class="online_mode">
                        <button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-plus"></i>&nbsp;Register New</button>
                     </a>
                 </form>
                 <br/><br/>
                 <form action="." method="post" name="ovcreg_form" id="ovcreg_form" data-parsley-validate="true">
+                <div id="offline_ovc_data"></div>
                 {% csrf_token %}
                 {% if ovcs %}
                 <div class="table-responsive">

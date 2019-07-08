@@ -55,6 +55,14 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             keys.forEach(this.remove);
         },
 
+        isOfflineModeActive: function () {
+            let me = this;
+            return this._isOfflineModeCapabilityEnabled && (() => {
+               me.checkConnectivity();
+               return !me._isConnectionOn;
+            })();
+        },
+
         checkConnectivity: function () {
             this._isConnectionOn = navigator.onLine;
         },
@@ -265,7 +273,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                let value = entry[1];
 
                if (key.includes(ovcNameAsAscii)) {
-                   foundOvcs.push(Base64.decode(value));
+                   foundOvcs.push(JSON.parse(Base64.decode(value)));
                }
             });
 
@@ -290,8 +298,103 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 window.offlineModeClient = offlineModeClient;
             }
 
+            $("#find_ovc").click(this.onSearchOvc(window.offlineModeClient));
+
             return window.offlineModeClient;
         },
+
+        searchOvcSelector: function() {
+            return $("#search_name");
+        },
+
+        onSearchOvc: function (offlineModeClient) {
+            console.log("onSearchOvc");
+
+            if (!offlineModeClient.isRegistrationDataInitialized) {
+                // force initialise ovc registration data
+                offlineModeClient.onLoginEventHandler();
+            }
+
+            let me = this;
+
+            return (event) => {
+
+                console.log("Handling searchOvc click event");
+
+                console.log(offlineModeClient.isOfflineModeActive());
+
+                if (!offlineModeClient.isOfflineModeActive()) {
+                    return true;
+                }
+
+                let ovcName = me.searchOvcSelector().val();
+
+                console.log(ovcName);
+
+                event.preventDefault();
+
+                me.drawOvcSearchResults(offlineModeClient.findOvc(ovcName));
+
+                return false;
+            };
+        },
+
+        drawOvcSearchResults: function (ovcs) {
+            let dtTag = (data) => {
+                return "<td>" + data + "</td>";
+            };
+
+            let tag = (tagName, data, style) => {
+                let opening_tag = '<' + tagName + '>' ;
+                if (style ==! undefined) {
+                   opening_tag  = '<' + tagName + ' ' + style + '>';
+                }
+                return opening_tag + data + '</' + tagName + '>';
+            };
+
+            let drawnLayout = '<table id="data-table" class="table table-striped table-bordered">' ;
+            drawnLayout += "<thead>";
+
+            let cols= [
+                'ID', 'CBOID', 'First Name', 'SurName', 'Other Names',
+                'Sex', 'Date of Birth', 'CHW', 'Caregiver', 'LIP/CBO',
+                'Status', 'OVC Actions'
+            ];
+
+            cols.forEach( col => {
+                if (['ID', 'CBOID'].includes(col)) {
+                    drawnLayout += tag('th', col, "width=\'5%\'");
+                } else {
+                    drawnLayout += tag('th', col);
+                }
+            });
+
+            drawnLayout += "</thead>";
+
+            drawnLayout += "<tbody>";
+
+            ovcs.forEach(ovc => {
+                drawnLayout += "<tr>";
+                drawnLayout += dtTag(ovc.person_id);
+                drawnLayout += dtTag(ovc.org_unique_id);
+                drawnLayout += dtTag(ovc.first_name);
+                drawnLayout += dtTag(ovc.surname);
+                drawnLayout += dtTag(ovc.other_names);
+                drawnLayout += dtTag(ovc.sex_id);
+                drawnLayout += dtTag(ovc.date_of_birth);
+                drawnLayout += dtTag(ovc.child_chv_full_name);
+                drawnLayout += dtTag(ovc.caretake_full_name);
+                drawnLayout += dtTag(ovc.org_unt_name);
+                drawnLayout += dtTag(ovc.is_active);
+                drawnLayout += dtTag("Actions here here");
+                drawnLayout += "</tr>";
+            });
+
+            drawnLayout += "</tbody>";
+            drawnLayout += "</table>";
+
+            $("#offline_ovc_data").html(drawnLayout);
+        }
     };
 };
 
