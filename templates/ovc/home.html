@@ -272,6 +272,21 @@ function OpenForm(id)
         {
             return window.location.href='{% url 'new_wellbeing' id=0 %}'.replace("0", id);
         }
+
+        if(form_type == 'WBA')
+        {
+            return window.location.href='{% url 'new_wellbeingadolescent' id=0 %}'.replace("0", id);
+        }
+
+        if(form_type == 'HVSRN')
+        {
+            return window.location.href='{% url 'new_hivscreeningtool' id=0 %}'.replace("0", id);
+        }
+
+        if(form_type == 'HVMGT')
+        {
+            return window.location.href='{% url 'new_hivmanagementform' id=0 %}'.replace("0", id);
+        }
     });
         
     $("#form_type").multiselect("clearSelection");

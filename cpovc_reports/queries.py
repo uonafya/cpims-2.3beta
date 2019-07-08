@@ -27,6 +27,10 @@ REPORTS[20] = 'benchmark'
 REPORTS[21] = 'exits'
 REPORTS[22] = 'assessments_needs_services_detailed'
 REPORTS[23] = 'assessments_needs_services_summary'
+REPORTS[24] = 'viral_load'
+REPORTS[25] = 'eligibility_criteria'
+REPORTS[26] = 'caregivers_served'
+REPORTS[27] = 'kpis'
 
 REPORTS[51] = 'datim'
 REPORTS[52] = 'pepfar'
@@ -1196,39 +1200,80 @@ reg_person.sex_id, Domain;'''
 
 
 # KPI
-QUERIES['kpi'] = '''
-select
-cast(count(distinct ovc_registration.person_id) as integer) as OVCCount,
-reg_org_unit.org_unit_name as CBO,
-list_geo.area_name as Ward,
-date_part('year', age(timestamp '{end_date}', reg_person.date_of_birth)) AS age,
-CASE
-WHEN date_part('year', age(timestamp '{end_date}', reg_person.date_of_birth)) < 1 THEN 'a.[<1yrs]'
-WHEN  date_part('year', age(timestamp '{end_date}', reg_person.date_of_birth)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]' 
-WHEN  date_part('year', age(timestamp '{end_date}', reg_person.date_of_birth)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]' 
-WHEN  date_part('year', age(timestamp '{end_date}', reg_person.date_of_birth)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]' 
-WHEN  date_part('year', age(timestamp '{end_date}', reg_person.date_of_birth)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]' 
-WHEN  date_part('year', age(timestamp '{end_date}', reg_person.date_of_birth)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
-ELSE 'g.[21+yrs]' END AS AgeRange,
-CASE reg_person.sex_id WHEN 'SFEM' THEN 'Female' ELSE 'Male' END AS Gender,
-CASE ovc_care_health.art_status
-WHEN 'ARAR' THEN '2a. (ii) OVC_HIVSTAT: HIV+ on ARV Treatment'
-WHEN 'ARPR' THEN '2a. (ii) OVC_HIVSTAT: HIV+ on ARV Treatment'
-ELSE '2a. (iii) OVC_HIVSTAT: HIV+ NOT on ARV Treatment'
-END AS Domain
-from ovc_registration
-INNER JOIN reg_person ON ovc_registration.person_id=reg_person.id
-LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id=ovc_registration.child_cbo_id
-LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id=ovc_registration.person_id and reg_persons_geo.area_id > 337
-LEFT OUTER JOIN list_geo ON list_geo.area_id=reg_persons_geo.area_id
-LEFT OUTER JOIN ovc_care_health ON ovc_care_health.person_id=ovc_registration.person_id
-WHERE reg_persons_geo.is_void = False
-and ovc_registration.is_active = True
-AND ovc_registration.hiv_status = 'HSTP'
-AND ovc_registration.child_cbo_id in ({cbos})
-GROUP BY ovc_registration.person_id, reg_person.date_of_birth,
-reg_person.sex_id, reg_org_unit.org_unit_name, ovc_registration.hiv_status,
-list_geo.area_name, ovc_care_health.art_status;'''
+QUERIES['kpis'] = '''
+--1.a Number of OVCs Ever Registered
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+'1.a Number of OVCs Ever Registered' as indicator
+from vw_cpims_Registration
+where vw_cpims_registration.cbo_id in ({cbos})
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender
+
+UNION
+--1.b Number of New OVC Registrations within period
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+'1.b Number of New OVC Registrations within period' as indicator
+from vw_cpims_Registration
+WHERE vw_cpims_registration.cbo_id in ({cbos}) AND (registration_date Between '{start_date}' and '{end_date}')
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender
+
+UNION
+--1.c Number of Active OVC within period
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+'1.c Number of Active OVC within period' as indicator
+from vw_cpims_Registration
+where vw_cpims_registration.cbo_id in ({cbos}) AND ((exit_status = 'ACTIVE' and registration_date <= '{end_date}')
+)
+AND NOT
+      (vw_cpims_Registration.schoollevel = 'Not in School' AND  vw_cpims_Registration.age > 17)
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender
+
+UNION
+--2 Number of OVC Exited within period
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,vw_cpims_Registration.ward_id,countyid,Gender,
+CASE vw_cpims_exits.datimexitreason
+ WHEN 'GRADUATED' THEN '2.a Number of Exited OVC within period [GRADUATED]'
+ WHEN 'TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER' THEN '2.b Number of Exited OVC within period [TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER]'
+ WHEN 'WITHOUT_GRADUATION' THEN '2.c Number of Exited OVC within period [WITHOUT_GRADUATION]'
+ WHEN 'TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER' THEN '2.d Number of Exited OVC within period [TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER]'
+ END
+ as indicator
+from vw_cpims_Registration
+INNER JOIN vw_cpims_exits
+ON vw_cpims_Registration.cpims_ovc_id = vw_cpims_exits.person_id
+WHERE vw_cpims_exits.cbo_id IN ({cbos})
+      AND (vw_cpims_Registration.exit_status = 'EXITED'
+        AND vw_cpims_Registration.registration_date <= '{end_date}')
+      AND (vw_cpims_Registration.exit_date BETWEEN '{start_date}' and '{end_date}')
+group by CBO, ward, County,AgeRange,vw_cpims_Registration.ward_id,countyid,Gender,vw_cpims_exits.datimexitreason
+
+UNION
+--HIV STATUS
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+CASE ovchivstatus
+       WHEN 'POSITIVE' THEN '3.a. Number of Active OVC HIV+'
+       WHEN 'NEGATIVE' THEN '3.b. Number of Active OVC HIV-'
+       ELSE '3.c. Number of Active OVC HIV Status NOT Known' END  as indicator
+from vw_cpims_Registration
+where vw_cpims_registration.cbo_id in ({cbos})
+AND (vw_cpims_Registration.exit_status = 'ACTIVE'
+ AND vw_cpims_Registration.registration_date <= '{end_date}')
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender,ovchivstatus
+
+UNION
+-- HIV treatment
+ SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+ CASE vw_cpims_treatment.linked
+   WHEN 'TREATMENT' THEN '3.a. (i) Number of Active OVC HIV+ on ARV Treatment'
+ WHEN 'NOTREATMENT' THEN '3.a. (ii) Number of Active OVC HIV+ NOT on ARV Treatment'
+ END
+    AS Indicator
+FROM vw_cpims_treatment
+WHERE
+ vw_cpims_treatment.cbo_id in ({cbos})
+AND (vw_cpims_treatment.exit_status = 'ACTIVE'
+ AND vw_cpims_treatment.registration_date <= '{end_date}')
+GROUP BY CBO, ward, County,AgeRange,ward_id,countyid,Gender,vw_cpims_treatment.linked
+'''
 
 QUERIES['served'] = '''
 SELECT * FROM (%s) a
@@ -3606,4 +3651,89 @@ County,
 sex_id,domain,date_part('year', age(timestamp '{end_date}', date_of_birth))
 ) tbl_pepfar
 group by CBO, ward, County,AgeRange,Gender,domain,Indicator
+'''
+QUERIES['viral_load'] = '''
+Select * from vw_cpims_viral_load
+WHERE cbo_id in ({cbos}) AND (vw_cpims_viral_load.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+'''
+
+QUERIES['eligibility_criteria'] = '''
+Select * from vw_cpims_eligibility_criteria
+WHERE cbo_id in ({cbos}) AND (vw_cpims_eligibility_criteria.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+'''
+
+
+QUERIES['caregivers_served'] = '''
+Select * from vw_cpims_caregivers_served
+WHERE cbo_id in ({cbos}) AND (vw_cpims_caregivers_served.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+'''
+
+QUERIES['kpis'] = '''
+--1.a Number of OVCs Ever Registered
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+'1.a Number of OVCs Ever Registered' as indicator
+from vw_cpims_Registration
+where vw_cpims_registration.cbo_id in (3520)
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender
+UNION
+--1.b Number of New OVC Registrations within period
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+'1.b Number of New OVC Registrations within period' as indicator
+from vw_cpims_Registration
+WHERE vw_cpims_registration.cbo_id in (3520) AND (registration_date Between '01-oct-2017' and '31-mar-2019')
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender
+UNION
+--1.c Number of Active OVC within period
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+'1.c Number of Active OVC within period' as indicator
+from vw_cpims_Registration
+where vw_cpims_registration.cbo_id in (3520) AND ((exit_status = 'ACTIVE' and registration_date <= '31-mar-2019') 
+)
+AND NOT
+      (vw_cpims_Registration.schoollevel = 'Not in School' AND  vw_cpims_Registration.age > 17)
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender
+UNION
+--2 Number of OVC Exited within period
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,vw_cpims_Registration.ward_id,countyid,Gender,
+CASE vw_cpims_exits.datimexitreason
+ WHEN 'GRADUATED' THEN '2.a Number of Exited OVC within period [GRADUATED]'
+ WHEN 'TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER' THEN '2.b Number of Exited OVC within period [TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER]'
+ WHEN 'WITHOUT_GRADUATION' THEN '2.c Number of Exited OVC within period [WITHOUT_GRADUATION]'
+ WHEN 'TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER' THEN '2.d Number of Exited OVC within period [TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER]'
+ END
+ as indicator
+from vw_cpims_Registration
+INNER JOIN vw_cpims_exits 
+ON vw_cpims_Registration.cpims_ovc_id = vw_cpims_exits.person_id
+WHERE vw_cpims_exits.cbo_id IN (3520)  
+      AND (vw_cpims_Registration.exit_status = 'EXITED' 
+        AND vw_cpims_Registration.registration_date <= '31-mar-2019')
+      AND (vw_cpims_Registration.exit_date BETWEEN '01-oct-2017' and '31-mar-2019')
+group by CBO, ward, County,AgeRange,vw_cpims_Registration.ward_id,countyid,Gender,vw_cpims_exits.datimexitreason
+UNION
+--HIV STATUS
+select count(cpims_ovc_id) as OVCCount,CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+CASE ovchivstatus
+       WHEN 'POSITIVE' THEN '3.a. Number of Active OVC HIV+'
+       WHEN 'NEGATIVE' THEN '3.b. Number of Active OVC HIV-'
+       ELSE '3.c. Number of Active OVC HIV Status NOT Known' END  as indicator
+from vw_cpims_Registration
+where vw_cpims_registration.cbo_id in (3520)
+AND (vw_cpims_Registration.exit_status = 'ACTIVE' 
+ AND vw_cpims_Registration.registration_date <= '31-mar-2019')
+group by CBO, ward, County,AgeRange,ward_id,countyid,Gender,ovchivstatus
+UNION
+-- HIV treatment
+ SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , CBO, ward, County,AgeRange,ward_id,countyid,Gender,
+ CASE vw_cpims_treatment.linked
+  WHEN 'TREATMENT' THEN '3.a. (i) Number of Active OVC HIV+ on ARV Treatment'
+ WHEN 'NOTREATMENT' THEN '3.a. (ii) Number of Active OVC HIV+ NOT on ARV Treatment'
+ END
+    AS Indicator
+FROM vw_cpims_treatment
+WHERE  
+ vw_cpims_treatment.cbo_id in (3520)
+AND (vw_cpims_treatment.exit_status = 'ACTIVE' 
+ AND vw_cpims_treatment.registration_date <= '31-mar-2019')
+GROUP BY CBO, ward, County,AgeRange,ward_id,countyid,Gender,vw_cpims_treatment.linked
 '''

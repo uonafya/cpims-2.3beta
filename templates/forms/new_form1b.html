@@ -61,8 +61,9 @@
 <!-- end page-header -->
 
 <div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
-    <span class="close" data-dismiss="alert">×</span>
-    <i class="fa fa-info fa-2x pull-left"></i>
+    <!-- <span class="close" data-dismiss="alert">×</span> -->
+    <i class="fa fa-info pull-left"></i>
+    <p></p>
     <span class="invalid-form-message" id="invalid-form-message"></span>
 </div>
 
@@ -117,7 +118,8 @@
                                 Household Economic Strengthening
                                 <small>Caregiver household economic strengthning status</small>
                             </li>							
-						</ol>
+                        </ol>
+                        <input type="hidden" id="person_id" value="{{ovc.child_chv.id}}">
                         <table width="100%" class="table table-profile">
                         <tbody>
                             <tr>
@@ -453,30 +455,110 @@
             <div class="badge pull-right m-4">Revised: October 6th 2016</div>
         </div>
         <!-- end panel -->
-               <b><p>Past Form 1B</p></b>
-                <div class="table-responsive">
-                <table id="data-table" class="table table-striped table-bordered">
-                    <thead>
-                        <tr>
-                            <th width="5%">ID</th>
-                            <th>Caregiver Names</th>
-                            <th>Date</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for f1b in f1bs %}
-                        <tr id="cluster_tr_{{ cluster.id }}">
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ f1b.person.first_name }} {{ f1b.person.surname }}</td>
-                            <td>{{ f1b.date_of_event }}
-                            </td>
-                            <td></td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
+        <div class="panel">
+                <div class="panel-heading">
+                    <h4 class="title"><b>Past Form 1B</b></h4>
+                </div>
+                <div class="panel-body">
+                    <table id="data-table" class="table table-striped table-bordered hidden">
+                        <thead>
+                            <tr>
+                                <th width="5%">ID</th>
+                                <th>Caregiver Names</th>
+                                <th>Date</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for f1b in f1bs %}
+                            <tr id="cluster_tr_{{ cluster.id }}">
+                                <td>{{ forloop.counter }}</td>
+                                <td class="f1b_p_id" id="{{ f1b.person.id }}">{{ f1b.person.first_name }} {{ f1b.person.surname }}</td>
+                                <td>{{ f1b.date_of_event }}
+                                </td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <table id="past_f1b" class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Event date</th>
+                                <th>Event type</th>
+                                <th>Details</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for eventt in ev_data %}
+                                <tr>
+                                    <td rowspan="2" valign="center" style="text-align: center;vertical-align: middle;">{{ forloop.counter }}</td>
+                                    <td rowspan="2" valign="center" style="text-align: center;vertical-align: middle;"><b>{{ eventt.ev_date }}</b></td>
+                                    <td valign="center" style="text-align: center;vertical-align: middle;">Services</td>
+                                    <td width="40%">
+                                        
+                                        {% if eventt.services %}
+                                            <!-- <ul> -->
+                                                {% for 1svc in eventt.services %}
+                                                    {{ 1svc.data }}, &nbsp;
+                                                {% endfor %}
+                                            <!-- </ul> -->
+                                        {% else %}
+                                            <div class="alert alert-warning">No services found</div>
+                                        {% endif %}
+
+                                    </td>
+                                    <td rowspan="2" valign="center" style="text-align: center;vertical-align: middle;">
+                                        <a class="btn btn-danger" data-toggle="modal" href='#del_f1b_e'> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                                        <div class="modal fade" id="del_f1b_e">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                        <h4 class="modal-title">Delete this event</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure you want to delete the <b>{{eventt.ev_date}}</b> event?
+                                                        <input type="hidden" name="ev_person" id="ev_person" value="{{eventt.ev_person}}"/>
+                                                        <input type="hidden" name="ev_key" id="ev_key" value="{{eventt.event_key}}"/>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <script>
+                                                            var pid = document.getElementById("ev_person").value;
+                                                            var ev_key = document.getElementById("ev_key").value;
+                                                        </script>
+                                                        <button type="button" class="btn btn-danger" onclick="deleteForm1bEntry( pid,ev_key )" id="del_f1b_{{forloop.counter}}">Yes, DELETE</button>
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">No, cancel</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </td>
+                                </tr>
+                                <tr style="border-bottom: 8px solid #ccc;">
+                                    <td valign="center" style="text-align: center;vertical-align: middle;">Assessments</td>
+                                    <td width="40%">
+                                        {% if eventt.assessments %}
+                                            <!-- <ul> -->
+                                                {% for 1asem in eventt.assessments %}
+                                                    {{ 1asem.data }}, &nbsp;
+                                                {% endfor %}
+                                            <!-- </ul> -->
+                                        {% else %}
+                                            <div class="alert alert-warning">No assessments found</div>
+                                        {% endif %}
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
                     </table>
                 </div>
+            </div>
 
     </div>
     <!-- end col-12 -->
@@ -520,6 +602,41 @@
            }
     });
 
+</script>
+    
+
+
+
+<script>
+    function deleteForm1bEntry(personId,btn_event_pk){
+        $('#del_f1b_e').modal('hide');
+        var form1bUrlToDelete= "{% url 'delete_form1b' id=1234 btn_event_pk=3456 %}".replace(/1234/, personId.toString()).replace(/3456/, btn_event_pk.toString());
+        $.ajax({
+            url: form1bUrlToDelete,
+            dataType: 'json',
+            method: 'GET',
+            success: function(result)
+            {
+                if (result[0].msg.includes("30")){
+                    $('#messages').removeClass('alert-success').addClass('alert-danger').css({'display': 'block'});
+                    $('#messages p').html(result[0].msg);
+
+                }else{
+                    $('#messages').addClass('alert-success').removeClass('alert-danger').css({'display': 'block'});
+                    $('#messages p').html(result[0].msg);
+                    var url = "{% url 'new_form1b' id=1234%}".replace(/1234/, personId.toString());
+                    window.open(url,"_self");
+                }
+                console.log("delered");
+            },
+            error: function(xhr, status, error){
+                alert('not deleted ==> status: '+ JSON.stringify(status) + ' & error: '+JSON.stringify(error));
+                $('#messages').css({'display': 'block'}).removeClass('alert-success').addClass('alert-danger');
+                $('#messages p').html(result[0].msg);
+                console.log("errorr delering");
+            }
+        });
+    }
 
 </script>
 

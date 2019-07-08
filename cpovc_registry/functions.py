@@ -564,7 +564,8 @@ def fetch_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=
             except Exception, e:
                 print 'error on fetch_served_bcert_by_period - %s' % (str(e))
     return served_bcert_by_period
-    
+
+
 def fetch_u5_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=''):
     # print 'oooop running fetch_u5_served_bcert_by_period month_year='+month_year+" \n "
     month_year = json.loads(month_year)
@@ -1776,6 +1777,33 @@ def save_household(index_child, members):
         pass
 
 
+def add_household_members(index_child, member):
+    try:
+        child = OVCRegistration.objects.get(person=index_child)
+        caretaker = child.caretaker
+        household = caretaker.ovchousehold_set.first()
+        mbr = OVCHHMembers.objects.create(
+            house_hold=household,
+            person_id=member,
+            member_type='tst',
+        )
+        print 'added household member -' + str(mbr.id)
+    except Exception as e:
+        print 'error adding household - %s ' % (str(e))
+        pass
+
+
+def update_household(index_child, member):
+    """Method to update households."""
+    try:
+        hh = OVCHouseHold.objects.get(index_child=index_child)
+        hh.members += str(member) + ','
+        hh.save()
+    except Exception as e:
+        print 'error updating household - %s ' % (str(e))
+        pass
+
+
 def get_ovc_lists(ovc_ids):
     """Method to get child chv details from ids."""
     try:
@@ -1850,7 +1878,7 @@ def get_chvs(person_id):
             is_void=False, org_unit_id__in=org_units).values_list(
             'person_id', flat=True)
         # Filter by types
-        public.persons = RegPersonsTypes.objects.filter(
+        persons = RegPersonsTypes.objects.filter(
             is_void=False, person_type_id='TWVL', person_id__in=person_ids)
         for person in persons:
             cbo_detail[person.person_id] = person.person.full_name
@@ -2384,7 +2412,7 @@ def auto_suggest_person(request, query, qid=0):
                 identifier=psearch, identifier_type_id='INTL',
                 is_void=False)
             person_list = pids.values_list('person_id', flat=True)
-            public.persons = RegPerson.objects.filter(
+            persons = RegPerson.objects.filter(
                 id__in=person_list, is_void=False)
         else:
             porgs = RegPersonsOrgUnits.objects.filter(
@@ -2413,7 +2441,7 @@ def auto_suggest_person(request, query, qid=0):
             q_filter = Q()
             for field in field_names:
                 q_filter |= Q(**{"%s__icontains" % field: query})
-            public.persons = queryset.filter(q_filter)
+            persons = queryset.filter(q_filter)
             pids = RegPersonsExternalIds.objects.filter(
                 person_id__in=person_ids, identifier_type_id='INTL')
         for pid in pids:

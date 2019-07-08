@@ -22,7 +22,7 @@ from .functions import (
     save_audit_trail, create_geo_list, counties_from_aids, get_user_details,
     get_list_types, geos_from_aids, person_duplicate, copy_locations,
     unit_duplicate, get_temp, save_household, get_household, get_index_child,
-    check_duplicate, search_person_ft)
+    check_duplicate, search_person_ft, update_household, add_household_members)
 from cpovc_auth.models import AppUser
 from cpovc_registry.models import (
     RegOrgUnit, RegOrgUnitContact, RegPerson, RegPersonsOrgUnits,
@@ -825,6 +825,14 @@ def view_person(request, id):
                         'contact_detail_type_id']
         vals = get_dict(field_name=check_fields)
         person = RegPerson.objects.get(pk=id)
+        m_ovcs = OVCRegistration.objects.filter(caretaker_id=person.id)
+        # print('lllllllllllllaaaayyyyyyyy', m_ovcs[0])
+        
+        my_ovcs = []
+        for one_ovc in m_ovcs:
+            my_ovcs.append(RegPerson.objects.filter(id=one_ovc.person_id))
+        # print('lllllllllllllaaaazzzzzzz', my_ovcs[0])
+        
         person_types = RegPersonsTypes.objects.filter(
             person=person, is_void=False, date_ended=None)
         person_geos = RegPersonsGeo.objects.select_related().filter(
@@ -924,7 +932,7 @@ def view_person(request, id):
         # Workforce ID
         person.workforce_id = workforce_id
         return render(request, 'registry/view_person.html',
-                      {'person_details': person, 'vals': vals,
+                      {'person_details': person, 'vals': vals, 'my_ovcs': my_ovcs,
                        'appuser': person_appuser, 'guardians': guardians,
                        'siblings': siblings, 'osiblings': osiblings,
                        'oguardians': oguardians, 'hhs': hhs})
@@ -1623,6 +1631,8 @@ def person_actions(request):
                         relationship = attached_cg[ncg]['ctype']
                         child_headed = True if is_adult == 'No' else False
                         if edit_type == 3:
+                            update_household(index_child=person_id, member=cpims_id)
+                            add_household_members(index_child=person_id, member=cpims_id)
                             g_count = RegPersonsGuardians.objects.filter(
                                 guardian_person_id=cpims_id,
                                 child_person_id=person_id, is_void=False,

@@ -187,6 +187,7 @@ urlpatterns = patterns(
         'view_csi', name='view_csi'),
     url(r'^csi/delete/(?P<id>\w+)/$',
         'delete_csi', name='delete_csi'),
+        
     # OVC Care - Form1A
     url(r'^form1a/new/(?P<id>\d+)/$',
         'form1a_events', name='form1a_events'),
@@ -204,9 +205,17 @@ urlpatterns = patterns(
             'delete_previous_event_entry', name='delete_previous_event_entry'),
     url(r'^form1a/manage/$',
         'manage_form1a_events', name='manage_form1a_events'),
+    # end OVC Care - Form1A
+
     # OVC Care - Form1B
     url(r'^form1b/new/(?P<id>\d+)/$',
         'new_form1b', name='new_form1b'),
+    url(r'^form1b/delete/(?P<id>\d+)/(?P<btn_event_pk>.+)/$',
+        'delete_form1b', name='delete_form1b'),
+    url(r'^form1b/manage/$',
+        'manage_form1b_events', name='manage_form1b_events'),
+    # OVC Care - Form1B
+
     # OVC Care - HHVA
     url(r'^hhva/new/(?P<id>\d+)/$',
         'new_hhva', name='new_hhva'),
@@ -230,9 +239,14 @@ urlpatterns = patterns(
     # OVC Care - CPARA Form
     url(r'^cpara/new/(?P<id>\d+)/$',
         'new_cpara', name='new_cpara'),
+    url(r'^cpara/delete/(?P<id>\d+)/(?P<btn_event_pk>.+)/$',
+        'delete_cpara', name='delete_cpara'),
+
     # OVC Care - Case Plan Template
     url(r'^caseplan/new/(?P<id>\d+)/$',
         'case_plan_template', name='new_caseplan'),
+    url(r'^caseplan/update/(?P<ovcid>\d+)/(?P<event_id>.+)/$',
+        'update_caseplan', name='update_caseplan'),
     url(r'^caseplan-monitoring/new/(?P<id>\d+)/$', 'new_case_plan_monitoring', name='new_caseplan_monitoring'),
 
     #wellbeing Adult and Child
@@ -244,5 +258,13 @@ urlpatterns = patterns(
     # hiv_status
     url(r'^HIVstatus/$',
         'hiv_status', name='hiv_status'),
+        
+    # HIV Risk Assessment Form
+    url(r'^hivscreeningtool/new/(?P<id>\d+)/$',
+        'new_hivscreeningtool', name='new_hivscreeningtool'),
+
+     # HIV Risk Management Form
+    url(r'^hivmanagementform/new/(?P<id>\d+)/$',
+        'new_hivmanagementform', name='new_hivmanagementform'),
 
 )

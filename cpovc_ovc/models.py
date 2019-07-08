@@ -199,6 +199,7 @@ class OVCHealth(models.Model):
     date_linked = models.DateField()
     ccc_number = models.CharField(max_length=20)
     created_at = models.DateTimeField(default=timezone.now)
+    timestamp_updated = models.DateTimeField(auto_now=True)
     is_void = models.BooleanField(default=False)
 
     class Meta:
