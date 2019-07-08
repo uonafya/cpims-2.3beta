@@ -215,9 +215,16 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         isRegistrationDataInitialized: false,
 
+        registrationData: undefined,
+
         _initializeRegistrationData: function () {
             let _offlineModeClient = window.offlineModeClient;
             let me = this;
+
+            if (me.registrationData !== undefined) {
+                console.log("Registration data already initialized");
+                return;
+            }
 
             $.ajax({
                 url: dataFetchUrl,
@@ -229,10 +236,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 },
                 success: function (data) {
                     console.log("Successfully initialized registration data");
-                    me.isRegistrationDataInitialized = false;
-
-                    // let dataAsJson = JSON.parse(data);
-
+                    me.isRegistrationDataInitialized = true;
+                    me.registrationData = data.data;
                     _offlineModeClient.saveJson(me._registrationDataStorageKey(), data.data);
                 },
                 error: function () {
@@ -240,6 +245,31 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                     me.isRegistrationDataInitialized = false
                 }
             });
+        },
+
+        toAscii: function(str) {
+            let asciiStr = '';
+            str.split('').forEach( i => asciiStr = asciiStr + i.charCodeAt(i));
+            return asciiStr;
+        },
+
+        findOvc: function (ovcName) {
+            this._initializeRegistrationData();
+
+            let foundOvcs = [];
+
+            let ovcNameAsAscii = this.toAscii(ovcName.toUpperCase());
+
+            Object.entries(this.registrationData).map( entry => {
+               let key = entry[0] ;
+               let value = entry[1];
+
+               if (key.includes(ovcNameAsAscii)) {
+                   foundOvcs.push(Base64.decode(value));
+               }
+            });
+
+            return foundOvcs;
         }
     };
 
