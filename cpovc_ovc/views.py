@@ -434,7 +434,11 @@ def ovc_view(request, id):
         wellbeing_services = {}
         wellbeing_services['wba']=services['wba']
         wellbeing_services['WBG'] = services['WBG']
-        care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        try:
+            care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        except RegPerson.DoesNotExist:
+            care_giver=None
+            print 'Caregiver does not exist for child: %s' % child.id
         return render(request, 'ovc/view_child.html',
                       {'status': 200, 'child': child, 'params': params,
                        'guardians': guardians, 'siblings': siblings,
