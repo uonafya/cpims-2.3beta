@@ -6261,8 +6261,8 @@ class HIV_SCREENING_FORM(forms.Form):
                'name': 'HIV_RA_1A',
                'id': 'HIV_RA_1A',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
 
     HIV_RS_01 = forms.ChoiceField(
@@ -6369,8 +6369,8 @@ class HIV_SCREENING_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        'data-parsley-required': 'true',
-        'data-parsley-errors-container': "#errorfield"
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
     }))
 
     HIV_RS_14 = forms.ChoiceField(
