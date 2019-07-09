@@ -4,7 +4,7 @@ import datetime
 import uuid
 from cpovc_registry.models import (RegPerson, RegOrgUnit, AppUser)
 from cpovc_main.models import (SchoolList)
-from cpovc_ovc.models import (OVCHouseHold)
+from cpovc_ovc.models import (OVCHouseHold, OVCFacility)
 
 # Create your models here.
 class OVCBursary(models.Model):
@@ -1146,7 +1146,7 @@ class OVCHIVRiskScreening(models.Model):
     art_referral_date=models.DateTimeField(default=timezone.now)
     art_referral_completed= models.BooleanField(default=False)
     art_referral_completed_date=models.DateTimeField(default=timezone.now)
-    facility=models.CharField(max_length=20, null=False)
+    facility=models.ForeignKey(OVCFacility)
     event = models.ForeignKey(OVCCareEvents)
     is_void = models.BooleanField(default=False)
     date_of_event = models.DateField()

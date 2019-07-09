@@ -7,6 +7,7 @@ from cpovc_main.functions import get_list, get_org_units_list
 from cpovc_registry.functions import get_geo_list, get_all_geo_list
 from cpovc_registry.models import RegOrgUnit
 from cpovc_main.models import SchoolList
+from cpovc_ovc.models import OVCFacility
 # New lists
 WB_AD_GEN_5_ChoiceList=WB_AD_SAF_32_6_CHOICELIST=WB_AD_SAF_32_2_CHOICELIST=WB_AD_SAF_28_CHOICELIST=WB_AD_SAF_27_1_CHOICELIST=WB_AD_SAF_26_CHOICELIST=WB_AD_HEL_24_1_CHOICELIST=WB_AD_HEL_21_1_CHOICELIST=WB_AD_SCH_7_CHOICELIST=WB_AD_SCH_12_2_CHOICELIST=WB_AD_HEL_20_4_CHOICELIST=WB_AD_SCH_13_2_CHOICELIST = (('TBD1', 'TBD1'), ('TBD2', 'TBD2'),('TBD3', 'TBD3'))
 YESNO_CHOICES = (('AYES', 'Yes'), ('ANNO', 'No'))
@@ -6252,7 +6253,7 @@ class WellbeingAdolescentForm(forms.Form):
 
 # HIV Screening Form
 class HIV_SCREENING_FORM(forms.Form):
-    org_units_list = [('', 'Please Select')] + list(RegOrgUnit.objects.filter().values_list('id', 'org_unit_name'))
+    org_units_list = [('', 'Please Select')] + list(OVCFacility.objects.filter().values_list('id', 'facility_name'))
     HIV_RA_1A = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
@@ -6501,22 +6502,22 @@ class HIV_SCREENING_FORM(forms.Form):
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q6 = forms.ChoiceField(
-            choices=org_units_list,
-            initial='',
-            widget=forms.Select(
-                attrs={'class': 'form-control',
-                       'id': 'HIV_RA_3Q6'
-                      }
-            )
-    )
+    # HIV_RA_3Q6 = forms.ChoiceField(
+    #         choices=org_units_list,
+    #         initial='',
+    #         widget=forms.Select(
+    #             attrs={'class': 'form-control',
+    #                    'id': 'HIV_RA_3Q6'
+    #                   }
+    #         )
+    # )
                     
-    # HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
-    #     attrs={'placeholder': _('Facility Name'),
-    #            'class': 'form-control',
-    #            'id': 'HIV_RA_3Q6',
-    #         #    'data-parsley-group': 'group0'
-    #            }))
+    HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _('Facility Name'),
+               'class': 'form-control',
+               'id': 'HIV_RA_3Q6',
+            #    'data-parsley-group': 'group0'
+               }))
 
 
 # HIV Management - Visitation Form 
