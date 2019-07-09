@@ -239,7 +239,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             me.registrationData = _offlineModeClient.retrieveJson(me._registrationDataStorageKey());
 
-            if (me.registrationData !== undefined || me.registrationData !== null) {
+            if (me.registrationData !== null) {
                 console.log("Registration data loaded from cache");
                 return;
             }
@@ -299,7 +299,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         ovcListTable: $("#offline_ovc_table"),
 
-        ovcOfflineContainer: $("#ovcOfflineContainer")
+        ovcOfflineContainer: $("#ovcOfflineContainer"),
     };
 
     return {
@@ -317,6 +317,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 offlineModeClient.notifyConnectivityStatus();
                 offlineModeClient.periodicallyCheckConnectivity();
                 window.offlineModeClient = offlineModeClient;
+                window.viewOvcOffline = this.viewOvcOffline();
             }
 
             $("#find_ovc").click(this.onSearchOvc(window.offlineModeClient));
@@ -325,8 +326,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             return window.offlineModeClient;
         },
-
-
 
         searchOvcSelector: function() {
             return $("#search_name");
@@ -352,7 +351,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
                 let ovcName = me.searchOvcSelector().val();
 
-
                 event.preventDefault();
 
                 me.drawOvcSearchResults(offlineModeClient.findOvc(ovcName), offlineModeClient.ovcListTable);
@@ -362,9 +360,92 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         },
 
         drawOvcSearchResults: function (ovcs, ovcListTable) {
-            ovcListTable.bootstrapTable('destroy');
+            let me = this;
+
+            ovcListTable.bootstrapTable('destroy').bootstrapTable({
+                'data': ovcs,
+                'id-field': 'id',
+                'pagination': true,
+                'select-item-name': 'id',
+                'locale': 'en-US',
+                'data-toolbar': '.view_ovc',
+                'columns': [
+                    {
+                        field: 'person_id',
+                        title: 'ID'
+                    },
+                    {
+                        field: 'org_unique_id',
+                        title: 'CBOID'
+                    },
+                    {
+                        field: 'first_name',
+                        title: 'First Name'
+                    },
+                    {
+                        field: 'surname',
+                        title: 'Surname'
+                    },
+                    {
+                        field: 'other_names',
+                        title: 'Other Names'
+                    },
+                    {
+                        field: 'sex_id',
+                        title: 'Sex'
+                    },
+                    {
+                        field: 'date_of_birth',
+                        title: 'Date Of Birth'
+                    },
+                    {
+                        field: 'child_chv_full_name',
+                        title: 'CHW'
+                    },
+                    {
+                        field: 'date_of_birth',
+                        title: 'Date Of Birth'
+                    },
+                    {
+                        field: 'caretake_full_name',
+                        title: 'Care Giver'
+                    },
+                    {
+                        field: 'org_unt_name',
+                        title: 'LIP/CBO'
+                    },
+                    {
+                        field: 'is_active',
+                        title: 'Status'
+                    },
+                    {
+                        field: 'id',
+                        title: 'Actions',
+                        align: 'center',
+                        formatter: me.viewOvcButton()
+                    },
+                ]
+            });
             ovcListTable.show();
-            ovcListTable.bootstrapTable({data: ovcs, pagination: true, locale: 'en-US'});
+        },
+
+        viewOvcButton: function () {
+            return (value, row, index) => {
+                return [
+                    '<button id="' + value + '" class="view_ovc btb btn-primary" title="View Ovc" onclick="window.viewOvcOffline(\'' + value + '\')">',
+                    '<i class="fa fa-eye"></i>',
+                    'View Ovc',
+                    '</button>'
+                ].join('')
+
+            };
+        },
+
+        viewOvcOffline: function () {
+            return (id) => {
+                console.log("Viewing ovc : " , id);
+                return false;
+            }
         }
     };
 };

@@ -36,9 +36,10 @@ def fetch_data(request):
 		key = '{full_name}_{reg_person_id}_{ovc_reg_id}'.format(
 			full_name=full_name,
 			reg_person_id=ovc.person.id,
-			ovc_reg_id=ovc.id)
+			ovc_reg_id=ovc.id).upper()
 
-		ovc_data[key.upper()] = base64.b64encode(json.dumps({
+		ovc_data[key] = base64.b64encode(json.dumps({
+			'id': key,
 			'person_id': ovc.person_id,
 			'org_unique_id': ovc.org_unique_id,
 			'first_name': ovc.person.first_name,
@@ -50,7 +51,6 @@ def fetch_data(request):
 			'caretake_full_name': ovc.caretaker.full_name,
 			'org_unt_name': ovc.child_cbo.org_unit_name,
 			'is_active': 'Active' if ovc.is_active else 'Exited'
-
 		}))
 
 	return JsonResponse({
