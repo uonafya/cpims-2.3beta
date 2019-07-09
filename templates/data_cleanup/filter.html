@@ -25,20 +25,19 @@
                     <option value='<'>Less Than</option>
                     <option value='-'>Between</option>
                 </select>
-        <label for="age">
             Age
             <input type='text' name='age' class="form-control">
-        </label>
-    </br>
+
+            School Level
+            <select name='school_level' class="form-control">
+                <option value="0">Select Shool Level</option>
+                <option value='SLSE'>Secondary</option>
+                <option value='SLPR'>Primary</option>
+                <option value='SLNS'>NO School</option>
+            </select>
     </div>
                     <div class='col-lg-6'>
-        <select name='school_level' class="form-control">
-            <option value="0">Select Shool Level</option>
-            <option value='SLSE'>Secondary</option>
-            <option value='SLPR'>Primary</option>
-            <option value='SLNS'>NO School</option>
-        </select>
-
+        HIV Status
         <select name='hiv_status' class="form-control">
           <option value="0">Select HIV Status</option>
           <option value='HSTR'>HSTR</option>
@@ -48,7 +47,7 @@
           <option value='HSTN'>HSTN</option>
           <option value='HSRT'>HSRT</option>
         </select>
-
+        ART Status
         <select name='art_status' class="form-control">
             <option value="0">Select Art Status</option>
             <option value='ART'>ART</option>
@@ -57,9 +56,14 @@
           </select>
     </div>
   </div>
+</br>
+<div class='pull-right'>
 <button type='submit' class='btn btn-primary'>Filter</button>
 <a class='btn btn-success' href="{% url 'data_cleanup' %}?export=True" target="_blank"><i class="fa fa-download"></i> &nbsp Export</a>
+</div>
 </form>
+</br>
+</br>
 {% if data %}
 <table class="table" id='age-data-table'>
 <thead>
