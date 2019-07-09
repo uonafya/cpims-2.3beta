@@ -22,7 +22,7 @@ from cpovc_forms.forms import (
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
     BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
     GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm, HIV_SCREENING_FORM,
-    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM)
+    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM, DREAMS_FORM)
 
 from .models import (
     OVCEconomicStatus, OVCFamilyStatus, OVCReferral, OVCHobbies, OVCFriends,
@@ -9836,3 +9836,22 @@ def new_hivmanagementform(request, id):
                            'vals': vals})
         except Exception, e:
             print e
+
+# DREAMS Service Uptake Form
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_dreamsform(request, id):
+    try:
+        init_data = RegPerson.objects.filter(pk=id)
+        check_fields = ['sex_id']
+        vals = get_dict(field_name=check_fields)
+        print(vals)
+        form = DREAMS_FORM(initial={'person': id})
+    except:
+        pass
+
+    return render(request,
+                  'forms/new_dreamsform.html',
+                  {'form': form, 'init_data': init_data,
+                   'vals': vals})
+        
