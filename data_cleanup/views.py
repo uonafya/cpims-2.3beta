@@ -35,34 +35,40 @@ class DataQualityView(TemplateView):
         age_operator = self.request.POST.get('operator')
         school_level = self.request.POST.get('school_level')
         hiv_status = self.request.POST.get('hiv_status')
+        art_status = self.request.POST.get('art_status')
         
-        if  age_operator == '-':
-            ages =  age.split('-')
-            if len(ages) != 2:
-                context['error'] = 'Please supply the min and max age e.g 19-20'
-                return TemplateResponse(self.request, self.template_name, context) 
-            else:
-                try:
-                    min_age = int(ages[0])
-                    max_age = int(ages[1])
-                    queryset = queryset.filter(age__gte=min_age, age__lte=max_age)
-                except ValueError:
-                    context['error'] = 'Please use numbers for age'
-                    return TemplateResponse(self.request, self.template_name, context)
-                
-        elif age_operator == '=':
-            queryset =  queryset.filter(age=age)
-        elif age_operator == '>':
-            queryset =  queryset.filter(age__gt=age) 
-        elif  age_operator == '<':
-            queryset = queryset.filter(age__lt=age)
+        if age:
+            if  age_operator == '-' and age_operator != '0':
+                ages =  age.split('-')
+                if len(ages) != 2:
+                    context['error'] = 'Please supply the min and max age e.g 19-20'
+                    return TemplateResponse(self.request, self.template_name, context) 
+                else:
+                    try:
+                        min_age = int(ages[0])
+                        max_age = int(ages[1])
+                        queryset = queryset.filter(age__gte=min_age, age__lte=max_age)
+                    except ValueError:
+                        context['error'] = 'Please use numbers for age'
+                        return TemplateResponse(self.request, self.template_name, context)
+                    
+            elif age_operator == '=':
+                queryset =  queryset.filter(age=age)
+            elif age_operator == '>':
+                queryset =  queryset.filter(age__gt=age) 
+            elif  age_operator == '<':
+                queryset = queryset.filter(age__lt=age)
         
 
-        if school_level:
+        if school_level and school_level != '0':
             queryset = queryset.filter(school_level=school_level)
         
-        if hiv_status:
+        if hiv_status and hiv_status != '0':
             queryset = queryset.filter(hiv_status=hiv_status)
+
+        if art_status and art_status != '0':
+            queryset = queryset.filter(art_status=art_status)
+
         # queryset = Paginator(queryset, 30)
         context['data']= queryset
         return TemplateResponse(self.request, self.template_name, context)

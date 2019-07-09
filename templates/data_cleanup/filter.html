@@ -16,10 +16,10 @@
 <form class='form' action="{% url 'data_cleanup' %}" method="POST">
     {% csrf_token %}
     <div class='row'>
-      <div class='col-lg-4'>
+      <div class='col-lg-6'>
             Age Operator
             <select name='operator' class="form-control">
-                    <option>Select Operator</option>
+                    <option value="0">Select Operator</option>
                     <option value='='>Equals</option>
                     <option value='>'>Greater Than</option>
                     <option value='<'>Less Than</option>
@@ -31,16 +31,16 @@
         </label>
     </br>
     </div>
-                    <div class='col-lg-4'>
+                    <div class='col-lg-6'>
         <select name='school_level' class="form-control">
-            <option>Select Shool Level</option>
+            <option value="0">Select Shool Level</option>
             <option value='SLSE'>Secondary</option>
             <option value='SLPR'>Primary</option>
             <option value='SLNS'>NO School</option>
         </select>
 
         <select name='hiv_status' class="form-control">
-          <option>Select HIV Status</option>
+          <option value="0">Select HIV Status</option>
           <option value='HSTR'>HSTR</option>
           <option value='HSKN'>HSKN</option>
           <option value='HSTP'>HSTP</option>
@@ -48,6 +48,13 @@
           <option value='HSTN'>HSTN</option>
           <option value='HSRT'>HSRT</option>
         </select>
+
+        <select name='art_status' class="form-control">
+            <option value="0">Select Art Status</option>
+            <option value='ART'>ART</option>
+            <option value='ARAR'>ARAR</option>
+            <option value='ARV'>ARV</option>
+          </select>
     </div>
   </div>
 <button type='submit' class='btn btn-primary'>Filter</button>
@@ -61,6 +68,7 @@
       <th>Age</th>
       <th>School Level</th>
       <th>HIV Status</th>
+      <th>ART Status</th>
     </tr>
   </thead>
   <tbody>
@@ -70,6 +78,7 @@
       <td>{{ obj.age }} </td>
       <td>{{ obj.school_level }}</td>
       <td>{{ obj.hiv_status }}</td>
+      <td>{{ obj.art_status }}</td>
     </tr>
     {% endfor %}
     
