@@ -35,6 +35,16 @@
     <option value='SLNS'>NO School</option>
 </select>
 
+<select name='hiv_status' class="form-control">
+  <option>Select HIV Status</option>
+  <option value='HSTR'>HSTR</option>
+  <option value='HSKN'>HSKN</option>
+  <option value='HSTP'>HSTP</option>
+  <option value='XXXX'>XXXX</option>
+  <option value='HSTN'>HSTN</option>
+  <option value='HSRT'>HSRT</option>
+</select>
+
 <button type='submit' class='btn btn-primary'>Filter</button>
 <a class='btn btn-success' href="{% url 'data_cleanup' %}?export=True" target="_blank"><i class="fa fa-download"></i> &nbsp Export</a>
 </form>

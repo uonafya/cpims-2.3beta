@@ -34,6 +34,7 @@ class DataQualityView(TemplateView):
         age = self.request.POST.get('age')
         age_operator = self.request.POST.get('operator')
         school_level = self.request.POST.get('school_level')
+        hiv_status = self.request.POST.get('hiv_status')
         
         if  age_operator == '-':
             ages =  age.split('-')
@@ -59,6 +60,9 @@ class DataQualityView(TemplateView):
 
         if school_level:
             queryset = queryset.filter(school_level=school_level)
+        
+        if hiv_status:
+            queryset = queryset.filter(hiv_status=hiv_status)
         # queryset = Paginator(queryset, 30)
         context['data']= queryset
         return TemplateResponse(self.request, self.template_name, context)
