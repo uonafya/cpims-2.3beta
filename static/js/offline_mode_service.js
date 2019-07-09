@@ -90,6 +90,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         _handleIsOnline: function() {
             if (this._isOfflineModeCapabilityEnabled) {
+                this.ovcOfflineContainer.hide();
+                this.ovcListTable.hide();
                 this.submitData(this._formDataKey(), this._onSubmitFormSuccess(), this._onSubmitFormError());
             }
         },
@@ -215,6 +217,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         onLogoutEventHandler: function () {
             this.isRegistrationDataInitialized = false;
             window.offlineModeClient.remove(me._registrationDataStorageKey());
+            this.registrationData = undefined;
         },
 
         _registrationDataStorageKey: function () {
@@ -231,6 +234,13 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             if (me.registrationData !== undefined) {
                 console.log("Registration data already initialized");
+                return;
+            }
+
+            me.registrationData = _offlineModeClient.retrieveJson(me._registrationDataStorageKey());
+
+            if (me.registrationData !== undefined || me.registrationData !== null) {
+                console.log("Registration data loaded from cache");
                 return;
             }
 
@@ -266,19 +276,30 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             let foundOvcs = [];
 
-            let ovcNameAsAscii = this.toAscii(ovcName.toUpperCase());
+            let me = this;
+
+            let ovcNameAsAscii = ovcName.toUpperCase().split(' ').map(me.toAscii);
 
             Object.entries(this.registrationData).map( entry => {
                let key = entry[0] ;
                let value = entry[1];
 
-               if (key.includes(ovcNameAsAscii)) {
+               let ovcFound = ovcNameAsAscii
+                   .map(it => key.includes(it))
+                   .filter(it => it)
+                   .length > 0;
+
+               if (ovcFound) {
                    foundOvcs.push(JSON.parse(Base64.decode(value)));
                }
             });
 
             return foundOvcs;
-        }
+        },
+
+        ovcListTable: $("#offline_ovc_table"),
+
+        ovcOfflineContainer: $("#ovcOfflineContainer")
     };
 
     return {
@@ -300,16 +321,18 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             $("#find_ovc").click(this.onSearchOvc(window.offlineModeClient));
 
+            window.offlineModeClient.ovcListTable.hide();
+
             return window.offlineModeClient;
         },
+
+
 
         searchOvcSelector: function() {
             return $("#search_name");
         },
 
         onSearchOvc: function (offlineModeClient) {
-            console.log("onSearchOvc");
-
             if (!offlineModeClient.isRegistrationDataInitialized) {
                 // force initialise ovc registration data
                 offlineModeClient.onLoginEventHandler();
@@ -329,71 +352,19 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
                 let ovcName = me.searchOvcSelector().val();
 
-                console.log(ovcName);
 
                 event.preventDefault();
 
-                me.drawOvcSearchResults(offlineModeClient.findOvc(ovcName));
+                me.drawOvcSearchResults(offlineModeClient.findOvc(ovcName), offlineModeClient.ovcListTable);
 
                 return false;
             };
         },
 
-        drawOvcSearchResults: function (ovcs) {
-            let dtTag = (data) => {
-                return "<td>" + data + "</td>";
-            };
-
-            let tag = (tagName, data, style) => {
-                let opening_tag = '<' + tagName + '>' ;
-                if (style ==! undefined) {
-                   opening_tag  = '<' + tagName + ' ' + style + '>';
-                }
-                return opening_tag + data + '</' + tagName + '>';
-            };
-
-            let drawnLayout = '<table id="data-table" class="table table-striped table-bordered">' ;
-            drawnLayout += "<thead>";
-
-            let cols= [
-                'ID', 'CBOID', 'First Name', 'SurName', 'Other Names',
-                'Sex', 'Date of Birth', 'CHW', 'Caregiver', 'LIP/CBO',
-                'Status', 'OVC Actions'
-            ];
-
-            cols.forEach( col => {
-                if (['ID', 'CBOID'].includes(col)) {
-                    drawnLayout += tag('th', col, "width=\'5%\'");
-                } else {
-                    drawnLayout += tag('th', col);
-                }
-            });
-
-            drawnLayout += "</thead>";
-
-            drawnLayout += "<tbody>";
-
-            ovcs.forEach(ovc => {
-                drawnLayout += "<tr>";
-                drawnLayout += dtTag(ovc.person_id);
-                drawnLayout += dtTag(ovc.org_unique_id);
-                drawnLayout += dtTag(ovc.first_name);
-                drawnLayout += dtTag(ovc.surname);
-                drawnLayout += dtTag(ovc.other_names);
-                drawnLayout += dtTag(ovc.sex_id);
-                drawnLayout += dtTag(ovc.date_of_birth);
-                drawnLayout += dtTag(ovc.child_chv_full_name);
-                drawnLayout += dtTag(ovc.caretake_full_name);
-                drawnLayout += dtTag(ovc.org_unt_name);
-                drawnLayout += dtTag(ovc.is_active);
-                drawnLayout += dtTag("Actions here here");
-                drawnLayout += "</tr>";
-            });
-
-            drawnLayout += "</tbody>";
-            drawnLayout += "</table>";
-
-            $("#offline_ovc_data").html(drawnLayout);
+        drawOvcSearchResults: function (ovcs, ovcListTable) {
+            ovcListTable.bootstrapTable('destroy');
+            ovcListTable.show();
+            ovcListTable.bootstrapTable({data: ovcs, pagination: true, locale: 'en-US'});
         }
     };
 };

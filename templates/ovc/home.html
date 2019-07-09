@@ -105,7 +105,26 @@
                 </form>
                 <br/><br/>
                 <form action="." method="post" name="ovcreg_form" id="ovcreg_form" data-parsley-validate="true">
-                <div id="offline_ovc_data"></div>
+                <div id="offline_ovc_data">
+                    <table id="offline_ovc_table">
+                        <thead>
+                        <tr>
+                            <th data-field="person_id">ID</th>
+                            <th data-field="org_unique_id">CBOID</th>
+                            <th data-field="first_name">First Name</th>
+                            <th data-field="surname">SurName</th>
+                            <th data-field="other_names">Other Names</th>
+                            <th data-field="sex_id">Sex</th>
+                            <th data-field="date_of_birth">Date of Birth</th>
+                            <th data-field="child_chv_full_name">CHW</th>
+                            <th data-field="caretake_full_name">Caregiver</th>
+                            <th data-field="org_unt_name">LIP/CBO</th>
+                            <th data-field="is_active">Status</th>
+                        </tr>
+                        </thead>
+                    </table>
+
+                </div>
                 {% csrf_token %}
                 {% if ovcs %}
                 <div class="table-responsive">
