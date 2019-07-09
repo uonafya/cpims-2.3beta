@@ -1,7 +1,11 @@
-from django.views.generic import TemplateView
-from django.template.response import TemplateResponse
-from django.core.paginator import Paginator
+import os
 import pydoc
+from subprocess import call
+
+from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.template.response import TemplateResponse
+from django.views.generic import TemplateView
 
 from .clean_data import get_model_fields
 from .models import DataQuality
@@ -16,7 +20,7 @@ class DataQualityView(TemplateView):
         return context
 
     def get_queryset(self, *args, **kwargs):
-        return DataQuality.objects.all()[0:100]
+        return []
     
     def get(self, *args, **kwargs):
         if self.request.GET.dict().get('export', False):
@@ -30,13 +34,28 @@ class DataQualityView(TemplateView):
         age = self.request.POST.get('age')
         age_operator = self.request.POST.get('operator')
         school_level = self.request.POST.get('school_level')
-
-        if age_operator == '=':
+        
+        if  age_operator == '-':
+            ages =  age.split('-')
+            if len(ages) != 2:
+                context['error'] = 'Please supply the min and max age e.g 19-20'
+                return TemplateResponse(self.request, self.template_name, context) 
+            else:
+                try:
+                    min_age = int(ages[0])
+                    max_age = int(ages[1])
+                    queryset = queryset.filter(age__gte=min_age, age__lte=max_age)
+                except ValueError:
+                    context['error'] = 'Please use numbers for age'
+                    return TemplateResponse(self.request, self.template_name, context)
+                
+        elif age_operator == '=':
             queryset =  queryset.filter(age=age)
         elif age_operator == '>':
             queryset =  queryset.filter(age__gt=age) 
         elif  age_operator == '<':
             queryset = queryset.filter(age__lt=age)
+        
 
         if school_level:
             queryset = queryset.filter(school_level=school_level)
@@ -45,10 +64,6 @@ class DataQualityView(TemplateView):
         return TemplateResponse(self.request, self.template_name, context)
     
     def export_data(self, *args, **kwargs):
-        from subprocess import call
-        from django.http import HttpResponse
-        from django.utils.encoding import smart_str
-        import os
         call('bin/export_data.sh {} {} {} {} '.format(
             '41.89.93.206','postgres', 'cpims', '/tmp/file.csv'), 
             shell=True

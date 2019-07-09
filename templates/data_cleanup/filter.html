@@ -10,7 +10,9 @@
 
 {% block primary %}
 <h1 class="page-header">Data Clean Up <small>Filter</small></h1>
-<h2>Filters </h2>
+{% if error %}
+<div class='alert alert-warning'>{{ error }}</div>
+{% endif %}
 <form class='form' action="{% url 'data_cleanup' %}" method="POST">
     {% csrf_token %}
         Age Operator
@@ -19,6 +21,7 @@
                 <option value='='>Equals</option>
                 <option value='>'>Greater Than</option>
                 <option value='<'>Less Than</option>
+                <option value='-'>Between</option>
             </select>
     <label for="age">
         Age
@@ -33,7 +36,7 @@
 </select>
 
 <button type='submit' class='btn btn-primary'>Filter</button>
-<a class='btn btn-primary' href="{% url 'data_cleanup' %}?export=True" target="_blank">Export</a>
+<a class='btn btn-success' href="{% url 'data_cleanup' %}?export=True" target="_blank"><i class="fa fa-download"></i> &nbsp Export</a>
 </form>
 <table class="table">
 <thead>
