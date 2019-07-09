@@ -300,6 +300,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         ovcListTable: $("#offline_ovc_table"),
 
         ovcOfflineContainer: $("#ovcOfflineContainer"),
+
+        ovcHouseholdTable: $("#offline_ovc_household_table"),
     };
 
     return {
@@ -368,7 +370,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 'pagination': true,
                 'select-item-name': 'id',
                 'locale': 'en-US',
-                'data-toolbar': '.view_ovc',
                 'columns': [
                     {
                         field: 'person_id',
@@ -468,31 +469,60 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         _fillOvcDetailsPage: function (ovc) {
             let me = this;
-            console.log(ovc);
+
             Object.keys(ovc).forEach( key => {
                 let ovcDetails = ovc[key];
-                if (key === "facility") {
-                    me._fillOvcDetailsPageFacility(ovcDetails);
-                } else if (key === "household_members") {
-                    me._fillOvcDetailsPageHousehold(ovcDetails);
-                } else if (key === "school") {
-                    me._fillOvcDetailsPageSchool(ovcDetails);
+                if (['facility', 'school'].includes(key)) {
+                    // handle hiding particular rows, test this out
+                    me._fillOvcDetailsPage(ovcDetails);
+                } else if (key === 'household_members') {
+                    me._fillOvcHouseholdDetails(ovcDetails);
                 } else {
                     $(me._getOvcFieldSelector(key)).html(ovcDetails);
                 }
            })
         },
 
-        _fillOvcDetailsPageSchool: function (school) {
-
-        },
-
-        _fillOvcDetailsPageHousehold: function (household) {
-
-        },
-
-        _fillOvcDetailsPageFacility: function (facility) {
-
+        _fillOvcHouseholdDetails: function (households) {
+            window.offlineModeClient.ovcHouseholdTable.bootstrapTable('destroy').bootstrapTable({
+                'data': households,
+                'pagination': true,
+                'locale': 'en-Us',
+                'columns': [
+                    {
+                        'field': 'first_name',
+                        'title': 'First Name'
+                    },
+                    {
+                        'field': 'surname',
+                        'title': "Surname"
+                    },
+                    {
+                        'field': 'age',
+                        'title': 'Age'
+                    },
+                    {
+                        'field': 'type',
+                        'title': 'Type'
+                    },
+                    {
+                        'field': 'phone_number',
+                        'title': 'Telephone'
+                    },
+                    {
+                        'field': 'alive',
+                        'title': 'Alive'
+                    },
+                    {
+                        'field': 'hiv_status',
+                        'title': 'HIV Status'
+                    },
+                    {
+                        'field': 'household_head',
+                        'title': 'Head'
+                    }
+                ]
+            })
         }
     };
 };
