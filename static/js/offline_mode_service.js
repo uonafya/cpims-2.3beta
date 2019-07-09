@@ -441,11 +441,58 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             };
         },
 
+        viewOVCPage: $("#ovc_offline_view"),
+
         viewOvcOffline: function () {
+            let me = this;
+
             return (id) => {
                 console.log("Viewing ovc : " , id);
-                return false;
+                Object.entries(window.offlineModeClient.registrationData).some( entry => {
+                    let key = entry[0] ;
+                    let value = entry[1];
+
+                    if (key === id) {
+                        me._fillOvcDetailsPage(JSON.parse(Base64.decode(value)));
+                        return true;
+                    }
+                });
+
+                $(me.viewOVCPage).modal('toggle');
             }
+        },
+
+        _getOvcFieldSelector: function(field) {
+            return $("#ovc_offline_" + field);
+        },
+
+        _fillOvcDetailsPage: function (ovc) {
+            let me = this;
+            console.log(ovc);
+            Object.keys(ovc).forEach( key => {
+                let ovcDetails = ovc[key];
+                if (key === "facility") {
+                    me._fillOvcDetailsPageFacility(ovcDetails);
+                } else if (key === "household_members") {
+                    me._fillOvcDetailsPageHousehold(ovcDetails);
+                } else if (key === "school") {
+                    me._fillOvcDetailsPageSchool(ovcDetails);
+                } else {
+                    $(me._getOvcFieldSelector(key)).html(ovcDetails);
+                }
+           })
+        },
+
+        _fillOvcDetailsPageSchool: function (school) {
+
+        },
+
+        _fillOvcDetailsPageHousehold: function (household) {
+
+        },
+
+        _fillOvcDetailsPageFacility: function (facility) {
+
         }
     };
 };

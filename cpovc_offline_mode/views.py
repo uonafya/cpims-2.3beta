@@ -4,10 +4,7 @@ import json
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from cpovc_auth.functions import get_attached_units
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCEducation
-from cpovc_registry.functions import get_attached_ous, get_orgs_child
-from cpovc_registry.models import RegPersonsSiblings
 from cpovc_registry.templatetags.app_filters import gen_value, vals
 
 
@@ -55,9 +52,13 @@ def fetch_data(request):
 			'other_names': ovc.person.other_names,
 			'sex_id': ovc.person.sex_id,
 			'date_of_birth': ovc.person.date_of_birth.strftime('%d/%m/%Y'),
+			'age': ovc.person.age,
+			'registration_date': ovc.registration_date.strftime('%d/%m/%Y'),
+			'has_bcert': "Yes" if ovc.has_bcert else "No",
+			'is_disabled': "Yes" if ovc.is_disabled else "No",
 			'child_chv_full_name': ovc.child_chv.full_name,
 			'caretake_full_name': ovc.caretaker.full_name,
-			'org_unt_name': ovc.child_cbo.org_unit_name,
+			'org_unit_name': ovc.child_cbo.org_unit_name,
 			'is_active': 'Active' if ovc.is_active else 'Exited',
 			'immunization_status': gen_value(ovc.immunization_status, vals),
 			'school_level': gen_value(ovc.school_level, vals),
