@@ -15,39 +15,45 @@
 {% endif %}
 <form class='form' action="{% url 'data_cleanup' %}" method="POST">
     {% csrf_token %}
-        Age Operator
-        <select name='operator' class="form-control">
-                <option>Select Operator</option>
-                <option value='='>Equals</option>
-                <option value='>'>Greater Than</option>
-                <option value='<'>Less Than</option>
-                <option value='-'>Between</option>
-            </select>
-    <label for="age">
-        Age
-        <input type='text' name='age' class="form-control">
-    </label>
-</br>
- <select name='school_level' class="form-control">
-    <option>Select Shool Level</option>
-    <option value='SLSE'>Secondary</option>
-    <option value='SLPR'>Primary</option>
-    <option value='SLNS'>NO School</option>
-</select>
+    <div class='row'>
+      <div class='col-lg-4'>
+            Age Operator
+            <select name='operator' class="form-control">
+                    <option>Select Operator</option>
+                    <option value='='>Equals</option>
+                    <option value='>'>Greater Than</option>
+                    <option value='<'>Less Than</option>
+                    <option value='-'>Between</option>
+                </select>
+        <label for="age">
+            Age
+            <input type='text' name='age' class="form-control">
+        </label>
+    </br>
+    </div>
+                    <div class='col-lg-4'>
+        <select name='school_level' class="form-control">
+            <option>Select Shool Level</option>
+            <option value='SLSE'>Secondary</option>
+            <option value='SLPR'>Primary</option>
+            <option value='SLNS'>NO School</option>
+        </select>
 
-<select name='hiv_status' class="form-control">
-  <option>Select HIV Status</option>
-  <option value='HSTR'>HSTR</option>
-  <option value='HSKN'>HSKN</option>
-  <option value='HSTP'>HSTP</option>
-  <option value='XXXX'>XXXX</option>
-  <option value='HSTN'>HSTN</option>
-  <option value='HSRT'>HSRT</option>
-</select>
-
+        <select name='hiv_status' class="form-control">
+          <option>Select HIV Status</option>
+          <option value='HSTR'>HSTR</option>
+          <option value='HSKN'>HSKN</option>
+          <option value='HSTP'>HSTP</option>
+          <option value='XXXX'>XXXX</option>
+          <option value='HSTN'>HSTN</option>
+          <option value='HSRT'>HSRT</option>
+        </select>
+    </div>
+  </div>
 <button type='submit' class='btn btn-primary'>Filter</button>
 <a class='btn btn-success' href="{% url 'data_cleanup' %}?export=True" target="_blank"><i class="fa fa-download"></i> &nbsp Export</a>
 </form>
+{% if data %}
 <table class="table">
 <thead>
     <tr>
@@ -69,6 +75,9 @@
     
   </tbody>
 </table>
+{% else %}
+<div class='alert alert-info'> No records</div>
+{% endif %}
                 
 </div>
 {% endblock %}
