@@ -18,7 +18,7 @@
     <div class='row'>
       <div class='col-lg-6'>
             Age Operator
-            <select name='operator' class="form-control">
+            <select name='operator' class="form-control" id='operator'>
                     <option value="0">Select Operator</option>
                     <option value='='>Equals</option>
                     <option value='>'>Greater Than</option>
@@ -26,10 +26,10 @@
                     <option value='-'>Between</option>
                 </select>
             Age
-            <input type='text' name='age' class="form-control">
+            <input type='text' name='age' class="form-control" id='age'>
 
             School Level
-            <select name='school_level' class="form-control">
+            <select name='school_level' class="form-control" id='school_level'>
                 <option value="0">Select Shool Level</option>
                 <option value='SLSE'>Secondary</option>
                 <option value='SLPR'>Primary</option>
@@ -38,7 +38,7 @@
     </div>
                     <div class='col-lg-6'>
         HIV Status
-        <select name='hiv_status' class="form-control">
+        <select name='hiv_status' class="form-control" id='hiv_status'>
           <option value="0">Select HIV Status</option>
           <option value='HSTR'>HSTR</option>
           <option value='HSKN'>HSKN</option>
@@ -48,7 +48,7 @@
           <option value='HSRT'>HSRT</option>
         </select>
         ART Status
-        <select name='art_status' class="form-control">
+        <select name='art_status' class="form-control" id='art_status'>
             <option value="0">Select Art Status</option>
             <option value='ART'>ART</option>
             <option value='ARAR'>ARAR</option>
@@ -59,7 +59,7 @@
 </br>
 <div class='pull-right'>
 <button type='submit' class='btn btn-primary'>Filter</button>
-<a class='btn btn-success' href="{% url 'data_cleanup' %}?export=True" target="_blank"><i class="fa fa-download"></i> &nbsp Export</a>
+<a class='btn btn-success' onclick=export_data()><i class="fa fa-download"></i> &nbsp Export</a>
 </div>
 </form>
 </br>
@@ -100,22 +100,27 @@
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 <script>
-    $(document).ready(function(){
 
-        //
-        $('#age-data-table').bootstrapTable({ 
+    function export_data(){
+        var age = document.getElementById('age').value;
+        var operator = document.getElementById('operator').value;
+        var school_level = document.getElementById('school_level').value;    
+        var hiv_status = document.getElementById('hiv_status').value;
+        var art_status = document.getElementById('art_status').value;
+        var url = "{% url 'data_cleanup' %}"+ '?export=True'+'&age='+age+
+                  '&operator='+operator+'&school_level='+school_level+
+                  '&hiv_status='+hiv_status+'&art_status='+art_status;
+        window.location.href = url;
+    }
+
+    $(document).ready(function(){
+      $('#age-data-table').bootstrapTable({ 
             toggle: 'table', 
             search: 'true',
             locale: 'en-US',
             pagination: 'true',
             pageNumber: 1,
-            pageSize: 10,
-            showRefresh: true,
-            showToggle: true,
-            //showColumns: true,
-            singleSelect: true,
-            clickToSelect:true,
-            maintainSelected: true                
+            pageSize: 10,    
         });
     });
   </script>

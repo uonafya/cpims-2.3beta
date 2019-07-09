@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
 
-from .clean_data import get_model_fields
+from cpovc_auth.functions import get_allowed_units_county
 from .models import DataQuality
 
 
@@ -30,6 +30,7 @@ class DataQualityView(TemplateView):
             return super(DataQualityView, self).get(*args, **kwargs)
 
     def post(self, *args, **kwargs):
+        objs = get_allowed_units_county(self.request.user.id)
         context = {}
         queryset =  DataQuality.objects.all()
         age = self.request.POST.get('age')
@@ -77,9 +78,29 @@ class DataQualityView(TemplateView):
         context['data']= queryset
         return TemplateResponse(self.request, self.template_name, context)
     
+    def generate_where_clause(self):
+        query_dict = self.request.GET.dict()
+        school_level = query_dict.get('school_level')
+        age = query_dict.get('age')
+        operator = query_dict.get('operator')
+        art_status = query_dict.get('art_status')
+        hiv_status = query_dict.get('hiv_status')
+        sql = "WHERE 1=1 "
+        if school_level != '0': 
+            sql += 'school_level={} AND '.format(school_level)
+        if age:
+            sql += 'age={} AND '.format(age)
+        if art_status != '0':
+            sql += 'art_status={} AND '.format(art_status)
+        if hiv_status != '0':
+            sql += 'hiv_status={} AND '.format(hiv_status)
+        sql += '1=1'
+        return sql
+
     def export_data(self, *args, **kwargs):
-        call('bin/export_data.sh {} {} {} {} '.format(
-            '41.89.93.206','postgres', 'cpims', '/tmp/file.csv'), 
+        where_sql = self.generate_where_clause()
+        call('bin/export_data.sh {} {} {} {} {}'.format(
+            '41.89.93.206','postgres', 'cpims', '/tmp/file.csv', where_sql), 
             shell=True
         )
         file_name = '/tmp/file.csv'
