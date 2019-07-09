@@ -61,9 +61,13 @@
             </div>
             <div class="panel-body">
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
-                    name="form-wizard-hhva" id="new_hhva">
+                    name="form-wizard-hhva" id="new_hivsct">
                     {% csrf_token %}
-                    <div id="wizard-hhva">
+                  
+                    {{ form.errors }}
+                    {{ form.non_field_errors }}
+
+                    <div id="wizard-hivsct">
                         <ol>
 
                             <li>
@@ -97,7 +101,7 @@
                                             </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        <tr class="section_prior 1a">
                                            <td>1a</td>
                                             <td>Date of Assessment</td>
                                             <td>
@@ -105,20 +109,21 @@
                                             </td>
                                             <td style="background-color: grey"></td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_prior 1b">
                                             <td>1b</td>
-                                            <td>Does the caregiver know the status of the child?  /Does the Adolescent and youth (>15)  years know his/her status?</td>
-                                            <td> {{ form.HIV_RA_1B }}</td>
-                                            <td> {{ form.HIV_RA_STATUS }}</td>
+                                            <td>Does the caregiver know the status of the child?  /Does the Adolescent and youth (>15) years know his/her status?</td>
+                                            <td> {{ form.HIV_RS_01 }}</td>
+                                            <td> {{ form.HIV_RS_02 }}</td>
                                             
                                         </tr>
-                                        <tr>
+                                        <tr class="section_prior 1c">
                                             <td>1c</td>
                                             <td>Was the HIV test done less than 6 months ago?</td>
                                             <td>
-                                                    {{ form.HIV_RA_1C }}
+                                                    {{ form.HIV_RS_03 }}
                                             </td>
-                                            <td style="background-color: grey">
+                                            <td>
+                                                {{form.HIV_RS_03A}}
                                             </td>
 
                                         </tr>
@@ -151,33 +156,33 @@
                                         <tr>
                                            <td colspan="3"> <strong>Child Assessment(&lt 15years)</strong> </td> 
                                         </tr>
-                                        <tr>
+                                        <tr class="section_a q1">
                                             <td>Q1</td>
                                             <td>Is the biological father/mother of the child living/ lived with HIV?  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q1 }}
+                                                    {{ form.HIV_RS_04 }}
 
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_a q2">
                                             <td>Q2</td>
                                             <td>Has the child been persistently sick/malnurished in the past 3 months without improvement?
                                                 </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q2 }}
+                                                    {{ form.HIV_RS_05 }}
 
                                             </td>
                                         </tr>
                                     
-                                        <tr>
+                                        <tr class="section_a q3">
                                             <td>Q3</td>
                                             <td>
                                             Is the child exposed to sexual abuse (defiled/raped) or has been physically forced to have sexual intercouse?
 
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q3 }}
+                                                    {{ form.HIV_RS_06 }}
 
                                             </td>
                                         </tr>
@@ -185,41 +190,41 @@
                                             <td colspan="3"> <strong>Adolescent Assessment(&gt 15years)</strong> </td> 
                                         </tr>
                                         
-                                        <tr>
+                                        <tr class="section_b q4">
                                             <td>Q4</td>
                                             <td>
                                                     Have you been persistently sick in the past 3 months without improvement?
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q4 }}
+                                                    {{ form.HIV_RS_07 }}
 
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_b q5">
                                             <td>Q5</td>
                                             <td>
                                                     Have you been sexually abuse (defiled) or been physically forced to have sexual intercourse?
 
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q5 }}
+                                                    {{ form.HIV_RS_08 }}
 
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_b q6">
                                             <td>Q6</td>
                                             <td>Have you had sexual intercourse in the past 6 months?                                                </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q6 }}
+                                                    {{ form.HIV_RS_09 }}
                                             </td>
                                         </tr>
-                                        <tr>
+                                        <tr class="section_b q7">
                                             <td>Q7</td>
                                             <td>
                                             Do you have any Symptoms of sexually transmitted infections? {Penial/Vaginal sores, unusual discharge or Pain)
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_2Q7 }}
+                                                    {{ form.HIV_RS_10 }}
 
                                             </td>
                                             
@@ -228,17 +233,21 @@
                                                 <td colspan="3"> <strong>Final Evaluation</strong> </td> 
                                             </tr>
                                             
-                                        <tr>
+                                        <tr class="section_b q8">
                                                 <td>Q8</td>
                                                 <td>
                                                 Did the child/Adolescent/youth have a YES to at least one of the above questions?
                                                 </td>
                                                 <td>
-                                                        {{ form.HIV_RA_2Q8 }}
+                                                        {{ form.HIV_RS_11 }}
 
                                                 </td>
                                                 
                                             </tr>
+
+                                
+
+                                        
                                     </tbody>
                                 </table>
 
@@ -261,20 +270,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr class="section_c q1">
                                         <td>1</td>
                                         <td>
                                         Does the parent accept HIV testing for the child?
                                         </td>
                                         <td>
-                                            {{ form.HIV_RA_3Q1 }}
+                                            {{ form.HIV_RS_14 }}
                                         </td>
                                         <td>
-                                            {{ form.HIV_RA_3Q1_DATE }}
+                                            {{ form.HIV_RS_15 }}
                                         </td>
 
                                     </tr>
-                                    <tr>
+                                    <tr class="section_c q2">
                                         <td>
                                         2
                                         </td>
@@ -282,29 +291,29 @@
                                         Was a formal referral made for HIV testing?  
                                         </td>
                                         <td>
-                                            {{ form.HIV_RA_3Q2 }}
+                                            {{ form.HIV_RS_16 }}
                                          </td>
                                          <td>
-                                            {{ form.HIV_RA_3Q2_DATE }}
+                                            {{ form.HIV_RS_17 }}
                                         </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr class="section_c q3">
                                             <td>
                                             3
                                             </td>
                                             <td>
-                                            Was a formal referral made for HIV testing?  
+                                            Was the referal for HIV testing completed?  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3 }}
+                                                    {{ form.HIV_RS_18 }}
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3_DATE }}
+                                                    {{ form.HIV_RS_19 }}
                                             </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr class="section_c q3a">
                                             <td>
                                             3a
                                             </td>
@@ -313,14 +322,14 @@
   
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3A }}
+                                                    {{ form.HIV_RS_18A }}
                                             </td>
                                             <td style="background-color: grey">
 
                                             </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr class="section_c q3b">
                                             <td>
                                             3b
                                             </td>
@@ -329,7 +338,7 @@
  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q3B }}
+                                                    {{ form.HIV_RS_18B }}
                                                     
                                             </td>
                                             <td style="background-color: grey">
@@ -337,7 +346,7 @@
                                             </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr class="section_c q4">
                                             <td>
                                             4
                                             </td>
@@ -345,14 +354,14 @@
                                             If HIV positive(3b), was the child referred for ART?
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q4 }}
+                                                    {{ form.HIV_RS_21 }}
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q4_DATE }}
+                                                    {{ form.HIV_RS_22 }}
                                             </td>
                                     </tr>
 
-                                    <tr>
+                                    <tr class="section_c q5">
                                             <td>
                                             5
                                             </td>
@@ -360,14 +369,14 @@
                                             If HIV positive(3b), was the ART referral completed?  
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q5 }}
+                                                    {{ form.HIV_RS_23 }}
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q5_DATE }}
+                                                    {{ form.HIV_RS_24 }}
                                             </td>
                                     </tr>
                                 
-                                    <tr>
+                                    <tr class="section_c q6">
                                             <td>
                                             6
                                             </td>
@@ -405,6 +414,70 @@
 
                 </form>
             </div>
+
+            <div>
+                    <table class="table" border="1">
+                            <thead>
+                            <tr>
+                            <th colspan="3">CURRENT HIV STATUS</th>
+                            <th colspan="8">HIV RISK ASSESSMENT</th>
+                            <th colspan="8">PROGRESS MONITORING</th>
+                                  </tr>
+                                  
+                                  <tr>
+                                        <th>Q 1a</th>
+                                        <th>Q 1b</th>
+                                        <th>Q 1c</th>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 3</th>
+                                        <th>Q 4</th>
+                                        <th>Q 5</th>
+                                        <th>Q 6</th>
+                                        <th>Q 7</th>
+                                        <th>Q 8</th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>3a</th>
+                                        <th>3b</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6</th>
+                                        <th>Date of Event</th>
+                                  </tr>
+                                </thead>
+                            
+                    {% for one_screening_data in hiv_screen %}
+                   
+                        
+                        <tr>
+                          <td>{{one_screening_data.test_donewhen_result | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.caregiver_know_status | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.caregiver_knowledge_yes | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.parent_PLWH | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.child_sick_malnourished | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.child_sexual_abuse | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.adol_sick | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.adol_sexual_abuse | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.sex | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.sti | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.hiv_test_required  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.parent_consent_testing | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.referral_made | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.referral_completed  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.not_completed}}</td>
+                          <td>{{one_screening_data.test_result | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.art_referral | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.facility}}</td>
+                          <td>{{one_screening_data.date_of_event}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- ################################## -->
+
             <div class="badge pull-right m-4">Revised: 1st July 2019</div>
         </div>
         <!-- end panel -->
@@ -429,13 +502,103 @@
 
 <script>
         $( function() {
-          $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q1_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q2_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q3_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q4_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-          $("#HIV_RA_3Q5_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
-        } );
-</script>
 
+            $('#wizard-hivsct').bwizard();
+            $('#HIV_RA_3Q6').multiselect({
+                enableCaseInsensitiveFiltering: true,
+                numberDisplayed: 1,
+                maxHeight: 300,
+                buttonWidth: '100%',
+                disableIfEmpty: true,
+                enableClickableOptGroups: true,
+                buttonClass: 'btn btn-white'
+            });
+            $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_19" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_22" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_24" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+
+            $(document).ready(function () {
+                $("#wizard-hivsct").bwizard();
+            });
+
+        } );
+
+        function disableSection(section_class) {
+            $('.'+section_class).find('td').css({'cursor':'no-drop'});
+            $('.'+section_class).find('td','label','input','select').css({'color':'#afafaf'});
+            $('.'+section_class).find('label').css({'color':'#afafaf'});
+            $('.'+section_class).find('input','select').attr('disabled', true).removeAttr('required', true);
+            console.log('disableSection '+section_class+' done');
+        }
+        function enableSection(section_class) {
+            $('.'+section_class).find('td').css({'cursor':'default'});
+            $('.'+section_class).find('td','label','input','select').css({'color':'initial'});
+            $('.'+section_class).find('label').css({'color':'initial'});
+            $('.'+section_class).find('input','select').removeAttr('disabled', true);
+            console.log('enableSection '+section_class+' done');
+        }
+        function switchTab(tab_id) {
+            // var step_step = "step"+tab_id;
+            $('a[href="#step'+tab_id+'"]').trigger('click');
+            console.log('switchTab to '+tab_id);
+        }
+
+</script>
+    <!-- Skip logic -->
+    <!-- {% if data.date_of_birth|gen_age > 15 %}
+    <script>
+        $(document).ready(function () {
+            disableSection('section_a');
+        });
+        </script>
+    {% else %}
+        <script>
+            $(document).ready(function () {
+                disableSection('section_b');
+            });
+        </script>
+    {% endif %} -->
+    <!-- Skip logic -->
+    <script>
+        $('input[name="HIV_RS_01"]').change(function (e) { 
+            var this_val = $(this).val();
+
+            // If the status is unknown administer question 1-3
+            if(this_val == 'ANNO'){
+                disableSection('section_prior_1c');
+                switchTab("2");
+            }else{
+                enableSection('section_prior_1c');
+            }
+        });
+        $('input[name="HIV_RS_02"]').change(function (e) { 
+            var prev_val = $('input[name="HIV_RS_01"]').val();
+            var this_val = $(this).val();
+            
+            // If the status is unknown administer question 1-3
+            if(prev_val == 'AYES' && this_val == 'AYES'){
+                disableSection("section_prior.1c"); disableSection("section_a"); disableSection("section_a"); disableSection("section_b");disableSection("section_c");
+                switchTab("3");
+            }else if(prev_val == 'AYES' && this_val == 'ANNO'){
+                enableSection("section_prior.1c"); enableSection("section_a"); enableSection("section_b"); enableSection("section_c");
+                switchTab("1");
+            }
+        });
+        $('input[name="HIV_RS_03"]').change(function (e) { 
+            var prev_val = $('input[name="HIV_RS_01"]').val();
+            var this_val = $(this).val();
+            
+            // Yes, the test was done less than 6 months ago. STOP
+            if(this_val == 'AYES'){
+                disableSection("section_a"); disableSection("section_a"); disableSection("section_b");disableSection("section_c");
+                switchTab("3");
+            }else {
+                enableSection("section_a"); enableSection("section_b"); enableSection("section_c");
+                switchTab("1");
+            }
+        });
+    </script>
 {% endblock %}

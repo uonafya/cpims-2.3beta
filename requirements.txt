@@ -5,7 +5,7 @@ pillow==2.4.0
 psycopg2
 reportlab==3.3.0
 djangorestframework==3.3.3
-openpyxl==2.3.3
+openpyxl==2.4.0
 python-dateutil==2.4.2
 jellyfish==0.5.4
 python-memcached

@@ -176,7 +176,8 @@ CPT_GOALS_STABLE_CHOICES = (
 
 CPT_GOALS_SAFE_CHOICES = (
     ('CPTG2sa', 'All household members articulate ways to seek support in case of abuse'),
-    ('CPTG3sa', 'Caregivers demonstrate positive discipline')
+    ('CPTG3sa', 'Caregivers demonstrate positive discipline'),
+    ('CPTG1sa', ' Household members have identified a social support network')
 )
 
 CPT_GOALS_SCHOOL_CHOICES = (
@@ -185,40 +186,40 @@ CPT_GOALS_SCHOOL_CHOICES = (
 )
 
 CPT_GAPS_HEALTHY_CHOICES = (
-    ('HN 1t', 'Child immunization is not complete [under 5 yrs only] - Check clinic card'),
-    ('HN 2t', 'Growth is not monitored  [under 5 years only]  - Check clinic card'),
-    ('HN 3t', 'Child living with disability, not linked to appropriate services e.g deaf, autistic'),
-    ('HN 4t', 'Child living with chronic condition not linked to healthy services (diabetes, cancer)'),
-    ('HN 5t', 'Child HIV status not known & risk screening done'),
-    ('HN 6t', 'Child has a HIGH Risk to HIV infection'),
-    ('HN 7t', 'Adolescent is pregnant NOT receiving PMTCT/ANC services'),
-    ('HN 8t', 'HIV test not done for a child under 18 months born to HIV +ve mother'),
-    ('HN 9t', 'HIV+ve child not linked to treatment'),
-    ('HN 10t', 'HIV+ child without current VL results'),
-    ('HN 11t', 'Child on HIV treatment with detectable viral loads'),
-    ('HN 12t', 'HIV+ status disclosure not initiated (6 years and above)'),
-    ('HN 13t', 'MUAC assessment not performed [6 mths to 15 years only] after every 6 mnths'),
-    ('HN 14t', 'Child is sick'),
-    ('HG 1t', 'Caregiver is unwell'),
-    ('HG 2t', 'Caregiver does not know her HIV status'),
+    ('CPTN1h', 'Child immunization is not complete [under 5 yrs only] - Check clinic card'),
+    ('CPTN2h', 'Growth is not monitored  [under 5 years only]  - Check clinic card'),
+    ('CPTN3h', 'Child living with disability, not linked to appropriate services e.g deaf, autistic'),
+    ('CPTN4h', 'Child living with chronic condition not linked to healthy services (diabetes, cancer)'),
+    ('CPTN5h', 'Child HIV status not known & risk screening done'),
+    ('CPTN6h', 'Child has a HIGH Risk to HIV infection'),
+    ('CPTN7h', 'Adolescent is pregnant NOT receiving PMTCT/ANC services'),
+    ('CPTN8h', 'HIV test not done for a child under 18 months born to HIV +ve mother'),
+    ('CPTN9h', 'HIV+ve child not linked to treatment'),
+    ('CPTN10h', 'HIV+ child without current VL results'),
+    ('CPTN11h', 'Child on HIV treatment with detectable viral loads'),
+    ('CPTN12h', 'HIV+ status disclosure not initiated (6 years and above)'),
+    ('CPTN13h', 'MUAC assessment not performed [6 mths to 15 years only] after every 6 mnths'),
+    ('CPTN14h', 'Child is sick'),
+    ('CPTN15h', 'Caregiver is unwell'),
+    ('CPTN17h', 'Caregiver does not know her HIV status'),
     ('HG 3t', 'HIV Risk screening not done'),
-    ('HG 4t', 'Pregnant caregiver not receiving PMTCT services'),
-    ('HG 5t', 'HIV+ caregiver not linked to treatment services'),
-    ('HG 6t', 'HIV+ caregiver did not attend last CCC appointment'),
-    ('HG 7t', 'HIV+ caregiver not disclosed her status'),
-    ('HG 8t', 'Caregiver does not know Viral Load status'),
-    ('HG 9t', 'Is not a member of a health insurance plan e.g. NHIF'),
-    ('HG 10t', 'Household has no kitchen garden that is productive')
+    ('CPTN18h', 'Pregnant caregiver not receiving PMTCT services'),
+    ('CPTN19h', 'HIV+ caregiver not linked to treatment services'),
+    ('CPTN20h', 'HIV+ caregiver did not attend last CCC appointment'),
+    ('CPTN21h', 'HIV+ caregiver not disclosed her status'),
+    ('CPTN22h', 'Caregiver does not know Viral Load status'),
+    ('CPTN23h', 'Is not a member of a health insurance plan e.g. NHIF'),
+    ('CPTN24h', 'Household has no kitchen garden that is productive')
 )
 CPT_GAPS_STABLE_CHOICES = (
-    ('ES 1t', 'Does not have a transition plan [above 17yrs and out of school]'),
+    ('CPTN5s', 'Does not have a transition plan [above 17yrs and out of school]'),
     ('ES 2t', 'Vocational skills graduate and requires a start-up kit '),
     ('ES 3t', 'Received a business start-up kit'),
     ('ES 4t', 'Youth eligible for linkage to savings groups [above 17yrs and out of school]'),
     ('ES 5t', 'Youth engaged in IGA e.g small business, farming, artisan, casual employment, hawking  [above 17yrs and out of school]'),
     ('ES 6t', 'Youth accessing formal financial services (bank, MFI, GOK grants) [above 17yrs]'),
-    ('HE 1t', 'Household not able to meet basis needs'),
-    ('HE 2t', 'Household not able to meet daily emergency needs'),
+    ('CPTN2s', 'Household not able to meet basis needs'),
+    ('CPTN3s', 'Household not able to meet daily emergency needs'),
     ('HE 3t', 'Household NOT enrolled in any cash transfer scheme?'),
     ('HE 4t', 'Household enrolled in cash transfer for elderly'),
     ('HE 5t', 'Household enrolled in cash transfer for severely disabled'),
@@ -226,14 +227,17 @@ CPT_GAPS_STABLE_CHOICES = (
     ('HE 7t', 'Household member(s) not engaged in savings and credit group activities'),
     ('HE 8t', 'Household not saving money periodically to cushion against unexpected expenses'),
     ('HE 9t', 'Household does not own productive asset e.g small stock, small machines, tools'),
-    ('HE 10t', 'Household does not have source of income/livelihood')
-)
+    ('HE 10t', 'Household does not have source of income/livelihood'),
+    ('CPTN1s', ' Household not able to provide a minimum of 2 meals a day'),
+    ('CPTN4s', 'Household has no knowledge about how and where to access critical services ')
+    )
 CPT_GAPS_SAFE_CHOICES = (
+    ('CPTN1p', 'Child headed household'),
     ('CP 1t', 'Child headed household NOT receiving protection services'),
     ('CP 2t', 'Child/Adolescent has signs of violence, abuse, neglect or exploitation'),
     ('CP 3t', 'Child/Adolescent NOT aware of where to get help when abused'),
     ('CP 4t', 'Has no legal documents (e.g birth certificate and/or ID)'),
-    # (5, 'Child does not participate in daily activities'),
+    ('CPTN6p', 'Child does not participate in daily activities'),
     ('CP 5t', 'Child is sad, withdrawn or has unusal behavior'),
     ('CP 6t', 'Child (above 10 years) NOT participating in life skills sessions'),
     ('PG 1t', 'Household reported an incident of child abuse, violence or exploitation in the last 3 months'),
@@ -243,44 +247,52 @@ CPT_GAPS_SAFE_CHOICES = (
     ('SG 2s', 'Caregiver NOT trained to engage & communicate with adolescent on sensitive topics sexual reproductive health services and rights'),
     ('SG 3s', 'Caregiver NOT trained on child care and positive parenting skills'),
     ('SG 4s', 'Caregiver NOT trained on succession planning'),
-    ('SG 5s', 'Caregiver NOT sensitized on succesion planning')
+    ('SG 5s', 'Caregiver NOT sensitized on succesion planning'),
+    ('CPTN10p', 'Caregiver NOT able to to identify individual or group providing social and emetional support')
 )
 CPT_GAPS_SCHOOLED_CHOICES = (
-    ('CE 1t', 'Not enrolled in school/pre-school'),
-    ('CE 2t', 'Missed school for five or more days in past month'),
-    ('CE 3t', 'Progressed from one class to another (e.g class 1 to 2)'),
-    ('CE 4t', 'Child dropped out of school'),
+    ('CPTG1e', 'Not enrolled in school/pre-school'),
+    ('CPTG2e', 'Missed school for five or more days in past month'),
+    #('CE 3t', 'Progressed from one class to another (e.g class 1 to 2)'),
+    ('CPTG3e', 'Has not progressed from one class to another (e.g grade 1 to 2)'),
+    ('CPTG4e', 'Child dropped out of school'),
     ('CE 5t', 'Transitioned from one level to another (e.g. primary to secondary)'),
     ('CE 6t', 'Youth eligible for vocational training (above 17 years and out of school)'),
     ('CE 1r', 'Sickness'),
-    ('CE 2r', 'Lacks scholastic materials'),
+    ('CPTG6e', 'Lacks scholastic materials (books, pens, geometrical set)'),
     ('CE 3r', 'Lacks school fees'),
     ('CE 4r', 'Lacks school levies '),
     ('CE 5r', 'Child does not want to go to school'),
-    ('CE 6r', 'Lack of parental follow up'),
-    ('CE 7r', 'Taking care of sick household member'),
-    ('CE 8r', 'Lacks sanitary towels'),
-    ('CE 9r', 'Engaged in child labour'),
-    ('CE 10r', 'Pregnancy'),
-    ('CE 11r', 'Other (specify)'),
+    ('CPTG8e', 'Lack of parental follow up'),
+    ('CPTG9e', 'Taking care of sick household member'),
+    ('CPTG10e', 'Lacks sanitary towels'),
+    ('CPTG11e', 'Engaged in child labour'),
+    ('CPTG12e', 'Pregnancy'),    
+    ('CPTG13e', 'Apprentice graduate & require start-up kit'),
     ('EG 1t', 'Caregiver DOES NOT support children through assistance with homework'),
     ('EG 2t', 'Caregiver NOT tracking child\'s school attendance and progress'),
+    ('CPTG14e', 'Other (specify)')
     # (19, 'Attends adult Literacy classes'),
     # (20, 'Other')
 )
 CPT_ACTIONS_HEALTHY_CHOICES = (
-    ('CPTS1h', 'HIV testing'),
-    ('CPTS2h', 'ART'),
+    ('CPTP1h', 'Reffered for HIV testing(provide transport& accompany) '),
+    ('CPTP3h', 'Referred for ART re enrolment '),
     ('CPTS3h', 'Viral load testing'),
     ('CPTS4h', 'Other HIV and Care Treatment'),
     ('CPTS5h', 'PMTCT/ ANC'),
-    ('CPTS6h', 'HIV disclosure & counseling'),
-    ('CPTS7h', 'HIV Peer support group'),
+    ('CPTP4h', 'Support assisted disclosure'),
+    ('CPTP5h', 'Enrol in a support group '),
+    ('CPTP6h', 'Link to adolescent friendly centres/ support group '),
     ('CPTS8h', 'Adolescent health counseling'),
     ('CPTS9h', 'Defaulter tracing'),
     ('CPTS10h', 'Disability services'),
     ('CPTS11h', 'Immunization'),
-    ('CPTS12h', 'Other')
+    ('CPTP8h', 'Escort for treatment at health facility'),
+    ('CPTP9h', 'Support NHIF registration'),
+    ('CPTP7h', 'Reffered for nutrition support '),
+    ('CPTS12h', ' Other HIV and Care Treatment'),
+    ('CPTP10h', 'Other Priorities, specify.........')
      )
 CPT_ACTIONS_STABLE_CHOICES = (
                          ('CPTS1s', 'Cash transfer'),
@@ -290,33 +302,59 @@ CPT_ACTIONS_STABLE_CHOICES = (
                          ('CPTS5s', 'Food support'),
                          ('CPTS6s', 'Nutritional assessment & supplements'),
                          ('CPTS7s', 'Financial literacy/skills'),
-                         ('CPTS8s', 'Others, specify')
+                         ('CPTP1s', 'Refer or provide social assistance support'),
+                         ('CPTP2s', 'Refer for or provide support on asset growth and protection'),
+                         ('CPTP3s', 'Refer for or support on Income growth services '),
+                         ('CPTS8s', ' Others Stable Priories specify.....')
 )
 CPT_ACTIONS_SAFE_CHOICES = (
-                       ('CPTS1p', 'Positive Parenting training'),
-                       ('CPTS2p', 'Counseling'),
+                       ('CPTP1p', 'Caregiver mentored on child care and positive parenting skills'),
+                       ('CPTP2p', 'Link Child Headed Households to adult caregiver'),
+                       ('CPTP3p', 'Refer/ link child/adolescent for post violence care'),
+                       ('CPTP4p', 'Place child in a safe environment'),
+                       ('CPTP5p', 'Provide information to OVC on how to protect themselves from HIV, abuse including GBV'),
+                       ('CPTP6p', 'Provide/refer for medical attention in cases of abuse'),
+                       ('CPTP7p', 'Provide/ refer for legal assistance in cases of abuse'),
+                       ('CPTP8p', 'Provide information on child rights and responsibilities'),
+                       ('CPTS2p', 'Provide/ refer OVC for basic counseling services '),
                        ('CPTS3p', 'Psychosocial support to children living with HIV, caregiver support, children clubs, support groups for SGBV survivors'),
-                       ('CPTS4p', 'Health services'),
-                       ('CPTS5p', 'Legal services'),
-                       ('CPTS6p', 'Birth registration'),
+                    #    ('CPTS4p', 'Health services'),
+                    #    ('CPTS5p', 'Legal services'),
+                       ('CPTP9p', 'Provide/ refer for legal documents (e.g, birth certificate)'),
                        ('CPTS7p', 'Succession planning support'),
                        ('CPTS8p', 'Child protection pathway (DCS, police, health facility)'),
                        ('CPTS9p', 'Mentorship (e.g. DREAMS program)'),
-                   ('CPTS10p', 'Life skills trainings'),
+                        ('CPTS10p', 'Provide/ refer child (above 10 years) for life skills sessions'),
+                        ('CPTP12p', 'Promote  stimulating activities  such as play for child [below 5 yrs]'),
+                        ('CPTP13p', 'Provide caregiver  with information on importance of legal documents e.g. ID, title deed, death certificate'),
+                        ('CPTP14p', 'Sensitize caregiver  on child protection issues'),
+                        ('CPTP15p', 'Sentitize caregiver on positive parenting skills'),
                    ('CPTS11p', 'Others, specify'),
                    ('CPTS12p', 'Other health services')
 )
 CPT_ACTIONS_SCHOOLED_CHOICES = (
                        ('CPTS1e', 'School bursary (public & private programs)'),
-                       ('CPTS2e', 'Scholastic materials'),
-                       ('CPTS3e', 'Enrolment to school,'),
+                       ('CPTG5p', 'Scholastic materials'),
+                       ('CPTG1p', 'Enrol back to school (including teenage mothers)'),
+                       ('CPTG2p', 'Monitor child to regularly attend school'),
+                       ('CPTG3p', 'Refer/ link child for education support (ie presidential bursary fund, CDF)'),
+                       ('CPTG4p', 'Provide child with counseling and enrol back to school'),
+                       ('CPTG6p', 'Provide/refer for sanitary pads'),
+                       ('CPTG7p', 'Provide school uniform'),
+                       ('CPTG8p', 'Vocational support for out of school OVC (<17 years)'),
                        ('CPTS4e', 'Enrolment to vocational training'),
+                       ('CPTG9p', 'Apprecnticeship support for out of school OVC (15-17yrs)'),
+                       ('CPTG10p', 'Caregiver supports children through assistance with homework'),
+                       ('CPTG11p', 'Caregiver tracks childs school attendance and progress'), 
+                       ('CPTG12p', 'Provide or refer for mentorship and life skills support'),
                        ('CPTS5e', 'ECD'),
                        ('CPTS6e', 'Feeding program (where applicable)'),
                        ('CPTS7e', 'Mentorship, '),
                        ('CPTS8e', 'Life skills trainings, '),
                        ('CPTS9e', 'School Monitoring (Enrolment, retention, performance, progression, completion)'),
-                       ('CPTS10e', 'Others specify')
+                       ('CPTS10e', 'School fees'),
+                       ('CPTS11e','school levies '),
+                       ('CPTS12e', 'Others specify')
 )
 CPT_PERSON_RESPONSIBLE = (
     ('CGH', 'Caregiver'),
@@ -4278,9 +4316,16 @@ class CasePlanTemplate(forms.Form):
         })
     )
     CPT_DATE = forms.DateField(widget=forms.TextInput(
-        attrs={'placeholder': _('Completion Date'),
+        attrs={'placeholder': _('Date to be completed'),
                'class': 'form-control',
                'id': 'CPT_DATE'
+               }))
+    CPT_ACTUAL_DATE_COMPLETION = forms.DateField(widget=forms.TextInput(
+        attrs={'placeholder': _('Actual date of completion'),
+               'class': 'form-control',
+               'id': 'CPT_ACTUAL_DATE_COMPLETION',
+               'style': 'width: 200px;',
+               'required': 'true'
                }))
     CPT_RESULTS = forms.ChoiceField(
         choices=CPT_RESULTS,
@@ -6207,7 +6252,7 @@ class WellbeingAdolescentForm(forms.Form):
 
 # HIV Screening Form
 class HIV_SCREENING_FORM(forms.Form):
-
+    org_units_list = [('', 'Please Select')] + list(RegOrgUnit.objects.filter().values_list('id', 'org_unit_name'))
     HIV_RA_1A = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
@@ -6220,7 +6265,7 @@ class HIV_SCREENING_FORM(forms.Form):
                'data-parsley-group': 'group0'
         }))
 
-    HIV_RA_1B = forms.ChoiceField(
+    HIV_RS_01 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6229,8 +6274,8 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_STATUS = forms.ChoiceField(
-        choices = (('HIV_POSTIVE', 'HIV_Positive'),('HIV_NEGATIVE', 'HIV_Negative'),),
+    HIV_RS_02 = forms.ChoiceField(
+        choices = (('AYES', 'HIV_Positive'),('ANNO', 'HIV_Negative'),),
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
@@ -6238,7 +6283,25 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_1C = forms.ChoiceField(
+    HIV_RS_03 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+    HIV_RS_03A=forms.ChoiceField(
+        choices = (('AYES', 'HIV_Positive'),('ANNO', 'HIV_Negative'),),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+
+    HIV_RS_04 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6247,17 +6310,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-
-    HIV_RA_2Q1 = forms.ChoiceField(
-        choices = YESNO_CHOICES,
-        widget = forms.RadioSelect(
-        renderer=RadioCustomRenderer,
-        attrs={
-        # 'data-parsley-required': 'true',
-        # 'data-parsley-errors-container': "#errorfield"
-    }))
-
-    HIV_RA_2Q2 = forms.ChoiceField(
+    HIV_RS_05 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6266,7 +6319,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
     
-    HIV_RA_2Q3 = forms.ChoiceField(
+    HIV_RS_06 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6275,7 +6328,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q4 = forms.ChoiceField(
+    HIV_RS_07 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6284,7 +6337,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q5 = forms.ChoiceField(
+    HIV_RS_08 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6293,7 +6346,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q6 = forms.ChoiceField(
+    HIV_RS_09 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6302,7 +6355,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q7 = forms.ChoiceField(
+    HIV_RS_10 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6311,16 +6364,7 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_2Q8 = forms.ChoiceField(
-        choices = YESNO_CHOICES,
-        widget = forms.RadioSelect(
-        renderer=RadioCustomRenderer,
-        attrs={
-        'data-parsley-required': 'true',
-        'data-parsley-errors-container': "#errorfield"
-    }))
-
-    HIV_RA_3Q1 = forms.ChoiceField(
+    HIV_RS_11 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6329,20 +6373,29 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q1_DATE = forms.DateField(
+    HIV_RS_14 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        # 'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    HIV_RS_15 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q1_DATE',
-               'id': 'HIV_RA_3Q1_DATE',
+               'name': 'HIV_RS_15',
+               'id': 'HIV_RS_15',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q2 = forms.ChoiceField(
+    HIV_RS_16 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6351,20 +6404,20 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q2_DATE = forms.DateField(
+    HIV_RS_17 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q2_DATE',
-               'id': 'HIV_RA_3Q2_DATE',
+               'name': 'HIV_RS_17',
+               'id': 'HIV_RS_17',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q3 = forms.ChoiceField(
+    HIV_RS_18 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6373,17 +6426,17 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RS_3Q3A = forms.CharField(
+    HIV_RS_18A = forms.CharField(
         widget = forms.Textarea(
         attrs = {'placeholder': _('Response'),
                'class': 'form-control',
-               'id': 'HIV_RS_3Q3A',
+               'id': 'HIV_RS_18A',
             #    'data-parsley-group': 'group0',
                'rows': '2'})
                )
     
-    HIV_RA_3Q3B = forms.ChoiceField(
-        choices = (('HIV_POSTIVE', 'HIV_Positive'), ('HIV_NEGATIVE', 'HIV_NEGATIVE'), ('HIV_UNKOWN', 'HIV_UNKOWN/UNDISCLOSED')),
+    HIV_RS_18B = forms.ChoiceField(
+        choices = (('1', 'HIV_Positive'), ('2', 'HIV_NEGATIVE'), ('3', 'HIV_UNKOWN/UNDISCLOSED')),
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
@@ -6391,20 +6444,20 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
     
-    HIV_RA_3Q3_DATE = forms.DateField(
+    HIV_RS_19 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q3_DATE',
-               'id': 'HIV_RA_3Q3_DATE',
+               'name': 'HIV_RS_19',
+               'id': 'HIV_RS_19',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q4 = forms.ChoiceField(
+    HIV_RS_21 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6413,20 +6466,20 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q4_DATE = forms.DateField(
+    HIV_RS_22 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q4_DATE',
-               'id': 'HIV_RA_3Q4_DATE',
+               'name': 'HIV_RS_22',
+               'id': 'HIV_RS_22',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q5 = forms.ChoiceField(
+    HIV_RS_23 = forms.ChoiceField(
         choices = YESNO_CHOICES,
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6435,25 +6488,36 @@ class HIV_SCREENING_FORM(forms.Form):
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
-    HIV_RA_3Q5_DATE = forms.DateField(
+    HIV_RS_24 = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
         attrs = {'placeholder': _('Report Date'),
                'class': 'form-control',
-               'name': 'HIV_RA_3Q5_DATE',
-               'id': 'HIV_RA_3Q5_DATE',
+               'name': 'HIV_RS_24',
+               'id': 'HIV_RS_24',
                'autocomplete': "off"
             # ,
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
     }))
 
-    HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Facility Name'),
-               'class': 'form-control',
-               'id': 'HIV_RA_3Q6',
-            #    'data-parsley-group': 'group0'
-               }))
+    HIV_RA_3Q6 = forms.ChoiceField(
+            choices=org_units_list,
+            initial='',
+            widget=forms.Select(
+                attrs={'class': 'form-control',
+                       'id': 'HIV_RA_3Q6'
+                      }
+            )
+    )
+                    
+    # HIV_RA_3Q6 = forms.CharField(widget=forms.TextInput(
+    #     attrs={'placeholder': _('Facility Name'),
+    #            'class': 'form-control',
+    #            'id': 'HIV_RA_3Q6',
+    #         #    'data-parsley-group': 'group0'
+    #            }))
+
 
 # HIV Management - Visitation Form 
 class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
@@ -6473,7 +6537,8 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_B = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-type': "number",
+             #  'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6481,7 +6546,8 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-type': "number",
+            #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6489,7 +6555,8 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_D = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-type': "number",
+            #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6506,7 +6573,8 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_F = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-type': "number",
+            #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6539,7 +6607,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_H_2 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Others'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6556,7 +6624,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_H_4 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Age'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6573,7 +6641,8 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_I_1 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-type': "number",
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
         }))
@@ -6631,7 +6700,8 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_L_2 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-type': "number",
+          #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
     }))
@@ -6708,11 +6778,20 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_R = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _(''),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+       #        'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
     }))
- 
+
+    HIV_MGMT_2_S= forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control' ,
+               'data-parsley-type': "number",
+       #        'data-parsley-required': "False"
+               # ,
+               #    'data-parsley-required': "False"
+    }))
+
 # HIV Manangement - ARV Therapy
 class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
 
@@ -6743,7 +6822,8 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
     HIV_MGMT_1_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False"
+               'data-parsley-required': "False",
+               'data-parsley-type': "number",
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6765,7 +6845,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6774,7 +6854,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6783,7 +6863,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6824,7 +6904,1155 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
     }))
     
 
+class DREAMS_FORM(forms.Form):
+    # Yes/No Choices
+    DREAMS_001 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_002 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_003 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_004 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_005 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_006 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_009 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_011 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_015 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_016 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_019 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_020 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_021 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_022 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_023 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_024 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_025 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_026 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_027 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_028 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_029 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_030 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_031 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_032 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_033 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_034 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_035 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_036 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_037 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_038 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_039 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_040 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_041 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_042 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_043 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_044 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_045 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_046 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_047 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_048 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_050 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_051 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_052 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_053 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_054 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+     
+    DREAMS_055 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_056 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_057 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_058 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_059 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    # Date Fields
+    DREAMS_001_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date Completed'),
+               'class': 'form-control',
+               'name': 'DREAMS_001_DATE',
+               'id': 'DREAMS_001_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_002_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date Completed'),
+               'class': 'form-control',
+               'name': 'DREAMS_002_DATE',
+               'id': 'DREAMS_002_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_003_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date Completed'),
+               'class': 'form-control',
+               'name': 'DREAMS_003_DATE',
+               'id': 'DREAMS_003_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_004_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date Completed'),
+               'class': 'form-control',
+               'name': 'DREAMS_004_DATE',
+               'id': 'DREAMS_004_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_005_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date Completed'),
+               'class': 'form-control',
+               'name': 'DREAMS_005_DATE',
+               'id': 'DREAMS_005_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_006_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date Completed'),
+               'class': 'form-control',
+               'name': 'DREAMS_006_DATE',
+               'id': 'DREAMS_006_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_007_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date Completed'),
+               'class': 'form-control',
+               'name': 'DREAMS_007_DATE',
+               'id': 'DREAMS_007_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_010_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date Tested'),
+               'class': 'form-control',
+               'name': 'DREAMS_010_DATE',
+               'id': 'DREAMS_0010_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_012_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_012_DATE',
+               'id': 'DREAMS_012_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_014_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date Tested'),
+               'class': 'form-control',
+               'name': 'DREAMS_014_DATE',
+               'id': 'DREAMS_014_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_017_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_017_DATE',
+               'id': 'DREAMS_017_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_019_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_019_DATE',
+               'id': 'DREAMS_019_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_021_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_021_DATE',
+               'id': 'DREAMS_021_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_022_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_022_DATE',
+               'id': 'DREAMS_022_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_023_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_023_DATE',
+               'id': 'DREAMS_023_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_024_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_024_DATE',
+               'id': 'DREAMS_024_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_025_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_025_DATE',
+               'id': 'DREAMS_025_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_026_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_026_DATE',
+               'id': 'DREAMS_026_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_027_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_027_DATE',
+               'id': 'DREAMS_027_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_028_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_028_DATE',
+               'id': 'DREAMS_028_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_029_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_029_DATE',
+               'id': 'DREAMS_029_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_030_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_030_DATE',
+               'id': 'DREAMS_030_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_031_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_031_DATE',
+               'id': 'DREAMS_031_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_032_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_032_DATE',
+               'id': 'DREAMS_032_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_033_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_033_DATE',
+               'id': 'DREAMS_033_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_034_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_034_DATE',
+               'id': 'DREAMS_034_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_035_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_035_DATE',
+               'id': 'DREAMS_035_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_036_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_036_DATE',
+               'id': 'DREAMS_036_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_037_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_037_DATE',
+               'id': 'DREAMS_037_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_038_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_038_DATE',
+               'id': 'DREAMS_038_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_039_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_039_DATE',
+               'id': 'DREAMS_039_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_040_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_040_DATE',
+               'id': 'DREAMS_040_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_041_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_041_DATE',
+               'id': 'DREAMS_041_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_042_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_042_DATE',
+               'id': 'DREAMS_042_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_043_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_043_DATE',
+               'id': 'DREAMS_043_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_044_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_044_DATE',
+               'id': 'DREAMS_044_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_045_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_045_DATE',
+               'id': 'DREAMS_045_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_046_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_046_DATE',
+               'id': 'DREAMS_046_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_047_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_047_DATE',
+               'id': 'DREAMS_047_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_048_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_048_DATE',
+               'id': 'DREAMS_048_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_049_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_049_DATE',
+               'id': 'DREAMS_049_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_050_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_050_DATE',
+               'id': 'DREAMS_050_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_051_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_051_DATE',
+               'id': 'DREAMS_051_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_052_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_052_DATE',
+               'id': 'DREAMS_052_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_053_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_053_DATE',
+               'id': 'DREAMS_053_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_054_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_054_DATE',
+               'id': 'DREAMS_054_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_055_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_055_DATE',
+               'id': 'DREAMS_055_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_056_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_056_DATE',
+               'id': 'DREAMS_056_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_057_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_057_DATE',
+               'id': 'DREAMS_057_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_058_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_058_DATE',
+               'id': 'DREAMS_058_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_059_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_059_DATE',
+               'id': 'DREAMS_059_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_060_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Quarter'),
+               'class': 'form-control',
+               'name': 'DREAMS_060_DATE',
+               'id': 'DREAMS_060_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    # Mixed Attributes
+
+    DREAMS_007 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_007'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_008 = forms.ChoiceField(
+        choices = (('Negative', 'Negative'), ('Positive', 'Positive'), ('KnownPositive', 'KnownPositive')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_013  = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_049'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_014 = forms.ChoiceField(
+        choices = (('Negative', 'Negative'), ('Positive', 'Positive'), ('KnownPositive', 'KnownPositive')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_018 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_018'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_049  = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_049'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_060 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_060'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
     
-    
-    
-    
+    DREAMS_061 = forms.CharField(widget=forms.Textarea(
+        attrs={'placeholder': _('Comments'),
+               'class': 'form-control',
+               'id': 'DREAMS_061',
+               #'data-parsley-required': "true",
+               #'data-parsley-group': 'group0',
+               'rows': '3'}))
+
+    DREAMS_062 = forms.CharField(widget=forms.Textarea(
+        attrs={'placeholder': _('Other Services'),
+               'class': 'form-control',
+               'id': 'DREAMS_062',
+               #'data-parsley-required': "true",
+               #'data-parsley-group': 'group0',
+               'rows': '3'}))

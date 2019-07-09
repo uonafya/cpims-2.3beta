@@ -175,16 +175,22 @@
 											No
 										</label>
 									</div>
-									<div class="col-md-4 hidden">
+									<div class="col-md-2 hidden">
 										<div class="form-group">
 											<label class="control-label formlabel">If No, give date of Previous Case Plan Readiness Assessment:</label><br/>
 											<input type="text" class="form-control" style="max-width: 200px;" name="date_first_cpara"/>
 										</div>
                                     </div>
-									<div class="col-md-4">
+									<div class="col-md-2">
 										<div class="form-group">
 											<label class="control-label formlabel">Date of caseplan:</label><br/>
 											<input type="text" class="form-control" style="max-width: 200px;" name="CPT_DATE_CASEPLAN"/>
+										</div>
+                                    </div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label class="control-label formlabel">Actual date of caseplan completion*:</label><br/>
+											{{form.CPT_ACTUAL_DATE_COMPLETION}}
 										</div>
                                     </div>
 								</div>
@@ -264,7 +270,7 @@
                                         <tr>
                                             <th colspan="2"><h6><b>Services</b></h6></th>
                                             <th colspan="2"><h6><b>Person Responsible</b></h6></th>
-                                            <th colspan="1"><h6><b>Date Completed</b></h6></th>
+                                            <th colspan="1"><h6><b>Date to be completed</b></h6></th>
                                             <th colspan="1"><h6><b>Results</b></h6></th>
                                             <th colspan="2"><h6><b>Reasons</b></h6></th>
                                             <th colspan="1"></th>
@@ -424,8 +430,8 @@
 
             <div class="panel-body">
                 <div  class="panel panel-inverse">
-                    <div id="case-events"  class="">
-                        <table id="f1a_events_data_table" class="table table-condensed">
+                    <div id="case-events"  class="table-responsive">
+                        <table id="f1a_events_data_table" class="table table-condensed table-bordered table-striped">
                             <thead>
                                 <tr>
                                     
@@ -447,49 +453,179 @@
                                     {% if one_cpt_event %}
                                         <tr>
                                             <td rowspan="4" style="text-align: center;vertical-align: middle;" width="40px" valign="center">{{forloop.counter}}</td>
-                                            <td>HEALTHY</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_goal}}</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_need}}</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_priority}}</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_services}}</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_responsible}}</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_completion_date}}</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_results}}</td>
-                                            <td>{{one_cpt_event.event_healthy.0.ev_reasons}}</td>
-                                            <td rowspan="4" style="text-align: center;vertical-align: middle;" width="40px" valign="center"><a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-pencil"></i></a></td>
+                                            <td style="text-align: center;vertical-align: middle;"><b>HEALTHY</b></td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_goal}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_need}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_priority}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_services}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_responsible}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_completion_}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_results}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_healthy in one_cpt_event.event_healthy %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_healthy.ev_reasons}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td rowspan="4" style="text-align: center;vertical-align: middle;" width="40px" valign="center">
+                                                <a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-pencil"></i></a>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td>STABLE</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_goal}}</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_need}}</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_priority}}</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_services}}</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_responsible}}</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_completion_date}}</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_results}}</td>
-                                            <td>{{one_cpt_event.event_stable.0.ev_reasons}}</td>
+                                            <td style="text-align: center;vertical-align: middle;"><b>STABLE</b></td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_goal}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_need}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_priority}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_services}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_responsible}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_completion_date}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_results}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_stable in one_cpt_event.event_stable %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_stable.ev_reasons}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <td>SAFE</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_goal}}</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_need}}</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_priority}}</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_services}}</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_responsible}}</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_completion_date}}</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_results}}</td>
-                                            <td>{{one_cpt_event.event_safe.0.ev_reasons}}</td>
+                                            <td style="text-align: center;vertical-align: middle;"><b>SAFE</b></td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_goal}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_need}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_priority}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_services}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_responsible}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_completion_date}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_results}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_safe in one_cpt_event.event_safe %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_safe.ev_reasons}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
                                         </tr>
                                         <tr style="border-bottom: 5px solid #aaa;">
-                                            <td>SCHOOLED</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_goal}}</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_need}}</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_priority}}</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_services}}</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_responsible}}</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_completion_date}}</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_results}}</td>
-                                            <td>{{one_cpt_event.event_school.0.ev_reasons}}</td>
+                                            <td style="text-align: center;vertical-align: middle;"><b>SCHOOLED</b></td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_goal}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_need}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_priority}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_services}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_responsible}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_completion_date}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_results}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
+                                            <td>
+                                                {% for one_school in one_cpt_event.event_school %}
+                                                    <small><b>({{forloop.counter}})</b></small> <small>{{one_school.ev_reasons}}</small><hr class="m-t-0 m-b-0"/>
+                                                {% endfor %}
+                                            </td>
                                         </tr>
                                         {% endif %}
                                     {% endfor %}
