@@ -61,7 +61,7 @@
 <a class='btn btn-success' href="{% url 'data_cleanup' %}?export=True" target="_blank"><i class="fa fa-download"></i> &nbsp Export</a>
 </form>
 {% if data %}
-<table class="table">
+<table class="table" id='age-data-table'>
 <thead>
     <tr>
       <th>Name</th>
@@ -95,5 +95,24 @@
     
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script>
+    $(document).ready(function(){
 
+        //
+        $('#age-data-table').bootstrapTable({ 
+            toggle: 'table', 
+            search: 'true',
+            locale: 'en-US',
+            pagination: 'true',
+            pageNumber: 1,
+            pageSize: 10,
+            showRefresh: true,
+            showToggle: true,
+            //showColumns: true,
+            singleSelect: true,
+            clickToSelect:true,
+            maintainSelected: true                
+        });
+    });
+  </script>
 {% endblock %}
