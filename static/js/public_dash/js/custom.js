@@ -311,8 +311,9 @@ function fetchOrganisationUnitData(){
         dataType: 'json', // what type of data do we expect back from the server
         encode: true,
         success: function (data, textStatus, jqXHR) {
+            console.log("locality data=====>");
             localityData=data;
-            // console.log(data);
+
             $.each(data, function( key, value ) {
 
                 var elementToAppend = '<option data-id="' + key + '" data-name="' + value.name + '">' + value.name + '</option>';
@@ -323,7 +324,7 @@ function fetchOrganisationUnitData(){
             initOrganisationUnitChosenDropDown("Sub county:","#countituency-organisation-unit");
             initOrganisationUnitChosenDropDown("Ward:","#ward-organisation-unit");
             // console.log("localityData");
-            // console.log(localityData);
+            // console.log(localityData);lic_d
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");
