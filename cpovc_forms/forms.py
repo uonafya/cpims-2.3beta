@@ -7344,7 +7344,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_001_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('If Yes, Date Completed'),
                'class': 'form-control',
                'name': 'DREAMS_001_DATE',
                'id': 'DREAMS_001_DATE',
@@ -7356,7 +7356,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_002_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('If Yes, Date Completed'),
                'class': 'form-control',
                'name': 'DREAMS_002_DATE',
                'id': 'DREAMS_002_DATE',
@@ -7368,7 +7368,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_003_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('If Yes, Date Completed'),
                'class': 'form-control',
                'name': 'DREAMS_003_DATE',
                'id': 'DREAMS_003_DATE',
@@ -7380,7 +7380,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_004_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('If Yes, Date Completed'),
                'class': 'form-control',
                'name': 'DREAMS_004_DATE',
                'id': 'DREAMS_004_DATE',
@@ -7392,7 +7392,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_005_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('If Yes, Date Completed'),
                'class': 'form-control',
                'name': 'DREAMS_005_DATE',
                'id': 'DREAMS_005_DATE',
@@ -7404,7 +7404,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_006_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('If Yes, Date Completed'),
                'class': 'form-control',
                'name': 'DREAMS_006_DATE',
                'id': 'DREAMS_006_DATE',
@@ -7416,7 +7416,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_007_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('If Yes, Date Completed'),
                'class': 'form-control',
                'name': 'DREAMS_007_DATE',
                'id': 'DREAMS_007_DATE',
@@ -7956,7 +7956,7 @@ class DREAMS_FORM(forms.Form):
     DREAMS_060_DATE = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
-        attrs = {'placeholder': _('If Yes, Date'),
+        attrs = {'placeholder': _('Quarter'),
                'class': 'form-control',
                'name': 'DREAMS_060_DATE',
                'id': 'DREAMS_060_DATE',
