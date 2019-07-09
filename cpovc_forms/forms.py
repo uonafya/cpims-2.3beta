@@ -6538,6 +6538,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength' : "6"
              #  'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6547,6 +6548,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength': "6"
             #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6555,6 +6557,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_D = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
+               'data-parsley-maxlength': "20",
                'data-parsley-type': "number",
             #   'data-parsley-required': "False"
                # ,
@@ -6574,6 +6577,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength': "6"
             #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6624,6 +6628,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_H_4 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Age'),
                'class': 'form-control' ,
+               'data-parsley-maxlength': "6"
           #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6642,6 +6647,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength': "6"
           #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
