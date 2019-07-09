@@ -32,7 +32,8 @@
     <option value='SLNS'>NO School</option>
 </select>
 
-<button type='submit' class='btn'>Filter</button>
+<button type='submit' class='btn btn-primary'>Filter</button>
+<a class='btn btn-primary' href="{% url 'data_cleanup' %}?export=True" target="_blank">Export</a>
 </form>
 <table class="table">
 <thead>
