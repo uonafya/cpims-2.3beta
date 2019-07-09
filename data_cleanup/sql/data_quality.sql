@@ -34,3 +34,8 @@ create MATERIALIZED view data_quality_view as select
  reg_person.created_by_id,
  extract ( year from age(reg_person.date_of_birth)) as age
  from ovc_registration left join reg_person on ovc_registration.person_id=reg_person.id;
+
+CREATE INDEX IF NOT EXISTS hiv_status_index on data_quality_view USING btree (hiv_status);
+CREATE INDEX IF NOT EXISTS art_status_index on data_quality_view USING btree (art_status);
+CREATE INDEX IF NOT EXISTS school_level_index on data_quality_view USING btree (school_level);
+CREATE INDEX IF NOT EXISTS age_index on data_quality_view USING btree (age);

@@ -69,7 +69,6 @@ class DataQualityView(TemplateView):
         if art_status and art_status != '0':
             queryset = queryset.filter(art_status=art_status)
 
-        # queryset = Paginator(queryset, 30)
         context['data']= queryset
         return TemplateResponse(self.request, self.template_name, context)
     
