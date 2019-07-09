@@ -31,7 +31,7 @@ import numpy as np
 from openpyxl.styles import colors, PatternFill
 
 from cpovc_main.functions import (
-    get_general_list, get_dict, get_mapped, convert_date)
+    get_general_list, get_dict, get_mapped, convert_date, get_description_for_item_id)
 from cpovc_main.models import SetupGeography
 
 from cpovc_ovc.models import (
@@ -2559,6 +2559,18 @@ def get_pivot_ovc(request, params={}):
             datas = get_services_data(services, params)
         else:
             datas, titles = get_sql_data(request, params)
+        
+        #  translating domain to full description
+        if report_id == 6:
+            for one_datas in datas:
+                try:
+                    name = get_description_for_item_id(one_datas['DOMAIN'])
+                    print("['DOMAIN ==> ", one_datas['DOMAIN'])
+                    print("NAME ==> ", str(name[0]))
+                    one_datas['DOMAIN'] = str(name[0])
+                except Exception, exe:
+                    print 'Error translating domain to full description - %s' % (str(exe))
+
     except Exception, e:
         print 'Error getting OVC pivot data - %s' % (str(e))
         return []
