@@ -384,7 +384,7 @@
                                                 (If applicable) Record facility of child's enrollment
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RS_25 }}
+                                                    {{ form.HIV_RA_3Q6 }}
                                                     
                                             </td>
                                             <td style="background-color: grey">
@@ -414,6 +414,70 @@
 
                 </form>
             </div>
+
+            <div>
+                    <table class="table" border="1">
+                            <thead>
+                            <tr>
+                            <th colspan="3">CURRENT HIV STATUS</th>
+                            <th colspan="8">HIV RISK ASSESSMENT</th>
+                            <th colspan="8">PROGRESS MONITORING</th>
+                                  </tr>
+                                  
+                                  <tr>
+                                        <th>Q 1a</th>
+                                        <th>Q 1b</th>
+                                        <th>Q 1c</th>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 3</th>
+                                        <th>Q 4</th>
+                                        <th>Q 5</th>
+                                        <th>Q 6</th>
+                                        <th>Q 7</th>
+                                        <th>Q 8</th>
+                                        <th>1</th>
+                                        <th>2</th>
+                                        <th>3</th>
+                                        <th>3a</th>
+                                        <th>3b</th>
+                                        <th>4</th>
+                                        <th>5</th>
+                                        <th>6</th>
+                                        <th>Date of Event</th>
+                                  </tr>
+                                </thead>
+                            
+                    {% for one_screening_data in hiv_screen %}
+                   
+                        
+                        <tr>
+                          <td>{{one_screening_data.test_donewhen_result | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.caregiver_know_status | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.caregiver_knowledge_yes | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.parent_PLWH | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.child_sick_malnourished | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.child_sexual_abuse | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.adol_sick | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.adol_sexual_abuse | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.sex | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.sti | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.hiv_test_required  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.parent_consent_testing | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.referral_made | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.referral_completed  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.not_completed}}</td>
+                          <td>{{one_screening_data.test_result | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.art_referral | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.facility}}</td>
+                          <td>{{one_screening_data.date_of_event}}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <!-- ################################## -->
+
             <div class="badge pull-right m-4">Revised: 1st July 2019</div>
         </div>
         <!-- end panel -->
@@ -484,7 +548,7 @@
 
 </script>
     <!-- Skip logic -->
-    {% if data.date_of_birth|gen_age > 15 %}
+    <!-- {% if data.date_of_birth|gen_age > 15 %}
     <script>
         $(document).ready(function () {
             disableSection('section_a');
@@ -496,7 +560,7 @@
                 disableSection('section_b');
             });
         </script>
-    {% endif %}
+    {% endif %} -->
     <!-- Skip logic -->
     <script>
         $('input[name="HIV_RS_01"]').change(function (e) { 
