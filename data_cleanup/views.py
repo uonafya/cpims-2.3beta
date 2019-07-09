@@ -15,7 +15,8 @@ class DataQualityView(TemplateView):
     template_name = 'data_cleanup/filter.html'
     
     def get_context_data(self, **kwargs):
-        context = super(DataQualityView, self).get_context_data(**kwargs)
+        context = super(
+            DataQualityView, self).get_context_data(**kwargs)
         context['data'] = self.get_queryset()
         return context
 
@@ -41,16 +42,20 @@ class DataQualityView(TemplateView):
             if  age_operator == '-' and age_operator != '0':
                 ages =  age.split('-')
                 if len(ages) != 2:
-                    context['error'] = 'Please supply the min and max age e.g 19-20'
-                    return TemplateResponse(self.request, self.template_name, context) 
+                    error = 'Please supply the min and max age e.g 19-20'
+                    context['error'] = error
+                    return TemplateResponse(
+                    self.request, self.template_name, context) 
                 else:
                     try:
                         min_age = int(ages[0])
                         max_age = int(ages[1])
-                        queryset = queryset.filter(age__gte=min_age, age__lte=max_age)
+                        queryset = queryset.filter(
+                            age__gte=min_age, age__lte=max_age)
                     except ValueError:
                         context['error'] = 'Please use numbers for age'
-                        return TemplateResponse(self.request, self.template_name, context)
+                        return TemplateResponse(
+                            self.request, self.template_name, context)
                     
             elif age_operator == '=':
                 queryset =  queryset.filter(age=age)
@@ -80,7 +85,11 @@ class DataQualityView(TemplateView):
         file_name = '/tmp/file.csv'
         path_to_file = '/tmp/file.csv'
         with open(path_to_file, 'rb') as fh:
-            response = HttpResponse(fh.read(), content_type="application/csv")
-            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(path_to_file)
+            response = HttpResponse(
+                fh.read(), content_type="application/csv")
+            content_disposition = 'inline; filename=' + os.path.basename(
+                path_to_file)
+            response['Content-Disposition'] = content_disposition
             return response
-        return HttpResponse("Bad Request")
+        context['error'] = "Error exporting data"
+        return TemplateResponse(self.request, self.template_name, context)
