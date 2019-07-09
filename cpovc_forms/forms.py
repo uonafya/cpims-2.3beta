@@ -6889,4 +6889,1154 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
     
 
 class DREAMS_FORM(forms.Form):
-    pass
+    # Yes/No Choices
+    DREAMS_001 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_002 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_003 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_004 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_005 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_006 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_009 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_011 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_015 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_016 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_019 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_020 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_021 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_022 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_023 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_024 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_025 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_026 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_027 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_028 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_029 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_030 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_031 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_032 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_033 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_034 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_035 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_036 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_037 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_038 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_039 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_040 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_041 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_042 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_043 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_044 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_045 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_046 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_047 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_048 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_050 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_051 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_052 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_053 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_054 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+     
+    DREAMS_055 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_056 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_057 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_058 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_059 = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    # Date Fields
+    DREAMS_001_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_001_DATE',
+               'id': 'DREAMS_001_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_002_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_002_DATE',
+               'id': 'DREAMS_002_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_003_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_003_DATE',
+               'id': 'DREAMS_003_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_004_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_004_DATE',
+               'id': 'DREAMS_004_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_005_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_005_DATE',
+               'id': 'DREAMS_005_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_006_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_006_DATE',
+               'id': 'DREAMS_006_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_007_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_007_DATE',
+               'id': 'DREAMS_007_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_010_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date Tested'),
+               'class': 'form-control',
+               'name': 'DREAMS_010_DATE',
+               'id': 'DREAMS_0010_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_012_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_012_DATE',
+               'id': 'DREAMS_012_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_014_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('Date Tested'),
+               'class': 'form-control',
+               'name': 'DREAMS_014_DATE',
+               'id': 'DREAMS_014_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_017_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_017_DATE',
+               'id': 'DREAMS_017_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_019_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_019_DATE',
+               'id': 'DREAMS_019_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_021_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_021_DATE',
+               'id': 'DREAMS_021_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_022_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_022_DATE',
+               'id': 'DREAMS_022_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_023_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_023_DATE',
+               'id': 'DREAMS_023_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_024_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_024_DATE',
+               'id': 'DREAMS_024_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_025_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_025_DATE',
+               'id': 'DREAMS_025_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_026_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_026_DATE',
+               'id': 'DREAMS_026_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_027_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_027_DATE',
+               'id': 'DREAMS_027_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_028_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_028_DATE',
+               'id': 'DREAMS_028_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_029_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_029_DATE',
+               'id': 'DREAMS_029_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_030_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_030_DATE',
+               'id': 'DREAMS_030_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_031_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_031_DATE',
+               'id': 'DREAMS_031_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_032_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_032_DATE',
+               'id': 'DREAMS_032_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_033_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_033_DATE',
+               'id': 'DREAMS_033_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_034_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_034_DATE',
+               'id': 'DREAMS_034_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_035_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_035_DATE',
+               'id': 'DREAMS_035_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_036_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_036_DATE',
+               'id': 'DREAMS_036_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_037_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_037_DATE',
+               'id': 'DREAMS_037_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_038_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_038_DATE',
+               'id': 'DREAMS_038_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_039_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_039_DATE',
+               'id': 'DREAMS_039_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_040_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_040_DATE',
+               'id': 'DREAMS_040_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_041_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_041_DATE',
+               'id': 'DREAMS_041_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_042_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_042_DATE',
+               'id': 'DREAMS_042_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_043_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_043_DATE',
+               'id': 'DREAMS_043_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_044_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_044_DATE',
+               'id': 'DREAMS_044_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_045_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_045_DATE',
+               'id': 'DREAMS_045_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_046_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_046_DATE',
+               'id': 'DREAMS_046_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_047_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_047_DATE',
+               'id': 'DREAMS_047_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_048_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_048_DATE',
+               'id': 'DREAMS_048_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_049_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_049_DATE',
+               'id': 'DREAMS_049_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_050_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_050_DATE',
+               'id': 'DREAMS_050_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_051_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_051_DATE',
+               'id': 'DREAMS_051_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_052_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_052_DATE',
+               'id': 'DREAMS_052_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_053_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_053_DATE',
+               'id': 'DREAMS_053_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_054_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_054_DATE',
+               'id': 'DREAMS_054_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_055_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_055_DATE',
+               'id': 'DREAMS_055_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_056_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_056_DATE',
+               'id': 'DREAMS_056_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_057_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_057_DATE',
+               'id': 'DREAMS_057_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_058_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_058_DATE',
+               'id': 'DREAMS_058_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_059_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_059_DATE',
+               'id': 'DREAMS_059_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    DREAMS_060_DATE = forms.DateField(
+        widget = forms.widgets.DateInput(
+        format="%m/%d/%Y",
+        attrs = {'placeholder': _('If Yes, Date'),
+               'class': 'form-control',
+               'name': 'DREAMS_060_DATE',
+               'id': 'DREAMS_060_DATE',
+               'autocomplete': "off",
+          #     'data-parsley-required': "true",
+               'data-parsley-group': 'group0'
+    }))
+
+    # Mixed Attributes
+
+    DREAMS_007 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_007'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_008 = forms.ChoiceField(
+        choices = (('Negative', 'Negative'), ('Positive', 'Positive'), ('KnownPositive', 'KnownPositive')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_013  = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_049'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_014 = forms.ChoiceField(
+        choices = (('Negative', 'Negative'), ('Positive', 'Positive'), ('KnownPositive', 'KnownPositive')),
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        #  'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+    DREAMS_018 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_018'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_049  = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_049'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+
+    DREAMS_060 = forms.CharField(widget=forms.TextInput(
+        attrs={'placeholder': _(''),
+               'class': 'form-control',
+               'id': 'DREAMS_060'
+            # ,
+            #    'data-parsley-required': "False"
+    }))
+    
+    DREAMS_061 = forms.CharField(widget=forms.Textarea(
+        attrs={'placeholder': _('Comments'),
+               'class': 'form-control',
+               'id': 'DREAMS_061',
+               #'data-parsley-required': "true",
+               #'data-parsley-group': 'group0',
+               'rows': '3'}))
+
+    DREAMS_062 = forms.CharField(widget=forms.Textarea(
+        attrs={'placeholder': _('Other Services'),
+               'class': 'form-control',
+               'id': 'DREAMS_062',
+               #'data-parsley-required': "true",
+               #'data-parsley-group': 'group0',
+               'rows': '3'}))

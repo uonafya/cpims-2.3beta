@@ -110,10 +110,10 @@
                                            <td>1.</td>
                                             <td>HCBF</td>
                                             <td>
-                                            
-                                            </td>
+                                            {{ form.DREAMS_001 }}
+                                            </td> 
                                             <td>
-                                                
+                                            {{ form.DREAMS_001_DATE }}
                                             </td>
                                         </tr>
 
@@ -121,10 +121,10 @@
                                             <td>1.2</td>
                                                 <td>MHMC</td>
                                                 <td>
-                                                
+                                                        {{ form.DREAMS_002 }}
                                                 </td>
                                                 <td>
-                                                    
+                                                        {{ form.DREAMS_002_DATE }}
                                                 </td>
                                         </tr>
 
@@ -132,10 +132,10 @@
                                             <td>1.3</td>
                                                 <td>RESPECT-K</td>
                                                 <td>
-                                                
+                                                        {{ form.DREAMS_003 }}
                                                 </td>
                                                 <td>
-                                                    
+                                                        {{ form.DREAMS_003_DATE }}
                                                 </td>
                                         </tr>
 
@@ -143,10 +143,10 @@
                                             <td>1.4</td>
                                                 <td>SHUGA II</td>
                                                 <td>
-                                                
+                                                        {{ form.DREAMS_004 }}
                                                 </td>
                                                 <td>
-                                                    
+                                                        {{ form.DREAMS_004_DATE }}
                                                 </td>
                                         </tr>
 
@@ -154,10 +154,10 @@
                                             <td>1.5</td>
                                                 <td>SISTER TO SISTER-K</td>
                                                 <td>
-                                                
+                                                        {{ form.DREAMS_005 }}
                                                 </td>
                                                 <td>
-                                                    
+                                                        {{ form.DREAMS_005_DATE }}
                                                 </td>
                                         </tr>
 
@@ -165,10 +165,10 @@
                                             <td>1.6</td>
                                                 <td>MLRC</td>
                                                 <td>
-                                                
+                                                        {{ form.DREAMS_006 }}
                                                 </td>
                                                 <td>
-                                                    
+                                                        {{ form.DREAMS_006_DATE }}
                                                 </td>
                                         </tr>
 
@@ -176,10 +176,10 @@
                                                 <td>1.7</td>
                                                  <td>Other(Specify)</td>
                                                  <td>
-                                                 
+                                                        {{ form.DREAMS_007 }}
                                                  </td>
                                                  <td>
-                                                     
+                                                        {{ form.DREAMS_007_DATE }}
                                                  </td>
                                         </tr>
                                         
@@ -217,10 +217,10 @@
                                                 HTS (Client)-Status  
                                             </td>
                                             <td>
-                                                    
+                                                    {{ form.DREAMS_008 }}
                                             </td>
                                             <td>
-                                                    
+                                                    {{ form.DREAMS_010_DATE }}
                                             </td>
                                         </tr>
 
@@ -230,9 +230,9 @@
                                                     HTS (Client)- Linkage to HTS
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_009 }}   
                                                 </td>
-                                                <td>
+                                                <td style="background-color: gray">
                                                         
                                                 </td>
                                         </tr>
@@ -240,25 +240,26 @@
                                         <tr>
                                                 <td>2.3</td>
                                                 <td>
-                                                    HTS (Client)- Linkage to HTS
+                                                        Linkage to CCC (Client)
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_011 }}
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_012_DATE }}
                                                 </td>
                                         </tr>
 
+                                
                                         <tr>
                                                 <td>2.4</td>
                                                 <td>
-                                                    Linkage to CCC (Client)
+                                                    Client CCC Number
                                                 </td>
                                                 <td>
-                                                        
+                                                      {{ form.DREAMS_013 }}  
                                                 </td>
-                                                <td>
+                                                <td style="background-color: gray">
                                                         
                                                 </td>
                                         </tr>
@@ -266,25 +267,25 @@
                                         <tr>
                                                 <td>2.5</td>
                                                 <td>
-                                                    Client CCC Number
+                                                    HTS (Partner) -Status
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_014 }}
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_014_DATE }}
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.6</td>
                                                 <td>
-                                                    HTS (Partner) -Status
+                                                    HTS (Partner) - Linked to HTS
                                                 </td>
                                                 <td>
-                                                        
+                                                      {{ form.DREAMS_015 }}  
                                                 </td>
-                                                <td>
+                                                <td style="background-color: gray">
                                                         
                                                 </td>
                                         </tr>
@@ -292,25 +293,25 @@
                                         <tr>
                                                 <td>2.7</td>
                                                 <td>
-                                                    HTS (Partner) - Linked to HTS
+                                                    Linked to CCC (Partner)
                                                 </td>
                                                 <td>
-                                                        
+                                                     {{ form.DREAMS_016 }}
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_017_DATE }}
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.8</td>
                                                 <td>
-                                                    Linked to CCC (Partner)
+                                                    Partner CCC Number
                                                 </td>
                                                 <td>
-                                                        
+                                                     {{ form.DREAMS_018 }}   
                                                 </td>
-                                                <td>
+                                                <td style="background-color: gray">
                                                         
                                                 </td>
                                         </tr>
@@ -318,25 +319,25 @@
                                         <tr>
                                                 <td>2.9</td>
                                                 <td>
-                                                    Partner CCC Number
+                                                     Pregnancy Test -Pregnant?
                                                 </td>
                                                 <td>
-                                                        
+                                                       {{ form.DREAMS_019 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_019_DATE }} 
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.10</td>
                                                 <td>
-                                                     Pregnancy Test -Pregnant?
+                                                    Pregnancy Test - Confirmed Linkage
                                                 </td>
                                                 <td>
-                                                        
+                                                     {{ form.DREAMS_020 }}   
                                                 </td>
-                                                <td>
+                                                <td style="background-color: gray">
                                                         
                                                 </td>
                                         </tr>
@@ -344,130 +345,117 @@
                                         <tr>
                                                 <td>2.11</td>
                                                 <td>
-                                                    Pregnancy Test - Confirmed Linkage
+                                                        ANC/PMTCT
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_021 }}
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_021_DATE }}
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.12</td>
                                                 <td>
-                                                        ANC/PMTCT
+                                                    STI Screening
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_022 }}
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_022_DATE }}  
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.13</td>
                                                 <td>
-                                                    STI Screening
+                                                    STI Treatment
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_023 }}
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_023_DATE }}
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.14</td>
                                                 <td>
-                                                    STI Treatment
+                                                    STI Linkage
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_024 }}   
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_024_DATE }}   
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.15</td>
                                                 <td>
-                                                    STI Linkage
+                                                    TB Screening
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_025 }}   
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_025_DATE }}  
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.16</td>
                                                 <td>
-                                                    TB Screening
+                                                    Linked for TB Treatment
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_026 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_026_DATE }}  
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.17</td>
                                                 <td>
-                                                    Linked for TB Treatment
+                                                    Condom Educ. &  Demo
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_027 }}  
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_027_DATE }}  
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.18</td>
                                                 <td>
-                                                    Condom Educ. &  Demo
+                                                    Condom Provided
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_028 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_028_DATE }}   
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.19</td>
                                                 <td>
-                                                    Condom Provided
-                                                </td>
-                                                <td>
-                                                        
-                                                </td>
-                                                <td>
-                                                        
-                                                </td>
-                                        </tr>
-
-                                        <tr>
-                                                <td>2.20</td>
-                                                <td>
                                                     Partner VMMC
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_029 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_029_DATE }} 
                                                 </td>
                                         </tr>
 
@@ -479,28 +467,28 @@
 
 
                                         <tr>
-                                                <td>2.21</td>
+                                                <td>2.20</td>
                                                 <td>
                                                     Education/Info
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_030 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_030_DATE }} 
                                                 </td>
                                         </tr>
 
                                         <tr>
-                                                <td>2.22</td>
+                                                <td>2.21</td>
                                                 <td>
                                                     Individual Counselling
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_031 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_031_DATE }} 
                                                 </td>
                                         </tr>
 
@@ -511,67 +499,68 @@
 
 
                                         <tr>
-                                                <td>2.23</td>
+                                                <td>2.22</td>
                                                 <td>
                                                         Pills/Oral
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_032 }} 
                                                 </td>
                                                 <td>
                                                         
+                                                        {{ form.DREAMS_032_DATE }} 
+                                                </td>
+                                        </tr>
+
+                                        <tr>
+                                                <td>2.23</td>
+                                                <td>
+                                                        Injectable
+                                                </td>
+                                                <td>
+                                                        {{ form.DREAMS_033 }} 
+                                                </td>
+                                                <td>
+                                                        {{ form.DREAMS_033_DATE }}  
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.24</td>
                                                 <td>
-                                                        Injectable
+                                                        Implant
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_034 }}   
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_034_DATE }} 
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.25</td>
                                                 <td>
-                                                        Implant
+                                                    IUD/Coil
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_035 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_035_DATE }} 
                                                 </td>
                                         </tr>
 
                                         <tr>
                                                 <td>2.26</td>
                                                 <td>
-                                                    IUD/Coil
-                                                </td>
-                                                <td>
-                                                        
-                                                </td>
-                                                <td>
-                                                        
-                                                </td>
-                                        </tr>
-
-                                        <tr>
-                                                <td>2.27</td>
-                                                <td>
                                                     Tubal Ligation
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_036 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_036_DATE }} 
                                                 </td>
                                         </tr>
 
@@ -582,15 +571,15 @@
 
 
                                         <tr>
-                                                <td>2.28</td>
+                                                <td>2.27</td>
                                                 <td>
                                                     PreP
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_037 }} 
                                                 </td>
                                                 <td>
-                                                        
+                                                        {{ form.DREAMS_037_DATE }} 
                                                 </td>
                                         </tr>
 
@@ -623,72 +612,89 @@
                                                <td>3.1</td>
                                                 <td>PEP</td>
                                                 <td>
-                                                
+                                                        {{ form.DREAMS_038 }} 
                                                 </td>
-                                                <td></td>
+                                                <td>
+                                                        {{ form.DREAMS_038_DATE }} 
+                                                </td>
                                             </tr>
 
                                             <tr>
                                                     <td>3.2</td>
                                                      <td>PSS</td>
                                                      <td>
-                                                     
+                                                            {{ form.DREAMS_039 }} 
                                                      </td>
-                                                     <td></td>
+                                                     <td>
+                                                            {{ form.DREAMS_039_DATE }} 
+                                                     </td>
                                             </tr>
 
                                             <tr>
                                                     <td>3.3</td>
                                                      <td>Rescue/Shelter</td>
                                                      <td>
-                                                     
+                                                            {{ form.DREAMS_040 }} 
                                                      </td>
-                                                     <td></td>
+                                                     <td>
+
+                                                            {{ form.DREAMS_040_DATE }}
+                                                     </td>
                                             </tr>
 
                                             <tr>
                                                     <td>3.4</td>
                                                      <td>Police</td>
                                                      <td>
-                                                     
+                                                            {{ form.DREAMS_041 }}
                                                      </td>
-                                                     <td></td>
+                                                     <td>
+                                                            {{ form.DREAMS_041_DATE }}
+                                                     </td>
                                             </tr>
 
                                             <tr>
                                                     <td>3.5</td>
                                                      <td>Trauma Counselling</td>
                                                      <td>
-                                                     
+                                                            {{ form.DREAMS_042 }}
                                                      </td>
-                                                     <td></td>
+                                                     <td>
+                                                            {{ form.DREAMS_042_DATE }}
+                                                     </td>
                                             </tr>
 
                                             <tr>
                                                     <td>3.6</td>
                                                      <td>Emergency Contraception</td>
                                                      <td>
-                                                     
+                                                            {{ form.DREAMS_043 }}
                                                      </td>
-                                                     <td></td>
+                                                     <td>
+                                                            {{ form.DREAMS_043_DATE }}
+                                                     </td>
                                             </tr>
 
                                             <tr>
                                                     <td>3.7</td>
                                                      <td>Examination/Treatment of injuries</td>
                                                      <td>
-                                                     
+                                                            {{ form.DREAMS_044 }}
                                                      </td>
-                                                     <td></td>
+                                                     <td>
+                                                            {{ form.DREAMS_044_DATE }}
+                                                     </td>
                                             </tr>
 
                                             <tr>
                                                     <td>3.8</td>
                                                      <td>Legal support</td>
                                                      <td>
-                                                     
+                                                            {{ form.DREAMS_045 }}
                                                      </td>
-                                                     <td></td>
+                                                     <td>
+                                                            {{ form.DREAMS_045_DATE }}
+                                                     </td>
                                             </tr>
                                             
                                             
@@ -730,10 +736,10 @@
                                                                 School Fees
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_046 }}
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_046_DATE }}
                                                         </td>
                                                 </tr>
         
@@ -743,10 +749,10 @@
                                                             Stationery
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_047 }}
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_047_DATE }}
                                                         </td>
                                                 </tr>
         
@@ -756,10 +762,10 @@
                                                             Uniform
                                                         </td>
                                                         <td>
-                                                                
+                                                            {{ form.DREAMS_048 }}
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_048_DATE }} 
                                                         </td>
                                                 </tr>
         
@@ -769,10 +775,10 @@
                                                                 Other (Specify)
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_049 }}
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_049_DATE }}
                                                         </td>
                                                 </tr>
         
@@ -788,10 +794,10 @@
                                                                FMP
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_050 }} 
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_050_DATE }}
                                                         </td>
                                                 </tr>
         
@@ -807,10 +813,10 @@
                                                                 Entrepreneur/Financial Training
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_051 }}
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_051_DATE }}
                                                         </td>
                                                 </tr>
         
@@ -820,10 +826,10 @@
                                                             Vocational Training
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_052 }} 
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_052_DATE }}
                                                         </td>
                                                 </tr>
         
@@ -833,10 +839,10 @@
                                                              Microfinance
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_053 }}
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_053_DATE }}
                                                         </td>
                                                 </tr>
         
@@ -846,10 +852,10 @@
                                                             Internship/Employment
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_054 }}
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_054_DATE }}
                                                         </td>
                                                 </tr>
 
@@ -859,10 +865,10 @@
                                                             Business/start-up
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_055 }} 
                                                         </td>
                                                         <td>
-                                                                
+                                                                {{ form.DREAMS_055_DATE }} 
                                                         </td>
                                                 </tr>
         
@@ -899,9 +905,11 @@
                                                 <td>5.1</td>
                                                     <td>Cash Transfer</td>
                                                     <td>
-                                                    
+                                                            {{ form.DREAMS_056 }}
                                                     </td>
-                                                    <td></td>
+                                                    <td>
+                                                            {{ form.DREAMS_056_DATE }}
+                                                    </td>
                                                 </tr>
 
                                                 <tr>
@@ -909,27 +917,33 @@
                                                 <td>5.2</td>
                                                     <td>OVC for Children/Siblings/Other</td>
                                                     <td>
-                                                    
+                                                            {{ form.DREAMS_057 }}
                                                     </td>
-                                                    <td></td>
+                                                    <td>
+                                                            {{ form.DREAMS_057_DATE }}
+                                                    </td>
                                                 </tr>
 
                                                 <tr>
                                                 <td>5.3</td>
                                                     <td>Nutritional Support</td>
                                                     <td>
-                                                    
+                                                            {{ form.DREAMS_058 }}
                                                     </td>
-                                                    <td></td>
+                                                    <td>
+                                                            {{ form.DREAMS_058_DATE }}
+                                                    </td>
                                                 </tr>
                                                 
                                                 <tr>
                                                     <td>5.4</td>
                                                     <td>Drug and Alcohol Addiction Counselling</td>
                                                     <td>
-                                                    
+                                                            {{ form.DREAMS_059 }}
                                                     </td>
-                                                    <td></td>
+                                                    <td>
+                                                            {{ form.DREAMS_059_DATE }}
+                                                    </td>
                                                 </tr>
 
                                                 <tr>
@@ -940,7 +954,7 @@
                                                     <td>5.5</td>
                                                     <td>Quarter</td>
                                                     <td>
-                                                    
+                                                        {{ form.DREAMS_060_DATE }}
                                                     </td>
                                                     <td style="background-color: gray"></td>
                                                 </tr>
@@ -949,7 +963,7 @@
                                                         <td>5.6</td>
                                                         <td>Number of SS Sessions Attended</td>
                                                         <td>
-                                                        
+                                                                {{ form.DREAMS_060 }}
                                                         </td>
                                                         <td style="background-color: gray"></td>
                                                     </tr>
@@ -962,7 +976,7 @@
                                                         <td>5.7</td>
                                                         <td>Comments</td>
                                                         <td>
-                                                        
+                                                                {{ form.DREAMS_061 }}
                                                         </td>
                                                         <td style="background-color: gray"></td>
                                                     </tr>
@@ -975,7 +989,7 @@
                                                         <td>5.8</td>
                                                         <td>Other Services</td>
                                                         <td>
-                                                        
+                                                                {{ form.DREAMS_062 }}
                                                         </td>
                                                         <td style="background-color: gray"></td>
                                                     </tr>
@@ -1032,8 +1046,58 @@
 <script>
         $( function() {
 
-          $("#Test").datepicker({ format: 'yyyy-mm-dd' }).val();
-
+            $('#DREAMS_001_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_002_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_003_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_004_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_005_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_006_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_007_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_010_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_012_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_014_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_017_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_019_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_021_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_022_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_023_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_024_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_025_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_026_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_027_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_028_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_029_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_030_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_031_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_032_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_033_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_034_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_035_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_036_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_037_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_038_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_039_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_040_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_041_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_042_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_043_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_044_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_045_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_046_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_047_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_048_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_049_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_050_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_051_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_052_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_053_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_054_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_055_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_056_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_057_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_058_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_059_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
+            $('#DREAMS_060_DATE').datepicker({ format: 'yyyy-mm-dd' }).val();
 
           $(document).ready(function () {
                 $("#wizard-dreamsform").bwizard();
