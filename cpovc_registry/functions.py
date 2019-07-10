@@ -1789,7 +1789,7 @@ def add_household_members(index_child, member):
         pass	
 
 
- def update_household(index_child, member):	
+def update_household(index_child, member):	
     """Method to update households."""	
     try:	
         hh = OVCHouseHold.objects.get(index_child=index_child)	
