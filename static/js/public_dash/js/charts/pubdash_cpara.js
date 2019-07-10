@@ -33,8 +33,9 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 
 $(document).ready(function () {
-    //ouChange('national',"0",'none','none');
-    fetchCPARAResults('national',"none","none","none","annual");
+    ouChange('national',"0",'none','none');
+    //fetchCPARAResults('national',"none","none","none","annual");
+    fetchPerBenchmarkPerformance('national',"none","none","none","annual");
     //fetchHHScoringCat('national',"none","none","none","annual");
     //fetchDomainPerformance('national',"none","none","none","annual");
 });
@@ -161,6 +162,30 @@ $(document).ready(function () {
 
 
     //--1--
+
+
+
+
+    function fetchPerBenchmarkPerformance(org_level,area_id,funding_partner,funding_part_id,period_type){
+
+        var the_url = '/get_benchmark_results/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+        $.ajax({
+            type: 'GET',
+            url: the_url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            encode: true,
+            success: function (data, textStatus, jqXHR) {
+            console.log("the data is: ========>");
+            console.log(data);
+            displayDomainPerformance(data);
+            },
+            error: function (response, request) {
+                console.log(response.responseText);
+            }
+        });
+   }
+
 
     //--2--
     function fetchTotalOVCsEverExited(org_level,area_id){
