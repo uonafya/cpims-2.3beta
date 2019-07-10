@@ -14,7 +14,7 @@ def templates(request):
     tpls = {
         'ovc_home': render(request, 'ovc/home_offline.html').content,
         'ovc_view': render(request, 'ovc/view_child_offline.html').content,
-        'ovc_form1a': "OVc Form 1 a"
+        'ovc_form1a': render(request, 'forms/form1a_offline.html').content
     }
     return JsonResponse({'data': json.dumps(tpls)})
 

@@ -207,6 +207,24 @@ let OvcViewTemplate = (function (){
         init: function () {
             let me = this;
             console.log("OvcViewTemplate");
+            return () => {
+                // click event
+                $("#ovc_offline_form_1a").click((event) => {
+                    event.preventDefault();
+                    TemplateUtils.showPage(TemplateUtils.form1aPage);
+                    return false;
+                });
+            }
+        }
+    };
+})();
+
+// Handle all events on Form1A template
+let Form1ATemplate = (function (){
+    return {
+        init: function () {
+            let me = this;
+            console.log("Form 1A");
         }
     };
 })();
@@ -216,7 +234,8 @@ let TemplatesEventsFactory = function () {
 
     let eventsHandlers = {
         'ovc_home': OvcHomeTemplate.init(),
-        'ovc_view': OvcHomeTemplate.init()
+        'ovc_view': OvcViewTemplate.init(),
+        'ovc_form1a': Form1ATemplate.init()
     };
 
     return {
