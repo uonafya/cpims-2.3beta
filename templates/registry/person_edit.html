@@ -993,6 +993,29 @@ jQuery(document).ready(function() {
         $('#cadre_type').empty();
     });
 
+    //Searchable drop down
+    //Select CBO
+    $('#cbo_unit_id').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            numberDisplayed: 1,
+            maxHeight: 300,
+            buttonWidth: '100%'
+      });
+
+    //Select CHV
+    $('#chv_unit_id').multiselect({
+            selectAllValue: 'multiselect-all',
+            includeSelectAllOption: true,
+            enableCaseInsensitiveFiltering: true,
+            numberDisplayed: 1,
+            maxHeight: 300,
+            buttonWidth: '100%'
+      });
+
+
+
     $('#living_in_subcounty, #living_in_ward, #living_in_county').multiselect({
             selectAllValue: 'multiselect-all',
             includeSelectAllOption: true,
