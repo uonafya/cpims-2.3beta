@@ -214,9 +214,7 @@
                                   </tr>
                                 </thead>
                             
-                    {% for data in cpara_mon_data %}
-                   
-                        
+                    {% for data in cpara_mon_data %}                   
                         <tr>
                           <td>{{data.hiv_status_knowledge}}</td>
                           <td>{{data.viral_suppression}}</td>
@@ -230,14 +228,8 @@
                           <td>{{data.cp_achievement}}</td>
                           <td>{{data.case_closure}}</td>
                           <td>{{data.event_date}}</td>
-                          <!-- <td>Maria Anders</td>
-                          <td>Germany</td> -->
                         </tr>
-                    
-                   
-                      
-                    <!-- {{data.hiv_prevention}}
-                    <h6>abdiiii</h6> -->
+
                     {% endfor %}
                 </table>
                 </div>
