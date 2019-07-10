@@ -36,3 +36,4 @@ NOSE_ARGS = [
     '--with-coverage',
     '--cover-package=cpovc_auth,cpovc_registry,cpovc_main,cpovc_forms,cpovc_gis,cpovc_settings,crispy_forms,cpovc_ovc,import_export',    
 ]
+DEBUG = False

@@ -9587,13 +9587,16 @@ def new_hivscreeningtool(request, id):
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id']
     vals = get_dict(field_name=check_fields)
+    hiv_screen = None
+    hiv_facility = None
     if request.method == 'POST':
 
         form = HIV_SCREENING_FORM(request.POST, initial={'person': id})
         if form.is_valid():
         # if True:
             child = RegPerson.objects.get(id=id)
-            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+            house_hold = OVCHouseHold.objects.get(
+                id=OVCHHMembers.objects.get(person=child).house_hold_id)
             event_type_id = 'HRST'
 
             """ Save hiv_screening-event """
