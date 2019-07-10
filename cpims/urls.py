@@ -100,6 +100,7 @@ urlpatterns = [
 ]
 
 
+
 handler400 = 'cpims.views.handler_400'
 handler404 = 'cpims.views.handler_404'
 handler500 = 'cpims.views.handler_500'
