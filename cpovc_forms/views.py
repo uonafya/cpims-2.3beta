@@ -9695,7 +9695,6 @@ def new_hivscreeningtool(request, id):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
 
-    print "test"
     print request.POST.get('HIV_MGMT_2_C')
     if request.method == 'POST':
         # print request.POST
@@ -9705,7 +9704,6 @@ def new_hivmanagementform(request, id):
             event_type_id = 'HIV_MGMT'
             event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=id,
                                                          is_void=False).count()
-            print "pass test 1"
             ovccareevent = OVCCareEvents(
                 event_type_id=event_type_id,
                 event_counter=event_counter,
@@ -9714,11 +9712,8 @@ def new_hivmanagementform(request, id):
                 created_by=id,
                 person=RegPerson.objects.get(pk=int(id))
             )
-            print "pass test 2"
             ovccareevent.save()
-            print "pass test 3"
             new_pk = ovccareevent.pk
-            print "pass test 4"
             qry = OVCHIVManagement(
                 person=person,
                 Height=request.POST.get('HIV_MGMT_2_C'),
@@ -9744,7 +9739,6 @@ def new_hivmanagementform(request, id):
                 Viral_Load_Results=request.POST.get('HIV_MGMT_2_I_1'),
                 Viral_Load_Date=request.POST.get('HIV_MGMT_2_I_DATE'),
                 Detectable_ViralLoad_Interventions=request.POST.get('HIV_MGMT_2_J'),
-                # # # # Support_group_Enrollment=request.POST.get(''),
                 Support_group_Status=request.POST.get('HIV_MGMT_2_N'),
                 NHIF_Enrollment=request.POST.get('HIV_MGMT_2_O_1'),
                 NHIF_Status=request.POST.get('HIV_MGMT_2_O_2'),
@@ -9757,10 +9751,7 @@ def new_hivmanagementform(request, id):
                 Peer_Educator_Name=request.POST.get('HIV_MGMT_2_R'),
                 Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_S'),
                 event=OVCCareEvents.objects.get(pk=new_pk),
-                # # is_void=request.POST.get('')
                 date_of_event = event_date
-                # timestamp_created = request.POST.get(''),
-                # timestamp_updated = request.POST.get('')
             ).save()
 
             # print qry.query # print the execute query
