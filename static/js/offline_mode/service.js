@@ -2,7 +2,7 @@
     A service exposing abstractions to make the system work when there's no internet connection
 */
 
-let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFetchUrl, templatesFetchUrl) {
+let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFetchUrl, templatesFetchUrl, templateEventsHandler) {
     "use strict";
 
     let offlineModeClient = {
@@ -139,6 +139,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             let me = this;
 
             if (me.templates !== undefined) {
+                this._injectTemplatesToDom(me.templates);
                 console.log("Templates already initialized");
                 return;
             }
@@ -146,6 +147,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             if (templates !== null) {
                 me.templates = JSON.parse(Base64.decode(templates));
+                this._injectTemplatesToDom(me.templates);
                 console.log("Templates loaded from the cache");
                 return;
             }
@@ -177,6 +179,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 let tplContent = entry[1];
                 $("#" + tplName).html(tplContent);
             });
+
+            templateEventsHandler.handle(Object.keys(templates));
         },
 
         saveFormData: function(data, submissionUrl) {
@@ -356,7 +360,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             return foundOvcs;
         },
 
-        ovcListTable: $("#offline_ovc_table"),
+        ovcListTable: $("#offline_ovc_table"), // todo dreprecate
 
         ovcOfflineContainer: $("#ovcOfflineContainer"),
 
@@ -378,8 +382,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 offlineModeClient.notifyConnectivityStatus();
                 offlineModeClient.periodicallyCheckConnectivity();
                 window.offlineModeClient = offlineModeClient;
-                window.viewOvcOffline = this.viewOvcOffline();
-
 
                 // if the user is logged in
                 if (offlineModeClient._userId !== "" || offlineModeClient._userId !== null) {
@@ -387,145 +389,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 }
             }
 
-            $("#find_ovc").click(this.onSearchOvc(window.offlineModeClient));
-
-            window.offlineModeClient.ovcListTable.hide();
-
             return window.offlineModeClient;
-        },
-
-        searchOvcSelector: function() {
-            return $("#search_name");
-        },
-
-        onSearchOvc: function (offlineModeClient) {
-            if (!offlineModeClient.isRegistrationDataInitialized) {
-                // force initialise ovc registration data
-                offlineModeClient.onLoginEventHandler();
-            }
-
-            let me = this;
-
-            return (event) => {
-
-                console.log("Handling searchOvc click event");
-
-                console.log(offlineModeClient.isOfflineModeActive());
-
-                if (!offlineModeClient.isOfflineModeActive()) {
-                    return true;
-                }
-
-                let ovcName = me.searchOvcSelector().val();
-
-                event.preventDefault();
-
-                me.drawOvcSearchResults(offlineModeClient.findOvc(ovcName), offlineModeClient.ovcListTable);
-
-                return false;
-            };
-        },
-
-        drawOvcSearchResults: function (ovcs, ovcListTable) {
-            let me = this;
-
-            ovcListTable.bootstrapTable('destroy').bootstrapTable({
-                'data': ovcs,
-                'id-field': 'id',
-                'pagination': true,
-                'select-item-name': 'id',
-                'locale': 'en-US',
-                'columns': [
-                    {
-                        field: 'person_id',
-                        title: 'ID'
-                    },
-                    {
-                        field: 'org_unique_id',
-                        title: 'CBOID'
-                    },
-                    {
-                        field: 'first_name',
-                        title: 'First Name'
-                    },
-                    {
-                        field: 'surname',
-                        title: 'Surname'
-                    },
-                    {
-                        field: 'other_names',
-                        title: 'Other Names'
-                    },
-                    {
-                        field: 'sex_id',
-                        title: 'Sex'
-                    },
-                    {
-                        field: 'date_of_birth',
-                        title: 'Date Of Birth'
-                    },
-                    {
-                        field: 'child_chv_full_name',
-                        title: 'CHW'
-                    },
-                    {
-                        field: 'date_of_birth',
-                        title: 'Date Of Birth'
-                    },
-                    {
-                        field: 'caretake_full_name',
-                        title: 'Care Giver'
-                    },
-                    {
-                        field: 'org_unt_name',
-                        title: 'LIP/CBO'
-                    },
-                    {
-                        field: 'is_active',
-                        title: 'Status'
-                    },
-                    {
-                        field: 'id',
-                        title: 'Actions',
-                        align: 'center',
-                        formatter: me.viewOvcButton()
-                    },
-                ]
-            });
-            ovcListTable.show();
-        },
-
-        viewOvcButton: function () {
-            return (value, row, index) => {
-                return [
-                    '<button id="' + value + '" class="view_ovc btb btn-primary" title="View Ovc" onclick="window.viewOvcOffline(\'' + value + '\')">',
-                    '<i class="fa fa-eye"></i>',
-                    'View Ovc',
-                    '</button>'
-                ].join('')
-
-            };
-        },
-
-        viewOVCPage: $("#ovc_offline_view"),
-
-        viewOvcOffline: function () {
-            let me = this;
-
-            return (id) => {
-                console.log("Viewing ovc : " , id);
-                Object.entries(window.offlineModeClient.registrationData).some( entry => {
-                    let key = entry[0] ;
-                    let value = entry[1];
-
-                    if (key === id) {
-                        me._fillOvcDetailsPage(JSON.parse(Base64.decode(value)));
-                        return true;
-                    }
-                });
-
-                $(me.viewOVCPage).modal('toggle');
-            }
         },
 
         _getOvcFieldSelector: function(field) {

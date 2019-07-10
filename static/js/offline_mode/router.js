@@ -7,6 +7,8 @@ let OfflineModeRouter = function(controller, offlineModePage) {
       '#ovc_form1a': controller.ovcForm1a
    };
 
+   offlineModePage.hide();
+
    let router = (routes) => {
       return  (url) => {
          let pageUrl = url.split('/')[0];

@@ -11,13 +11,12 @@ from cpovc_registry.templatetags.app_filters import gen_value, vals
 
 @login_required(login_url='/')
 def templates(request):
-    view_child_tpl = render(request, 'ovc/view_child_offline.html')
-    templates = {
-        'ovc_home': "OVC Home" ,
-        'ovc_view': view_child_tpl.content,
+    tpls = {
+        'ovc_home': render(request, 'ovc/home_offline.html').content,
+        'ovc_view': render(request, 'ovc/view_child_offline.html').content,
         'ovc_form1a': "OVc Form 1 a"
     }
-    return JsonResponse({'data': json.dumps(templates)})
+    return JsonResponse({'data': json.dumps(tpls)})
 
 @login_required(login_url='/')
 def fetch_data(request):

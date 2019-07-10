@@ -124,17 +124,11 @@
                     {% block primary %} {% endblock %}
                 </div>
 
-                <div class="offline_page" id ="ovc_home">
-                    <h1> Search OVC here</h1>
-                </div>
+                <div class="offline_page" id ="ovc_home"></div>
 
-                <div class="offline_page ovc_view" id="ovc_view">
-                    <h1>OVC View</h1>
-                </div>
+                <div class="offline_page" id="ovc_view"></div>
 
-                <div class="offline_page ovc_form1a" id="ovc_form1a">
-                    <h1>Form 1 A</h1>
-                </div>
+                <div class="offline_page" id="ovc_form1a"></div>
 			{% else %}
 			    {% if request.path == '/login/' or request.path == '/cpims/login/' %}
                     {% block secondary %} {% endblock %}
@@ -221,7 +215,8 @@
           });
 
           $(document).bind("contextmenu",function(e){
-		       return false;
+              // Todo return this
+		       return true;
 		 });
           
 
@@ -250,11 +245,13 @@
     <script src="{% static 'js/offline_mode/service.js' %}"></script>
     <script src="{% static 'js/offline_mode/controller.js' %}"></script>
     <script src="{% static 'js/offline_mode/router.js' %}"></script>
+    <script src="{% static 'js/offline_mode/templates_events.js' %}"></script>
     <script>
         $(document).ready(function() {
             let userId = "{{ request.user.reg_person_id | escapejs }}";
 
             let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" == "True";
+
 
             // Implement it as a singleton
             if (window.offlineModeController === undefined) {
@@ -262,12 +259,21 @@
                     userId,
                     offlineModeCapabilityEnabled,
                     "/offline_mode/data/",
-                    "/offline_mode/templates/");
+                    "/offline_mode/templates/",
+                    TemplatesEventsFactory());
                 let offlineModeClient = offlineModeService.client("internet_check", "online_mode", 5000);
 
                 window.offlineModeController = OfflineModeController(offlineModeService);
 
-                let router = OfflineModeRouter(window.offlineModeController, $("#offline_page"));
+                let router = OfflineModeRouter(window.offlineModeController, $(".offline_page"));
+
+                $("#ovc_home_offline").on("click", (event) => {
+                    event.preventDefault();
+                    console.log("clicked");
+                    $(".offline_mode").hide();
+
+                   $("#ovc_home").show();
+                });
 
                 $(window).on('hashchange', function() {
 
@@ -277,7 +283,7 @@
 
                     // only route if offline mode active is activated
                     if (offlineModeClient.isOfflineModeActive()) {
-                        router.route(decodeURI(window.location.hash));
+                        {#router.route(decodeURI(window.location.hash));#}
                     }
                 });
             }
