@@ -35,8 +35,8 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 $(document).ready(function () {
     //ouChange('national',"0",'none','none');
     fetchCPARAResults('national',"none","none","none","annual");
-    //fetchHHScoringCat('national',"none","none","none","annual");
-    //fetchDomainPerformance('national',"none","none","none","annual");
+    fetchHHScoringCat('national',"none","none","none","annual");
+    fetchDomainPerformance('national',"none","none","none","annual");
 });
 
 
@@ -127,11 +127,21 @@ $(document).ready(function () {
             dataType: 'json',
             encode: true,
             success: function (data, textStatus, jqXHR) {
-            console.log("the data is: ========>");
-            console.log(data);
-            displayCPARAResults(data);
-            console.log("Cpara ==========>");
-            console.log(JSON.stringify(data));
+                var score_is_17 = 0;
+                var score_not = 0;
+                $.each(data, function (indexx, one_res) {
+                    // alert(one_res);
+                    if(one_res.cpara_score == 17){
+                        score_is_17 += one_res.cboactive
+                    }else{
+                        score_not += one_res.cboactive
+                    }
+                })
+                var data_p = [];
+                data_p['x'] = score_is_17;
+                data_p['y'] = score_not;
+                displayCPARAResults(data_p);
+                console.log('score_is_17='+score_is_17 + ' ||| && score_not=' + score_not);
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -314,8 +324,8 @@ $(document).ready(function () {
 
             var elementId="cpara_results";
             var the_title = 'Case Plan Achievement Assessment Results';
-            var on_path = 94.40
-            var achieved_cp = 5.60
+            var on_path = data['y'];
+            var achieved_cp = data['x'];
             var the_data = { name: 'Result', data: [{name: 'On path to CPA',y: on_path}, {name: 'Caseplan achieved',y: achieved_cp}] };
 
             var the_series = [the_data];
