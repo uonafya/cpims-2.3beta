@@ -1772,7 +1772,34 @@ def save_household(index_child, members):
         print 'error creating household - %s ' % (str(e))
         pass
 
+    
+def add_household_members(index_child, member):	
+    try:	
+        child = OVCRegistration.objects.get(person=index_child)	
+        caretaker = child.caretaker	
+        household = caretaker.ovchousehold_set.first()	
+        mbr = OVCHHMembers.objects.create(	
+            house_hold=household,	
+            person_id=member,	
+            member_type='tst',	
+        )	
+        print 'added household member -' + str(mbr.id)	
+    except Exception as e:	
+        print 'error adding household - %s ' % (str(e))	
+        pass	
 
+
+ def update_household(index_child, member):	
+    """Method to update households."""	
+    try:	
+        hh = OVCHouseHold.objects.get(index_child=index_child)	
+        hh.members += str(member) + ','	
+        hh.save()	
+    except Exception as e:	
+        print 'error updating household - %s ' % (str(e))	
+        pass
+
+    
 def get_ovc_lists(ovc_ids):
     """Method to get child chv details from ids."""
     try:
