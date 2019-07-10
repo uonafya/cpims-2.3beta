@@ -2,7 +2,7 @@ from django import template
 
 register = template.Library()
 
-@register
+
 def format_choice_fields(value):
     """Convert the choice fields into human readable formats"""
     options = {
@@ -20,7 +20,10 @@ def format_choice_fields(value):
         'ARV': 'ARV',
         'True': 'Yes',
         'False': 'No',
-        'NULL': '-'
+        'NULL': '-',
+         None: '-',
         'None': '-'
     }
     return options.get(value, None) or value
+
+register.filter('format_choice_fields', format_choice_fields)

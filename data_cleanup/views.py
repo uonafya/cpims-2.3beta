@@ -7,6 +7,8 @@ from django.http import HttpResponse
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
 
+
+from cpovc_registry.models import RegPerson, RegPersonsOrgUnits
 from cpovc_auth.functions import get_allowed_units_county
 from .models import DataQuality
 
@@ -21,6 +23,15 @@ class DataQualityView(TemplateView):
             DataQualityView, self).get_context_data(**kwargs)
         context['data'] = self.get_queryset()
         return context
+
+    def get_final_query_set(self, queryset):
+        allowed_org_units = [
+            obj.id for obj in RegPersonsOrgUnits.objects.filter(
+                person=self.request.user.reg_person)
+        ]
+        if self.request.user.is_superuser:
+            return queryset
+        return queryset.filter(org_unique_id__in=allowed_org_units)
 
     def get_queryset(self, *args, **kwargs):
         return []
@@ -76,7 +87,7 @@ class DataQualityView(TemplateView):
 
         if art_status and art_status != '0':
             queryset = queryset.filter(art_status=art_status)
-
+        queryset = self.get_final_query_set(queryset)
         context['data']= queryset
         return TemplateResponse(self.request, self.template_name, context)
     
@@ -100,13 +111,20 @@ class DataQualityView(TemplateView):
         return sql
 
     def export_data(self, *args, **kwargs):
+        from django.conf import settings
+
+        db = settings.DATABASES.get('default')
+        db_host = db.get('HOST')
+        db_user = db.get('USER')
+        db_pass = db.get('PASSWORD')
+        db_name = db.get('NAME')
         where_sql = self.generate_where_clause()
+        path_to_file = '/tmp/{}file.csv'.format(self.request.user)
         call('bin/export_data.sh {} {} {} {} {}'.format(
-            '41.89.93.206','postgres', 'cpims', '/tmp/file.csv', where_sql), 
+            db_host, db_user, db_name, path_to_file, where_sql), 
             shell=True
         )
         file_name = '/tmp/file.csv'
-        path_to_file = '/tmp/file.csv'
         with open(path_to_file, 'rb') as fh:
             response = HttpResponse(
                 fh.read(), content_type="application/csv")
