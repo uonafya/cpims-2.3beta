@@ -1,0 +1,126 @@
+<ol class="breadcrumb pull-right">
+    <li><a href="#ovc_home">Home</a></li>
+    <li class="active">OVC Care</li>
+</ol>
+<h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>Home</small></h1>
+
+
+<div class="row">
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <h4 class="panel-title">OVC search</h4>
+                </div>
+            </div>
+
+            <div class="panel-body">
+                <form class="form-inline" action="#" data-parsley-validate="true" id="find_ovc_form">
+                    <div class="form-group m-r-10">
+                        <input class="form-control" data-parsley-minlength="3" data-parsley-required="true" id="search_name" name="search_name" placeholder="Search . . ." type="text" data-parsley-id="4">
+                    </div>
+                    <button class="btn btn-sm btn-primary m-r-5"  id="find_ovc"><i class="fa fa-search"></i>&nbsp;Search</button>
+                </form>
+                <br/><br/>
+
+                <table id="offline_ovc_table"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        let viewOvcButton = function () {
+            return (value, row, index) => {
+                return [
+                    '<button id="' + value + '" class="view_ovc btb btn-primary" title="View Ovc" onclick="window.viewOvcOffline(\'' + value + '\')">',
+                    '<i class="fa fa-eye"></i>',
+                    'View Ovc',
+                    '</button>'
+                ].join('')
+
+            };
+        };
+
+        let drawOvcSearchResults = function (ovcs) {
+            let me = this;
+
+            $("#offline_ovc_table").bootstrapTable('destroy').bootstrapTable({
+                'data': ovcs,
+                'id-field': 'id',
+                'pagination': true,
+                'select-item-name': 'id',
+                'locale': 'en-US',
+                'columns': [
+                    {
+                        field: 'person_id',
+                        title: 'ID'
+                    },
+                    {
+                        field: 'org_unique_id',
+                        title: 'CBOID'
+                    },
+                    {
+                        field: 'first_name',
+                        title: 'First Name'
+                    },
+                    {
+                        field: 'surname',
+                        title: 'Surname'
+                    },
+                    {
+                        field: 'other_names',
+                        title: 'Other Names'
+                    },
+                    {
+                        field: 'sex_id',
+                        title: 'Sex'
+                    },
+                    {
+                        field: 'date_of_birth',
+                        title: 'Date Of Birth'
+                    },
+                    {
+                        field: 'child_chv_full_name',
+                        title: 'CHW'
+                    },
+                    {
+                        field: 'date_of_birth',
+                        title: 'Date Of Birth'
+                    },
+                    {
+                        field: 'caretake_full_name',
+                        title: 'Care Giver'
+                    },
+                    {
+                        field: 'org_unt_name',
+                        title: 'LIP/CBO'
+                    },
+                    {
+                        field: 'is_active',
+                        title: 'Status'
+                    },
+                    {
+                        field: 'id',
+                        title: 'Actions',
+                        align: 'center',
+                        formatter: viewOvcButton()
+                    },
+                ]
+            });
+        };
+        console.log("Searching ovc..");
+
+        let offlineModeClient = window.offlineModeClient;
+
+        let ovcName = $("#search_name").val();
+
+        drawOvcSearchResults(offlineModeClient.findOvc(ovcName));
+
+        event.preventDefault();
+        return false;
+    });
+</script>
