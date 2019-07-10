@@ -4,6 +4,8 @@ cpims URL Configuration.
 Other urls are import
 Put here only urls not specific to app
 """
+import logging
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from cpovc_auth import urls as auth_urls
@@ -21,7 +23,6 @@ from cpovc_auth.views import password_reset
 from django.views.generic import TemplateView
 
 from cpovc_access.forms import StrictPasswordChangeForm
-
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
