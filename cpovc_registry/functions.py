@@ -3,6 +3,7 @@ import uuid
 import json
 from datetime import datetime, timedelta
 from django.utils import timezone
+from time import sleep
 from django.db import connection
 from django.shortcuts import get_object_or_404
 from cpovc_main.models import SetupGeography, SetupList, RegTemp
@@ -45,7 +46,7 @@ def fetch_total_ovc_ever(request, org_ids, level='', area_id=''):
         except Exception, e:
             print 'error on fetch_total_ovc_ever - %s' % (str(e))
     return total_ovc_ever
-    
+
 def fetch_total_ovc_ever_exited(request, org_ids, level='', area_id=''):
     total_ovc_ever_exited = []
     with connection.cursor() as cursor:
@@ -58,7 +59,7 @@ def fetch_total_ovc_ever_exited(request, org_ids, level='', area_id=''):
         except Exception, e:
             print 'error on fetch_total_ovc_ever_exited - %s' % (str(e))
     return total_ovc_ever_exited
-    
+
 def fetch_total_wout_bcert_at_enrol(request, org_ids, level='', area_id=''):
     total_wout_bcert_at_enrol = []
     with connection.cursor() as cursor:
@@ -84,7 +85,7 @@ def fetch_total_w_bcert_2date(request, org_ids, level='', area_id=''):
         except Exception, e:
             print 'error on fetch_total_w_bcert_2date - %s' % (str(e))
     return total_w_bcert_2date
-    
+
 def fetch_total_s_bcert_aft_enrol(request, org_ids, level='', area_id=''):
     total_s_bcert_aft_enrol = []
     with connection.cursor() as cursor:
@@ -97,9 +98,9 @@ def fetch_total_s_bcert_aft_enrol(request, org_ids, level='', area_id=''):
         except Exception, e:
             print 'error on fetch_total_s_bcert_aft_enrol - %s' % (str(e))
     return total_s_bcert_aft_enrol
-    
 
-    
+
+
 def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_part_id,period_typ):
     # print 'oooop running fetch_new_ovcregs_by_period month_year='+month_year+" \n "
 
@@ -544,7 +545,7 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
     print hsld_exited_within_period
     return hsld_exited_within_period
 
-    
+
 def fetch_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=''):
     # print 'oooop running fetch_served_bcert_by_period month_year='+month_year+" \n "
     month_year = json.loads(month_year)
@@ -561,7 +562,6 @@ def fetch_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=
                 print 'error on fetch_served_bcert_by_period - %s' % (str(e))
     return served_bcert_by_period
 
-
 def fetch_u5_served_bcert_by_period(request,org_ids,level='',area_id='',month_year=''):
     # print 'oooop running fetch_u5_served_bcert_by_period month_year='+month_year+" \n "
     month_year = json.loads(month_year)
@@ -577,7 +577,7 @@ def fetch_u5_served_bcert_by_period(request,org_ids,level='',area_id='',month_ye
             except Exception, e:
                 print 'error on fetch_u5_served_bcert_by_period - %s' % (str(e))
     return u5_served_bcert_by_period
-    
+
 # --publicDash--
 
 def fetch_locality_data():
@@ -1772,34 +1772,34 @@ def save_household(index_child, members):
         print 'error creating household - %s ' % (str(e))
         pass
 
+    
+def add_household_members(index_child, member):	
+    try:	
+        child = OVCRegistration.objects.get(person=index_child)	
+        caretaker = child.caretaker	
+        household = caretaker.ovchousehold_set.first()	
+        mbr = OVCHHMembers.objects.create(	
+            house_hold=household,	
+            person_id=member,	
+            member_type='tst',	
+        )	
+        print 'added household member -' + str(mbr.id)	
+    except Exception as e:	
+        print 'error adding household - %s ' % (str(e))	
+        pass	
 
-def add_household_members(index_child, member):
-    try:
-        child = OVCRegistration.objects.get(person=index_child)
-        caretaker = child.caretaker
-        household = caretaker.ovchousehold_set.first()
-        mbr = OVCHHMembers.objects.create(
-            house_hold=household,
-            person_id=member,
-            member_type='tst',
-        )
-        print 'added household member -' + str(mbr.id)
-    except Exception as e:
-        print 'error adding household - %s ' % (str(e))
+
+ def update_household(index_child, member):	
+    """Method to update households."""	
+    try:	
+        hh = OVCHouseHold.objects.get(index_child=index_child)	
+        hh.members += str(member) + ','	
+        hh.save()	
+    except Exception as e:	
+        print 'error updating household - %s ' % (str(e))	
         pass
 
-
-def update_household(index_child, member):
-    """Method to update households."""
-    try:
-        hh = OVCHouseHold.objects.get(index_child=index_child)
-        hh.members += str(member) + ','
-        hh.save()
-    except Exception as e:
-        print 'error updating household - %s ' % (str(e))
-        pass
-
-
+    
 def get_ovc_lists(ovc_ids):
     """Method to get child chv details from ids."""
     try:
@@ -1874,7 +1874,7 @@ def get_chvs(person_id):
             is_void=False, org_unit_id__in=org_units).values_list(
             'person_id', flat=True)
         # Filter by types
-        persons = RegPersonsTypes.objects.filter(
+        public.persons = RegPersonsTypes.objects.filter(
             is_void=False, person_type_id='TWVL', person_id__in=person_ids)
         for person in persons:
             cbo_detail[person.person_id] = person.person.full_name
@@ -2405,11 +2405,17 @@ def auto_suggest_person(request, query, qid=0):
         ext_ids = {}
         if psearch:
             pids = RegPersonsExternalIds.objects.filter(
-                identifier=psearch, identifier_type_id='INTL',
+                Q(identifier=psearch) | Q(person_id=psearch), identifier_type_id='INTL',
                 is_void=False)
-            person_list = pids.values_list('person_id', flat=True)
-            persons = RegPerson.objects.filter(
-                id__in=person_list, is_void=False)
+            print pids.query
+            print 'Count PIDs: ', pids.count()
+            if pids.count()>0:
+                person_list = pids.values_list('person_id', flat=True)
+                persons = RegPerson.objects.filter(
+                    id__in=person_list, is_void=False)
+            else:
+                persons = RegPerson.objects.filter(
+                    id=psearch, is_void=False)
         else:
             porgs = RegPersonsOrgUnits.objects.filter(
                 org_unit_id__in=org_ids).values_list('person_id', flat=True)
@@ -2425,6 +2431,7 @@ def auto_suggest_person(request, query, qid=0):
                         person_type_id=person_type,
                         is_void=False).values_list(
                             'person_id', flat=True)
+                    print person_ids.query
             else:
                 wf_ids = ['TWNE', 'TWGE', 'TWVL']
                 person_ids = RegPersonsTypes.objects.filter(
@@ -2432,14 +2439,19 @@ def auto_suggest_person(request, query, qid=0):
                     is_void=False).values_list(
                         'person_id', flat=True)
             queryset = RegPerson.objects.filter(
-                id__in=person_ids, is_void=False)
-            field_names = ['surname', 'email', 'first_name', 'other_names']
-            q_filter = Q()
-            for field in field_names:
-                q_filter |= Q(**{"%s__icontains" % field: query})
-            persons = queryset.filter(q_filter)
+                Q(surname__contains=query) | Q(email__contains=query) | Q(first_name__contains=query) | Q(other_names__contains=query), id__in=person_ids, is_void=False)
+            #field_names = ['surname', 'email', 'first_name', 'other_names']
+            #q_filter = Q()
+            #for field in field_names:
+                #q_filter |= Q(**{"%s__icontains" % field: query})
+
+            #persons = queryset.filter(q_filter)
+            persons = queryset
+            print queryset.query
             pids = RegPersonsExternalIds.objects.filter(
                 person_id__in=person_ids, identifier_type_id='INTL')
+            print pids.query
+
         for pid in pids:
             ext_ids[pid.person_id] = pid.identifier
         for person in persons:
