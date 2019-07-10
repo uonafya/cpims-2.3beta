@@ -14,6 +14,10 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         _userId: _userId,
 
+        _onlineContainerSelector: $("#online_block"),
+
+        _offlineModePageSelector: $(".offline_page"),
+
         _connectionNotificationElementId: undefined,
 
         _onlineModeMenuItemsSelector: undefined,
@@ -85,11 +89,14 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 $(this._onlineModeMenuItemsSelector).hide();
                 $(this._connectionNotificationElementId).html("Switching to offline mode, no internet connection");
                 this._notificationStatusBadge('alert-danger', 'alert-info');
+                this._onlineContainerSelector.hide();
             }
         },
 
         _handleIsOnline: function() {
             if (this._isOfflineModeCapabilityEnabled) {
+                this._onlineContainerSelector.show();
+                this._offlineModePageSelector.hide();
                 this.ovcOfflineContainer.hide();
                 this.ovcListTable.hide();
                 this.submitData(this._formDataKey(), this._onSubmitFormSuccess(), this._onSubmitFormError());

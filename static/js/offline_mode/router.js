@@ -10,9 +10,14 @@ let OfflineModeRouter = function(controller, offlineModePage) {
    let router = (routes) => {
       return  (url) => {
          let pageUrl = url.split('/')[0];
-         offlineModePage.removeClass('visible');
+
+         console.log("pageUrl", pageUrl);
+
+         // hide all other pages
+         offlineModePage.hide();
 
          if (routes[pageUrl]) {
+            $(pageUrl).show();
             routes[pageUrl]();
          } else {
             controller.ovcErrorPage();
