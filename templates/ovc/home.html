@@ -287,6 +287,11 @@ function OpenForm(id)
         {
             return window.location.href='{% url 'new_hivmanagementform' id=0 %}'.replace("0", id);
         }
+
+        if(form_type == 'DREAMS')
+        {
+            return window.location.href='{% url 'new_dreamsform' id=0 %}'.replace("0", id);
+        }
     });
         
     $("#form_type").multiselect("clearSelection");
