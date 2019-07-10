@@ -188,7 +188,51 @@
 						</div>
                     </div>
 
-				</form>
+                </form>
+                <div>
+                    <table class="table" border="1">
+                            <thead>
+                            <tr>
+                            <th colspan="4">Healthy</th>
+                            <th colspan="1">Stable</th>
+                            <th colspan="2">Safe</th>
+                            <th colspan="4">Schooled</th>
+                                  </tr>
+                                  <tr>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 3</th>
+                                        <th>Q 4</th>
+                                        <th>Q 1</th>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 3</th>
+                                        <th>Q 4</th>
+                                        <th>Date of Event</th>
+                                  </tr>
+                                </thead>
+                            
+                    {% for data in cpara_mon_data %}                   
+                        <tr>
+                          <td>{{data.hiv_status_knowledge}}</td>
+                          <td>{{data.viral_suppression}}</td>
+                          <td>{{data.hiv_prevention}}</td>
+                          <td>{{data.undernourished}}</td>
+                          <td>{{data.access_money}}</td>
+                          <td>{{data.violence}}</td>
+                          <td>{{data.caregiver}}</td>
+                          <td>{{data.school_attendance}}</td>
+                          <td>{{data.school_progression}}</td>
+                          <td>{{data.cp_achievement}}</td>
+                          <td>{{data.case_closure}}</td>
+                          <td>{{data.event_date}}</td>
+                        </tr>
+
+                    {% endfor %}
+                </table>
+                </div>
             </div>
             <div class="badge pull-right m-4">Revised: March 7th 2019</div>
         </div>

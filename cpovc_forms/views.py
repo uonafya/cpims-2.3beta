@@ -22,7 +22,7 @@ from cpovc_forms.forms import (
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
     BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
     GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm, HIV_SCREENING_FORM,
-    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM)
+    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM, DREAMS_FORM)
 
 from .models import (
     OVCEconomicStatus, OVCFamilyStatus, OVCReferral, OVCHobbies, OVCFriends,
@@ -34,8 +34,8 @@ from .models import (
     OVCCaseEventClosure, OVCCaseGeo, OVCMedicalSubconditions, OVCBursary,
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations, OVCCareF1B,
-    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus)
-from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
+    OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus,OVCHIVManagement, OVCHIVRiskScreening)
+from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold,OVCFacility
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
     get_persons_list, get_list_of_persons, get_list, form_id_generator,
@@ -47,7 +47,7 @@ from cpovc_main.country import (COUNTRIES)
 from cpovc_registry.models import (
     RegOrgUnit, RegOrgUnitContact, RegOrgUnitGeography, RegPerson, RegPersonsOrgUnits, AppUser, RegPersonsSiblings,
     RegPersonsTypes, RegPersonsGuardians, RegPersonsGeo, RegPersonsExternalIds)
-from cpovc_main.models import (SetupList, SetupGeography, SchoolList)
+from cpovc_main.models import (SetupList, SetupGeography, SchoolList,FacilityList)
 from cpovc_auth.models import CPOVCUserRoleGeoOrg
 from cpovc_auth.decorators import is_allowed_groups
 from django.contrib.auth.models import User, Group
@@ -8979,6 +8979,8 @@ def update_caseplan(request, event_id, ovcid):
         print delta
         print 'check delta'
         print delta
+
+
         if delta < 30:
             try:
                 my_request=request.POST.get('final_submission')
@@ -9117,13 +9119,19 @@ def new_case_plan_monitoring(request, id):
         messages.add_message(request, messages.INFO, msg)
         url = reverse('ovc_view', kwargs={'id': id})
         return HttpResponseRedirect(url)
-    form = CparaMonitoring()
+    else:
+        form = CparaMonitoring()
 
-    ovc_id = int(id)
-    child = RegPerson.objects.get(is_void=False, id=ovc_id)
-    care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        ovc_id = int(id)
+        child = RegPerson.objects.get(is_void=False, id=ovc_id)
+        care_giver=RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        
+        # Show previous cpara monitoring events
+        event=OVCCareEvents.objects.filter(person_id=ovc_id).values_list('event')
+        cpara_mon_data=OVCMonitoring.objects.filter(event_id__in=event).order_by('event_date')
 
-    return render(request, 'forms/new_case_plan_monitoring.html', {'form': form, 'care_giver': care_giver})
+
+        return render(request, 'forms/new_case_plan_monitoring.html', {'form': form, 'care_giver': care_giver, 'cpara_mon_data':cpara_mon_data})
 
 
 def fetch_question(answer_item_code):
@@ -9572,43 +9580,285 @@ def hiv_status(request):
         return HttpResponseRedirect(reverse(forms_home))
 
 
-# New HIV Screening Tool 
+
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivscreeningtool(request, id):
-    try:
-        init_data = RegPerson.objects.filter(pk=id)
-        the_child = RegPerson.objects.get(pk=id)
-        check_fields = ['sex_id']
-        vals = get_dict(field_name=check_fields)
-        print(vals)
-        form = HIV_SCREENING_FORM(initial={'person': id})
-    except:
-        pass
+    init_data = RegPerson.objects.filter(pk=id)
+    check_fields = ['sex_id']
+    vals = get_dict(field_name=check_fields)
+    if request.method == 'POST':
 
-    return render(request,
-                  'forms/new_hivscreeningtool.html',
-                  {'form': form, 'init_data': init_data,
-                   'vals': vals})
+        form = HIV_SCREENING_FORM(request.POST, initial={'person': id})
+        if form.is_valid():
+        # if True:
+            child = RegPerson.objects.get(id=id)
+            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+            event_type_id = 'HRST'
 
-# New HIV Manangement Form 
+            """ Save hiv_screening-event """
+            # get event counter
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=id, is_void=False).count()
+            # save event
+            ovccareevent = OVCCareEvents.objects.create(
+                event_type_id=event_type_id,
+                event_counter=event_counter,
+                event_score=0,
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(id)),
+                house_hold=house_hold
+            )
+
+            # converting values AYES and ANNO to boolean true/false
+            boolean_fields = [
+                'HIV_RS_01',
+                'HIV_RS_02',
+                'HIV_RS_03',
+                'HIV_RS_03A',
+                'HIV_RS_04',
+                'HIV_RS_05',
+                'HIV_RS_06',
+                'HIV_RS_07',
+                'HIV_RS_08',
+                'HIV_RS_09',
+                'HIV_RS_10',
+                'HIV_RS_11',
+                'HIV_RS_14',
+                'HIV_RS_16',
+                'HIV_RS_18',
+                'HIV_RS_21',
+                'HIV_RS_23',
+
+            ]
+
+            data_to_save = {}
+
+            for key, value in request.POST.iteritems():
+                if key in boolean_fields:
+                    data_to_save.update({
+                        key: True if value == "AYES" else False
+                    })
+                else:
+                    data_to_save.update({key: value})
+
+            facility=data_to_save.get('HIV_RA_3Q6')
+
+
+            ovcscreeningtool = OVCHIVRiskScreening.objects.create(
+                person=RegPerson.objects.get(pk=int(id)),
+                date_of_event=data_to_save.get('HIV_RA_1A'),
+                test_done_when=data_to_save.get('HIV_RS_03'),  # date of assesment
+                test_donewhen_result=data_to_save.get('HIV_RS_03A'),
+                caregiver_know_status=data_to_save.get('HIV_RS_01'),
+                caregiver_knowledge_yes=data_to_save.get('HIV_RS_02'),
+                parent_PLWH=data_to_save.get('HIV_RS_04'),
+                child_sick_malnourished=data_to_save.get('HIV_RS_05'),
+                child_sexual_abuse=data_to_save.get('HIV_RS_06'),
+                adol_sick=data_to_save.get('HIV_RS_07'),
+                adol_sexual_abuse=data_to_save.get('HIV_RS_08'),
+                sex=data_to_save.get('HIV_RS_09'),
+                sti=data_to_save.get('HIV_RS_10'),
+                hiv_test_required=data_to_save.get('HIV_RS_11'),
+                parent_consent_testing=data_to_save.get('HIV_RS_14'),
+                referral_made=data_to_save.get('HIV_RS_16'),
+                referral_made_date=data_to_save.get('HIV_RS_17'),
+                referral_completed=data_to_save.get('HIV_RS_18'),
+                not_completed=data_to_save.get('HIV_RS_18A'),
+                test_result=data_to_save.get('HIV_RS_18B'),
+                art_referral=data_to_save.get('HIV_RS_21'),
+                art_referral_date=data_to_save.get('HIV_RS_22'),
+                art_referral_completed=data_to_save.get('HIV_RS_23'),
+                facility=OVCFacility.objects.get(id=facility),
+                event=ovccareevent,
+
+            )
+            msg = 'HIV risk screening saved successful'
+            messages.add_message(request, messages.INFO, msg)
+            url = reverse('ovc_view', kwargs={'id': id})
+            return HttpResponseRedirect(url)
+
+    else:
+        form = HIV_SCREENING_FORM()
+        event=OVCCareEvents.objects.filter(person_id=id).values_list('event')
+        hiv_screen=OVCHIVRiskScreening.objects.filter(event_id__in=event).order_by('date_of_event')
+        facility_hivrisk=OVCHIVRiskScreening.objects.filter(event_id__in=event).values_list('facility').order_by('date_of_event')  
+        facilitiy_ids = [int(i[0]) for i in facility_hivrisk]
+        hiv_facility=OVCFacility.objects.filter(id__in=facilitiy_ids)
+   
+
+    return render(request, 'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals': vals, 'hiv_screen': hiv_screen, 'hiv_facility' : hiv_facility})
+
+
+# New HIV Manangement Form
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
+
+    print "test"
+    print request.POST.get('HIV_MGMT_2_C')
+    if request.method == 'POST':
+        # print request.POST
+        try:
+            person = RegPerson.objects.get(id=id)
+            qry = OVCHIVManagement(
+                person=person,
+                Height=request.POST.get('HIV_MGMT_2_C'),
+                Hiv_Confirmed_Date=request.POST.get('HIV_MGMT_1_A'),
+                Treatment_initiated_Date=request.POST.get('HIV_MGMT_1_B'),
+                FirstLine_Start_Date=request.POST.get('HIV_MGMT_1_D'),  # date
+                Substitution_FirstLine_ARV=request.POST.get('HIV_MGMT_1_E'),
+                Substitution_FirstLine_Date=request.POST.get('HIV_MGMT_1_E_DATE'),
+                Switch_SecondLine_ARV=request.POST.get('HIV_MGMT_1_F'),
+                Switch_SecondLine_Date=request.POST.get('HIV_MGMT_1_F_DATE'),
+                Switch_ThirdLine_ARV=request.POST.get('HIV_MGMT_1_G'),
+                Switch_ThirdLine_Date=request.POST.get('HIV_MGMT_1_G_DATE'),
+                Visit_Date=request.POST.get('HIV_MGMT_2_A'),
+                Duration_ART=request.POST.get('HIV_MGMT_2_B'),
+                MUAC=request.POST.get('HIV_MGMT_2_D'),
+                Adherence=request.POST.get('HIV_MGMT_2_E'),
+                Adherence_Drugs_Duration=request.POST.get('HIV_MGMT_2_F'),
+                Adherence_counselling=request.POST.get('HIV_MGMT_2_G'),
+                Treatment_Supporter_Relationship=request.POST.get('HIV_MGMT_2_H_1'),
+                Treatment_Supporter_Gender=request.POST.get('HIV_MGMT_2_H_3'),
+                Treatment_Supporter_Age=request.POST.get('HIV_MGMT_2_H_4'),
+                Treament_Supporter_HIV=request.POST.get('HIV_MGMT_2_H_5'),
+                Viral_Load_Results=request.POST.get('HIV_MGMT_2_I_1'),
+                Viral_Load_Date=request.POST.get('HIV_MGMT_2_I_DATE'),
+                Detectable_ViralLoad_Interventions=request.POST.get('HIV_MGMT_2_J'),
+                # # # # Support_group_Enrollment=request.POST.get(''),
+                Support_group_Status=request.POST.get('HIV_MGMT_2_N'),
+                NHIF_Enrollment=request.POST.get('HIV_MGMT_2_O_1'),
+                NHIF_Status=request.POST.get('HIV_MGMT_2_O_2'),
+                Referral_Services=request.POST.get('HIV_MGMT_2_P'),
+                Disclosure=request.POST.get('HIV_MGMT_2_K'),
+                MUAC_Score=request.POST.get('HIV_MGMT_2_L_1'),
+                BMI=request.POST.get('HIV_MGMT_2_L_2'),
+                NextAppointment_Date=request.POST.get('HIV_MGMT_2_Q'),
+                Nutritional_Support=request.POST.get('HIV_MGMT_2_M'),
+                Peer_Educator_Name=request.POST.get('HIV_MGMT_2_R'),
+                Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_S')
+                # # event=request.POST.get('')
+                # # is_void=request.POST.get('')
+                # date_of_event = request.POST.get(''),
+                # timestamp_created = request.POST.get(''),
+                # timestamp_updated = request.POST.get('')
+            ).save()
+
+            # print qry.query # print the execute query
+        except Exception, e:
+            print "insertion failed"
+            print e
+            from django.db import connection
+            print connection.queries[-1]
+
+        form = OVCSearchForm(data=request.POST)
+        return render(request, 'ovc/home.html', {'form': form, 'status': 200})
+    else:
+        try:
+            init_data = RegPerson.objects.filter(pk=id)
+            check_fields = ['sex_id']
+            vals = get_dict(field_name=check_fields)
+            # ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
+            #                                                                             'Treatment_initiated_Date',
+            #                                                                             'Switch_ThirdLine_Date')[0:1]
+            ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).all()[0:1]
+
+            form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
+            if(ovc_hiv_obj):
+                print "data available"
+                for hiv_obj in ovc_hiv_obj:
+
+                    hiv_confirmed_date = hiv_obj.Hiv_Confirmed_Date
+                    treatment_initiated_date = hiv_obj.Treatment_initiated_Date
+                    firstLine_start_date = hiv_obj.FirstLine_Start_Date
+                    substitution_firstLine_arv = hiv_obj.Substitution_FirstLine_ARV
+                    substitution_firstLine_fate = hiv_obj.Substitution_FirstLine_Date
+                    #
+                    #
+                    switch_thirdLine_arv = hiv_obj.Switch_ThirdLine_ARV
+                    switch_thirdLine_date = hiv_obj.Switch_ThirdLine_Date
+                    Visit_Date = hiv_obj.Visit_Date
+                    Duration_ART = hiv_obj.Duration_ART
+                    #
+                    MUAC = hiv_obj.MUAC
+                    Adherence = hiv_obj.Adherence
+                    Adherence_Drugs_Duration = hiv_obj.Adherence_Drugs_Duration
+                    Adherence_counselling = hiv_obj.Adherence_counselling
+                    Treatment_Supporter_Relationship = hiv_obj.Treatment_Supporter_Relationship
+                    Treatment_Supporter_Gender = hiv_obj.Treatment_Supporter_Gender
+                    Treatment_Supporter_Age = hiv_obj.Treatment_Supporter_Age
+                    Treament_Supporter_HIV = hiv_obj.Treament_Supporter_HIV
+                    Viral_Load_Results = hiv_obj.Viral_Load_Results
+                    Viral_Load_Date = hiv_obj.Viral_Load_Date
+                    Detectable_ViralLoad_Interventions = hiv_obj.Detectable_ViralLoad_Interventions
+                    Disclosure = hiv_obj.Disclosure
+                    MUAC_Score = hiv_obj.MUAC_Score
+                    BMI = hiv_obj.BMI
+                    Nutritional_Support = hiv_obj.Nutritional_Support
+                    #
+                    Support_group_Status = hiv_obj.Support_group_Status
+                    NHIF_Enrollment = hiv_obj.NHIF_Enrollment
+                    NHIF_Status = hiv_obj.NHIF_Status
+                    Referral_Services = hiv_obj.Referral_Services
+                    NextAppointment_Date = hiv_obj.NextAppointment_Date
+                    Peer_Educator_Name = hiv_obj.Peer_Educator_Name
+                    Peer_Educator_Contact = hiv_obj.Peer_Educator_Contact
+                    print "data mapped"
+                    form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id,
+                                                                           'HIV_MGMT_1_A': hiv_confirmed_date,
+                                                                           'HIV_MGMT_1_B': treatment_initiated_date,
+                                                                           'HIV_MGMT_1_E': substitution_firstLine_arv,
+                                                                           'HIV_MGMT_1_E_DATE': substitution_firstLine_fate,
+                                                                           'HIV_MGMT_1_G': switch_thirdLine_arv,
+                                                                           'HIV_MGMT_1_G_DATE': switch_thirdLine_date,
+                                                                           'HIV_MGMT_1_D': firstLine_start_date,
+                                                                           })
+
+                    form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id,
+                                                                   'HIV_MGMT_2_E': Adherence,
+                                                                   'HIV_MGMT_2_I_DATE': Viral_Load_Date,
+                                                                   'HIV_MGMT_2_J': Detectable_ViralLoad_Interventions,
+                                                                   'HIV_MGMT_2_N': Support_group_Status,
+                                                                   'HIV_MGMT_2_O_1': NHIF_Enrollment,
+                                                                   'HIV_MGMT_2_O_2': NHIF_Status,
+                                                                   'HIV_MGMT_2_P': Referral_Services,
+                                                                   'HIV_MGMT_2_K': Disclosure,
+                                                                   'HIV_MGMT_2_L_1': MUAC_Score,
+                                                                   'HIV_MGMT_2_L_2': BMI,
+                                                                   'HIV_MGMT_2_Q': NextAppointment_Date,
+                                                                   'HIV_MGMT_2_M': Nutritional_Support,
+                                                                   'HIV_MGMT_2_R': Peer_Educator_Name,
+                                                                   'HIV_MGMT_2_S': Peer_Educator_Contact,
+                                                                   'HIV_MGMT_2_A': Visit_Date,
+                                                                   'HIV_MGMT_2_B': Duration_ART,
+                                                                   'HIV_MGMT_2_D': MUAC
+                                                                   })
+            return render(request,
+                          'forms/new_hivmanagementform.html',
+                          {'form': form,
+                           'form_arvtherapy': form_arvtherapy,
+                           'init_data': init_data,
+                           'vals': vals})
+        except Exception, e:
+            print e
+
+# DREAMS Service Uptake Form
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_dreamsform(request, id):
     try:
         init_data = RegPerson.objects.filter(pk=id)
         check_fields = ['sex_id']
         vals = get_dict(field_name=check_fields)
         print(vals)
-        form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
-        form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+        form = DREAMS_FORM(initial={'person': id})
     except:
         pass
 
     return render(request,
-                  'forms/new_hivmanagementform.html',
-                  {'form': form, 
-                   'form_arvtherapy': form_arvtherapy,
-                  'init_data': init_data,
-                  'the_child': the_child,
+                  'forms/new_dreamsform.html',
+                  {'form': form, 'init_data': init_data,
                    'vals': vals})
+        
