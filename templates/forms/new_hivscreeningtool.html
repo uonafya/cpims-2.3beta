@@ -384,7 +384,9 @@
                                                 (If applicable) Record facility of child's enrollment
                                             </td>
                                             <td>
-                                                    {{ form.HIV_RA_3Q6 }}
+                                                    <!-- {{ form.HIV_RA_3Q6 }} -->
+                                                    <input type="text" class="form-control" name="facility_field" id="facility_field" placeholder="Facility field">
+                                                    <input type="hidden" name="HIV_RA_3Q6" id="HIV_RA_3Q6">
                                                     
                                             </td>
                                             <td style="background-color: grey">
@@ -436,17 +438,18 @@
                                         <th>Q 6</th>
                                         <th>Q 7</th>
                                         <th>Q 8</th>
-                                        <th>1</th>
-                                        <th>2</th>
-                                        <th>3</th>
-                                        <th>3a</th>
-                                        <th>3b</th>
-                                        <th>4</th>
-                                        <th>5</th>
-                                        <th>6</th>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 3</th>
+                                        <th>Q 3a</th>
+                                        <th>Q 3b</th>
+                                        <th>Q 4</th>
+                                        <th>Q 5</th>
+                                        <th>Q 6</th>
                                         <th>Date of Event</th>
                                   </tr>
                                 </thead>
+                    {% if hiv_screen %}
                             
                     {% for one_screening_data in hiv_screen %}
                    
@@ -470,10 +473,22 @@
                           <td>{{one_screening_data.test_result | yesno:"Yes, No"}}</td>
                           <td>{{one_screening_data.art_referral | yesno:"Yes, No"}}</td>
                           <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.facility}}</td>
+                          <td>{{ one_screening_data.facility.facility_name }}</td>
+
+                          <!-- <td>
+                          {% for k in hiv_facility%}
+                          <li>{{k.facility_name}}</li>
+                          {% endfor %}
+                          </td> -->
+                
                           <td>{{one_screening_data.date_of_event}}</td>
                         </tr>
                     {% endfor %}
+                    {% else %}
+                    <div>
+                        <h3>No data available</h3>
+                    </div>
+                    {% endif %}
                 </table>
             </div>
             <!-- ################################## -->
@@ -504,15 +519,15 @@
         $( function() {
 
             $('#wizard-hivsct').bwizard();
-            $('#HIV_RA_3Q6').multiselect({
-                enableCaseInsensitiveFiltering: true,
-                numberDisplayed: 1,
-                maxHeight: 300,
-                buttonWidth: '100%',
-                disableIfEmpty: true,
-                enableClickableOptGroups: true,
-                buttonClass: 'btn btn-white'
-            });
+            // $('#HIV_RA_3Q6').multiselect({
+            //     enableCaseInsensitiveFiltering: true,
+            //     numberDisplayed: 1,
+            //     maxHeight: 300,
+            //     buttonWidth: '100%',
+            //     disableIfEmpty: true,
+            //     enableClickableOptGroups: true,
+            //     buttonClass: 'btn btn-white'
+            // });
             $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
@@ -546,6 +561,29 @@
             console.log('switchTab to '+tab_id);
         }
 
+        $( "#facility_field" ).autocomplete({
+            source: function( request, response ) {
+            $.ajax({
+                url: "{% url 'ovc_search' %}",
+                dataType: "json",
+                data: {q: request.term, id: 1},
+                success: function( data ) {
+                    response( data );
+                }
+                });
+            },
+            minLength: 4,
+            select: function( event, ui ) {
+                $('#facility_field').val(ui.item.name);
+                $('#HIV_RA_3Q6').val(ui.item.id);
+            },
+            open: function() {
+                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+        });
 </script>
     <!-- Skip logic -->
     <!-- {% if data.date_of_birth|gen_age > 15 %}

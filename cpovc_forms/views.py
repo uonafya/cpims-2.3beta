@@ -22,7 +22,7 @@ from cpovc_forms.forms import (
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
     BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
     GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm, HIV_SCREENING_FORM,
-    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM)
+    HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM, DREAMS_FORM)
 
 from .models import (
     OVCEconomicStatus, OVCFamilyStatus, OVCReferral, OVCHobbies, OVCFriends,
@@ -35,7 +35,7 @@ from .models import (
     OVCFamilyCare, OVCCaseEventSummon, OVCCareEvents, OVCCarePriority,
     OVCCareServices, OVCCareEAV, OVCCareAssessment, OVCGokBursary, OVCCareWellbeing, OVCCareCpara, OVCCareQuestions,OVCCareForms,OVCExplanations, OVCCareF1B,
     OVCCareBenchmarkScore, OVCMonitoring,OVCHouseholdDemographics, OVCHivStatus,OVCHIVManagement, OVCHIVRiskScreening)
-from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold
+from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCHouseHold,OVCFacility
 from cpovc_main.functions import (
     get_list_of_org_units, get_dict, get_vgeo_list, get_vorg_list,
     get_persons_list, get_list_of_persons, get_list, form_id_generator,
@@ -47,7 +47,7 @@ from cpovc_main.country import (COUNTRIES)
 from cpovc_registry.models import (
     RegOrgUnit, RegOrgUnitContact, RegOrgUnitGeography, RegPerson, RegPersonsOrgUnits, AppUser, RegPersonsSiblings,
     RegPersonsTypes, RegPersonsGuardians, RegPersonsGeo, RegPersonsExternalIds)
-from cpovc_main.models import (SetupList, SetupGeography, SchoolList)
+from cpovc_main.models import (SetupList, SetupGeography, SchoolList,FacilityList)
 from cpovc_auth.models import CPOVCUserRoleGeoOrg
 from cpovc_auth.decorators import is_allowed_groups
 from django.contrib.auth.models import User, Group
@@ -9642,6 +9642,9 @@ def new_hivscreeningtool(request, id):
                 else:
                     data_to_save.update({key: value})
 
+            facility=data_to_save.get('HIV_RA_3Q6')
+
+
             ovcscreeningtool = OVCHIVRiskScreening.objects.create(
                 person=RegPerson.objects.get(pk=int(id)),
                 date_of_event=data_to_save.get('HIV_RA_1A'),
@@ -9666,7 +9669,7 @@ def new_hivscreeningtool(request, id):
                 art_referral=data_to_save.get('HIV_RS_21'),
                 art_referral_date=data_to_save.get('HIV_RS_22'),
                 art_referral_completed=data_to_save.get('HIV_RS_23'),
-                facility=data_to_save.get('HIV_RA_3Q6'),
+                facility=OVCFacility.objects.get(id=facility),
                 event=ovccareevent,
 
             )
@@ -9679,8 +9682,12 @@ def new_hivscreeningtool(request, id):
         form = HIV_SCREENING_FORM()
         event=OVCCareEvents.objects.filter(person_id=id).values_list('event')
         hiv_screen=OVCHIVRiskScreening.objects.filter(event_id__in=event).order_by('date_of_event')
+        facility_hivrisk=OVCHIVRiskScreening.objects.filter(event_id__in=event).values_list('facility').order_by('date_of_event')  
+        facilitiy_ids = [int(i[0]) for i in facility_hivrisk]
+        hiv_facility=OVCFacility.objects.filter(id__in=facilitiy_ids)
+   
 
-    return render(request, 'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals': vals,'hiv_screen':hiv_screen})
+    return render(request, 'forms/new_hivscreeningtool.html', {'form': form, 'init_data': init_data, 'vals': vals, 'hiv_screen': hiv_screen, 'hiv_facility' : hiv_facility})
 
 
 # New HIV Manangement Form
@@ -9784,3 +9791,22 @@ def new_hivmanagementform(request, id):
                            'vals': vals})
         except Exception, e:
             print e
+
+# DREAMS Service Uptake Form
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_dreamsform(request, id):
+    try:
+        init_data = RegPerson.objects.filter(pk=id)
+        check_fields = ['sex_id']
+        vals = get_dict(field_name=check_fields)
+        print(vals)
+        form = DREAMS_FORM(initial={'person': id})
+    except:
+        pass
+
+    return render(request,
+                  'forms/new_dreamsform.html',
+                  {'form': form, 'init_data': init_data,
+                   'vals': vals})
+        
