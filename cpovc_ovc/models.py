@@ -25,7 +25,8 @@ class OVCAggregate(models.Model):
     county_active = models.IntegerField(null=False)
     subcounty_active = models.IntegerField(null=False)
     ward_active = models.IntegerField(null=False)
-    created_at = models.DateField(null=True, default=timezone.now)
+    timestamp_created = models.DateTimeField(null=True)
+    timestamp_updated = models.DateTimeField(auto_now=True, null=True)
 
     class Meta:
         """Override table details."""
