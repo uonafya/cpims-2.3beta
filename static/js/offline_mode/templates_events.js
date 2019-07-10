@@ -1,4 +1,19 @@
 
+let TemplateUtils = (function () {
+    return {
+        ovcHomePage: $("#ovc_home"),
+
+        viewOvcPage: $("#ovc_view"),
+
+        form1aPage: $("#ovc_form1a"),
+
+        showPage: function (page) {
+            $(".offline_page").hide();
+            page.show();
+        }
+    }
+})();
+
 // Handle all events on OvcHome template
 let OvcHomeTemplate = (function (){
     'use strict';
@@ -34,12 +49,73 @@ let OvcHomeTemplate = (function (){
 
                     if (key === id) {
                         me._fillOvcDetailsPage(JSON.parse(Base64.decode(value)));
+                        TemplateUtils.showPage(TemplateUtils.viewOvcPage);
                         return true;
                     }
                 });
-
-                console.log("navigating to view page.....");
             }
+        },
+
+        _fillOvcDetailsPage: function (ovc) {
+            let me = this;
+
+            Object.keys(ovc).forEach( key => {
+                let ovcDetails = ovc[key];
+                if (['facility', 'school'].includes(key)) {
+                    // handle hiding particular rows, test this out
+                    me._fillOvcDetailsPage(ovcDetails);
+                } else if (key === 'household_members') {
+                    me._fillOvcHouseholdDetails(ovcDetails);
+                } else {
+                    $(me._getOvcFieldSelector(key)).html(ovcDetails);
+                }
+            })
+        },
+
+        _getOvcFieldSelector: function(field) {
+            return $("#ovc_offline_" + field);
+        },
+
+        _fillOvcHouseholdDetails: function (households) {
+            $("#offline_ovc_household_table").bootstrapTable('destroy').bootstrapTable({
+                'data': households,
+                'pagination': true,
+                'locale': 'en-Us',
+                'columns': [
+                    {
+                        'field': 'first_name',
+                        'title': 'First Name'
+                    },
+                    {
+                        'field': 'surname',
+                        'title': "Surname"
+                    },
+                    {
+                        'field': 'age',
+                        'title': 'Age'
+                    },
+                    {
+                        'field': 'type',
+                        'title': 'Type'
+                    },
+                    {
+                        'field': 'phone_number',
+                        'title': 'Telephone'
+                    },
+                    {
+                        'field': 'alive',
+                        'title': 'Alive'
+                    },
+                    {
+                        'field': 'hiv_status',
+                        'title': 'HIV Status'
+                    },
+                    {
+                        'field': 'household_head',
+                        'title': 'Head'
+                    }
+                ]
+            })
         },
 
         _viewOvcButton: function () {
@@ -125,12 +201,22 @@ let OvcHomeTemplate = (function (){
     }
 })();
 
+// Handle all events on OvcView template
+let OvcViewTemplate = (function (){
+    return {
+        init: function () {
+            let me = this;
+            console.log("OvcViewTemplate");
+        }
+    };
+})();
 
 let TemplatesEventsFactory = function () {
     'use strict';
 
     let eventsHandlers = {
-        'ovc_home': OvcHomeTemplate.init()
+        'ovc_home': OvcHomeTemplate.init(),
+        'ovc_view': OvcHomeTemplate.init()
     };
 
     return {

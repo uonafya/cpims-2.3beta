@@ -99,8 +99,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             if (this._isOfflineModeCapabilityEnabled) {
                 this._onlineContainerSelector.show();
                 this._offlineModePageSelector.hide();
-                this.ovcOfflineContainer.hide();
-                this.ovcListTable.hide();
                 this.submitData(this._formDataKey(), this._onSubmitFormSuccess(), this._onSubmitFormError());
             }
         },
@@ -359,12 +357,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             return foundOvcs;
         },
-
-        ovcListTable: $("#offline_ovc_table"), // todo dreprecate
-
-        ovcOfflineContainer: $("#ovcOfflineContainer"),
-
-        ovcHouseholdTable: $("#offline_ovc_household_table"),
     };
 
     return {
@@ -391,68 +383,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
             return window.offlineModeClient;
         },
-
-        _getOvcFieldSelector: function(field) {
-            return $("#ovc_offline_" + field);
-        },
-
-        _fillOvcDetailsPage: function (ovc) {
-            let me = this;
-
-            Object.keys(ovc).forEach( key => {
-                let ovcDetails = ovc[key];
-                if (['facility', 'school'].includes(key)) {
-                    // handle hiding particular rows, test this out
-                    me._fillOvcDetailsPage(ovcDetails);
-                } else if (key === 'household_members') {
-                    me._fillOvcHouseholdDetails(ovcDetails);
-                } else {
-                    $(me._getOvcFieldSelector(key)).html(ovcDetails);
-                }
-           })
-        },
-
-        _fillOvcHouseholdDetails: function (households) {
-            window.offlineModeClient.ovcHouseholdTable.bootstrapTable('destroy').bootstrapTable({
-                'data': households,
-                'pagination': true,
-                'locale': 'en-Us',
-                'columns': [
-                    {
-                        'field': 'first_name',
-                        'title': 'First Name'
-                    },
-                    {
-                        'field': 'surname',
-                        'title': "Surname"
-                    },
-                    {
-                        'field': 'age',
-                        'title': 'Age'
-                    },
-                    {
-                        'field': 'type',
-                        'title': 'Type'
-                    },
-                    {
-                        'field': 'phone_number',
-                        'title': 'Telephone'
-                    },
-                    {
-                        'field': 'alive',
-                        'title': 'Alive'
-                    },
-                    {
-                        'field': 'hiv_status',
-                        'title': 'HIV Status'
-                    },
-                    {
-                        'field': 'household_head',
-                        'title': 'Head'
-                    }
-                ]
-            })
-        }
     };
 };
 

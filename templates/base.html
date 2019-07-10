@@ -184,7 +184,6 @@
 	<script src="{% static 'plugins/jquery-countdown/jquery.simple.timer.js' %}"></script>
     <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
-    <script src="{% static 'js/handlebars.min.js' %}"></script>
 	<!-- ================== END LAZY BASE JS ================== -->
 	
 	<!-- ================== BEGIN LAZY PAGE LEVEL JS ================== -->
@@ -215,8 +214,7 @@
           });
 
           $(document).bind("contextmenu",function(e){
-              // Todo return this
-		       return true;
+		       return false;
 		 });
           
 
@@ -243,8 +241,6 @@
     </script>
     <script src="{% static 'js/base64.js' %}"></script>
     <script src="{% static 'js/offline_mode/service.js' %}"></script>
-    <script src="{% static 'js/offline_mode/controller.js' %}"></script>
-    <script src="{% static 'js/offline_mode/router.js' %}"></script>
     <script src="{% static 'js/offline_mode/templates_events.js' %}"></script>
     <script>
         $(document).ready(function() {
@@ -252,41 +248,20 @@
 
             let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" == "True";
 
-
             // Implement it as a singleton
-            if (window.offlineModeController === undefined) {
-                let offlineModeService = OfflineModeService(
-                    userId,
-                    offlineModeCapabilityEnabled,
-                    "/offline_mode/data/",
-                    "/offline_mode/templates/",
-                    TemplatesEventsFactory());
-                let offlineModeClient = offlineModeService.client("internet_check", "online_mode", 5000);
+            let offlineModeService = OfflineModeService(
+                userId,
+                offlineModeCapabilityEnabled,
+                "/offline_mode/data/",
+                "/offline_mode/templates/",
+                TemplatesEventsFactory());
 
-                window.offlineModeController = OfflineModeController(offlineModeService);
+            offlineModeService.client("internet_check", "online_mode", 5000);
 
-                let router = OfflineModeRouter(window.offlineModeController, $(".offline_page"));
-
-                $("#ovc_home_offline").on("click", (event) => {
-                    event.preventDefault();
-                    console.log("clicked");
-                    $(".offline_mode").hide();
-
-                   $("#ovc_home").show();
-                });
-
-                $(window).on('hashchange', function() {
-
-                    console.log("hash change", decodeURI(window.location.hash));
-
-                    console.log(offlineModeClient.isOfflineModeActive());
-
-                    // only route if offline mode active is activated
-                    if (offlineModeClient.isOfflineModeActive()) {
-                        {#router.route(decodeURI(window.location.hash));#}
-                    }
-                });
-            }
+            $("#ovc_home_offline").on("click", (event) => {
+                event.preventDefault();
+                TemplateUtils.showPage(TemplateUtils.ovcHomePage);
+            });
         });
     </script>
     <!-- ================== END LAZY PAGE LEVEL JS ================== -->
