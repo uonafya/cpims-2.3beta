@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% load staticfiles %}
-
+{% load choice_fields_filter %}
 {% block page_title %} Data Clean Up{% endblock %}
 
 {% block style_code %}
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block primary %}
-<h1 class="page-header">Data Clean Up <small>Filter</small></h1>
+<h1 class="page-header">Data Clean Up <small>Age Based</small></h1>
 {% if error %}
 <div class='alert alert-warning'>{{ error }}</div>
 {% endif %}
@@ -80,14 +80,29 @@
     <tr>
       <td>{{ obj.first_name }} {{ obj.other_names }} </td>
       <td>{{ obj.age }} </td>
-      <td>{{ obj.school_level }}</td>
-      <td>{{ obj.hiv_status }}</td>
-      <td>{{ obj.art_status }}</td>
+      <td>{{ obj.school_level |format_choice_fields }}</td>
+      <td>{{ obj.hiv_status |format_choice_fields }}</td>
+      <td>{{ obj.art_status | format_choice_fields}}</td>
     </tr>
     {% endfor %}
     
   </tbody>
 </table>
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
 {% else %}
 <div class='alert alert-info'> No records</div>
 {% endif %}
