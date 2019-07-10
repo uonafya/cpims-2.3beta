@@ -1227,7 +1227,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
         print "debug 1-6"
         if (funding_partner == 'cluster'):
             funding_mechnism = {
-                "template": " and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}'",
+                "template": " and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}')",
                 "values": [funding_part_id]
             }
 
@@ -1326,7 +1326,7 @@ def expand_benchmark_query(sql):
         household_benchmark='hld_bench.%s' % (str2)
         sql_internal=sql_internal% (benchmark_sum, household_benchmark)
         base_bmark_template='''
-            (select sum(t2.cont) as %s from (
+            (select count(t2.cont) as %s from (
                     SELECT
                        COUNT(*)-1 as cont
                     FROM(
