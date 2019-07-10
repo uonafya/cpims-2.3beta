@@ -5,8 +5,6 @@ import csv
 with open('cpims-facilities-addition.csv') as csvfile:
     facilities = csv.reader(csvfile, delimiter=',')
     for row in facilities:
-        facility.facility_code = row[0]
-        facility.facility_name = row[1]
-        facility.sub_county = row[2]
+        f = facility(facility_code=row[0], facility_name=row[1], sub_county_id=row[2])
         print (row[0] + "  " + row[1] + "  " + row[2])
-        facility.save()
+        f.save()
