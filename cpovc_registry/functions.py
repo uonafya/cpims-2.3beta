@@ -1775,7 +1775,7 @@ def save_household(index_child, members):
     
 def add_household_members(index_child, member):	
     try:	
-        child = OVCRegistration.objects.get(person=index_child)	
+        child = OVCRegistration.objects.get(person=index_child)
         caretaker = child.caretaker	
         household = caretaker.ovchousehold_set.first()	
         mbr = OVCHHMembers.objects.create(	
@@ -1785,8 +1785,8 @@ def add_household_members(index_child, member):
         )	
         print 'added household member -' + str(mbr.id)	
     except Exception as e:	
-        print 'error adding household - %s ' % (str(e))	
-        pass	
+        print 'error adding household - %s ' % (str(e))
+        pass
 
 
 def update_household(index_child, member):	
