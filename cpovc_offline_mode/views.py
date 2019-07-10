@@ -3,15 +3,21 @@ import json
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.shortcuts import render
 
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCEducation
 from cpovc_registry.templatetags.app_filters import gen_value, vals
 
 
 @login_required(login_url='/')
-def fetch_forms(request):
-    return JsonResponse({"msg": "ok"})
-
+def templates(request):
+    view_child_tpl = render(request, 'ovc/view_child_offline.html')
+    templates = {
+        'ovc_home': "OVC Home" ,
+        'ovc_view': view_child_tpl.content,
+        'ovc_form1a': "OVc Form 1 a"
+    }
+    return JsonResponse({'data': json.dumps(templates)})
 
 @login_required(login_url='/')
 def fetch_data(request):

@@ -256,9 +256,13 @@
 
             let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" == "True";
 
-            // Implement it as a signletone
+            // Implement it as a singleton
             if (window.offlineModeController === undefined) {
-                let offlineModeService = OfflineModeService(userId, offlineModeCapabilityEnabled, "/offline_mode/data/");
+                let offlineModeService = OfflineModeService(
+                    userId,
+                    offlineModeCapabilityEnabled,
+                    "/offline_mode/data/",
+                    "/offline_mode/templates/");
                 let offlineModeClient = offlineModeService.client("internet_check", "online_mode", 5000);
 
                 window.offlineModeController = OfflineModeController(offlineModeService);

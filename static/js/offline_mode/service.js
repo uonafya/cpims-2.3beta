@@ -2,7 +2,7 @@
     A service exposing abstractions to make the system work when there's no internet connection
 */
 
-let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFetchUrl) {
+let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFetchUrl, templatesFetchUrl) {
     "use strict";
 
     let offlineModeClient = {
@@ -29,6 +29,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         lastOnlineTime: undefined,
 
         lastOfflineTime: undefined,
+
+        templates: undefined,
 
         save: function (key, data) {
             this._storage.setItem(key, data);
@@ -130,6 +132,53 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             return this._formDataKey() + "_" + keySalt;
         },
 
+        _templatesStorageKey: Base64.encode("ovc_offline_templates"),
+
+        fetchTemplates: function() {
+            let _offlineModeClient = window.offlineModeClient;
+            let me = this;
+
+            if (me.templates !== undefined) {
+                console.log("Templates already initialized");
+                return;
+            }
+            let templates = _offlineModeClient.retrieve(me._templatesStorageKey);
+
+            if (templates !== null) {
+                me.templates = JSON.parse(Base64.decode(templates));
+                console.log("Templates loaded from the cache");
+                return;
+            }
+
+            $.ajax({
+                url: templatesFetchUrl,
+                type: "GET",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+                    _offlineModeClient.remove(me._templatesStorageKey);
+
+                },
+                success: function (data) {
+                    console.log("Successfully initialized templates");
+                    me.templates = data.data;
+                    _offlineModeClient.save(me._templatesStorageKey, Base64.encode(data.data));
+                    me._injectTemplatesToDom(JSON.parse(data.data));
+                },
+                error: function () {
+                    console.log("Error loading templates");
+                    me.templates = undefined;
+                }
+            });
+        },
+
+        _injectTemplatesToDom: function(templates) {
+            Object.entries(templates).forEach(entry => {
+                let tplName = entry[0];
+                let tplContent = entry[1];
+                $("#" + tplName).html(tplContent);
+            });
+        },
+
         saveFormData: function(data, submissionUrl) {
             let me = this;
             let dataToBeSubmitted = {
@@ -218,13 +267,16 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         onLoginEventHandler: function () {
             console.log("Handling on login event handler");
             this._initializeRegistrationData();
-
+            this.fetchTemplates();
         },
 
         onLogoutEventHandler: function () {
+            // Todo - rethink data refreshing
             this.isRegistrationDataInitialized = false;
-            window.offlineModeClient.remove(me._registrationDataStorageKey());
+            this.remove(this._registrationDataStorageKey());
+            this.remove(this._templatesStorageKey);
             this.registrationData = undefined;
+            this.templates = null;
         },
 
         _registrationDataStorageKey: function () {
@@ -327,6 +379,12 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 offlineModeClient.periodicallyCheckConnectivity();
                 window.offlineModeClient = offlineModeClient;
                 window.viewOvcOffline = this.viewOvcOffline();
+
+
+                // if the user is logged in
+                if (offlineModeClient._userId !== "" || offlineModeClient._userId !== null) {
+                    offlineModeClient.onLoginEventHandler();
+                }
             }
 
             $("#find_ovc").click(this.onSearchOvc(window.offlineModeClient));
