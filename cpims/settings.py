@@ -86,13 +86,13 @@ DATABASES = {
         'PASSWORD': cpims_db_pass,
         'HOST': cpims_db_host,
         'PORT': cpims_db_port, },
-    'reporting': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': cpims_db_instance,
-        'USER': cpims_db_user,
-        'PASSWORD': cpims_db_pass,       
-        'HOST': '41.89.94.99',        
-        'PORT': cpims_db_port, }
+     'reporting': {
+         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+         'NAME': cpims_db_instance,
+         'USER': cpims_db_user,
+         'PASSWORD': cpims_db_pass,
+         'HOST': '41.89.94.99',
+         'PORT': cpims_db_port, }
 }
 
 LANGUAGE_CODE = 'en-us'
