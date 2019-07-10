@@ -101,6 +101,7 @@ def fetch_total_s_bcert_aft_enrol(request, org_ids, level='', area_id=''):
 
     
 def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_part_id,period_typ):
+    build_benchmark_query()
     # print 'oooop running fetch_new_ovcregs_by_period month_year='+month_year+" \n "
 
     rows2, desc2 = 0, 0
@@ -1147,7 +1148,47 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
 
     return cpara_results_envelop
 
+
+
+
+def build_benchmark_query():
+    final_sql='select '
+    x=1
+    while x<=17:
+        str1 = 'bmrk%s' % (x)
+        str2='bench_mark_%s' %(x)
+        base_bmark_template = '''
+                (select sum(t2.cont) as %s from (
+                    SELECT
+                       COUNT(*)-1 as cont
+                    FROM
+                       (select count(bench.cpims_ovc_id) as summ_cont, bench.house_hold_id as house_hold_id from 
+                     (select hld_bench.cpims_ovc_id, hh.house_hold_id  FROM public.vw_cpims_benchmark_achieved hld_bench
+                     inner join ovc_household_members hh 
+                     on hld_bench.cpims_ovc_id=hh.person_id) as bench group by bench.house_hold_id
+                       union all 
+                     SELECT sum(bench.%s) as summ_cont, bench.house_hold_id as house_hold_id from 
+                     (select hld_bench.cpims_ovc_id, hh.house_hold_id,hld_bench.%s  FROM 
+                     public.vw_cpims_benchmark_achieved hld_bench
+                     inner join ovc_household_members hh 
+                     on hld_bench.cpims_ovc_id=hh.person_id) as bench group by bench.house_hold_id) as t1
+                    GROUP BY
+                       t1.summ_cont, t1.house_hold_id
+                    HAVING 
+                       COUNT(*) > 1
+                    ) as t2)
+            ''' %(str1,str2,str2)
+
+        if(x==1):
+            final_sql=final_sql + base_bmark_template
+        else:
+            final_sql=final_sql+ ','+ base_bmark_template
+        x=x+1
+    print "final query ====================> ",final_sql
+    return final_sql
+
 def _get_ovc_served_stats(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='annual'):
+
     # "SELECT count(ovccount) FROM public.hiv_status where "
     rows2, desc2 = 0, 0
     period_span=''
