@@ -1215,13 +1215,16 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
                 funding_mechnism = {
                     "template": ''' and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                                'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
-                                                               )''',
+                                                               ))''',
                     "values": []
                 }
+                print "debug 1-4"
+                print date_range
                 sql=build_benchmark_query(date_range, funding_mechnism, None)
+                print "debug 1-5"
                 #ows2, desc2 = run_sql_data(None, sql)
 
-
+        print "debug 1-6"
         if (funding_partner == 'cluster'):
             funding_mechnism = {
                 "template": " and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}'",
@@ -1267,6 +1270,9 @@ def build_benchmark_query(date_range, funding_mechnism,location_filter):
         print "debug 1 -1"
         if not funding_mechnism['values']: # if it has values, blank for primary funder #eg PEPFAR
             print "debug 1-2"
+            print funding_mechnism
+            funding = funding_mechnism['template']
+        else:
             funding = funding_mechnism['template'].format(funding_mechnism['values'][0])
     else:
         funding=' '
@@ -1303,7 +1309,7 @@ def build_benchmark_query(date_range, funding_mechnism,location_filter):
                      {}
                   
         '''.format(_date,location,funding,ovc_bechmark_sum)
-
+    print "debug 1-3"
     #print base_final_sql
 
     return base_final_sql
@@ -1339,9 +1345,9 @@ def expand_benchmark_query(sql):
         else:
             final_sql = final_sql + ',' + base_bmark_template
         x = x + 1
-    print "========> final sql"
+    print "=============>"
     print final_sql
-    print "========> final sql 1"
+    print "=============>"
     return final_sql
 
 
