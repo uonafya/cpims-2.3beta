@@ -86,6 +86,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 $(this._onlineModeMenuItemsSelector).show();
                 $(this._connectionNotificationElementId).html("You are now online, offline mode switched off");
                 this._notificationStatusBadge('alert-info', 'alert-danger');
+                $(".offline_page").hide();
                 this._handleIsOnline();
             } else {
                 $(this._onlineModeMenuItemsSelector).hide();
