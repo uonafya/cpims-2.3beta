@@ -1874,7 +1874,7 @@ def get_chvs(person_id):
             is_void=False, org_unit_id__in=org_units).values_list(
             'person_id', flat=True)
         # Filter by types
-        public.persons = RegPersonsTypes.objects.filter(
+        persons = RegPersonsTypes.objects.filter(
             is_void=False, person_type_id='TWVL', person_id__in=person_ids)
         for person in persons:
             cbo_detail[person.person_id] = person.person.full_name
