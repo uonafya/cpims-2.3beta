@@ -162,6 +162,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                 </div>
                 <h4 class="panel-title"> Adult and Child Wellbeing Assessment </h4>
             </div>
+        <div style="overflow-x: auto; min-height: 300px;">
             <div class="panel-body">
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard-hhva" id="new_hhva">
                     {% csrf_token %}
@@ -2161,8 +2162,9 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                                {% for hhmember in hhmembers %}
                                                             <td>
-                                                                44: If the child is enrolled in school, during the last month, did [name of child] miss more than five days for any reason?
+                                                                44: If the child is enrolled in school, during the last month, did {{ hhmember.person.first_name }} {{ hhmember.person.surname }} miss more than five days for any reason?
                                                             </td>
                                                             <td>
 
@@ -2171,18 +2173,19 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                45: Does [name of child] like to go to school?
+                                                                45: Does {{ hhmember.person.first_name }} {{ hhmember.person.surname }} like to go to school?
                                                             </td>
                                                             <td>
 
                                                                 {{form.WB_SCH_45_1}}  
                                                             </td>
+                                                            {% endfor %}
                                                         </tr>
                                                       </tbody>
                                                   </table>
                                               </div>
                                           </div>
-
+                                        
                                       </div>
 
                                     </td>
@@ -2193,6 +2196,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                 <tbody>
                             </table>
                         </div>
+                    </div>
                         <!-- end wizard step-5-->
 
                         <!-- start wizard step-6 -->
@@ -2296,6 +2300,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                         <!-- end of wizard-step-6-->
 
                     </div>
+                
 
 
                     <div class="panel-body panel-form">

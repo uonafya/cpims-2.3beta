@@ -123,11 +123,12 @@ print(blu.sing("'Happy'"))
                                         <div class="panel-body">
 {#                                            <form action="." method="post" name="ovcreg_form" id="ovcreg_form" data-parsley-validate="true">#}
 {#                                                {% csrf_token %}#}
+                                                <div style="overflow-x: auto; min-height: 300px;">
                                                     <input type="hidden" name="ovc_id" id="ovc_id" value="{{ creg.person_id }}">
                                                         <table width="100%" class="table table-profile">
                                                             <tbody>
                                                                 <tr>
-                                                                    <td><b>Name of Organization (LIP):</b></td>
+                                                                    <td><b>Name of Organization !!!(LIP):</b></td>
                                                                     <td>{{ creg.child_cbo.org_unit_name }}</td>
                                                                     <td><b>Date enrolled in the project: </b></td>
                                                                     <td>{{ creg.registration_date }}</td>
@@ -170,6 +171,7 @@ print(blu.sing("'Happy'"))
                                                                 </tr>                                              
                                                             </tbody>
                                                         </table> 
+                                                </div>
 {#                                                </form>#}
                                         </div>
                                         <hr/> 
