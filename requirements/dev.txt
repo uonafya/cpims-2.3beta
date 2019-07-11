@@ -1,0 +1,5 @@
+-r base.txt
+coverage
+tox
+model_mommy
+django-nose

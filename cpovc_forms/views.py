@@ -8912,7 +8912,7 @@ def case_plan_template(request, id):
                 my_action = all_data['actions']
                 my_service = all_data['services']
                 my_responsible = all_data['responsible']
-                my_actual_completion_date = all_data['actual_date']
+                my_actual_completion_date = all_data['actual_completion_date']
                 my_date_completed = all_data['date']
                 my_date_of_prev_evnt = timezone.now()
                 my_date_of_caseplan = all_data['CPT_DATE_CASEPLAN']
@@ -9005,7 +9005,7 @@ def update_caseplan(request, event_id, ovcid):
                         my_service = all_data['services']
                         my_responsible = all_data['responsible']
                         my_date_completed = all_data['date']
-                        my_actual_completion_date = all_data['actual_date']
+                        my_actual_completion_date = all_data['actual_completion_date']
                         my_date_of_prev_evnt = timezone.now()
                         my_date_of_caseplan = all_data['CPT_DATE_CASEPLAN']
                         my_results = all_data['results']
