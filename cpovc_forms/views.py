@@ -1,3 +1,4 @@
+from django.utils.datastructures import MultiValueDictKeyError
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
@@ -9616,12 +9617,32 @@ def new_hivscreeningtool(request, id):
                 person=RegPerson.objects.get(pk=int(id)),
                 house_hold=house_hold
             )
-           # date conversion
-            parent_consentdate=form.data['HIV_RS_15']
-            referal_madedate=form.data['HIV_RS_17']
-            referal_completeddate=form.data['HIV_RS_19']
-            art_referaldate=form.data['HIV_RS_22']
-            art_refer_completeddate=form.data['HIV_RS_24']
+
+            try:
+                parent_consentdate=form.data['HIV_RS_15']
+            except:
+                parent_consentdate = "1900-01-01"
+
+            try:
+                referal_madedate = form.data['HIV_RS_17']
+            except:
+                referal_madedate = "1900-01-01"
+
+            try:
+                referal_completeddate = form.data['HIV_RS_19']
+            except:
+                referal_completeddate = "1900-01-01"
+
+            try:
+                art_referaldate=form.data['HIV_RS_22']
+            except:
+                art_referaldate = "1900-01-01"
+
+            try:
+                art_refer_completeddate = form.data['HIV_RS_24']
+            except:
+                art_refer_completeddate = "1900-01-01"
+
 
 
             if parent_consentdate:
