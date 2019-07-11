@@ -1,0 +1,556 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} HIV Management Form {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+<h1 class="page-header">Forms
+    <small>HIV Management Form<b> &nbsp;{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | 
+        {% if data.date_of_birth|gen_age == 0 %}
+                    UNDER 1 YEAR
+                {% else %}
+                    {{ data.date_of_birth|gen_age }} YRS 
+                {% endif %}</b></small>
+        </b>
+</h1>
+{% endfor %}
+
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i
+                            class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i
+                            class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> HIV Management Form </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                    name="form-wizard-hhva" id="new_hhva">
+                    {% csrf_token %}
+                    <div id="wizard-hivmanagementform">
+                        <ol>
+
+                            <li>
+                                ART Therapy
+                                <small></small>
+                            </li>
+
+                            <li>
+                                Visitation
+                                <small></small>
+                            </li>
+
+                        </ol>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <h3 style="margin-top: 0;color:#55518a">1. ARV Therapy Info</h3>
+                            <div class="form-group">
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Questions</th>
+                                                <th scope="col">Answer</th>
+                                                <th scope="col">Date</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                           <td>1</td>
+                                            <td>Date confirmed HIV Positive</td>
+                                            <td>
+                                                {{ form_arvtherapy.HIV_MGMT_1_A }}
+                                            </td>
+                                            <td style="background-color: grey"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2a</td>
+                                            <td>Date initiated on Treatment</td>
+                                            <td> 
+                                                    {{ form_arvtherapy.HIV_MGMT_1_B }}
+                                            </td>
+                                            <td style="background-color: grey"></td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td>2b</td>
+                                            <td>Baseline viral load for HEI</td>
+                                            <td>
+                                                    {{ form_arvtherapy.HIV_MGMT_1_C }}
+                                            </td>
+                                            <td style="background-color: grey">
+                                            </td>
+
+                                        </tr>
+
+                                        <tr>
+                                                <td>3</td>
+                                                <td>Date started on 1st Line</td>
+                                                <td style="background-color: grey">
+                                                    
+                                                </td>
+                                                <td>
+                                                        {{ form_arvtherapy.HIV_MGMT_1_D }}
+                                                </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Substitution of ARVs within 1st Line Regimen</td>
+                                            <td>
+                                                    {{ form_arvtherapy.HIV_MGMT_1_E }}
+                                            </td>
+                                            <td>
+                                                    {{ form_arvtherapy.HIV_MGMT_1_E_DATE }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Switch to 2nd Line (or Substitute within 2nd Line)</td>
+                                            <td>
+                                                    {{ form_arvtherapy.HIV_MGMT_1_F }}
+                                            </td>
+                                            <td>
+                                                    {{ form_arvtherapy.HIV_MGMT_1_F_DATE }}
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>6</td>
+                                            <td>Switch to 3rd Line (or Substitute within 3nd Line)</td>
+                                            <td>
+                                                    {{ form_arvtherapy.HIV_MGMT_1_G }}
+                                            </td>
+                                            <td>
+                                                    {{ form_arvtherapy.HIV_MGMT_1_G_DATE }}
+                                            </td>
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+
+
+                        </div>
+                        <!-- end wizard step-1 -->
+
+                        <!-- begin wizard step-2 -->
+                        <div class="wizard-step-2">
+                            <h3 style="margin-top: 0;color:#55518a"> 2. Visitation</h3>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Questions?</th>
+                                            <th scope="col">Options/Answers</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        
+                                        <tr>
+                                            <td>Q1</td>
+                                            <td>Visit date  
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_MGMT_2_A }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q2</td>
+                                            <td>
+                                                Duration on ARTs (in months)
+                                            </td>
+                                            <td>
+                                                {{ form.HIV_MGMT_2_B }}
+
+                                            </td>
+                                        </tr>
+                                    
+                                        <tr>
+                                            <td>Q3</td>
+                                            <td>
+                                                Height (cm)
+
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_MGMT_2_C }}
+                                            </td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Q4</td>
+                                            <td>
+                                                MUAC
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_MGMT_2_D }}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q5</td>
+                                            <td>
+                                                ARV drugs - Adherence 
+                                            </td>
+                                            <td>
+                                                
+                                                    {{ form.HIV_MGMT_2_E }}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q6</td>
+                                            <td> ARV drugs - Duration for drugs </td>
+                                            <td>
+                                                    {{ form.HIV_MGMT_2_F }}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Q7</td>
+                                            <td>
+                                                Adherence Counseling
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_MGMT_2_G }}
+                                            </td>
+                                            
+                                        </tr>
+                    
+                                            
+                                        <tr>
+                                                <td>Q8</td>
+                                                <td>
+                                                     Treatment supporter
+                                                </td>
+                                                <td>
+                                                    {{ form.HIV_MGMT_2_H_1 }}
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q9</td>
+                                                <td>
+                                                    Treatment supporter-Others
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_H_2 }}
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q10</td>
+                                                <td>
+                                                    Treatment supporter-Sex
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_H_3 }}
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q11</td>
+                                                <td>
+                                                        Treatment supporter-Age
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_H_4 }}
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q12</td>
+                                                <td>
+                                                    Treatment supporter-HIV_Status
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_H_5 }}
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q13</td>
+                                                <td>
+                                                    Lab Investigations-Viral load results
+                                                </td>
+                                                <td>
+                                                    
+                                                    {{ form.HIV_MGMT_2_I_1 }}   
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q14</td>
+                                                <td>
+                                                    Lab Investigations - Date
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_I_DATE }}   
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q15</td>
+                                                <td>
+                                                    Detectable (>401 cp/ml)Viral load interventions
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_J }}   
+
+
+                                                </td>
+                                                
+                                        </tr>
+                                        <tr>
+                                                <td>Q16</td>
+                                                <td>
+                                                        Disclosure 
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_K }}   
+
+                                                </td>    
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q17</td>
+                                                <td>
+                                                        Nutritional assessment-MUAC Score 
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_L_1 }} 
+
+                                                </td>
+                                                
+                                        </tr>
+                                        <tr>
+                                                <td>Q18</td>
+                                                <td>
+                                                      Nutritional assessment-BMI(Z Score) 
+                                                </td>
+                                                <td>
+                                                        
+                                                        {{ form.HIV_MGMT_2_L_2}}
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q19</td>
+                                                <td>
+                                                        Nutritional Support 
+                                                </td>
+                                                <td>
+                                                         {{ form.HIV_MGMT_2_M }} 
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q20</td>
+                                                <td>
+                                                    Enrolled in support group(status) 
+                                                </td>
+                                                <td>
+                                                    
+                                                    {{ form.HIV_MGMT_2_N }}   
+
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q21</td>
+                                                <td>
+                                                        Enrolled in NHIF? 
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_O_1 }}
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q22</td>
+                                                <td>
+                                                    Enrolled in NHIF -Status? 
+                                                </td>
+                                                <td>
+                                                    {{ form.HIV_MGMT_2_O_2 }}
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q23</td>
+                                                <td>
+                                                    Referral services (specify)
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_P }}
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q24</td>
+                                                <td>
+                                                    Date of Next Appointment 
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_Q }}
+                                                </td>
+                                                
+                                        </tr>
+
+                                        <tr>
+                                                <td>Q25</td>
+                                                <td>
+                                                    Peer Educator Name
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_R }}   
+
+                                                </td>
+                                                
+                                        </tr>
+
+
+                                        <tr>
+                                                <td>Q25</td>
+                                                <td>
+                                                    Peer Educator Contacts
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_MGMT_2_S }}
+
+                                                </td>
+
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+                        </div>
+                        <!-- end wizard step-2 -->
+
+
+                    </div>
+
+                    <div class="panel-body panel-form">
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <button id="mysubmit-hivscreeningtool" type="submit"
+                                    class="btn btn-primary">Submit</button>
+                                <a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="badge pull-right m-4">Revised: 4th July 2019</div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+
+<script>
+        $( function() {
+
+          $("#HIV_MGMT_1_A").datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_B" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_D" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_E_DATE").datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_F_DATE").datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_1_G_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_2_A" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_2_I_DATE" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+          $("#HIV_MGMT_2_Q").datepicker({ format: 'yyyy-mm-dd' }).val();
+
+          $(document).ready(function () {
+                $("#wizard-hivmanagementform").bwizard();
+            });
+
+        } );
+</script>
+
+{% endblock %}

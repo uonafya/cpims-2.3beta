@@ -8997,9 +8997,6 @@ def update_caseplan(request, event_id, ovcid):
 
                 if my_request:
                     caseplandata = json.loads(my_request)
-                    print("============================================")
-                    print(":::::::::::my_request::::::",caseplandata)
-                    print("============================================")
                     for all_data in caseplandata:
                         my_domain = all_data['domain']
                         my_goal = all_data['goal']

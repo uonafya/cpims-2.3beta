@@ -103,14 +103,5 @@ ENV/
 # mypy
 .mypy_cache/
 .idea/
-cpovc_access/migrations/
-cpovc_api/migrations/
-cpovc_auth/migrations/
-cpovc_forms/migrations/
-cpovc_main/migrations/
-cpovc_ovc/migrations/
-cpovc_registry/migrations/
-cpovc_reports/migrations/
-cpovc_settings/migrations/
 cpims/settings.py
-cpims/settings.py
+reports/xlsx/*
