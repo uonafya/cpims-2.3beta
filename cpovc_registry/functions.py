@@ -1105,6 +1105,8 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
         cpara_result_obj['gender']=data['GENDER']
         cpara_result_obj['period']=data['TIME_PERIOD']
         cpara_result_obj['cboactive']=data['CBOACTIVE']
+        cpara_result_obj['cpara_score']=data['CPARA_SCORE']
+        
 
         cpara_results_envelop.append(cpara_result_obj)
 
