@@ -258,7 +258,7 @@
                     <div class="col-md-1">
                       <a href="#modal-facility" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Facility</button></a>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 hidden" id="viralloadbtncontainer">
                       <a href="#modal-viralload" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Viral Load details </button></a>
                     </div>
                     <div class="col-md-2">
@@ -1094,7 +1094,9 @@
             $('#art_status').attr("data-parsley-required", "true");
             $('#link_date').attr("data-parsley-required", "true");
             $('#ccc_number').attr("data-parsley-required", "true");
+            $('#viralloadbtncontainer').removeClass('hidden')
         }else{
+            $('#viralloadbtncontainer').addClass('hidden')
             $('#facility_div').hide();
             $('#facility_id_div').hide();
             $('#art_div').hide();
