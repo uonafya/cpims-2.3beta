@@ -186,3 +186,6 @@ CACHES = {
 }
 CSRF_FAILURE_VIEW = 'cpims.views.csrf_failure'
 
+# import logging configs
+
+from .logging_config import *
