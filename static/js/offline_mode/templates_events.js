@@ -23,19 +23,16 @@ let OvcHomeTemplate = (function (){
             let me = this;
             console.log("OvcHomeTemplate");
             window.viewOvcOffline = me.viewOvcOffline();
+            // submit event
+            $("#find_ovc_form_offline").submit(event => {
+                let ovcName = $("#search_ovc_offline_name").val();
 
-            return () => {
-                // submit event
-                $("#find_ovc_form_offline").submit(event => {
-                    let ovcName = $("#search_ovc_offline_name").val();
+                console.log("Searching ovc : " + ovcName);
+                me._drawOvcSearchResults(window.offlineModeClient.findOvc(ovcName));
 
-                    console.log("Searching ovc : " + ovcName);
-                    me._drawOvcSearchResults(window.offlineModeClient.findOvc(ovcName));
-
-                    event.preventDefault();
-                    return false;
-                });
-            };
+                event.preventDefault();
+                return false;
+            });
         },
 
         viewOvcOffline: function () {
@@ -205,16 +202,14 @@ let OvcHomeTemplate = (function (){
 let OvcViewTemplate = (function (){
     return {
         init: function () {
-            let me = this;
             console.log("OvcViewTemplate");
-            return () => {
-                // click event
-                $("#ovc_offline_form_1a").click((event) => {
-                    event.preventDefault();
-                    TemplateUtils.showPage(TemplateUtils.form1aPage);
-                    return false;
-                });
-            }
+            // click event
+            $("#ovc_offline_form_1a").click((event) => {
+                event.preventDefault();
+                TemplateUtils.showPage(TemplateUtils.form1aPage);
+                Form1ATemplate.init();
+                return false;
+            });
         }
     };
 })();
@@ -231,8 +226,141 @@ let Form1ATemplate = (function (){
 
     return {
         init: function () {
-            let me = this;
             console.log("Form 1A");
+            FormWizardValidation.init();
+            this._setupMultiSelects()
+        },
+
+        _setupMultiSelects: function () {
+            let me = this;
+            let multiSelectInputs = [
+                '#olmis_assessment_domain', '#olmis_assessment_coreservice', '#olmis_assessment_coreservice_status', '#olmis_domain',
+                '#olmis_service_provider', '#olmis_service', '#olmis_priority_service', '#olmis_priority_domain', '#olmis_priority_health',
+                '#olmis_priority_education', '#olmis_priority_shelter', '#olmis_priority_protection', '#olmis_priority_pss', '#olmis_priority_hes',
+                '#olmis_critical_event'
+            ];
+
+            $(multiSelectInputs.join(','))
+                .multiselect({
+                    selectAllValue: 'multiselect-all',
+                    includeSelectAllOption: true,
+                    enableCaseInsensitiveFiltering: true,
+                    numberDisplayed: 1,
+                    maxHeight: 300,
+                    buttonWidth: '100%',
+                    buttonClass: 'btn btn-white'
+                });
+
+            me._populatePriorityServices();
+            me._populateServiceFromInputDomain();
+            me._setupDateFields();
+        },
+
+        _setupDateFields: function() {
+            let dateFields = [
+                ["#date_of_assessment", "#date_errormsg0"],
+                ["#date_of_cevent", "#date_errormsg1"]
+            ];
+
+            dateFields.forEach( (dateField) => {
+                $(dateField[0]).datepicker({format: 'dd-M-yyyy'});
+                $(dateField[0]).datepicker().on('change.dp', function (_) {
+                    $(dateField[1]).css({'display': 'none'});
+                });
+            });
+        },
+
+        _populatePriorityServices: function () {
+            let me = this;
+            let domains = {
+                'DHNU': ['#olmis_priority_health'],
+                'DSHC': ['#olmis_priority_shelter'],
+                'DPRO': ['#olmis_priority_protection'],
+                'DEDU': ['#olmis_priority_education'],
+                'DPSS': ['#olmis_priority_pss'],
+                'DHES': ['#olmis_priority_hes']
+            };
+
+            Object.entries(domains).forEach((domain) => {
+                let domainName = domain[0];
+                let domainFields = domain[1];
+
+                domainFields.forEach( (domainField) => me._populateService(domainName, domainField, ""));
+            });
+        },
+
+        _populateServiceFromInputDomain: function() {
+            let me = this;
+            let errorField = 'errorField';
+            let serviceField = 'serviceField';
+
+            let inputDomainElements = {
+                '#olmis_assessment_domain': {
+                    serviceField: '#olmis_assessment_coreservice',
+                    errorField: '#olmis_assessment_domain_errormsg',
+                    'onPopulate': () => $('#olmis_assessment_coreservice').trigger("change")
+                },
+                '#olmis_assessment_coreservice': {
+                    serviceField: '#olmis_assessment_coreservice_status',
+                    errorField: '#olmis_assessment_coreservice_status_errormsg',
+                    'onPopulate': () => $('#sel_olmis_assessment_coreservice_status').html('')
+                }
+            };
+
+            Object.entries(inputDomainElements).forEach( (entry) => {
+                let field = entry[0];
+                let fieldHandler = entry[1];
+
+                $(field).change(function (event) {
+                    let domain = $(field).val();
+                    me._populateService(domain, fieldHandler[serviceField], fieldHandler[errorField]);
+                    let fn = fieldHandler['onPopulate'];
+                    fn();
+                });
+            });
+
+
+        },
+
+        _populateService: function (domain, element, errorElement) {
+           let dataToPopulate = [
+               {
+                   'label': 'Please Select',
+                   'value': ''
+               }
+           ];
+
+           if (window.offlineModeClient.services === undefined) {
+               console.log("Services not fetched");
+               return;
+           }
+
+           let services = window.offlineModeClient.services[domain];
+
+           if (services === undefined) {
+               services = [];
+           }
+
+           services.forEach( (service) => {
+               dataToPopulate.push({
+                   label: service.item_sub_category,
+                   value: service.item_sub_category_id
+               });
+           });
+
+           $(element).multiselect('destroy');
+           $(element).multiselect({
+               selectAllValue: 'multiselect-all',
+               enableCaseInsensitiveFiltering: true,
+               numberDisplayed: 1,
+               maxHeight: 300,
+               buttonWidth: '100%',
+               buttonClass: 'btn btn-white',
+               nonSelectedText: 'Please Select'
+           });
+           $(element).multiselect('dataprovider', dataToPopulate);
+           $(element).multiselect('refresh');
+           $(errorElement).css({'display': 'none'});
         }
     };
 })();
@@ -240,17 +368,19 @@ let Form1ATemplate = (function (){
 let TemplatesEventsFactory = function () {
     'use strict';
 
+    console.log('TemplatesEventsFactory');
+
     let eventsHandlers = {
-        'ovc_home': OvcHomeTemplate.init(),
-        'ovc_view': OvcViewTemplate.init(),
-        'ovc_form1a': Form1ATemplate.init()
+        'ovc_home': OvcHomeTemplate,
+        'ovc_view': OvcViewTemplate,
+        'ovc_form1a': Form1ATemplate
     };
 
     return {
         handle: (templates) => {
             templates.forEach(tpl => {
                 if (eventsHandlers[tpl] !== undefined) {
-                    eventsHandlers[tpl]();
+                    eventsHandlers[tpl].init();
                 }
             })
 

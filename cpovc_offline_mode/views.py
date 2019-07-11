@@ -7,7 +7,9 @@ from django.shortcuts import render
 
 from cpovc_forms.forms import OVCF1AForm
 from cpovc_main.functions import get_dict
-from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCEducation
+from cpovc_offline_mode.helpers import get_ovc_school_details, get_ovc_facility_details, get_ovc_household_members, \
+    get_services
+from cpovc_ovc.models import OVCRegistration
 from cpovc_registry.templatetags.app_filters import gen_value, vals, check_fields
 
 
@@ -15,6 +17,13 @@ from cpovc_registry.templatetags.app_filters import gen_value, vals, check_field
 def templates(request):
     values = get_dict(field_name=check_fields)
     form_1a = OVCF1AForm()
+
+    """
+        Services: for each domain, we have:
+            - Domain 1 e.g DHNU, DSHC
+            - Select Input  e.g olmis_priority_health, olmis_priority_shelter
+            - Services for the select input
+    """
 
     tpls = {
         'ovc_home': render(request, 'ovc/home_offline.html').content,
@@ -76,14 +85,14 @@ def fetch_data(request):
             'suppressed': ovc.hiv_status if ovc.hiv_status == "HSTP" else "N/A",
 
             # facility details
-            'facility': _get_ovc_facility_details(ovc),
+            'facility': get_ovc_facility_details(ovc),
 
             # school details
 
-            'school': _get_ovc_school_details(ovc),
+            'school': get_ovc_school_details(ovc),
 
             # house hold members
-            'household_members': _get_ovc_household_members(ovc)
+            'household_members': get_ovc_household_members(ovc)
         }))
 
     return JsonResponse({
@@ -91,74 +100,11 @@ def fetch_data(request):
     })
 
 
-def _get_ovc_school_details(ovc):
-    if ovc.school_level == "SLNS":
-        return {}
-
-    try:
-        school = OVCEducation.objects.get(person_id=ovc.person.id, is_void=False)
-        return {
-            'school_name': school.school.school_name,
-            'school_class': school.school_class,
-            'admission_type': school.admission_type
-        }
-    except OVCEducation.DoesNotExist as e:
-        return {}
-
-
-def _get_ovc_facility_details(ovc):
-    if ovc.hiv_status != 'HSTP':
-        return {}
-
-    try:
-        health = OVCHealth.objects.get(person_id=ovc.person.id)
-        return {
-            'name': health.facility.facility_name,
-            'art_status': health.art_status,
-            'date_linked': health.date_linked.strftime('%d/%m/%Y'),
-            'ccc_number': health.ccc_number
-        }
-    except OVCHealth.DoesNotExist as e:
-        return {}
-
-
-def _get_ovc_household_members(ovc):
-    ovc_reg_id = ovc.person.id
-    ovc_household = OVCHHMembers.objects.get(is_void=False, person_id=ovc_reg_id)
-
-    if not ovc_household:
-        return []
-
-    member_types = {
-        'TBVC': 'Sibling',
-        'TOVC': 'Enrolled OVC'
-    }
-
-    def _is_household_head(member):
-        if not member.hh_head:
-            if member.member_type == 'TBVC' or member.member_type == 'TOVC':
-                return "N/A"
-            else:
-                "No"
-        else:
-            return "Yes({})".format(ovc_household.house_hold.head_identifier)
-
-    # Get HH members
-    household_id = ovc_household.house_hold.id
-    household_members = OVCHHMembers.objects.filter(
-        is_void=False, house_hold_id=household_id).order_by("-hh_head")
-    household_members = household_members.exclude(person_id=ovc_reg_id)[:10]  # limit 10
-
-    return [{
-        'first_name': member.person.first_name,
-        'surname': member.person.surname,
-        'age': member.person.age,
-        'type': member_types.get(member.member_type, 'Parent/Guardian'),
-        'phone_number': member.person.des_phone_number,
-        'alive': 'Yes' if member.member_alive == 'AYES' else 'No',
-        'hiv_status': member.hiv_status,
-        'household_head': _is_household_head(member)
-    } for member in household_members]
+@login_required(login_url='/')
+def fetch_services(request):
+    return JsonResponse({
+        'data': base64.b64encode(json.dumps(get_services()))
+    })
 
 
 @login_required(login_url='/')

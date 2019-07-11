@@ -2,7 +2,7 @@
     A service exposing abstractions to make the system work when there's no internet connection
 */
 
-let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFetchUrl, templatesFetchUrl, templateEventsHandler) {
+let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFetchUrl, templatesFetchUrl, servicesFetchUrl, templateEventsHandler) {
     "use strict";
 
     let offlineModeClient = {
@@ -31,6 +31,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         lastOfflineTime: undefined,
 
         templates: undefined,
+
+        services: undefined,
 
         save: function (key, data) {
             this._storage.setItem(key, data);
@@ -182,6 +184,44 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             templateEventsHandler.handle(Object.keys(templates));
         },
 
+        _servicesStorageKey: Base64.encode("ovc_offline_services"),
+
+        fetchServices: function() {
+            let _offlineModeClient = window.offlineModeClient;
+            let me = this;
+
+            if (me.services !== undefined) {
+                console.log("Services already initialized");
+                return;
+            }
+            let services = _offlineModeClient.retrieve(me._servicesStorageKey);
+
+            if (services !== null) {
+                me.services = JSON.parse(Base64.decode(services));
+                console.log("Services loaded from the cache");
+                return;
+            }
+
+            $.ajax({
+                url: servicesFetchUrl,
+                type: "GET",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+                    _offlineModeClient.remove(me._servicesStorageKey);
+
+                },
+                success: function (data) {
+                    console.log("Successfully initialized services");
+                    me.services = JSON.parse(Base64.decode(data.data));
+                    _offlineModeClient.save(me._servicesStorageKey, data.data);
+                },
+                error: function () {
+                    console.log("Error loading services");
+                    me.services = undefined;
+                }
+            });
+        },
+
         saveFormData: function(data, submissionUrl) {
             let me = this;
             let dataToBeSubmitted = {
@@ -270,6 +310,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         onLoginEventHandler: function () {
             console.log("Handling on login event handler");
             this._initializeRegistrationData();
+            // fetch services first before templates because templates depend on the services data
+            this.fetchServices();
             this.fetchTemplates();
         },
 
@@ -279,7 +321,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             this.remove(this._registrationDataStorageKey());
             this.remove(this._templatesStorageKey);
             this.registrationData = undefined;
-            this.templates = null;
+            this.templates = undefined;
+            this.services = undefined;
         },
 
         _registrationDataStorageKey: function () {

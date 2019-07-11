@@ -191,8 +191,8 @@
 
     <script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
     <script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
-    <script src="{% static 'js/tag-it.js' %}"></script>
     <script src="{% static 'js/form-wizards.js' %}"></script>
+    <script src="{% static 'js/tag-it.js' %}"></script>
 	<!-- ================== END LAZY BASE JS ================== -->
 	
 	<!-- ================== BEGIN LAZY PAGE LEVEL JS ================== -->
@@ -263,6 +263,7 @@
                 offlineModeCapabilityEnabled,
                 "/offline_mode/data/",
                 "/offline_mode/templates/",
+                "/offline_mode/services",
                 TemplatesEventsFactory());
 
             offlineModeService.client("internet_check", "online_mode", 5000);
