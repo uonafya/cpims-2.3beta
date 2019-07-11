@@ -1874,7 +1874,7 @@ def get_chvs(person_id):
             is_void=False, org_unit_id__in=org_units).values_list(
             'person_id', flat=True)
         # Filter by types
-        public.persons = RegPersonsTypes.objects.filter(
+        persons = RegPersonsTypes.objects.filter(
             is_void=False, person_type_id='TWVL', person_id__in=person_ids)
         for person in persons:
             cbo_detail[person.person_id] = person.person.full_name
@@ -3050,6 +3050,7 @@ def search_person_ft(request, search_string, ptype, incl_dead):
         person_type = str(ptype)
         p_type = person_type
         other_filter = ''
+        print 'Person type is: ', p_type
         if person_type == 'TBVC':
             person_type = 'COVC'
             other_filter = "OR designation = 'TBVC'"
@@ -3063,8 +3064,8 @@ def search_person_ft(request, search_string, ptype, incl_dead):
             sql = query % (vals, person_type, other_filter)
         else:
             # Other than OVC
-            query = ("SELECT reg_person.person_id as id FROM reg_person INNER JOIN persons_types "
-                     " ON reg_person.person_id=person_id AND person_type_id = '%s' WHERE to_tsvector"
+            query = ("SELECT reg_person.id as id FROM reg_person INNER JOIN reg_persons_types "
+                     " ON reg_person.id=person_id AND person_type_id = '%s' WHERE to_tsvector"
                      "(first_name || ' ' || surname || ' '"
                      " || COALESCE(other_names,''))"
                      " @@ to_tsquery('english', '%s') "
