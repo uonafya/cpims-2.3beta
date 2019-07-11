@@ -221,6 +221,14 @@ let OvcViewTemplate = (function (){
 
 // Handle all events on Form1A template
 let Form1ATemplate = (function (){
+    // ovc_offline_form_1a_names - set names, also age
+    // implement window.addOfflineOvcService()
+    // implement window.saveForm1AOffline(1)
+    // implement window.resetForm1AOffline(1)
+   // window.AddRowOffline(3)
+    // window.RemoveRowOffline(3)
+    // f1a_events_data_table_offline add events
+
     return {
         init: function () {
             let me = this;

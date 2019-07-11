@@ -5,18 +5,24 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
+from cpovc_forms.forms import OVCF1AForm
+from cpovc_main.functions import get_dict
 from cpovc_ovc.models import OVCRegistration, OVCHHMembers, OVCHealth, OVCEducation
-from cpovc_registry.templatetags.app_filters import gen_value, vals
+from cpovc_registry.templatetags.app_filters import gen_value, vals, check_fields
 
 
 @login_required(login_url='/')
 def templates(request):
+    values = get_dict(field_name=check_fields)
+    form_1a = OVCF1AForm()
+
     tpls = {
         'ovc_home': render(request, 'ovc/home_offline.html').content,
         'ovc_view': render(request, 'ovc/view_child_offline.html').content,
-        'ovc_form1a': render(request, 'forms/form1a_offline.html').content
+        'ovc_form1a': render(request, 'forms/form1a_offline.html', {'form': form_1a, 'vals': values}).content
     }
     return JsonResponse({'data': json.dumps(tpls)})
+
 
 @login_required(login_url='/')
 def fetch_data(request):
@@ -26,6 +32,8 @@ def fetch_data(request):
     for org in user_orgs:
         if not org['is_void']:
             org_units.append(org['org_unit_id'])
+
+    # Todo - add user events
 
     # access performance for this: upper bound of this: How many ovcs per ancestor org
     ovcs_for_org = OVCRegistration.objects.filter(

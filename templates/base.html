@@ -21,6 +21,10 @@
 	<link href="{% static 'css/theme/default.css' %}" rel="stylesheet" id="theme" />
 	<link href="{% static 'plugins/jquery-countdown/css/style.css' %}" rel="stylesheet" />
     <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
 	{% block style_code %}{% endblock %}
 	{% block extra_styling %}
     {% endblock extra_styling %}
@@ -184,6 +188,11 @@
 	<script src="{% static 'plugins/jquery-countdown/jquery.simple.timer.js' %}"></script>
     <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+
+    <script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+    <script src="{% static 'js/tag-it.js' %}"></script>
+    <script src="{% static 'js/form-wizards.js' %}"></script>
 	<!-- ================== END LAZY BASE JS ================== -->
 	
 	<!-- ================== BEGIN LAZY PAGE LEVEL JS ================== -->
