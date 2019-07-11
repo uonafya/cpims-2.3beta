@@ -1128,7 +1128,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
         period_span = 'APR ' + str(currentYear) + '/' + str(yr)
 
         date_range={
-            "template":"where hld_bench.date_of_event between 'oct-01-{}' and 'Sept-30-{}'",
+            "template":"where date_of_event between 'oct-01-{}' and 'Sept-30-{}'",
             "values":[period_span, currentYear, yr]
         }
 
@@ -1137,7 +1137,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
         period_span = 'APR ' + str(yr) + '/' + str(currentYear)
 
         date_range = {
-            "template": "where hld_bench.date_of_event between 'oct-01-{}' and 'Sept-30-{}'",
+            "template": "where date_of_event between 'oct-01-{}' and 'Sept-30-{}'",
             "values": [period_span, yr, currentYear]
         }
 
@@ -1152,7 +1152,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
         period_span = str(start_year) + '/' + str(end_year)
 
         date_range = {
-            "template": "where hld_bench.date_of_event between 'oct-01-{}' and 'mar-31-{}'",
+            "template": "where date_of_event between 'oct-01-{}' and 'mar-31-{}'",
             "values": [period_span, start_year, end_year]
         }
 
@@ -1161,7 +1161,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
         period_span = str(currentYear)
 
         date_range = {
-            "template": "where hld_bench.date_of_event between 'apr-01-{}' and 'sep-30-{}'",
+            "template": "where date_of_event between 'apr-01-{}' and 'sep-30-{}'",
             "values": [period_span, currentYear, currentYear]
         }
 
@@ -1278,26 +1278,18 @@ def build_benchmark_query(date_range, funding_mechnism,location_filter):
         location=' ' #pass empty whitespace string
 
     ovc_bechmark_sum = '''
-                         SELECT sum(%s) as summ_cont, bench.house_hold_id as house_hold_id from 
-                         (
-                         select hld_bench.cpims_ovc_id, hh.house_hold_id,%s  FROM 
-                         vw_cpims_benchmark_achieved hld_bench
-                         inner join ovc_household_members hh 
-                         on hld_bench.cpims_ovc_id=hh.person_id   
-                          {} {} {}
-                         ) as bench group by bench.house_hold_id
+                         SELECT sum(%s) as summ_cont, household from 
+                         vw_cpims_benchmark_achieved
+                         {} {} {} group by household
+                         
         '''.format(_date, location, funding)
 
     base_final_sql = '''
     
-                    select count(bench.cpims_ovc_id) as summ_cont, bench.house_hold_id as house_hold_id from 
-                    (
-                    select hld_bench.cpims_ovc_id, hh.house_hold_id  FROM vw_cpims_benchmark_achieved hld_bench
-                    inner join ovc_household_members hh 
-                    on hld_bench.cpims_ovc_id=hh.person_id  {} {} {}
-                    ) as bench group by bench.house_hold_id
+                    select count(cpims_ovc_id) as summ_cont, household from 
+                    vw_cpims_benchmark_achieved  {} {} {}
+                    group by household
                        union all 
-                            
                      {}
                   
         '''.format(_date,location,funding,ovc_bechmark_sum)
@@ -1313,9 +1305,9 @@ def expand_benchmark_query(sql):
         sql_internal = sql[:] # clone string to allow editing
         str1 = 'bmrk%s' % (x)
         str2 = 'bench_mark_%s' % (x)
-        benchmark_sum="bench.%s" % (str2)
-        household_benchmark='hld_bench.%s' % (str2)
-        sql_internal=sql_internal% (benchmark_sum, household_benchmark)
+        benchmark_sum="%s" % (str2)
+        household_benchmark='%s' % (str2)
+        sql_internal=sql_internal% (benchmark_sum)
         base_bmark_template='''
             (select count(t2.cont) as %s from (
                     SELECT
@@ -1326,7 +1318,7 @@ def expand_benchmark_query(sql):
                 
              ) as t1
                     GROUP BY
-                       t1.summ_cont, t1.house_hold_id
+                       t1.summ_cont, t1.household
                     HAVING 
                        COUNT(*) > 1
                     ) as t2)
@@ -1336,7 +1328,6 @@ def expand_benchmark_query(sql):
         else:
             final_sql = final_sql + ',' + base_bmark_template
         x = x + 1
-
     return final_sql
 
 
