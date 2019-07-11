@@ -101,7 +101,6 @@ def fetch_total_s_bcert_aft_enrol(request, org_ids, level='', area_id=''):
 
     
 def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_part_id,period_typ):
-    build_benchmark_query()
     # print 'oooop running fetch_new_ovcregs_by_period month_year='+month_year+" \n "
 
     rows2, desc2 = 0, 0
@@ -157,18 +156,15 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
   #  level = 'national', area_id = '', funding_partner = '', funding_part_id = '', period_typ = 'annual'
     ############
     if level == 'national':
-        print "national level +==============>"
         print base_sql + '''
                                         group by gender
                                         '''
-        print "end level +==============>"
         rows2, desc2 = run_sql_data(None,
                                     base_sql + '''
                                         group by gender
                                         ''')
 
     elif (level == 'county'):
-        print "county level =========>"
 
         print base_sql + '''
                                             and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
@@ -222,7 +218,6 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
                                             )
 
         if (funding_partner == 'cluster'):
-            print "=======> cluster"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                              and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
@@ -230,7 +225,6 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
                                         )
 
         if (funding_partner == 'cbo_unit'):
-            print "=======> cbo_unit"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                                          and person.child_cbo_id = '{}' group by gender'''.format(
@@ -313,18 +307,15 @@ def fetch_exited_ovcs_by_period(request, level,area_id,funding_partner,funding_p
     #  level = 'national', area_id = '', funding_partner = '', funding_part_id = '', period_typ = 'annual'
     ############
     if level == 'national':
-        print "national level +==============>"
         print base_sql + '''
                                                   group by gender,ovc_reg.is_active
                                                   '''
-        print "end level +==============>"
         rows2, desc2 = run_sql_data(None,
                                     base_sql + '''
                                                   group by gender,ovc_reg.is_active
                                                   ''')
 
     elif (level == 'county'):
-        print "county level =========>"
 
         print base_sql + '''
                                                       and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in(
@@ -378,7 +369,6 @@ def fetch_exited_ovcs_by_period(request, level,area_id,funding_partner,funding_p
                                             )
 
         if (funding_partner == 'cluster'):
-            print "=======> cluster"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                                        and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
@@ -386,7 +376,6 @@ def fetch_exited_ovcs_by_period(request, level,area_id,funding_partner,funding_p
                                         )
 
         if (funding_partner == 'cbo_unit'):
-            print "=======> cbo_unit"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                                                    and person.child_cbo_id = '{}' group by gender,ovc_reg.is_active'''.format(
@@ -404,7 +393,6 @@ def fetch_exited_ovcs_by_period(request, level,area_id,funding_partner,funding_p
         ovc_active['active'] = data['ACTIVE']
 
         ovc_active_within_period.append(ovc_active)
-    print "and we retunr ===============>"
     print ovc_active_within_period
     return ovc_active_within_period
 
@@ -475,7 +463,6 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
                                     base_sql )
 
     elif (level == 'county'):
-        print "county level =========>"
         '''
                     and person.area_id in (select area_id as ward_ids from list_geo where parent_area_id in
                     ((SELECT area_id as constituency_ids from list_geo where parent_area_id='{}')))
@@ -520,7 +507,6 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
                                             )
 
         if (funding_partner == 'cluster'):
-            print "=======> cluster"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                                            and person.child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
@@ -529,7 +515,6 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
                                         )
 
         if (funding_partner == 'cbo_unit'):
-            print "=======> cbo_unit"
             rows2, desc2 = run_sql_data(None,
                                         base_sql + '''
                                                                        and person.child_cbo_id = '{}' group by gender,ovc_reg.is_active'''.format(
@@ -545,7 +530,6 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
         hlsd_exited['count'] = data['COUNT']
 
         hsld_exited_within_period.append(hlsd_exited)
-    print "and we retunr ===============>"
     print hsld_exited_within_period
     return hsld_exited_within_period
 
@@ -693,7 +677,6 @@ def get_ovc_hiv_status_funding_partner(level, org_unit_id):
 
 def get_public_dash_ovc_hiv_status(level='national', area_id=''):
     # "SELECT count(ovccount) FROM public.hiv_status where "
-    print "line ====="
     print level
     print area_id
     rows2, desc2 = 0, 0
@@ -810,7 +793,6 @@ def get_ovc_active_hiv_status_funding_partner(level, org_unit_id):
 
 def _get_ovc_active_hiv_status(level='national', area_id=''):
     # "SELECT count(ovccount) FROM public.hiv_status where "
-    print "line ====="
     print level
     print area_id
     rows2, desc2 = 0, 0
@@ -832,7 +814,6 @@ def _get_ovc_active_hiv_status(level='national', area_id=''):
                                     '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id='{}'
                                               group by gender,art_status,hiv_status'''.format(area_id))
     elif (level == 'funding_mechanism' or level == 'cluster' or level == 'cbo_unit'):
-        print "level reached ===============>"
         rows2, desc2 = get_ovc_active_hiv_status_funding_partner(level, area_id)
     else:
 
@@ -1009,7 +990,6 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
     period_span=''
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
-    print "test ======>"
     print level, area_id,funding_partner,funding_part_id,period_typ
     base_sql=''
 
@@ -1036,9 +1016,6 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
                 '''.format(
             period_span, yr,currentYear)
 
-        print "base sql annual ======>"
-        print base_sql
-
     if(period_typ=='semi' and (currentMonth>=10 and currentMonth<=3)):
         if(currentMonth>=1 and currentMonth<=3):
             yr = currentYear - 1
@@ -1063,14 +1040,8 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
                       and cpara_score=17  date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
             period_span, currentYear, currentYear)
 
-
-        print "base sql semi ======>"
-        print base_sql
-
     if level == 'national':
-        print "national level +==============>"
         print base_sql
-        print "end level +==============>"
         rows2, desc2 = run_sql_data(None,
                                     base_sql+'''
                                      group by gender,cpara_score
@@ -1148,44 +1119,240 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
 
     return cpara_results_envelop
 
+#CPARA benchmark perfomance
+def _get_benchmark_results(level='national', area_id='', funding_partner='', funding_part_id='', period_typ='annual'):
+    rows2, desc2 = 0, 0
+    period_span = ''
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+    base_sql_ovc_count = ''
+    base_sql_bechmark_sum=''
+    date_range={}
+    sql=''
+
+    if (currentMonth == 10 and period_typ == 'annual'):  # start of a new period (october)
+        yr = currentYear + 1
+        period_span = 'APR ' + str(currentYear) + '/' + str(yr)
+
+        date_range={
+            "template":"where hld_bench.date_of_event between 'oct-01-{}' and 'Sept-30-{}'",
+            "values":[period_span, currentYear, yr]
+        }
+
+    elif (currentMonth is not 10 and period_typ == 'annual'):
+        yr = currentYear - 1
+        period_span = 'APR ' + str(yr) + '/' + str(currentYear)
+
+        date_range = {
+            "template": "where hld_bench.date_of_event between 'oct-01-{}' and 'Sept-30-{}'",
+            "values": [period_span, yr, currentYear]
+        }
+
+    if (period_typ == 'semi' and (currentMonth >= 10 and currentMonth <= 3)):
+        if (currentMonth >= 1 and currentMonth <= 3):
+            yr = currentYear - 1
+            start_year = yr
+            end_year = currentYear
+        else:
+            start_year = currentYear
+            end_year = currentYear + 1
+        period_span = str(start_year) + '/' + str(end_year)
+
+        date_range = {
+            "template": "where hld_bench.date_of_event between 'oct-01-{}' and 'mar-31-{}'",
+            "values": [period_span, start_year, end_year]
+        }
 
 
+    elif (period_typ == 'semi' and (currentMonth >= 3 and currentMonth <= 9)):
+        period_span = str(currentYear)
 
-def build_benchmark_query():
-    final_sql='select '
-    x=1
-    while x<=17:
+        date_range = {
+            "template": "where hld_bench.date_of_event between 'apr-01-{}' and 'sep-30-{}'",
+            "values": [period_span, currentYear, currentYear]
+        }
+
+    if level == 'national':
+
+        location_filter = {  # default display option, no filter options
+            "template": " not-applicable",
+            "values": []
+        }
+        sql=build_benchmark_query(date_range, None, location_filter)
+        #rows2, desc2 = run_sql_data(None, sql)
+
+
+    elif (level == 'county'):
+        location_filter = {
+            "template": " and countyid={0}",
+            "values": [area_id]
+        }
+        sql=build_benchmark_query(date_range, None, location_filter)
+        #rows2, desc2 = run_sql_data(None, sql)
+
+    elif (level == 'subcounty'):
+        location_filter = {
+            "template": " and ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}'",
+            "values": [area_id]
+        }
+        sql=build_benchmark_query(date_range, None, location_filter)
+        #rows2, desc2 = run_sql_data(None, sql)
+
+    elif (level == 'ward'):
+
+        location_filter = {
+            "template": " and ward ={0}",
+            "values": [area_id]
+        }
+        sql=build_benchmark_query(date_range, None, location_filter)
+
+        #rows2, desc2 = run_sql_data(None, sql)
+
+
+    elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
+        print "not 10th month 0"
+        if (funding_partner == 'funding_mechanism'):
+            if (funding_part_id == '0'):  # usaid
+
+                funding_mechnism = {
+                    "template": ''' and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                                               'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                                               ))''',
+                    "values": []
+                }
+                print "debug 1-4"
+                print date_range
+                sql=build_benchmark_query(date_range, funding_mechnism, None)
+                print "debug 1-5"
+                #ows2, desc2 = run_sql_data(None, sql)
+
+        print "debug 1-6"
+        if (funding_partner == 'cluster'):
+            funding_mechnism = {
+                "template": " and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}')",
+                "values": [funding_part_id]
+            }
+
+            sql=build_benchmark_query(date_range, funding_mechnism, None)
+            #rows2, desc2 = run_sql_data(None, sql)
+
+        if (funding_partner == 'cbo_unit'):
+            funding_mechnism = {
+                "template": "and cbo_id = '{}'",
+                "values": [funding_part_id]
+            }
+
+            sql=build_benchmark_query(date_range, funding_mechnism, None)
+            #rows2, desc2 = run_sql_data(None,sql)
+
+    else:
+        sql="select 1"
+
+    sql_to_run=expand_benchmark_query(sql)
+    rows2, desc2 = run_sql_data(None, sql_to_run)
+
+    per_bechmark_results_envelop = []
+    for data in rows2:
+        per_bechmark_result_obj={}
+        x=1
+        while x<=17:
+            per_bechmark_result_obj['BMRK%s'%(x)] = data['BMRK%s'%(x)]
+            x = x + 1
+        per_bechmark_results_envelop.append(per_bechmark_result_obj)
+
+    return per_bechmark_results_envelop
+
+
+def build_benchmark_query(date_range, funding_mechnism,location_filter):
+    base_final_sql=' '
+    funding=''
+    location=''
+    _date = date_range['template'].format(date_range['values'][1],date_range['values'][2])
+    if funding_mechnism!=None :
+        print "debug 1 -1"
+        if not funding_mechnism['values']: # if it has values, blank for primary funder #eg PEPFAR
+            print "debug 1-2"
+            print funding_mechnism
+            funding = funding_mechnism['template']
+        else:
+            funding = funding_mechnism['template'].format(funding_mechnism['values'][0])
+    else:
+        funding=' '
+
+    if location_filter!=None:
+        print location_filter
+        print location_filter['values']
+        if location_filter['values']:
+            location = location_filter['template'].format(location_filter['values'][0])
+    else:
+        location=' ' #pass empty whitespace string
+
+    ovc_bechmark_sum = '''
+                         SELECT sum(%s) as summ_cont, bench.house_hold_id as house_hold_id from 
+                         (
+                         select hld_bench.cpims_ovc_id, hh.house_hold_id,%s  FROM 
+                         vw_cpims_benchmark_achieved hld_bench
+                         inner join ovc_household_members hh 
+                         on hld_bench.cpims_ovc_id=hh.person_id   
+                          {} {} {}
+                         ) as bench group by bench.house_hold_id
+        '''.format(_date, location, funding)
+
+    base_final_sql = '''
+    
+                    select count(bench.cpims_ovc_id) as summ_cont, bench.house_hold_id as house_hold_id from 
+                    (
+                    select hld_bench.cpims_ovc_id, hh.house_hold_id  FROM vw_cpims_benchmark_achieved hld_bench
+                    inner join ovc_household_members hh 
+                    on hld_bench.cpims_ovc_id=hh.person_id  {} {} {}
+                    ) as bench group by bench.house_hold_id
+                       union all 
+                            
+                     {}
+                  
+        '''.format(_date,location,funding,ovc_bechmark_sum)
+    print "debug 1-3"
+    #print base_final_sql
+
+    return base_final_sql
+
+
+def expand_benchmark_query(sql):
+    final_sql = 'select '
+    x = 1
+    while x <= 17:
+        sql_internal = sql[:] # clone string to allow editing
         str1 = 'bmrk%s' % (x)
-        str2='bench_mark_%s' %(x)
-        base_bmark_template = '''
-                (select sum(t2.cont) as %s from (
+        str2 = 'bench_mark_%s' % (x)
+        benchmark_sum="bench.%s" % (str2)
+        household_benchmark='hld_bench.%s' % (str2)
+        sql_internal=sql_internal% (benchmark_sum, household_benchmark)
+        base_bmark_template='''
+            (select count(t2.cont) as %s from (
                     SELECT
                        COUNT(*)-1 as cont
-                    FROM
-                       (select count(bench.cpims_ovc_id) as summ_cont, bench.house_hold_id as house_hold_id from 
-                     (select hld_bench.cpims_ovc_id, hh.house_hold_id  FROM public.vw_cpims_benchmark_achieved hld_bench
-                     inner join ovc_household_members hh 
-                     on hld_bench.cpims_ovc_id=hh.person_id) as bench group by bench.house_hold_id
-                       union all 
-                     SELECT sum(bench.%s) as summ_cont, bench.house_hold_id as house_hold_id from 
-                     (select hld_bench.cpims_ovc_id, hh.house_hold_id,hld_bench.%s  FROM 
-                     public.vw_cpims_benchmark_achieved hld_bench
-                     inner join ovc_household_members hh 
-                     on hld_bench.cpims_ovc_id=hh.person_id) as bench group by bench.house_hold_id) as t1
+                    FROM(
+                
+                %s
+                
+             ) as t1
                     GROUP BY
                        t1.summ_cont, t1.house_hold_id
                     HAVING 
                        COUNT(*) > 1
                     ) as t2)
-            ''' %(str1,str2,str2)
-
-        if(x==1):
-            final_sql=final_sql + base_bmark_template
+        '''% (str1,sql_internal)
+        if (x == 1):
+            final_sql = final_sql + base_bmark_template
         else:
-            final_sql=final_sql+ ','+ base_bmark_template
-        x=x+1
-    print "final query ====================> ",final_sql
+            final_sql = final_sql + ',' + base_bmark_template
+        x = x + 1
+    print "=============>"
+    print final_sql
+    print "=============>"
     return final_sql
+
+
 
 def _get_ovc_served_stats(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='annual'):
 
@@ -1194,7 +1361,6 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
     period_span=''
     currentMonth = datetime.now().month
     currentYear = datetime.now().year
-    print "test ======>"
     print level, area_id,funding_partner,funding_part_id,period_typ
     base_sql=''
 
@@ -1212,7 +1378,6 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                 select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
                  from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
             period_span, yr,currentYear)
-        print "base sql annual ======>"
         print base_sql
 
     if(period_typ=='semi' and (currentMonth>=10 and currentMonth<=3)):
@@ -1235,13 +1400,10 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
                                 select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
                                  from vw_ovc_services_served where date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
             period_span, currentYear, currentYear)
-        print "base sql semi ======>"
         print base_sql
 
     if level == 'national':
-        print "national level +==============>"
         print base_sql
-        print "end level +==============>"
         rows2, desc2 = run_sql_data(None,
                                     base_sql+'''
                                     group by gender,numberofservices

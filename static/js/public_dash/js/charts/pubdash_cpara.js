@@ -33,10 +33,11 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 
 $(document).ready(function () {
-    //ouChange('national',"0",'none','none');
+    ouChange('national',"0",'none','none');
     fetchCPARAResults('national',"none","none","none","annual");
-    fetchHHScoringCat('national',"none","none","none","annual");
-    fetchDomainPerformance('national',"none","none","none","annual");
+    fetchPerBenchmarkPerformance('national',"none","none","none","annual");
+    //fetchHHScoringCat('national',"none","none","none","annual");
+    //fetchDomainPerformance('national',"none","none","none","annual");
 });
 
 
@@ -96,8 +97,6 @@ $(document).ready(function () {
         // return JSON.stringify(months_arr)
         return months_arr
     }
-
-
 
 
     // -----------------fetches-----------------
@@ -171,6 +170,30 @@ $(document).ready(function () {
 
 
     //--1--
+
+
+
+
+    function fetchPerBenchmarkPerformance(org_level,area_id,funding_partner,funding_part_id,period_type){
+
+        var the_url = '/get_benchmark_results/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+        $.ajax({
+            type: 'GET',
+            url: the_url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            encode: true,
+            success: function (data, textStatus, jqXHR) {
+            console.log("the data is: ========>");
+            console.log(data);
+            displayDomainPerformance(data);
+            },
+            error: function (response, request) {
+                console.log(response.responseText);
+            }
+        });
+   }
+
 
     //--2--
     function fetchTotalOVCsEverExited(org_level,area_id){
@@ -384,7 +407,12 @@ $(document).ready(function () {
             "BM5: Adolescents and their caregivers have knowledge to decrease their HIV risk",
             "BM6: Children living with chronic illness/disability receive treatment"
         ];
-        var health_x_values = {name: 'Healthy', data: [36, 120, 86, 59, 26, 64]}
+        console.log("data access ========>");
+        console.log(data[0].BMRK1);
+        var health_x_values = {name: 'Healthy', data: [parseInt(data[0].BMRK1),
+                                parseInt(data[0].BMRK2), parseInt(data[0].BMRK3),
+                                parseInt(data[0].BMRK4), parseInt(data[0].BMRK5),
+                                parseInt(data[0].BMRK6)] }
         var the_series_healthy = [health_x_values];
         columnChart(elementId_healthy,the_title_healthy,health_x_axis,the_series_healthy)
         //healthy
@@ -398,7 +426,7 @@ $(document).ready(function () {
             "BM9: HH able to pay for emergency expenses.",
             "BM10:The caregiver has demonstrated knowledge on access to critical services"
         ];
-        var stable_x_values = {name: 'Stable', data: [30, 14, 18, 58]}
+        var stable_x_values = {name: 'Stable', data: [parseInt(data[0].BMRK7), parseInt(data[0].BMRK8), parseInt(data[0].BMRK9), parseInt(data[0].BMRK10)]}
         var the_series_stable = [stable_x_values];
         barChart(elementId_stable,the_title_stable,stable_x_axis,the_series_stable)
         //stable
@@ -413,7 +441,8 @@ $(document).ready(function () {
             "BM14: Caregivers can identify individual or group providing social or emotional support",
             "BM15: Caregivers have completed a parenting skills or able to clearly articulate positive parenting"
         ];
-        var safe_x_values = {name: 'Safe', data: [53, 18, 30, 55, 56]}
+        var safe_x_values = {name: 'Safe', data: [parseInt(data[0].BMRK11), parseInt(data[0].BMRK12),
+                                                  parseInt(data[0].BMRK13), parseInt(data[0].BMRK14), parseInt(data[0].BMRK15)]}
         var the_series_safe = [safe_x_values];
         columnChart(elementId_safe,the_title_safe,safe_x_axis,the_series_safe)
         //safe
@@ -425,7 +454,7 @@ $(document).ready(function () {
             "BM16: All 6-17 children enrolled and attend school regularly",
             "BM17: Adolescents enrolled in vocational attend regularly"
         ];
-        var schooled_x_values = {name: 'Schooled', data: [39, 50]}
+        var schooled_x_values = {name: 'Schooled', data: [parseInt(data[0].BMRK16), parseInt(data[0].BMRK17)]}
         var the_series_schooled = [schooled_x_values];
         barChart(elementId_schooled,the_title_schooled,schooled_x_axis,the_series_schooled)
         //schooled

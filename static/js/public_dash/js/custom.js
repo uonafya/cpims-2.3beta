@@ -3,7 +3,7 @@ var cboApi= '/fetch_cbo_list/'
 var localityData='';
 var cboData='';
 var selectedCountySiblingsList='none'; //list of countituency in the selected county
-var pages=['served','hivstats']
+var pages=['served','hivstats','registration','cpara']
 var currentPage='';
 
 var period='annual'
@@ -229,6 +229,12 @@ $('#funding-mechanism').on('change', function (event) {
             fetchNewOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
             fetchExitedAndActiveOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
             fetchExitedHseld('none',0,fundingPartnerLevel,selectedPartner,period);
+        }else if(currentPage==pages[3]){
+
+            fundingPartnerLevel=selectedPartnerValue;
+            selectedPartner=selectedPartnerId;
+            fetchPerBenchmarkPerformance('none',0,fundingPartnerLevel,selectedPartner,period);
+
         }
 
      }else{
@@ -272,6 +278,10 @@ $('#cluster-unit').on('change', function (event) {
         fetchExitedAndActiveOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
         fetchExitedHseld('none',0,fundingPartnerLevel,selectedPartner,period);
 
+    }else if(currentPage==pages[3]){
+        fundingPartnerLevel=selectedClusterValue;
+        selectedPartner=selectedClusterId;
+        fetchPerBenchmarkPerformance('none',0,fundingPartnerLevel,selectedPartner,period);
     }
 
 });
@@ -298,6 +308,10 @@ $('#cbo-unit').on('change', function (event) {
         fetchNewOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
         fetchExitedAndActiveOVCRegs('none',0,fundingPartnerLevel,selectedPartner,period);
         fetchExitedHseld('none',0,fundingPartnerLevel,selectedPartner,period);
+    }else if(currentPage==pages[3]){
+        fundingPartnerLevel=selectedCboValue;
+        selectedPartner=selectedCboId;
+        fetchPerBenchmarkPerformance('none',0,fundingPartnerLevel,selectedPartner,period);
     }
 
 });

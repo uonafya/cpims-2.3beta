@@ -47,6 +47,7 @@ urlpatterns = [
 
     url(r'^get_cpara_results/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_cpara_results', name='get_cpara_results'),
 
+    url(r'^get_benchmark_results/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_benchmark_results', name='get_benchmark_results'),
 
     url(r'^get_new_ovcregs_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_new_ovcregs_by_period', name='get_new_ovcregs_by_period'),
 

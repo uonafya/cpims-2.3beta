@@ -1,2 +1,2 @@
 //pages=['served','hivstats']
-currentPage= pages[2]; // configure the current page
+currentPage= pages[3]; // configure the current page
