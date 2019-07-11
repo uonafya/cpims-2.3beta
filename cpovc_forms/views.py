@@ -9616,7 +9616,44 @@ def new_hivscreeningtool(request, id):
                 person=RegPerson.objects.get(pk=int(id)),
                 house_hold=house_hold
             )
+           # date conversion
+            parent_consentdate=form.data['HIV_RS_15']
+            referal_madedate=form.data['HIV_RS_17']
+            referal_completeddate=form.data['HIV_RS_19']
+            art_referaldate=form.data['HIV_RS_22']
+            art_refer_completeddate=form.data['HIV_RS_24']
 
+
+            if parent_consentdate:
+                parent_consentdate=parent_consentdate
+
+            else:
+                parent_consentdate=timezone.now()
+
+            if referal_madedate:
+                referal_madedate=referal_madedate
+
+            else:
+                referal_madedate=timezone.now()
+
+            if referal_completeddate:
+                referal_completeddate=referal_completeddate
+
+            else:
+                referal_completeddate=timezone.now()
+
+
+            if art_referaldate:
+                art_referaldate=art_referaldate
+
+            else:
+                art_referaldate=timezone.now()
+
+            if art_refer_completeddate:
+                art_refer_completeddate=art_refer_completeddate
+
+            else:
+                art_refer_completeddate=timezone.now()
             # converting values AYES and ANNO to boolean true/false
             boolean_fields = [
                 'HIV_RS_01',
@@ -9671,17 +9708,17 @@ def new_hivscreeningtool(request, id):
                 sti=data_to_save.get('HIV_RS_10'),
                 hiv_test_required=data_to_save.get('HIV_RS_11'),
                 parent_consent_testing=data_to_save.get('HIV_RS_14'),
-                parent_consent_date=data_to_save.get('HIV_RS_15'),
+                parent_consent_date=parent_consentdate,
                 referral_made=data_to_save.get('HIV_RS_16'),
-                referral_made_date=data_to_save.get('HIV_RS_17'),
+                referral_made_date=referal_madedate,
                 referral_completed=data_to_save.get('HIV_RS_18'),
-                referral_completed_date=data_to_save.get('HIV_RS_19'),
+                referral_completed_date=referal_completeddate,
                 not_completed=data_to_save.get('HIV_RS_18A'),
                 test_result=data_to_save.get('HIV_RS_18B'),
                 art_referral=data_to_save.get('HIV_RS_21'),
-                art_referral_date=data_to_save.get('HIV_RS_22'),
+                art_referral_date=art_referaldate,
                 art_referral_completed=data_to_save.get('HIV_RS_23'),
-                art_referral_completed_date=data_to_save('HIV_RS_24'),
+                art_referral_completed_date=art_refer_completeddate,
                 facility_code=facility_res,
                 event=ovccareevent,
 

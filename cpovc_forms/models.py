@@ -1137,11 +1137,11 @@ class OVCHIVRiskScreening(models.Model):
     sti= models.NullBooleanField()
     hiv_test_required= models.NullBooleanField()
     parent_consent_testing= models.NullBooleanField()
-    parent_consent_date=models.DateTimeField(default=timezone.now) ###date new 1
+    parent_consent_date=models.DateTimeField(default=timezone.now, null=True) ###date new 1
     referral_made= models.NullBooleanField()
     referral_made_date=models.DateTimeField(default=datetime.datetime.now(), null=True)####
     referral_completed= models.NullBooleanField()
-    referral_completed_date=models.DateTimeField(default=timezone.now)### date new 2
+    referral_completed_date=models.DateTimeField(default=timezone.now, null=True)### date new 2
     not_completed=models.CharField(max_length=50)
     test_result=models.CharField(max_length=20, null=True)
     art_referral= models.NullBooleanField()
