@@ -29,3 +29,10 @@ if os.environ.get('TRAVIS'):
             'PORT': '5432', 
         }
     } 
+INSTALLED_APPS += ('django_nose',)
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=cpovc_auth,cpovc_registry,cpovc_main,cpovc_forms,cpovc_gis,cpovc_settings,crispy_forms,cpovc_ovc,import_export',    
+]
