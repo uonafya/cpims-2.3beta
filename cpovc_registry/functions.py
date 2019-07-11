@@ -1021,7 +1021,7 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
 
         base_sql='''
              select count(cpims_ovc_id) as cboactive,cpara_score,gender,'{}' as time_period from vw_cpims_benchmark_achieved where exit_status='ACTIVE' 
-              and cpara_score=17  date_of_event between 'oct-01-{}' and 'mar-31-{}'    '''.format(
+              and cpara_score=17 and  date_of_event between 'oct-01-{}' and 'mar-31-{}'    '''.format(
             period_span, start_year, end_year)
 
 
@@ -1030,7 +1030,7 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
 
         base_sql = '''
                      select count(cpims_ovc_id) as cboactive,cpara_score,gender,'{}' as time_period from vw_cpims_benchmark_achieved where exit_status='ACTIVE' 
-                      and cpara_score=17  date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
+                      and cpara_score=17 and  date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
             period_span, currentYear, currentYear)
 
     if level == 'national':
@@ -1054,7 +1054,7 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
         rows2, desc2 = run_sql_data(None,
                                     base_sql  + '''
                                         and 
-                                        ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
                                         group by gender,cpara_score
                                     '''.format(area_id))
 
