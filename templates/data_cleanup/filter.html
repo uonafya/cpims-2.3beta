@@ -35,6 +35,20 @@
                 <option value='SLPR'>Primary</option>
                 <option value='SLNS'>NO School</option>
             </select>
+           Gender
+          <select name='gender' class="form-control" id='gender'>
+              <option value="0">Select Gender</option>
+              <option value='SMAL'>Male</option>
+              <option value='SFEM'>Female</option>
+          </select>
+
+          Has Birth Certificate
+          <select name='has_bcert' class="form-control" id='has_bcert'>
+              <option value="0">Select if they have birth cert </option>
+              <option value='True'>Yes</option>
+              <option value='False'>No</option>
+          </select>
+
     </div>
                     <div class='col-lg-6'>
         HIV Status
@@ -54,6 +68,20 @@
             <option value='ARAR'>ARAR</option>
             <option value='ARV'>ARV</option>
           </select>
+         Is Disabled
+          <select name='is_disabled' class="form-control" id='is_disabled'>
+              <option value="0">Select Disability Status</option>
+              <option value='True'>Yes</option>
+              <option value='False'>No</option>
+            </select>
+          Is OVC
+          <select name='is_ovc' class="form-control" id='is_ovc'>
+              <option value="0">Select Designation</option>
+              <option value='CCGV'>Care Giver</option>
+              <option value='COSI'>Sibling</option>
+              <option value='COVC'>COVC</option>
+              <option value='CGOC'>CGOC</option>
+            </select>
     </div>
   </div>
 </br>
@@ -85,33 +113,18 @@
       <td>{{ obj.art_status | format_choice_fields}}</td>
     </tr>
     {% endfor %}
-    
+
   </tbody>
 </table>
-{% if is_paginated %}
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-                {% endif %}
-                <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                </span>
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">next</a>
-                {% endif %}
-            </span>
-        </div>
-    {% endif %}
 {% else %}
-<div class='alert alert-info'> No records</div>
+<div class='alert alert-info'> No Records </div>
 {% endif %}
-                
 </div>
+
 {% endblock %}
 
 {% block lazy_javascript_code %}
-    
+
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 <script>
@@ -119,7 +132,7 @@
     function export_data(){
         var age = document.getElementById('age').value;
         var operator = document.getElementById('operator').value;
-        var school_level = document.getElementById('school_level').value;    
+        var school_level = document.getElementById('school_level').value;
         var hiv_status = document.getElementById('hiv_status').value;
         var art_status = document.getElementById('art_status').value;
         var url = "{% url 'data_cleanup' %}"+ '?export=True'+'&age='+age+
@@ -129,13 +142,13 @@
     }
 
     $(document).ready(function(){
-      $('#age-data-table').bootstrapTable({ 
-            toggle: 'table', 
+      $('#age-data-table').bootstrapTable({
+            toggle: 'table',
             search: 'true',
             locale: 'en-US',
             pagination: 'true',
             pageNumber: 1,
-            pageSize: 10,    
+            pageSize: 10,
         });
     });
   </script>
