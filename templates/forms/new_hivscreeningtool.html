@@ -31,6 +31,7 @@
         {% if data.date_of_birth|gen_age == 0 %}
                     UNDER 1 YEAR
                 {% else %}
+                    <input type="hidden" name="the_age" value="{{ data.date_of_birth|gen_age }}" id="the_age"/>
                     {{ data.date_of_birth|gen_age }} YRS 
                 {% endif %}</b></small>
         </b>
@@ -560,11 +561,14 @@
             // var step_step = "step"+tab_id;
             $('a[href="#step'+tab_id+'"]').trigger('click');
             console.log('switchTab to '+tab_id);
+<<<<<<< HEAD
 
             if(tab_id == 3){
                 $('#submit_section').prepend('<div class="alert alert-info"><h5>Form completed</h5>You have completed the form. Please click <b>Submit</b> below</div>');
                 window.scrollBy(0,380)
             }
+=======
+>>>>>>> f998edbfaa4750afa925bee54176027d4efc8eff
         }
 
         $( "#facility_field" ).autocomplete({
