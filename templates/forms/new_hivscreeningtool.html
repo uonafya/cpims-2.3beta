@@ -64,8 +64,8 @@
                     name="form-wizard-hhva" id="new_hivsct">
                     {% csrf_token %}
                   
-                    {{ form.errors }}
-                    {{ form.non_field_errors }}
+{#                    {{ form.errors }}#}
+{#                    {{ form.non_field_errors }}#}
 
                     <div id="wizard-hivsct">
                         <ol>
@@ -385,7 +385,7 @@
                                             </td>
                                             <td>
                                                     <!-- {{ form.HIV_RA_3Q6 }} -->
-                                                    <input type="text" class="form-control" name="facility_field" id="facility_field" placeholder="Facility field">
+                                                    <input type="text" class="form-control" name="facility_field" id="facility_field" placeholder="Search for facility here">
                                                     <input type="hidden" name="HIV_RA_3Q6" id="HIV_RA_3Q6">
                                                     
                                             </td>
