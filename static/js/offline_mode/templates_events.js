@@ -254,18 +254,25 @@ let Form1ATemplate = (function (){
             me._populatePriorityServices();
             me._populateServiceFromInputDomain();
             me._setupDateFields();
+            me._displayOnInputChanged();
+            me._hideOnInputChanged();
         },
 
         _setupDateFields: function() {
             let dateFields = [
                 ["#date_of_assessment", "#date_errormsg0"],
-                ["#date_of_cevent", "#date_errormsg1"]
+                ["#date_of_cevent", "#date_errormsg1"],
+                ['#date_of_priority', '#date_errormsg2'],
+                ['#date_of_service', '#date_errormsg3'],
+                ['#olmis_service_date', '#olmis_service_date_errormsg']
             ];
+
+            let me = this;
 
             dateFields.forEach( (dateField) => {
                 $(dateField[0]).datepicker({format: 'dd-M-yyyy'});
                 $(dateField[0]).datepicker().on('change.dp', function (_) {
-                    $(dateField[1]).css({'display': 'none'});
+                    me._hideElement(dateField[1]);
                 });
             });
         },
@@ -360,7 +367,66 @@ let Form1ATemplate = (function (){
            });
            $(element).multiselect('dataprovider', dataToPopulate);
            $(element).multiselect('refresh');
-           $(errorElement).css({'display': 'none'});
+           this._hideElement(errorElement);
+        },
+
+        _displayOnInputChanged: function () {
+            let me = this;
+            let fieldsOnChange = {
+                '#olmis_service': ['#sel_olmis_service', '#olmis_service_errormsg'],
+                '#olmis_priority_health': ['#sel_olmis_priority_health', null],
+                '#olmis_priority_shelter': ['#sel_olmis_priority_shelter', null],
+                '#olmis_priority_protection': ['#sel_olmis_priority_protection', null],
+                '#olmis_priority_pss': ['#sel_olmis_priority_pss', null],
+                '#olmis_priority_education': ['#sel_olmis_priority_education', null],
+                '#olmis_priority_hes': ['#sel_olmis_priority_hes', null]
+            };
+
+            Object.entries(fieldsOnChange).forEach((entry) => {
+                let field = entry[0];
+                let displayFields = entry[1];
+
+                $(field).change(function (_) {
+                    me._hideElement(displayFields[1]);
+
+                    let selections = [];
+                    $(field + " option:selected").each(function () {
+                        let selectedInput = $(this);
+
+                        if(selectedInput.length) {
+                            selections.push(selectedInput.text());
+                        }
+                    });
+
+                    $(displayFields[0]).html(selections.join(', '));
+                });
+            });
+        },
+
+        _hideOnInputChanged: function () {
+            let me = this;
+            let fieldsOnChange = {
+                '#olmis_service_date': ['#olmis_service_date_errormsg'],
+                '#olmis_service_provider': ['#olmis_place_of_service_errormsg'],
+                '#olmis_place_of_service': ['#olmis_place_of_service_errormsg']
+            };
+
+           Object.entries(fieldsOnChange).forEach((entry) => {
+               let field = entry[0];
+               let fieldsToHide = entry[1];
+
+               $(field).change(function (_) {
+                   fieldsToHide.forEach(me._hideElement);
+               });
+           });
+        },
+
+        _hideElement: function (element) {
+            if (element === null) {
+                return;
+            }
+
+           $(element).css({'display': 'none'});
         }
     };
 })();
