@@ -94,6 +94,9 @@ $('#period').on('change', function (event) {
         fetchNewOVCRegs(localityLevel,selectedOrgId,'none','none',period);
         fetchExitedAndActiveOVCRegs(localityLevel,selectedOrgId,'none','none',period);
         fetchExitedHseld(localityLevel,selectedOrgId,'none','none',period);
+    }else if(currentPage==pages[3]){
+
+        fetchPerBenchmarkPerformance(localityLevel,selectedOrgId,'none','none',period);
     }
 });
 
@@ -141,6 +144,9 @@ $('#county-organisation-unit').on('change', function (event) {
         fetchNewOVCRegs(localityLevel,selectedCountyId,'none','none',period);
         fetchExitedAndActiveOVCRegs(localityLevel,selectedCountyId,'','',period);
         fetchExitedHseld(localityLevel,selectedCountyId,'none','none',period);
+    }else if(currentPage==pages[3]){
+
+        fetchPerBenchmarkPerformance(localityLevel,selectedCountyId,'','',period);
     }
 
 });
@@ -166,6 +172,9 @@ $('#countituency-organisation-unit').on('change', function (event) {
         fetchNewOVCRegs(localityLevel,selectedSubCountyId,'none','none',period);
         fetchExitedAndActiveOVCRegs(localityLevel,selectedSubCountyId,'none','none',period);
         fetchExitedHseld(localityLevel,selectedSubCountyId,'none','none',period);
+    }else if(currentPage==pages[3]){
+
+        fetchPerBenchmarkPerformance(localityLevel,selectedSubCountyId,'none','none',period);
     }
     //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
@@ -199,6 +208,9 @@ $('#ward-organisation-unit').on('change', function (event) {
         fetchNewOVCRegs(localityLevel,selectedWardId,'none','none',period);
         fetchExitedAndActiveOVCRegs(localityLevel,selectedWardId,'none','none',period);
         fetchExitedHseld(localityLevel,selectedWardId,'none','none',period);
+    }else if(currentPage==pages[3]){
+
+        fetchPerBenchmarkPerformance(localityLevel,selectedWardId,'none','none',period);
     }
 
 });
@@ -318,6 +330,7 @@ $('#cbo-unit').on('change', function (event) {
 
 
 function fetchOrganisationUnitData(){
+    console.log("locality data fetching=====>");
     $.ajax({
         type: 'GET', // define the type of HTTP verb we want to use
         url: localityApi, // the url from server we that we want to use
@@ -343,6 +356,7 @@ function fetchOrganisationUnitData(){
         error: function (response, request) {
             //    console.log("got an error fetching wards");
             var parsed_data = response.responseText;
+            console.log(parsed_data);
         }
 
     });

@@ -188,11 +188,6 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
                                             person.area_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
                                             group by gender
                                         '''.format(area_id))
-        print base_sql  + '''
-                            and 
-                            ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-                            group by gender
-                        '''.format(area_id)
 
     elif (level == 'ward'):
         rows2, desc2 = run_sql_data(None,
@@ -339,11 +334,7 @@ def fetch_exited_ovcs_by_period(request, level,area_id,funding_partner,funding_p
                                                       person.area_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
                                                       group by gender,ovc_reg.is_active
                                                   '''.format(area_id))
-        print base_sql + '''
-                                      and 
-                                      ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-                                      group by gender,ovc_reg.is_active
-                                  '''.format(area_id)
+
 
     elif (level == 'ward'):
         rows2, desc2 = run_sql_data(None,
@@ -597,16 +588,18 @@ def fetch_locality_data():
                 org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['siblings'] = {}
             else:
                 org_list[x['AREA_ID']] = {'name': x['AREA_NAME'], 'siblings': {}}
-                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']] = {}
-                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x['AREA_NAME']
-                org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['siblings'] = {}
+                try:
+                    org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']] = {}
+                    org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x['AREA_NAME']
+                    org_list[x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['siblings'] = {}
+                except Exception, e:
+                    pass
         elif (x['AREA_TYPE_ID'] == 'GWRD'):  # ward
             if (x['GRAND_PARENT'] in org_list):
                 if (x['PARENT_AREA_ID'] in org_list[x['GRAND_PARENT']]['siblings']):
                     org_list[x['GRAND_PARENT']]['siblings'][x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']] = {}
                     org_list[x['GRAND_PARENT']]['siblings'][x['PARENT_AREA_ID']]['siblings'][x['AREA_ID']]['name'] = x[
                         'AREA_NAME']
-
     return org_list
     # gender = x['GENDER']
     # OrderedDict([('AREA_ID', 93), ('AREA_TYPE_ID', u'GDIS'), ('AREA_NAME', u'North Horr'), ('PARENT_AREA_ID', 10)])
@@ -1190,7 +1183,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
 
     elif (level == 'subcounty'):
         location_filter = {
-            "template": " and ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}'",
+            "template": " and ward_id in (select area_id as ward_ids from list_geo where CAST (parent_area_id AS INTEGER)='{}')",
             "values": [area_id]
         }
         sql=build_benchmark_query(date_range, None, location_filter)
@@ -1199,7 +1192,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
     elif (level == 'ward'):
 
         location_filter = {
-            "template": " and ward ={0}",
+            "template": " and ward_id ={0}",
             "values": [area_id]
         }
         sql=build_benchmark_query(date_range, None, location_filter)
@@ -1267,10 +1260,7 @@ def build_benchmark_query(date_range, funding_mechnism,location_filter):
     location=''
     _date = date_range['template'].format(date_range['values'][1],date_range['values'][2])
     if funding_mechnism!=None :
-        print "debug 1 -1"
         if not funding_mechnism['values']: # if it has values, blank for primary funder #eg PEPFAR
-            print "debug 1-2"
-            print funding_mechnism
             funding = funding_mechnism['template']
         else:
             funding = funding_mechnism['template'].format(funding_mechnism['values'][0])
@@ -1309,7 +1299,6 @@ def build_benchmark_query(date_range, funding_mechnism,location_filter):
                      {}
                   
         '''.format(_date,location,funding,ovc_bechmark_sum)
-    print "debug 1-3"
     #print base_final_sql
 
     return base_final_sql
@@ -1345,9 +1334,7 @@ def expand_benchmark_query(sql):
         else:
             final_sql = final_sql + ',' + base_bmark_template
         x = x + 1
-    print "=============>"
-    print final_sql
-    print "=============>"
+
     return final_sql
 
 
