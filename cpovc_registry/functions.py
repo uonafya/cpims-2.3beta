@@ -2439,7 +2439,7 @@ def auto_suggest_person(request, query, qid=0):
                     is_void=False).values_list(
                         'person_id', flat=True)
             queryset = RegPerson.objects.filter(
-                Q(surname__contains=query) | Q(email__contains=query) | Q(first_name__contains=query) | Q(other_names__contains=query), id__in=person_ids, is_void=False)
+                Q(surname__icontains=query) | Q(email__icontains=query) | Q(first_name__icontains=query) | Q(other_names__icontains=query), id__in=person_ids, is_void=False)
             #field_names = ['surname', 'email', 'first_name', 'other_names']
             #q_filter = Q()
             #for field in field_names:
