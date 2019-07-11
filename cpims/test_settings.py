@@ -14,7 +14,7 @@ DATABASES = {
         'USER': cpims_db_user,
         'PASSWORD': cpims_db_pass,
         'HOST': cpims_db_host,
-        'PORT': cpims_db_port, 
+        'PORT': cpims_db_port,
     }
 }
 
@@ -26,14 +26,15 @@ if os.environ.get('TRAVIS'):
             'USER': 'postgres',
             'PASSWORD': '',
             'HOST': 'localhost',
-            'PORT': '5432', 
+            'PORT': '5432',
         }
-    } 
+    }
 INSTALLED_APPS += ('django_nose',)
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
     '--with-coverage',
-    '--cover-package=cpovc_auth,cpovc_registry,cpovc_main,cpovc_forms,cpovc_gis,cpovc_settings,crispy_forms,cpovc_ovc,import_export',    
+    '--cover-package=cpovc_auth,cpovc_registry,cpovc_main,cpovc_forms,cpovc_gis,cpovc_settings,crispy_forms,cpovc_ovc,import_export',
+    '--cover-html',
 ]
 DEBUG = False

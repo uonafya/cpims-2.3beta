@@ -25,77 +25,30 @@ class TestHivScreenToolViews(TestCase):
         user.set_password('test_user')
         user.save()
         self.client.login(username='test_user', password='test_user')
+        super(TestHivScreenToolViews, self).setUp(*args, **kwargs)
 
     def test_new_hivscreeningtool_get(self):
-        event = mommy.make(OVCCareEvents, person=self.person)
-        facility = mommy.make(OVCFacility, facility_name='Kenyatta')
+        event = mommy.make(
+            OVCCareEvents, person=self.person, event_type_id='HRST')
+        facility = mommy.make(
+            OVCFacility, facility_name='Kenyatta', facility_code=12000)
         mommy.make(
-            OVCHIVRiskScreening, event=event, facility=facility,
+            OVCHIVRiskScreening, event=event,
+            facility_code=facility.facility_code,
             person=self.person)
         response = self.client.get(self.url)
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'forms/new_hivscreeningtool.html')
 
-    def test_new_hivscreeningtool_post_invalid_choices(self):
-        now = timezone.now()
-        date_of_assessment = now - timedelta(days=300)
-        facility = mommy.make(
-            OVCFacility, facility_name='Kenyatta National Hospital')
-
-        post_data = {
-            'HIV_RA_1A': date_of_assessment,
-            'HIV_RS_01': 'NO',
-            'HIV_RS_02': 'ANNO',
-            'HIV_RS_03': 'NO',
-            'HIV_RS_03A': 'NO',
-            'HIV_RS_04': 'NO',
-            'HIV_RS_05': 'NO',
-            'HIV_RS_06': 'NO',
-            'HIV_RS_07': 'NO',
-            'HIV_RS_08': 'NO',
-            'HIV_RS_09': 'NO',
-            'HIV_RS_10': 'NO',
-            'HIV_RS_11': 'NO',
-            'HIV_RS_14': 'NO',
-            'HIV_RS_15': now - timedelta(days=100),
-            'HIV_RS_16': 'NO',
-            'HIV_RS_17': now - timedelta(days=90),
-            'HIV_RS_18': 'NO',
-            'HV_RS_18A': 'lorem ipsum',
-            'HIV_RS_18B': '2',
-            'HIV_RS_19': now - timedelta(days=80),
-            'HIV_RS_21': 'NO',
-            'HIV_RS_22': now - timedelta(days=70),
-            'HIV_RS_23': 'ANNO',
-            'HIV_RS_24': now - timedelta(days=60),
-            'HIV_RA_3Q6': facility.id
-        }
-        person = mommy.make(RegPerson, surname='John')
-
-        # create a house hold to attach the child
-        house_hold = mommy.make(OVCHouseHold, head_person=person)
-
-        # Add the OVC to a house hold
-        mommy.make(OVCHHMembers, person=self.person, house_hold=house_hold)
-
-        # Create an event
-        mommy.make(OVCCareEvents, person=self.person)
-        response = self.client.post(self.url, post_data)
-        self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, 'forms/new_hivscreeningtool.html')
-        self.assertContains(
-            response,
-            'Select a valid choice. NO is not one of the available choices'
-        )
-
     def test_new_hivscreeningtool_post_valid_choices(self):
         now = timezone.now()
         date_of_assessment = now - timedelta(days=300)
         facility = mommy.make(
-            OVCFacility, facility_name='Kenyatta National Hospital')
+            OVCFacility, facility_name='Kenyatta National Hospital',
+            facility_code=12000)
 
         post_data = {
-            'HIV_RA_1A': date_of_assessment,
+            'HIV_RA_1A': str(date_of_assessment)[0:10],
             'HIV_RS_01': 'ANNO',
             'HIV_RS_02': 'ANNO',
             'HIV_RS_03': 'ANNO',
@@ -109,17 +62,17 @@ class TestHivScreenToolViews(TestCase):
             'HIV_RS_10': 'ANNO',
             'HIV_RS_11': 'ANNO',
             'HIV_RS_14': 'ANNO',
-            'HIV_RS_15': now - timedelta(days=100),
+            'HIV_RS_15': str(now - timedelta(days=100))[0:10],
             'HIV_RS_16': 'ANNO',
-            'HIV_RS_17': now - timedelta(days=90),
+            'HIV_RS_17': str(now - timedelta(days=90))[0:10],
             'HIV_RS_18': 'ANNO',
             'HV_RS_18A': 'lorem ipsum',
             'HIV_RS_18B': '2',
-            'HIV_RS_19': now - timedelta(days=80),
+            'HIV_RS_19': str(now - timedelta(days=80))[0:10],
             'HIV_RS_21': 'ANNO',
-            'HIV_RS_22': now - timedelta(days=70),
+            'HIV_RS_22': str(now - timedelta(days=70))[0:10],
             'HIV_RS_23': 'ANNO',
-            'HIV_RS_24': now - timedelta(days=60),
+            'HIV_RS_24': str(now - timedelta(days=60))[0:10],
             'HIV_RA_3Q6': facility.id
         }
         person = mommy.make(RegPerson, surname='John')
@@ -131,7 +84,7 @@ class TestHivScreenToolViews(TestCase):
         mommy.make(OVCHHMembers, person=self.person, house_hold=house_hold)
 
         # Create an event
-        mommy.make(OVCCareEvents, person=self.person)
+        # mommy.make(OVCCareEvents, person=self.person, event_type_id='HRST')
         response = self.client.post(self.url, post_data)
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'forms/new_hivscreeningtool.html')
