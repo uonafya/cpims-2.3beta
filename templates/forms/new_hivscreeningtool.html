@@ -31,6 +31,7 @@
         {% if data.date_of_birth|gen_age == 0 %}
                     UNDER 1 YEAR
                 {% else %}
+                    <input type="hidden" name="the_age" value="{{ data.date_of_birth|gen_age }}" id="the_age"/>
                     {{ data.date_of_birth|gen_age }} YRS 
                 {% endif %}</b></small>
         </b>
@@ -123,9 +124,17 @@
                                             <td>
                                                     {{ form.HIV_RS_03 }}
                                             </td>
+<<<<<<< HEAD
                                             <!-- <td> -->
                                                 <!-- {{form.HIV_RS_03A}} -->
                                             <!-- </td> -->
+=======
+                                            <td>
+<!-- 
+                                            </td>
+                                                {{form.HIV_RS_03A}}
+                                            </td> -->
+>>>>>>> 8eaf8a7906145ed194ff0b74c2673d75aa931c4a
 
                                         </tr>
                                         
