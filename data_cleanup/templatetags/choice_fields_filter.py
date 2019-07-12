@@ -22,7 +22,9 @@ def format_choice_fields(value):
         'False': 'No',
         'NULL': '-',
          None: '-',
-        'None': '-'
+        'None': '-',
+        'SMAL': 'Male',
+        'SFEM': 'Female',
     }
     return options.get(value, None) or value
 
