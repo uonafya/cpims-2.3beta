@@ -203,14 +203,14 @@ CPT_GAPS_HEALTHY_CHOICES = (
     ('CPTN14h', 'Child is sick'),
     ('CPTN15h', 'Caregiver is unwell'),
     ('CPTN17h', 'Caregiver does not know her HIV status'),
-    ('HG 3t', 'HIV Risk screening not done'),
-    ('CPTN18h', 'Pregnant caregiver not receiving PMTCT services'),
-    ('CPTN19h', 'HIV+ caregiver not linked to treatment services'),
-    ('CPTN20h', 'HIV+ caregiver did not attend last CCC appointment'),
-    ('CPTN21h', 'HIV+ caregiver not disclosed her status'),
-    ('CPTN22h', 'Caregiver does not know Viral Load status'),
-    ('CPTN23h', 'Is not a member of a health insurance plan e.g. NHIF'),
-    ('CPTN24h', 'Household has no kitchen garden that is productive')
+    ('CPTN18h', 'HIV Risk screening not done'),
+    ('CPTN19h', 'Pregnant caregiver not receiving PMTCT services'),
+    ('CPTN20h', 'HIV+ caregiver not linked to treatment services'),
+    ('CPTN21h', 'HIV+ caregiver did not attend last CCC appointment'),
+    ('CPTN22h', 'HIV+ caregiver not disclosed her status'),
+    ('CPTN23h', 'Caregiver does not know Viral Load status'),
+    ('CPTN24h', 'Is not a member of a health insurance plan e.g. NHIF'),
+    ('CPTN25h', 'Household has no kitchen garden that is productive')
 )
 CPT_GAPS_STABLE_CHOICES = (
     ('CPTN5s', 'Does not have a transition plan [above 17yrs and out of school]'),
@@ -230,26 +230,26 @@ CPT_GAPS_STABLE_CHOICES = (
     ('HE 9t', 'Household does not own productive asset e.g small stock, small machines, tools'),
     ('HE 10t', 'Household does not have source of income/livelihood'),
     ('CPTN1s', ' Household not able to provide a minimum of 2 meals a day'),
-    ('CPTN4s', 'Household has no knowledge about how and where to access critical services ')
+    ('CPTN4s', 'Household has no knowledge about how and where to access critical services '),
+    ('CPTN6s', 'Others, specify...........')
     )
 CPT_GAPS_SAFE_CHOICES = (
     ('CPTN1p', 'Child headed household'),
     ('CP 1t', 'Child headed household NOT receiving protection services'),
-    ('CP 2t', 'Child/Adolescent has signs of violence, abuse, neglect or exploitation'),
-    ('CP 3t', 'Child/Adolescent NOT aware of where to get help when abused'),
-    ('CP 4t', 'Has no legal documents (e.g birth certificate and/or ID)'),
+    ('CPTN2p', 'Child/Adolescent has signs of violence, abuse, neglect or exploitation'),
+    ('CPTN3p', 'Child/Adolescent NOT aware of where to get help when abused'),
+    ('CPTN5p', 'Has no legal documents (e.g birth certificate and/or ID)'),
     ('CPTN6p', 'Child does not participate in daily activities'),
-    ('CP 5t', 'Child is sad, withdrawn or has unusal behavior'),
-    ('CP 6t', 'Child (above 10 years) NOT participating in life skills sessions'),
-    ('PG 1t', 'Household reported an incident of child abuse, violence or exploitation in the last 3 months'),
+    ('CPTN7p', 'Child is sad, withdrawn or has unusal behavior'),
+    ('CPTN8p', 'Child (above 10 years) NOT participating in life skills sessions'),
+    ('CPTN4p', 'Household reported an incident of child abuse, violence or exploitation in the last 3 months'),
     ('PG 1s', 'Caregiver NOT provided with information on legal documents (e.g. ID, birth certificate, title deed, death certificate)'),
     ('PG 2s', 'Caregiver NOT sensitized on importance of legal documents e.g. ID, title deed, death certificate'),
-    ('SG 1s', 'Caregiver NOT mentored on child care and positive parenting skills'),
+    ('CPTN10p', 'Caregiver lacks positive parenting skills or not practising it'),
     ('SG 2s', 'Caregiver NOT trained to engage & communicate with adolescent on sensitive topics sexual reproductive health services and rights'),
-    ('SG 3s', 'Caregiver NOT trained on child care and positive parenting skills'),
     ('SG 4s', 'Caregiver NOT trained on succession planning'),
     ('SG 5s', 'Caregiver NOT sensitized on succesion planning'),
-    ('CPTN10p', 'Caregiver NOT able to to identify individual or group providing social and emetional support')
+    ('CPTN9p', 'Caregiver NOT able to to identify individual or group providing social and emetional support')
 )
 CPT_GAPS_SCHOOLED_CHOICES = (
     ('CPTG1e', 'Not enrolled in school/pre-school'),
@@ -257,7 +257,7 @@ CPT_GAPS_SCHOOLED_CHOICES = (
     #('CE 3t', 'Progressed from one class to another (e.g class 1 to 2)'),
     ('CPTG3e', 'Has not progressed from one class to another (e.g grade 1 to 2)'),
     ('CPTG4e', 'Child dropped out of school'),
-    ('CE 5t', 'Transitioned from one level to another (e.g. primary to secondary)'),
+    ('CPTG5e', 'Has not Transitioned from one level to another (e.g. primary to secondary)'),
     ('CE 6t', 'Youth eligible for vocational training (above 17 years and out of school)'),
     ('CE 1r', 'Sickness'),
     ('CPTG6e', 'Lacks scholastic materials (books, pens, geometrical set)'),
@@ -276,14 +276,14 @@ CPT_GAPS_SCHOOLED_CHOICES = (
     # (19, 'Attends adult Literacy classes'),
     # (20, 'Other')
 )
-CPT_ACTIONS_HEALTHY_CHOICES = (
+CPT_SERVICES_HEALTHY_CHOICES = (
     ('CPTP1h', 'Reffered for HIV testing(provide transport& accompany) '),
     ('CPTP3h', 'Referred for ART re enrolment '),
     ('CPTS3h', 'Viral load testing'),
     ('CPTS4h', 'Other HIV and Care Treatment'),
     ('CPTS5h', 'PMTCT/ ANC'),
-    ('CPTP4h', 'Support assisted disclosure'),
-    ('CPTP5h', 'Enrol in a support group '),
+    ('CPTS6h', 'HIV disclosure & counseling'),
+    ('CPTS7h', 'HIV Peer support group'),
     ('CPTP6h', 'Link to adolescent friendly centres/ support group '),
     ('CPTS8h', 'Adolescent health counseling'),
     ('CPTS9h', 'Defaulter tracing'),
@@ -293,9 +293,9 @@ CPT_ACTIONS_HEALTHY_CHOICES = (
     ('CPTP9h', 'Support NHIF registration'),
     ('CPTP7h', 'Reffered for nutrition support '),
     ('CPTS12h', ' Other HIV and Care Treatment'),
-    ('CPTP10h', 'Other Priorities, specify.........')
+    ('CPTS13h', ' Other health services specify')
      )
-CPT_ACTIONS_STABLE_CHOICES = (
+CPT_SERVICES_STABLE_CHOICES = (
                          ('CPTS1s', 'Cash transfer'),
                          ('CPTS2s', 'NHIF'),
                          ('CPTS3s', 'Income generating activity (IGA)'),
@@ -308,7 +308,7 @@ CPT_ACTIONS_STABLE_CHOICES = (
                          ('CPTP3s', 'Refer for or support on Income growth services '),
                          ('CPTS8s', ' Others Stable Priories specify.....')
 )
-CPT_ACTIONS_SAFE_CHOICES = (
+CPT_SERVICES_SAFE_CHOICES = (
                        ('CPTP1p', 'Caregiver mentored on child care and positive parenting skills'),
                        ('CPTP2p', 'Link Child Headed Households to adult caregiver'),
                        ('CPTP3p', 'Refer/ link child/adolescent for post violence care'),
@@ -329,14 +329,12 @@ CPT_ACTIONS_SAFE_CHOICES = (
                         ('CPTP12p', 'Promote  stimulating activities  such as play for child [below 5 yrs]'),
                         ('CPTP13p', 'Provide caregiver  with information on importance of legal documents e.g. ID, title deed, death certificate'),
                         ('CPTP14p', 'Sensitize caregiver  on child protection issues'),
-                        ('CPTP15p', 'Sentitize caregiver on positive parenting skills'),
-                   ('CPTS11p', 'Others, specify'),
-                   ('CPTS12p', 'Other health services')
+                     ('CPTS12p', 'Other health services, specify')
 )
-CPT_ACTIONS_SCHOOLED_CHOICES = (
+CPT_SERVICES_SCHOOLED_CHOICES = (
                        ('CPTS1e', 'School bursary (public & private programs)'),
-                       ('CPTG5p', 'Scholastic materials'),
-                       ('CPTG1p', 'Enrol back to school (including teenage mothers)'),
+                       ('CPTS2e', 'Scholastic materials'),
+                       ('CPTG1p', 'Enrolment to school)'),
                        ('CPTG2p', 'Monitor child to regularly attend school'),
                        ('CPTG3p', 'Refer/ link child for education support (ie presidential bursary fund, CDF)'),
                        ('CPTG4p', 'Provide child with counseling and enrol back to school'),
@@ -356,6 +354,60 @@ CPT_ACTIONS_SCHOOLED_CHOICES = (
                        ('CPTS10e', 'School fees'),
                        ('CPTS11e','school levies '),
                        ('CPTS12e', 'Others specify')
+)
+CPT_ACTIONS_SCHOOLED_CHOICES = (
+
+                        ('CPTG1p','Enrol back to school (including teenage mothers)'),
+                        ('CPTG2p','Monitor child to regularly attend school'),
+                        ('CPTG3p','Refer/ link child for education support (ie presidential bursary fund, CDF)'),
+                        ('CPTG4p','Provide child with counseling and enrol back to school'),
+                        ('CPTG5p','Provide scholastic materials'),
+                        ('CPTG6p','Provide/refer for sanitary pads'),
+                        ('CPTG7p','Provide school uniform'),
+                        ('CPTG8p','Vocational support for out of school OVC (<17 years)'),
+                        ('CPTG9p','Apprecnticeship support for out of school OVC (15-17yrs)'),
+                        ('CPTG10p','Caregiver supports children through assistance with homework'),
+                        ('CPTG11p','Caregiver tracks childs school attendance and progress '),
+                        ('CPTG12p','Provide or refer for mentorship and life skills support')
+)
+CPT_ACTIONS_SAFE_CHOICES = (
+                        ('CPTP1p','Caregiver mentored on child care and positive parenting skills'),
+                        ('CPTP2p','Link Child Headed Households to adult caregiver'),
+                        ('CPTP3p','Refer/ link child/adolescent for post violence care'),
+                        ('CPTP4p','Place child in a safe environment'),
+                        ('CPTP5p','Provide information to OVC on how to protect themselves from HIV, abuse including GBV'),
+                        ('CPTP6p','Provide/refer for medical attention in cases of abuse'),
+                        ('CPTP7p','Provide/ refer for legal assistance in cases of abuse'),
+                        ('CPTP8p','Provide information on child rights and responsibilities'),
+                        ('CPTP9p','Provide/ refer for legal documents (e.g, birth certificate)'),
+                        ('CPTP10p','Provide/ refer child (above 10 years) for life skills sessions'),
+                        ('CPTP11p','Provide/ refer OVC for basic counseling services '),
+                        ('CPTP12p','Promote  stimulating activities  such as play for child [below 5 yrs]'),
+                        ('CPTP13p','Provide caregiver  with information on importance of legal documents e.g. ID, title deed, death certificate'),
+                        ('CPTP14p','Sensitize caregiver  on child protection issues'),
+                        ('CPTP15p','Sentitize caregiver on positive parenting skills')
+                       
+)
+CPT_ACTIONS_STABLE_CHOICES = (
+                        ('CPTP1s','Refer or provide social assistance support'),
+                        ('CPTP2s','Refer for or provide support on asset growth and protection'),
+                        ('CPTP3s','Refer for or support on Income growth services '),
+                        ('CPTP4s',' Others Stable Priories specify..........')
+                                              
+)
+CPT_ACTIONS_HEALTHY_CHOICES = (
+                        ('CPTP1h','Reffered for HIV testing(provide transport& accompany) '),
+                        ('CPTP2h','Esort for clinic appointment '),
+                        ('CPTP3h','Referred for ART re enrolment '),
+                        ('CPTP4h','Support assisted disclosure. '),
+                        ('CPTP5h','Enrol in a support group '),
+                        ('CPTP6h','Link to adolescent friendly centres/ support group '),
+                        ('CPTP7h','Reffered for nutrition support '),
+                        ('CPTP8h','Escort for treatment at health facility'),
+                        ('CPTP9h','Support NHIF registration'),
+                        ('CPTP10h','Other Priorities specify.........')
+                        
+                       
 )
 CPT_PERSON_RESPONSIBLE = (
     ('CGH', 'Caregiver'),
@@ -4280,28 +4332,28 @@ class CasePlanTemplate(forms.Form):
     #     })
     # )
     CPT_SERVICES_HEALTHY = forms.MultipleChoiceField(
-        choices=CPT_ACTIONS_HEALTHY_CHOICES,
+        choices=CPT_SERVICES_HEALTHY_CHOICES,
         widget=forms.SelectMultiple(
         attrs={
             'class': 'form-control'
         })
     )
     CPT_SERVICES_STABLE = forms.MultipleChoiceField(
-        choices=CPT_ACTIONS_STABLE_CHOICES,
+        choices=CPT_SERVICES_STABLE_CHOICES,
         widget=forms.SelectMultiple(
         attrs={
             'class': 'form-control'
         })
     )
     CPT_SERVICES_SAFE = forms.MultipleChoiceField(
-        choices=CPT_ACTIONS_SAFE_CHOICES,
+        choices=CPT_SERVICES_SAFE_CHOICES,
         widget=forms.SelectMultiple(
         attrs={
             'class': 'form-control'
         })
     )
     CPT_SERVICES_SCHOOL = forms.MultipleChoiceField(
-        choices=CPT_ACTIONS_SCHOOLED_CHOICES,
+        choices=CPT_SERVICES_SCHOOLED_CHOICES,
         widget=forms.SelectMultiple(
         attrs={
             'class': 'form-control'
@@ -6539,6 +6591,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength' : "6"
              #  'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6548,6 +6601,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength': "6"
             #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6556,6 +6610,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_D = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
+               'data-parsley-maxlength': "20",
                'data-parsley-type': "number",
             #   'data-parsley-required': "False"
                # ,
@@ -6575,6 +6630,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Value'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength': "6"
             #   'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6625,6 +6681,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_H_4 = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Age'),
                'class': 'form-control' ,
+               'data-parsley-maxlength': "6"
           #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6643,6 +6700,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         attrs={'placeholder': _('Viral Load Results'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
+               'data-parsley-maxlength': "6"
           #     'data-parsley-required': "False"
                # ,
                #    'data-parsley-required': "False"
@@ -6699,7 +6757,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     }))
 
     HIV_MGMT_2_L_2 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Viral Load Results'),
+        attrs={'placeholder': _('nutritional assessment'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
           #     'data-parsley-required': "False"

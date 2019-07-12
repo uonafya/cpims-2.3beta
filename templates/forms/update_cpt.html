@@ -176,11 +176,16 @@
                                                 <input type="text" class="form-control" style="max-width: 200px;" name="date_first_cpara"/>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-3">
                                             <div class="form-group">
                                                 <label class="control-label formlabel">Date of caseplan:</label><br/>
-                                                    {% comment %} <input type="text" class="form-control" value="{{this_event.date_of_event}}" style="max-width: 200px;" disabled name="CPT_DATE_CASEPLAN"/> {% endcomment %}
                                                     <input type="text" class="form-control" style="max-width: 200px;" name="CPT_DATE_CASEPLAN"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label class="control-label formlabel">Actual date of caseplan completion*:</label><br/>
+                                                {{form.CPT_ACTUAL_DATE_COMPLETION}}
                                             </div>
                                         </div>
                                     </div>

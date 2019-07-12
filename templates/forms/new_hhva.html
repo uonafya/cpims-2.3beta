@@ -73,10 +73,11 @@
                     <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
                 </div>
                 <h4 class="panel-title"> Household Vulnerability Assessment </h4>
-            </div>
-            <div class="panel-body">
-            	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
-                name="form-wizard-hhva" id="new_hhva">
+			</div>
+			<div style="overflow-x: auto; min-height: 300px;">
+		  		<div class="panel-body">
+            		<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+              		  name="form-wizard-hhva" id="new_hhva">
                 	{% csrf_token %}
 					<div id="wizard-hhva">
 						<ol>
@@ -117,9 +118,11 @@
 							    <small>Household details.</small>
 							</li>
 						</ol>
+						
 
 						{{ form.person }}
 						{{ form.household_id }}
+						
 
 						<!-- begin wizard step-1 -->
 						<div class="wizard-step-1">
@@ -192,7 +195,7 @@
 							            {% endif %}
 							        </div>
 							    </div>
-
+								
 							    <!-- add labels like HA1, HA2 .. -->
 							    
 								<div class="form-group">
@@ -634,7 +637,7 @@
 						</div> 
 						<!-- end wizard step-9 --> 
 					</div>
-
+				</div>	
 					<div class="form-group">
                         <label class="control-label col-md-4 col-sm-4" for="csi_qs">Date of HHVA : <span class="asteriskField">* </label>
 						<div class="col-md-4 col-sm-4">
