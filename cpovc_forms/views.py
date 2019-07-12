@@ -9774,17 +9774,42 @@ def new_hivmanagementform(request, id):
             person = RegPerson.objects.get(id=id)
             event_date = request.POST.get('HIV_MGMT_2_A')
             event_type_id = 'HIV_MGMT'
-            event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=id,
-                                                         is_void=False).count()
-            ovccareevent = OVCCareEvents(
+            child = RegPerson.objects.get(id=id)
+            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=id, is_void=False).count()
+            # save event
+            ovccareevent = OVCCareEvents.objects.create(
                 event_type_id=event_type_id,
                 event_counter=event_counter,
                 event_score=0,
-                date_of_event=event_date,
-                created_by=id,
-                person=RegPerson.objects.get(pk=int(id))
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(id)),
+                house_hold=house_hold
             )
-            ovccareevent.save()
+
+            _HIV_MGMT_1_E="ANNO"
+            _HIV_MGMT_1_F = "ANNO"
+            _HIV_MGMT_1_G = "ANNO"
+            if(request.POST.get('HIV_MGMT_1_E')):
+                _HIV_MGMT_1_E=request.POST.get('HIV_MGMT_1_E')
+            if (request.POST.get('HIV_MGMT_1_F')):
+                _HIV_MGMT_1_F = request.POST.get('HIV_MGMT_1_F')
+            if (request.POST.get('HIV_MGMT_1_G')):
+                _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
+
+
+            _HIV_MGMT_1_E_DATE="1900-01-01"
+            _HIV_MGMT_1_F_DATE = "1900-01-01"
+            _HIV_MGMT_1_G_DATE = "1900-01-01"
+            if(request.POST.get('HIV_MGMT_1_E_DATE')):
+                _HIV_MGMT_1_E_DATE=request.POST.get('HIV_MGMT_1_E_DATE')
+            if (request.POST.get('HIV_MGMT_1_F_DATE')):
+                _HIV_MGMT_1_F_DATE = request.POST.get('HIV_MGMT_1_F_DATE')
+            if (request.POST.get('HIV_MGMT_1_G_DATE')):
+                _HIV_MGMT_1_G_DATE = request.POST.get('HIV_MGMT_1_G_DATE')
+
             new_pk = ovccareevent.pk
             qry = OVCHIVManagement(
                 person=person,
@@ -9792,11 +9817,11 @@ def new_hivmanagementform(request, id):
                 Hiv_Confirmed_Date=request.POST.get('HIV_MGMT_1_A'),
                 Treatment_initiated_Date=request.POST.get('HIV_MGMT_1_B'),
                 FirstLine_Start_Date=request.POST.get('HIV_MGMT_1_D'),  # date
-                Substitution_FirstLine_ARV=request.POST.get('HIV_MGMT_1_E'),
+                Substitution_FirstLine_ARV=_HIV_MGMT_1_E,
                 Substitution_FirstLine_Date=request.POST.get('HIV_MGMT_1_E_DATE'),
-                Switch_SecondLine_ARV=request.POST.get('HIV_MGMT_1_F'),
+                Switch_SecondLine_ARV=_HIV_MGMT_1_F,
                 Switch_SecondLine_Date=request.POST.get('HIV_MGMT_1_F_DATE'),
-                Switch_ThirdLine_ARV=request.POST.get('HIV_MGMT_1_G'),
+                Switch_ThirdLine_ARV=_HIV_MGMT_1_G,
                 Switch_ThirdLine_Date=request.POST.get('HIV_MGMT_1_G_DATE'),
                 Visit_Date=event_date,
                 Duration_ART=request.POST.get('HIV_MGMT_2_B'),
@@ -9822,7 +9847,7 @@ def new_hivmanagementform(request, id):
                 Nutritional_Support=request.POST.get('HIV_MGMT_2_M'),
                 Peer_Educator_Name=request.POST.get('HIV_MGMT_2_R'),
                 Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_S'),
-                event=OVCCareEvents.objects.get(pk=new_pk),
+                event=ovccareevent,
                 date_of_event=event_date
             ).save()
 
