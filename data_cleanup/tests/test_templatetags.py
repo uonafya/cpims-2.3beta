@@ -1,7 +1,9 @@
 from unittest import TestCase
 
 from data_cleanup.templatetags import format_choice_fields
-class TestFormatChoiceFields(self):
+
+
+class TestFormatChoiceFields(TestCase):
     options = {
         'SLSE': 'Secondary School',
         'SLPR': 'Primary School',
@@ -27,6 +29,6 @@ class TestFormatChoiceFields(self):
 
     def test_filter_choice_field_value_not_recognized(self):
         self.assertEqual(
-            'SOME_VALUE', 
+            'SOME_VALUE',
             format_choice_fields('SOME_VALUE')
         )
