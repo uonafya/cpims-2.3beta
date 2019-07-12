@@ -9795,9 +9795,9 @@ def new_hivmanagementform(request, id):
             _HIV_MGMT_1_G = "ANNO"
             if(request.POST.get('HIV_MGMT_1_E')):
                 _HIV_MGMT_1_E=request.POST.get('HIV_MGMT_1_E')
-            if (request.POST.get('HIV_MGMT_1_E')):
+            if (request.POST.get('HIV_MGMT_1_F')):
                 _HIV_MGMT_1_F = request.POST.get('HIV_MGMT_1_F')
-            if (request.POST.get('HIV_MGMT_1_E')):
+            if (request.POST.get('HIV_MGMT_1_G')):
                 _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
 
 

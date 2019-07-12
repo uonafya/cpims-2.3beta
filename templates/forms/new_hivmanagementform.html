@@ -571,7 +571,7 @@
             if(HIV_MGMT_1_E_DATE){
                 if( $("#HIV_MGMT_1_E_DATE").val().length == 0 ) {
                     $("#HIV_MGMT_1_E_DATE").after("<div id='span_HIV_MGMT_1_E_DATE'><span style='color:red'>this date field is required</span></div>");
-                    isValid=false;
+                    return false;
                 }
             }
 
@@ -580,7 +580,7 @@
             if(HIV_MGMT_1_F_DATE){
                 if( $("#HIV_MGMT_1_F_DATE").val().length == 0 ) {
                     $("#HIV_MGMT_1_F_DATE").after("<div id='span_HIV_MGMT_1_F_DATE'><span style='color:red'>this date field is required</span></div>");
-                    isValid=false;
+                    return false;
                 }
             }
 
@@ -589,13 +589,11 @@
             if(HIV_MGMT_1_G_DATE){
                 if( $("#HIV_MGMT_1_G_DATE").val().length == 0 ) {
                     $("#HIV_MGMT_1_G_DATE").after("<div id='span_HIV_MGMT_1_G_DATE'><span style='color:red'>this date field is required</span></div>");
-                    isValid=false;
+                    return false;
                 }
             }
 
-            if(!isValid){
-                return false;
-            }
+
 
             //$("#hiv_mngt_form").submit();
         });
