@@ -96,7 +96,7 @@
 <table class="table" id='age-data-table'>
 <thead>
     <tr>
-      <th>Names/th>
+      <th>Names</th>
       <th>Age</th>
       <th>Gender</th>
       <th>Is OVC</th>
@@ -110,7 +110,7 @@
   <tbody>
       {% for obj in data %}
     <tr>
-      <td>{{ obj.first_name }} {{ obj.othernames }} </td>
+      <td>{{ obj.first_name }} {{ obj.other_names }} {{ obj.surname }} </td>
       <td>{{ obj.age }} </td>
       <td>{{ obj.sex_id | format_choice_fields }} </td>
       <td>{{ obj.designation  | format_choice_fields }} </td>

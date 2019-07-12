@@ -2,6 +2,7 @@ import os
 import pydoc
 from subprocess import call
 
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
@@ -45,7 +46,7 @@ class DataQualityView(TemplateView):
     def post(self, *args, **kwargs):
         objs = get_allowed_units_county(self.request.user.id)
         context = {}
-        queryset =  DataQuality.objects.filter(org_unique_id=0)
+        queryset =  DataQuality.objects.all()
         age = self.request.POST.get('age')
         age_operator = self.request.POST.get('operator')
         school_level = self.request.POST.get('school_level')
@@ -56,10 +57,11 @@ class DataQualityView(TemplateView):
         is_ovc = self.request.POST.get('is_ovc')
         has_bcert = self.request.POST.get('has_bcert')
 
-        # Maitain selected options in the views
+        # Maintain selected options in the views
         view_filter_values = {
             'age': age
         }
+
         filters = {}
         if age:
             if  age_operator == '-' and age_operator != '0':
@@ -136,7 +138,7 @@ class DataQualityView(TemplateView):
             filters['is_disabled'] = False
             view_filter_values['is_disabled_no'] = True
 
-        if gender:
+        if gender and gender != '0':
             filters['sex_id'] = gender
             if gender == 'SMAL':
                 view_filter_values['smal'] = True
@@ -186,8 +188,6 @@ class DataQualityView(TemplateView):
         return sql
 
     def export_data(self, *args, **kwargs):
-        from django.conf import settings
-
         db = settings.DATABASES.get('default')
         db_host = db.get('HOST')
         db_user = db.get('USER')
