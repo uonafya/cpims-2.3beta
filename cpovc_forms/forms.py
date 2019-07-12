@@ -6904,7 +6904,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6913,7 +6912,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6922,7 +6920,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6934,7 +6931,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_E_DATE',
                'id': 'HIV_MGMT_1_E_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     
@@ -6946,7 +6942,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_F_DATE',
                'id': 'HIV_MGMT_1_F_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     
@@ -6958,7 +6953,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_G_DATE',
                'id': 'HIV_MGMT_1_G_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     
