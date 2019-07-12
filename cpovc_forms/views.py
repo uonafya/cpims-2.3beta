@@ -9771,6 +9771,7 @@ def new_hivmanagementform(request, id):
     if request.method == 'POST':
         # print request.POST
         try:
+            msg=''
             person = RegPerson.objects.get(id=id)
             event_date = request.POST.get('HIV_MGMT_2_A')
             event_type_id = 'HIV_MGMT'
@@ -9826,15 +9827,15 @@ def new_hivmanagementform(request, id):
                 date_of_event=event_date
             ).save()
 
+            msg = 'data successfully saved'
+            messages.add_message(request, messages.INFO, msg)
             # print qry.query # print the execute query
         except Exception, e:
-            print "insertion failed"
-            print e
             from django.db import connection
-            print connection.queries[-1]
-
-        form = OVCSearchForm(data=request.POST)
-        return render(request, 'ovc/home.html', {'form': form, 'status': 200})
+            msg="failed to save data",e
+            messages.add_message(request, messages.ERROR, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
     else:
         try:
             init_data = RegPerson.objects.filter(pk=id)

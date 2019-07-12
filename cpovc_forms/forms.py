@@ -6757,7 +6757,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     }))
 
     HIV_MGMT_2_L_2 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Viral Load Results'),
+        attrs={'placeholder': _('nutritional assessment'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
           #     'data-parsley-required': "False"
