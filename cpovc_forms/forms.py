@@ -6622,7 +6622,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+        'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 

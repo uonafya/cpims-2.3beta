@@ -9801,6 +9801,16 @@ def new_hivmanagementform(request, id):
                 _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
 
 
+            _HIV_MGMT_1_E_DATE="1900-01-01"
+            _HIV_MGMT_1_F_DATE = "1900-01-01"
+            _HIV_MGMT_1_G_DATE = "1900-01-01"
+            if(request.POST.get('HIV_MGMT_1_E_DATE')):
+                _HIV_MGMT_1_E_DATE=request.POST.get('HIV_MGMT_1_E_DATE')
+            if (request.POST.get('HIV_MGMT_1_F_DATE')):
+                _HIV_MGMT_1_F_DATE = request.POST.get('HIV_MGMT_1_F_DATE')
+            if (request.POST.get('HIV_MGMT_1_G_DATE')):
+                _HIV_MGMT_1_G_DATE = request.POST.get('HIV_MGMT_1_G_DATE')
+
             new_pk = ovccareevent.pk
             qry = OVCHIVManagement(
                 person=person,
@@ -9809,12 +9819,11 @@ def new_hivmanagementform(request, id):
                 Treatment_initiated_Date=request.POST.get('HIV_MGMT_1_B'),
                 FirstLine_Start_Date=request.POST.get('HIV_MGMT_1_D'),  # date
                 Substitution_FirstLine_ARV=_HIV_MGMT_1_E,
-                Substitution_FirstLine_Date=None,
-                #Substitution_FirstLine_Date=request.POST.get('HIV_MGMT_1_E_DATE'),
+                Substitution_FirstLine_Date=request.POST.get('HIV_MGMT_1_E_DATE'),
                 Switch_SecondLine_ARV=_HIV_MGMT_1_F,
-                #Switch_SecondLine_Date=request.POST.get('HIV_MGMT_1_F_DATE'),
+                Switch_SecondLine_Date=request.POST.get('HIV_MGMT_1_F_DATE'),
                 Switch_ThirdLine_ARV=_HIV_MGMT_1_G,
-                #Switch_ThirdLine_Date=request.POST.get('HIV_MGMT_1_G_DATE'),
+                Switch_ThirdLine_Date=request.POST.get('HIV_MGMT_1_G_DATE'),
                 Visit_Date=event_date,
                 Duration_ART=request.POST.get('HIV_MGMT_2_B'),
                 MUAC=request.POST.get('HIV_MGMT_2_D'),
