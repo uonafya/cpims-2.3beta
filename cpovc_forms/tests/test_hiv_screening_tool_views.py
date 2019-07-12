@@ -39,3 +39,53 @@ class TestHivScreenToolViews(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(200, response.status_code)
         self.assertTemplateUsed(response, 'forms/new_hivscreeningtool.html')
+
+    def test_new_hivscreeningtool_post_valid_choices(self):
+        now = timezone.now()
+        date_of_assessment = now - timedelta(days=300)
+        facility = mommy.make(
+            OVCFacility, facility_name='Kenyatta National Hospital',
+            facility_code=12000)
+        mommy.make(OVCCareEvents, person=self.person, event_type_id='HRST')
+        post_data = {
+            'HIV_RA_1A': str(date_of_assessment)[0:10],
+            'HIV_RS_01': 'AYES',
+            'HIV_RS_02': 'AYES',
+            'HIV_RS_03': 'AYES',
+            'HIV_RS_03A': 'AYES',
+            'HIV_RS_04': 'AYES',
+            'HIV_RS_05': 'AYES',
+            'HIV_RS_06': 'AYES',
+            'HIV_RS_07': 'AYES',
+            'HIV_RS_08': 'AYES',
+            'HIV_RS_09': 'AYES',
+            'HIV_RS_10': 'AYES',
+            'HIV_RS_11': 'AYES',
+            'HIV_RS_14': 'AYES',
+            'HIV_RS_15': str(now - timedelta(days=100))[0:10],
+            'HIV_RS_16': 'AYES',
+            'HIV_RS_17': str(now - timedelta(days=90))[0:10],
+            'HIV_RS_18': 'AYES',
+            'HV_RS_18A': 'lorem ipsum',
+            'HIV_RS_18B': '2',
+            'HIV_RS_19': str(now - timedelta(days=80))[0:10],
+            'HIV_RS_21': 'AYES',
+            'HIV_RS_22': str(now - timedelta(days=70))[0:10],
+            'HIV_RS_23': 'AYES',
+            'HIV_RS_24': str(now - timedelta(days=60))[0:10],
+            'HIV_RA_3Q6': facility.id
+        }
+        person = mommy.make(RegPerson, surname='John')
+
+        # create a house hold to attach the child
+        house_hold = mommy.make(OVCHouseHold, head_person=person)
+
+        # Add the OVC to a house hold
+        mommy.make(OVCHHMembers, person=self.person, house_hold=house_hold)
+
+        # Create an event
+        # mommy.make(OVCCareEvents, person=self.person, event_type_id='HRST')
+        response = self.client.post(self.url, post_data)
+        self.assertEqual(200, response.status_code)
+        self.assertTemplateUsed(response, 'forms/new_hivscreeningtool.html')
+        self.assertContains(response, 'lorem ipsum')
