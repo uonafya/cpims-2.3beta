@@ -50,7 +50,7 @@ def get_ovc_household_members(ovc):
             if hh_member.member_type == 'TBVC' or hh_member.member_type == 'TOVC':
                 return "N/A"
             else:
-                "No"
+                return "No"
         else:
             return "Yes({})".format(ovc_household.house_hold.head_identifier)
 

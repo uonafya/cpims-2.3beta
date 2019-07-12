@@ -216,19 +216,67 @@ let OvcViewTemplate = (function (){
 
 // Handle all events on Form1A template
 let Form1ATemplate = (function (){
+    // todo:
     // ovc_offline_form_1a_names - set names, also age
-    // implement window.addOfflineOvcService()
-    // implement window.saveForm1AOffline(1)
-    // implement window.resetForm1AOffline(1)
-   // window.AddRowOffline(3)
-    // window.RemoveRowOffline(3)
     // f1a_events_data_table_offline add events
+    // #step1 Todo - the steps are duplicating, dedupe and prune them
+
+    let ASSESSMENT = 'ASSESSMENT';
+    let EVENT = 'EVENT';
+    let PRIORITY = 'PRIORITY';
+    let SERVICE = 'SERVICE';
 
     return {
         init: function () {
             console.log("Form 1A");
             FormWizardValidation.init();
-            this._setupMultiSelects()
+            this._setupMultiSelects();
+            this._setupFormEvents();
+        },
+
+        _setupFormEvents: function() {
+           window.addOfflineOvcService = this._addOfflineOvcService();
+           window.saveForm1AOffline = this._saveForm1AOffline();
+           window.resetForm1AOffline = this._resetForm1AOffline();
+           window.addForm1ARowOffline = this._addForm1ARowOffline();
+           window.removeForm1ARowOffline = this._removeForm1ARowOffline();
+           window.goToOvcViewFromForm1aOffline = this._goToOvcViewFromForm1aOffline();
+        },
+
+        _addOfflineOvcService: function() {
+            return (serviceType) => {
+                console.log("_addOfflineOvcService", serviceType);
+            }
+        },
+
+        _saveForm1AOffline: function() {
+            return (serviceType) => {
+                console.log("_saveForm1AOffline", serviceType);
+            }
+        },
+
+        _resetForm1AOffline: function() {
+            return (serviceType) => {
+                console.log("_resetForm1AOffline", serviceType);
+            }
+        },
+
+        _addForm1ARowOffline: function() {
+            return (serviceType) => {
+                console.log("_addForm1ARowOffline", serviceType);
+            }
+        },
+
+        _removeForm1ARowOffline: function() {
+            return (serviceType) => {
+                console.log("_removeForm1ARowOffline", serviceType);
+            }
+        },
+
+        _goToOvcViewFromForm1aOffline: function() {
+            return (serviceType) => {
+                console.log("_goToOvcViewFromForm1aOffline", serviceType);
+            };
         },
 
         _setupMultiSelects: function () {

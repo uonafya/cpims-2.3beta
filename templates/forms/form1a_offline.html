@@ -81,7 +81,7 @@
                                                     </td>
                                                     <td width="5%">
                                                         <h6><b>
-                                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.addOfflineOvcService()">
+                                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.addOfflineOvcService('ASSESSMENT')">
                                                                 <i class="fa fa-plus"></i>  Add
                                                             </button>
                                                         </b></h6>
@@ -108,8 +108,8 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-4 col-sm-4"></label>
                                             <div class="col-md-6 col-sm-6">
-                                                <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline(1)">Submit Assessment</button>
-                                                <a href="#" onClick="window.resetForm1AOffline(1)" class="btn btn-white">Cancel</a>
+                                                <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('ASSESSMENT')">Submit Assessment</button>
+                                                <a href="#" onClick="window.resetForm1AOffline('ASSESSMENT')" class="btn btn-white">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
@@ -151,8 +151,8 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-4 col-sm-4"></label>
                                             <div class="col-md-6 col-sm-6">
-                                                <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline(2)">Submit Critical Event(s)</button>
-                                                <a href="#" onClick="window.resetForm1AOffline(2)" class="btn btn-white">Cancel</a>
+                                                <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('EVENTS')">Submit Critical Event(s)</button>
+                                                <a href="#" onClick="window.resetForm1AOffline('EVENTS')" class="btn btn-white">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
@@ -194,7 +194,7 @@
                                                 </td>
                                                 <td width="5%">
                                                     <h6><b>
-                                                        <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.AddRowOffline(3)">
+                                                        <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.addForm1ARowOffline('PRIORITY')">
                                                             <i class="fa fa-plus"></i>  Add
                                                         </button>
                                                     </b></h6>
@@ -206,7 +206,7 @@
                                     </div>
 
                                     <div align="right">
-                                        <button id="btnClearGrid" type="button" class="btn btn-sm btn-danger m-r-5" style="display:none;" onClick="window.RemoveRowOffline(3)">
+                                        <button id="btnClearGrid" type="button" class="btn btn-sm btn-danger m-r-5" style="display:none;" onClick="window.removeForm1ARowOffline('PRIORITY')">
                                             <i class="fa fa-trash"></i>  Clear Grid
                                         </button>
                                     </div>
@@ -227,8 +227,8 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-4 col-sm-4"></label>
                                             <div class="col-md-6 col-sm-6">
-                                                <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="saveForm1AOffline(3)">Submit Priority(s)</button>
-                                                <a href="#" onClick="resetForm1AOffline(3)" class="btn btn-white">Cancel</a>
+                                                <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('PRIORITY')">Submit Priority(s)</button>
+                                                <a href="#" onClick="window.resetForm1AOffline('PRIORITY')" class="btn btn-white">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
@@ -276,7 +276,7 @@
                                                     </td>
                                                     <td width="5%">
                                                         <h6><b>
-                                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.AddRowOffline(2)">
+                                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.addForm1ARowOffline('SERVICE')">
                                                                 <i class="fa fa-plus"></i>  Add
                                                             </button>
                                                         </b></h6>
@@ -303,8 +303,8 @@
                                         <div class="form-group">
                                             <label class="control-label col-md-4 col-sm-4"></label>
                                             <div class="col-md-6 col-sm-6">
-                                                <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="saveForm1A(4)">Submit Service(s)</button>
-                                                <a href="#" onClick="resetForm1A(4)" class="btn btn-white">Cancel</a>
+                                                <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('SERVICE')">Submit Service(s)</button>
+                                                <a href="#" onClick="window.resetForm1AOffline('SERVICE')" class="btn btn-white">Cancel</a>
                                             </div>
                                         </div>
                                     </div>
@@ -314,7 +314,7 @@
                         </form>
                     </div>
 
-                    <button class="badge badge-primary m-4 btn_ovc_view_offline"> Back to OVC</button>
+                    <button class="badge badge-primary m-4" onclick="window.goToOvcViewFromForm1aOffline()"> Back to OVC</button>
                     <div class="badge pull-right m-4">Revised: Oct 6th 2016</div>
                 </div>
                 <!-- end panel -->
