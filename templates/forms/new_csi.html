@@ -95,7 +95,8 @@
                     <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
                 </div>
                 <h4 class="panel-title"> CSI Details </h4>
-            </div>
+			</div>
+	<div style="overflow-x: auto; min-height: 300px;">
             <div class="panel-body">
             	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
                 name="form-wizard-csi" id="new_csi">
@@ -146,22 +147,22 @@
 					                                    <tbody>
 					                                        <tr id="id_inputElements0">
 					                                            <td width="20%"><h6>HEALTH AND NUTRITION</h6></td>
-					                                          	<td width="20%">Food Security</td>
+					                                          	<td width="20%">Food Security<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.food_security }}</td>
 					                                        </tr>
 					                                        <tr id="id_inputElements1">
 					                                            <td width="20%"></td>
-					                                          	<td width="20%">Nutrition and Growth</td>
+					                                          	<td width="20%">Nutrition and Growth<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.nutrition_growth }}</td>
 					                                        </tr>
 					                                        <tr id="id_inputElements2">
 					                                            <td width="20%"></td>
-					                                          	<td width="20%">Wellness</td>
+					                                          	<td width="20%">Wellness<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.wellness }}</td>
 					                                        </tr>
 					                                        <tr id="id_inputElements3">
 					                                            <td width="20%"></td>
-					                                          	<td width="20%">Health Care Services</td>
+					                                          	<td width="20%">Health Care Services<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.healthcare_services }}</td>
 					                                        </tr>			                                        
 					                                    </tbody>
@@ -191,12 +192,12 @@
 					                                    <tbody>
 					                                        <tr id="id_inputElements4">
 					                                            <td width="20%"><h6>SHELTER AND CARE</h6></td>
-					                                          	<td width="20%">Shelter</td>
+					                                          	<td width="20%">Shelter<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.shelter }}</td>
 					                                        </tr>
 					                                        <tr id="id_inputElements5">
 					                                            <td width="20%"></td>
-					                                          	<td width="20%">Care</td>
+					                                          	<td width="20%">Care<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.care }}</td>
 					                                        </tr>		                                        
 					                                    </tbody>
@@ -226,12 +227,12 @@
 					                                    <tbody>
 					                                        <tr id="id_inputElements6">
 					                                            <td width="20%"><h6>PROTECTION</h6></td>
-					                                          	<td width="20%">Abuse and Exploitation</td>
+					                                          	<td width="20%">Abuse and Exploitation<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.abuse_exploitation }}</td>
 					                                        </tr>
 					                                        <tr id="id_inputElements7">
 					                                            <td width="20%"></td>
-					                                          	<td width="20%">Legal Protection</td>
+					                                          	<td width="20%">Legal Protection<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.legal_protection }}</td>
 					                                        </tr>		                                        
 					                                    </tbody>
@@ -261,12 +262,12 @@
 					                                    <tbody>
 					                                        <tr id="id_inputElements8">
 					                                            <td width="20%"><h6>PSYCHOSOCIAL SUPPORT</h6></td>
-					                                          	<td width="20%">Emotional Health</td>
+					                                          	<td width="20%">Emotional Health<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.emotional_health }}</td>
 					                                        </tr>
 					                                        <tr id="id_inputElements9">
 					                                            <td width="20%"></td>
-					                                          	<td width="20%">Social Behaviour</td>
+					                                          	<td width="20%">Social Behaviour<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.social_behaviour }}</td>
 					                                        </tr>		                                        
 					                                    </tbody>
@@ -296,12 +297,12 @@
 					                                    <tbody>
 					                                        <tr id="id_inputElements10">
 					                                            <td width="20%"><h6>EDUCATION</h6></td>
-					                                          	<td width="20%">Perfomance</td>
+					                                          	<td width="20%">Perfomance<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.perfomance }}</td>
 					                                        </tr>
 					                                        <tr id="id_inputElements11">
 					                                            <td width="20%"></td>
-					                                          	<td width="20%">Education and Work</td>
+					                                          	<td width="20%">Education and Work<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.education_work }}</td>
 					                                        </tr>		                                        
 					                                    </tbody>
@@ -331,7 +332,7 @@
 					                                    <tbody>
 					                                        <tr id="id_inputElements12">
 					                                            <td width="20%"><h6>HOUSEHOLD ECONOMIC STRENGTHENING</h6></td>
-					                                          	<td width="20%">Household Economic Strengthening</td>
+					                                          	<td width="20%">Household Economic Strengthening<span class="asteriskField">*</td>
 					                                          	<td width="15%">{{ form.household_strengthening }}</td>
 					                                        </tr>		                                        
 					                                    </tbody>
@@ -354,8 +355,8 @@
                                     <thead>
                                         <tr id="id_inputHeaders">
                                         	<td width="2%"></td>
-                                        	<td width="10%"><h6><b>Domain</b></h6></td>
-                                            <td width="15%"><h6><b>Priority Need(s)</b></h6></td>
+                                        	<td width="10%"><h6><b>Domain<span class="asteriskField">*</b></h6></td>
+                                            <td width="15%"><h6><b>Priority Need(s)<span class="asteriskField">*</b></h6></td>
                                             <th width="5%"><h6><b>Actions</b></h6></th>
                                         </tr>
                                     </thead>
@@ -403,11 +404,11 @@
                                     <thead>
                                         <tr id="id_inputHeaders">
                                         	<td width="2%"></td>
-                                        	<th width="15%"><h6><b>Domain</b></h6></th>
-                                            <th width="20%"><h6><b>Service(s)</b></h6></th>
-                                            <th width="15%"><h6><b>Date Of Service</b></h6></th>
-                                            <th width="20%"><h6><b>Service(s) Provider</b></h6></th>
-                                            <th width="20%"><h6><b>Place Of Service</b></h6></th>
+                                        	<th width="15%"><h6><b>Domain<span class="asteriskField">*</b></h6></th>
+                                            <th width="20%"><h6><b>Service(s)<span class="asteriskField">*</b></h6></th>
+                                            <th width="15%"><h6><b>Date Of Service<span class="asteriskField">*</b></h6></th>
+                                            <th width="20%"><h6><b>Service(s) Provider<span class="asteriskField">*</b></h6></th>
+                                            <th width="20%"><h6><b>Place Of Service<span class="asteriskField">*</b></h6></th>
                                             <th width="5%"><h6><b>Actions</b></h6></th>
                                         </tr>
                                     </thead>
@@ -476,9 +477,11 @@
                     </div>
 
 				</form>
+	
             </div>
             <div class="badge pull-right m-4">Revised: Oct 6th 2016</div>
-        </div>
+		</div>
+		</div>
         <!-- end panel -->
 
     </div>
