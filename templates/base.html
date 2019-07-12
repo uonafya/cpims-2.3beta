@@ -253,6 +253,7 @@
     <script src="{% static 'js/offline_mode/templates_events.js' %}"></script>
     <script>
         $(document).ready(function() {
+            // Todo - handle hard reloaded
             let userId = "{{ request.user.reg_person_id | escapejs }}";
 
             let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" == "True";

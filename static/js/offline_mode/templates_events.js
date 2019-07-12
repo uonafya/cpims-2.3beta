@@ -277,8 +277,16 @@ let Form1ATemplate = (function (){
         },
 
         _goToOvcViewFromForm1aOffline: function() {
-            return (serviceType) => {
-                console.log("_goToOvcViewFromForm1aOffline", serviceType);
+            let me = this;
+            return () => {
+                console.log("_goToOvcViewFromForm1aOffline");
+                if (window.offlineModeClient.currentSelectedOvc) {
+                    OvcHomeTemplate._fillOvcDetailsPage(window.offlineModeClient.currentSelectedOvc);
+                    TemplateUtils.showPage(TemplateUtils.viewOvcPage);
+                    return;
+                }
+
+                TemplateUtils.showPage(TemplateUtils.ovcHomePage);
             };
         },
 
