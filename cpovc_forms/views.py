@@ -9742,6 +9742,7 @@ def new_hivscreeningtool(request, id):
                 art_referral_completed_date=art_refer_completeddate,
                 facility_code=facility_res,
                 event=ovccareevent,
+                not_completed='Not completed'
 
             )
             msg = 'HIV risk screening saved successful'
