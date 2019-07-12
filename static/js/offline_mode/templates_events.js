@@ -225,9 +225,14 @@ let Form1ATemplate = (function (){
     // #step1 Todo - the steps are duplicating, dedupe and prune them
 
     let ASSESSMENT = 'ASSESSMENT';
-    let EVENT = 'EVENT';
+    let EVENTS = 'EVENTS';
     let PRIORITY = 'PRIORITY';
     let SERVICE = 'SERVICE';
+    let ADD = 'ADD';
+    let REMOVE = 'REMOVE';
+    let RESET = 'RESET';
+    let SAVE = 'SAVE';
+    let ADD_ROW = 'ADD_ROW';
 
     return {
         init: function () {
@@ -238,46 +243,103 @@ let Form1ATemplate = (function (){
         },
 
         _setupFormEvents: function() {
-           window.addOfflineOvcService = this._addOfflineOvcService();
-           window.saveForm1AOffline = this._saveForm1AOffline();
-           window.resetForm1AOffline = this._resetForm1AOffline();
-           window.addForm1ARowOffline = this._addForm1ARowOffline();
-           window.removeForm1ARowOffline = this._removeForm1ARowOffline();
-           window.goToOvcViewFromForm1aOffline = this._goToOvcViewFromForm1aOffline();
+            window.addOfflineOvcService = this._addOfflineOvcService();
+            window.saveForm1AOffline = this._saveForm1AOffline();
+            window.resetForm1AOffline = this._resetForm1AOffline();
+            window.addForm1ARowOffline = this._addForm1ARowOffline();
+            window.removeForm1ARowOffline = this._removeForm1ARowOffline();
+            window.goToOvcViewFromForm1aOffline = this._goToOvcViewFromForm1aOffline();
+        },
+
+        _formEventsFactory: function() {
+            return {
+                ASSESSMENT: {
+                    ADD: () => console.log('Adding assessment'),
+                    ADD_ROW: () => console.log('Adding assessment row'),
+                    REMOVE: () => console.log("Removing assessment"),
+                    RESET: () => console.log("Reset assessment"),
+                    SAVE: () => console.log("Save assessment")
+
+                },
+                EVENTS: {
+                    ADD: () => console.log('Adding event'),
+                    ADD_ROW: () => console.log('Adding event row'),
+                    REMOVE: () => console.log("Removing event"),
+                    RESET: () => console.log("Reset event"),
+                    SAVE: () => console.log("Save event")
+
+                },
+                SERVICE: {
+                    ADD: () => console.log('Adding service'),
+                    ADD_ROW: () => console.log('Adding service row'),
+                    REMOVE: () => console.log("Removing service"),
+                    RESET: () => console.log("Reset service"),
+                    SAVE: () => console.log("Save service")
+                }
+            }
+        },
+
+        _handleEvent: function(eventType, event){
+            let eventTypeHandlers = this._formEventsFactory()[eventType];
+
+            if (eventTypeHandlers === undefined) {
+                console.log("No event type handler found for event type: ", eventType);
+                return null;
+            }
+
+            let eventHandler = eventTypeHandlers[event];
+
+            if (eventHandler === undefined) {
+                console.log("No event handler found for event type: ", eventType, " and event ", event);
+                return null;
+            }
+
+            // handle event
+
+            eventHandler();
         },
 
         _addOfflineOvcService: function() {
+            let me = this;
             return (serviceType) => {
                 console.log("_addOfflineOvcService", serviceType);
+                me._handleEvent(serviceType, ADD);
             }
         },
 
         _saveForm1AOffline: function() {
+            let me = this;
             return (serviceType) => {
                 console.log("_saveForm1AOffline", serviceType);
+                me._handleEvent(serviceType, SAVE);
             }
         },
 
         _resetForm1AOffline: function() {
+            let me = this;
             return (serviceType) => {
                 console.log("_resetForm1AOffline", serviceType);
+                me._handleEvent(serviceType, RESET);
             }
         },
 
         _addForm1ARowOffline: function() {
+            let me = this;
             return (serviceType) => {
                 console.log("_addForm1ARowOffline", serviceType);
+                me._handleEvent(serviceType, ADD_ROW);
             }
         },
 
         _removeForm1ARowOffline: function() {
+            let me = this;
             return (serviceType) => {
                 console.log("_removeForm1ARowOffline", serviceType);
+                me._handleEvent(serviceType, REMOVE);
             }
         },
 
         _goToOvcViewFromForm1aOffline: function() {
-            let me = this;
             return () => {
                 console.log("_goToOvcViewFromForm1aOffline");
                 if (window.offlineModeClient.currentSelectedOvc) {
@@ -369,7 +431,6 @@ let Form1ATemplate = (function (){
 
                 $(field).change(function (event) {
                     let domain = $(field).val();
-                    console.log(domain);
                     me._populateService(fieldHandler[fieldName], domain, fieldHandler[serviceField], fieldHandler[errorField]);
                     let fn = fieldHandler['onPopulate'];
                     fn();
@@ -378,7 +439,6 @@ let Form1ATemplate = (function (){
         },
 
         _populateService: function (fieldName, domain, element, errorElement) {
-            console.log(fieldName, domain, element, errorElement);
             let dataToPopulate = [
                {
                    'label': 'Please Select',
