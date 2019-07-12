@@ -9741,8 +9741,7 @@ def new_hivscreeningtool(request, id):
                 art_referral_completed=data_to_save.get('HIV_RS_23'),
                 art_referral_completed_date=art_refer_completeddate,
                 facility_code=facility_res,
-                event=ovccareevent,
-
+                event=ovccareevent
             )
             msg = 'HIV risk screening saved successful'
             messages.add_message(request, messages.INFO, msg)
