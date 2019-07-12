@@ -12,22 +12,6 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
     console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
 
-
-//    fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
-//    fetchTotalOVCsEver('national',"0");
-//
-//    fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
-//    fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
-//    fetchTotalOVCsEverExited('national',"0");
-//
-//    fetchServedBCert(levl,ouid,months_array);
-//    fetchU5ServedBcert(levl,ouid,months_array);
-//    fetchWoBCertAtEnrol('national',"0")
-//    fetchServedBCert('national',"0",months_array)
-//    fetchWithBCertToDate('national',"0")
-//    fetchServedBCertAftEnrol('national',"0")
-//    fetchU5ServedBcert('national',"0",months_array)
-
     }
 
 
@@ -36,8 +20,12 @@ $(document).ready(function () {
     ouChange('national',"0",'none','none');
     fetchCPARAResults('national',"none","none","none","annual");
     fetchPerBenchmarkPerformance('national',"none","none","none","annual");
+    fetchHHScoringCat('national',"none","none","none","annual");
+
+    //displayHHScoringCat(data);
+
     //undone
-    //fetchHHScoringCat('national',"none","none","none","annual");
+    //
     //fetchDomainPerformance('national',"none","none","none","annual");
 });
 
@@ -148,9 +136,10 @@ $(document).ready(function () {
             }
         });
     }
+
     function fetchHHScoringCat(org_level,area_id,funding_partner,funding_part_id,period_type){
 
-        var the_url = '/get_new_ovcregs_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+        var the_url = '/get_per_domain_results/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
             type: 'GET',
             url: the_url,
@@ -158,10 +147,9 @@ $(document).ready(function () {
             dataType: 'json',
             encode: true,
             success: function (data, textStatus, jqXHR) {
+            displayPerBenchmarkDomainPerformance(data);
             console.log("the data is: ========>");
             console.log(data);
-            displayHHScoringCat(data);
-
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -369,7 +357,8 @@ $(document).ready(function () {
 
     }
 
-    function displayDomainPerformance(data){
+
+    function displayPerBenchmarkDomainPerformance(data){
 
         // var female={name: 'female',data: []};
             // var male={name: 'male',data: []};
@@ -387,16 +376,20 @@ $(document).ready(function () {
         //overall
         var elementId_overall="dmn_perf_overall";
         var the_title_overall = 'Overall domains performance in all counties';
-        var o_healthy_data=30;
-        var o_stable_data=12;
-        var o_safe_data=76;
-        var o_schooled_data=20;
+        var o_healthy_data=data[0].HEALTHY;
+        var o_stable_data=data[0].SAFE;
+        var o_safe_data=data[0].SCHOOLED;
+        var o_schooled_data=data[0].STABLE;
         var o_x_values={name: 'Domain',data: [o_healthy_data, o_stable_data, o_safe_data, o_schooled_data]};
         var o_x_axis = ['Healthy','Stable','Safe','Schooled'];
         var the_series_overall = [o_x_values];
         barChart(elementId_overall,the_title_overall,o_x_axis,the_series_overall)
         //overall
-        
+        }
+
+
+    function displayDomainPerformance(data){
+
         //healthy
         var elementId_healthy="dmn_perf_Healthy";
         var the_title_healthy = 'Healthy domain performance';

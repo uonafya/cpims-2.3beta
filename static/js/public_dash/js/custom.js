@@ -97,6 +97,8 @@ $('#period').on('change', function (event) {
     }else if(currentPage==pages[3]){
         fetchPerBenchmarkPerformance(localityLevel,selectedOrgId,'none','none',period);
         fetchCPARAResults(localityLevel,selectedOrgId,'none','none',period);
+        fetchHHScoringCat(localityLevel,selectedOrgId,'none','none',period);
+
     }
 });
 
@@ -147,6 +149,7 @@ $('#county-organisation-unit').on('change', function (event) {
     }else if(currentPage==pages[3]){
         fetchCPARAResults(localityLevel,selectedCountyId,'','',period);
         fetchPerBenchmarkPerformance(localityLevel,selectedCountyId,'','',period);
+        fetchHHScoringCat(localityLevel,selectedCountyId,'','',period);
     }
 
 });
@@ -175,6 +178,8 @@ $('#countituency-organisation-unit').on('change', function (event) {
     }else if(currentPage==pages[3]){
         fetchCPARAResults(localityLevel,selectedSubCountyId,'none','none',period);
         fetchPerBenchmarkPerformance(localityLevel,selectedSubCountyId,'none','none',period);
+        fetchHHScoringCat(localityLevel,selectedSubCountyId,'none','none',period);
+
     }
     //change ward list based on selected counstiuency
     $.each(selectedCountySiblingsList, function( constituencyKey, constituencyValue ) {
@@ -211,6 +216,7 @@ $('#ward-organisation-unit').on('change', function (event) {
     }else if(currentPage==pages[3]){
         fetchPerBenchmarkPerformance(localityLevel,selectedWardId,'none','none',period);
         fetchCPARAResults(localityLevel,selectedWardId,'none','none',period);
+        fetchHHScoringCat(localityLevel,selectedWardId,'none','none',period);
     }
 
 });
@@ -247,6 +253,7 @@ $('#funding-mechanism').on('change', function (event) {
             selectedPartner=selectedPartnerId;
             fetchCPARAResults('none',0,fundingPartnerLevel,selectedPartner,period);
             fetchPerBenchmarkPerformance('none',0,fundingPartnerLevel,selectedPartner,period);
+            fetchHHScoringCat('none',0,fundingPartnerLevel,selectedPartner,period);
 
         }
 
@@ -296,6 +303,7 @@ $('#cluster-unit').on('change', function (event) {
         selectedPartner=selectedClusterId;
         fetchCPARAResults('none',0,fundingPartnerLevel,selectedPartner,period);
         fetchPerBenchmarkPerformance('none',0,fundingPartnerLevel,selectedPartner,period);
+        fetchHHScoringCat('none',0,fundingPartnerLevel,selectedPartner,period);
     }
 
 });
@@ -327,6 +335,7 @@ $('#cbo-unit').on('change', function (event) {
         selectedPartner=selectedCboId;
         fetchPerBenchmarkPerformance('none',0,fundingPartnerLevel,selectedPartner,period);
         fetchCPARAResults('none',0,fundingPartnerLevel,selectedPartner,period);
+        fetchHHScoringCat('none',0,fundingPartnerLevel,selectedPartner,period);
     }
 
 });
