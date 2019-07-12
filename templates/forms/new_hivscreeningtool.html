@@ -9,6 +9,7 @@
 <link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
 <link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
 <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style>.alert-info :first-child::before{content:'' !important;display:none !important;}</style>
 {% endblock %}
 
 {% block javascript_code%}
@@ -30,6 +31,7 @@
         {% if data.date_of_birth|gen_age == 0 %}
                     UNDER 1 YEAR
                 {% else %}
+                    <input type="hidden" name="the_age" value="{{ data.date_of_birth|gen_age }}" id="the_age"/>
                     {{ data.date_of_birth|gen_age }} YRS 
                 {% endif %}</b></small>
         </b>
@@ -123,7 +125,7 @@
                                                     {{ form.HIV_RS_03 }}
                                             </td>
                                             <td>
-                                                {{form.HIV_RS_03A}}
+                                                <!-- {{form.HIV_RS_03A}} -->
                                             </td>
 
                                         </tr>
@@ -381,7 +383,7 @@
                                             6
                                             </td>
                                             <td>
-                                                (If applicable) Record facility of child's enrollment
+                                                (If applicable) Record facility of child's ART enrollment
                                             </td>
                                             <td>
                                                     <!-- {{ form.HIV_RA_3Q6 }} -->
@@ -403,7 +405,7 @@
 
                     </div>
 
-                    <div class="panel-body panel-form">
+                    <div class="panel-body panel-form" id="submit_section" >
                         <div class="form-group">
                             <label class="control-label col-md-4 col-sm-4"></label>
                             <div class="col-md-6 col-sm-6">
@@ -413,12 +415,12 @@
                             </div>
                         </div>
                     </div>
-
+                    
                 </form>
             </div>
-
+            
             <div>
-                    <table class="table" border="1">
+                    <table class="table" border="1" id="past-hst">
                             <thead>
                             <tr>
                             <th colspan="3">CURRENT HIV STATUS</th>
@@ -445,7 +447,6 @@
                                         <th>Q 3b</th>
                                         <th>Q 4</th>
                                         <th>Q 5</th>
-                                        <th>Q 6</th>
                                         <th>Date of Event</th>
                                   </tr>
                                 </thead>
@@ -473,14 +474,6 @@
                           <td>{{one_screening_data.test_result | yesno:"Yes, No"}}</td>
                           <td>{{one_screening_data.art_referral | yesno:"Yes, No"}}</td>
                           <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No"}}</td>
-                          <td>{{ one_screening_data.facility.facility_name }}</td>
-
-                          <!-- <td>
-                          {% for k in hiv_facility%}
-                          <li>{{k.facility_name}}</li>
-                          {% endfor %}
-                          </td> -->
-                
                           <td>{{one_screening_data.date_of_event}}</td>
                         </tr>
                     {% endfor %}
@@ -491,7 +484,6 @@
                     {% endif %}
                 </table>
             </div>
-            <!-- ################################## -->
 
             <div class="badge pull-right m-4">Revised: 1st July 2019</div>
         </div>
@@ -519,15 +511,6 @@
         $( function() {
 
             $('#wizard-hivsct').bwizard();
-            // $('#HIV_RA_3Q6').multiselect({
-            //     enableCaseInsensitiveFiltering: true,
-            //     numberDisplayed: 1,
-            //     maxHeight: 300,
-            //     buttonWidth: '100%',
-            //     disableIfEmpty: true,
-            //     enableClickableOptGroups: true,
-            //     buttonClass: 'btn btn-white'
-            // });
             $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
@@ -559,6 +542,11 @@
             // var step_step = "step"+tab_id;
             $('a[href="#step'+tab_id+'"]').trigger('click');
             console.log('switchTab to '+tab_id);
+
+            if(tab_id == 3){
+                $('#submit_section').prepend('<div class="alert alert-info"><h5>Form completed</h5>You have completed the form. Please click <b>Submit</b> below</div>');
+                window.scrollBy(0,380)
+            }
         }
 
         $( "#facility_field" ).autocomplete({
@@ -586,30 +574,36 @@
         });
 </script>
     <!-- Skip logic -->
-    <!-- {% if data.date_of_birth|gen_age > 15 %}
-    <script>
-        $(document).ready(function () {
-            disableSection('section_a');
-        });
-        </script>
-    {% else %}
-        <script>
-            $(document).ready(function () {
-                disableSection('section_b');
-            });
-        </script>
-    {% endif %} -->
-    <!-- Skip logic -->
     <script>
         $('input[name="HIV_RS_01"]').change(function (e) { 
             var this_val = $(this).val();
 
             // If the status is unknown administer question 1-3
             if(this_val == 'ANNO'){
-                disableSection('section_prior_1c');
+                disableSection('section_prior.1c');
                 switchTab("2");
+                $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
+                $('.section_prior.1b td:last-of-type').find('label').css({'color':'#afafaf'});
             }else{
-                enableSection('section_prior_1c');
+                enableSection('section_prior.1c');
+                $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);
+                $('.section_prior.1b td:last-of-type').find('label').css({'color':'initial'});
+            }
+        });
+        $('input[name="HIV_RS_21"]').change(function (e) { 
+            var this_val = $(this).val();
+            if(this_val == 'ANNO'){
+                $('.section_c.q4 td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
+            }else{
+                $('.section_c.q4 td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);
+            }
+        });
+        $('input[name="HIV_RS_23"]').change(function (e) { 
+            var this_val = $(this).val();
+            if(this_val == 'ANNO'){
+                $('.section_c.q5 td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
+            }else{
+                $('.section_c.q5 td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);
             }
         });
         $('input[name="HIV_RS_02"]').change(function (e) { 
