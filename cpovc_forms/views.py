@@ -9855,13 +9855,13 @@ def new_hivmanagementform(request, id):
                 date_of_event=request.POST.get('HIV_MGMT_2_A')
             ).save()
 
-                msg = 'HIV management saved successfully'
-                messages.add_message(request, messages.INFO, msg)
+            msg = 'HIV management saved successfully'
+            messages.add_message(request, messages.INFO, msg)
         except Exception, e:
             from django.db import connection
             msg="failed to save data",e
             messages.add_message(request, messages.ERROR, msg)
-            url = reverse('ovc_view', kwargs={'id': id})
+        url = reverse('ovc_view', kwargs={'id': id})
         return HttpResponseRedirect(url)
     else:
         try:
