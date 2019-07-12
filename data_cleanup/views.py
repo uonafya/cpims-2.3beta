@@ -55,7 +55,7 @@ class DataQualityView(TemplateView):
         is_disabled = self.request.POST.get('is_disabled')
         is_ovc = self.request.POST.get('is_ovc')
         has_bcert = self.request.POST.get('has_bcert')
-
+        filters = {}
         if age:
             if  age_operator == '-' and age_operator != '0':
                 ages =  age.split('-')
@@ -83,32 +83,33 @@ class DataQualityView(TemplateView):
                 queryset = queryset.filter(age__lt=age)
 
         if school_level and school_level != '0':
-            queryset = queryset.filter(school_level=school_level)
+            filters['school_level'] = school_level
 
         if hiv_status and hiv_status != '0':
-            queryset = queryset.filter(hiv_status=hiv_status)
+            filters['hiv_status'] = hiv_status
 
         if art_status and art_status != '0':
-            queryset = queryset.filter(art_status=art_status)
+            filters['art_status'] = art_status
 
         if is_disabled and is_disabled == 'True':
-            queryset = queryset.filter(is_disabled=True)
+            filters['is_disabled'] = is_disabled
 
         if is_disabled and is_disabled == 'False':
-            queryset = queryset.filter(is_disabled=False)
+            filters['is_disabled'] = is_disabled
 
         if gender:
-            queryset = queryset.filter(sex_id=gender)
+            filters['sex_id'] = gender
 
         if is_ovc and is_ovc != '0':
-            queryset = queryset.filter(designation=is_ovc)
+            filters['designation'] = is_ovc
 
         if has_bcert and has_bcert == 'True':
-            queryset = queryset.filter(has_bcert=True)
+            filters['has_bcert'] = True
 
         if has_bcert and has_bcert == 'False':
-            queryset = queryset.filter(has_bcert=False)
-        queryset = self.get_final_query_set(queryset)
+            filters['has_bcert'] = False
+
+        queryset = queryset.filter(**filters)
         context['data']= queryset
         return TemplateResponse(self.request, self.template_name, context)
 
