@@ -691,7 +691,8 @@ jQuery(document).ready(function()
         numberDisplayed: 1,
         maxHeight: 300,
         buttonWidth: '100%',
-        buttonClass: 'btn btn-white'
+		buttonClass: 'btn btn-white',
+		nonSelectedText: 'Please Select'
     });
 
 	$('html,body').scrollTop(0);
@@ -1067,5 +1068,13 @@ $("#hhva_ha31").change(function(event)
 {
 	displayVals(1, 'hhva_ha31');
 });
+
+$('select option:selected').each(function (index, easelect) {
+	var sel_text = $(this).text();
+	if(sel_text == 'Please Select'){
+		$(this).attr('disabled', true);
+	}
+});
+$('#hhva_ha6 option:first').attr('disabled',true);
 </script>
 {% endblock %}

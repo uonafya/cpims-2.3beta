@@ -1006,7 +1006,7 @@ function getServices(x, domain)
 					var item_sub_category;
 					var multiselect_dict = {};
 
-		            multiselect_data.push({label: 'Please Select', value: ''});
+		            // multiselect_data.push({label: 'Please Select', value: ''});
 
 		            $.each(result, function(i, val) 
 		            {
@@ -1063,11 +1063,11 @@ function AddRow(x)
         };
 
         // Validation and Ajax
-        if(olmis_assessment_domain)
+        if(olmis_assessment_domain || olmis_assessment_domain == '')
 		{
-			if(olmis_assessment_coreservice)
+			if(olmis_assessment_coreservice || olmis_assessment_coreservice == '')
 			{
-				if(olmis_assessment_coreservice_status)
+				if(olmis_assessment_coreservice_status || olmis_assessment_coreservice_status ==)
 				{
 					// Find a <table> element with id="myTable":
                     var table = $('#assessment_manager_table')[0]; 
