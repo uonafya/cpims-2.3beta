@@ -1,3 +1,4 @@
+from django.utils.datastructures import MultiValueDictKeyError
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
@@ -6606,7 +6607,7 @@ def edit_csi(request, id):
                 #Get Existing Services/Support
                 existingservices = OVCCareServices.objects.filter(event_id=id, is_void=False)
                 for existingservice in existingservices:
-                    existing_services_provided.append({ 
+                    existing_services_provided.append({
                         'olmis_domain': str(existingservice.olmis_domain),
                         'olmis_service': str(existingservice.olmis_service),
                         'olmis_service_date': existingservice.olmis_service_date,
@@ -6882,7 +6883,7 @@ def new_form1b(request, id):
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     today = datetime.now()
     month = str(today.strftime('%b'))
-    f1b_allow = True if month in months else True
+    f1b_allow = True if month in months else False
     vals = get_dict(field_name=check_fields)
     ffs = create_fields(['form1b_items'])
     domains = create_form_fields(ffs)
@@ -7018,7 +7019,7 @@ def save_form1a(request):
                 ovccareevent.save()
                 new_pk = ovccareevent.pk
 
-                # Critical Events [CEVT]            
+                # Critical Events [CEVT]
                 my_kvals = []
                 olmis_critical_event = request.POST.getlist('olmis_critical_event')  # DHES
                 for i, cevts in enumerate(olmis_critical_event):
@@ -8912,7 +8913,7 @@ def case_plan_template(request, id):
                 my_action = all_data['actions']
                 my_service = all_data['services']
                 my_responsible = all_data['responsible']
-                my_actual_completion_date = all_data['actual_date']
+                my_actual_completion_date = all_data['actual_completion_date']
                 my_date_completed = all_data['date']
                 my_date_of_prev_evnt = timezone.now()
                 my_date_of_caseplan = all_data['CPT_DATE_CASEPLAN']
@@ -9005,7 +9006,7 @@ def update_caseplan(request, event_id, ovcid):
                         my_service = all_data['services']
                         my_responsible = all_data['responsible']
                         my_date_completed = all_data['date']
-                        my_actual_completion_date = all_data['actual_date']
+                        my_actual_completion_date = all_data['actual_completion_date']
                         my_date_of_prev_evnt = timezone.now()
                         my_date_of_caseplan = all_data['CPT_DATE_CASEPLAN']
                         my_results = all_data['results']
@@ -9617,6 +9618,63 @@ def new_hivscreeningtool(request, id):
                 house_hold=house_hold
             )
 
+            try:
+                parent_consentdate=form.data['HIV_RS_15']
+            except:
+                parent_consentdate = "1900-01-01"
+
+            try:
+                referal_madedate = form.data['HIV_RS_17']
+            except:
+                referal_madedate = "1900-01-01"
+
+            try:
+                referal_completeddate = form.data['HIV_RS_19']
+            except:
+                referal_completeddate = "1900-01-01"
+
+            try:
+                art_referaldate=form.data['HIV_RS_22']
+            except:
+                art_referaldate = "1900-01-01"
+
+            try:
+                art_refer_completeddate = form.data['HIV_RS_24']
+            except:
+                art_refer_completeddate = "1900-01-01"
+
+
+
+            if parent_consentdate:
+                parent_consentdate=parent_consentdate
+
+            else:
+                parent_consentdate=timezone.now()
+
+            if referal_madedate:
+                referal_madedate=referal_madedate
+
+            else:
+                referal_madedate=timezone.now()
+
+            if referal_completeddate:
+                referal_completeddate=referal_completeddate
+
+            else:
+                referal_completeddate=timezone.now()
+
+
+            if art_referaldate:
+                art_referaldate=art_referaldate
+
+            else:
+                art_referaldate=timezone.now()
+
+            if art_refer_completeddate:
+                art_refer_completeddate=art_refer_completeddate
+
+            else:
+                art_refer_completeddate=timezone.now()
             # converting values AYES and ANNO to boolean true/false
             boolean_fields = [
                 'HIV_RS_01',
@@ -9671,17 +9729,19 @@ def new_hivscreeningtool(request, id):
                 sti=data_to_save.get('HIV_RS_10'),
                 hiv_test_required=data_to_save.get('HIV_RS_11'),
                 parent_consent_testing=data_to_save.get('HIV_RS_14'),
+                parent_consent_date=parent_consentdate,
                 referral_made=data_to_save.get('HIV_RS_16'),
-                referral_made_date=data_to_save.get('HIV_RS_17'),
+                referral_made_date=referal_madedate,
                 referral_completed=data_to_save.get('HIV_RS_18'),
+                referral_completed_date=referal_completeddate,
                 not_completed=data_to_save.get('HIV_RS_18A'),
                 test_result=data_to_save.get('HIV_RS_18B'),
                 art_referral=data_to_save.get('HIV_RS_21'),
-                art_referral_date=data_to_save.get('HIV_RS_22'),
+                art_referral_date=art_referaldate,
                 art_referral_completed=data_to_save.get('HIV_RS_23'),
+                art_referral_completed_date=art_refer_completeddate,
                 facility_code=facility_res,
-                event=ovccareevent,
-
+                event=ovccareevent
             )
             msg = 'HIV risk screening saved successful'
             messages.add_message(request, messages.INFO, msg)
@@ -9710,20 +9770,46 @@ def new_hivmanagementform(request, id):
     if request.method == 'POST':
         # print request.POST
         try:
+            msg=''
             person = RegPerson.objects.get(id=id)
             event_date = request.POST.get('HIV_MGMT_2_A')
             event_type_id = 'HIV_MGMT'
-            event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=id,
-                                                         is_void=False).count()
-            ovccareevent = OVCCareEvents(
+            child = RegPerson.objects.get(id=id)
+            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=id, is_void=False).count()
+            # save event
+            ovccareevent = OVCCareEvents.objects.create(
                 event_type_id=event_type_id,
                 event_counter=event_counter,
                 event_score=0,
-                date_of_event=event_date,
-                created_by=id,
-                person=RegPerson.objects.get(pk=int(id))
+                created_by=request.user.id,
+                person=RegPerson.objects.get(pk=int(id)),
+                house_hold=house_hold
             )
-            ovccareevent.save()
+
+            _HIV_MGMT_1_E="ANNO"
+            _HIV_MGMT_1_F = "ANNO"
+            _HIV_MGMT_1_G = "ANNO"
+            if(request.POST.get('HIV_MGMT_1_E')):
+                _HIV_MGMT_1_E=request.POST.get('HIV_MGMT_1_E')
+            if (request.POST.get('HIV_MGMT_1_F')):
+                _HIV_MGMT_1_F = request.POST.get('HIV_MGMT_1_F')
+            if (request.POST.get('HIV_MGMT_1_G')):
+                _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
+
+
+            _HIV_MGMT_1_E_DATE="1900-01-01"
+            _HIV_MGMT_1_F_DATE = "1900-01-01"
+            _HIV_MGMT_1_G_DATE = "1900-01-01"
+            if(request.POST.get('HIV_MGMT_1_E_DATE')):
+                _HIV_MGMT_1_E_DATE=request.POST.get('HIV_MGMT_1_E_DATE')
+            if (request.POST.get('HIV_MGMT_1_F_DATE')):
+                _HIV_MGMT_1_F_DATE = request.POST.get('HIV_MGMT_1_F_DATE')
+            if (request.POST.get('HIV_MGMT_1_G_DATE')):
+                _HIV_MGMT_1_G_DATE = request.POST.get('HIV_MGMT_1_G_DATE')
+
             new_pk = ovccareevent.pk
             qry = OVCHIVManagement(
                 person=person,
@@ -9731,11 +9817,11 @@ def new_hivmanagementform(request, id):
                 Hiv_Confirmed_Date=request.POST.get('HIV_MGMT_1_A'),
                 Treatment_initiated_Date=request.POST.get('HIV_MGMT_1_B'),
                 FirstLine_Start_Date=request.POST.get('HIV_MGMT_1_D'),  # date
-                Substitution_FirstLine_ARV=request.POST.get('HIV_MGMT_1_E'),
+                Substitution_FirstLine_ARV=_HIV_MGMT_1_E,
                 Substitution_FirstLine_Date=request.POST.get('HIV_MGMT_1_E_DATE'),
-                Switch_SecondLine_ARV=request.POST.get('HIV_MGMT_1_F'),
+                Switch_SecondLine_ARV=_HIV_MGMT_1_F,
                 Switch_SecondLine_Date=request.POST.get('HIV_MGMT_1_F_DATE'),
-                Switch_ThirdLine_ARV=request.POST.get('HIV_MGMT_1_G'),
+                Switch_ThirdLine_ARV=_HIV_MGMT_1_G,
                 Switch_ThirdLine_Date=request.POST.get('HIV_MGMT_1_G_DATE'),
                 Visit_Date=event_date,
                 Duration_ART=request.POST.get('HIV_MGMT_2_B'),
@@ -9761,19 +9847,19 @@ def new_hivmanagementform(request, id):
                 Nutritional_Support=request.POST.get('HIV_MGMT_2_M'),
                 Peer_Educator_Name=request.POST.get('HIV_MGMT_2_R'),
                 Peer_Educator_Contact=request.POST.get('HIV_MGMT_2_S'),
-                event=OVCCareEvents.objects.get(pk=new_pk),
+                event=ovccareevent,
                 date_of_event=event_date
             ).save()
 
+            msg = 'data successfully saved'
+            messages.add_message(request, messages.INFO, msg)
             # print qry.query # print the execute query
         except Exception, e:
-            print "insertion failed"
-            print e
             from django.db import connection
-            print connection.queries[-1]
-
-        form = OVCSearchForm(data=request.POST)
-        return render(request, 'ovc/home.html', {'form': form, 'status': 200})
+            msg="failed to save data",e
+            messages.add_message(request, messages.ERROR, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
     else:
         try:
             init_data = RegPerson.objects.filter(pk=id)
