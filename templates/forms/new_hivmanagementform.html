@@ -565,11 +565,11 @@
 
         $("#hiv_mngt_form").submit(function(e){
             //e.preventDefault();
-
+            alert("te");
             $("#span_HIV_MGMT_1_E_DATE").remove();
             if(HIV_MGMT_1_E_DATE){
                 if( $("#HIV_MGMT_1_E_DATE").val().length == 0 ) {
-                    $("#HIV_MGMT_1_E_DATE").after("<div id='span_HIV_MGMT_1_E_DATE'><span>this date field is required</span></div>");
+                    $("#HIV_MGMT_1_E_DATE").after("<div class="color:red" id='span_HIV_MGMT_1_E_DATE'><span>this date field is required</span></div>");
                     return false;
                 }
             }
@@ -578,7 +578,7 @@
             $("#span_HIV_MGMT_1_F_DATE").remove();
             if(HIV_MGMT_1_F_DATE){
                 if( $("#HIV_MGMT_1_F_DATE").val().length == 0 ) {
-                    $("#HIV_MGMT_1_F_DATE").after("<div id='span_HIV_MGMT_1_F_DATE'><span>this date field is required</span></div>");
+                    $("#HIV_MGMT_1_F_DATE").after("<div class="color:red" id='span_HIV_MGMT_1_F_DATE'><span>this date field is required</span></div>");
                     return false;
                 }
             }
@@ -587,7 +587,7 @@
             $("#span_HIV_MGMT_1_G_DATE").remove();
             if(HIV_MGMT_1_G_DATE){
                 if( $("#HIV_MGMT_1_G_DATE").val().length == 0 ) {
-                    $("#HIV_MGMT_1_G_DATE").after("<div id='span_HIV_MGMT_1_G_DATE'><span>this date field is required</span></div>");
+                    $("#HIV_MGMT_1_G_DATE").after("<div class="color:red" id='span_HIV_MGMT_1_G_DATE'><span>this date field is required</span></div>");
                     return false;
                 }
             }
@@ -596,6 +596,7 @@
 
 
         $("input[type='radio'][name='HIV_MGMT_1_F']").click(function() {
+        alert("djdj")
             var value = $(this).val();
             if(value=='AYES') {
                 $("#HIV_MGMT_1_G_DATE").prop('disabled', false);
