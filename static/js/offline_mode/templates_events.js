@@ -45,7 +45,10 @@ let OvcHomeTemplate = (function (){
                     let value = entry[1];
 
                     if (key === id) {
-                        me._fillOvcDetailsPage(JSON.parse(Base64.decode(value)));
+                        let ovcData = JSON.parse(Base64.decode(value));
+                        window.offlineModeClient.currentSelectedOvc = ovcData;
+
+                        me._fillOvcDetailsPage(ovcData);
                         TemplateUtils.showPage(TemplateUtils.viewOvcPage);
                         return true;
                     }

@@ -333,6 +333,8 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         registrationData: undefined,
 
+        currentSelectedOvc: undefined,
+
         _initializeRegistrationData: function () {
             let _offlineModeClient = window.offlineModeClient;
             let me = this;
