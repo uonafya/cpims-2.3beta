@@ -66,7 +66,7 @@ class TestHivScreenToolViews(TestCase):
             'HIV_RS_16': 'AYES',
             'HIV_RS_17': str(now - timedelta(days=90))[0:10],
             'HIV_RS_18': 'AYES',
-            'HV_RS_18A': 'lorem ipsum',
+            'HIV_RS_18A': 'lorem ipsum',
             'HIV_RS_18B': '2',
             'HIV_RS_19': str(now - timedelta(days=80))[0:10],
             'HIV_RS_21': 'AYES',
@@ -84,8 +84,7 @@ class TestHivScreenToolViews(TestCase):
         mommy.make(OVCHHMembers, person=self.person, house_hold=house_hold)
 
         # Create an event
-        # mommy.make(OVCCareEvents, person=self.person, event_type_id='HRST')
-        response = self.client.post(self.url, post_data)
-        self.assertEqual(200, response.status_code)
-        self.assertTemplateUsed(response, 'forms/new_hivscreeningtool.html')
-        self.assertContains(response, 'lorem ipsum')
+        mommy.make(OVCCareEvents, person=self.person, event_type_id='HRST')
+        response = self.client.post(self.url, post_data, follow=True)
+        self.assertEqual(302, response.status_code)
+        self.assertIn('lorem ipsum', response.content)
