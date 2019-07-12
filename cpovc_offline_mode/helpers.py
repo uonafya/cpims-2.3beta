@@ -73,20 +73,49 @@ def get_ovc_household_members(ovc):
 
 
 def get_services():
-    services = SetupList.objects.filter(is_void=False)
-    data = {}
+    olmis_domain_id = 'olmis_domain_id'
+    olmis_assessment_domain_id = 'olmis_assessment_domain_id'
+    olmis = 'olmis'
+    olmis_priority_service = 'olmis_priority_service'
+    data = {
+        olmis_domain_id: {},
+        olmis_assessment_domain_id: {},
+        olmis: {},
+        olmis_priority_service: {}
+    }
 
-    for service in services:
-        service_data = {
-            'field_name': service.field_name,
-            'item_sub_category': service.item_description,
-            'status': 1 if service.item_sub_category else 0,
-            'item_sub_category_id': service.item_id
+    field_names = [olmis_domain_id, olmis_assessment_domain_id, olmis, olmis_priority_service]
+
+    def append_domain_data(domain, field, items):
+        for elem in items:
+            if domain in data[field]:
+                data[field][domain].append(elem)
+            else:
+                data[field][domain] = [elem]
+
+    def service_to_dict(service_obj):
+        return {
+            'field_name': service_obj.field_name,
+            'item_sub_category': service_obj.item_description,
+            'status': 1 if service_obj.item_sub_category else 0,
+            'item_sub_category_id': service_obj.item_id
         }
 
-        if service.item_id in data:
-            data[service.item_id].append(service_data)
-        else:
-            data[service.item_id] = [service_data]
+    for field_name in field_names:
+        services = []
+        if field_name in [olmis_domain_id, olmis_assessment_domain_id, olmis, olmis_priority_service]:
+            services = SetupList.objects.filter(field_name=field_name, is_void=False)
 
+        if field_name == olmis:
+            services = SetupList.objects.filter(field_name__icontains='olmis', is_void=False)
+
+        for service in services:
+            service_sub_category = service.item_sub_category
+
+            if not service_sub_category:
+                append_domain_data(service.item_id, field_name, [service_to_dict(service)])
+            else:
+                sub_categories = SetupList.objects.filter(field_name=service_sub_category, is_void=False)
+                sub_categories_as_dict = [service_to_dict(item) for item in sub_categories]
+                append_domain_data(service.item_id, field_name, sub_categories_as_dict)
     return data

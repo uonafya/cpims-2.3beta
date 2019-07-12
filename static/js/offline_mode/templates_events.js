@@ -337,6 +337,8 @@ let Form1ATemplate = (function (){
         },
 
         _populatePriorityServices: function () {
+            return;
+            // Todo redo this , they are read from a file
             let me = this;
             let domains = {
                 'DHNU': ['#olmis_priority_health'],
@@ -359,14 +361,18 @@ let Form1ATemplate = (function (){
             let me = this;
             let errorField = 'errorField';
             let serviceField = 'serviceField';
+            let fieldName = 'fieldName';
 
             let inputDomainElements = {
                 '#olmis_assessment_domain': {
+                    fieldName: 'olmis_assessment_domain_id',
                     serviceField: '#olmis_assessment_coreservice',
                     errorField: '#olmis_assessment_domain_errormsg',
-                    'onPopulate': () => $('#olmis_assessment_coreservice').trigger("change")
+                    // 'onPopulate': () => $('#olmis_assessment_coreservice').trigger("change")
+                    'onPopulate': () => ''
                 },
                 '#olmis_assessment_coreservice': {
+                    fieldName: 'olmis',
                     serviceField: '#olmis_assessment_coreservice_status',
                     errorField: '#olmis_assessment_coreservice_status_errormsg',
                     'onPopulate': () => $('#sel_olmis_assessment_coreservice_status').html('')
@@ -379,17 +385,17 @@ let Form1ATemplate = (function (){
 
                 $(field).change(function (event) {
                     let domain = $(field).val();
-                    me._populateService(domain, fieldHandler[serviceField], fieldHandler[errorField]);
+                    console.log(domain);
+                    me._populateService(fieldHandler[fieldName], domain, fieldHandler[serviceField], fieldHandler[errorField]);
                     let fn = fieldHandler['onPopulate'];
                     fn();
                 });
             });
-
-
         },
 
-        _populateService: function (domain, element, errorElement) {
-           let dataToPopulate = [
+        _populateService: function (fieldName, domain, element, errorElement) {
+            console.log(fieldName, domain, element, errorElement);
+            let dataToPopulate = [
                {
                    'label': 'Please Select',
                    'value': ''
@@ -401,13 +407,19 @@ let Form1ATemplate = (function (){
                return;
            }
 
-           let services = window.offlineModeClient.services[domain];
+           let services = window.offlineModeClient.services[fieldName];
 
            if (services === undefined) {
                services = [];
            }
 
-           services.forEach( (service) => {
+           let domainServices = services[domain];
+
+           if (domainServices === undefined) {
+               domainServices = [];
+           }
+
+           domainServices.forEach( (service) => {
                dataToPopulate.push({
                    label: service.item_sub_category,
                    value: service.item_sub_category_id
