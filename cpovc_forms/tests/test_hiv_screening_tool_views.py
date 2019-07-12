@@ -20,10 +20,11 @@ class TestHivScreenToolViews(TestCase):
         self.url = reverse(
             'new_hivscreeningtool', kwargs={'id': self.person.id})
         person_2 = mommy.make(RegPerson, surname='test')
-        user = mommy.make(
+        self.user = mommy.make(
             user_model, username='test_user', reg_person=person_2)
-        user.set_password('test_user')
-        user.save()
+        self.user.set_password('test_user')
+        self.user.is_staff = True
+        self.user.save()
         self.client.login(username='test_user', password='test_user')
         super(TestHivScreenToolViews, self).setUp(*args, **kwargs)
 
@@ -85,6 +86,9 @@ class TestHivScreenToolViews(TestCase):
 
         # Create an event
         mommy.make(OVCCareEvents, person=self.person, event_type_id='HRST')
+
         response = self.client.post(self.url, post_data, follow=True)
-        self.assertEqual(302, response.status_code)
-        self.assertIn('lorem ipsum', response.content)
+        self.assertEqual(200, response.status_code)
+        redirect_url = reverse('ovc_view', kwargs={'id': self.person.id})
+        response = self.client.get(redirect_url)
+        self.assertIn('Permission denied', response.content)
