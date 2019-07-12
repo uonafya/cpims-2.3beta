@@ -6883,7 +6883,7 @@ def new_form1b(request, id):
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     today = datetime.now()
     month = str(today.strftime('%b'))
-    f1b_allow = True if month in months else True
+    f1b_allow = True if month in months else False
     vals = get_dict(field_name=check_fields)
     ffs = create_fields(['form1b_items'])
     domains = create_form_fields(ffs)
