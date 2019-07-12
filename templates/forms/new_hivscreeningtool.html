@@ -123,9 +123,9 @@
                                             <td>
                                                     {{ form.HIV_RS_03 }}
                                             </td>
-                                            <td>
-                                                {{form.HIV_RS_03A}}
-                                            </td>
+                                            <!-- <td> -->
+                                                <!-- {{form.HIV_RS_03A}} -->
+                                            <!-- </td> -->
 
                                         </tr>
                                         
@@ -382,7 +382,7 @@
                                             6
                                             </td>
                                             <td>
-                                                (If applicable) Record facility of child's enrollment
+                                                (If applicable) Record facility of child's ART enrollment
                                             </td>
                                             <td>
                                                     <!-- {{ form.HIV_RA_3Q6 }} -->
@@ -446,7 +446,6 @@
                                         <th>Q 3b</th>
                                         <th>Q 4</th>
                                         <th>Q 5</th>
-                                        <th>Q 6</th>
                                         <th>Date of Event</th>
                                   </tr>
                                 </thead>
@@ -474,14 +473,6 @@
                           <td>{{one_screening_data.test_result | yesno:"Yes, No"}}</td>
                           <td>{{one_screening_data.art_referral | yesno:"Yes, No"}}</td>
                           <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No"}}</td>
-                          <td>{{ one_screening_data.facility.facility_name }}</td>
-
-                          <!-- <td>
-                          {% for k in hiv_facility%}
-                          <li>{{k.facility_name}}</li>
-                          {% endfor %}
-                          </td> -->
-                
                           <td>{{one_screening_data.date_of_event}}</td>
                         </tr>
                     {% endfor %}
@@ -492,7 +483,6 @@
                     {% endif %}
                 </table>
             </div>
-            <!-- ################################## -->
 
             <div class="badge pull-right m-4">Revised: 1st July 2019</div>
         </div>
@@ -520,15 +510,6 @@
         $( function() {
 
             $('#wizard-hivsct').bwizard();
-            // $('#HIV_RA_3Q6').multiselect({
-            //     enableCaseInsensitiveFiltering: true,
-            //     numberDisplayed: 1,
-            //     maxHeight: 300,
-            //     buttonWidth: '100%',
-            //     disableIfEmpty: true,
-            //     enableClickableOptGroups: true,
-            //     buttonClass: 'btn btn-white'
-            // });
             $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
             $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
@@ -591,20 +572,6 @@
             }
         });
 </script>
-    <!-- Skip logic -->
-    <!-- {% if data.date_of_birth|gen_age > 15 %}
-    <script>
-        $(document).ready(function () {
-            disableSection('section_a');
-        });
-        </script>
-    {% else %}
-        <script>
-            $(document).ready(function () {
-                disableSection('section_b');
-            });
-        </script>
-    {% endif %} -->
     <!-- Skip logic -->
     <script>
         $('input[name="HIV_RS_01"]').change(function (e) { 
