@@ -589,17 +589,17 @@
             if(HIV_MGMT_1_G_DATE){
                 if( $("#HIV_MGMT_1_G_DATE").val().length == 0 ) {
                     $("#HIV_MGMT_1_G_DATE").after("<div id='span_HIV_MGMT_1_G_DATE'><span style='color:red'>this date field is required</span></div>");
+
                     return false;
                 }
             }
 
-
-
             //$("#hiv_mngt_form").submit();
         });
 
+///////////////////// click events
 
-        $("input[type='radio'][name='HIV_MGMT_1_F']").click(function() {
+        $("input[type='radio'][name='HIV_MGMT_1_G']").click(function() {
             var value = $(this).val();
             if(value=='AYES') {
                 $("#HIV_MGMT_1_G_DATE").prop('disabled', false);
@@ -608,7 +608,6 @@
                 HIV_MGMT_1_G_DATE=true;
             }
             else {
-                HIV_MGMT_1_E_DATE=false;
                 $("#HIV_MGMT_1_G_DATE").val('n/a');
                 $("#HIV_MGMT_1_G_DATE").prop('disabled', true);
                 HIV_MGMT_1_G_DATE=false;
@@ -626,7 +625,6 @@
                 HIV_MGMT_1_F_DATE=true;
             }
             else {
-                HIV_MGMT_1_E_DATE=false;
                 $("#HIV_MGMT_1_F_DATE").val('n/a');
                 $("#HIV_MGMT_1_F_DATE").prop('disabled', true);
                 HIV_MGMT_1_F_DATE=false;
