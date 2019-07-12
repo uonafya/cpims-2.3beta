@@ -6607,7 +6607,7 @@ def edit_csi(request, id):
                 #Get Existing Services/Support
                 existingservices = OVCCareServices.objects.filter(event_id=id, is_void=False)
                 for existingservice in existingservices:
-                    existing_services_provided.append({ 
+                    existing_services_provided.append({
                         'olmis_domain': str(existingservice.olmis_domain),
                         'olmis_service': str(existingservice.olmis_service),
                         'olmis_service_date': existingservice.olmis_service_date,
@@ -7019,7 +7019,7 @@ def save_form1a(request):
                 ovccareevent.save()
                 new_pk = ovccareevent.pk
 
-                # Critical Events [CEVT]            
+                # Critical Events [CEVT]
                 my_kvals = []
                 olmis_critical_event = request.POST.getlist('olmis_critical_event')  # DHES
                 for i, cevts in enumerate(olmis_critical_event):
