@@ -61,7 +61,7 @@
                 <h4 class="panel-title"> HIV Management Form </h4>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                <form class="form-horizontal form-bordered" id="hiv_mngt_form" action="." method="POST" data-parsley-validate="true"
                     name="form-wizard-hhva" id="new_hhva">
                     {% csrf_token %}
                     <div id="wizard-hivmanagementform">
@@ -141,6 +141,7 @@
                                             </td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_E_DATE }}
+
                                             </td>
                                         </tr>
 
@@ -245,7 +246,7 @@
                                         </tr>
                                         <tr>
                                             <td>Q6</td>
-                                            <td> ARV drugs - Duration for drugs </td>
+                                            <td> ARV drugs - Duration for drugs (in months)</td>
                                             <td>
                                                     {{ form.HIV_MGMT_2_F }}
                                             </td>
@@ -551,6 +552,104 @@
             });
 
         } );
+
+
+
 </script>
+
+<!-- conditonal form validation -->
+<script>
+       var HIV_MGMT_1_E_DATE=false;
+       var HIV_MGMT_1_F_DATE=false;
+       var HIV_MGMT_1_G_DATE=false;
+
+        isValid=true
+
+        $("#hiv_mngt_form").submit(function(e){
+            //e.preventDefault();
+            $("#span_HIV_MGMT_1_E_DATE").remove();
+            if(HIV_MGMT_1_E_DATE){
+                if( $("#HIV_MGMT_1_E_DATE").val().length == 0 ) {
+                    $("#HIV_MGMT_1_E_DATE").after("<div id='span_HIV_MGMT_1_E_DATE'><span style='color:red'>this date field is required</span></div>");
+                    return false;
+                }
+            }
+
+
+            $("#span_HIV_MGMT_1_F_DATE").remove();
+            if(HIV_MGMT_1_F_DATE){
+                if( $("#HIV_MGMT_1_F_DATE").val().length == 0 ) {
+                    $("#HIV_MGMT_1_F_DATE").after("<div id='span_HIV_MGMT_1_F_DATE'><span style='color:red'>this date field is required</span></div>");
+                    return false;
+                }
+            }
+
+
+            $("#span_HIV_MGMT_1_G_DATE").remove();
+            if(HIV_MGMT_1_G_DATE){
+                if( $("#HIV_MGMT_1_G_DATE").val().length == 0 ) {
+                    $("#HIV_MGMT_1_G_DATE").after("<div id='span_HIV_MGMT_1_G_DATE'><span style='color:red'>this date field is required</span></div>");
+
+                    return false;
+                }
+            }
+
+            //$("#hiv_mngt_form").submit();
+        });
+
+///////////////////// click events
+
+        $("input[type='radio'][name='HIV_MGMT_1_G']").click(function() {
+            var value = $(this).val();
+            if(value=='AYES') {
+                $("#HIV_MGMT_1_G_DATE").prop('disabled', false);
+                $("#HIV_MGMT_1_G_DATE").val('');
+                $("#HIV_MGMT_1_G_DATE").attr("placeholder", "date");
+                HIV_MGMT_1_G_DATE=true;
+            }
+            else {
+                $("#HIV_MGMT_1_G_DATE").val('n/a');
+                $("#HIV_MGMT_1_G_DATE").prop('disabled', true);
+                HIV_MGMT_1_G_DATE=false;
+            }
+        });
+
+
+
+        $("input[type='radio'][name='HIV_MGMT_1_F']").click(function() {
+            var value = $(this).val();
+            if(value=='AYES') {
+                $("#HIV_MGMT_1_F_DATE").prop('disabled', false);
+                $("#HIV_MGMT_1_F_DATE").val('');
+                $("#HIV_MGMT_1_F_DATE").attr("placeholder", "date");
+                HIV_MGMT_1_F_DATE=true;
+            }
+            else {
+                $("#HIV_MGMT_1_F_DATE").val('n/a');
+                $("#HIV_MGMT_1_F_DATE").prop('disabled', true);
+                HIV_MGMT_1_F_DATE=false;
+            }
+        });
+
+
+
+        $("input[type='radio'][name='HIV_MGMT_1_E']").click(function() {
+            var value = $(this).val();
+            if(value=='AYES') {
+                $("#HIV_MGMT_1_E_DATE").prop('disabled', false);
+                $("#HIV_MGMT_1_E_DATE").val('');
+                $("#HIV_MGMT_1_E_DATE").attr("placeholder", "date");
+                HIV_MGMT_1_E_DATE=true;
+            }
+            else {
+                HIV_MGMT_1_E_DATE=false;
+                $("#HIV_MGMT_1_E_DATE").val('n/a');
+                $("#HIV_MGMT_1_E_DATE").prop('disabled', true);
+                HIV_MGMT_1_E_DATE=false;
+            }
+        });
+
+</script>
+
 
 {% endblock %}
