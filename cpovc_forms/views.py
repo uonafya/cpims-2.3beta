@@ -9595,158 +9595,165 @@ def new_hivscreeningtool(request, id):
     hiv_screen = None
     hiv_facility = None
     if request.method == 'POST':
-    # if True:
-        form = HIV_SCREENING_FORM(request.POST, initial={'person': id})
-        # if form.is_valid():
+        try:
 
-        if True:
-            child = RegPerson.objects.get(id=id)
-            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-            event_type_id = 'HRST'
+            form = HIV_SCREENING_FORM(request.POST, initial={'person': id})
+            if True:
+                child = RegPerson.objects.get(id=id)
+                house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+                event_type_id = 'HRST'
 
-            """ Save hiv_screening-event """
-            # get event counter
-            event_counter = OVCCareEvents.objects.filter(
-                event_type_id=event_type_id, person=id, is_void=False).count()
-            # save event
-            ovccareevent = OVCCareEvents.objects.create(
-                event_type_id=event_type_id,
-                event_counter=event_counter,
-                event_score=0,
-                created_by=request.user.id,
-                person=RegPerson.objects.get(pk=int(id)),
-                house_hold=house_hold
-            )
+                """ Save hiv_screening-event """
+                # get event counter
+                event_counter = OVCCareEvents.objects.filter(
+                    event_type_id=event_type_id, person=id, is_void=False).count()
+                # save event
+                ovccareevent = OVCCareEvents.objects.create(
+                    event_type_id=event_type_id,
+                    event_counter=event_counter,
+                    event_score=0,
+                    created_by=request.user.id,
+                    person=RegPerson.objects.get(pk=int(id)),
+                    house_hold=house_hold
+                )
 
-            try:
-                parent_consentdate=form.data['HIV_RS_15']
-            except:
-                parent_consentdate = "1900-01-01"
+                try:
+                    parent_consentdate=form.data['HIV_RS_15']
+                except:
+                    parent_consentdate = "1900-01-01"
 
-            try:
-                referal_madedate = form.data['HIV_RS_17']
-            except:
-                referal_madedate = "1900-01-01"
+                try:
+                    referal_madedate = form.data['HIV_RS_17']
+                except:
+                    referal_madedate = "1900-01-01"
 
-            try:
-                referal_completeddate = form.data['HIV_RS_19']
-            except:
-                referal_completeddate = "1900-01-01"
+                try:
+                    referal_completeddate = form.data['HIV_RS_19']
+                except:
+                    referal_completeddate = "1900-01-01"
 
-            try:
-                art_referaldate=form.data['HIV_RS_22']
-            except:
-                art_referaldate = "1900-01-01"
+                try:
+                    art_referaldate=form.data['HIV_RS_22']
+                except:
+                    art_referaldate = "1900-01-01"
 
-            try:
-                art_refer_completeddate = form.data['HIV_RS_24']
-            except:
-                art_refer_completeddate = "1900-01-01"
-
+                try:
+                    art_refer_completeddate = form.data['HIV_RS_24']
+                except:
+                    art_refer_completeddate = "1900-01-01"
 
 
-            if parent_consentdate:
-                parent_consentdate=parent_consentdate
 
-            else:
-                parent_consentdate=timezone.now()
+                if parent_consentdate:
+                    parent_consentdate=parent_consentdate
 
-            if referal_madedate:
-                referal_madedate=referal_madedate
-
-            else:
-                referal_madedate=timezone.now()
-
-            if referal_completeddate:
-                referal_completeddate=referal_completeddate
-
-            else:
-                referal_completeddate=timezone.now()
-
-
-            if art_referaldate:
-                art_referaldate=art_referaldate
-
-            else:
-                art_referaldate=timezone.now()
-
-            if art_refer_completeddate:
-                art_refer_completeddate=art_refer_completeddate
-
-            else:
-                art_refer_completeddate=timezone.now()
-            # converting values AYES and ANNO to boolean true/false
-            boolean_fields = [
-                'HIV_RS_01',
-                'HIV_RS_02',
-                'HIV_RS_03',
-                'HIV_RS_03A',
-                'HIV_RS_04',
-                'HIV_RS_05',
-                'HIV_RS_06',
-                'HIV_RS_07',
-                'HIV_RS_08',
-                'HIV_RS_09',
-                'HIV_RS_10',
-                'HIV_RS_11',
-                'HIV_RS_14',
-                'HIV_RS_16',
-                'HIV_RS_18',
-                'HIV_RS_21',
-                'HIV_RS_23',
-
-            ]
-
-            data_to_save = {}
-
-            for key, value in request.POST.iteritems():
-                if key in boolean_fields:
-                    data_to_save.update({
-                        key: True if value == "AYES" else False
-                    })
                 else:
-                    data_to_save.update({key: value})
+                    parent_consentdate=timezone.now()
 
-            facility = data_to_save.get('HIV_RA_3Q6')
-            if facility:
-                facility_res = OVCFacility.objects.get(id=facility).facility_code
-            else:
-                facility_res = None
+                if referal_madedate:
+                    referal_madedate=referal_madedate
 
-            ovcscreeningtool = OVCHIVRiskScreening.objects.create(
-                person=RegPerson.objects.get(pk=int(id)),
-                date_of_event=data_to_save.get('HIV_RA_1A'),
-                test_done_when=data_to_save.get('HIV_RS_03'),  # date of assesment
-                test_donewhen_result=data_to_save.get('HIV_RS_03A'),
-                caregiver_know_status=data_to_save.get('HIV_RS_01'),
-                caregiver_knowledge_yes=data_to_save.get('HIV_RS_02'),
-                parent_PLWH=data_to_save.get('HIV_RS_04'),
-                child_sick_malnourished=data_to_save.get('HIV_RS_05'),
-                child_sexual_abuse=data_to_save.get('HIV_RS_06'),
-                adol_sick=data_to_save.get('HIV_RS_07'),
-                adol_sexual_abuse=data_to_save.get('HIV_RS_08'),
-                sex=data_to_save.get('HIV_RS_09'),
-                sti=data_to_save.get('HIV_RS_10'),
-                hiv_test_required=data_to_save.get('HIV_RS_11'),
-                parent_consent_testing=data_to_save.get('HIV_RS_14'),
-                parent_consent_date=parent_consentdate,
-                referral_made=data_to_save.get('HIV_RS_16'),
-                referral_made_date=referal_madedate,
-                referral_completed=data_to_save.get('HIV_RS_18'),
-                referral_completed_date=referal_completeddate,
-                not_completed=data_to_save.get('HIV_RS_18A'),
-                test_result=data_to_save.get('HIV_RS_18B'),
-                art_referral=data_to_save.get('HIV_RS_21'),
-                art_referral_date=art_referaldate,
-                art_referral_completed=data_to_save.get('HIV_RS_23'),
-                art_referral_completed_date=art_refer_completeddate,
-                facility_code=facility_res,
-                event=ovccareevent
-            )
-            msg = 'HIV risk screening saved successful'
-            messages.add_message(request, messages.INFO, msg)
-            url = reverse('ovc_view', kwargs={'id': id})
-            return HttpResponseRedirect(url)
+                else:
+                    referal_madedate=timezone.now()
+
+                if referal_completeddate:
+                    referal_completeddate=referal_completeddate
+
+                else:
+                    referal_completeddate=timezone.now()
+
+
+                if art_referaldate:
+                    art_referaldate=art_referaldate
+
+                else:
+                    art_referaldate=timezone.now()
+
+                if art_refer_completeddate:
+                    art_refer_completeddate=art_refer_completeddate
+
+                else:
+                    art_refer_completeddate=timezone.now()
+                # converting values AYES and ANNO to boolean true/false
+                boolean_fields = [
+                    'HIV_RS_01',
+                    'HIV_RS_02',
+                    'HIV_RS_03',
+                    'HIV_RS_03A',
+                    'HIV_RS_04',
+                    'HIV_RS_05',
+                    'HIV_RS_06',
+                    'HIV_RS_07',
+                    'HIV_RS_08',
+                    'HIV_RS_09',
+                    'HIV_RS_10',
+                    'HIV_RS_11',
+                    'HIV_RS_14',
+                    'HIV_RS_16',
+                    'HIV_RS_18',
+                    'HIV_RS_21',
+                    'HIV_RS_23',
+
+                ]
+
+                data_to_save = {}
+
+                for key, value in request.POST.iteritems():
+                    if key in boolean_fields:
+                        data_to_save.update({
+                            key: True if value == "AYES" else False
+                        })
+                    else:
+                        data_to_save.update({key: value})
+
+                facility = data_to_save.get('HIV_RA_3Q6')
+                if facility:
+                    facility_res = OVCFacility.objects.get(id=facility).facility_code
+                else:
+                    facility_res = None
+
+                ovcscreeningtool = OVCHIVRiskScreening.objects.create(
+                    person=RegPerson.objects.get(pk=int(id)),
+                    date_of_event=data_to_save.get('HIV_RA_1A'),
+                    test_done_when=data_to_save.get('HIV_RS_03'),  # date of assesment
+                    test_donewhen_result=data_to_save.get('HIV_RS_03A'),
+                    caregiver_know_status=data_to_save.get('HIV_RS_01'),
+                    caregiver_knowledge_yes=data_to_save.get('HIV_RS_02'),
+                    parent_PLWH=data_to_save.get('HIV_RS_04'),
+                    child_sick_malnourished=data_to_save.get('HIV_RS_05'),
+                    child_sexual_abuse=data_to_save.get('HIV_RS_06'),
+                    adol_sick=data_to_save.get('HIV_RS_07'),
+                    adol_sexual_abuse=data_to_save.get('HIV_RS_08'),
+                    sex=data_to_save.get('HIV_RS_09'),
+                    sti=data_to_save.get('HIV_RS_10'),
+                    hiv_test_required=data_to_save.get('HIV_RS_11'),
+                    parent_consent_testing=data_to_save.get('HIV_RS_14'),
+                    parent_consent_date=parent_consentdate,
+                    referral_made=data_to_save.get('HIV_RS_16'),
+                    referral_made_date=referal_madedate,
+                    referral_completed=data_to_save.get('HIV_RS_18'),
+                    referral_completed_date=referal_completeddate,
+                    not_completed=data_to_save.get('HIV_RS_18A'),
+                    test_result=data_to_save.get('HIV_RS_18B'),
+                    art_referral=data_to_save.get('HIV_RS_21'),
+                    art_referral_date=art_referaldate,
+                    art_referral_completed=data_to_save.get('HIV_RS_23'),
+                    art_referral_completed_date=art_refer_completeddate,
+                    facility_code=facility_res,
+                    event=ovccareevent
+                )
+                msg = 'HIV risk screening saved successful'
+                messages.add_message(request, messages.INFO, msg)
+                url = reverse('ovc_view', kwargs={'id': id})
+                return HttpResponseRedirect(url)
+        except Exception, e:
+            from django.db import connection
+            msg="failed to save data",e
+            messages.add_message(request, messages.ERROR, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
+
+            
 
     else:
         form = HIV_SCREENING_FORM()
