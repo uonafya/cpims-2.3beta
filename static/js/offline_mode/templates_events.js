@@ -310,7 +310,6 @@ let Form1ATemplate = (function (){
                     buttonClass: 'btn btn-white'
                 });
 
-            me._populatePriorityServices();
             me._populateServiceFromInputDomain();
             me._setupDateFields();
             me._displayOnInputChanged();
@@ -336,27 +335,6 @@ let Form1ATemplate = (function (){
             });
         },
 
-        _populatePriorityServices: function () {
-            return;
-            // Todo redo this , they are read from a file
-            let me = this;
-            let domains = {
-                'DHNU': ['#olmis_priority_health'],
-                'DSHC': ['#olmis_priority_shelter'],
-                'DPRO': ['#olmis_priority_protection'],
-                'DEDU': ['#olmis_priority_education'],
-                'DPSS': ['#olmis_priority_pss'],
-                'DHES': ['#olmis_priority_hes']
-            };
-
-            Object.entries(domains).forEach((domain) => {
-                let domainName = domain[0];
-                let domainFields = domain[1];
-
-                domainFields.forEach( (domainField) => me._populateService(domainName, domainField, ""));
-            });
-        },
-
         _populateServiceFromInputDomain: function() {
             let me = this;
             let errorField = 'errorField';
@@ -376,6 +354,12 @@ let Form1ATemplate = (function (){
                     serviceField: '#olmis_assessment_coreservice_status',
                     errorField: '#olmis_assessment_coreservice_status_errormsg',
                     'onPopulate': () => $('#sel_olmis_assessment_coreservice_status').html('')
+                },
+                '#olmis_domain': {
+                    fieldName: 'olmis_domain_id',
+                    serviceField: '#olmis_service',
+                    errorField: '#olmis_domain_errormsg',
+                    'onPopulate': () =>  $("#sel_olmis_service").html('')
                 }
             };
 
