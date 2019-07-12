@@ -108,7 +108,7 @@ olmis_service_provider_list = get_list(
 olmis_critical_events_list = get_list(
     'olmis_critical_event_id', 'Please Select')
 olmis_ha5_list = get_list('olmis_ha5_id', 'Please Select')
-olmis_ha6_list = get_list('olmis_ha6_id', 'Please Select')
+olmis_ha6_list = get_list('olmis_ha6_id', False)
 olmis_ha7_list = get_list('olmis_ha7_id', 'Please Select')
 olmis_ha8_list = get_list('olmis_ha8_id', 'Please Select')
 olmis_ha9_list = get_list('olmis_ha9_id', 'Please Select')
