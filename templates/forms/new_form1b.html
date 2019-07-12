@@ -589,7 +589,7 @@
             e.preventDefault();
 
             $('#new_form1b').parsley().validate();
-            var amonths = [ 3, 6, 9, 12 ];
+            var amonths = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
             var date = $('#olmis_service_date').datepicker('getDate')
             var month = date.getMonth() + 1;
             var mcheck = $.inArray(month, amonths);

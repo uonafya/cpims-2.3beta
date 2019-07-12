@@ -6883,7 +6883,7 @@ def new_form1b(request, id):
     months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     today = datetime.now()
     month = str(today.strftime('%b'))
-    f1b_allow = True if month in months else True
+    f1b_allow = True if month in months else False
     vals = get_dict(field_name=check_fields)
     ffs = create_fields(['form1b_items'])
     domains = create_form_fields(ffs)
@@ -9741,8 +9741,7 @@ def new_hivscreeningtool(request, id):
                 art_referral_completed=data_to_save.get('HIV_RS_23'),
                 art_referral_completed_date=art_refer_completeddate,
                 facility_code=facility_res,
-                event=ovccareevent,
-
+                event=ovccareevent
             )
             msg = 'HIV risk screening saved successful'
             messages.add_message(request, messages.INFO, msg)
