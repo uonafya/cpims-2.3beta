@@ -9868,9 +9868,6 @@ def new_hivmanagementform(request, id):
             init_data = RegPerson.objects.filter(pk=id)
             check_fields = ['sex_id']
             vals = get_dict(field_name=check_fields)
-            # ovc_hiv_obj = OVCHIVManagement.objects.filter(person=init_data).values_list('Hiv_Confirmed_Date',
-            #                                                                             'Treatment_initiated_Date',
-            #                                                                             'Switch_ThirdLine_Date')[0:1]
             form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
             form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
 
