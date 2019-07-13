@@ -1687,6 +1687,131 @@ def expand_per_domain_query(sql):
     return final_sql
 
 
+def _get_hh_categorization(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='annual'):
+
+    # "SELECT count(ovccount) FROM public.hiv_status where "
+    rows2, desc2 = 0, 0
+    period_span=''
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+    print level, area_id,funding_partner,funding_part_id,period_typ
+    base_sql=''
+
+    if(currentMonth==10 and period_typ=='annual'): # start of a new period (october)
+        yr=currentYear+1
+        period_span='APR '+str(currentYear)+'/'+str(yr)
+
+        base_sql='''select count(distinct(household)) as cboactive,'{}' as time_period,graduationpath 
+                    from vw_cpims_benchmark_dashboard where date_of_event between 'oct-01-{}' and 'Sept-30-{}' group by graduationpath limit 10
+                    '''.format(period_span,currentYear,yr)
+
+    elif(currentMonth is not 10 and period_typ=='annual'):
+        yr=currentYear-1
+        period_span = 'APR '+str(yr) + '/' + str(currentYear)
+
+        base_sql = '''select count(distinct(household)) as cboactive,'{}' as time_period,graduationpath 
+                            from vw_cpims_benchmark_dashboard where date_of_event between 'oct-01-{}' and 'Sept-30-{} '
+                            '''.format(
+            period_span, yr,currentYear)
+
+    if(period_typ=='semi' and (currentMonth>=10 and currentMonth<=3)):
+        if(currentMonth>=1 and currentMonth<=3):
+            yr = currentYear - 1
+            start_year = yr
+            end_year = currentYear
+        else:
+            start_year=currentYear
+            end_year=currentYear+1
+        period_span = str(start_year) + '/' + str(end_year)
+
+        base_sql = '''select count(distinct(household)) as cboactive,'{}' as time_period,graduationpath 
+                            from vw_cpims_benchmark_dashboard where date_of_event between 'oct-01-{}' and 'Sept-30-{} ' 
+                            '''.format(
+            period_span, start_year, end_year)
+
+
+
+    elif(period_typ=='semi' and (currentMonth>=3 and currentMonth<=9)):
+        period_span = str(currentYear)
+
+        base_sql = '''select count(distinct(household)) as cboactive,'{}' as time_period,graduationpath 
+                                    from vw_cpims_benchmark_dashboard where date_of_event between 'oct-01-{}' and 'Sept-30-{} '
+                                    '''.format(
+            period_span, currentYear, currentYear)
+
+
+    if level == 'national':
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql+'''
+                                    group by graduationpath
+                                    ''')
+
+    elif (level == 'county'):
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql  + '''
+                                        and countyid={0} group by 
+                                        graduationpath
+                                    '''.format(area_id))
+
+    elif (level == 'subcounty'):
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql  + '''
+                                        and 
+                                        ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        group by graduationpath
+                                    '''.format(area_id))
+
+    elif (level == 'ward'):
+        rows2, desc2 = run_sql_data(None,
+                                    base_sql  + '''
+                                        and ward={0} group by graduationpath
+                                    '''.format(area_id))
+
+    elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
+        print "not 10th month 0"
+        if (funding_partner == 'funding_mechanism'):
+            if (funding_part_id == '0'):  # usaid
+
+                rows2, desc2 = run_sql_data(None,
+                        base_sql  + '''
+                             and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                           in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                               'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                               )) group by graduationpath'''
+                                            )
+
+        if (funding_partner == 'cluster'):
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                         and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                               )  group by graduationpath'''.format(funding_part_id)
+                                        )
+
+        if (funding_partner == 'cbo_unit'):
+            rows2, desc2 = run_sql_data(None,
+                                        base_sql + '''
+                                                     and cbo_id = '{}' group by graduationpath'''.format(
+                                            funding_part_id)
+                                        )
+
+    else:
+        rows2, desc2 = run_sql_data(None,
+                                    '''select 1''')
+
+    househld_cat_list_envelop = []
+    for data in rows2:
+        hh_cat_obj = {}
+
+        hh_cat_obj['graduationpath']=data['GRADUATIONPATH']
+        hh_cat_obj['period']=data['TIME_PERIOD']
+        hh_cat_obj['count']=data['CBOACTIVE']
+
+        househld_cat_list_envelop.append(hh_cat_obj)
+
+    return househld_cat_list_envelop
+
+
+
 def _get_ovcserved_stats(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='annual'):
 
     # "SELECT count(ovccount) FROM public.hiv_status where "
