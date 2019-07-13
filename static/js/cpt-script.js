@@ -85,13 +85,20 @@ final_input['reasons'] = [];
 final_input['if_first_cpara'] = [];
 final_input['date_first_cpara'] = [];
 final_input['CPT_DATE_CASEPLAN'] = [];
+
+$('input[name="CPT_DATE_CASEPLAN"]').click(function (e) { 
+    $('.waleert').remove();
+    $('input, select, .multiselect.dropdown-toggle.btn.btn-white').css({'border-color':'#ccd0d4'});
+});
 function AddRow() {    
     var randomID = randomNo();
     
     
     let domain = $('#id_CPT_DOMAIN option:selected').val();
+    let domain_txt = $('#id_CPT_DOMAIN option:selected').text();
     
     let goal = $('.goals_cell > div:not(.hidden) > select > option:selected').val();
+    let goal_txt = $('.goals_cell > div:not(.hidden) > select > option:selected').text();
     // let goal = []
     // $('.goals_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
     //     var vlu = $(this).val();
@@ -101,6 +108,7 @@ function AddRow() {
     // })
 
     let gaps = $('.gaps_cell > div:not(.hidden) > select > option:selected').val();
+    let gaps_txt = $('.gaps_cell > div:not(.hidden) > select > option:selected').text();
     // let gaps = []
     // $('.gaps_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
     //     var vlu2 = $(this).val();
@@ -110,6 +118,7 @@ function AddRow() {
     // })
 
     let actions = $('.actions_cell > div:not(.hidden) > select > option:selected').val();
+    let actions_txt = $('.actions_cell > div:not(.hidden) > select > option:selected').text();
     // let actions = []
     // $('.actions_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
     //     var vlu3 = $(this).val();
@@ -129,23 +138,29 @@ function AddRow() {
     
     
     let responsibl = $('#id_CPT_RESPONSIBLE option:selected').val();
+    let responsibl_txt = $('#id_CPT_RESPONSIBLE option:selected').text();
 
     let date = $('#CPT_DATE').val();
     let actual_completion_date = $('#CPT_ACTUAL_DATE_COMPLETION').val();
     let if_first_cpara = $('input[name=if_first_cpara]:checked').val();
     let date_first_cpara = $('input[name=date_first_cpara]').val();
     let CPT_DATE_CASEPLAN = $('input[name=CPT_DATE_CASEPLAN]').val();
-    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == ''){
-        $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid red');
-        $('#CPT_DATE_CASEPLAN_state').empty();
-        $('input[name=CPT_DATE_CASEPLAN]').after("<small id='CPT_DATE_CASEPLAN_state' style='color: red'>This field is required</small>");
+    $('.waleert').remove();
+    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || actual_completion_date == null || actual_completion_date == '' || responsibl_txt == 'Pick an item' || actions_txt == 'Pick an item' || domain_txt == 'Pick an item' || goal_txt == 'Pick an item' || gaps_txt == 'Pick an item' || services.length < 1){
+        // $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid red');
+        $('input, select, .multiselect.dropdown-toggle.btn.btn-white').css('border', '1px solid red');
+        // $('#CPT_DATE_CASEPLAN_state').empty();
+        // $('input[name=CPT_DATE_CASEPLAN]').after("<small id='CPT_DATE_CASEPLAN_state' style='color: red'>This field is required</small>");
+        $('input, select').before("<small id='CPT_DATE_CASEPLAN_state' class='waleert' style='color: red'>This field is required</small>");
         var proceed = false;
     }else{
         var proceed = true;
     }
     $('input[name=CPT_DATE_CASEPLAN]').change(function (e) { 
-        $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid #9fa2a5');
-        $('#CPT_DATE_CASEPLAN_state').empty();
+        // $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid #9fa2a5');
+        $('input, select, .multiselect.dropdown-toggle.btn.btn-white').css('border', '1px solid #9fa2a5');
+        // $('#CPT_DATE_CASEPLAN_state').empty();
+        $('.waleert').remove();
     });
     let results = $('#id_CPT_RESULTS option:selected').val();
     let reasons = $('#id_CPT_REASONS').val();
