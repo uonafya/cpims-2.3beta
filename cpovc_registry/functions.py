@@ -1757,7 +1757,7 @@ def _get_hh_categorization(level='national', area_id='',funding_partner='',fundi
         rows2, desc2 = run_sql_data(None,
                                     base_sql  + '''
                                         and 
-                                        ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        CAST (ward AS INTEGER) in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
                                         group by graduationpath
                                     '''.format(area_id))
 

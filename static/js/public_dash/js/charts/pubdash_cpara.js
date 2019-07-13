@@ -21,7 +21,7 @@ $(document).ready(function () {
     fetchCPARAResults('national',"none","none","none","annual");
     fetchPerBenchmarkPerformance('national',"none","none","none","annual");
     fetchHHScoringCat('national',"none","none","none","annual");
-    fetchCategorization016('national',"none","none","none","annual");
+    fetchPerBenchmarkDomainPerformance('national',"none","none","none","annual");
     //undone
     //
     //fetchDomainPerformance('national',"none","none","none","annual");
@@ -137,7 +137,7 @@ $(document).ready(function () {
 
     function fetchHHScoringCat(org_level,area_id,funding_partner,funding_part_id,period_type){
 
-        var the_url = '/get_per_domain_results/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+        var the_url = '/get_hh_categorization/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
             type: 'GET',
             url: the_url,
@@ -160,7 +160,7 @@ $(document).ready(function () {
 
 
 
-   function fetchCategorization016(org_level,area_id,funding_partner,funding_part_id,period_type){
+   function fetchPerBenchmarkDomainPerformance(org_level,area_id,funding_partner,funding_part_id,period_type){
 
         var the_url = '/get_per_domain_results/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
@@ -368,10 +368,26 @@ $(document).ready(function () {
 
             var elementId="hh_scoring_categorization";
             var the_title = 'Categorization of HHs scoring 0-16';
-            var score_0_7 = 60.80
-            var score_8_16 = 39.20
-            var the_data = { name: 'Result', data: [{name: 'Score 0-7',y: score_0_7}, {name: 'Score 8-16',y: score_8_16}] };
 
+            var score_8_16;
+            var score_0_7;
+
+            for(let i = 0; i < data.length; i++){
+
+               let value = data[i].graduationpath;
+                console.log(data[i].count);
+               if(value=="8-16"){
+                    score_8_16 =  parseInt(data[i].count);
+               }else if(value=="0-7"){
+                    score_0_7 =  parseInt(data[i].count);
+               }
+
+            }
+
+            var total=score_8_16+score_0_7;
+            score_8_16=(score_8_16*100)/total;
+            score_0_7=(score_0_7*100)/total;
+            var the_data = { name: 'Result', data: [{name: 'Score 0-7',y: score_0_7}, {name: 'Score 8-16',y: score_8_16}] };
             var the_series = [the_data];
             pieChart(elementId,the_title,the_series)
 
@@ -380,20 +396,6 @@ $(document).ready(function () {
 
     function displayPerBenchmarkDomainPerformance(data){
 
-        // var female={name: 'female',data: []};
-            // var male={name: 'male',data: []};
-            // $.each(data, function (index, objValue) {
-            //     console.log("The service =====>");
-            //     console.log(objValue);
-            //     the_x_axis.push(objValue['period']);
-            //     if(objValue['active']==true){
-            //         if(objValue['gender']=='Male') male['data'].push(objValue['count']);
-            //         else female['data'].push(objValue['count']);
-            //     }
-            // });
-            // var the_series = [male,female];
-
-        //overall
         var elementId_overall="dmn_perf_overall";
         var the_title_overall = 'Overall domains performance in all counties';
         var o_healthy_data=data[0].HEALTHY;
