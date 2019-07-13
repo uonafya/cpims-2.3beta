@@ -17,6 +17,7 @@
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
+
 <h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>
 Caregiver details | {{care_giver}}
 {% if creg.is_active %}
@@ -72,6 +73,7 @@ Caregiver details | {{care_giver}}
                 <h4 class="panel-title">Registration details &nbsp; </h4>
             </div>
             <!-- start panel body -->
+     <div style="overflow-x: auto; min-height: 300px;">
             <div class="panel-body">
                 <form action="." method="post" name="ovcreg_form" id="ovcreg_form" data-parsley-validate="true">
                 {% csrf_token %}
@@ -339,6 +341,7 @@ Caregiver details | {{care_giver}}
                 </div>
             <!-- end panel body -->
         </div>
+     </div>
         <!-- end panel -->  
     </div>
     <!-- end col-12 -->

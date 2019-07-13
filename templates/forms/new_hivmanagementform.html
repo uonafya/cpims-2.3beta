@@ -61,7 +61,7 @@
                 <h4 class="panel-title"> HIV Management Form </h4>
             </div>
             <div class="panel-body">
-                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                <form class="form-horizontal form-bordered" id="hiv_mngt_form" action="." method="POST" data-parsley-validate="true"
                     name="form-wizard-hhva" id="new_hhva">
                     {% csrf_token %}
                     <div id="wizard-hivmanagementform">
@@ -96,7 +96,7 @@
                                     <tbody>
                                         <tr>
                                            <td>1</td>
-                                            <td>Date confirmed HIV Positive</td>
+                                            <td>Date confirmed HIV Positive<span class="asteriskField">*</td>
                                             <td>
                                                 {{ form_arvtherapy.HIV_MGMT_1_A }}
                                             </td>
@@ -104,7 +104,7 @@
                                         </tr>
                                         <tr>
                                             <td>2a</td>
-                                            <td>Date initiated on Treatment</td>
+                                            <td>Date initiated on Treatment<span class="asteriskField">*</td>
                                             <td> 
                                                     {{ form_arvtherapy.HIV_MGMT_1_B }}
                                             </td>
@@ -113,7 +113,7 @@
                                         </tr>
                                         <tr>
                                             <td>2b</td>
-                                            <td>Baseline viral load for HEI</td>
+                                            <td>Baseline viral load for HEI<span class="asteriskField">*</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_C }}
                                             </td>
@@ -124,7 +124,7 @@
 
                                         <tr>
                                                 <td>3</td>
-                                                <td>Date started on 1st Line</td>
+                                                <td>Date started on 1st Line<span class="asteriskField">*</td>
                                                 <td style="background-color: grey">
                                                     
                                                 </td>
@@ -135,18 +135,19 @@
 
                                         <tr>
                                             <td>4</td>
-                                            <td>Substitution of ARVs within 1st Line Regimen</td>
+                                            <td>Substitution of ARVs within 1st Line Regimen<span class="asteriskField">*</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_E }}
                                             </td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_E_DATE }}
+
                                             </td>
                                         </tr>
 
                                         <tr>
                                             <td>5</td>
-                                            <td>Switch to 2nd Line (or Substitute within 2nd Line)</td>
+                                            <td>Switch to 2nd Line (or Substitute within 2nd Line)<span class="asteriskField">*</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_F }}
                                             </td>
@@ -157,7 +158,7 @@
 
                                         <tr>
                                             <td>6</td>
-                                            <td>Switch to 3rd Line (or Substitute within 3nd Line)</td>
+                                            <td>Switch to 3rd Line (or Substitute within 3nd Line)<span class="asteriskField">*</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_G }}
                                             </td>
@@ -194,7 +195,7 @@
                                         
                                         <tr>
                                             <td>Q1</td>
-                                            <td>Visit date  
+                                            <td>Visit date <span class="asteriskField">* 
                                             </td>
                                             <td>
                                                     {{ form.HIV_MGMT_2_A }}
@@ -245,7 +246,7 @@
                                         </tr>
                                         <tr>
                                             <td>Q6</td>
-                                            <td> ARV drugs - Duration for drugs </td>
+                                            <td> ARV drugs - Duration for drugs (in months)</td>
                                             <td>
                                                     {{ form.HIV_MGMT_2_F }}
                                             </td>
@@ -336,7 +337,7 @@
                                         <tr>
                                                 <td>Q14</td>
                                                 <td>
-                                                    Lab Investigations - Date
+                                                    Lab Investigations - Date<span class="asteriskField">*
                                                 </td>
                                                 <td>
                                                         {{ form.HIV_MGMT_2_I_DATE }}   
@@ -453,7 +454,7 @@
                                         <tr>
                                                 <td>Q24</td>
                                                 <td>
-                                                    Date of Next Appointment 
+                                                    Date of Next Appointment <span class="asteriskField">*
                                                 </td>
                                                 <td>
                                                         {{ form.HIV_MGMT_2_Q }}
@@ -475,7 +476,7 @@
 
 
                                         <tr>
-                                                <td>Q25</td>
+                                                <td>Q26</td>
                                                 <td>
                                                     Peer Educator Contacts
                                                 </td>
@@ -551,6 +552,104 @@
             });
 
         } );
+
+
+
 </script>
+
+<!-- conditonal form validation -->
+<script>
+       var HIV_MGMT_1_E_DATE=false;
+       var HIV_MGMT_1_F_DATE=false;
+       var HIV_MGMT_1_G_DATE=false;
+
+        isValid=true
+
+        $("#hiv_mngt_form").submit(function(e){
+            //e.preventDefault();
+            $("#span_HIV_MGMT_1_E_DATE").remove();
+            if(HIV_MGMT_1_E_DATE){
+                if( $("#HIV_MGMT_1_E_DATE").val().length == 0 ) {
+                    $("#HIV_MGMT_1_E_DATE").after("<div id='span_HIV_MGMT_1_E_DATE'><span style='color:red'>this date field is required</span></div>");
+                    return false;
+                }
+            }
+
+
+            $("#span_HIV_MGMT_1_F_DATE").remove();
+            if(HIV_MGMT_1_F_DATE){
+                if( $("#HIV_MGMT_1_F_DATE").val().length == 0 ) {
+                    $("#HIV_MGMT_1_F_DATE").after("<div id='span_HIV_MGMT_1_F_DATE'><span style='color:red'>this date field is required</span></div>");
+                    return false;
+                }
+            }
+
+
+            $("#span_HIV_MGMT_1_G_DATE").remove();
+            if(HIV_MGMT_1_G_DATE){
+                if( $("#HIV_MGMT_1_G_DATE").val().length == 0 ) {
+                    $("#HIV_MGMT_1_G_DATE").after("<div id='span_HIV_MGMT_1_G_DATE'><span style='color:red'>this date field is required</span></div>");
+
+                    return false;
+                }
+            }
+
+            //$("#hiv_mngt_form").submit();
+        });
+
+///////////////////// click events
+
+        $("input[type='radio'][name='HIV_MGMT_1_G']").click(function() {
+            var value = $(this).val();
+            if(value=='AYES') {
+                $("#HIV_MGMT_1_G_DATE").prop('disabled', false);
+                $("#HIV_MGMT_1_G_DATE").val('');
+                $("#HIV_MGMT_1_G_DATE").attr("placeholder", "date");
+                HIV_MGMT_1_G_DATE=true;
+            }
+            else {
+                $("#HIV_MGMT_1_G_DATE").val('n/a');
+                $("#HIV_MGMT_1_G_DATE").prop('disabled', true);
+                HIV_MGMT_1_G_DATE=false;
+            }
+        });
+
+
+
+        $("input[type='radio'][name='HIV_MGMT_1_F']").click(function() {
+            var value = $(this).val();
+            if(value=='AYES') {
+                $("#HIV_MGMT_1_F_DATE").prop('disabled', false);
+                $("#HIV_MGMT_1_F_DATE").val('');
+                $("#HIV_MGMT_1_F_DATE").attr("placeholder", "date");
+                HIV_MGMT_1_F_DATE=true;
+            }
+            else {
+                $("#HIV_MGMT_1_F_DATE").val('n/a');
+                $("#HIV_MGMT_1_F_DATE").prop('disabled', true);
+                HIV_MGMT_1_F_DATE=false;
+            }
+        });
+
+
+
+        $("input[type='radio'][name='HIV_MGMT_1_E']").click(function() {
+            var value = $(this).val();
+            if(value=='AYES') {
+                $("#HIV_MGMT_1_E_DATE").prop('disabled', false);
+                $("#HIV_MGMT_1_E_DATE").val('');
+                $("#HIV_MGMT_1_E_DATE").attr("placeholder", "date");
+                HIV_MGMT_1_E_DATE=true;
+            }
+            else {
+                HIV_MGMT_1_E_DATE=false;
+                $("#HIV_MGMT_1_E_DATE").val('n/a');
+                $("#HIV_MGMT_1_E_DATE").prop('disabled', true);
+                HIV_MGMT_1_E_DATE=false;
+            }
+        });
+
+</script>
+
 
 {% endblock %}

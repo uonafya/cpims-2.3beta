@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ovchealth',
             name='timestamp_updated',
-            field=models.DateTimeField(auto_now=True),
+            field=models.DateTimeField(auto_now=True, null=True),
             preserve_default=False,
         ),
     ]

@@ -108,7 +108,7 @@ olmis_service_provider_list = get_list(
 olmis_critical_events_list = get_list(
     'olmis_critical_event_id', 'Please Select')
 olmis_ha5_list = get_list('olmis_ha5_id', 'Please Select')
-olmis_ha6_list = get_list('olmis_ha6_id', 'Please Select')
+olmis_ha6_list = get_list('olmis_ha6_id', False)
 olmis_ha7_list = get_list('olmis_ha7_id', 'Please Select')
 olmis_ha8_list = get_list('olmis_ha8_id', 'Please Select')
 olmis_ha9_list = get_list('olmis_ha9_id', 'Please Select')
@@ -6622,7 +6622,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-        # 'data-parsley-required': 'true',
+        'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6757,7 +6757,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     }))
 
     HIV_MGMT_2_L_2 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Viral Load Results'),
+        attrs={'placeholder': _('nutritional assessment'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
           #     'data-parsley-required': "False"
@@ -6904,7 +6904,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6913,7 +6912,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6922,7 +6920,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
         attrs={
-         'data-parsley-required': 'true',
         # 'data-parsley-errors-container': "#errorfield"
     }))
 
@@ -6934,7 +6931,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_E_DATE',
                'id': 'HIV_MGMT_1_E_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     
@@ -6946,7 +6942,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_F_DATE',
                'id': 'HIV_MGMT_1_F_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     
@@ -6958,7 +6953,6 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_G_DATE',
                'id': 'HIV_MGMT_1_G_DATE',
                'autocomplete': "off",
-               'data-parsley-required': "true",
                'data-parsley-group': 'group0'
     }))
     

@@ -12,3 +12,4 @@ python-memcached
 pandas==0.20.3
 xlsxwriter==0.9.8
 django-import-export==1.2.0
+sentry-sdk==0.10.0

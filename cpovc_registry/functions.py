@@ -2439,7 +2439,7 @@ def auto_suggest_person(request, query, qid=0):
                     is_void=False).values_list(
                         'person_id', flat=True)
             queryset = RegPerson.objects.filter(
-                Q(surname__contains=query) | Q(email__contains=query) | Q(first_name__contains=query) | Q(other_names__contains=query), id__in=person_ids, is_void=False)
+                Q(surname__icontains=query) | Q(email__icontains=query) | Q(first_name__icontains=query) | Q(other_names__icontains=query), id__in=person_ids, is_void=False)
             #field_names = ['surname', 'email', 'first_name', 'other_names']
             #q_filter = Q()
             #for field in field_names:
@@ -3050,6 +3050,7 @@ def search_person_ft(request, search_string, ptype, incl_dead):
         person_type = str(ptype)
         p_type = person_type
         other_filter = ''
+        print 'Person type is: ', p_type
         if person_type == 'TBVC':
             person_type = 'COVC'
             other_filter = "OR designation = 'TBVC'"
@@ -3063,8 +3064,8 @@ def search_person_ft(request, search_string, ptype, incl_dead):
             sql = query % (vals, person_type, other_filter)
         else:
             # Other than OVC
-            query = ("SELECT reg_person.person_id as id FROM reg_person INNER JOIN persons_types "
-                     " ON reg_person.person_id=person_id AND person_type_id = '%s' WHERE to_tsvector"
+            query = ("SELECT reg_person.id as id FROM reg_person INNER JOIN reg_persons_types "
+                     " ON reg_person.id=person_id AND person_type_id = '%s' WHERE to_tsvector"
                      "(first_name || ' ' || surname || ' '"
                      " || COALESCE(other_names,''))"
                      " @@ to_tsquery('english', '%s') "

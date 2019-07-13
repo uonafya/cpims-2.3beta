@@ -6,5 +6,6 @@ CPIMS v 2.2
 The project uses https://pypi.org/project/django-nose/ to run tests.
 
 `$ pip install requirements/dev.txt` while on the root folder of the project
+
 Then run
 `$ python manage.py test --settings=cpims.test_settings`
