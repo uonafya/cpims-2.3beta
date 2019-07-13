@@ -21,9 +21,7 @@ $(document).ready(function () {
     fetchCPARAResults('national',"none","none","none","annual");
     fetchPerBenchmarkPerformance('national',"none","none","none","annual");
     fetchHHScoringCat('national',"none","none","none","annual");
-
-    //displayHHScoringCat(data);
-
+    fetchCategorization016('national',"none","none","none","annual");
     //undone
     //
     //fetchDomainPerformance('national',"none","none","none","annual");
@@ -147,7 +145,7 @@ $(document).ready(function () {
             dataType: 'json',
             encode: true,
             success: function (data, textStatus, jqXHR) {
-            displayPerBenchmarkDomainPerformance(data);
+            displayHHScoringCat(data);
             console.log("the data is: ========>");
             console.log(data);
             },
@@ -159,6 +157,28 @@ $(document).ready(function () {
 
 
     //--1--
+
+
+
+   function fetchCategorization016(org_level,area_id,funding_partner,funding_part_id,period_type){
+
+        var the_url = '/get_per_domain_results/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+        $.ajax({
+            type: 'GET',
+            url: the_url,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            encode: true,
+            success: function (data, textStatus, jqXHR) {
+            displayPerBenchmarkDomainPerformance(data);
+            console.log("the data is: ========>");
+            console.log(data);
+            },
+            error: function (response, request) {
+                console.log(response.responseText);
+            }
+        });
+    }
 
 
 
