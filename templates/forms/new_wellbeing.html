@@ -1928,58 +1928,26 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 </tbody>
                             </table>
-
-
-                            <table class="table table-bordered">
-                                <thead>
-                                <col width="20">
-
-                                <col width="500">
-                                </thead>
-                                <tbody>
-
-                                <tr>
-
-                                    <td>
-                                        <div class="col-md-12" id="safetytab" style="overflow-y: auto; max-height: 700px;">
-                                          <ul class="nav nav-pills nav-stacked">
-                                             {% for hhmember in hhmembers %}
-                                                {% if forloop.counter == 1 %}
-                                                    <li class="active" data-child-id={{ hhmember.person_id }} >
-                                                {% else %}
-                                                    <li data-child-id={{ hhmember.person_id }} >
-                                                {% endif %}
-                                                  <span>
-                                                    <h4> Child {{ forloop.counter }} </h4>
-                                                    <label style="display: block">Name: {{ hhmember.person.first_name }} {{ hhmember.person.surname }}</label>
+                            
+                            <!-- Tablist for OVCs-->
+                            <div>
+                                <h3>List of Children</h3>
+                                <div class="panel-group" id="accordion-wellbeing" role="tablist" aria-multiselectable="true">
+                                       
+                                    {% for hhmember in hhmembers %}
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="wellbeing_heading_{{ forloop.counter }}"  }}>
+                                            <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion-wellbeing" href="#wellbeing_{{ forloop.counter }}"  aria-expanded="false" aria-controls="wellbeing_{{ forloop.counter }}" >
+                                                    Child-{{ forloop.counter }}  |
+                                                    <label> Name: {{ hhmember.person.first_name }} {{ hhmember.person.surname }}</label>|
                                                     <label>Age:{{ hhmember.person.date_of_birth |gen_age}}</label>
-                                                  </span>
-                                                </li>
-                                            {% endfor %}
-                                            </ul>
+                                            </a>
+                                            </h4>
                                         </div>
-                                    </td>
-                                    <td>
-
-
-                                        <div>
-                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                                <li class="nav-item active">
-                                                    <a class="nav-link active" id="Q40-tab" data-toggle="tab"
-                                                       href="#Q40"
-                                                       role="tab" aria-controls="Q40"
-                                                       aria-selected="true">Questions.</a>
-                                                </li>
-                                            </ul>
-
-                                            <div class="tab-content" id="myTabContent">
-                                                <div class="tab-pane fade in active" id="Q40" role="tabpanel"
-                                                     aria-labelledby="home-tab">
-
-                                                    <div class="panel-body">
-
-
-                                                        <table class="table table-bordered">
+                                        <div id="wellbeing_{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="wellbeing_heading_{{ forloop.counter }}" >
+                                            <div class="panel-body">
+                                                    <table class="table table-bordered">
                                                             <thead>
                                                                 <col width>
                                                                 <col width="500">
@@ -1992,210 +1960,266 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                         <b>36a:</b> What is your relationship to the child?<span class="asteriskField">*
                                                                     </td>
                                                                     <td>
+                                                                       
+                                                                    <label for="id_WB_SAF_37_1_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_1_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="Father" data-parsley-multiple="WB_SAF_37_1"> Father (2)</label>
+                                                                    <label for="id_WB_SAF_37_1_2_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_2_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="Aunt" data-parsley-multiple="WB_SAF_37_1"> Aunt (3)</label>
+                                                                    <label for="id_WB_SAF_37_1_3_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_3_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="Uncle" data-parsley-multiple="WB_SAF_37_1"> Uncle (4)</label>
+                                                                    <label for="id_WB_SAF_37_1_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_0_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="Mother" data-parsley-multiple="WB_SAF_37_1" data-parsley-id="531"> Mother (1)</label><label for="id_WB_SAF_37_1_4"><input data-parsley-required="False" id="id_WB_SAF_37_1_4" name="WB_SAF_37_1" type="radio" value="Grandmother" data-parsley-multiple="WB_SAF_37_1"> Grandmother (5)</label>
+                                                                    <label for="id_WB_SAF_37_1_5_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_5_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="Grandfather" data-parsley-multiple="WB_SAF_37_1"> Grandfather (6)</label>
+                                                                    <label for="id_WB_SAF_37_1_6_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_6_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="Other sibling" data-parsley-multiple="WB_SAF_37_1"> Older sibling (7)</label>
+                                                                    <label for="id_WB_SAF_37_1_7_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_7_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="Other relative" data-parsley-multiple="WB_SAF_37_1"> Other relative(specify) (8)</label>
+                                                                    <label for="id_WB_SAF_37_1_8_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_37_1_8_{{hhmember.person_id}}" name="WB_SAF_37_1_{{hhmember.person_id}}" type="radio" value="OTHER" data-parsley-multiple="WB_SAF_37_1"> Other (specify)</label>
+                                                                    <input class="form-control" id="WB_SAF_37_2_{{hhmember.person_id}}" name="WB_SAF_37_2_{{hhmember.person_id}}" placeholder="Other specify" type="text" data-parsley-required="false" data-parsley-id="549">
+                                                        
 
-                                                                        {{form.WB_SAF_37_1}}
-                                                                        {{form.WB_SAF_37_2}}
+                                                                        <!-- {{form.WB_SAF_37_1}}
+                                                                        {{form.WB_SAF_37_2}} -->
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
                                                                         <b>36b:</b> What is their relationship to the child?<span class="asteriskField">*
                                                                     </td>
+                                                                    
                                                                     <td>
-                                                                        {{form.WB_SAF_38_1}}
-                                                                        {{form.WB_SAF_38_2}}
-                                                                    </td>
+                                                                            <label for="id_WB_SAF_38_1_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_0_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Mother" data-parsley-multiple="WB_SAF_38_1"> Mother (1)</label>
+                                                                            <label for="id_WB_SAF_38_1_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_1_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Father" data-parsley-multiple="WB_SAF_38_1"> Father (2)</label>
+                                                                            <label for="id_WB_SAF_38_1_2_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_2_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Aunt" data-parsley-multiple="WB_SAF_38_1"> Aunt (3)</label>
+                                                                            <label for="id_WB_SAF_38_1_3_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_3_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Uncle" data-parsley-multiple="WB_SAF_38_1"> Uncle (4)</label>
+                                                                            <label for="id_WB_SAF_38_1_4_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_4_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Grandmother" data-parsley-multiple="WB_SAF_38_1"> Grandmother (5)</label>
+                                                                            <label for="id_WB_SAF_38_1_5_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_5_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Grandfather" data-parsley-multiple="WB_SAF_38_1"> Grandfather (6)</label>
+                                                                            <label for="id_WB_SAF_38_1_6_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_6_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Other sibling" data-parsley-multiple="WB_SAF_38_1"> Older sibling (7)</label>
+                                                                            <label for="id_WB_SAF_38_1_7_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_7_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="Other relative" data-parsley-multiple="WB_SAF_38_1"> Other relative(specify) (8)</label>
+                                                                            <label for="id_WB_SAF_38_1_8_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_38_1_8_{{hhmember.person_id}}" name="WB_SAF_38_1_{{hhmember.person_id}}" type="radio" value="OTHER" data-parsley-multiple="WB_SAF_38_1"> Other (specify)</label>
+                                                                            <input class="form-control" id="WB_SAF_38_2_{{hhmember.person_id}}" name="WB_SAF_38_2_{{hhmember.person_id}}" placeholder="Other specify" type="text"  data-parsley-required="false" data-parsley-id="570">
+                                                                        </td>
+                                                                        <!-- {{form.WB_SAF_38_1}}
+                                                                        {{form.WB_SAF_38_2}} -->
+                                                                    
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
                                                                         <b>37:</b> If the mother is not a primary caregiver, where is
-                                                                        the childs mother?<span class="asteriskField">*
+                                                                        the child's mother?<span class="asteriskField">*
                                                                     </td>
                                                                     <td>
 
+                                                                            <label for="id_WB_SAF_39_1_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_39_1_0_{{hhmember.person_id}}" name="WB_SAF_39_1_{{hhmember.person_id}}" type="radio" value="ELSEWHERE" data-parsley-multiple="WB_SAF_39_1"  Live / work elsewhere</label>
+                                                                            <label for="id_WB_SAF_39_1_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_39_1_1_{{hhmember.person_id}}" name="WB_SAF_39_1_{{hhmember.person_id}}" type="radio" value="DECEASED" data-parsley-multiple="WB_SAF_39_1"> Deceased</label>
+                                                                            <label for="id_WB_SAF_39_1_2_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_39_1_2_{{hhmember.person_id}}" name="WB_SAF_39_1_{{hhmember.person_id}}" type="radio" value="OTHER" data-parsley-multiple="WB_SAF_39_1"> Other (specify)</label>
+                                                                            <input class="form-control" id="WB_SAF_39_2_{{hhmember.person_id}}" name="WB_SAF_39_2_{{hhmember.person_id}}" placeholder="Other specify" type="text" data-parsley-required="false" >
+                                                                        </td>
+                                                                    <!-- <td>
+
                                                                         {{form.WB_SAF_39_1}}
                                                                         {{form.WB_SAF_39_2}}
-                                                                    </td>
+                                                                    </td> -->
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        <b>38:</b> If the father is not a primary caregiver, where is the childs father?<span class="asteriskField">*
+                                                                        <b>38:</b> If the father is not a primary caregiver, where is the child's father?<span class="asteriskField">*
                                                                     </td>
                                                                     <td>
-                                                                        <div class="row">
+                                                                            
+                                                                            <div class="row">
+    
+    
+                                                                                <label for="id_WB_SAF_40_1_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_40_1_0_{{hhmember.person_id}}" name="WB_SAF_40_1_{{hhmember.person_id}}" type="radio" value="ELSEWHERE" data-parsley-multiple="WB_SAF_40_1"> Live / work elsewhere</label>
+                                                                                <label for="id_WB_SAF_40_1_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_40_1_1_{{hhmember.person_id}}" name="WB_SAF_40_1_{{hhmember.person_id}}" type="radio" value="DECEASED" data-parsley-multiple="WB_SAF_40_1"> Deceased</label>
+                                                                                <label for="id_WB_SAF_40_1_2_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SAF_40_1_2_{{hhmember.person_id}}" name="WB_SAF_40_1_{{hhmember.person_id}}" type="radio" value="OTHER" data-parsley-multiple="WB_SAF_40_1"> Other (specify)</label>
+                                                                                <input class="form-control" id="WB_SAF_40_2_{{hhmember.person_id}}" name="WB_SAF_40_2_{{hhmember.person_id}}" placeholder="Other specify" type="text" >
+                                                                            </div>
+                                                                                
+                                                                        <!-- <div class="row">
 
 
                                                                             {{form.WB_SAF_40_1}}
                                                                             {{form.WB_SAF_40_2}}
-                                                                        </div>
+                                                                        </div> -->
                                                                     </td>
                                                                 </tr>
 
                                                             </tbody>
                                                         </table>
-
-                                                    </div>
-                                                </div>
                                             </div>
-                                        </div>
+                                        </div>            
+                                    </div>
+                                    {% endfor %}
+                                    
+                                </div>
 
-                                    </td>
+                            </div>
 
-                                </tr>
-
-
-                                </tbody>
-                            </table>
                         </div>
                         <!--end wizard step-4      -->
                         <!-- begin wizard step-5 -->
                         <div class="wzd wizard-step-5">
-                            <table class="table table-bordered">
-                                <thead>
-                                <col width="20">
 
-                                <col width="500">
-                                </thead>
-                                <tbody>
-
-
-                                <tr>
-
-                                    <td>
-                                        <div class="col-md-12" id="schooltab" style="overflow-y: auto; max-height: 700px;">
-                                            <ul class="nav nav-pills nav-stacked">
-                                                {% for hhmember in hhmembers %}
-                                                    {% if forloop.counter == 1 %}
-
-                                                        <li class="active" data-child-id={{ hhmember.person_id }} >
-                                                    {% else %}
-                                                        <li data-child-id={{ hhmember.person_id }} >
-                                                    {% endif %}
-                                                    <span>
-                                                        <h4> Child {{ forloop.counter }} </h4>
-                                                        <label style="display: block">Name: {{ hhmember.person.first_name }} {{ hhmember.person.surname }}</label>
+                            <!-- Tablist for OVCs-->
+                            <div>
+                                    <h3>List of Children</h3>
+                                    <div class="panel-group" id="accordion-wellbeing2" role="tablist" aria-multiselectable="true">
+                                           
+                                        {% for hhmember in hhmembers %}
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="wellbeing2_heading_{{ forloop.counter }}"  }}>
+                                                <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion2-wellbeing" href="#wellbeing2_{{ forloop.counter }}"  aria-expanded="false" aria-controls="wellbeing_{{ forloop.counter }}" >
+                                                        Child-{{ forloop.counter }} |
+                                                        <label> Name: {{ hhmember.person.first_name }} {{ hhmember.person.surname }}</label>   | 
                                                         <label>Age:{{ hhmember.person.date_of_birth |gen_age}}</label>
-                                                    </span>
-                                                    </li>
-                                                {% endfor %}
-                                            </ul>
-                                        </div>
-                                    </td>
-                                    <td>
-
-                                      <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                          <li class="nav-item active">
-                                              <a class="nav-link active" id="Q44-tab" data-toggle="tab"
-                                                 href="#Q44"
-                                                 role="tab" aria-controls="Q44"
-                                                 aria-selected="true">Questions.</a>
-                                          </li>
-                                          
-                                      </ul>
-
-                                      <div class="tab-content" id="mTabContent">
-                                          <div class="tab-pane fade in active" id="Q44" role="tabpanel"
-                                               aria-labelledby="home-tab">
-                                              <div class="panel-body">
-                                                  <table class="table table-bordered">
-                                                      <thead>
-                                                      <col width>
-                                                      <col width="500">
-                                                      <th>Question</th>
-                                                      <th>Options</th>
-                                                      </thead>
-                                                      <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                39: Is this child currently enrolled in school?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-
-                                                                {{form.WB_SCH_39_1}}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                40: If the caregiver responded no, has the child ever been enrolled in school?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-
-                                                                {{form.WB_SCH_40_1}}
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                               41:  Record why the child is not enrolled in school.
-                                                            </td>
-                                                            <td>
-
-                                                                {{form.WB_SCH_41_1}}
-                                                                {{form.WB_SCH_41_2}}
+                                                </a>
+                                                </h4>
+                                            </div>
+                                            <div id="wellbeing2_{{ forloop.counter }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="wellbeing2_heading_{{ forloop.counter }}" >
+                                                <div class="panel-body">
+                                                        <table class="table table-bordered">
+                                                                <thead>
+                                                                <col width>
+                                                                <col width="500">
+                                                                <th>Question</th>
+                                                                <th>Options</th>
+                                                                </thead>
+                                                                <tbody>
+                                                                  <tr>
+                                                                      <td>
+                                                                          39: Is this child currently enrolled in school?<span class="asteriskField">*
+                                                                      </td>
+                                                                      <td>
+          
+                                                                            <label for="id_WB_SCH_39_1_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_39_1_0_{{hhmember.person_id}}" name="WB_SCH_39_1_{{hhmember.person_id}}" type="radio" value="AYES" data-parsley-multiple="WB_SCH_39_1"> Yes</label>
+                                                                            <label for="id_WB_SCH_39_1_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_39_1_1_{{hhmember.person_id}}" name="WB_SCH_39_1_{{hhmember.person_id}}" type="radio" value="ANNO" data-parsley-multiple="WB_SCH_39_1"> No</label>
+                                                                        </td>
+                                                                      <!-- <td>
+          
+                                                                          {{form.WB_SCH_39_1}}
+                                                                      </td> -->
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>
+                                                                          40: If the caregiver responded no, has the child ever been enrolled in school?<span class="asteriskField">*
+                                                                      </td>
+                                                                      <td>
+          
+                                                                            <label for="id_WB_SCH_40_1_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_40_1_0_{{hhmember.person_id}}" name="WB_SCH_40_1_{{hhmember.person_id}}" type="radio" value="AYES" data-parsley-multiple="WB_SCH_40_1"> Yes</label>
+                                                                            <label for="id_WB_SCH_40_1_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_40_1_1_{{hhmember.person_id}}" name="WB_SCH_40_1_{{hhmember.person_id}}" type="radio" value="ANNO" data-parsley-multiple="WB_SCH_40_1"> No</label>
+                                                                        </td>
+                                                                      <!-- <td>
+          
+                                                                          {{form.WB_SCH_40_1}}
+                                                                      </td> -->
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>
+                                                                         41:  Record why the child is not enrolled in school.
+                                                                      </td>
+                                                                      <td>
+          
+                                                                            <ul id="id_WB_SCH_41_1_{{hhmember.person_id}}"><li><label for="id_WB_SCH_41_1_0_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_0_{{hhmember.person_id}}" name="WB_SCH_41_1_{{hhmember.person_id}}" type="checkbox" value="Sick/ Fever" data-parsley-multiple="WB_SCH_41_1_{{hhmember.person_id}}"> Sick/ Fever</label></li>
+                                                                            <li><label for="id_WB_SCH_41_1_1_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_1_{{hhmember.person_id}}" name="WB_SCH_41_1" type="checkbox" value="Housework" data-parsley-multiple="WB_SCH_41_1"> Housework</label></li>
+                                                                            <li><label for="id_WB_SCH_41_1_2_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_2_{{hhmember.person_id}}" name="WB_SCH_41_1" type="checkbox" value="Exhaustion" data-parsley-multiple="WB_SCH_41_1"> Exhaustion</label></li>
+                                                                            <li><label for="id_WB_SCH_41_1_3_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_3_{{hhmember.person_id}}" name="WB_SCH_41_1" type="checkbox" value="Fear of the school or other children at school" data-parsley-multiple="WB_SCH_41_1"> Fear of the school or other children at school</label></li>
+                                                                            <li><label for="id_WB_SCH_41_1_4_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_4_{{hhmember.person_id}}" name="WB_SCH_41_1" type="checkbox" value="Fear of the walk to school" data-parsley-multiple="WB_SCH_41_1"> Fear of the walk to school</label></li>
+                                                                            <li><label for="id_WB_SCH_41_1_5_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_5_{{hhmember.person_id}}" name="WB_SCH_41_1" type="checkbox" value="Inability to pay school fees" data-parsley-multiple="WB_SCH_41_1"> Inability to pay school fees</label></li>
+                                                                            <li><label for="id_WB_SCH_41_1_6_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_6_{{hhmember.person_id}}" name="WB_SCH_41_1" type="checkbox" value="Inability to pay for school materials" data-parsley-multiple="WB_SCH_41_1"> Inability to pay for school materials</label></li>
+                                                                            <li><label for="id_WB_SCH_41_1_7_{{hhmember.person_id}}"><input id="id_WB_SCH_41_1_7_{{hhmember.person_id}}" name="WB_SCH_41_1" type="checkbox" value="Other" data-parsley-multiple="WB_SCH_41_1"> specify if other</label></li></ul>
+                                                                            <input class="form-control" id="WB_SCH_41_2_{{hhmember.person_id}}" name="WB_SCH_41_2_{{hhmember.person_id}}" placeholder="Other specify" type="text"  data-parsley-required="false">
+                                                                            
+                                                                        </td>
+                                                                      <!-- <td>
+          
+                                                                          {{form.WB_SCH_41_1}}
+                                                                          {{form.WB_SCH_41_2}}
+                                                                          
+                                                                      </td> -->
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>
+                                                                          42: If the caregiver responded yes, what grade/form/year is this child in now?<span class="asteriskField">*
+                                                                      </td>
+                                                                      <td>
+                                                                            <div class="col-md-6">
+            
+                                                                                <label for="id_WB_SCH_42_2_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_42_2_0_{{hhmember.person_id}}" name="WB_SCH_42_2_{{hhmember.person_id}}" type="radio" value="GRADE" data-parsley-multiple="WB_SCH_42_2"> Grade</label>
+                                                                                <label for="id_WB_SCH_42_2_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_42_2_1_{{hhmember.person_id}}" name="WB_SCH_42_2_{{hhmember.person_id}}" type="radio" value="FORM" data-parsley-multiple="WB_SCH_42_2"> Form</label>
+                                                                                <label for="id_WB_SCH_42_2_2_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_42_2_2_{{hhmember.person_id}}" name="WB_SCH_42_2_{{hhmember.person_id}}" type="radio" value="YEAR" data-parsley-multiple="WB_SCH_42_2"> Year</label>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input class="form-control"  id="WB_SCH_42_1_{{hhmember.person_id}}" max="8" min="1" name="WB_SCH_42_1_{{hhmember.person_id}}" placeholder="Grade/form/year" type="number">
+                                                                            </div>
+                                                                        </td>
+                                                                      <!-- <td>
+                                                                          <div class="col-md-6">
+          
+                                                                              {{form.WB_SCH_42_2}}
+                                                                          </div>
+                                                                          <div class="col-md-6">
+                                                                              {{form.WB_SCH_42_1}}
+                                                                          </div>
+                                                                      </td> -->
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>
+                                                                          43: If the caregiver responded yes, what grade/form/year was this child in last year?<span class="asteriskField">*
+                                                                      </td>
+                                                                      <td>
+                                                                            <div class="col-md-6">
+                                                                                <label for="id_WB_SCH_43_2_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_43_2_0_{{hhmember.person_id}}" name="WB_SCH_43_2_{{hhmember.person_id}}" type="radio" value="GRADE" data-parsley-multiple="WB_SCH_43_2" > Grade</label>
+                                                                                <label for="id_WB_SCH_43_2_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_43_2_1_{{hhmember.person_id}}" name="WB_SCH_43_2_{{hhmember.person_id}}" type="radio" value="FORM" data-parsley-multiple="WB_SCH_43_2"> Form</label>
+                                                                                <label for="id_WB_SCH_43_2_2_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_43_2_2_{{hhmember.person_id}}" name="WB_SCH_43_2_{{hhmember.person_id}}" type="radio" value="YEAR" data-parsley-multiple="WB_SCH_43_2"> Year</label>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <input class="form-control" data-parsley-required="false" id="WB_SCH_43_1_{{hhmember.person_id}}" max="8" min="1" name="WB_SCH_43_1_{{hhmember.person_id}}" placeholder="Grade/form/year" type="number" >
+                                                                            </div>
+                                                                     </td>
+                                                                      <!-- <td>
+                                                                          <div class="col-md-6">
+                                                                              {{form.WB_SCH_43_2}}
+                                                                          </div>
+                                                                          <div class="col-md-6">
+                                                                              {{form.WB_SCH_43_1}}
+                                                                          </div>
+                                                                      </td> -->
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>
+                                                                          44: If the child is enrolled in school, during the last month, did {{ hhmember.person.first_name }} {{ hhmember.person.surname }} miss more than five days for any reason?<span class="asteriskField">*
+                                                                      </td>
+                                                                      <td>
+          
+                                                                            <label for="id_WB_SCH_44_1_0_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_44_1_0_{{hhmember.person_id}}" name="WB_SCH_44_1_{{hhmember.person_id}}" type="radio" value="AYES" data-parsley-multiple="WB_SCH_44_1" data-parsley-id="806"> Yes</label>
+                                                                            <label for="id_WB_SCH_44_1_1_{{hhmember.person_id}}"><input data-parsley-required="False" id="id_WB_SCH_44_1_1_{{hhmember.person_id}}" name="WB_SCH_44_1_{{hhmember.person_id}}" type="radio" value="ANNO" data-parsley-multiple="WB_SCH_44_1"> No</label> 
+                                                                        </td>
+                                                                      <!-- <td>
+          
+                                                                          {{form.WB_SCH_44_1}} 
+                                                                      </td> -->
+                                                                  </tr>
+                                                                  <tr>
+                                                                      <td>
+                                                                          45: Does {{ hhmember.person.first_name }} {{ hhmember.person.surname }} like to go to school?<span class="asteriskField">*
+                                                                      </td>
+                                                                      <td>
+          
+                                                                            <label for="id_WB_SCH_45_1_0_{{hhmember.person_id}}"><input id="id_WB_SCH_45_1_0_{{hhmember.person_id}}" name="WB_SCH_45_1_{{hhmember.person_id}}" type="radio" value="AYES" data-parsley-multiple="WB_SCH_45_1" data-parsley-id="811"> Yes</label>
+                                                                            <label for="id_WB_SCH_45_1_1_{{hhmember.person_id}}"><input id="id_WB_SCH_45_1_1_{{hhmember.person_id}}" name="WB_SCH_45_1_{{hhmember.person_id}}" type="radio" value="ANNO" data-parsley-multiple="WB_SCH_45_1"> No</label>  
+                                                                        </td>
+                                                                      <!-- <td>
+          
+                                                                          {{form.WB_SCH_45_1}}  
+                                                                      </td> -->
                                                                 
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                42: If the caregiver responded yes, what grade/form/year is this child in now?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-                                                                <div class="col-md-6">
-
-                                                                    {{form.WB_SCH_42_2}}
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    {{form.WB_SCH_42_1}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                43: If the caregiver responded yes, what grade/form/year was this child in last year?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-                                                                <div class="col-md-6">
-                                                                    {{form.WB_SCH_43_2}}
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    {{form.WB_SCH_43_1}}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                                {% for hhmember in hhmembers %}
-                                                            <td>
-                                                                44: If the child is enrolled in school, during the last month, did {{ hhmember.person.first_name }} {{ hhmember.person.surname }} miss more than five days for any reason?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-
-                                                                {{form.WB_SCH_44_1}} 
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                45: Does {{ hhmember.person.first_name }} {{ hhmember.person.surname }} like to go to school?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-
-                                                                {{form.WB_SCH_45_1}}  
-                                                            </td>
-                                                            {% endfor %}
-                                                        </tr>
-                                                      </tbody>
-                                                  </table>
-                                              </div>
-                                          </div>
+                                                                  </tr>
+                                                                </tbody>
+                                                            </table>
+                                                </div>
+                                            </div>            
+                                        </div>
+                                        {% endfor %}
                                         
-                                      </div>
-
-                                    </td>
-
-                                </tr>
-
-
-                                <tbody>
-                            </table>
-                        </div>
+                                    </div>
+    
+                                </div>
                     </div>
                         <!-- end wizard step-5-->
 
