@@ -108,7 +108,7 @@ olmis_service_provider_list = get_list(
 olmis_critical_events_list = get_list(
     'olmis_critical_event_id', 'Please Select')
 olmis_ha5_list = get_list('olmis_ha5_id', 'Please Select')
-olmis_ha6_list = get_list('olmis_ha6_id', 'Please Select')
+olmis_ha6_list = get_list('olmis_ha6_id', False)
 olmis_ha7_list = get_list('olmis_ha7_id', 'Please Select')
 olmis_ha8_list = get_list('olmis_ha8_id', 'Please Select')
 olmis_ha9_list = get_list('olmis_ha9_id', 'Please Select')
@@ -3614,12 +3614,16 @@ class CparaAssessment(forms.Form):
         choices=YESNO_CHOICES,
         widget=forms.RadioSelect(
             renderer=RadioCustomRenderer,
-            attrs={'data-parsley-required': 'true'}))
+            attrs={
+                # 'data-parsley-required': 'true',
+                # 'data-parsley-group': 'group1',
+                'required': 'required'
+            }))
     cp2d = forms.DateField(widget=forms.TextInput(
         attrs={'class': 'form-control',
                'id': 'disbursement_date',
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group1'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group1'
                # type': 'hidden'
                }))
     cp3d = forms.ChoiceField(
@@ -3657,8 +3661,9 @@ class CparaAssessment(forms.Form):
     children_rsk_hiv_assess_date = forms.DateField(widget=forms.TextInput(
         attrs={'class': 'form-control',
                'id': 'children_rsk_hiv_assess_date',
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group1'
+               'required': 'required',
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group1'
                # type': 'hidden'
                }))
     cp3q = forms.ChoiceField(
