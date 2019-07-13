@@ -3614,12 +3614,16 @@ class CparaAssessment(forms.Form):
         choices=YESNO_CHOICES,
         widget=forms.RadioSelect(
             renderer=RadioCustomRenderer,
-            attrs={'data-parsley-required': 'true'}))
+            attrs={
+                # 'data-parsley-required': 'true',
+                # 'data-parsley-group': 'group1',
+                'required': 'required'
+            }))
     cp2d = forms.DateField(widget=forms.TextInput(
         attrs={'class': 'form-control',
                'id': 'disbursement_date',
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group1'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group1'
                # type': 'hidden'
                }))
     cp3d = forms.ChoiceField(
@@ -3657,8 +3661,9 @@ class CparaAssessment(forms.Form):
     children_rsk_hiv_assess_date = forms.DateField(widget=forms.TextInput(
         attrs={'class': 'form-control',
                'id': 'children_rsk_hiv_assess_date',
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group1'
+               'required': 'required',
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group1'
                # type': 'hidden'
                }))
     cp3q = forms.ChoiceField(
