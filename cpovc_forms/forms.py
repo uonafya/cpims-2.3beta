@@ -108,7 +108,7 @@ olmis_service_provider_list = get_list(
 olmis_critical_events_list = get_list(
     'olmis_critical_event_id', 'Please Select')
 olmis_ha5_list = get_list('olmis_ha5_id', 'Please Select')
-olmis_ha6_list = get_list('olmis_ha6_id', 'Please Select')
+olmis_ha6_list = get_list('olmis_ha6_id', False)
 olmis_ha7_list = get_list('olmis_ha7_id', 'Please Select')
 olmis_ha8_list = get_list('olmis_ha8_id', 'Please Select')
 olmis_ha9_list = get_list('olmis_ha9_id', 'Please Select')
@@ -167,25 +167,22 @@ CPT_GOALS_CHOICES = (
 CPT_GOALS_HEALTHY_CHOICES = (
     ('CPTG1he', 'All members of enrolled household know their HIV status'),
     ('CPTG2he', 'All HIV positive members of the household disclose their HIV status'),
-    ('CPTG3he', 'All HIV positive members of the household are virally suppressed'),
-    ('CPTG4he', 'Improve development of under five HIV-infected and exposed infants')
+    ('CPTG3he', 'All HIV positive members of the household are virally suppressed')
 )
 
 CPT_GOALS_STABLE_CHOICES = (
     ('CPTG1st', 'Household able to meet the basic and emergency needs of the members'),
-    ('CPTG2st', 'Increase Households access to food and nutrition secuirty'),
     ('CPTG1sa', 'All household members have identified a social support network for psychosocial and emotional support.')
 )
 
 CPT_GOALS_SAFE_CHOICES = (
     ('CPTG2sa', 'All household members articulate ways to seek support in case of abuse'),
     ('CPTG3sa', 'Caregivers demonstrate positive discipline'),
-    ('CPTG4sa', 'Reduce risk of physical, emotional, and psychological injury due to exposure to violence'),
     ('CPTG1sa', ' Household members have identified a social support network')
 )
 
 CPT_GOALS_SCHOOL_CHOICES = (
-    ('CPTG1sc', 'All school going children attend, progress and transition to the next level'),
+    ('CPTG1sc', 'All school going children transition to the next level'),
     # ('CPTG1sc', 'All school going children transition to the next level')
 )
 
