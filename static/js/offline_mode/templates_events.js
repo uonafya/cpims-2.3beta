@@ -314,12 +314,12 @@ let Form1ATemplate = (function (){
                             [
                                 "td_style",
                                 () => TemplateUtils.selectedTextForElement("olmis_assessment_coreservice").join(", <br/>") +
-                                    createInputElement("olmis_assessment_coreservice", formValuesNonEmpty[1])
+                                    createInputElement("holmis_assessment_coreservice", formValuesNonEmpty[1])
                             ],
                             [
                                 "td_style",
                                 () => TemplateUtils.selectedTextForElement("olmis_assessment_coreservice_status").join(", <br/>") +
-                                    createInputElement("olmis_assessment_coreservice_status", formValuesNonEmpty[2])
+                                    createInputElement("holmis_assessment_coreservice_status", formValuesNonEmpty[2])
                             ],
                             [
                                 'dialog_paragraph',
@@ -356,6 +356,9 @@ let Form1ATemplate = (function (){
                               'olmis_assessment_coreservice_status': $(tr).find('input[id="holmis_assessment_coreservice_status"]').val()
                           };
                         });
+
+                        me.assessmentData.shift();  // remove first row (headers)
+                        me.assessmentData.shift();  // remove second row (controls)
                     },
                     ADD_ROW: () => console.log('Adding assessment row'),
                     REMOVE: () => console.log("Removing assessment"),
