@@ -2249,11 +2249,12 @@ print(blu.sing("'Happy'"))
                 <div class="bcwhite br5 p-20">
                     <table class="table table-striped table-condensed">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>#</th>
                                 <th>Event date</th>
                                 <!-- <th>Event type</th> -->
                                 <th>Details</th>
+                                <th>Benchmark score</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -2265,6 +2266,7 @@ print(blu.sing("'Happy'"))
                                     <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_date}}</td>
                                     <!-- <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_type}}</td> -->
                                     <td valign="center" style="text-align: center;vertical-align: middle;" width="40%"><small>{{one_past_event.ev_detail}}</small></td>
+                                    <td class="text-center">{{one_past_event.ev_score}}</td>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">
                                             <a class="btn btn-danger" data-toggle="modal" href='#del_cpara_e'> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
                                             <div class="modal fade" id="del_cpara_e">
