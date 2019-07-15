@@ -1,5 +1,6 @@
 import base64
 import json
+import logging
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -11,6 +12,8 @@ from cpovc_offline_mode.helpers import get_ovc_school_details, get_ovc_facility_
     get_services
 from cpovc_ovc.models import OVCRegistration
 from cpovc_registry.templatetags.app_filters import gen_value, vals, check_fields
+
+logger = logging.getLogger(__name__)
 
 
 @login_required(login_url='/')
@@ -104,6 +107,16 @@ def fetch_data(request):
 def fetch_services(request):
     return JsonResponse({
         'data': base64.b64encode(json.dumps(get_services()))
+    })
+
+
+@login_required(login_url='/')
+def submit_form(request):
+
+    print("Submitted data is : {}".format(request.body))
+
+    return JsonResponse({
+        'msg': 'ok'
     })
 
 

@@ -240,7 +240,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 // purge from staging store
                 this.remove(this._formDataKeyStaging(submittedData.savedOn));
                 // purge from the yet to be submitted store
-                if (remainingDataToSubmit.filter(item => item !== undefined).length === 0) {
+                if (remainingDataToSubmit === undefined || remainingDataToSubmit.filter(item => item !== undefined).length === 0) {
                     $(this._connectionNotificationElementId).html("You are now online, offline mode switched off. " +
                         "All saved data has been submitted");
                 }
@@ -249,6 +249,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         _onSubmitFormError: function() {
             return (response =>  {
+                // Todo - a response could have a page / form where the user should be redirected
                 console.log(response) ;
                 // a user gets re-directed to a page with pre-filled in data. We do not want multiple re-directions in succession
                 this._isSavedDataSubmissionPaused = true;
@@ -278,9 +279,11 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         },
 
         submitData: function (dataKey, successHandler, errorHandler) {
+            console.log("About to submit saved form data");
             let dataToSubmit = this.retrieveJson(dataKey);
 
             if (dataToSubmit === null) {
+                console.log("No pending data to be submitted");
                 return;
             }
 

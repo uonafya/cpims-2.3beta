@@ -21,7 +21,24 @@ let TemplateUtils = (function () {
              }
            });
            return selections;
-        }
+        },
+
+        saveFormData: function(form_type, data) {
+            console.log("Save data form form: " + form_type + " to be submitted later");
+            if (window.offlineModeClient.currentSelectedOvc === undefined) {
+                console.log("No ovc selected, cannot save user data for form: " + form_type);
+                return;
+            }
+            // Todo - filter out null values
+            let dataToSubmit = {
+                'person': window.offlineModeClient.currentSelectedOvc.person_id,
+                'form_type': 'Form1A',
+                'form_data': data
+            };
+            window.offlineModeClient.saveFormData(dataToSubmit, '/offline_mode/submit/');
+            // Todo - add some user feedback to show it's been saved offline
+        },
+
     }
 })();
 
@@ -266,6 +283,21 @@ let Form1ATemplate = (function (){
 
         _formEventsFactory: function() {
             let me = this;
+            let _resetFormInputs = function(refreshFields, valClearFields, htmlClearFields) {
+                refreshFields.forEach((element) => {
+                    element.multiselect("clearSelection");
+                    element.multiselect('refresh');
+                });
+
+                valClearFields.forEach( element => {
+                    element.val('');
+
+                });
+                htmlClearFields.forEach(element => {
+                  element.html('');
+                });
+            };
+
             return {
                 ASSESSMENT: {
                     ADD: () => {
@@ -370,9 +402,45 @@ let Form1ATemplate = (function (){
                     },
                     ADD_ROW: () => console.log('Adding assessment row'),
                     REMOVE: () => console.log("Removing assessment"),
-                    RESET: () => console.log("Reset assessment"),
-                    SAVE: () => console.log("Save assessment")
+                    RESET: () => {
+                        console.log("Reset assessment");
+                        _resetFormInputs(
+                            [
+                                $("#olmis_assessment_domain"),
+                                $("#olmis_assessment_coreservice"),
+                                $("#olmis_assessment_coreservice_status")
+                            ], [
+                                $("#date_of_assessment"),
+                                $("#olmis_assessment_provided_list")
 
+                            ], [
+                                $('#sel_olmis_assessment_coreservice_status')
+                            ]
+                        );
+                    },
+                    SAVE: () => {
+                        console.log("Save assessment");
+                        let data = {
+                            'date_of_assessment':  $('#date_of_assessment').val(),
+                            'assessment': me.assessmentData
+                        };
+                        TemplateUtils.saveFormData("Form1A", data);
+                        me.assessmentData = [];
+
+                        _resetFormInputs(
+                            [
+                                $("#olmis_assessment_domain"),
+                                $("#olmis_assessment_coreservice"),
+                                $("#olmis_assessment_coreservice_status")
+                            ], [
+                                $("#date_of_assessment"),
+                                $("#olmis_assessment_provided_list")
+
+                            ], [
+                                $('#sel_olmis_assessment_coreservice_status')
+                            ]
+                        );
+                    }
                 },
                 EVENTS: {
                     ADD: () => console.log('Adding event'),
