@@ -19,7 +19,6 @@ cpims_db_port = os.environ.get('CPIMS_PORT') if os.environ.get('CPIMS_PORT') els
 cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else ''
 
 
-
 cpims_debug = eval(os.environ.get('CPIMS_DEBUG')) if os.environ.get('CPIMS_DEBUG') else True
 
 DEBUG = cpims_debug
