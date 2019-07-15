@@ -8801,9 +8801,11 @@ def new_cpara(request, id):
                     str_2 = benchmark_6 + ", " + benchmark_7 + ", " + benchmark_8 + ", " + benchmark_9 + ", "
                     str_3 = benchmark_10 + ", " + benchmark_11 + ", " + benchmark_12 + ", " + benchmark_13 + ", "
                     str_4 = benchmark_14 + ", " + benchmark_15 + ", " + benchmark_16 + ", " + benchmark_17
+
+                    total_benchmark_score = int(one_cpara_bench.bench_mark_1) + int(one_cpara_bench.bench_mark_2) + int(one_cpara_bench.bench_mark_3) + int(one_cpara_bench.bench_mark_4) + int(one_cpara_bench.bench_mark_5) + int(one_cpara_bench.bench_mark_6) + int(one_cpara_bench.bench_mark_7) + int(one_cpara_bench.bench_mark_8) + int(one_cpara_bench.bench_mark_9) + int(one_cpara_bench.bench_mark_10) + int(one_cpara_bench.bench_mark_11) + int(one_cpara_bench.bench_mark_12) + int(one_cpara_bench.bench_mark_13) + int(one_cpara_bench.bench_mark_14) + int(one_cpara_bench.bench_mark_15) + int(one_cpara_bench.bench_mark_16) + int(one_cpara_bench.bench_mark_17)
                     full_str = str_1 + str_2 + str_3 + str_4
                     # qn_string = str(one_cpara_bench.question_code) + " (" + str(one_cpara_bench.answer) + "), "
-                    event_detail = event_detail + full_str
+                    event_detail = event_detail + full_str + "  Total score="+total_benchmark_score
             else:
                 event_detail = "No answered questions found"
             past_cpara.append({
