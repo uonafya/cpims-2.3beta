@@ -277,13 +277,19 @@
                             <!-- begin col-4 -->
                             <div class="col-md-4">
                                 <h4 class="title">OVCs of this caregiver</h4>
-                                <ol style="max-height: 320px; overflow-y: auto;">
-                                    {% for one_ovc in my_ovcs.0 %}
-                                        <li><a href="{% url 'ovc_view' id=one_ovc.id %}">
-                                            {{one_ovc.first_name}} {{one_ovc.surname}} {{one_ovc.other_names}}
-                                        </a></li>
-                                    {% endfor %}
-                                </ol>
+                                {% if my_ovcs %}
+                                    <ol style="max-height: 320px; overflow-y: auto;">
+                                        {% for one_ovc in my_ovcs %}
+                                            {% for one_o_ovc in one_ovc %}
+                                                <li>
+                                                    <a href="{% url 'ovc_view' id=one_o_ovc.id %}">
+                                                    {{one_o_ovc.first_name}} {{one_o_ovc.surname}} {{one_o_ovc.other_names}}
+                                                    </a>
+                                                </li>
+                                            {% endfor %}
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
                                 <!-- {{ person_details.person_types }} -->
                             </div>
                             <!-- end col-4 -->
