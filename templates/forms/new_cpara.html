@@ -2265,8 +2265,34 @@ print(blu.sing("'Happy'"))
                                     <td valign="center" style="text-align: center;vertical-align: middle;">{{forloop.counter}}</td>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_date}}</td>
                                     <!-- <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_type}}</td> -->
-                                    <td valign="center" style="text-align: center;vertical-align: middle;" width="40%"><small>{{one_past_event.ev_detail}}</small></td>
-                                    <td class="text-center">{{one_past_event.ev_score}}</td>
+                                    <td valign="center" style="text-align: left;vertical-align: middle;" width="40%">
+                                        <!-- <small>{{one_past_event.ev_detail}}</small> -->
+                                        {% if one_past_event.bm_array %}
+                                            <small>Benchmark 1 (<b>{{one_past_event.bm_array.0}}</b>), </small>
+                                            <small>Benchmark 2 (<b>{{one_past_event.bm_array.1}}</b>), </small>
+                                            <small>Benchmark 3 (<b>{{one_past_event.bm_array.2}}</b>), </small>
+                                            <small>Benchmark 4 (<b>{{one_past_event.bm_array.3}}</b>), </small>
+                                            <small>Benchmark 5 (<b>{{one_past_event.bm_array.4}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 6 (<b>{{one_past_event.bm_array.5}}</b>), </small>
+                                            <small>Benchmark 7 (<b>{{one_past_event.bm_array.6}}</b>), </small>
+                                            <small>Benchmark 8 (<b>{{one_past_event.bm_array.7}}</b>), </small>
+                                            <small>Benchmark 9 (<b>{{one_past_event.bm_array.8}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 10 (<b>{{one_past_event.bm_array.9}}</b>), </small>
+                                            <small>Benchmark 11 (<b>{{one_past_event.bm_array.10}}</b>), </small>
+                                            <small>Benchmark 12 (<b>{{one_past_event.bm_array.11}}</b>), </small>
+                                            <small>Benchmark 13 (<b>{{one_past_event.bm_array.12}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 14 (<b>{{one_past_event.bm_array.13}}</b>), </small>
+                                            <small>Benchmark 15 (<b>{{one_past_event.bm_array.14}}</b>), </small>
+                                            <small>Benchmark 16 (<b>{{one_past_event.bm_array.15}}</b>), </small>
+                                            <small>Benchmark 17 (<b>{{one_past_event.bm_array.16}}</b>), </small>
+                                        {% else %}
+                                            <small> No data found </small>
+                                        {% endif %}
+                                    </td>
+                                    <td  style="text-align: center;vertical-align: middle;">{{one_past_event.ev_score}} <hr/> </td>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">
                                             <a class="btn btn-danger" data-toggle="modal" href='#del_cpara_e'> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
                                             <div class="modal fade" id="del_cpara_e">
