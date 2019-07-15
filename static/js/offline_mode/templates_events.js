@@ -301,7 +301,7 @@ let Form1ATemplate = (function (){
                         row.id = 'rowid_' + index;
                         let btnRemoveSvcId = 'btnRemoveSvc' + index;
 
-                        let tableCells = [
+                        let rowCells = [
                             [
                                 "td_style",
                                 () => "#"
@@ -327,38 +327,46 @@ let Form1ATemplate = (function (){
                             ]
                         ];
 
-                        tableCells.forEach( (cell, index) => {
+                        rowCells.forEach( (cell, index) => {
                           let insertedCell = row.insertCell(index);
                           insertedCell.innerHTML = "<h6 class='element_class' >display_value</h6>"
                               .replace("element_class", cell[0])
                               .replace('display_value', cell[1]());
                         });
 
+                        let grabValuesAndRefreshInputs = function () {
+                            // Reset form inputs
+                            [
+                                $("#olmis_assessment_domain"),
+                                $("#olmis_assessment_coreservice"),
+                                $("#olmis_assessment_coreservice_status")
+                            ].forEach((element) => {
+                                element.multiselect("clearSelection");
+                                element.multiselect('refresh');
+                            });
+
+
+                            // Grab form inputs and store it
+                            $("#assessment_manager_table tr").each(function (row, tr) {
+                                me.assessmentData[row] = {
+                                    'olmis_assessment_domain': $(tr).find('input[id="holmis_assessment_domain"]').val(),
+                                    'olmis_assessment_coreservice': $(tr).find('input[id="holmis_assessment_coreservice"]').val(),
+                                    'olmis_assessment_coreservice_status': $(tr).find('input[id="holmis_assessment_coreservice_status"]').val()
+                                };
+
+                                me.assessmentData.shift();  // remove first row (headers)
+                                me.assessmentData.shift();  // remove second row (controls)
+                            });
+
+                        };
+
+                        grabValuesAndRefreshInputs();
+
                         $("#" + btnRemoveSvcId + "").click(function (e) {
-                           console.log("Todo implement this");
+                            $("#" + row.id).remove();
+                            grabValuesAndRefreshInputs();
                         });
 
-                        // Reset form inputs
-                        [
-                            $("#olmis_assessment_domain"),
-                            $("#olmis_assessment_coreservice"),
-                            $("#olmis_assessment_coreservice_status")
-                        ].forEach((element) => {
-                          element.multiselect("clearSelection");
-                          element.multiselect('refresh');
-                        });
-
-                        // Grab form inputs and store it
-                        $("#assessment_manager_table tr").each(function (row, tr) {
-                          me.assessmentData[row] = {
-                              'olmis_assessment_domain': $(tr).find('input[id="holmis_assessment_domain"]').val(),
-                              'olmis_assessment_coreservice': $(tr).find('input[id="holmis_assessment_coreservice"]').val(),
-                              'olmis_assessment_coreservice_status': $(tr).find('input[id="holmis_assessment_coreservice_status"]').val()
-                          };
-                        });
-
-                        me.assessmentData.shift();  // remove first row (headers)
-                        me.assessmentData.shift();  // remove second row (controls)
                     },
                     ADD_ROW: () => console.log('Adding assessment row'),
                     REMOVE: () => console.log("Removing assessment"),
