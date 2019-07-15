@@ -8809,7 +8809,7 @@ def new_cpara(request, id):
                     event_detail = event_detail + full_str + "  Total score="+total_benchmark_score
             else:
                 event_detail = "No answered questions found"
-                event_score = 0
+                total_benchmark_score = 0
             past_cpara.append({
                 'ev_date': one_cpara_event.date_of_event,
                 'ev_person': child.id,
