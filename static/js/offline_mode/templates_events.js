@@ -29,7 +29,6 @@ let TemplateUtils = (function () {
                 console.log("No ovc selected, cannot save user data for form: " + form_type);
                 return;
             }
-            // Todo - filter out null values
             let dataToSubmit = {
                 'person': window.offlineModeClient.currentSelectedOvc.person_id,
                 'form_type': 'Form1A',
@@ -283,19 +282,21 @@ let Form1ATemplate = (function (){
 
         _formEventsFactory: function() {
             let me = this;
-            let _resetFormInputs = function(refreshFields, valClearFields, htmlClearFields) {
+            let _resetFormInputs = function(tableElement, refreshFields, valClearFields, htmlClearFields) {
                 refreshFields.forEach((element) => {
                     element.multiselect("clearSelection");
                     element.multiselect('refresh');
                 });
 
-                valClearFields.forEach( element => {
+                valClearFields.forEach((element) => {
                     element.val('');
 
                 });
-                htmlClearFields.forEach(element => {
+                htmlClearFields.forEach((element) => {
                   element.html('');
                 });
+
+                tableElement.find("tr:gt(1)").remove();
             };
 
             return {
@@ -385,11 +386,10 @@ let Form1ATemplate = (function (){
                                     'olmis_assessment_coreservice': $(tr).find('input[id="holmis_assessment_coreservice"]').val(),
                                     'olmis_assessment_coreservice_status': $(tr).find('input[id="holmis_assessment_coreservice_status"]').val()
                                 };
-
-                                me.assessmentData.shift();  // remove first row (headers)
-                                me.assessmentData.shift();  // remove second row (controls)
                             });
 
+                            me.assessmentData.shift();  // remove first row (headers)
+                            me.assessmentData.shift();  // remove second row (controls)
                         };
 
                         grabValuesAndRefreshInputs();
@@ -405,6 +405,7 @@ let Form1ATemplate = (function (){
                     RESET: () => {
                         console.log("Reset assessment");
                         _resetFormInputs(
+                            $('#assessment_manager_table'),
                             [
                                 $("#olmis_assessment_domain"),
                                 $("#olmis_assessment_coreservice"),
@@ -425,9 +426,9 @@ let Form1ATemplate = (function (){
                             'assessment': me.assessmentData
                         };
                         TemplateUtils.saveFormData("Form1A", data);
-                        me.assessmentData = [];
 
                         _resetFormInputs(
+                            $('#assessment_manager_table'),
                             [
                                 $("#olmis_assessment_domain"),
                                 $("#olmis_assessment_coreservice"),
@@ -440,6 +441,8 @@ let Form1ATemplate = (function (){
                                 $('#sel_olmis_assessment_coreservice_status')
                             ]
                         );
+
+                        me.assessmentData = [];
                     }
                 },
                 EVENTS: {
