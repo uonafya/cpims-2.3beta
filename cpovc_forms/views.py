@@ -8778,8 +8778,26 @@ def new_cpara(request, id):
             total_benchmark_score = 0
             # cpara_data = OVCCareCpara.objects.filter(event=one_cpara_event)
             cpara_data = OVCCareBenchmarkScore.objects.filter(event_id=one_cpara_event.event)
+            bm_array = []
             if cpara_data:
                 for one_cpara_bench in cpara_data:
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_1 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_2 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_3 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_4 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_5 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_6 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_7 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_8 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_9 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_10 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_11 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_12 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_13 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_14 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_15 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_16 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_17 == 1 else "No")
                     benchmark_1 = "Benchmark 1: (Yes)" if one_cpara_bench.bench_mark_1 == 1 else "Benchmark 1: (No)"
                     benchmark_2 = "Benchmark 2: (Yes)" if one_cpara_bench.bench_mark_2 == 1 else "Benchmark 2: (No)"
                     benchmark_3 = "Benchmark 3: (Yes)" if one_cpara_bench.bench_mark_3 == 1 else "Benchmark 3: (No)"
@@ -8803,20 +8821,22 @@ def new_cpara(request, id):
                     str_3 = benchmark_10 + ", " + benchmark_11 + ", " + benchmark_12 + ", " + benchmark_13 + ", "
                     str_4 = benchmark_14 + ", " + benchmark_15 + ", " + benchmark_16 + ", " + benchmark_17
 
-                    total_benchmark_score = total_benchmark_score + int(one_cpara_bench.bench_mark_1) + int(one_cpara_bench.bench_mark_2) + int(one_cpara_bench.bench_mark_3) + int(one_cpara_bench.bench_mark_4) + int(one_cpara_bench.bench_mark_5) + int(one_cpara_bench.bench_mark_6) + int(one_cpara_bench.bench_mark_7) + int(one_cpara_bench.bench_mark_8) + int(one_cpara_bench.bench_mark_9) + int(one_cpara_bench.bench_mark_10) + int(one_cpara_bench.bench_mark_11) + int(one_cpara_bench.bench_mark_12) + int(one_cpara_bench.bench_mark_13) + int(one_cpara_bench.bench_mark_14) + int(one_cpara_bench.bench_mark_15) + int(one_cpara_bench.bench_mark_16) + int(one_cpara_bench.bench_mark_17)
+                    total_benchmark_score = int(one_cpara_bench.bench_mark_1) + int(one_cpara_bench.bench_mark_2) + int(one_cpara_bench.bench_mark_3) + int(one_cpara_bench.bench_mark_4) + int(one_cpara_bench.bench_mark_5) + int(one_cpara_bench.bench_mark_6) + int(one_cpara_bench.bench_mark_7) + int(one_cpara_bench.bench_mark_8) + int(one_cpara_bench.bench_mark_9) + int(one_cpara_bench.bench_mark_10) + int(one_cpara_bench.bench_mark_11) + int(one_cpara_bench.bench_mark_12) + int(one_cpara_bench.bench_mark_13) + int(one_cpara_bench.bench_mark_14) + int(one_cpara_bench.bench_mark_15) + int(one_cpara_bench.bench_mark_16) + int(one_cpara_bench.bench_mark_17)
                     full_str = str_1 + str_2 + str_3 + str_4
                     # qn_string = str(one_cpara_bench.question_code) + " (" + str(one_cpara_bench.answer) + "), "
-                    event_detail = event_detail + full_str + "  Total score="+str(total_benchmark_score)
+                    event_detail = event_detail + full_str
             else:
                 event_detail = "No answered questions found"
                 total_benchmark_score = 0
+                bm_array = []
             past_cpara.append({
                 'ev_date': one_cpara_event.date_of_event,
                 'ev_person': child.id,
                 'ev_type': 'CPARA',
                 'ev_id': str(one_cpara_event.pk),
                 'ev_detail': str(event_detail),
-                'ev_score': total_benchmark_score
+                'ev_score': total_benchmark_score,
+                'bm_array': bm_array
             })
 
     return render(request,
