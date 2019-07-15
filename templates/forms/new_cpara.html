@@ -1504,9 +1504,9 @@ print(blu.sing("'Happy'"))
 
                                             <div class="row"> -->
                                                 <div class="col-md-12">
-                                                    <div class="form-group" id="o5y_cd_hse_Qn">
+                                                        <div class="form-group leadqn note note-default" id="o5y_cd_hse_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">Is there a child(ren) five years and over in the household? <span class="asteriskField">*</label>
+                                                            <label class="control-label formlabel">Is there a child /children five years and over in the household? <span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             <label class="radio-inline">
@@ -1681,6 +1681,24 @@ print(blu.sing("'Happy'"))
                                                     <br/>
                                                     <h4><u>Question for child(ren) over 10 years.</u></h4>
                                                     <hr>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                        <div class="form-group leadqn note note-default" id="o10y_cd_hse_Qn">
+                                                        <div class="col-md-9">
+                                                            <label class="control-label formlabel">Is there a child /children ten years and over in the household? <span class="asteriskField">*</label>
+                                                        </div>
+                                                        <div class="col-md-3 text-left">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" value="AYES" name="o5y_cd_hse">
+                                                                Yes
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" value="ANNO" name="o5y_cd_hse">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-md-12 containsTable">
@@ -2249,11 +2267,12 @@ print(blu.sing("'Happy'"))
                 <div class="bcwhite br5 p-20">
                     <table class="table table-striped table-condensed">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>#</th>
                                 <th>Event date</th>
                                 <!-- <th>Event type</th> -->
                                 <th>Details</th>
+                                <th>Benchmark score</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -2264,7 +2283,34 @@ print(blu.sing("'Happy'"))
                                     <td valign="center" style="text-align: center;vertical-align: middle;">{{forloop.counter}}</td>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_date}}</td>
                                     <!-- <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_type}}</td> -->
-                                    <td valign="center" style="text-align: center;vertical-align: middle;" width="40%"><small>{{one_past_event.ev_detail}}</small></td>
+                                    <td valign="center" style="text-align: left;vertical-align: middle;" width="40%">
+                                        <!-- <small>{{one_past_event.ev_detail}}</small> -->
+                                        {% if one_past_event.bm_array %}
+                                            <small>Benchmark 1 (<b>{{one_past_event.bm_array.0}}</b>), </small>
+                                            <small>Benchmark 2 (<b>{{one_past_event.bm_array.1}}</b>), </small>
+                                            <small>Benchmark 3 (<b>{{one_past_event.bm_array.2}}</b>), </small>
+                                            <small>Benchmark 4 (<b>{{one_past_event.bm_array.3}}</b>), </small>
+                                            <small>Benchmark 5 (<b>{{one_past_event.bm_array.4}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 6 (<b>{{one_past_event.bm_array.5}}</b>), </small>
+                                            <small>Benchmark 7 (<b>{{one_past_event.bm_array.6}}</b>), </small>
+                                            <small>Benchmark 8 (<b>{{one_past_event.bm_array.7}}</b>), </small>
+                                            <small>Benchmark 9 (<b>{{one_past_event.bm_array.8}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 10 (<b>{{one_past_event.bm_array.9}}</b>), </small>
+                                            <small>Benchmark 11 (<b>{{one_past_event.bm_array.10}}</b>), </small>
+                                            <small>Benchmark 12 (<b>{{one_past_event.bm_array.11}}</b>), </small>
+                                            <small>Benchmark 13 (<b>{{one_past_event.bm_array.12}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 14 (<b>{{one_past_event.bm_array.13}}</b>), </small>
+                                            <small>Benchmark 15 (<b>{{one_past_event.bm_array.14}}</b>), </small>
+                                            <small>Benchmark 16 (<b>{{one_past_event.bm_array.15}}</b>), </small>
+                                            <small>Benchmark 17 (<b>{{one_past_event.bm_array.16}}</b>), </small>
+                                        {% else %}
+                                            <small> No data found </small>
+                                        {% endif %}
+                                    </td>
+                                    <td  style="text-align: center;vertical-align: middle;">{{one_past_event.ev_score}} <hr/> </td>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">
                                             <a class="btn btn-danger" data-toggle="modal" href='#del_cpara_e'> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
                                             <div class="modal fade" id="del_cpara_e">
