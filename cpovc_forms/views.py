@@ -8775,6 +8775,7 @@ def new_cpara(request, id):
     if cpara_events:
         for one_cpara_event in cpara_events:
             event_detail = ""
+            total_benchmark_score = 0
             # cpara_data = OVCCareCpara.objects.filter(event=one_cpara_event)
             cpara_data = OVCCareBenchmarkScore.objects.filter(event_id=one_cpara_event.event)
             if cpara_data:
@@ -8802,18 +8803,20 @@ def new_cpara(request, id):
                     str_3 = benchmark_10 + ", " + benchmark_11 + ", " + benchmark_12 + ", " + benchmark_13 + ", "
                     str_4 = benchmark_14 + ", " + benchmark_15 + ", " + benchmark_16 + ", " + benchmark_17
 
-                    total_benchmark_score = int(one_cpara_bench.bench_mark_1) + int(one_cpara_bench.bench_mark_2) + int(one_cpara_bench.bench_mark_3) + int(one_cpara_bench.bench_mark_4) + int(one_cpara_bench.bench_mark_5) + int(one_cpara_bench.bench_mark_6) + int(one_cpara_bench.bench_mark_7) + int(one_cpara_bench.bench_mark_8) + int(one_cpara_bench.bench_mark_9) + int(one_cpara_bench.bench_mark_10) + int(one_cpara_bench.bench_mark_11) + int(one_cpara_bench.bench_mark_12) + int(one_cpara_bench.bench_mark_13) + int(one_cpara_bench.bench_mark_14) + int(one_cpara_bench.bench_mark_15) + int(one_cpara_bench.bench_mark_16) + int(one_cpara_bench.bench_mark_17)
+                    total_benchmark_score = total_benchmark_score + int(one_cpara_bench.bench_mark_1) + int(one_cpara_bench.bench_mark_2) + int(one_cpara_bench.bench_mark_3) + int(one_cpara_bench.bench_mark_4) + int(one_cpara_bench.bench_mark_5) + int(one_cpara_bench.bench_mark_6) + int(one_cpara_bench.bench_mark_7) + int(one_cpara_bench.bench_mark_8) + int(one_cpara_bench.bench_mark_9) + int(one_cpara_bench.bench_mark_10) + int(one_cpara_bench.bench_mark_11) + int(one_cpara_bench.bench_mark_12) + int(one_cpara_bench.bench_mark_13) + int(one_cpara_bench.bench_mark_14) + int(one_cpara_bench.bench_mark_15) + int(one_cpara_bench.bench_mark_16) + int(one_cpara_bench.bench_mark_17)
                     full_str = str_1 + str_2 + str_3 + str_4
                     # qn_string = str(one_cpara_bench.question_code) + " (" + str(one_cpara_bench.answer) + "), "
                     event_detail = event_detail + full_str + "  Total score="+total_benchmark_score
             else:
                 event_detail = "No answered questions found"
+                event_score = 0
             past_cpara.append({
                 'ev_date': one_cpara_event.date_of_event,
                 'ev_person': child.id,
                 'ev_type': 'CPARA',
                 'ev_id': str(one_cpara_event.pk),
-                'ev_detail': str(event_detail)
+                'ev_detail': str(event_detail),
+                'ev_score': total_benchmark_score
             })
 
     return render(request,
