@@ -1,0 +1,6 @@
+# Config
+CPIMS_HOST=postgres
+CPIMS_PASSWORD=cpims
+CPIMS_DB=cpimsdb
+CPIMS_PORT=5432
+CPIMS_DBUSER=cpims

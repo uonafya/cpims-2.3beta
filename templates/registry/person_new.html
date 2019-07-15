@@ -1632,20 +1632,25 @@ function handle_child(){
     $('#des_phone_number').attr('data-parsley-required', 'false');
 
     $('#date_of_birth').datepicker().on('changeDate', function (ev) {
-        var mdate = $('#date_of_birth').val();
-        var currentDate = new Date();
-        var selectedDate = new Date(ev.date.toString());
-        var age = currentDate.getFullYear() - selectedDate.getFullYear();
-        if (age > 18){
-            var msg = '<label>Warning</label><p>Child is above 18 ( ' + age + ' years).</p>'
-            $('#date_warning').show();
-            $('#date_warning').html(msg);
-            $("#date_warning").addClass( "alert alert-danger fade in" );
-         }else{
-            $('#date_warning').hide();
-            $('#date_warning').html('');
-            $("#date_warning").removeClass( "alert alert-danger fade in" );
-         }
+        var person_type_var = $("#person_type").val();
+        let person_type = (typeof person_type_var === 'undefined') ? 'default' : person_type_var;
+        if (person_type === 'TBVC' ) {
+            var mdate = $('#date_of_birth').val();
+            var currentDate = new Date();
+            var selectedDate = new Date(ev.date.toString());
+            var age = currentDate.getFullYear() - selectedDate.getFullYear();
+            if (age > 18){
+                var msg = '<label>Warning</label><p>Child is above 18 ( ' + age + ' years).</p>'
+                $('#date_warning').show();
+                $('#date_warning').html(msg);
+                $("#date_warning").addClass( "alert alert-danger fade in" );
+             }else{
+                $('#date_warning').hide();
+                $('#date_warning').html('');
+                $("#date_warning").removeClass( "alert alert-danger fade in" );
+             }
+        }
+
     });
 
     var child_ovc = $('#child_ovc').val();

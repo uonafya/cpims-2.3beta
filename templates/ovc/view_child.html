@@ -17,6 +17,7 @@
 </ol>
 <!-- end breadcrumb -->
 <!-- begin page-header -->
+
 <h1 class="page-header"><i class="fa fa-child"></i> OVC Care <small>
 Caregiver details | {{care_giver}}
 {% if creg.is_active %}
@@ -72,6 +73,7 @@ Caregiver details | {{care_giver}}
                 <h4 class="panel-title">Registration details &nbsp; </h4>
             </div>
             <!-- start panel body -->
+     <div style="overflow-x: auto; min-height: 300px;">
             <div class="panel-body">
                 <form action="." method="post" name="ovcreg_form" id="ovcreg_form" data-parsley-validate="true">
                 {% csrf_token %}
@@ -146,11 +148,11 @@ Caregiver details | {{care_giver}}
                         </tr>
                     <tr>
                             <td class="field">CPARA</td>
-                            <td>{{ cpara_count }}</td>
+                            <td>{{ cpara_count.cpr }}</td>
                             <td class="field">CPT</td>
-                            <td>{{ case_plan_count }}</td>
+                            <td>{{ case_plan_count.CPAR }}</td>
                             <td class="field">Well Being</td>
-                            <td>{{ well_being_count }}</td>
+                            <td>{{ well_being_count.WBG|add:well_being_count.wba }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -276,6 +278,7 @@ Caregiver details | {{care_giver}}
 
                
                 <div class="row" id="form_actions">
+                        <hr/>
                     <center>
                         <button onclick="goBack()" type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-arrow-left"></i> &nbsp;<b>Back to search</b>&nbsp; </button>
 
@@ -307,6 +310,7 @@ Caregiver details | {{care_giver}}
                             <a href="{% url 'new_caseplan' id=creg.person_id %}">
                         <button type="button" class="btn btn-primary"> <i class="fa fa-folder-open"></i> Case Plan Template</button>
                         </a>
+                        <hr/>
                             <a href="{% url 'new_caseplan_monitoring' id=creg.person_id %}">
                         <button type="button" class="btn btn-primary"> <i class="fa fa-check-circle"></i> CPARA Monitoring</button>
                         </a>
@@ -327,12 +331,17 @@ Caregiver details | {{care_giver}}
                                 <button type="button" class="btn btn-primary"> <i class="fa fa-list-alt"></i> HIV Management Form</button>
                         </a>
 
+                        <a href="{% url 'new_dreamsform' id=creg.person_id%}">
+                                <button type="button" class="btn btn-primary"> <i class="fa .fa-th-list"></i> DREAMS Service Uptake Form</button>
+                        </a>
+
                         {% endif %}
                     <p></p>
                     </center>
                 </div>
             <!-- end panel body -->
         </div>
+     </div>
         <!-- end panel -->  
     </div>
     <!-- end col-12 -->
