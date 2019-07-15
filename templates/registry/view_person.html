@@ -277,20 +277,44 @@
                             <!-- begin col-4 -->
                             <div class="col-md-4">
                                 <h4 class="title">OVCs of this caregiver</h4>
-                                {% if my_ovcs %}
-                                    <ol style="max-height: 320px; overflow-y: auto;">
-                                        {% for one_ovc in my_ovcs %}
-                                            {% for one_o_ovc in one_ovc %}
-                                                <li>
-                                                    <a href="{% url 'ovc_view' id=one_o_ovc.id %}">
-                                                    {{one_o_ovc.first_name}} {{one_o_ovc.surname}} {{one_o_ovc.other_names}}
-                                                    </a>
-                                                </li>
-                                            {% endfor %}
-                                        {% endfor %}
-                                    </ol>
-                                {% endif %}
-                                <!-- {{ person_details.person_types }} -->
+                                <div class="bg-silver" style="max-height: 300px; overflow-y: auto;">
+                                    {% if my_ovcs %}
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Gender</th>
+                                                    <th>Age</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for one_ovc in my_ovcs %}
+                                                    {% for one_o_ovc in one_ovc %}
+                                                        <tr>
+                                                            <td style="text-align: left; vertical-align: middle;">
+                                                                <a href="{% url 'ovc_view' id=one_o_ovc.id %}">
+                                                                    <b>{{one_o_ovc.first_name}} {{one_o_ovc.surname}} {{one_o_ovc.other_names}}</b>
+                                                                </a>
+                                                            </td>
+                                                            <td style="text-align: left; vertical-align: middle;">
+                                                                {% if one_o_ovc.sex_id == 'SMAL' %} Male {% else %} Female {% endif %}
+                                                            </td>
+                                                            <td style="text-align: left; vertical-align: middle;">
+                                                                {{one_o_ovc.years}} years 
+                                                                <br/><small class="text-grey">({{one_o_ovc.date_of_birth}})</small>
+                                                            </td>
+                                                        </tr>
+                                                    {% endfor %}
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    {% else %}
+                                        <div class="alert alert-warning">
+                                            No OVCs found for this caregiver
+                                        </div>
+                                    {% endif %}
+                                    <!-- {{ person_details.person_types }} -->
+                                </div>
                             </div>
                             <!-- end col-4 -->
                         {% endif %}
