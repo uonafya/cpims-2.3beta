@@ -309,9 +309,10 @@ def ovc_registration(request, ovc_id, edit=0):
                            "caretaker_id", "school_level", "hiv_status",
                            "is_active", "exit_reason", "exit_date"])
         # Update eligibility
+        OVCEligibility.objects.filter(person_id=ovc_id).update(is_void=True)
         for criteria_id in criterias:
             eligibility, created = OVCEligibility.objects.update_or_create(
-                person_id=ovc_id, criteria=criteria_id,
+                person_id=ovc_id, criteria=criteria_id, is_void=False,
                 defaults={'person_id': ovc_id, 'criteria': criteria_id},)
         # Update Health status
         if hiv_status == 'HSTP' and edit_hiv:

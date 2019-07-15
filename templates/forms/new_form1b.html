@@ -88,7 +88,7 @@
                     <span class="close" data-dismiss="alert">&times;</span>
                 </div>
             <div class="panel-body">
-                 
+            <div style="overflow-x: auto; min-height: 300px;">     
             	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
                 name="form-wizard-f1b" id="new_form1b">
                 	{% csrf_token %} {{ form.caretaker_id }}
@@ -134,6 +134,7 @@
                             </tr>
                         </tbody>
                         </table>
+                    
 
 						<!-- begin wizard step-1 -->
 						<div class="wizard-step-1">
@@ -427,6 +428,7 @@
                         {{ form.olmis_service_date }}
                     </div>
                     </div>
+                </div>    
                     <br>
 					<div class="row">
                         <label class="control-label col-md-4 col-sm-4"></label>
@@ -587,7 +589,7 @@
             e.preventDefault();
 
             $('#new_form1b').parsley().validate();
-            var amonths = [ 3, 6, 9, 12 ];
+            var amonths = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ];
             var date = $('#olmis_service_date').datepicker('getDate')
             var month = date.getMonth() + 1;
             var mcheck = $.inArray(month, amonths);

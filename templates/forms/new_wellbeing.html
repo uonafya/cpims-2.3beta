@@ -162,6 +162,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                 </div>
                 <h4 class="panel-title"> Adult and Child Wellbeing Assessment </h4>
             </div>
+        <div style="overflow-x: auto; min-height: 300px;">
             <div class="panel-body">
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true" name="form-wizard-hhva" id="new_hhva">
                     {% csrf_token %}
@@ -407,7 +408,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
 
                                                                 <td>
-                                                                    Date of assessement.
+                                                                    Date of assessement.<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -418,7 +419,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                                                 <tr>
                                                                 <td>
-                                                                    What is your birth date
+                                                                    What is your birth date<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -428,7 +429,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             </tr>
 <tr>
                                                                 <td>
-                                                                    What is your physical address
+                                                                    What is your physical address<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -438,7 +439,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    What is your phone number
+                                                                    What is your phone number<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -448,7 +449,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    What is your Marital status
+                                                                    What is your Marital status<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -458,7 +459,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             </tr>
                                                             <tr>
                                                                 <td>
-                                                                    Number of individuals in the household below 18 years
+                                                                    Number of individuals in the household below 18 years<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -486,7 +487,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             </tr>
                                                              <tr>
                                                                 <td>
-                                                                    Number of disabled individuals in the household below 18 years
+                                                                    Number of disabled individuals in the household below 18 years<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -517,7 +518,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             <tr>
                                                                 <td>
 
-                                                                    How many people currently live in your household?
+                                                                    How many people currently live in your household?<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
                                                                     <div class="col-sm-6">
@@ -537,7 +538,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                 <td>
                                                                     Are there any adults who live in this household
                                                                     other
-                                                                    than you?
+                                                                    than you?<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -563,7 +564,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                                                     If yes, how many adult Males and Females (other than
                                                                     you)
-                                                                    live in your household?
+                                                                    live in your household?<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
 
@@ -596,7 +597,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                     Number of persons living with disability in the
                                                                     household
                                                                     above
-                                                                    18 years
+                                                                    18 years<span class="asteriskField">*
                                                                 </td>
                                                                 <td>
                                                                     <table class="table table-bordered">
@@ -920,7 +921,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>6.</td>
-                                    <td>What is the average household monthly income before purchase?</td>
+                                    <td>What is the average household monthly income before purchase?<span class="asteriskField">*</td>
                                     <td>
 
                                         {{form.WB_STA_6_1}}
@@ -929,7 +930,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>7.</td>
-                                    <td>What is the household savings after expenses</td>
+                                    <td>What is the household savings after expenses<span class="asteriskField">*</td>
                                     <td>
 
                                         {{form.WB_STA_7_1}}
@@ -1222,7 +1223,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>15.</td>
-                                    <td>Is the person with disability receiving services for the disability?
+                                    <td>Is the person with disability receiving services for the disability?<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1235,7 +1236,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                     <td>Do you or any other household member have a long-term illness that you would
                                         like to share
                                         with
-                                        me?
+                                        me?<span class="asteriskField">*
                                     </td>
                                     <td>
                                         <div class="row">
@@ -1283,7 +1284,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                 {{form.WB_HEL_16_4}}
                                             </div>
                                             <div class="col-md-6">
-                                                <p>What is the long-term illness?</p>
+                                                <p>What is the long-term illness?<span class="asteriskField">*</p>
                                                 {{form.WB_HEL_16_5}}
                                             </div>
                                         </div>
@@ -1298,7 +1299,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>17.</td>
-                                    <td>Have you been tested for HIV?
+                                    <td>Have you been tested for HIV?<span class="asteriskField">*
                                     </td>
                                     <td>
                                         <div class="row">
@@ -1315,7 +1316,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>18.</td>
-                                    <td>Would you share your HIV test result with me?
+                                    <td>Would you share your HIV test result with me?<span class="asteriskField">*
                                     </td>
                                     <td>
                                         <div class="row">
@@ -1324,7 +1325,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                 {{form.WB_HEL_18_1}}
                                             </div>
                                             <div class="col-md-6">
-                                                <p>If Yes</p>
+                                                <p>If Yes<span class="asteriskField">*</p>
                                                 {{form.WB_HEL_18_2}}
                                             </div>
 
@@ -1335,7 +1336,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>19.</td>
-                                    <td>Are you currently taking ART?
+                                    <td>Are you currently taking ART?<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1346,7 +1347,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>20.</td>
-                                    <td>Do you take your treatments daily and on time(As prescribed)
+                                    <td>Do you take your treatments daily and on time(As prescribed)<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1358,7 +1359,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>21.</td>
-                                    <td>Have you ever heard a blood test called viral load?
+                                    <td>Have you ever heard a blood test called viral load?<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1368,7 +1369,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>22.</td>
-                                    <td>What was the result of your viral load test?
+                                    <td>What was the result of your viral load test?<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1401,7 +1402,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                 <tr>
                                     <td>23.</td>
-                                    <td>What is the name of the health facility you
+                                    <td>What is the name of the health facility you<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1702,7 +1703,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                     <td>
                                         Is there someone or a group of people in your community that you trust and feel
-                                        that you can talk to about any problems that you may face?
+                                        that you can talk to about any problems that you may face?<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1741,7 +1742,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                     <td>
                                         In the last six months have you received information on parenting/ child care
-                                        and development through training, counseling, mentoring, or home visits?
+                                        and development through training, counseling, mentoring, or home visits?<span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1849,7 +1850,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                         violence happening in this house.
                                         Did you report this violence?
                                         <p><i>If violence is/was reported, ensure referral to the Social Worker. If not
-                                            reported, immediately contact Social Worker.</i></p>
+                                            reported, immediately contact Social Worker.</i></p><span class="asteriskField">*
                                     </td>
                                     <td>
 
@@ -1988,7 +1989,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             <tbody>
                                                                 <tr>
                                                                     <td>
-                                                                        <b>36a:</b> What is your relationship to the child?
+                                                                        <b>36a:</b> What is your relationship to the child?<span class="asteriskField">*
                                                                     </td>
                                                                     <td>
 
@@ -1998,7 +1999,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        <b>36b:</b> What is their relationship to the child?
+                                                                        <b>36b:</b> What is their relationship to the child?<span class="asteriskField">*
                                                                     </td>
                                                                     <td>
                                                                         {{form.WB_SAF_38_1}}
@@ -2008,7 +2009,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                 <tr>
                                                                     <td>
                                                                         <b>37:</b> If the mother is not a primary caregiver, where is
-                                                                        the childs mother?
+                                                                        the childs mother?<span class="asteriskField">*
                                                                     </td>
                                                                     <td>
 
@@ -2018,7 +2019,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                 </tr>
                                                                 <tr>
                                                                     <td>
-                                                                        <b>38:</b> If the father is not a primary caregiver, where is the childs father?
+                                                                        <b>38:</b> If the father is not a primary caregiver, where is the childs father?<span class="asteriskField">*
                                                                     </td>
                                                                     <td>
                                                                         <div class="row">
@@ -2106,7 +2107,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                       <tbody>
                                                         <tr>
                                                             <td>
-                                                                39: Is this child currently enrolled in school?
+                                                                39: Is this child currently enrolled in school?<span class="asteriskField">*
                                                             </td>
                                                             <td>
 
@@ -2115,7 +2116,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                40: If the caregiver responded no, has the child ever been enrolled in school?
+                                                                40: If the caregiver responded no, has the child ever been enrolled in school?<span class="asteriskField">*
                                                             </td>
                                                             <td>
 
@@ -2135,7 +2136,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                42: If the caregiver responded yes, what grade/form/year is this child in now?
+                                                                42: If the caregiver responded yes, what grade/form/year is this child in now?<span class="asteriskField">*
                                                             </td>
                                                             <td>
                                                                 <div class="col-md-6">
@@ -2149,7 +2150,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                43: If the caregiver responded yes, what grade/form/year was this child in last year?
+                                                                43: If the caregiver responded yes, what grade/form/year was this child in last year?<span class="asteriskField">*
                                                             </td>
                                                             <td>
                                                                 <div class="col-md-6">
@@ -2161,8 +2162,9 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                                {% for hhmember in hhmembers %}
                                                             <td>
-                                                                44: If the child is enrolled in school, during the last month, did [name of child] miss more than five days for any reason?
+                                                                44: If the child is enrolled in school, during the last month, did {{ hhmember.person.first_name }} {{ hhmember.person.surname }} miss more than five days for any reason?<span class="asteriskField">*
                                                             </td>
                                                             <td>
 
@@ -2171,18 +2173,19 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                         </tr>
                                                         <tr>
                                                             <td>
-                                                                45: Does [name of child] like to go to school?
+                                                                45: Does {{ hhmember.person.first_name }} {{ hhmember.person.surname }} like to go to school?<span class="asteriskField">*
                                                             </td>
                                                             <td>
 
                                                                 {{form.WB_SCH_45_1}}  
                                                             </td>
+                                                            {% endfor %}
                                                         </tr>
                                                       </tbody>
                                                   </table>
                                               </div>
                                           </div>
-
+                                        
                                       </div>
 
                                     </td>
@@ -2193,6 +2196,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                 <tbody>
                             </table>
                         </div>
+                    </div>
                         <!-- end wizard step-5-->
 
                         <!-- start wizard step-6 -->
@@ -2296,6 +2300,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                         <!-- end of wizard-step-6-->
 
                     </div>
+                
 
 
                     <div class="panel-body panel-form">

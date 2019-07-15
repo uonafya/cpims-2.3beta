@@ -258,7 +258,7 @@
                     <div class="col-md-1">
                       <a href="#modal-facility" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Facility</button></a>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-2 hidden" id="viralloadbtncontainer">
                       <a href="#modal-viralload" data-toggle="modal"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Viral Load details </button></a>
                     </div>
                     <div class="col-md-2">
@@ -639,14 +639,19 @@
                     <table class="table table-hover table-striped">
                         <thead>
                             <tr>
-                                <th>#</th><th>Date</th><th>Viral Load Value</th><th>Suppressed</th>
+                                <th>#</th><th>Date</th><th>Viral Load Value</th><th>Suppressed</th><th>Comments</th>
                             </tr>
                             {% for vload in vloads %}
+
                                 <tr>
                                     <td>{{ forloop.counter }}</td><td>{{ vload.viral_date }}</td>
                                     <td>{% if not vload.viral_load %} LDL {% else %} {{ vload.viral_load }}{% endif %}</td>
-                                    <td>{% if vload.viral_load > 1000 %}<label class="label label-danger">No</label>
+
+                                    <td>{% if vload.viral_load > 1000%}<label class="label label-danger">No</label> 
                                          {% else %} <label class="label label-success">Yes</label>{% endif %}</td>
+                                    <td>{% if vload.status = 1%}<label class="label label-danger">Viral test required</label> 
+                                            {% else %} <label class="label label-success">Viral test valid</label>{% endif %}</td>
+                                     
                                 </tr>
                             {% endfor %}
                         </thead>
@@ -660,6 +665,8 @@
     </div>
     <!-- # end modal-dialog -->
     <!-- # start modal-dialog -->
+
+
     <div class="modal fade" id="modal-school">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -768,8 +775,11 @@
             $('#messages').show();
             return true;
         }
+    
          
     });
+    console.log('{{date_difference}}')
+
     $('#ovcexit').click(function() { 
         $('#modal-ovc-exit').modal('toggle');
     });
@@ -1084,7 +1094,9 @@
             $('#art_status').attr("data-parsley-required", "true");
             $('#link_date').attr("data-parsley-required", "true");
             $('#ccc_number').attr("data-parsley-required", "true");
+            $('#viralloadbtncontainer').removeClass('hidden')
         }else{
+            $('#viralloadbtncontainer').addClass('hidden')
             $('#facility_div').hide();
             $('#facility_id_div').hide();
             $('#art_div').hide();

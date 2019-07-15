@@ -1,0 +1,636 @@
+{% extends 'base.html' %}
+{% load app_filters %}
+{% load staticfiles %}
+{% block page_title %} HIV Screening Tool {% endblock %}
+{% block style_code %}
+<link href="{% static 'plugins/parsley/src/parsley.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+<link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<style>.alert-info :first-child::before{content:'' !important;display:none !important;}</style>
+{% endblock %}
+
+{% block javascript_code%}
+{% endblock javascript_code%}
+
+{% block primary %}
+
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">Forms</li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+{% for data in init_data %}
+<h1 class="page-header">Forms
+    <small>HIV Screening Tool<b> &nbsp;{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | 
+        {% if data.date_of_birth|gen_age == 0 %}
+                    UNDER 1 YEAR
+                {% else %}
+                    <input type="hidden" name="the_age" value="{{ data.date_of_birth|gen_age }}" id="the_age"/>
+                    {{ data.date_of_birth|gen_age }} YRS 
+                {% endif %}</b></small>
+        </b>
+</h1>
+{% endfor %}
+
+<!-- end page-header -->
+
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-info fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i
+                            class="fa fa-minus"></i></a>
+                    <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i
+                            class="fa fa-times"></i></a>
+                </div>
+                <h4 class="panel-title"> HIV Screening Tool </h4>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                    name="form-wizard-hhva" id="new_hivsct">
+                    {% csrf_token %}
+                  
+{#                    {{ form.errors }}#}
+{#                    {{ form.non_field_errors }}#}
+
+                    <div id="wizard-hivsct">
+                        <ol>
+
+                            <li>
+                                CURRENT HIV STATUS
+                                <small></small>
+                            </li>
+
+                            <li>
+                                HIV RISK ASSESSMENT
+                                <small></small>
+                            </li>
+                            <li>
+                                PROGRESS MONITORING
+                                <small></small>
+                            </li>
+
+                        </ol>
+
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <h3 style="margin-top: 0;color:#55518a">1. CURRENT HIV STATUS</h3>
+                            <div class="form-group">
+
+                                <table class="table table-bordered">
+                                    <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Questions?</th>
+                                                <th scope="col">Options</th>
+                                                <th scope="col">Status</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="section_prior 1a">
+                                           <td>1a</td>
+                                            <td>Date of Assessment</td>
+                                            <td>
+                                                {{ form.HIV_RA_1A }}
+                                            </td>
+                                            <td style="background-color: grey"></td>
+                                        </tr>
+                                        <tr class="section_prior 1b">
+                                            <td>1b</td>
+                                            <td>Does the caregiver know the status of the child?  /Does the Adolescent and youth (>15) years know his/her status?</td>
+                                            <td> {{ form.HIV_RS_01 }}</td>
+                                            <td> {{ form.HIV_RS_02 }}</td>
+                                            
+                                        </tr>
+                                        <tr class="section_prior 1c">
+                                            <td>1c</td>
+                                            <td>Was the HIV test done less than 6 months ago?</td>
+                                            <td>
+                                                    {{ form.HIV_RS_03 }}
+                                            </td>
+                                            <td>
+                                                <!-- {{form.HIV_RS_03A}} -->
+                                            </td>
+
+                                        </tr>
+                                        
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+
+
+                        </div>
+                        <!-- end wizard step-1 -->
+
+                        <!-- begin wizard step-2 -->
+                        <div class="wizard-step-2">
+                            <h3 style="margin-top: 0;color:#55518a"> 2. HIV RISK ASSESSMENT</h3>
+                            <div class="form-group">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Questions?</th>
+                                            <th scope="col">Options</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <tr>
+                                           <td colspan="3"> <strong>Child Assessment(&lt 15years)</strong> </td> 
+                                        </tr>
+                                        <tr class="section_a q1">
+                                            <td>Q1</td>
+                                            <td>Is the biological father/mother of the child living/ lived with HIV?  
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_04 }}
+
+                                            </td>
+                                        </tr>
+                                        <tr class="section_a q2">
+                                            <td>Q2</td>
+                                            <td>Has the child been persistently sick/malnurished in the past 3 months without improvement?
+                                                </td>
+                                            <td>
+                                                    {{ form.HIV_RS_05 }}
+
+                                            </td>
+                                        </tr>
+                                    
+                                        <tr class="section_a q3">
+                                            <td>Q3</td>
+                                            <td>
+                                            Is the child exposed to sexual abuse (defiled/raped) or has been physically forced to have sexual intercouse?
+
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_06 }}
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="3"> <strong>Adolescent Assessment(&gt 15years)</strong> </td> 
+                                        </tr>
+                                        
+                                        <tr class="section_b q4">
+                                            <td>Q4</td>
+                                            <td>
+                                                    Have you been persistently sick in the past 3 months without improvement?
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_07 }}
+
+                                            </td>
+                                        </tr>
+                                        <tr class="section_b q5">
+                                            <td>Q5</td>
+                                            <td>
+                                                    Have you been sexually abuse (defiled) or been physically forced to have sexual intercourse?
+
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_08 }}
+
+                                            </td>
+                                        </tr>
+                                        <tr class="section_b q6">
+                                            <td>Q6</td>
+                                            <td>Have you had sexual intercourse in the past 6 months?                                                </td>
+                                            <td>
+                                                    {{ form.HIV_RS_09 }}
+                                            </td>
+                                        </tr>
+                                        <tr class="section_b q7">
+                                            <td>Q7</td>
+                                            <td>
+                                            Do you have any Symptoms of sexually transmitted infections? {Penial/Vaginal sores, unusual discharge or Pain)
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_10 }}
+
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                                <td colspan="3"> <strong>Final Evaluation</strong> </td> 
+                                            </tr>
+                                            
+                                        <tr class="section_b q8">
+                                                <td>Q8</td>
+                                                <td>
+                                                Did the child/Adolescent/youth have a YES to at least one of the above questions?
+                                                </td>
+                                                <td>
+                                                        {{ form.HIV_RS_11 }}
+
+                                                </td>
+                                                
+                                            </tr>
+
+                                
+
+                                        
+                                    </tbody>
+                                </table>
+
+                                <p>&nbsp;</p>
+
+                            </div>
+                        </div>
+                        <!-- end wizard step-2 -->
+
+                        <!-- begin wizard step-3 -->
+                        <div class="wizard-step-3">
+                            <h3 style="margin-top: 0;color:#55518a">3. PROGRESS MONITORING</h3>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Questions?</th>
+                                        <th scope="col">Options/Answers</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="section_c q1">
+                                        <td>1</td>
+                                        <td>
+                                        Does the parent accept HIV testing for the child?
+                                        </td>
+                                        <td>
+                                            {{ form.HIV_RS_14 }}
+                                        </td>
+                                        <td>
+                                            {{ form.HIV_RS_15 }}
+                                        </td>
+
+                                    </tr>
+                                    <tr class="section_c q2">
+                                        <td>
+                                        2
+                                        </td>
+                                        <td>
+                                        Was a formal referral made for HIV testing?  
+                                        </td>
+                                        <td>
+                                            {{ form.HIV_RS_16 }}
+                                         </td>
+                                         <td>
+                                            {{ form.HIV_RS_17 }}
+                                        </td>
+                                    </tr>
+
+                                    <tr class="section_c q3">
+                                            <td>
+                                            3
+                                            </td>
+                                            <td>
+                                            Was the referal for HIV testing completed?  
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_18 }}
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_19 }}
+                                            </td>
+                                    </tr>
+
+                                    <tr class="section_c q3a">
+                                            <td>
+                                            3a
+                                            </td>
+                                            <td>
+                                            If no (formal referral made), report why not
+  
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_18A }}
+                                            </td>
+                                            <td style="background-color: grey">
+
+                                            </td>
+                                    </tr>
+
+                                    <tr class="section_c q3b">
+                                            <td>
+                                            3b
+                                            </td>
+                                            <td>
+                                            If yes(formal referral made), ellicit the HIV test result of the child from the caregiver.
+ 
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_18B }}
+                                                    
+                                            </td>
+                                            <td style="background-color: grey">
+
+                                            </td>
+                                    </tr>
+
+                                    <tr class="section_c q4">
+                                            <td>
+                                            4
+                                            </td>
+                                            <td>
+                                            If HIV positive(3b), was the child referred for ART?
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_21 }}
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_22 }}
+                                            </td>
+                                    </tr>
+
+                                    <tr class="section_c q5">
+                                            <td>
+                                            5
+                                            </td>
+                                            <td>
+                                            If HIV positive(3b), was the ART referral completed?  
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_23 }}
+                                            </td>
+                                            <td>
+                                                    {{ form.HIV_RS_24 }}
+                                            </td>
+                                    </tr>
+                                
+                                    <tr class="section_c q6">
+                                            <td>
+                                            6
+                                            </td>
+                                            <td>
+                                                (If applicable) Record facility of child's ART enrollment
+                                            </td>
+                                            <td>
+                                                    <!-- {{ form.HIV_RA_3Q6 }} -->
+                                                    <input type="text" class="form-control" name="facility_field" id="facility_field" placeholder="Search for facility here">
+                                                    <input type="hidden" name="HIV_RA_3Q6" id="HIV_RA_3Q6">
+                                                    
+                                            </td>
+                                            <td style="background-color: grey">
+
+                                            </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                            <p>&nbsp;</p>
+                        </div>
+                        <!-- end wizard step-3 -->
+
+                    </div>
+
+                    <div class="panel-body panel-form" id="submit_section" >
+                        <div class="form-group">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <button id="mysubmit-hivscreeningtool" type="submit"
+                                    class="btn btn-primary">Submit</button>
+                                <a href="javascript:history.go(-1)" class="btn btn-white">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </form>
+            </div>
+            
+            <div>
+                    <table class="table" border="1" id="past-hst">
+                            <thead>
+                            <tr>
+                            <th colspan="3">CURRENT HIV STATUS</th>
+                            <th colspan="8">HIV RISK ASSESSMENT</th>
+                            <th colspan="8">PROGRESS MONITORING</th>
+                                  </tr>
+                                  
+                                  <tr>
+                                        <th>Q 1a</th>
+                                        <th>Q 1b</th>
+                                        <th>Q 1c</th>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 3</th>
+                                        <th>Q 4</th>
+                                        <th>Q 5</th>
+                                        <th>Q 6</th>
+                                        <th>Q 7</th>
+                                        <th>Q 8</th>
+                                        <th>Q 1</th>
+                                        <th>Q 2</th>
+                                        <th>Q 3</th>
+                                        <th>Q 3a</th>
+                                        <th>Q 3b</th>
+                                        <th>Q 4</th>
+                                        <th>Q 5</th>
+                                        <th>Date of Event</th>
+                                  </tr>
+                                </thead>
+                    {% if hiv_screen %}
+                            
+                    {% for one_screening_data in hiv_screen %}
+                   
+                        
+                        <tr>
+                          <td>{{one_screening_data.test_donewhen_result | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.caregiver_know_status | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.caregiver_knowledge_yes | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.parent_PLWH | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.child_sick_malnourished | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.child_sexual_abuse | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.adol_sick | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.adol_sexual_abuse | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.sex | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.sti | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.hiv_test_required  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.parent_consent_testing | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.referral_made | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.referral_completed  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.not_completed}}</td>
+                          <td>{{one_screening_data.test_result | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.art_referral | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.date_of_event}}</td>
+                        </tr>
+                    {% endfor %}
+                    {% else %}
+                    <div>
+                        <h3>No data available</h3>
+                    </div>
+                    {% endif %}
+                </table>
+            </div>
+
+            <div class="badge pull-right m-4">Revised: 1st July 2019</div>
+        </div>
+        <!-- end panel -->
+
+    </div>
+    <!-- end col-12 -->
+
+</div>
+<!-- end row -->
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script src="{% static 'plugins/parsley/dist/parsley.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+<script src="{% static 'js/apps.js' %}"></script>
+<script src="{% static 'js/form-wizards.js' %}"></script>
+<script src="{% static 'js/tag-it.js' %}"></script>
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+
+<script>
+        $( function() {
+
+            $('#wizard-hivsct').bwizard();
+            $("#HIV_RA_1A").datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_15" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_17" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_19" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_22" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("#HIV_RS_24" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+
+            $(document).ready(function () {
+                $("#wizard-hivsct").bwizard();
+            });
+
+        } );
+
+        function disableSection(section_class) {
+            $('.'+section_class).find('td').css({'cursor':'no-drop'});
+            $('.'+section_class).find('td','label','input','select').css({'color':'#afafaf'});
+            $('.'+section_class).find('label').css({'color':'#afafaf'});
+            $('.'+section_class).find('input','select').attr('disabled', true).removeAttr('required', true);
+            console.log('disableSection '+section_class+' done');
+        }
+        function enableSection(section_class) {
+            $('.'+section_class).find('td').css({'cursor':'default'});
+            $('.'+section_class).find('td','label','input','select').css({'color':'initial'});
+            $('.'+section_class).find('label').css({'color':'initial'});
+            $('.'+section_class).find('input','select').removeAttr('disabled', true);
+            console.log('enableSection '+section_class+' done');
+        }
+        function switchTab(tab_id) {
+            // var step_step = "step"+tab_id;
+            $('a[href="#step'+tab_id+'"]').trigger('click');
+            console.log('switchTab to '+tab_id);
+
+            if(tab_id == 3){
+                $('#submit_section').prepend('<div class="alert alert-info"><h5>Form completed</h5>You have completed the form. Please click <b>Submit</b> below</div>');
+                window.scrollBy(0,380)
+            }
+        }
+
+        $( "#facility_field" ).autocomplete({
+            source: function( request, response ) {
+            $.ajax({
+                url: "{% url 'ovc_search' %}",
+                dataType: "json",
+                data: {q: request.term, id: 1},
+                success: function( data ) {
+                    response( data );
+                }
+                });
+            },
+            minLength: 4,
+            select: function( event, ui ) {
+                $('#facility_field').val(ui.item.name);
+                $('#HIV_RA_3Q6').val(ui.item.id);
+            },
+            open: function() {
+                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+            },
+            close: function() {
+                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+            }
+        });
+</script>
+    <!-- Skip logic -->
+    <script>
+        $('input[name="HIV_RS_01"]').change(function (e) { 
+            var this_val = $(this).val();
+
+            // If the status is unknown administer question 1-3
+            if(this_val == 'ANNO'){
+                disableSection('section_prior.1c');
+                switchTab("2");
+                $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
+                $('.section_prior.1b td:last-of-type').find('label').css({'color':'#afafaf'});
+            }else{
+                enableSection('section_prior.1c');
+                $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);
+                $('.section_prior.1b td:last-of-type').find('label').css({'color':'initial'});
+            }
+        });
+        $('input[name="HIV_RS_21"]').change(function (e) { 
+            var this_val = $(this).val();
+            if(this_val == 'ANNO'){
+                $('.section_c.q4 td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
+            }else{
+                $('.section_c.q4 td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);
+            }
+        });
+        $('input[name="HIV_RS_23"]').change(function (e) { 
+            var this_val = $(this).val();
+            if(this_val == 'ANNO'){
+                $('.section_c.q5 td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
+            }else{
+                $('.section_c.q5 td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);
+            }
+        });
+        $('input[name="HIV_RS_02"]').change(function (e) { 
+            var prev_val = $('input[name="HIV_RS_01"]').val();
+            var this_val = $(this).val();
+            
+            // If the status is unknown administer question 1-3
+            if(prev_val == 'AYES' && this_val == 'AYES'){
+                disableSection("section_prior.1c"); disableSection("section_a"); disableSection("section_a"); disableSection("section_b");disableSection("section_c");
+                switchTab("3");
+            }else if(prev_val == 'AYES' && this_val == 'ANNO'){
+                enableSection("section_prior.1c"); enableSection("section_a"); enableSection("section_b"); enableSection("section_c");
+                switchTab("1");
+            }
+        });
+        $('input[name="HIV_RS_03"]').change(function (e) { 
+            var prev_val = $('input[name="HIV_RS_01"]').val();
+            var this_val = $(this).val();
+            
+            // Yes, the test was done less than 6 months ago. STOP
+            if(this_val == 'AYES'){
+                disableSection("section_a"); disableSection("section_a"); disableSection("section_b");disableSection("section_c");
+                switchTab("3");
+            }else {
+                enableSection("section_a"); enableSection("section_b"); enableSection("section_c");
+                switchTab("1");
+            }
+        });
+    </script>
+{% endblock %}
