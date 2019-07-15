@@ -10,9 +10,15 @@ The project uses https://pypi.org/project/django-nose/ to run tests.
 Then run
 `$ python manage.py test --settings=cpims.test_settings`
 
-### Docker Setup
-#### Installation
+### Working with Docker
 Docker container setup for the app and database
+
+#### Prequisties 
+Docker and Docker Compose
+
+#### Installation
+
+Clone the github repository.
 
 `$ git clone https://github.com/uonafya/cpims-2.3beta.git && cd cpims-2.3beta`
 
