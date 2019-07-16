@@ -38,6 +38,55 @@ let TemplateUtils = (function () {
             // Todo - add some user feedback to show it's been saved offline
         },
 
+        validateFormValues: function (formValues) {
+            let formValuesNonEmpty = formValues.map( (entry) => {
+                if (entry[0] === undefined)   {
+                    entry[1].css({'display': 'block'});
+                }
+                return entry[0];
+            }).filter(item => item !== undefined);
+
+            if (formValuesNonEmpty.length !== formValues.length) {
+                console.log("Some form values not filled");
+                return null;
+            }
+
+            return formValuesNonEmpty;
+        },
+
+        createInputElement: function(id, value) {
+            return "<input id='element_id' type='hidden'  value='element_value' />"
+                .replace('element_id', id)
+                .replace('element_value', value);
+        },
+
+        createTable: function (tableElement, rowCells, afterRowRemovedHandler) {
+           let table = tableElement[0];
+            let rowsLength = table.rows.length;
+            let row = table.insertRow(rowsLength);
+            let index = rowsLength - 2;
+            row.id = 'rowid_' + index;
+            let btnRemoveSvcId = 'btnRemoveSvc' + index;
+
+            // Append the add button
+            rowCells.push([
+                'dialog_paragraph',
+                    () => "<a id='btn_id' class='btn btn-sm btn-link m-r-5' href='#'>Remove </a>".replace('btn_id', btnRemoveSvcId)
+                ]
+            );
+
+            rowCells.forEach( (cell, index) => {
+                let insertedCell = row.insertCell(index);
+                insertedCell.innerHTML = "<h6 class='element_class' >display_value</h6>"
+                    .replace("element_class", cell[0])
+                    .replace('display_value', cell[1]());
+            });
+
+            $("#" + btnRemoveSvcId + "").click(function (e) {
+                $("#" + row.id).remove();
+                afterRowRemovedHandler();
+            });
+        }
     }
 })();
 
@@ -332,30 +381,11 @@ let Form1ATemplate = (function (){
                             [$("#olmis_assessment_coreservice_status").val(), $("#olmis_assessment_coreservice_status_errormsg")]
                         ];
 
-                        let formValuesNonEmpty = formValues.map( (entry) => {
-                          if (entry[0] === undefined)   {
-                              entry[1].css({'display': 'block'});
-                          }
-                          return entry[0];
-                        }).filter(item => item !== undefined);
+                        let formValuesNonEmpty = TemplateUtils.validateFormValues(formValues);
 
-
-                        if (formValuesNonEmpty.length !== 3) {
-                            console.log("Some form values not filled");
-                            return null;
+                        if (formValuesNonEmpty === null) {
+                            return;
                         }
-
-                        let createInputElement = (id, value) => {
-                            return "<input id='element_id' type='hidden'  value='element_value' />"
-                                .replace('element_id', id)
-                                .replace('element_value', value);
-                        };
-                        let table = $('#assessment_manager_table')[0];
-                        let rowsLength = table.rows.length;
-                        let row = table.insertRow(rowsLength);
-                        let index = rowsLength - 2;
-                        row.id = 'rowid_' + index;
-                        let btnRemoveSvcId = 'btnRemoveSvc' + index;
 
                         let rowCells = [
                             [
@@ -365,30 +395,19 @@ let Form1ATemplate = (function (){
                             [
                                 "td_style",
                                 () => TemplateUtils.selectedTextForElement("olmis_assessment_domain").join(", <br/>") +
-                                    createInputElement("holmis_assessment_domain", formValuesNonEmpty[0])
+                                    TemplateUtils.createInputElement("holmis_assessment_domain", formValuesNonEmpty[0])
                             ],
                             [
                                 "td_style",
                                 () => TemplateUtils.selectedTextForElement("olmis_assessment_coreservice").join(", <br/>") +
-                                    createInputElement("holmis_assessment_coreservice", formValuesNonEmpty[1])
+                                    TemplateUtils.createInputElement("holmis_assessment_coreservice", formValuesNonEmpty[1])
                             ],
                             [
                                 "td_style",
                                 () => TemplateUtils.selectedTextForElement("olmis_assessment_coreservice_status").join(", <br/>") +
-                                    createInputElement("holmis_assessment_coreservice_status", formValuesNonEmpty[2])
-                            ],
-                            [
-                                'dialog_paragraph',
-                                () => "<a id='btn_id' class='btn btn-sm btn-link m-r-5' href='#'>Remove </a>".replace('btn_id', btnRemoveSvcId)
+                                    TemplateUtils.createInputElement("holmis_assessment_coreservice_status", formValuesNonEmpty[2])
                             ]
                         ];
-
-                        rowCells.forEach( (cell, index) => {
-                          let insertedCell = row.insertCell(index);
-                          insertedCell.innerHTML = "<h6 class='element_class' >display_value</h6>"
-                              .replace("element_class", cell[0])
-                              .replace('display_value', cell[1]());
-                        });
 
                         let grabValuesAndRefreshInputs = function () {
                             // Reset form inputs
@@ -415,13 +434,9 @@ let Form1ATemplate = (function (){
                             me.assessmentData.shift();  // remove second row (controls)
                         };
 
+                        TemplateUtils.createTable($('#assessment_manager_table'), rowCells, grabValuesAndRefreshInputs);
+
                         grabValuesAndRefreshInputs();
-
-                        $("#" + btnRemoveSvcId + "").click(function (e) {
-                            $("#" + row.id).remove();
-                            grabValuesAndRefreshInputs();
-                        });
-
                     },
                     ADD_ROW: () => console.log('Adding assessment row'),
                     REMOVE: () => console.log("Removing assessment"),
@@ -519,6 +534,20 @@ let Form1ATemplate = (function (){
                             [$("#sel_olmis_critical_event")]);
                     }
 
+                },
+                PRIORITY: {
+                    ADD: () => {
+                        console.log('Adding priority');
+
+                        let formValues = [
+                            [$("#olmis_priority_domain").val(),$("#olmis_priority_domain_errormsg")],
+                            [$("#olmis_priority_service").val(), $("#olmis_priority_service_errormsg")],
+                        ];
+                    },
+                    ADD_ROW: () => console.log('Adding priority row'),
+                    REMOVE: () => console.log("Removing priority"),
+                    RESET: () => console.log("Reset priority"),
+                    SAVE: () => console.log("Save priority")
                 },
                 SERVICE: {
                     ADD: () => console.log('Adding service'),
