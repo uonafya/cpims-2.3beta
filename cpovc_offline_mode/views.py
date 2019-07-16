@@ -9,7 +9,7 @@ from django.shortcuts import render
 from cpovc_forms.forms import OVCF1AForm
 from cpovc_main.functions import get_dict
 from cpovc_offline_mode.helpers import get_ovc_school_details, get_ovc_facility_details, get_ovc_household_members, \
-    get_services
+    get_services, save_submitted_form1a
 from cpovc_ovc.models import OVCRegistration
 from cpovc_registry.templatetags.app_filters import gen_value, vals, check_fields
 
@@ -20,14 +20,6 @@ logger = logging.getLogger(__name__)
 def templates(request):
     values = get_dict(field_name=check_fields)
     form_1a = OVCF1AForm()
-
-    """
-        Services: for each domain, we have:
-            - Domain 1 e.g DHNU, DSHC
-            - Select Input  e.g olmis_priority_health, olmis_priority_shelter
-            - Services for the select input
-    """
-
     tpls = {
         'ovc_home': render(request, 'ovc/home_offline.html').content,
         'ovc_view': render(request, 'ovc/view_child_offline.html').content,
@@ -114,6 +106,15 @@ def fetch_services(request):
 def submit_form(request):
 
     print("Submitted data is : {}".format(request.body))
+
+    data = json.loads(request.body)
+
+    payload = data["payload"]
+    user_id = data["_userId"]
+    ovc_id = payload['person']
+
+    if payload['form_type'] == 'Form1A':
+        save_submitted_form1a(user_id, ovc_id, payload['form_data'])
 
     return JsonResponse({
         'msg': 'ok'
