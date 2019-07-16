@@ -86,6 +86,11 @@ let TemplateUtils = (function () {
                 $("#" + row.id).remove();
                 afterRowRemovedHandler();
             });
+        },
+
+        alertDialog: function (alertMessage) {
+            $('#csi-warning-dialog').modal('show');
+            $('#span_csi_alert').html(alertMessage);
         }
     }
 })();
@@ -328,6 +333,7 @@ let Form1ATemplate = (function (){
             window.removeForm1ARowOffline = this._removeForm1ARowOffline();
             window.goToOvcViewFromForm1aOffline = this._goToOvcViewFromForm1aOffline();
             this._setupPriorityFormEvents();
+            this._setupDomainLog();
         },
 
         _setupPriorityFormEvents: function() {
@@ -349,6 +355,18 @@ let Form1ATemplate = (function (){
         },
 
         assessmentData: [],
+        priorityData: [],
+        servicesData: [],
+
+        _domainLog: {},
+
+        _setupDomainLog: function() {
+            let domains = ['DSHC', 'DPSS', 'DPRO', 'DHES', 'DHNU', 'DEDU'];
+            let me = this;
+            domains.forEach( domain => {
+                me._domainLog[domain] = []
+            });
+        },
 
         _formEventsFactory: function() {
             let me = this;
@@ -421,7 +439,7 @@ let Form1ATemplate = (function (){
                             });
 
 
-                            // Grab form inputs and store it
+                            // Grab form inputs and store them
                             $("#assessment_manager_table tr").each(function (row, tr) {
                                 me.assessmentData[row] = {
                                     'olmis_assessment_domain': $(tr).find('input[id="holmis_assessment_domain"]').val(),
@@ -462,7 +480,7 @@ let Form1ATemplate = (function (){
                         let dateOfAssessment = $('#date_of_assessment').val();
 
                         if (!dateOfAssessment) {
-                            alert("Date of assessment must be filled in");
+                            TemplateUtils.alertDialog("Date of assessment must be filled in");
                             return;
                         }
 
@@ -536,18 +554,140 @@ let Form1ATemplate = (function (){
 
                 },
                 PRIORITY: {
-                    ADD: () => {
-                        console.log('Adding priority');
+                    ADD: () => console.log('Adding priority'),
+                    ADD_ROW: () => {
+                        console.log('Adding priority row');
 
                         let formValues = [
                             [$("#olmis_priority_domain").val(),$("#olmis_priority_domain_errormsg")],
                             [$("#olmis_priority_service").val(), $("#olmis_priority_service_errormsg")],
                         ];
+                        let formValuesNonEmpty = TemplateUtils.validateFormValues(formValues);
+
+                        if (formValuesNonEmpty === null) {
+                            $('#span_csi_alert').html("Some values haven't been filled");
+                            console.log("Some empty values");
+                            return;
+                        }
+
+                        let totalServicesForDomains = Object
+                            .values(me._domainLog)
+                            .reduce( (total, nextValue) => total + nextValue.length, 0);
+
+                        console.log("totalServicesForDomains: ", totalServicesForDomains);
+
+                        if (totalServicesForDomains >= 3) {
+                            TemplateUtils.alertDialog("You are violating CSI Priority assessment Rules which demands 3 a maximum of priorities from either domain.");
+                            return false;
+                        }
+
+                        let olmisPriorityDomain = formValuesNonEmpty[0];
+                        let olmisPriorityService = formValuesNonEmpty[1];
+
+                        olmisPriorityService.forEach( service => {
+                          let domainLog = me._domainLog[olmisPriorityDomain];
+                          if (domainLog.includes(service)) {
+                              TemplateUtils.alertDialog('One or more of the priority need you have selected have been captured.');
+                              return;
+                          }
+
+                          if (domainLog.length < 3) {
+                              me._domainLog[olmisPriorityDomain].push(service);
+                          }
+                        });
+
+                        let rowCells = [
+                            [
+                                "td_style",
+                                () => "#"
+                            ],
+                            [
+                                "td_style",
+                                () => TemplateUtils.selectedTextForElement("olmis_priority_domain").join(", <br/>") +
+                                    TemplateUtils.createInputElement("holmis_priority_serviceholmis_priority_domain", formValuesNonEmpty[0])
+                            ],
+                            [
+                                "td_style",
+                                () => TemplateUtils.selectedTextForElement("olmis_priority_service").join(", <br/>") +
+                                    TemplateUtils.createInputElement("holmis_priority_service", formValuesNonEmpty[1])
+                            ],
+                        ];
+
+                        let grabValuesAndRefreshInputs = function () {
+                            // Reset inputs
+                            [$("#olmis_priority_domain"), $("#olmis_priority_service")].forEach(element => {
+                                element.multiselect("clearSelection");
+                                element.multiselect('refresh');
+                            });
+
+                            // Grab form inputs and store them
+                            $('#priority_manager_table tr').each(function (row, tr) {
+                                me.priorityData[row] = {
+                                    "olmis_priority_domain": $(tr).find('input[id="holmis_priority_domain"]').val(),
+                                    "olmis_priority_service": $(tr).find('input[id="holmis_priority_service"]').val()
+                                }
+
+                            });
+
+                            me.priorityData.shift();  // remove first row (headers)
+                            me.priorityData.shift();  // remove second row (controls)
+                        };
+
+                        TemplateUtils.createTable($('#priority_manager_table'), rowCells, grabValuesAndRefreshInputs);
+
+                        grabValuesAndRefreshInputs();
                     },
-                    ADD_ROW: () => console.log('Adding priority row'),
                     REMOVE: () => console.log("Removing priority"),
-                    RESET: () => console.log("Reset priority"),
-                    SAVE: () => console.log("Save priority")
+                    RESET: () => {
+                        console.log("Reset priority");
+
+                        _resetFormInputs(
+                            $('#priority_manager_table'),
+                            [
+                                $("#olmis_priority_domain"),
+                                $("#olmis_priority_service")
+                            ], [
+                                $("#date_of_priority"),
+                                $("#olmis_priority_service_provided_list")
+
+                            ], [
+                                $('#sel_olmis_priority_service')
+                            ]
+                        );
+                    },
+                    SAVE: () => {
+                        console.log("Save priority")
+                        let dateOfPriority = $('#date_of_priority').val();
+
+                        if (!dateOfPriority) {
+                            TemplateUtils.alertDialog("Date of priority must be filled in");
+                            return;
+                        }
+
+                        let data = {
+                            'priority': {
+                                'priorities': me.priorityData,
+                                'date_of_priority': dateOfPriority
+                            }
+                        };
+
+                        TemplateUtils.saveFormData("Form1A", data);
+                        _resetFormInputs(
+                            $('#priority_manager_table'),
+                            [
+                                $("#olmis_priority_domain"),
+                                $("#olmis_priority_service")
+                            ], [
+                                $("#date_of_priority"),
+                                $("#olmis_priority_service_provided_list")
+
+                            ], [
+                                $('#sel_olmis_priority_service')
+                            ]
+                        );
+
+                        me.priorityData = [];
+                    }
                 },
                 SERVICE: {
                     ADD: () => console.log('Adding service'),
@@ -703,6 +843,12 @@ let Form1ATemplate = (function (){
                     serviceField: '#olmis_service',
                     errorField: '#olmis_domain_errormsg',
                     'onPopulate': () =>  $("#sel_olmis_service").html('')
+                },
+                '#olmis_priority_domain': {
+                    fieldName: 'olmis_domain_id',
+                    serviceField: '#olmis_priority_service',
+                    errorField: '#olmis_priority_domain_errormsg',
+                    'onPopulate': () =>  $("#sel_olmis_priority_service").html('')
                 }
             };
 
