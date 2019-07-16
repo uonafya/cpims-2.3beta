@@ -357,9 +357,7 @@ def ovc_registration(request, ovc_id, edit=0):
         todate = timezone.now()
         if edit == 0:
             # Create House Hold and populate members
-            print("diagnose--->")
-            print(cgs)
-            print(caretaker)
+        
             # caretaker_id = int(cgs[caretaker][0])
             # hhid=get_house_hold(caretaker_id)
             caretaker_id = int(caretaker)
@@ -368,7 +366,7 @@ def ovc_registration(request, ovc_id, edit=0):
             print("CareTaker ID--->", caretaker_id)
             print("HouseHold ID-->", hhid)
             if not hhid:
-                print("I don't have household ID Hooray!!!")
+                print("I don't have household ID.")
                 new_hh=OVCHouseHold(
                     head_person_id=caretaker,
                     head_identifier=caretaker_id
@@ -383,7 +381,7 @@ def ovc_registration(request, ovc_id, edit=0):
                 # hh_id = new_hh.pk
 
             else:
-                print("I do have household ID Hooray!!!")
+                print("I do have household ID.")
                 hh_id=hhid.id
                 print(hh_id)
             # Add members to HH
