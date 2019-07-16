@@ -26,7 +26,7 @@ let TemplateUtils = (function () {
         saveFormData: function(form_type, data) {
             console.log("Save data form form: " + form_type + " to be submitted later");
             if (window.offlineModeClient.currentSelectedOvc === undefined) {
-                console.log("No ovc selected, cannot save user data for form: " + form_type);
+                alert("No ovc selected, cannot save user data for form: " + form_type);
                 return;
             }
             let dataToSubmit = {
@@ -296,7 +296,9 @@ let Form1ATemplate = (function (){
                   element.html('');
                 });
 
-                tableElement.find("tr:gt(1)").remove();
+                if (tableElement !== null) {
+                    tableElement.find("tr:gt(1)").remove();
+                }
             };
 
             return {
@@ -421,9 +423,18 @@ let Form1ATemplate = (function (){
                     },
                     SAVE: () => {
                         console.log("Save assessment");
+                        let dateOfAssessment = $('#date_of_assessment').val();
+
+                        if (!dateOfAssessment) {
+                            alert("Date of assessment must be filled in");
+                            return;
+                        }
+
                         let data = {
-                            'date_of_assessment':  $('#date_of_assessment').val(),
-                            'assessment': me.assessmentData
+                            'assessment': {
+                                'assessments': me.assessmentData,
+                                'date_of_assessment': dateOfAssessment
+                            }
                         };
                         TemplateUtils.saveFormData("Form1A", data);
 
@@ -449,8 +460,43 @@ let Form1ATemplate = (function (){
                     ADD: () => console.log('Adding event'),
                     ADD_ROW: () => console.log('Adding event row'),
                     REMOVE: () => console.log("Removing event"),
-                    RESET: () => console.log("Reset event"),
-                    SAVE: () => console.log("Save event")
+                    RESET: () => {
+                        console.log("Reset event");
+                        _resetFormInputs(
+                            null,
+                            [$("#olmis_critical_event")],
+                            [$('#date_of_cevent')],
+                            [$("#sel_olmis_critical_event")]);
+                    },
+                    SAVE: () => {
+                        console.log("Save event");
+                        let criticalEventDate = $('#date_of_cevent').val();
+                        let criticalEvent = $('#olmis_critical_event').val();
+
+                        if (!criticalEvent || criticalEvent === '') {
+                            alert ('Please select one or more critical events');
+                            return;
+                        }
+
+
+                        if(!criticalEventDate) {
+                            alert ("Date critical event recorded must tbe filled in");
+                            return;
+                        }
+
+                        let data = {
+                            'event': {
+                                'data_of_event': criticalEventDate,
+                                'olmis_critical_event': criticalEvent.toString()
+                            }
+                        };
+                        TemplateUtils.saveFormData("Form1A", data);
+                        _resetFormInputs(
+                            null,
+                            [$("#olmis_critical_event")],
+                            [$('#date_of_cevent')],
+                            [$("#sel_olmis_critical_event")]);
+                    }
 
                 },
                 SERVICE: {
