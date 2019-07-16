@@ -413,7 +413,8 @@ def ovc_registration(request, ovc_id, edit=0):
         else:
             # Update HH details
             hhid = request.POST.get('hh_id')
-            caretaker_id = cgs[caretaker][0]
+            # caretaker_id = cgs[caretaker][0]
+            caretaker_id = int(caretaker) # Fix
             hh_detail = get_object_or_404(OVCHouseHold, id=hhid)
             hh_detail.head_person_id = caretaker
             hh_detail.head_identifier = caretaker_id
