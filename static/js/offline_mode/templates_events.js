@@ -301,10 +301,7 @@ let OvcViewTemplate = (function (){
 
 // Handle all events on Form1A template
 let Form1ATemplate = (function (){
-    // todo:
-    // ovc_offline_form_1a_names - set names, also age
-    // f1a_events_data_table_offline add events
-    // Fix the case where the user is already on the form1a template, and the dom already loaded, injecting it messes things up, maybe clear the dom first
+    // Todo: Fix the case where the user is already on the form1a template, and the dom already loaded, injecting it messes things up, maybe clear the dom first
 
     let ASSESSMENT = 'ASSESSMENT';
     let EVENTS = 'EVENTS';
@@ -566,7 +563,6 @@ let Form1ATemplate = (function (){
 
                         if (formValuesNonEmpty === null) {
                             $('#span_csi_alert').html("Some values haven't been filled");
-                            console.log("Some empty values");
                             return;
                         }
 
@@ -691,10 +687,119 @@ let Form1ATemplate = (function (){
                 },
                 SERVICE: {
                     ADD: () => console.log('Adding service'),
-                    ADD_ROW: () => console.log('Adding service row'),
+                    ADD_ROW: () => {
+                        console.log('Adding service row')
+                        let formValues = [
+                            [$("#olmis_domain").val(),$("#olmis_domain_errormsg")],
+                            [$("#olmis_service").val(), $("#olmis_service_errormsg")],
+                            [$("#olmis_service_date").val(), $("#olmis_service_date_errormsg")],
+                        ];
+
+
+                        let formValuesNonEmpty = TemplateUtils.validateFormValues(formValues);
+
+                        if (formValuesNonEmpty === null) {
+                            $('#span_csi_alert').html("Some values haven't been filled");
+                            return;
+                        }
+
+                        let rowCells = [
+                            [
+                                "td_style",
+                                () => "#"
+                            ],
+                            [
+                                "td_style",
+                                () => TemplateUtils.selectedTextForElement("olmis_domain").join(", <br/>") +
+                                    TemplateUtils.createInputElement("holmis_domain", formValuesNonEmpty[0])
+                            ],
+                            [
+                                "td_style",
+                                () => TemplateUtils.selectedTextForElement("olmis_service").join(", <br/>") +
+                                    TemplateUtils.createInputElement("holmis_service", formValuesNonEmpty[1])
+                            ],
+                            [
+                                "td_style",
+                                () => TemplateUtils.selectedTextForElement("olmis_service_date").join(", <br/>") +
+                                    TemplateUtils.createInputElement("holmis_service_date", formValuesNonEmpty[2])
+                            ]
+                        ];
+                        let grabValuesAndRefreshInputs = function () {
+                            // Reset form inputs
+                            [
+                                $("#olmis_domain"),
+                                $("#olmis_service")
+                            ].forEach((element) => {
+                                element.multiselect("clearSelection");
+                                element.multiselect('refresh');
+                            });
+
+                            $('#olmis_service_date').val('');
+                            $("#sel_olmis_service").html('');
+
+                            // Grab form inputs and store them
+                            $("#services_manager_table tr").each(function (row, tr) {
+                                me.servicesData[row] = {
+                                    'olmis_domain': $(tr).find('input[id="holmis_domain"]').val(),
+                                    'olmis_service': $(tr).find('input[id="holmis_service"]').val(),
+                                    'olmis_service_date': $(tr).find('input[id="holmis_service_date"]').val()
+                                };
+                            });
+
+                            me.servicesData.shift();  // remove first row (headers)
+                            me.servicesData.shift();  // remove second row (controls)
+                        };
+
+                        TemplateUtils.createTable($('#services_manager_table'), rowCells, grabValuesAndRefreshInputs);
+
+                        grabValuesAndRefreshInputs();
+                    },
                     REMOVE: () => console.log("Removing service"),
-                    RESET: () => console.log("Reset service"),
-                    SAVE: () => console.log("Save service")
+                    RESET: () => {
+                        console.log("Reset service");
+                        _resetFormInputs(
+                            $('#services_manager_table'),
+                            [
+                                $("#olmis_domain"),
+                                $("#olmis_service")
+                            ], [
+                                $("#olmis_service_date"),
+                            ], [
+                                $('#sel_olmis_service')
+                            ]
+                        );
+                    },
+                    SAVE: () => {
+                        console.log("Save service");
+                        let dateOfService = $('#date_of_service').val();
+
+                        if (!dateOfService) {
+                            TemplateUtils.alertDialog("Date of service must be filled in");
+                            return;
+                        }
+
+                        let data = {
+                            'service': {
+                                'services': me.servicesData,
+                                'date_of_service': dateOfService
+                            }
+                        };
+                        TemplateUtils.saveFormData("Form1A", data);
+
+                        _resetFormInputs(
+                            $('#services_manager_table'),
+                            [
+                                $("#olmis_domain"),
+                                $("#olmis_service")
+                            ], [
+                                $("#olmis_service_date"),
+                            ], [
+                                $('#sel_olmis_service')
+                            ]
+                        );
+
+                        me.servicesData = [];
+                    }
                 }
             }
         },
