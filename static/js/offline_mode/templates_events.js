@@ -764,6 +764,7 @@ let Form1ATemplate = (function (){
                                 $("#olmis_service")
                             ], [
                                 $("#olmis_service_date"),
+                                $("#date_of_service")
                             ], [
                                 $('#sel_olmis_service')
                             ]
@@ -793,6 +794,7 @@ let Form1ATemplate = (function (){
                                 $("#olmis_service")
                             ], [
                                 $("#olmis_service_date"),
+                                $("#date_of_service")
                             ], [
                                 $('#sel_olmis_service')
                             ]
