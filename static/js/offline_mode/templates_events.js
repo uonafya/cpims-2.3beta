@@ -35,7 +35,7 @@ let TemplateUtils = (function () {
                 'form_data': data
             };
             window.offlineModeClient.saveFormData(dataToSubmit, '/offline_mode/submit/');
-            // Todo - add some user feedback to show it's been saved offline
+            this.alertDialog('Form saved and will be submitted once the internet is back');
         },
 
         validateFormValues: function (formValues) {
