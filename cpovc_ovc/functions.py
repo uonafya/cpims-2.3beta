@@ -2,6 +2,7 @@
 from datetime import datetime
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
+from django.shortcuts import get_list_or_404
 from django.db.models import Q
 from django.db import connection
 from .models import (
@@ -356,15 +357,23 @@ def ovc_registration(request, ovc_id, edit=0):
         todate = timezone.now()
         if edit == 0:
             # Create House Hold and populate members
-            caretaker_id = int(cgs[caretaker][0])
-            hhid=get_house_hold(caretaker_id)
+        
+            # caretaker_id = int(cgs[caretaker][0])
+            # hhid=get_house_hold(caretaker_id)
+            caretaker_id = int(caretaker)
+            hhid = get_first_household(caretaker_id)
+
+            print("CareTaker ID--->", caretaker_id)
+            print("HouseHold ID-->", hhid)
             if not hhid:
+                print("I don't have household ID.")
                 new_hh=OVCHouseHold(
                     head_person_id=caretaker,
                     head_identifier=caretaker_id
                 )
                 new_hh.save()
                 hh_id=new_hh.pk
+                # Duplicate Fix
                 # new_hh = OVCHouseHold(
                 # head_person_id=caretaker,
                 # head_identifier=caretaker_id),
@@ -372,7 +381,9 @@ def ovc_registration(request, ovc_id, edit=0):
                 # hh_id = new_hh.pk
 
             else:
+                print("I do have household ID.")
                 hh_id=hhid.id
+                print(hh_id)
             # Add members to HH
             hh_members.append(ovc_id)
             for hh_m in hh_members:
@@ -402,7 +413,8 @@ def ovc_registration(request, ovc_id, edit=0):
         else:
             # Update HH details
             hhid = request.POST.get('hh_id')
-            caretaker_id = cgs[caretaker][0]
+            # caretaker_id = cgs[caretaker][0]
+            caretaker_id = int(caretaker) # Fix
             hh_detail = get_object_or_404(OVCHouseHold, id=hhid)
             hh_detail.head_person_id = caretaker
             hh_detail.head_identifier = caretaker_id
@@ -480,11 +492,25 @@ def get_house_hold(person_id):
     try:
         hh_detail = get_object_or_404(
             OVCHouseHold, head_person_id=person_id)
+        print("Get HouseHold Function Detail->",hh_detail);
     except Exception as e:
         print 'error getting hh - %s' % (str(e))
         return None
     else:
+        print("Return GetHouseHold Func", hh_detail)
         return hh_detail
+
+def get_first_household(person_id):
+    """A fix for duplication-Method to get household list and return just one """
+    try:
+        hh_details = get_list_or_404(
+            OVCHouseHold, head_person_id=person_id)
+        hh_detail = hh_details[-1]  # Gets the last item in the list  (First household)
+    except Exception as e:
+        print 'error getting hh - %s' % (str(e))
+        return None
+    else:
+        return hh_detail  # Return only one household
 
 def get_hh_membership(person_id):
     try:
