@@ -237,6 +237,7 @@ let OvcViewTemplate = (function (){
             $("#ovc_offline_form_1a").click((event) => {
                 event.preventDefault();
                 TemplateUtils.showPage(TemplateUtils.form1aPage);
+                console.log("Showing form1a for selected ovc");
                 Form1ATemplate.init();
                 return false;
             });
@@ -249,7 +250,7 @@ let Form1ATemplate = (function (){
     // todo:
     // ovc_offline_form_1a_names - set names, also age
     // f1a_events_data_table_offline add events
-    // #step1 Todo - the steps are duplicating, dedupe and prune them
+    // Fix the case where the user is already on the form1a template, and the dom already loaded, injecting it messes things up, maybe clear the dom first
 
     let ASSESSMENT = 'ASSESSMENT';
     let EVENTS = 'EVENTS';
@@ -270,12 +271,32 @@ let Form1ATemplate = (function (){
         },
 
         _setupFormEvents: function() {
+            console.log("Setting form 1 events");
             window.addOfflineOvcService = this._addOfflineOvcService();
             window.saveForm1AOffline = this._saveForm1AOffline();
             window.resetForm1AOffline = this._resetForm1AOffline();
             window.addForm1ARowOffline = this._addForm1ARowOffline();
             window.removeForm1ARowOffline = this._removeForm1ARowOffline();
             window.goToOvcViewFromForm1aOffline = this._goToOvcViewFromForm1aOffline();
+            this._setupPriorityFormEvents();
+        },
+
+        _setupPriorityFormEvents: function() {
+
+            $('#date_of_priority').datepicker().on('change.dp', function(e) {
+                let priorityDate = $("#date_of_priority").datepicker("getDate");
+                let nextMonth = priorityDate.getMonth() + 1;
+
+                if ([1, 5, 11].includes(nextMonth)) {
+                    $('#div-priority-need0').css({'display': 'none'});
+                    $('#div-priority-need1').css({'display': 'block'});
+                    $('#div-priority-need1-controls').css({'display': 'block'});
+                } else {
+                    $('#div-priority-need0').css({'display': 'block'});
+                    $('#div-priority-need1').css({'display': 'none'});
+                    $('#div-priority-need1-controls').css({'display': 'none'});
+                }
+            });
         },
 
         assessmentData: [],
@@ -609,6 +630,7 @@ let Form1ATemplate = (function (){
         },
 
         _setupDateFields: function() {
+            console.log("Setting up date fields");
             let dateFields = [
                 ["#date_of_assessment", "#date_errormsg0"],
                 ["#date_of_cevent", "#date_errormsg1"],
