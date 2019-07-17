@@ -1348,6 +1348,9 @@ jQuery(document).ready(function() {
                       'county': county, 'action': 6,
                       'csrfmiddlewaretoken': csrftoken };
         $('#living_in_subcounty').empty();
+        $('#living_in_ward').empty();
+        $('#living_in_ward').html("<option value=''>Please Select</option>");
+        $('#living_in_ward').multiselect('rebuild');
         $.ajax({
             type: "POST",
             data: values,
