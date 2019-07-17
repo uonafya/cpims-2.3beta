@@ -986,19 +986,46 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
     print level, area_id,funding_partner,funding_part_id,period_typ
     base_sql=''
 
+
+    outer_sql_prefix='''
+    
+                select count(person_id) as cboactive,gender,
+        CASE
+            WHEN services >= 0 AND services <= 2 THEN '1or2 Services'::text
+            WHEN services > 2 THEN '3orMore Services'::text
+            ELSE 'Not Served'::text
+        END AS numberofservices,time_period
+        
+        from 
+        (
+    '''
+
+    inner_sql_suffix='''
+        group by person_id,
+                cbo, ward, county, cboid, countyid,gender 
+    '''
+
+    outer_sql_suffix='''
+        
+        )t group by gender,numberofservices,time_period
+        
+    '''
+
     if(currentMonth==10 and period_typ=='annual'): # start of a new period (october)
         yr=currentYear+1
         period_span='APR '+str(currentYear)+'/'+str(yr)
         base_sql = '''    
-                select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
-                 from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
+                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                where date_of_event between 'oct-01-{}' and 'Sept-30-{}' 
+                '''.format(
             period_span,currentYear,yr)
     elif(currentMonth is not 10 and period_typ=='annual'):
         yr=currentYear-1
         period_span = 'APR '+str(yr) + '/' + str(currentYear)
-        base_sql = '''    
-                select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
-                 from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'Sept-30-{}'    '''.format(
+        base_sql = '''   
+                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                where date_of_event between 'oct-01-{}' and 'Sept-30-{}' 
+         '''.format(
             period_span, yr,currentYear)
         print "base sql annual ======>"
         print base_sql
@@ -1013,83 +1040,72 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
             end_year=currentYear+1
         period_span = str(start_year) + '/' + str(end_year)
         base_sql = '''    
-                        select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
-                         from vw_ovc_services_served where date_of_event between 'oct-01-{}' and 'mar-31-{}'    '''.format(
+                        select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                where date_of_event between 'oct-01-{}' and 'mar-31-{}' 
+                        '''.format(
             period_span, start_year, end_year)
 
     elif(period_typ=='semi' and (currentMonth>=3 and currentMonth<=9)):
         period_span = str(currentYear)
         base_sql = '''    
-                                select sum(ovccount) as cboactive ,'{}' as time_period,gender,numberofservices
-                                 from vw_ovc_services_served where date_of_event between 'apr-01-{}' and 'sep-30-{}'    '''.format(
+                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                where date_of_event between 'apr-01-{}' and 'sep-30-{}'
+                        '''.format(
             period_span, currentYear, currentYear)
         print "base sql semi ======>"
         print base_sql
 
     if level == 'national':
-        print "national level +==============>"
-        print base_sql
-        print "end level +==============>"
-        rows2, desc2 = run_sql_data(None,
-                                    base_sql+'''
-                                    group by gender,numberofservices
-                                    ''')
+
+        base_sql=base_sql
 
     elif (level == 'county'):
-        rows2, desc2 = run_sql_data(None,
-                                    base_sql  + '''
-                                        and countyid={0} group by 
-                                        gender,numberofservices
-                                    '''.format(area_id))
-        print base_sql  + '''
-                                        and countyid={0} group by gender,numberofservices
+
+        base_sql=base_sql  + '''
+                                        and countyid={0} 
                                     '''.format(area_id)
     elif (level == 'subcounty'):
-        rows2, desc2 = run_sql_data(None,
-                                    base_sql  + '''
-                                        and 
-                                        ward in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-                                        group by gender,numberofservices
-                                    '''.format(area_id))
 
+        base_sql=base_sql  + '''
+                                        and 
+                                        ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                    '''.format(area_id)
     elif (level == 'ward'):
-        rows2, desc2 = run_sql_data(None,
-                                    base_sql  + '''
-                                        and ward={0} group by gender,numberofservices
-                                    '''.format(area_id))
+
+        base_sql=base_sql  + '''
+                                        and ward_id={0} 
+                                    '''.format(area_id)
 
     elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
         print "not 10th month 0"
         if (funding_partner == 'funding_mechanism'):
             if (funding_part_id == '0'):  # usaid
 
-                rows2, desc2 = run_sql_data(None,
-                        base_sql  + '''
-                             and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                base_sql=base_sql  + '''
+                             and cboid in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                            in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
-                                               )) group by gender,numberofservices'''
-                                            )
+                                               )) '''
 
         if (funding_partner == 'cluster'):
-            rows2, desc2 = run_sql_data(None,
-                                        base_sql + '''
-                                         and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
-                                               )  group by gender,numberofservices'''.format(funding_part_id)
-                                        )
 
+            base_sql=base_sql + '''
+                                         and cboid in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                               )  '''.format(funding_part_id)
         if (funding_partner == 'cbo_unit'):
-            rows2, desc2 = run_sql_data(None,
-                                        base_sql + '''
-                                                     and cbo_id = '{}' group by gender,numberofservices'''.format(
-                                            funding_part_id)
-                                        )
 
+            base_sql=base_sql + '''
+                                                     and cboid = '{}' '''.format(
+                                            funding_part_id)
     else:
-        rows2, desc2 = run_sql_data(None,
-                                    '''Select count(*),gender,art_status,hiv_status from public.persons where is_active=true and area_id in (SELECT area_id from list_geo where parent_area_id='{}')
-                                        group by gender,art_status,hiv_status'''.format(
-                                        area_id))
+        base_sql="select 1"
+
+    base_sql=outer_sql_prefix + base_sql + inner_sql_suffix + outer_sql_suffix
+
+    rows2, desc2 = run_sql_data(None,
+                                base_sql
+                                )
+
     ovc_served_with_services_list_envelop = []
     for data in rows2:
         # print i ," ",x['DOMAIN']
