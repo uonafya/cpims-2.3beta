@@ -90,6 +90,72 @@ $('input[name="CPT_DATE_CASEPLAN"]').click(function (e) {
     $('.waleert').remove();
     $('input, select, .multiselect.dropdown-toggle.btn.btn-white').css({'border-color':'#ccd0d4'});
 });
+
+
+function submitCPT() {
+
+        // e.preventDefault();
+        var row_count = 0;
+        $('#submissions_table tbody tr').each(function (index, element) {
+            row_count = row_count + 1;
+        });
+
+        if(row_count < 1){
+            var msg = "Please add some rows of data to be submitted first";
+            console.error('ERROR: no rows of data entered');
+            $('#js_error span.mesgg').html(msg);
+            $('#js_error').removeClass('hidden');
+            $(window).scrollTop(0);
+            return false;
+        }else{
+            var msg = "";
+            $('#js_error span.mesgg').html(msg);
+            $('#js_error').addClass('hidden');
+        }
+
+        // console.log("final_input: "+JSON.stringify(final_input));
+        var date_of_caseplan = $('input[name=CPT_DATE_CASEPLAN]').val();
+    
+            $.each(final_input['domain'], function (indexDomain, oneDomain) {
+                var answrs = {};
+    
+                answrs['domain'] = [];
+                answrs['goal'] = [];
+                answrs['gaps'] = [];
+                answrs['actions'] = [];
+                answrs['services'] = [];
+                answrs['responsible'] = [];
+                answrs['date'] = [];
+                answrs['actual_completion_date'] = [];
+                answrs['results'] = [];
+                answrs['reasons'] = [];
+                answrs['if_first_cpara'] = [];
+                answrs['date_first_cpara'] = [];
+                answrs['CPT_DATE_CASEPLAN'] = [];
+    
+                answrs['domain'] = final_input['domain'][indexDomain];
+                answrs['goal'] = final_input['goal'][indexDomain];
+                answrs['gaps'] = final_input['gaps'][indexDomain];
+                answrs['actions'] = final_input['actions'][indexDomain];
+                answrs['services'] = final_input['services'][indexDomain];
+                answrs['responsible'] = final_input['responsible'][indexDomain];
+                answrs['date'] = final_input['date'][indexDomain];
+                answrs['actual_completion_date'] = final_input['actual_completion_date'][indexDomain];
+                answrs['results'] = final_input['results'][indexDomain];
+                answrs['reasons'] = final_input['reasons'][indexDomain];
+                answrs['if_first_cpara'] = final_input['if_first_cpara'][indexDomain];
+                answrs['date_first_cpara'] = final_input['date_first_cpara'][indexDomain];
+                answrs['CPT_DATE_CASEPLAN'] = final_input['CPT_DATE_CASEPLAN'][indexDomain];
+    
+                fd2.push(answrs);
+            });
+            console.log("answrs: "+JSON.stringify(fd2));
+            $('input[name=final_submission').val(JSON.stringify(fd2));
+            $('#new_f1a').submit();
+    
+}
+
+
 function AddRow() {    
     var randomID = randomNo();
     
@@ -240,9 +306,18 @@ function AddRow() {
     }
 
 }
+
 var fd2 = [];
-$('#submit-caseplan').click(function (e) { 
+$('#submit-caseplan').click(function (e) {
+
     // e.preventDefault();
+    console.log('hoo');
+    var row_count = 0;
+    $('#cpt_table tbody row').each(function (index, element) {
+        row_count = row_count + 1;
+    });
+    alert(row_count);
+    return false;
     // console.log("final_input: "+JSON.stringify(final_input));
     var date_of_caseplan = $('input[name=CPT_DATE_CASEPLAN]').val();
 
