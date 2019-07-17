@@ -4,7 +4,7 @@ import json
 from django.core.cache import cache
 
 from cpovc_forms.models import OVCCareEvents, OVCCareAssessment
-from cpovc_main.functions import new_guid_32
+from cpovc_main.functions import new_guid_32, convert_date
 from cpovc_main.models import SetupList
 from cpovc_ovc.models import OVCEducation, OVCHealth, OVCHHMembers
 from cpovc_registry.models import RegPerson
@@ -130,7 +130,7 @@ def get_services():
 
 
 def save_submitted_form1a(user_id, ovc_id, form_data):
-    cache_timeout = 86400 # 1Day
+    cache_timeout = 86400  # 1Day
     # handle assessment
     assessment = form_data.get("assessment", {'assessments': []})
 
@@ -138,7 +138,7 @@ def save_submitted_form1a(user_id, ovc_id, form_data):
         user_id,
         ovc_id,
         assessment['assessments'],
-        form_data.get("date_of_assessment", None),
+        assessment.get("date_of_assessment", None),
         cache_timeout)
 
 
@@ -148,29 +148,21 @@ def _handle_assessment(user_id, ovc_id, assessments, date_of_assessment, cache_t
 
     cache_key = "assessment_offline_{}".format(ovc_id)
 
-    added_assessments = cache.get(cache_key)
-
-    if added_assessments:
-        assessments_from_cache = json.loads(base64.b64decode(added_assessments))
-    else:
-        assessments_from_cache = []
-
     assessments_to_add = []
 
     for assessment in assessments:
-        encoded_assessment = base64.b64decode(assessment)
+        not_added = _add_assessments_to_cache(
+            cache_key,
+            assessment['olmis_assessment_domain'],
+            assessment['olmis_assessment_coreservice'],
+            assessment['olmis_assessment_coreservice_status'],
+            cache_timeout)
 
-        #  dedup to avoid duplication
-        if encoded_assessment not in assessments_from_cache:
-            assessments_from_cache.append(encoded_assessment)
-            assessments_to_add.append(assessment)
+        for item in not_added:
+            assessments_to_add.append(item)
 
     if assessments_to_add:
-        cache.set(
-            cache_key,
-            base64.b64encode(json.dumps(assessments_to_add)),
-            timeout=cache_timeout)
-        # save assessment
+        service_grouping_id = new_guid_32()
         event_type_id = 'FSAM'
         person = RegPerson.objects.get(pk=int(ovc_id))
         event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=person, is_void=False).count()
@@ -178,28 +170,46 @@ def _handle_assessment(user_id, ovc_id, assessments, date_of_assessment, cache_t
             event_type_id=event_type_id,
             event_counter=event_counter,
             event_score=0,
-            date_of_event=date_of_assessment,
+            date_of_event=convert_date(date_of_assessment),
             created_by=user_id,
             person=person
         )
         ovc_care_event.save()
         ovc_care_event_id = ovc_care_event.pk
 
-        for assessment in assessments_to_add:
-            olmis_assessment_domain = assessment['olmis_assessment_domain']
-            olmis_assessment_service = assessment['olmis_assessment_coreservice']
-            olmis_assessment_service_status = assessment['olmis_assessment_coreservice_status']
-            service_grouping_id = new_guid_32()
+        for item in assessments_to_add:
+            events = item.split("#")
 
-            for service_status in olmis_assessment_service_status.split(","):
-                OVCCareAssessment(
-                    domain=olmis_assessment_domain,
-                    service=olmis_assessment_service,
-                    service_status=service_status,
-                    event=OVCCareEvents.objects.get(pk=ovc_care_event_id),
-                    service_grouping_id=service_grouping_id
-                ).save()
+            OVCCareAssessment(
+                domain=events[0],
+                service=events[1],
+                service_status=events[2],
+                event=OVCCareEvents.objects.get(pk=ovc_care_event_id),
+                service_grouping_id=service_grouping_id
+            ).save()
 
 
+def _add_assessments_to_cache(cache_key, domain, service, status, cache_timeout):
+    statuses = status.split(",")
+    statuses_per_domain_service = []
 
+    for status in statuses:
+        statuses_per_domain_service.append("{}#{}#{}".format(domain, service, status))
 
+    added_assessments = cache.get(cache_key, None)
+
+    assessments_to_add = []
+
+    if added_assessments:
+        assessments_from_cache = json.loads(base64.b64decode(added_assessments))
+    else:
+        assessments_from_cache = []
+
+    for assessment in statuses_per_domain_service:
+        if assessment not in assessments_from_cache:
+            assessments_from_cache.append(assessment)
+            assessments_to_add.append(assessment)
+
+    cache.set(cache_key, base64.b64encode(json.dumps(assessments_from_cache)), cache_timeout)
+
+    return assessments_to_add
