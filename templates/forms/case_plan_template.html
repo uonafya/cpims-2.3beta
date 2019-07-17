@@ -99,10 +99,16 @@
 
 <div class="alert alert-danger" id="error-message-reuse">
   <a class="close" data-dismiss="alert" href="#">&times;</a>
+  <span class="mesgg"></span>
   {{ err_msgg }}
 </div>
 
 {% endif %}
+
+<div class="alert alert-warning hidden" id="js_error">
+    <a class="close" data-dismiss="alert" href="#">&times;</a>
+    <span class="mesgg"></span>
+</div>
 
 <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#delete-form1a-entry">Open Modal</button>-->
 
@@ -383,7 +389,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <button id="submit-caseplan" class="btn btn-primary" type="button">Submit Assessment</button>
+                                        <button class="btn btn-primary" type="button" onclick="submitCPT()">Submit Assessment</button>
+                                        <!-- <button id="submit-caseplan" class="btn btn-primary">Submit Assessment</button> -->
                                         <a href="#" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
@@ -432,7 +439,7 @@
             <div class="panel-body">
                 <div  class="panel panel-inverse">
                     <div id="case-events"  class="table-responsive">
-                        <table id="f1a_events_data_table" class="table table-condensed table-bordered table-striped">
+                        <table id="past_cpt_table" class="table table-condensed table-bordered table-striped">
                             <thead>
                                 <tr>
                                     
