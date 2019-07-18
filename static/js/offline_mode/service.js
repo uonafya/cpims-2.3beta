@@ -89,14 +89,12 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 $(this._connectionNotificationElementId).html("You are now online, offline mode switched off");
                 this._notificationStatusBadge('alert-info', 'alert-danger');
                 $(".offline_page").hide();
-                $(".btn_ovc_home_offline").hide();
                 this._handleIsOnline();
             } else {
                 $(this._onlineModeMenuItemsSelector).hide();
                 $(this._connectionNotificationElementId).html("Switching to offline mode, no internet connection");
                 this._notificationStatusBadge('alert-danger', 'alert-info');
                 this._onlineContainerSelector.hide();
-                $(".btn_ovc_home_offline").show();
             }
         },
 

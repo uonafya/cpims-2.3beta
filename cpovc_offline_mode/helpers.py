@@ -43,12 +43,10 @@ def get_ovc_facility_details(ovc):
 
 def get_ovc_household_members(ovc):
     ovc_reg_id = ovc.person.id
-    ovc_household = OVCHHMembers.objects.filter(is_void=False, person_id=ovc_reg_id)[:1]  # limit 1
+    ovc_household = OVCHHMembers.objects.get(is_void=False, person_id=ovc_reg_id)
 
     if not ovc_household:
         return []
-
-    ovc_household = ovc_household[0]
 
     member_types = {
         'TBVC': 'Sibling',
