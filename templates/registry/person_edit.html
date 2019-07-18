@@ -1610,7 +1610,40 @@ jQuery(document).ready(function() {
             }
         });
     }
-
+    // Cascading drop down for living in counties
+    $("#living_in_county").change(function(e) {
+        var county = $("#living_in_county").val();
+        var sub_county = $("#living_in_subcounty").val();
+        var csrftoken = $.cookie('csrftoken');
+        var values = {'sub_county': sub_county,
+                      'county': county, 'action': 6,
+                      'csrfmiddlewaretoken': csrftoken };
+        $('#living_in_subcounty').empty();
+        $('#living_in_ward').empty();
+        $('#living_in_ward').html("<option value=''>Please Select</option>");
+        $('#living_in_ward').multiselect('rebuild');
+        $.ajax({
+            type: "POST",
+            data: values,
+            dataType: "json",
+            url: "{% url 'reg_lookup' %}",
+            success: function(data){
+                var wards = data.wards;
+                $('#living_in_subcounty').html("<option value=''>Please Select</option>");
+                $.each(wards, function(i, record) {
+                    var ward_attribs = wards[i].split(",");
+                    $('#living_in_subcounty')
+                        .append($("<option></option>")
+                        .attr("value", ward_attribs[0])
+                        .text(ward_attribs[1]));
+                 });
+                 $('#living_in_subcounty').multiselect('rebuild');
+            },
+            error: function(){
+                $('#messages').html("Error")
+            }
+        });
+    });
     // Cascading drop down
     $("#living_in_subcounty").change(function(e) {
         var sub_county = $("#living_in_subcounty").val();
