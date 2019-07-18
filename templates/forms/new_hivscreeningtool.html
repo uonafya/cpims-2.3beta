@@ -507,6 +507,30 @@
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 
+
+<!-- Skip logic -->
+{% if data.date_of_birth|gen_age > 15 %}
+    <script>
+        $(document).ready(function () {
+            disableSection('section_a');
+            var t_age = $('#the_age').val();
+            if(t_age > 15){
+                disableSection('section_a')
+            }else{
+                disableSection('section_b')
+            }
+        });
+    </script>
+{% else %}
+    <script>
+        $(document).ready(function () {
+            disableSection('section_b');
+        });
+    </script>
+{% endif %}
+    <!-- Skip logic -->
+
+
 <script>
         $( function() {
 
@@ -527,6 +551,8 @@
         function disableSection(section_class) {
             $('.'+section_class).find('td').css({'cursor':'no-drop'});
             $('.'+section_class).find('td','label','input','select').css({'color':'#afafaf'});
+            $('.'+section_class).find('input').val(null);
+            $('.'+section_class).find('input[type="radio"]:checked').prop('checked', false);
             $('.'+section_class).find('label').css({'color':'#afafaf'});
             $('.'+section_class).find('input','select').attr('disabled', true).removeAttr('required', true);
             console.log('disableSection '+section_class+' done');
@@ -575,6 +601,7 @@
 </script>
     <!-- Skip logic -->
     <script>
+        $('input[name="HIV_RS_01"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
         $('input[name="HIV_RS_01"]').change(function (e) { 
             var this_val = $(this).val();
 
@@ -584,6 +611,7 @@
                 switchTab("2");
                 $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
                 $('.section_prior.1b td:last-of-type').find('label').css({'color':'#afafaf'});
+                $('.section_prior.1b td:last-of-type').find('input:checked').prop({'checked':false});
             }else{
                 enableSection('section_prior.1c');
                 $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);
