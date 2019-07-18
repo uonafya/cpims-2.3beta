@@ -4,6 +4,12 @@ fetchOvcServedStatusStats('national',"none","none","none","annual");
 fetchAllOvc('national',"none","none","none","annual");
 });
 
+
+var totalMale=0;
+var totalFemale=0;
+var totalMaleServed=0;
+var totalFemaleServed=0;
+
 function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_part_id,period_type){
      $.ajax({
         type: 'GET', // define the type of HTTP verb we want to use
@@ -14,7 +20,6 @@ function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_par
         success: function (data, textStatus, jqXHR) {
             displayOvcServedWith1or2Services(data);
             displayOvcServedWith3orMoreServices(data);
-            displayNotServed(data);
         },
         error: function (response, request) {
             //    console.log("got an error fetching wards");
@@ -49,25 +54,30 @@ function fetchAllOvc(org_level,area_id,funding_partner,funding_part_id,period_ty
 function displayAllOvc(data){
 
         // $.each(data, function (index, objValue) {
-           var elementId="all_ovc";
-           var the_x_axis= []
-           var the_title = 'CBO Active';
+       var elementId="all_ovc";
+       var the_x_axis= []
+       var the_title = 'CBO Active';
 
-            var female={name: 'female',data: []};
-            var male={name: 'male',data: []};
-            $.each(data, function (index, objValue) {
+        var female={name: 'female',data: []};
+        var male={name: 'male',data: []};
+        $.each(data, function (index, objValue) {
 
-                //the_x_axis.push(objValue['period']);
-                if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
-                else female['data'].push(objValue['cboactive']);
+            //the_x_axis.push(objValue['period']);
+            if(objValue['gender']=='Male'){
+                male['data'].push(objValue['cboactive']);
+                totalMale=totalMale+objValue['cboactive'];
+            }else {
+                female['data'].push(objValue['cboactive']);
+                totalFemale=totalFemale+objValue['cboactive'];
+            }
 
-            });
-
-           var the_series = [
-                                female,
-                                male
-                            ];
-            barChart(elementId,the_title,the_x_axis,the_series)
+        });
+       displayNotServed();
+       var the_series = [
+                            female,
+                            male
+                        ];
+        barChart(elementId,the_title,the_x_axis,the_series)
         // });
     }
 
@@ -85,12 +95,21 @@ function displayOvcServedWith1or2Services(data){
 
                 if(objValue['service']=='1or2 Services'){
                     the_x_axis.push(objValue['period']);
-                    if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
-                    else female['data'].push(objValue['cboactive']);
+                    if(objValue['gender']=='Male'){
+
+                        male['data'].push(objValue['cboactive']);
+                        totalMaleServed=totalMaleServed+objValue['cboactive'];
+                    }else{
+
+                        female['data'].push(objValue['cboactive']);
+                        totalFemaleServed=totalFemaleServed+objValue['cboactive'];
+                    }
+
                 }
 
             });
 
+           displayNotServed()
            var the_series = [
                                 female,
                                 male
@@ -112,12 +131,18 @@ function displayOvcServedWith1or2Services(data){
 
                 if(objValue['service']=='3orMore Services'){
                     the_x_axis.push(objValue['period']);
-                    if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
-                    else female['data'].push(objValue['cboactive']);
+                    if(objValue['gender']=='Male'){
+                        male['data'].push(objValue['cboactive']);
+                        totalMaleServed=totalMaleServed+objValue['cboactive'];
+                    }
+                    else {
+                        female['data'].push(objValue['cboactive']);
+                        totalFemaleServed=totalFemaleServed+objValue['cboactive'];
+                    }
                 }
 
             });
-
+           displayNotServed();
            var the_series = [
                                 female,
                                 male
@@ -126,31 +151,42 @@ function displayOvcServedWith1or2Services(data){
         // });
     }
 
-    function displayNotServed(data){
+    var counter=0;
 
-        // $.each(data, function (index, objValue) {
-           var elementId="not_served";
-           var the_x_axis= []
-           var the_title = 'Ovc Not Served';
+    function displayNotServed(){
 
-            var female={name: 'female',data: []};
-            var male={name: 'male',data: []};
-            $.each(data, function (index, objValue) {
-                console.log("gone ");
-                console.log(objValue['service']);
-                if(objValue['service']=='Not Served'){
-                    the_x_axis.push(objValue['period']);
-                    if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
-                    else female['data'].push(objValue['cboactive']);
-                }
-            });
+            if(counter<=1){
+                counter=counter+1;
 
-           var the_series = [
-                                female,
-                                male
-                            ];
-            barChart(elementId,the_title,the_x_axis,the_series)
-        // });
+            }else{
+               counter=0;
+
+               var maleNotServed=totalMale-totalMaleServed;
+               var femaleNotServed=totalFemale-totalFemaleServed;
+
+               var elementId="not_served";
+               var the_x_axis= []
+               var the_title = 'Ovc Not Served';
+
+                var female={name: 'female',data: []};
+                var male={name: 'male',data: []};
+
+                male['data'].push(maleNotServed);
+                female['data'].push(femaleNotServed);
+
+               var the_series = [
+                                    female,
+                                    male
+                                ];
+                barChart(elementId,the_title,the_x_axis,the_series)
+
+                totalMale=0;
+                totalFemale=0;
+                totalMaleServed=0;
+                totalFemaleServed=0;
+
+            }
+
     }
 
 

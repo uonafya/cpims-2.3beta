@@ -84,14 +84,14 @@ $('#period').on('change', function (event) {
     period=periodVal;
     if(currentDrillOption=='funding' && currentPage==pages[0]){
         fetchOvcServedStatusStats('none','0',fundingPartnerLevel,selectedPartner,period);
-        //fetchAllOvc('none','0',fundingPartnerLevel,selectedPartner,period);
+        fetchAllOvc('none','0',fundingPartnerLevel,selectedPartner,period);
     }else if(currentDrillOption=='funding' && currentPage==pages[2]){
         fetchNewOVCRegs('none','0',fundingPartnerLevel,selectedPartner,period);
         fetchExitedAndActiveOVCRegs('none','0',fundingPartnerLevel,selectedPartner,period);
         fetchExitedHseld('none','0',fundingPartnerLevel,selectedPartner,period);
     }else if(currentDrillOption=='locality' && currentPage==pages[0]){
         fetchOvcServedStatusStats(localityLevel,selectedOrgId,'none','none',period);
-        //fetchAllOvc(localityLevel,selectedOrgId,'none','none',period);
+        fetchAllOvc(localityLevel,selectedOrgId,'none','none',period);
     }else if(currentDrillOption=='locality' && currentPage==pages[2]){
         fetchNewOVCRegs(localityLevel,selectedOrgId,'none','none',period);
         fetchExitedAndActiveOVCRegs(localityLevel,selectedOrgId,'none','none',period);
