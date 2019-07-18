@@ -100,8 +100,6 @@ urlpatterns = [
     url(r'^offline_mode/', include(offline_mode_urls)),
 ]
 
-
-
 handler400 = 'cpims.views.handler_400'
 handler404 = 'cpims.views.handler_404'
 handler500 = 'cpims.views.handler_500'

@@ -39,9 +39,6 @@ def fetch_data(request):
         if not org['is_void']:
             org_units.append(org['org_unit_id'])
 
-    # Todo - add user events
-
-    # access performance for this: upper bound of this: How many ovcs per ancestor org
     ovcs_for_org = OVCRegistration.objects.filter(
         is_void=False,
         is_active=True,
@@ -85,7 +82,6 @@ def fetch_data(request):
             'facility': get_ovc_facility_details(ovc),
 
             # school details
-
             'school': get_ovc_school_details(ovc),
 
             # house hold members
@@ -133,14 +129,3 @@ def submit_form(request):
     return JsonResponse({
         'msg': 'ok'
     })
-
-
-@login_required(login_url='/')
-def offline_mode_test(request):
-    if request.method == 'GET':
-        return JsonResponse(
-            {'msg': "ok testing"}, content_type='application/json', safe=True)
-    else:
-        print request.body
-        return JsonResponse(
-            {'msg': "submitted"}, content_type='application/json', safe=True)
