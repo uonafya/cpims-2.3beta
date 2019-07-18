@@ -65,6 +65,9 @@ function randomNo() {
     return random;
 }
 
+function cancelBtn() {
+    window.location.reload();
+}
 function stripHTML(strWithHTML) {
     var container = document.createElement('div');
     var text = document.createTextNode(strWithHTML);
