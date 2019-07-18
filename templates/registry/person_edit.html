@@ -1895,6 +1895,7 @@ function handle_child(){
     $('#working_in_subcounty').attr('data-parsley-required', 'false');
     $('#living_in_div').show();
     $('#living_in_subcounty').attr('data-parsley-required', 'true');
+    $('#living_in_ward').attr('data-parsley-required', 'true');
 
     $('#is_caregiver_div').show();
     $('#date_of_birth').datepicker("remove");
@@ -2312,7 +2313,7 @@ function check_region(region_id){
         $('#subcounty_div').show();
         $('#working_in_subcounty').attr('data-parsley-required', 'true');
         $('#ward_div').show();
-        $('#working_in_ward').attr('data-parsley-required', 'false');
+        $('#working_in_ward').attr('data-parsley-required', 'true');
         //$('#sub_county').multiselect('rebuild');
     }
 }
