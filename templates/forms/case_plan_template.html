@@ -87,6 +87,7 @@
     <span class="invalid-form-message" id="invalid-form-message"></span>
 </div>
 
+
 <div id="success_message" class="alert alert-success fade in" style="display: none;">
     <!--<span class="close" data-dismiss="alert">×</span>-->
     <button type="button" class="close" data-hide="alert">&times;</button>
@@ -105,9 +106,8 @@
 
 {% endif %}
 
-<div class="alert alert-warning hidden" id="js_error">
-    <a class="close" data-dismiss="alert" href="#">&times;</a>
-    <span class="mesgg"></span>
+<div id="warning_message" class="alert alert-warning hidden">
+    <span class="mesagg" id="mesagg"></span>
 </div>
 
 <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#delete-form1a-entry">Open Modal</button>-->
@@ -391,7 +391,7 @@
                                     <div class="col-md-6 col-sm-6">
                                         <button class="btn btn-primary" type="button" onclick="submitCPT()">Submit Assessment</button>
                                         <!-- <button id="submit-caseplan" class="btn btn-primary">Submit Assessment</button> -->
-                                        <a href="#" class="btn btn-white">Cancel</a>
+                                        <a href="#" onclick="cancelBtn()" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -503,7 +503,7 @@
                                                 {% endfor %}
                                             </td>
                                             <td rowspan="4" style="text-align: center;vertical-align: middle;" width="40px" valign="center">
-                                                <a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-pencil"></i></a>
+                                                <a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline btn-sm">Update</a>
                                             </td>
                                         </tr>
                                         <tr>

@@ -65,6 +65,9 @@ function randomNo() {
     return random;
 }
 
+function cancelBtn() {
+    window.location.reload();
+}
 function stripHTML(strWithHTML) {
     var container = document.createElement('div');
     var text = document.createTextNode(strWithHTML);
@@ -161,10 +164,8 @@ function AddRow() {
     
     
     let domain = $('#id_CPT_DOMAIN option:selected').val();
-    let domain_txt = $('#id_CPT_DOMAIN option:selected').text();
     
     let goal = $('.goals_cell > div:not(.hidden) > select > option:selected').val();
-    let goal_txt = $('.goals_cell > div:not(.hidden) > select > option:selected').text();
     // let goal = []
     // $('.goals_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
     //     var vlu = $(this).val();
@@ -174,7 +175,6 @@ function AddRow() {
     // })
 
     let gaps = $('.gaps_cell > div:not(.hidden) > select > option:selected').val();
-    let gaps_txt = $('.gaps_cell > div:not(.hidden) > select > option:selected').text();
     // let gaps = []
     // $('.gaps_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
     //     var vlu2 = $(this).val();
@@ -184,7 +184,6 @@ function AddRow() {
     // })
 
     let actions = $('.actions_cell > div:not(.hidden) > select > option:selected').val();
-    let actions_txt = $('.actions_cell > div:not(.hidden) > select > option:selected').text();
     // let actions = []
     // $('.actions_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
     //     var vlu3 = $(this).val();
@@ -201,10 +200,11 @@ function AddRow() {
             services.push(vlu);
         }
     })
-    
+
+    let results = $('#id_CPT_RESULTS option:selected').val();
+    let reasons = $('#id_CPT_REASONS').val();
     
     let responsibl = $('#id_CPT_RESPONSIBLE option:selected').val();
-    let responsibl_txt = $('#id_CPT_RESPONSIBLE option:selected').text();
 
     let date = $('#CPT_DATE').val();
     let actual_completion_date = $('#CPT_ACTUAL_DATE_COMPLETION').val();
@@ -212,24 +212,30 @@ function AddRow() {
     let date_first_cpara = $('input[name=date_first_cpara]').val();
     let CPT_DATE_CASEPLAN = $('input[name=CPT_DATE_CASEPLAN]').val();
     $('.waleert').remove();
-    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || actual_completion_date == null || actual_completion_date == '' || responsibl_txt == 'Pick an item' || actions_txt == 'Pick an item' || domain_txt == 'Pick an item' || goal_txt == 'Pick an item' || gaps_txt == 'Pick an item' || services.length < 1){
+
+    $('input, select').change(function (e) { 
+        // $(this).attr('data-change', 1)
+        $(this).addClass('d-c-1')
+    });
+
+    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || actual_completion_date == null || actual_completion_date == '' || domain == null || domain == '' || goal == '' || goal == null || responsibl == '' || responsibl == null || actions == '' || actions == null || gaps == '' || gaps == null || services.length < 1 || results == '' || results == null || $('input[name=CPT_RESULTS').val().length < 1 || $('input[name=CPT_REASONS').val().length < 1 ){
         // $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid red');
-        $('input, select, .multiselect.dropdown-toggle.btn.btn-white').css('border', '1px solid red');
+        $('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid red');
+        console.error('ERROR: can\'t add rows with empty fields')
         // $('#CPT_DATE_CASEPLAN_state').empty();
         // $('input[name=CPT_DATE_CASEPLAN]').after("<small id='CPT_DATE_CASEPLAN_state' style='color: red'>This field is required</small>");
-        $('input, select').before("<small id='CPT_DATE_CASEPLAN_state' class='waleert' style='color: red'>This field is required</small>");
+        $('input:not(.d-c-1), select:not(.d-c-1)').not('a[tabindex] label.checkbox input[type=checkbox]').before("<small id='CPT_DATE_CASEPLAN_state' class='waleert' style='color: red'>This field is required</small>");
         var proceed = false;
     }else{
         var proceed = true;
     }
-    $('input[name=CPT_DATE_CASEPLAN]').change(function (e) { 
+    $('input, select').focus(function (e) { 
         // $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid #9fa2a5');
         $('input, select, .multiselect.dropdown-toggle.btn.btn-white').css('border', '1px solid #9fa2a5');
         // $('#CPT_DATE_CASEPLAN_state').empty();
         $('.waleert').remove();
     });
-    let results = $('#id_CPT_RESULTS option:selected').val();
-    let reasons = $('#id_CPT_REASONS').val();
+    
 
     if(proceed){
         $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_repsonsible"></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
@@ -308,7 +314,7 @@ function AddRow() {
 }
 
 var fd2 = [];
-$('#submit-caseplan').click(function (e) {
+function submitCPT() {
 
     // e.preventDefault();
     console.log('hoo');
@@ -316,8 +322,17 @@ $('#submit-caseplan').click(function (e) {
     $('#cpt_table tbody row').each(function (index, element) {
         row_count = row_count + 1;
     });
-    alert(row_count);
-    return false;
+    if(row_count < 1){
+        var msg = "Please add some rows of data to be submitted first";
+        console.error('ERROR: no rows of data entered');
+        $(window).scrollTop(0);
+        $('#warning_message').removeClass('hidden');
+        $('#warning_message span.mesagg').html(msg);
+        return false;
+    }else{
+        $('#warning_message').addClass('hidden');
+        $('#warning_message span.mesagg').html('');
+    }
     // console.log("final_input: "+JSON.stringify(final_input));
     var date_of_caseplan = $('input[name=CPT_DATE_CASEPLAN]').val();
 
@@ -359,4 +374,4 @@ $('#submit-caseplan').click(function (e) {
         $('#new_f1a').submit();
 
 
-});
+}
