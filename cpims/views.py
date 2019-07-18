@@ -8,7 +8,7 @@ from cpovc_registry.functions import dashboard, ovc_dashboard, get_public_dash_o
     fetch_total_wout_bcert_at_enrol, get_cbo_list, get_ever_tested_for_HIV, _get_ovc_active_hiv_status,\
     _get_ovc_served_stats,fetch_total_w_bcert_2date,fetch_total_s_bcert_aft_enrol,fetch_new_ovcregs_by_period,\
     fetch_exited_hsehlds_by_period,fetch_exited_ovcs_by_period,fetch_served_bcert_by_period,fetch_u5_served_bcert_by_period,_get_cpara_results,\
-    _get_benchmark_results,_get_per_domain_results,_get_hh_categorization
+    _get_benchmark_results,_get_per_domain_results,_get_hh_categorization,_get_all_ovcs
 from cpovc_main.functions import get_dict
 from cpovc_access.functions import access_request
 from django.contrib.auth.decorators import login_required
@@ -88,6 +88,14 @@ def get_ovc_served_stats(request, org_level,area_id,funding_partner,funding_part
     main_dash_data = _get_ovc_served_stats(org_level, area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(main_dash_data, content_type='application/json',
                         safe=False)
+
+
+def get_all_ovcs(request, org_level,area_id,funding_partner,funding_part_id,period_type):
+    main_dash_data = _get_all_ovcs(org_level, area_id,funding_partner,funding_part_id,period_type)
+    return JsonResponse(main_dash_data, content_type='application/json',
+                        safe=False)
+
+
 
 # CPARA
 def get_cpara_results(request, org_level,area_id,funding_partner,funding_part_id,period_type):

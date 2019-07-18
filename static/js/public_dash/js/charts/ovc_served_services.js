@@ -1,6 +1,7 @@
 $(document).ready(function () {
 var org_level='national';
 fetchOvcServedStatusStats('national',"none","none","none","annual");
+fetchAllOvc('national',"none","none","none","annual");
 });
 
 function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_part_id,period_type){
@@ -23,6 +24,52 @@ function fetchOvcServedStatusStats(org_level,area_id,funding_partner,funding_par
 
     });
 }
+
+
+function fetchAllOvc(org_level,area_id,funding_partner,funding_part_id,period_type){
+     $.ajax({
+        type: 'GET', // define the type of HTTP verb we want to use
+        url: '/get_all_ovcs/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/', // the url from server we that we want to use
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json', // what type of data do we expect back from the server
+        encode: true,
+        success: function (data, textStatus, jqXHR) {
+            displayAllOvc(data);
+        },
+        error: function (response, request) {
+            //    console.log("got an error fetching wards");
+            alert("error");
+            console.log(response.responseText);
+        }
+
+    });
+}
+
+
+function displayAllOvc(data){
+
+        // $.each(data, function (index, objValue) {
+           var elementId="all_ovc";
+           var the_x_axis= []
+           var the_title = 'CBO Active';
+
+            var female={name: 'female',data: []};
+            var male={name: 'male',data: []};
+            $.each(data, function (index, objValue) {
+
+                //the_x_axis.push(objValue['period']);
+                if(objValue['gender']=='Male') male['data'].push(objValue['cboactive']);
+                else female['data'].push(objValue['cboactive']);
+
+            });
+
+           var the_series = [
+                                female,
+                                male
+                            ];
+            barChart(elementId,the_title,the_x_axis,the_series)
+        // });
+    }
 
 
 function displayOvcServedWith1or2Services(data){

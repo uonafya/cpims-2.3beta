@@ -61,6 +61,10 @@ urlpatterns = [
 
     url(r'^get_hh_categorization/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/','cpims.views.get_hh_categorization', name='get_hh_categorization'),
 
+    url(
+        r'^get_all_ovcs/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/',
+        'cpims.views.get_all_ovcs', name='get_all_ovcs'),
+
     url(r'^get_served_bcert_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_served_bcert_by_period', name='get_served_bcert_by_period'),
     url(r'^get_u5_served_bcert_by_period/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<month_year>.*)/', 'cpims.views.get_u5_served_bcert_by_period', name='get_u5_served_bcert_by_period'),
     url(r'^get_ovc_served_stats/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/', 'cpims.views.get_ovc_served_stats', name='get_ovc_served_stats'),

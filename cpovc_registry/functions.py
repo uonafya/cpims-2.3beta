@@ -1122,6 +1122,109 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
     return ovc_served_with_services_list_envelop
 
 
+
+####
+def _get_all_ovcs(level='national', area_id='', funding_partner='', funding_part_id='', period_typ='annual'):
+    # "SELECT count(ovccount) FROM public.hiv_status where "
+    rows2, desc2 = 0, 0
+    period_span = ''
+    currentMonth = datetime.now().month
+    currentYear = datetime.now().year
+    print "test ======>"
+    print level, area_id, funding_partner, funding_part_id, period_typ
+
+    base_sql = '''
+        SELECT count(DISTINCT vw_cpims_registration.cpims_ovc_id)::integer AS ovccount,
+        vw_cpims_registration.gender
+        FROM vw_cpims_registration
+        WHERE (vw_cpims_registration.exit_status = 'ACTIVE'::text OR vw_cpims_registration.exit_status = 'EXITED'::text) 
+        AND (vw_cpims_registration.age < 18::double precision OR vw_cpims_registration.age >= 18::double
+        precision AND vw_cpims_registration.age <= 20::double precision AND vw_cpims_registration.schoollevel = 'Secondary'::text)
+    '''
+
+    if (currentMonth == 10 and period_typ == 'annual'):  # start of a new period (october)
+        yr = currentYear + 1
+        period_span = 'APR ' + str(currentYear) + '/' + str(yr)
+
+    elif (currentMonth is not 10 and period_typ == 'annual'):
+        yr = currentYear - 1
+        period_span = 'APR ' + str(yr) + '/' + str(currentYear)
+
+    if (period_typ == 'semi' and (currentMonth >= 10 and currentMonth <= 3)):
+        if (currentMonth >= 1 and currentMonth <= 3):
+            yr = currentYear - 1
+            start_year = yr
+            end_year = currentYear
+        else:
+            start_year = currentYear
+            end_year = currentYear + 1
+        period_span = str(start_year) + '/' + str(end_year)
+
+    elif (period_typ == 'semi' and (currentMonth >= 3 and currentMonth <= 9)):
+        period_span = str(currentYear)
+
+    if level == 'national':
+        pass
+    elif (level == 'county'):
+
+        base_sql = base_sql + '''
+                                        and countyid={0} 
+                                    '''.format(area_id)
+    elif (level == 'subcounty'):
+
+        base_sql = base_sql + '''
+                                        and 
+                                        ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                    '''.format(area_id)
+    elif (level == 'ward'):
+
+        base_sql = base_sql + '''
+                                        and ward_id={0} 
+                                    '''.format(area_id)
+
+    elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
+        print "not 10th month 0"
+        if (funding_partner == 'funding_mechanism'):
+            if (funding_part_id == '0'):  # usaid
+
+                base_sql = base_sql + '''
+                             and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                           in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
+                                               'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
+                                               )) '''
+
+        if (funding_partner == 'cluster'):
+            base_sql = base_sql + '''
+                                         and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                               )  '''.format(funding_part_id)
+        if (funding_partner == 'cbo_unit'):
+            base_sql = base_sql + '''
+                                                     and cbo_id = '{}' '''.format(
+                funding_part_id)
+    else:
+        base_sql = "select 1"
+
+    base_sql =  base_sql + '''GROUP BY gender'''
+
+    rows2, desc2 = run_sql_data(None,
+                                base_sql
+                                )
+
+    all_ovc_served_list_envelop = []
+    for data in rows2:
+        # print i ," ",x['DOMAIN']
+
+        all_ovc_obj = {}
+
+        all_ovc_obj['gender'] = data['GENDER']
+        all_ovc_obj['cboactive'] = data['OVCCOUNT']
+        # ovc_served_obj['period'] = data['TIME_PERIOD']
+
+        all_ovc_served_list_envelop.append(all_ovc_obj)
+
+    return all_ovc_served_list_envelop
+
+
 #CPARA
 def _get_cpara_results(level='national', area_id='',funding_partner='',funding_part_id='',period_typ='annual'):
     # "SELECT count(ovccount) FROM public.hiv_status where "
