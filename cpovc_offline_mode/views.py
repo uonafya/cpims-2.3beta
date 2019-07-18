@@ -117,7 +117,12 @@ def submit_form(request):
 
     try:
         if payload['form_type'] == 'Form1A':
-            save_submitted_form1a(user_id, ovc_id, payload['form_data'])
+            save_submitted_form1a(
+                user_id,
+                ovc_id,
+                payload['form_data'],
+                request.session.get('ou_primary'),
+                request.session.get('ou_attached').split(","))
     except Exception as ex:
         # catch and log, for it to go to logs for manual reviewing
         type_, value_, traceback_ = sys.exc_info()

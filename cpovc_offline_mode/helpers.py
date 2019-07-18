@@ -3,7 +3,7 @@ import json
 
 from django.core.cache import cache
 
-from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV, OVCCarePriority
+from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV, OVCCarePriority, OVCCareServices
 from cpovc_main.functions import new_guid_32, convert_date
 from cpovc_main.models import SetupList
 from cpovc_ovc.models import OVCEducation, OVCHealth, OVCHHMembers
@@ -129,9 +129,10 @@ def get_services():
     return data
 
 
-def save_submitted_form1a(user_id, ovc_id, form_data):
+def save_submitted_form1a(user_id, ovc_id, form_data, org_unit_primary, org_unit_attached):
     assessment = form_data.get('assessment', {'assessments': []})
-    priority = form_data.get('priority', {'priority': []})
+    priority = form_data.get('priority', {'priorities': []})
+    service = form_data.get('service', {'services': []})
 
     _handle_assessment(
         user_id,
@@ -146,6 +147,14 @@ def save_submitted_form1a(user_id, ovc_id, form_data):
         ovc_id,
         priority['priorities'],
         priority.get("date_of_priority", None))
+
+    _handle_services(
+        user_id,
+        ovc_id,
+        service['services'],
+        service.get("date_of_service", None),
+        org_unit_primary,
+        org_unit_attached)
 
 
 def _create_ovc_care_event(user_id, ovc_id, event_date):
@@ -320,3 +329,59 @@ def _add_priority_to_cache(cache_key, domain, service, date_of_priority):
     _add_list_items_to_cache(cache_key, priorities_from_cache)
 
     return priorities_to_to_add
+
+
+def _handle_services(user_id, ovc_id, services, date_of_service, org_unit_primary, org_unit_attached):
+    if not services or not date_of_service:
+        return
+
+    cache_key = "service_offline_{}".format(ovc_id)
+
+    services_to_add = []
+
+    for service in services:
+        not_added = _add_service_to_cache(
+            cache_key,
+            service['olmis_domain'],
+            service['olmis_service'],
+            service['olmis_service_date'],
+            date_of_service)
+
+        for item in not_added:
+            services_to_add.append(item)
+
+    if services_to_add:
+        service_grouping_id = new_guid_32()
+        ovc_care_event_id = _create_ovc_care_event(user_id, ovc_id, date_of_service)
+        org_unit = org_unit_primary if org_unit_primary else org_unit_attached[0]
+        for item in services_to_add:
+            events = item.split("#")
+
+            OVCCareServices(
+                domain=events[0],
+                service_provided=events[1],
+                date_of_encounter_event=convert_date(events[2]) if not events[2] or events[2] != 'None' or events[2] != '' else None,
+                service_provider=org_unit,
+                event=OVCCareEvents.objects.get(pk=ovc_care_event_id),
+                service_grouping_id=service_grouping_id
+            ).save()
+
+
+def _add_service_to_cache(cache_key, domain, service_list, service_date, date_of_priority):
+    services = service_list.split(",")
+    service_per_domain = []
+
+    for service in services:
+        service_per_domain.append("{}#{}#{}#{}".format(domain, service, service_date, date_of_priority))
+
+    services_to_to_add = []
+    services_from_cache = _get_decoded_list_from_cache(cache_key)
+
+    for service in service_per_domain:
+        if service not in services_from_cache:
+            services_from_cache.append(service)
+            services_to_to_add.append(service)
+
+    _add_list_items_to_cache(cache_key, services_from_cache)
+
+    return services_to_to_add
