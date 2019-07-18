@@ -1,6 +1,8 @@
 import base64
 import json
 import logging
+import sys
+import traceback
 
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -105,7 +107,7 @@ def fetch_services(request):
 @login_required(login_url='/')
 def submit_form(request):
 
-    print("Submitted data is : {}".format(request.body))
+    logger.info("Submitted data is : {}".format(request.body))
 
     data = json.loads(request.body)
 
@@ -113,8 +115,15 @@ def submit_form(request):
     user_id = data["_userId"]
     ovc_id = payload['person']
 
-    if payload['form_type'] == 'Form1A':
-        save_submitted_form1a(user_id, ovc_id, payload['form_data'])
+    try:
+        if payload['form_type'] == 'Form1A':
+            save_submitted_form1a(user_id, ovc_id, payload['form_data'])
+    except Exception as ex:
+        # catch and log, for it to go to logs for manual reviewing
+        type_, value_, traceback_ = sys.exc_info()
+        formatted_exception = traceback.format_exception(etype=type_, value=value_, tb=traceback_)
+
+        logger.error("Cannot save offline submitted data: {} | Error: {}".format(request.body, formatted_exception))
 
     return JsonResponse({
         'msg': 'ok'

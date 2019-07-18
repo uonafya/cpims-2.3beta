@@ -3,7 +3,7 @@ import json
 
 from django.core.cache import cache
 
-from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV
+from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV, OVCCarePriority
 from cpovc_main.functions import new_guid_32, convert_date
 from cpovc_main.models import SetupList
 from cpovc_ovc.models import OVCEducation, OVCHealth, OVCHHMembers
@@ -130,8 +130,8 @@ def get_services():
 
 
 def save_submitted_form1a(user_id, ovc_id, form_data):
-    # handle assessment
     assessment = form_data.get('assessment', {'assessments': []})
+    priority = form_data.get('priority', {'priority': []})
 
     _handle_assessment(
         user_id,
@@ -140,6 +140,12 @@ def save_submitted_form1a(user_id, ovc_id, form_data):
         assessment.get("date_of_assessment", None))
 
     _handle_critical_event(user_id, ovc_id, form_data.get('event', None))
+
+    _handle_priority(
+        user_id,
+        ovc_id,
+        priority['priorities'],
+        priority.get("date_of_priority", None))
 
 
 def _create_ovc_care_event(user_id, ovc_id, event_date):
@@ -262,3 +268,55 @@ def _add_assessments_to_cache(cache_key, domain, service, status, date_of_assess
     _add_list_items_to_cache(cache_key, assessments_from_cache)
 
     return assessments_to_add
+
+
+def _handle_priority(user_id, ovc_id, priorities, date_of_priority):
+    if not priorities or not date_of_priority:
+        return
+
+    cache_key = "priority_offline_{}".format(ovc_id)
+
+    priority_to_add = []
+
+    for priority in priorities:
+        not_added = _add_priority_to_cache(
+            cache_key,
+            priority['olmis_priority_domain'],
+            priority['olmis_priority_service'],
+            date_of_priority)
+
+        for item in not_added:
+            priority_to_add.append(item)
+
+    if priority_to_add:
+        service_grouping_id = new_guid_32()
+        ovc_care_event_id = _create_ovc_care_event(user_id, ovc_id, date_of_priority)
+        for item in priority_to_add:
+            events = item.split("#")
+
+            OVCCarePriority(
+                domain=events[0],
+                service=events[1],
+                event=OVCCareEvents.objects.get(pk=ovc_care_event_id),
+                service_grouping_id=service_grouping_id
+            ).save()
+
+
+def _add_priority_to_cache(cache_key, domain, service, date_of_priority):
+    services = service.split(",")
+    service_per_domain = []
+
+    for service in services:
+        service_per_domain.append("{}#{}#{}".format(domain, service, date_of_priority))
+
+    priorities_to_to_add = []
+    priorities_from_cache = _get_decoded_list_from_cache(cache_key)
+
+    for priority in service_per_domain:
+        if priority not in priorities_from_cache:
+            priorities_from_cache.append(priority)
+            priorities_to_to_add.append(priority)
+
+    _add_list_items_to_cache(cache_key, priorities_from_cache)
+
+    return priorities_to_to_add

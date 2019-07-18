@@ -600,7 +600,7 @@ let Form1ATemplate = (function (){
                             [
                                 "td_style",
                                 () => TemplateUtils.selectedTextForElement("olmis_priority_domain").join(", <br/>") +
-                                    TemplateUtils.createInputElement("holmis_priority_serviceholmis_priority_domain", formValuesNonEmpty[0])
+                                    TemplateUtils.createInputElement("holmis_priority_domain", formValuesNonEmpty[0])
                             ],
                             [
                                 "td_style",
