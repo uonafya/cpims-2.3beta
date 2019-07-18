@@ -188,7 +188,6 @@ CACHES = {
 CSRF_FAILURE_VIEW = 'cpims.views.csrf_failure'
 
 OFFLINE_MODE_CAPABILITY_ENABLED = eval(os.environ.get('CAN_WORK_OFFLINE', 'False'))
-OFFLINE_MODE_CAPABILITY_ENABLED = os.environ.get('CAN_WORK_OFFLINE') if os.environ.get('CAN_WORK_OFFLINE') else False
-# import logging configs
 
+# import logging configs
 from .logging_config import *
