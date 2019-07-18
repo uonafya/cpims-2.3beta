@@ -3,7 +3,7 @@ import json
 
 from django.core.cache import cache
 
-from cpovc_forms.models import OVCCareEvents, OVCCareAssessment
+from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV
 from cpovc_main.functions import new_guid_32, convert_date
 from cpovc_main.models import SetupList
 from cpovc_ovc.models import OVCEducation, OVCHealth, OVCHHMembers
@@ -130,19 +130,87 @@ def get_services():
 
 
 def save_submitted_form1a(user_id, ovc_id, form_data):
-    cache_timeout = 86400  # 1Day
     # handle assessment
-    assessment = form_data.get("assessment", {'assessments': []})
+    assessment = form_data.get('assessment', {'assessments': []})
 
     _handle_assessment(
         user_id,
         ovc_id,
         assessment['assessments'],
-        assessment.get("date_of_assessment", None),
-        cache_timeout)
+        assessment.get("date_of_assessment", None))
+
+    _handle_critical_event(user_id, ovc_id, form_data.get('event', None))
 
 
-def _handle_assessment(user_id, ovc_id, assessments, date_of_assessment, cache_timeout):
+def _create_ovc_care_event(user_id, ovc_id, event_date):
+    event_type_id = 'FSAM'
+    person = RegPerson.objects.get(pk=int(ovc_id))
+    event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=person, is_void=False).count()
+    ovc_care_event = OVCCareEvents(
+        event_type_id=event_type_id,
+        event_counter=event_counter,
+        event_score=0,
+        date_of_event=convert_date(event_date),
+        created_by=user_id,
+        person=person
+    )
+    ovc_care_event.save()
+    return ovc_care_event.pk
+
+
+def _get_decoded_list_from_cache(cache_key):
+    cache_items = cache.get(cache_key, None)
+
+    if cache_items:
+        return json.loads(base64.b64decode(cache_items))
+    return []
+
+
+def _add_list_items_to_cache(cache_key, items):
+    cache_timeout = 86400  # 1Day
+    cache.set(cache_key, base64.b64encode(json.dumps(items)), cache_timeout)
+
+
+def _handle_critical_event(user_id, ovc_id, critical_event):
+    if not critical_event:
+        return
+
+    cache_key = "critical_event_offline_{}".format(ovc_id)
+    events_list = critical_event.get("olmis_critical_event", None)
+    event_date = critical_event.get("date_of_event", None)
+
+    if not events_list or not event_date:
+        return
+
+    events = events_list.split(",")
+    events_per_date = []
+
+    for event in events:
+        events_per_date.append(base64.b64encode("{}#{}".format(event, event_date)))
+
+    events_to_add = []
+    cached_events = _get_decoded_list_from_cache(cache_key)
+
+    for event in events_per_date:
+        if event not in cached_events:
+            cached_events.append(event)
+            events_to_add.append(event)
+
+    _add_list_items_to_cache(cache_key, cached_events)
+
+    if events_to_add:
+        ovc_care_event_id = _create_ovc_care_event(user_id, ovc_id, event_date)
+
+        for item in events_to_add:
+            events = base64.b64decode(item).split("#")
+            OVCCareEAV(
+                entity='CEVT',
+                attribute='FSAM',
+                value=events[0],
+                event=OVCCareEvents.objects.get(pk=ovc_care_event_id)).save()
+
+
+def _handle_assessment(user_id, ovc_id, assessments, date_of_assessment):
     if not assessments or not date_of_assessment:
         return
 
@@ -156,27 +224,14 @@ def _handle_assessment(user_id, ovc_id, assessments, date_of_assessment, cache_t
             assessment['olmis_assessment_domain'],
             assessment['olmis_assessment_coreservice'],
             assessment['olmis_assessment_coreservice_status'],
-            cache_timeout)
+            date_of_assessment)
 
         for item in not_added:
             assessments_to_add.append(item)
 
     if assessments_to_add:
         service_grouping_id = new_guid_32()
-        event_type_id = 'FSAM'
-        person = RegPerson.objects.get(pk=int(ovc_id))
-        event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=person, is_void=False).count()
-        ovc_care_event = OVCCareEvents(
-            event_type_id=event_type_id,
-            event_counter=event_counter,
-            event_score=0,
-            date_of_event=convert_date(date_of_assessment),
-            created_by=user_id,
-            person=person
-        )
-        ovc_care_event.save()
-        ovc_care_event_id = ovc_care_event.pk
-
+        ovc_care_event_id = _create_ovc_care_event(user_id, ovc_id, date_of_assessment)
         for item in assessments_to_add:
             events = item.split("#")
 
@@ -189,27 +244,21 @@ def _handle_assessment(user_id, ovc_id, assessments, date_of_assessment, cache_t
             ).save()
 
 
-def _add_assessments_to_cache(cache_key, domain, service, status, cache_timeout):
+def _add_assessments_to_cache(cache_key, domain, service, status, date_of_assessment):
     statuses = status.split(",")
     statuses_per_domain_service = []
 
     for status in statuses:
-        statuses_per_domain_service.append("{}#{}#{}".format(domain, service, status))
-
-    added_assessments = cache.get(cache_key, None)
+        statuses_per_domain_service.append("{}#{}#{}#{}".format(domain, service, status, date_of_assessment))
 
     assessments_to_add = []
-
-    if added_assessments:
-        assessments_from_cache = json.loads(base64.b64decode(added_assessments))
-    else:
-        assessments_from_cache = []
+    assessments_from_cache = _get_decoded_list_from_cache(cache_key)
 
     for assessment in statuses_per_domain_service:
         if assessment not in assessments_from_cache:
             assessments_from_cache.append(assessment)
             assessments_to_add.append(assessment)
 
-    cache.set(cache_key, base64.b64encode(json.dumps(assessments_from_cache)), cache_timeout)
+    _add_list_items_to_cache(cache_key, assessments_from_cache)
 
     return assessments_to_add

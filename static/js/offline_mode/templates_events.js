@@ -537,7 +537,7 @@ let Form1ATemplate = (function (){
 
                         let data = {
                             'event': {
-                                'data_of_event': criticalEventDate,
+                                'date_of_event': criticalEventDate,
                                 'olmis_critical_event': criticalEvent.toString()
                             }
                         };
