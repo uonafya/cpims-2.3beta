@@ -9535,6 +9535,9 @@ def new_wellbeingadolescent(request, id):
             ovccareevent.save()
             # get questions for adolescent
             questions = OVCCareQuestions.objects.filter(code__startswith='wba')
+            ovc_id = int(id)
+            child = RegPerson.objects.get(is_void=False, id=ovc_id)
+            care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
             for question in questions:
                 answer = request.POST.get(question.question)
                 if answer is None:
@@ -9547,11 +9550,16 @@ def new_wellbeingadolescent(request, id):
                     event=ovccareevent,
                     date_of_event=timezone.now(),
                     domain=question.domain,
-                    question_type=question.question_type
+                    question_type=question.question_type,
+                    caregiver=care_giver
                 )
+            msg = 'wellbeing adolesent saved successful'
+            messages.add_message(request, messages.INFO, msg)
             url = reverse('ovc_view', kwargs={'id': id})
-            # return HttpResponseRedirect(reverse(forms_registry))
             return HttpResponseRedirect(url)
+            # url = reverse('ovc_view', kwargs={'id': id})
+            # # return HttpResponseRedirect(reverse(forms_registry))
+            # return HttpResponseRedirect(url)
     except Exception, e:
         msg = 'wellbeing adolescent save error : (%s)' % (str(e))
         messages.add_message(request, messages.ERROR, msg)
@@ -9564,7 +9572,7 @@ def new_wellbeingadolescent(request, id):
         ovcreg = get_object_or_404(OVCRegistration, person_id=id, is_void=False)
         caretaker_id = ovcreg.caretaker_id if ovcreg else None
         ovchh = get_object_or_404(OVCHouseHold, head_person=caretaker_id, is_void=False)
-        household_id = ovchh.id if ovchh else None
+        household_id = ovchh.id if ovchh else None        
     except Exception, e:
         print str(e)
         msg = 'Error getting household identifier: (%s)' % (str(e))
@@ -9579,6 +9587,8 @@ def new_wellbeingadolescent(request, id):
 
     form = WellbeingAdolescentForm(initial={'household_id': household_id})
     care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
+
 
     return render(request,
                   'forms/new_wellbeingadolescent.html',
