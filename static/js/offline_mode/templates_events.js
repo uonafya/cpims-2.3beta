@@ -94,7 +94,7 @@ let TemplateUtils = (function () {
         },
 
         initFormWizard: function (wizardId, wizardStepsCount) {
-            // Only initialize a form wizard if non exists
+            // Only initialize a form wizard if none exists
             try {
                 $("#" + wizardId).bwizard('count');
                 console.log("Wizard : ", wizardId , " already initialized");

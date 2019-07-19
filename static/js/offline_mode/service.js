@@ -327,7 +327,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         },
 
         clearStorage: function() {
-            // Do not clear any form data saved, just case it hasn't been submitted yet
+            // Do not clear any form data saved, just in case it hasn't been submitted yet
             let formKeysToClear = [
                 this._registrationDataStorageKey(),
                 this._templatesStorageKey,
