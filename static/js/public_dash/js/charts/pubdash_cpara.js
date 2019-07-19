@@ -397,7 +397,7 @@ $(document).ready(function () {
     function displayPerBenchmarkDomainPerformance(data){
 
         var elementId_overall="dmn_perf_overall";
-        var the_title_overall = 'Overall domains performance in all counties';
+        var the_title_overall = 'Overall domains performance';
         var o_healthy_data=data[0].HEALTHY;
         var o_stable_data=data[0].SAFE;
         var o_safe_data=data[0].SCHOOLED;

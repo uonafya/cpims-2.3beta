@@ -179,7 +179,7 @@ $(document).ready(function () {
    }
 
    function fetchExitedHseld(org_level,area_id,funding_partner,funding_part_id,period_type){
-        var the_url = '/get_exited_hsehlds_by_period/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+        var the_url = '/get_household_exits/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
         $.ajax({
             type: 'GET',
             url: the_url,
@@ -406,8 +406,8 @@ $(document).ready(function () {
 
         var graph_data={name: 'House Hold',data: []};
         $.each(data, function (index, objValue) {
-            the_x_axis.push(objValue['period']);
-                graph_data['data'].push(objValue['count']);
+            //the_x_axis.push(objValue['period']);
+                graph_data['data'].push(objValue['cboactive']);
         });
 
        var the_series = [
