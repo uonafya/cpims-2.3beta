@@ -320,9 +320,9 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             this.fetchTemplates();
         },
 
-        onLogoutEventHandler: function () {
-            console.log("Clearing data from cache so that it gets refreshed on the next login");
-            this.clearStorage();
+        onLogoutEventHandler: function (me) {
+            console.log("Logging out and clearing data from cache so that it gets refreshed on the next login");
+            me.clearStorage();
         },
 
         clearStorage: function() {
@@ -439,6 +439,9 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 // if the user is logged in
                 if (offlineModeClient._userId !== "" || offlineModeClient._userId !== null) {
                     offlineModeClient.onLoginEventHandler();
+                    $("#logout_button").on("click", function () {
+                        offlineModeClient.onLogoutEventHandler(window.offlineModeClient);
+                    });
                 }
             }
 
