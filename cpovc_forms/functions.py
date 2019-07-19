@@ -48,8 +48,9 @@ def create_fields(field_name=[], default_txt=False):
             'item_id', 'item_description_short', 'item_description',
             'item_sub_category')
         for value in all_list:
-            item_description_short = value['item_description_short']
-            item_id = value['item_id']
+            # item_description_short = value['item_description_short']
+            # item_id = value['item_id']
+            item_id = value['item_description_short']
             item_cat = value['item_sub_category']
             item_details = value['item_description']
             items = {'id': item_id, 'name': item_details}
