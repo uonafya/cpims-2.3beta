@@ -13,27 +13,27 @@ function ouChange(levl,ouid,fcc,fcc_val) {
     console.log('running ouChange() -> levl='+levl+' & ouid='+ouid+' & fcc='+fcc+' & fcc_val='+fcc_val);
 
 
-//    fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
-//    fetchTotalOVCsEver('national',"0");
-//
-//    fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
-//    fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
-//    fetchTotalOVCsEverExited('national',"0");
-//
-//    fetchServedBCert(levl,ouid,months_array);
-//    fetchU5ServedBcert(levl,ouid,months_array);
-//    fetchWoBCertAtEnrol('national',"0")
-//    fetchServedBCert('national',"0",months_array)
-//    fetchWithBCertToDate('national',"0")
-//    fetchServedBCertAftEnrol('national',"0")
-//    fetchU5ServedBcert('national',"0",months_array)
+    //fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
+    fetchTotalOVCsEver('national',"0");
+
+    //fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
+    fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
+    fetchTotalOVCsEverExited('national',"0");
+
+    fetchServedBCert(levl,ouid,months_array);
+    fetchU5ServedBcert(levl,ouid,months_array);
+    fetchWoBCertAtEnrol('national',"0")
+    fetchServedBCert('national',"0",months_array)
+    fetchWithBCertToDate('national',"0")
+    fetchServedBCertAftEnrol('national',"0")
+    fetchU5ServedBcert('national',"0",months_array)
 
     }
 
 
 
 $(document).ready(function () {
-    //ouChange('national',"0",'none','none');
+    ouChange('national',"0",'none','none');
     fetchNewOVCRegs('national',"none","none","none","annual");
     fetchExitedAndActiveOVCRegs('national',"none","none","none","annual");
     fetchExitedHseld('national',"none","none","none","annual");
@@ -110,7 +110,7 @@ $(document).ready(function () {
             dataType: 'json',
             encode: true,
             success: function (data, textStatus, jqXHR) {
-             //   displayTotalOVCsEver(data);
+                displayTotalOVCsEver(data);
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -150,7 +150,7 @@ $(document).ready(function () {
            dataType: 'json',
            encode: true,
            success: function (data, textStatus, jqXHR) {
-             //  displayTotalOVCsEverExited(data);
+               displayTotalOVCsEverExited(data);
            },
            error: function (response, request) {
                console.log(response.responseText);
@@ -206,7 +206,7 @@ $(document).ready(function () {
             dataType: 'json',
             encode: true,
             success: function (data, textStatus, jqXHR) {
-             //   displayWoBCertAtEnrol(data);
+                displayWoBCertAtEnrol(data);
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -233,7 +233,7 @@ $(document).ready(function () {
             encode: true,
             success: function (data, textStatus, jqXHR) {
                 
-             //   displayServedBCert(data,months_arr);
+                displayServedBCert(data,months_arr);
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -249,7 +249,7 @@ $(document).ready(function () {
             dataType: 'json',
             encode: true,
             success: function (data, textStatus, jqXHR) {
-             //   displayWithBCertToDate(data);
+                displayWithBCertToDate(data);
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -264,7 +264,7 @@ $(document).ready(function () {
             dataType: 'json',
             encode: true,
             success: function (data, textStatus, jqXHR) {
-             //   displayServedBCertAftEnrol(data);
+                displayServedBCertAftEnrol(data);
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -291,7 +291,7 @@ $(document).ready(function () {
             encode: true,
             success: function (data, textStatus, jqXHR) {
                 
-               // displayU5ServedBcert(data,months_arr);
+                displayU5ServedBcert(data,months_arr);
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -310,9 +310,9 @@ $(document).ready(function () {
     function displayTotalOVCsEver(data){
         var val = data;
         var elementId="all_ovc_reg";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
+         $.each(data, function (index, objValue) {
+            val = objValue;
+         });
         $('#'+elementId).html(val);
     }
     function displayNewOVCRegs(data, months_arr){
@@ -370,9 +370,9 @@ $(document).ready(function () {
     function displayTotalOVCsEverExited(data){
         var val = data;
         var elementId="all_ovc_exit";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
+         $.each(data, function (index, objValue) {
+            val = objValue;
+         });
         $('#'+elementId).html(val);
     }
     function displayExitedOVCRegs(data, months_arr){
@@ -422,9 +422,9 @@ $(document).ready(function () {
     function displayWoBCertAtEnrol(data){
         var val = data;
         var elementId="all_ovc_wout_bcert";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
+         $.each(data, function (index, objValue) {
+            val = objValue;
+         });
         $('#'+elementId).html(val);
     }
     function displayServedBCert(data,months_arr){
@@ -444,17 +444,17 @@ $(document).ready(function () {
     function displayWithBCertToDate(data){
         var val = data;
         var elementId="all_ovc_w_bcert_2date";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
+         $.each(data, function (index, objValue) {
+            val = objValue;
+         });
         $('#'+elementId).html(val);
     }
     function displayServedBCertAftEnrol(data){
         var val = data;
         var elementId="all_ovc_s_bcert_aft_enrol";
-        // $.each(data, function (index, objValue) {
-        //    val += objValue;
-        // });
+         $.each(data, function (index, objValue) {
+            val = objValue;
+         });
         $('#'+elementId).html(val);
     }
     function displayU5ServedBcert(data,months_arr){
