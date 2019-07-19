@@ -314,6 +314,7 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         onLoginEventHandler: function () {
             console.log("Handling on login event handler");
+            this.clearStorage();
             this._initializeRegistrationData();
             // fetch services first before templates because templates depend on the services data
             this.fetchServices();
@@ -321,10 +322,20 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
         },
 
         onLogoutEventHandler: function () {
-            // Todo - rethink data refreshing
+            console.log("Clearing data from cache so that it gets refreshed on the next login");
+            this.clearStorage();
+        },
+
+        clearStorage: function() {
+            // Do not clear any form data saved, just case it hasn't been submitted yet
+            let formKeysToClear = [
+                this._registrationDataStorageKey(),
+                this._templatesStorageKey,
+                this._servicesStorageKey
+            ];
+
+            formKeysToClear.forEach(this.remove);
             this.isRegistrationDataInitialized = false;
-            this.remove(this._registrationDataStorageKey());
-            this.remove(this._templatesStorageKey);
             this.registrationData = undefined;
             this.templates = undefined;
             this.services = undefined;

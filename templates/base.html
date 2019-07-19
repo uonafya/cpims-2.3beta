@@ -84,7 +84,7 @@
 							{% if request.user.is_staff %}
 							    <li><a href="/admin/">Administration</a></li>
 							{% endif %}
-							<li><a href="{% url 'logout' %}">Log Out</a></li>
+							<li><a href="{% url 'logout' %}" onclick="window.offlineModeClient.onLogoutEventHandler()">Log Out</a></li>
 						</ul>
 					</li>
 					{% else %}
