@@ -314,7 +314,6 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
 
         onLoginEventHandler: function () {
             console.log("Handling on login event handler");
-            this.clearStorage();
             this._initializeRegistrationData();
             // fetch services first before templates because templates depend on the services data
             this.fetchServices();

@@ -256,7 +256,15 @@
             // Todo - handle hard reloaded
             let userId = "{{ request.user.reg_person_id | escapejs }}";
 
-            let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" == "True";
+            let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" === "True";
+
+            console.log("is offlineModeCapabilityEnabled: ", offlineModeCapabilityEnabled);
+
+            if (!offlineModeCapabilityEnabled) {
+                $(".btn_ovc_home_offline").hide();
+                $("#internet_check").hide();
+                return;
+            }
 
             // Implement it as a singleton
             let offlineModeService = OfflineModeService(
