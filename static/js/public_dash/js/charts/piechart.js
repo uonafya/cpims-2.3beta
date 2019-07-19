@@ -34,7 +34,7 @@ function pieChart(elementId,the_title,the_series){
             '#00ffff',
             '#F2784B',
             '#ff8000',
-            '#ff4000'
+            '#ff4000',
             '#80ff00',
             '#913D88',
         ],
