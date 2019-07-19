@@ -14,36 +14,38 @@ def get_ovc_school_details(ovc):
     if ovc.school_level == "SLNS":
         return {}
 
-    try:
-        school = OVCEducation.objects.get(person_id=ovc.person.id, is_void=False)
-        return {
-            'school_name': school.school.school_name,
-            'school_class': school.school_class,
-            'admission_type': school.admission_type
-        }
-    except OVCEducation.DoesNotExist as e:
+    schools = OVCEducation.objects.filter(person_id=ovc.person.id, is_void=False)[:1]
+    if not schools:
         return {}
+    school = schools[0]
+    return {
+        'school_name': school.school.school_name,
+        'school_class': school.school_class,
+        'admission_type': school.admission_type
+    }
 
 
 def get_ovc_facility_details(ovc):
     if ovc.hiv_status != 'HSTP':
         return {}
 
-    try:
-        health = OVCHealth.objects.get(person_id=ovc.person.id)
-        return {
-            'name': health.facility.facility_name,
-            'art_status': health.art_status,
-            'date_linked': health.date_linked.strftime('%d/%m/%Y'),
-            'ccc_number': health.ccc_number
-        }
-    except OVCHealth.DoesNotExist as e:
+    health_facilities = OVCHealth.objects.filter(person_id=ovc.person.id)[:1]
+
+    if not health_facilities:
         return {}
+
+    health = health_facilities[0]
+    return {
+        'name': health.facility.facility_name,
+        'art_status': health.art_status,
+        'date_linked': health.date_linked.strftime('%d/%m/%Y'),
+        'ccc_number': health.ccc_number
+    }
 
 
 def get_ovc_household_members(ovc):
     ovc_reg_id = ovc.person.id
-    ovc_household = OVCHHMembers.objects.filter(is_void=False, person_id=ovc_reg_id)[:1]  # limit 1
+    ovc_household = OVCHHMembers.objects.filter(is_void=False, person_id=ovc_reg_id)[:1]
 
     if not ovc_household:
         return []

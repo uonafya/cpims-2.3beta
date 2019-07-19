@@ -320,11 +320,21 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
             this.fetchTemplates();
         },
 
-        onLogoutEventHandler: function () {
-            // Todo - rethink data refreshing
+        onLogoutEventHandler: function (me) {
+            console.log("Logging out and clearing data from cache so that it gets refreshed on the next login");
+            me.clearStorage();
+        },
+
+        clearStorage: function() {
+            // Do not clear any form data saved, just in case it hasn't been submitted yet
+            let formKeysToClear = [
+                this._registrationDataStorageKey(),
+                this._templatesStorageKey,
+                this._servicesStorageKey
+            ];
+
+            formKeysToClear.forEach(this.remove);
             this.isRegistrationDataInitialized = false;
-            this.remove(this._registrationDataStorageKey());
-            this.remove(this._templatesStorageKey);
             this.registrationData = undefined;
             this.templates = undefined;
             this.services = undefined;
@@ -429,6 +439,9 @@ let OfflineModeService = function (_userId, offlineModeCapabilityEnabled, dataFe
                 // if the user is logged in
                 if (offlineModeClient._userId !== "" || offlineModeClient._userId !== null) {
                     offlineModeClient.onLoginEventHandler();
+                    $("#logout_button").on("click", function () {
+                        offlineModeClient.onLogoutEventHandler(window.offlineModeClient);
+                    });
                 }
             }
 
