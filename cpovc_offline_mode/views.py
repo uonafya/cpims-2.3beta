@@ -55,23 +55,26 @@ def fetch_data(request):
             reg_person_id=ovc.person.id,
             ovc_reg_id=ovc.id).upper()
 
+        def _format_date(date):
+            return date.strftime('%d/%m/%Y') if date else ""
+
         ovc_data[key] = base64.b64encode(json.dumps({
             'id': key,
             'person_id': ovc.person_id,
-            'registration_date': ovc.registration_date.strftime('%d/%m/%Y'),
+            'registration_date': _format_date(ovc.registration_date),
             'org_unique_id': ovc.org_unique_id,
             'first_name': ovc.person.first_name,
             'surname': ovc.person.surname,
             'other_names': ovc.person.other_names,
             'sex_id': ovc.person.sex_id,
-            'date_of_birth': ovc.person.date_of_birth.strftime('%d/%m/%Y'),
+            'date_of_birth': _format_date(ovc.person.date_of_birth),
             'age': ovc.person.age,
-            'registration_date': ovc.registration_date.strftime('%d/%m/%Y'),
+            'registration_date': _format_date(ovc.registration_date),
             'has_bcert': "Yes" if ovc.has_bcert else "No",
             'is_disabled': "Yes" if ovc.is_disabled else "No",
-            'child_chv_full_name': ovc.child_chv.full_name,
-            'caretake_full_name': ovc.caretaker.full_name,
-            'org_unit_name': ovc.child_cbo.org_unit_name,
+            'child_chv_full_name': ovc.child_chv.full_name if ovc.child_chv else "",
+            'caretake_full_name': ovc.caretaker.full_name if ovc.caretaker else "",
+            'org_unit_name': ovc.child_cbo.org_unit_name if ovc.child_cbo else "",
             'is_active': 'Active' if ovc.is_active else 'Exited',
             'immunization_status': gen_value(ovc.immunization_status, vals),
             'school_level': gen_value(ovc.school_level, vals),

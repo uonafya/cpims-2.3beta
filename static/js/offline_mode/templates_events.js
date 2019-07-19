@@ -91,6 +91,24 @@ let TemplateUtils = (function () {
         alertDialog: function (alertMessage) {
             $('#csi-warning-dialog').modal('show');
             $('#span_csi_alert').html(alertMessage);
+        },
+
+        initFormWizard: function (wizardId, wizardStepsCount) {
+            // Only initialize a form wizard if non exists
+            try {
+                $("#" + wizardId).bwizard('count');
+                console.log("Wizard : ", wizardId , " already initialized");
+            } catch (e) {
+                console.log("Initializing wizard: ", wizardId);
+
+                $("#" + wizardId).bwizard({validating: function (e, ui) {
+                    for(let i = 0; i < wizardStepsCount; i++) {
+                        if (ui.index === i) {
+                            $(".alert").hide();
+                        }
+                    }
+                }});
+            }
         }
     }
 })();
@@ -316,7 +334,7 @@ let Form1ATemplate = (function (){
     return {
         init: function () {
             console.log("Form 1A");
-            FormWizardValidation.init();
+            TemplateUtils.initFormWizard("wizard-f1a", 4);
             this._setupMultiSelects();
             this._setupFormEvents();
         },
