@@ -2161,8 +2161,8 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        {% for hhmember in hhmembers %}
                                                         <tr>
-                                                                {% for hhmember in hhmembers %}
                                                             <td>
                                                                 44: If the child is enrolled in school, during the last month, did {{ hhmember.person.first_name }} {{ hhmember.person.surname }} miss more than five days for any reason?<span class="asteriskField">*
                                                             </td>
@@ -2179,8 +2179,8 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
                                                                 {{form.WB_SCH_45_1}}  
                                                             </td>
-                                                            {% endfor %}
                                                         </tr>
+                                                        {% endfor %}
                                                       </tbody>
                                                   </table>
                                               </div>
@@ -2381,6 +2381,7 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
 
     $( function() {
       $( ".wellbeing_dates" ).datepicker({ format: 'yyyy-mm-dd' }).val();
+      $( "input[name=WB_HEL_17_2]" ).datepicker({ format: 'yyyy-mm-dd' }).val();
     } );
 
 
