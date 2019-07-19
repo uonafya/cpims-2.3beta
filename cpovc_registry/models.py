@@ -177,6 +177,10 @@ class RegPerson(models.Model):
 
     years = property(_calculate_years)
 
+    @property
+    def all_names(self):
+        return '{} {} {}'.format(self.first_name, self.other_names, self.surname)
+
     class Meta:
         """Override table details."""
 
