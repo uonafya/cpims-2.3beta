@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from cpovc_forms.forms import OVCF1AForm
+from cpovc_forms.functions import create_fields, create_form_fields
 from cpovc_main.functions import get_dict
 from cpovc_offline_mode.helpers import get_ovc_school_details, get_ovc_facility_details, get_ovc_household_members, \
     get_services, save_submitted_form1a
@@ -22,10 +23,17 @@ logger = logging.getLogger(__name__)
 def templates(request):
     values = get_dict(field_name=check_fields)
     form_1a = OVCF1AForm()
+    ffs = create_fields(['form1b_items'])
+    domains = create_form_fields(ffs)
     tpls = {
         'ovc_home': render(request, 'ovc/home_offline.html').content,
         'ovc_view': render(request, 'ovc/view_child_offline.html').content,
-        'ovc_form1a': render(request, 'forms/form1a_offline.html', {'form': form_1a, 'vals': values}).content
+        'ovc_form1a': render(request, 'forms/form1a_offline.html', {'form': form_1a, 'vals': values}).content,
+        'ovc_form1b': render(request, 'forms/form1b_offline.html', {
+            'form': form_1a,
+            'domains': domains,
+            'form1b_allowed': True
+        }).content
     }
     return JsonResponse({'data': json.dumps(tpls)})
 

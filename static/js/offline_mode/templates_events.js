@@ -7,6 +7,8 @@ let TemplateUtils = (function () {
 
         form1aPage: $("#ovc_form1a"),
 
+        form1bPage: $("#ovc_form1b"),
+
         showPage: function (page) {
             $(".offline_page").hide();
             page.show();
@@ -149,6 +151,7 @@ let OvcHomeTemplate = (function (){
 
                         me._fillOvcDetailsPage(ovcData);
                         TemplateUtils.showPage(TemplateUtils.viewOvcPage);
+                        Form1BTemplate.setOvc(ovcData);
                         return true;
                     }
                 });
@@ -305,13 +308,19 @@ let OvcViewTemplate = (function (){
     return {
         init: function () {
             console.log("OvcViewTemplate");
-            // click event
-            $("#ovc_offline_form_1a").click((event) => {
-                event.preventDefault();
-                TemplateUtils.showPage(TemplateUtils.form1aPage);
-                console.log("Showing form1a for selected ovc");
-                Form1ATemplate.init();
-                return false;
+            let formEventHandlers = {
+                '#ovc_offline_form_1a': [Form1ATemplate, TemplateUtils.form1aPage],
+                '#ovc_offline_form_1b': [Form1BTemplate, TemplateUtils.form1bPage]
+            };
+
+            Object.entries(formEventHandlers).forEach(entry => {
+                $(entry[0]).click(event => {
+                    event.preventDefault();
+                    TemplateUtils.showPage(entry[1][1]);
+                    console.log("Showing form1a for selected ovc");
+                    entry[1][0].init();
+                    return false;
+                });
             });
         }
     };
@@ -1098,6 +1107,31 @@ let Form1ATemplate = (function (){
     };
 })();
 
+
+// Handle all events on Form1B template
+let Form1BTemplate = (function () {
+
+    let ovc = undefined;
+
+    return {
+        init: function () {
+            console.log("Form 1B");
+            TemplateUtils.initFormWizard("wizard-f1a-offline", 6);
+        },
+
+        setOvc: function (selectedOvc) {
+            console.log("Setting ovc data on Form1B");
+            this.ovc = selectedOvc;
+
+            if(this.ovc === undefined) {
+                return;
+            }
+            $("#offline_form1b_chv_child_chv_full_name").html(this.ovc.child_chv_full_name);
+            $("#form_1b_offline_kyc").html([this.ovc.child_chv_full_name, this.ovc.sex_id, this.ovc.age].join(" | "));
+        }
+    }
+})();
+
 let TemplatesEventsFactory = function () {
     'use strict';
 
@@ -1106,7 +1140,8 @@ let TemplatesEventsFactory = function () {
     let eventsHandlers = {
         'ovc_home': OvcHomeTemplate,
         'ovc_view': OvcViewTemplate,
-        'ovc_form1a': Form1ATemplate
+        'ovc_form1a': Form1ATemplate,
+        'ovc_form1b': Form1BTemplate
     };
 
     return {
