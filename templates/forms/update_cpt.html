@@ -103,6 +103,9 @@
 </div>
 
 {% endif %}
+<div id="warning_message" class="alert alert-warning hidden">
+    <span class="mesagg" id="mesagg"></span>
+</div>
 
 <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#delete-form1a-entry">Open Modal</button>-->
 
@@ -377,8 +380,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-4 col-sm-4"></label>
                                         <div class="col-md-6 col-sm-6">
-                                            <button id="submit-caseplan" class="btn btn-primary" type="button">Update Assessment</button>
-                                            <a href="#" class="btn btn-white">Cancel</a>
+                                            <button onclick="submitCPT()" class="btn btn-primary" type="button">Update Assessment</button>
+                                            <a href="#" onclick="cancelBtn()" class="btn btn-white">Cancel</a>
                                         </div>
                                     </div>
                                 </div>

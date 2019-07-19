@@ -1350,7 +1350,7 @@ def edit_person(request, id):
             if living_in_subcounty:
                 list_subcounties.append(living_in_subcounty)
             living_in_county = counties_from_aids(list_subcounties)
-            if len(living_in_county) > 1:
+            if len(living_in_county) >= 1:
                 living_in_county = living_in_county[0]
             initial_vals = {
                 'person_type': person_type_id,
