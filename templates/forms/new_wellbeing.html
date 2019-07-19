@@ -2161,26 +2161,34 @@ div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        {% for hhmember in hhmembers %}
                                                         <tr>
-                                                            <td>
-                                                                44: If the child is enrolled in school, during the last month, did {{ hhmember.person.first_name }} {{ hhmember.person.surname }} miss more than five days for any reason?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-
-                                                                {{form.WB_SCH_44_1}} 
+                                                            <td colspan="2">
+                                                                {% for hhmember in hhmembers %}
+                                                                    <div class="row">
+                                                                        <div class="col-md-9">
+                                                                            44: If the child is enrolled in school, during the last month, did {{ hhmember.person.first_name }} {{ hhmember.person.surname }} miss more than five days for any reason?<span class="asteriskField">*
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            {{form.WB_SCH_44_1}} 
+                                                                        </div>
+                                                                    </div>
+                                                                {% endfor %}
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>
-                                                                45: Does {{ hhmember.person.first_name }} {{ hhmember.person.surname }} like to go to school?<span class="asteriskField">*
-                                                            </td>
-                                                            <td>
-
-                                                                {{form.WB_SCH_45_1}}  
+                                                            <td colspan="2">
+                                                                {% for hhmember in hhmembers %}
+                                                                <div class="row">
+                                                                    <div class="col-md-9">
+                                                                        45: Does {{ hhmember.person.first_name }} {{ hhmember.person.surname }} like to go to school?<span class="asteriskField">*
+                                                                    </div>
+                                                                    <div class="col-md-3">
+                                                                        {{form.WB_SCH_45_1}}  
+                                                                    </div>
+                                                                </div>
+                                                                {% endfor %}
                                                             </td>
                                                         </tr>
-                                                        {% endfor %}
                                                       </tbody>
                                                   </table>
                                               </div>
