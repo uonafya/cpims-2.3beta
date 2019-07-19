@@ -87,6 +87,7 @@
     <span class="invalid-form-message" id="invalid-form-message"></span>
 </div>
 
+
 <div id="success_message" class="alert alert-success fade in" style="display: none;">
     <!--<span class="close" data-dismiss="alert">×</span>-->
     <button type="button" class="close" data-hide="alert">&times;</button>
@@ -99,10 +100,15 @@
 
 <div class="alert alert-danger" id="error-message-reuse">
   <a class="close" data-dismiss="alert" href="#">&times;</a>
+  <span class="mesgg"></span>
   {{ err_msgg }}
 </div>
 
 {% endif %}
+
+<div id="warning_message" class="alert alert-warning hidden">
+    <span class="mesagg" id="mesagg"></span>
+</div>
 
 <!--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#delete-form1a-entry">Open Modal</button>-->
 
@@ -383,8 +389,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <button id="submit-caseplan" class="btn btn-primary" type="button">Submit Assessment</button>
-                                        <a href="#" class="btn btn-white">Cancel</a>
+                                        <button class="btn btn-primary" type="button" onclick="submitCPT()">Submit Assessment</button>
+                                        <!-- <button id="submit-caseplan" class="btn btn-primary">Submit Assessment</button> -->
+                                        <a href="#" onclick="cancelBtn()" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -432,7 +439,7 @@
             <div class="panel-body">
                 <div  class="panel panel-inverse">
                     <div id="case-events"  class="table-responsive">
-                        <table id="f1a_events_data_table" class="table table-condensed table-bordered table-striped">
+                        <table id="past_cpt_table" class="table table-condensed table-bordered table-striped">
                             <thead>
                                 <tr>
                                     
@@ -496,7 +503,7 @@
                                                 {% endfor %}
                                             </td>
                                             <td rowspan="4" style="text-align: center;vertical-align: middle;" width="40px" valign="center">
-                                                <a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline"><i class="fa fa-pencil"></i></a>
+                                                <a href="{% url 'update_caseplan' event_id=one_cpt_event.event_id ovcid=one_cpt_event.event_ovc %}" class="btn btn-sm btn-primary btn-outline btn-sm">Update</a>
                                             </td>
                                         </tr>
                                         <tr>

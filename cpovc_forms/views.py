@@ -8775,19 +8775,68 @@ def new_cpara(request, id):
     if cpara_events:
         for one_cpara_event in cpara_events:
             event_detail = ""
-            cpara_data = OVCCareCpara.objects.filter(event=one_cpara_event)
+            total_benchmark_score = 0
+            # cpara_data = OVCCareCpara.objects.filter(event=one_cpara_event)
+            cpara_data = OVCCareBenchmarkScore.objects.filter(event_id=one_cpara_event.event)
+            bm_array = []
             if cpara_data:
-                for one_cpara_data in cpara_data:
-                    qn_string = str(one_cpara_data.question_code) + " (" + str(one_cpara_data.answer) + "), "
-                    event_detail = event_detail + qn_string
+                for one_cpara_bench in cpara_data:
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_1 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_2 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_3 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_4 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_5 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_6 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_7 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_8 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_9 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_10 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_11 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_12 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_13 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_14 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_15 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_16 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_17 == 1 else "No")
+                    benchmark_1 = "Benchmark 1: (Yes)" if one_cpara_bench.bench_mark_1 == 1 else "Benchmark 1: (No)"
+                    benchmark_2 = "Benchmark 2: (Yes)" if one_cpara_bench.bench_mark_2 == 1 else "Benchmark 2: (No)"
+                    benchmark_3 = "Benchmark 3: (Yes)" if one_cpara_bench.bench_mark_3 == 1 else "Benchmark 3: (No)"
+                    benchmark_4 = "Benchmark 4: (Yes)" if one_cpara_bench.bench_mark_4 == 1 else "Benchmark 4: (No)"
+                    benchmark_5 = "Benchmark 5: (Yes)" if one_cpara_bench.bench_mark_5 == 1 else "Benchmark 5: (No)"
+                    benchmark_6 = "Benchmark 6: (Yes)" if one_cpara_bench.bench_mark_6 == 1 else "Benchmark 6: (No)"
+                    benchmark_7 = "Benchmark 7: (Yes)" if one_cpara_bench.bench_mark_7 == 1 else "Benchmark 7: (No)"
+                    benchmark_8 = "Benchmark 8: (Yes)" if one_cpara_bench.bench_mark_8 == 1 else "Benchmark 8: (No)"
+                    benchmark_9 = "Benchmark 9: (Yes)" if one_cpara_bench.bench_mark_9 == 1 else "Benchmark 9: (No)"
+                    benchmark_10 = "Benchmark 10: (Yes)" if one_cpara_bench.bench_mark_10 == 1 else "Benchmark 10: (No)"
+                    benchmark_11 = "Benchmark 11: (Yes)" if one_cpara_bench.bench_mark_11 == 1 else "Benchmark 11: (No)"
+                    benchmark_12 = "Benchmark 12: (Yes)" if one_cpara_bench.bench_mark_12 == 1 else "Benchmark 12: (No)"
+                    benchmark_13 = "Benchmark 13: (Yes)" if one_cpara_bench.bench_mark_13 == 1 else "Benchmark 13: (No)"
+                    benchmark_14 = "Benchmark 14: (Yes)" if one_cpara_bench.bench_mark_14 == 1 else "Benchmark 14: (No)"
+                    benchmark_15 = "Benchmark 15: (Yes)" if one_cpara_bench.bench_mark_15 == 1 else "Benchmark 15: (No)"
+                    benchmark_16 = "Benchmark 16: (Yes)" if one_cpara_bench.bench_mark_16 == 1 else "Benchmark 16: (No)"
+                    benchmark_17 = "Benchmark 17: (Yes)" if one_cpara_bench.bench_mark_17 == 1 else "Benchmark 17: (No)"
+
+                    str_1 = benchmark_1 + ", " + benchmark_2 + ", " + benchmark_3 + ", " + benchmark_4 + ", " + benchmark_5 + ", "
+                    str_2 = benchmark_6 + ", " + benchmark_7 + ", " + benchmark_8 + ", " + benchmark_9 + ", "
+                    str_3 = benchmark_10 + ", " + benchmark_11 + ", " + benchmark_12 + ", " + benchmark_13 + ", "
+                    str_4 = benchmark_14 + ", " + benchmark_15 + ", " + benchmark_16 + ", " + benchmark_17
+
+                    total_benchmark_score = int(one_cpara_bench.bench_mark_1) + int(one_cpara_bench.bench_mark_2) + int(one_cpara_bench.bench_mark_3) + int(one_cpara_bench.bench_mark_4) + int(one_cpara_bench.bench_mark_5) + int(one_cpara_bench.bench_mark_6) + int(one_cpara_bench.bench_mark_7) + int(one_cpara_bench.bench_mark_8) + int(one_cpara_bench.bench_mark_9) + int(one_cpara_bench.bench_mark_10) + int(one_cpara_bench.bench_mark_11) + int(one_cpara_bench.bench_mark_12) + int(one_cpara_bench.bench_mark_13) + int(one_cpara_bench.bench_mark_14) + int(one_cpara_bench.bench_mark_15) + int(one_cpara_bench.bench_mark_16) + int(one_cpara_bench.bench_mark_17)
+                    full_str = str_1 + str_2 + str_3 + str_4
+                    # qn_string = str(one_cpara_bench.question_code) + " (" + str(one_cpara_bench.answer) + "), "
+                    event_detail = event_detail + full_str
             else:
                 event_detail = "No answered questions found"
+                total_benchmark_score = 0
+                bm_array = []
             past_cpara.append({
                 'ev_date': one_cpara_event.date_of_event,
                 'ev_person': child.id,
                 'ev_type': 'CPARA',
                 'ev_id': str(one_cpara_event.pk),
-                'ev_detail': str(event_detail)
+                'ev_detail': str(event_detail),
+                'ev_score': total_benchmark_score,
+                'bm_array': bm_array
             })
 
     return render(request,
@@ -9486,6 +9535,9 @@ def new_wellbeingadolescent(request, id):
             ovccareevent.save()
             # get questions for adolescent
             questions = OVCCareQuestions.objects.filter(code__startswith='wba')
+            ovc_id = int(id)
+            child = RegPerson.objects.get(is_void=False, id=ovc_id)
+            care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
             for question in questions:
                 answer = request.POST.get(question.question)
                 if answer is None:
@@ -9498,11 +9550,16 @@ def new_wellbeingadolescent(request, id):
                     event=ovccareevent,
                     date_of_event=timezone.now(),
                     domain=question.domain,
-                    question_type=question.question_type
+                    question_type=question.question_type,
+                    caregiver=care_giver
                 )
+            msg = 'wellbeing adolesent saved successful'
+            messages.add_message(request, messages.INFO, msg)
             url = reverse('ovc_view', kwargs={'id': id})
-            # return HttpResponseRedirect(reverse(forms_registry))
             return HttpResponseRedirect(url)
+            # url = reverse('ovc_view', kwargs={'id': id})
+            # # return HttpResponseRedirect(reverse(forms_registry))
+            # return HttpResponseRedirect(url)
     except Exception, e:
         msg = 'wellbeing adolescent save error : (%s)' % (str(e))
         messages.add_message(request, messages.ERROR, msg)
@@ -9515,7 +9572,7 @@ def new_wellbeingadolescent(request, id):
         ovcreg = get_object_or_404(OVCRegistration, person_id=id, is_void=False)
         caretaker_id = ovcreg.caretaker_id if ovcreg else None
         ovchh = get_object_or_404(OVCHouseHold, head_person=caretaker_id, is_void=False)
-        household_id = ovchh.id if ovchh else None
+        household_id = ovchh.id if ovchh else None        
     except Exception, e:
         print str(e)
         msg = 'Error getting household identifier: (%s)' % (str(e))
@@ -9530,6 +9587,8 @@ def new_wellbeingadolescent(request, id):
 
     form = WellbeingAdolescentForm(initial={'household_id': household_id})
     care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
+
 
     return render(request,
                   'forms/new_wellbeingadolescent.html',
