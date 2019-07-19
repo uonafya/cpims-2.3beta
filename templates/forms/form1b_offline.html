@@ -39,10 +39,11 @@
                 <span class="close" data-dismiss="alert">&times;</span>
             </div>
             <div class="panel-body">
-                <form style="overflow-x: auto; min-height: 300px;">
                     <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
                           name="form-wizard-f1b-offline" id="new_form1b_offline">
-                        {% csrf_token %} {{ form.caretaker_id }}
+                        {% csrf_token %}
+                        <input id="caretaker_id_form1b_offline" name="caretaker_id_form1b_offline" type="hidden">
+                        <input type="hidden" id="person_id_form1b_offline" name ="person_id_form1b_offline" value="{{ovc.child_chv.id}}">
                         <div id="wizard-f1a-offline">
                             <ol>
                                 <li>
@@ -370,20 +371,18 @@
                         <div class="row">
                             <label class="control-label col-md-4 col-sm-4" for="csi_qs">Date of Service(s)/Monitoring : <span class="asteriskField">* </span></label>
                             <div class="col-md-4 col-sm-4">
-                                {{ form.olmis_service_date }}
+                                <input class="form-control" id="olmis_service_date_form1b_offline" name="olmis_service_date_form1b_offline" placeholder="Date Of Service" type="text">
                             </div>
                         </div>
-                    </form>
+                        <br>
+                        <div class="row">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input type="submit" class="btn btn-primary" value="Submit Service(s)" id="submit_form1b_offline"/>
+                                <button type="button" class="btn btn-default" onclick="window.goToOvcViewFromForm1aOffline()">Cancel</button>
+                            </div>
+                        </div>
                 </form>
-                <br>
-                <div class="row">
-                    <label class="control-label col-md-4 col-sm-4"></label>
-                    <div class="col-md-6 col-sm-6">
-                        <button class="btn btn-primary" type="button" onClick="window.saveForm1BOffline()">Submit Service(s)</button>
-                        <button type="button" class="btn btn-default" onclick="window.resetForm1BOffline()">Cancel</button>
-                    </div>
-                </div>
-
             </div>
         {% else %}
             <div class="alert alert-danger fade in m-b-15">

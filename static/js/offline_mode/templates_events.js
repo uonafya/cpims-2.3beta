@@ -111,6 +111,13 @@ let TemplateUtils = (function () {
                     }
                 }});
             }
+        },
+
+        formatDateFields: function (fields) {
+            fields.forEach(field => {
+                field.attr('data-parsley-required', 'true');
+                field.datepicker({format: 'dd-M-yyyy'});
+            });
         }
     }
 })();
@@ -1117,6 +1124,8 @@ let Form1BTemplate = (function () {
         init: function () {
             console.log("Form 1B");
             TemplateUtils.initFormWizard("wizard-f1a-offline", 6);
+            TemplateUtils.formatDateFields([$("#olmis_service_date_form1b_offline")]);
+            this._setupOnSubmitEvent();
         },
 
         setOvc: function (selectedOvc) {
@@ -1128,6 +1137,40 @@ let Form1BTemplate = (function () {
             }
             $("#offline_form1b_chv_child_chv_full_name").html(this.ovc.child_chv_full_name);
             $("#form_1b_offline_kyc").html([this.ovc.child_chv_full_name, this.ovc.sex_id, this.ovc.age].join(" | "));
+            $("#caretaker_id_form1b_offline").val(this.ovc.caretaker_id);
+            $("#person_id_form1b_offline").val(this.ovc.chv_id);
+        },
+
+        _setupOnSubmitEvent: function () {
+            let form1B = $("#new_form1b_offline");
+            let me = this;
+
+            $("#submit_form1b_offline").on("click", function (event) {
+                console.log("Form 1b submit clicked");
+                event.preventDefault();
+                if (me.isFormValid(form1B)) {
+                    me._submitForm(form1B)
+                } else {
+                    $("#messages").show();
+                    $("#messages").html('Make sure the month is correct and there is data.');
+                    $("#messages").attr("tabindex",-1).focus();
+                }
+            });
+        },
+
+        isFormValid:  function (form) {
+            form.parsley().validate();
+            let isDateValid = () => {
+                let date = $('#olmis_service_date_form1b_offline').datepicker('getDate');
+                let month = date.getMonth() + 1;
+                return [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ].includes(month);
+            };
+
+            return (form.parsley().isValid() && isDateValid())
+        },
+
+        _submitForm: function (form) {
+            console.log("About to submit form1B");
         }
     }
 })();
