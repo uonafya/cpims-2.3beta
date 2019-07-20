@@ -156,9 +156,9 @@ def get_total_w_bcert_2date(request, org_level,area_id,funding_partner,funding_p
     total_w_bcert_2date=fetch_total_w_bcert_2date(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(total_w_bcert_2date, content_type='application/json', safe=False)
 
-def get_total_s_bcert_aft_enrol(request,org_level,area_id):
+def get_total_s_bcert_aft_enrol(request, org_level,area_id,funding_partner,funding_part_id,period_type):
     print "all served birthcert after enrolment"
-    total_s_bcert_aft_enrol=fetch_total_s_bcert_aft_enrol(request,None,org_level,area_id)
+    total_s_bcert_aft_enrol=fetch_total_s_bcert_aft_enrol(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(total_s_bcert_aft_enrol, content_type='application/json', safe=False)
 
                     #--------graphs-byperiod-------#

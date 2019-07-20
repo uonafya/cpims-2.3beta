@@ -25,7 +25,6 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 //    fetchServedBCert('national',"0",months_array)
 
-//    fetchServedBCertAftEnrol('national',"0")
 //    fetchU5ServedBcert('national',"0",months_array)
 
     }
@@ -34,12 +33,12 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 $(document).ready(function () {
     ouChange('national',"0",'none','none');
-//    fetchNewOVCRegs('national',"none","none","none","annual");
-//    fetchExitedAndActiveOVCRegs('national',"none","none","none","annual");
-//    fetchExitedHseld('national',"none","none","none","annual");
+    fetchNewOVCRegs('national',"none","none","none","annual");
+    fetchExitedAndActiveOVCRegs('national',"none","none","none","annual");
+    fetchExitedHseld('national',"none","none","none","annual");
 
-
-    fetchWithBCertToDate('national',"none","none","none","annual")
+    fetchServedBCertAftEnrol('national',"none","none","none","annual");
+    fetchWithBCertToDate('national',"none","none","none","annual");
     fetchWoBCertAtEnrol('national',"none","none","none","annual");
     fetchTotalOVCsEverExited('national',"none","none","none","annual");
     fetchTotalOVCsEver('national',"none","none","none","annual");
@@ -268,10 +267,12 @@ $(document).ready(function () {
             }
         });
     }
-    function fetchServedBCertAftEnrol(org_level,area_id){
+    function fetchServedBCertAftEnrol(org_level,area_id,funding_partner,funding_part_id,period_type){
+        var the_url = '/get_total_s_bcert_aft_enrol/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+
         $.ajax({
             type: 'GET',
-            url: '/get_total_s_bcert_aft_enrol/'+org_level+'/'+area_id+'/',
+            url: the_url,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             encode: true,
@@ -466,7 +467,7 @@ $(document).ready(function () {
         var val = data;
         var elementId="all_ovc_s_bcert_aft_enrol";
          $.each(data, function (index, objValue) {
-            val = objValue;
+            val = objValue['cboactive'];
          });
         $('#'+elementId).html(val);
     }
