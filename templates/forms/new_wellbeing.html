@@ -24,7 +24,6 @@
     }
 
     .td_style {
-        /*color: #000000;*/
         color: #0057e7;
     }
 
@@ -123,12 +122,7 @@
 
 <h1 class="page-header">Forms
     <small>Adult and Child Wellbeing Assessment Form || {{care_giver}}
-        <!--<b>{{ data.first_name }} {{ data.surname }} | {{-->
-        <!--data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}-->
-        <!--UNDER 1 YEAR-->
-        <!--{% else %}-->
-        <!--{{ data.date_of_birth|gen_age }} YRS-->
-        <!--{% endif %}</b>-->
+
     </small>
 </h1>
 
@@ -331,59 +325,7 @@
                                                                     {% endfor %}
                                                                 </tbody>
                                                             </table>
-
-                                                            <!--<table class="table table-bordered">-->
-                                                            <!--<thead>-->
-                                                            <!--<tr>-->
-                                                            <!--<th scope="col">#</th>-->
-                                                            <!--<th scope="col">Name (3 Names)</th>-->
-                                                            <!--<th scope="col">Date Of Birth (dd/mm/yyyy)</th>-->
-                                                            <!--<th scope="col">Sex M/F</th>-->
-                                                            <!--</tr>-->
-                                                            <!--</thead>-->
-                                                            <!--<tbody>-->
-                                                            <!--<tr>-->
-                                                            <!--<th scope="row">1</th>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--</tr>-->
-                                                            <!--<tr>-->
-                                                            <!--<th scope="row">2</th>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--</tr>-->
-                                                            <!--<tr>-->
-                                                            <!--<th scope="row">3</th>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--</tr>-->
-                                                            <!--<tr>-->
-                                                            <!--<th scope="row">4</th>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--</tr>-->
-                                                            <!--<tr>-->
-                                                            <!--<th scope="row">5</th>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--<td></td>-->
-                                                            <!--</tr>-->
-                                                            <!--<tr>-->
-                                                            <!--<th scope="row">6</th>-->
-                                                            <!--<td class="text-center"></td>-->
-                                                            <!--<td class="text-center"></td>-->
-                                                            <!--<td class="text-center"></td>-->
-                                                            <!--</tr>-->
-                                                            <!--</tbody>-->
-                                                            <!--</table>-->
-
                                                         </div>
-
-
                                                     </div>
 
 
@@ -481,9 +423,6 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
-
                                                                                         <td>{{form.WB_GEN_13}}</td>
                                                                                         <td>{{form.WB_GEN_14}}</td>
                                                                                     </tr>
@@ -512,8 +451,6 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
 
                                                                                         <td>{{form.WB_GEN_15}}</td>
                                                                                         <td>{{form.WB_GEN_16}}</td>
@@ -537,10 +474,6 @@
 
                                                                                 {{form.WB_GEN_04}}
 
-                                                                                <!--<div class="number">-->
-                                                                                <!--<label><input type="number"-->
-                                                                                <!--value=""></label>-->
-                                                                                <!--</div>-->
                                                                             </div>
 
 
@@ -556,17 +489,6 @@
                                                                         <td>
 
                                                                             {{form.WB_GEN_05}}
-
-                                                                            <!--<div class="col-sm-6">-->
-                                                                            <!--<div class="radio">-->
-                                                                            <!--<label><input name="anyadult" type="radio" value="">Yes</label>-->
-
-
-                                                                            <!--<label><input name="anyadult" type="radio" value="">Yes</label>-->
-                                                                            <!--</div>-->
-
-
-                                                                            <!--</div>-->
 
                                                                         </td>
 
@@ -592,8 +514,6 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
 
                                                                                         <td>{{form.WB_GEN_06}}</td>
                                                                                         <td>{{form.WB_GEN_07}}</td>
@@ -625,8 +545,6 @@
                                                                                 </thead>
                                                                                 <tbody>
                                                                                     <tr>
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
-                                                                                        <!--<td><label><input type="text" value=""></label></td>-->
 
                                                                                         <td>{{form.WB_GEN_08}}</td>
                                                                                         <td>{{form.WB_GEN_09}}</td>
@@ -672,45 +590,7 @@
                                                 {{form.WB_STA_1_1}}
                                                 {{form.WB_STA_1_2}}
                                                 {{form.WB_STA_1_3}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Provide money</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Look after the children</label>
-                                                </div>
 
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Help with house chores</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Work on the farms</label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Collect water and/ or wood</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Take care of animals</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Bring food</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Other</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
-                                                <!-- <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
-                                        Specify</label> -->
                                             </td>
                                         </tr>
 
@@ -723,47 +603,6 @@
                                                 {{form.WB_STA_2_1}}
                                                 {{form.WB_STA_2_2}}
                                                 {{form.WB_STA_2_3}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Not applicable (no other adults)</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Provide money</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Help with house chores</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Work on the farms</label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Collect water and/ or wood</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Take care of animals</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Bring food</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Earn extra money </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Other</label>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
 
                                             </td>
                                         </tr>
@@ -776,46 +615,7 @@
                                                 {{form.WB_STA_3_1}}
                                                 {{form.WB_STA_3_2}}
                                                 {{form.WB_STA_3_3}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Look after younger children</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Help with house chores</label>
-                                                </div>
 
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Work on the farm</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Collect water and/ or wood </label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">take care of animals</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Bring food</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Earn extra money </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Other</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
-                                        Specify</label> -->
                                             </td>
                                         </tr>
 
@@ -827,52 +627,7 @@
                                                 {{form.WB_STA_4_1}}
                                                 {{form.WB_STA_4_2}}
                                                 {{form.WB_STA_4_3}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Basic household utensils</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Tools for making repairs </label>
-                                                </div>
 
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Hoe, axe or farming tools </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Water storage container </label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Bicycle</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Livestock</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Cellphone(s)</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Gas Lamp </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Lantern</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Radio</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
-                                        Specify</label> -->
                                             </td>
                                         </tr>
 
@@ -884,54 +639,7 @@
                                                 {{form.WB_STA_5_1}}
                                                 {{form.WB_STA_5_2}}
                                                 {{form.WB_STA_5_3}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Crop farming</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Livestock rearing </label>
-                                                </div>
 
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Fishing </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Begging </label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Cash transfer</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Donations</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Bee keeping </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Casual labour </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Small business </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Unemployed </label>
-                                                </div>
-
-
-                                            </div>
-                                        </div>
-
-                                        <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
-                                        Specify</label> -->
                                             </td>
                                         </tr>
 
@@ -959,43 +667,8 @@
                                             <td>8.</td>
                                             <td>Which of the following take up most of the household income?</td>
                                             <td>
-
                                                 {{form.WB_STA_8_1}}
                                                 {{form.WB_STA_8_2}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Food</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Rent </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Clothing </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Medical bill </label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">School fees </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Entertainment</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Transport(fair) </label>
-                                                </div>
-
-                                            </div>
-                                        </div> -->
 
                                             </td>
                                         </tr>
@@ -1025,47 +698,7 @@
 
                                                 {{form.WB_STA_10_1}}
                                                 {{form.WB_STA_10_2}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">My salary</label>
-                                                </div>
-                                                <p>If yes, indicate how :</p>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">My savings </label>
-                                                </div>
 
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value=""> A loan from family for friend </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">A loan from microcredit group </label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">A loan from a money lender </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Hawking/ market vending </label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Sell off family assets </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Sell off stored family food</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Unable to meet unplanned needs</label>
-                                                </div>
-
-                                            </div>
-                                        </div> -->
 
                                             </td>
                                         </tr>
@@ -1078,24 +711,7 @@
 
                                                 {{form.WB_STA_11_1}}
                                                 {{form.WB_STA_11_2}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Yes</label>
 
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">No</label>
-
-                                                </div>
-
-                                            </div>
-
-
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1107,37 +723,7 @@
                                                 {{form.WB_STA_12_1}}
                                                 {{form.WB_STA_12_2}}
                                                 {{form.WB_STA_12_3}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Cash transfer</label>
-                                                </div>
-                                                <p>If yes, indicate how :</p>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Emergency food </label>
-                                                </div>
 
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value=""> School bursaries</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Farm inputs (e.g. fertilizer, seeds) </label>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">NHIF</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">None</label>
-                                                </div>
-
-                                            </div>
-                                        </div> -->
 
                                             </td>
                                         </tr>
@@ -1153,22 +739,7 @@
 
                                                 {{form.WB_STA_13_1}}
                                                 {{form.WB_STA_13_2}}
-                                                <!--<div class="row">-->
-                                                <!--<div class="col-md-6">-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Energy food</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Body building foods:</label>-->
-                                                <!--</div>-->
 
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value=""> Protective food</label>-->
-                                                <!--</div>-->
-
-
-                                                <!--</div>-->
-                                                <!--</div>-->
 
                                             </td>
                                         </tr>
@@ -1198,48 +769,8 @@
                                                 disability
                                             </td>
                                             <td>
-
                                                 {{form.WB_HEL_14_1}}
                                                 {{form.WB_HEL_14_2}}
-
-
-                                                <!--                         <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="checkbox" value="">No disability</label>
-                                                                        </div>
-                                                                        <p>If No disability Go to 17:</p>
-                                                                        <div class="checkbox">
-                                                                            <label><input type="checkbox" value="">Hearing </label>
-                                                                        </div>
-
-                                                                        <div class="checkbox">
-                                                                            <label><input type="checkbox" value=""> Speech </label>
-                                                                        </div>
-
-                                                                        <div class="checkbox">
-                                                                            <label><input type="checkbox" value="">Physical </label>
-                                                                        </div>
-
-                                                                    </div>
-
-                                                                    <div class="col-md-6">
-                                                                        <div class="checkbox">
-                                                                            <label><input type="checkbox" value="">Mental </label>
-                                                                        </div>
-
-                                                                        <div class="checkbox">
-                                                                            <label><input type="checkbox" value="">Visual </label>
-                                                                        </div>
-
-                                                                        <div class="checkbox">
-                                                                            <label><input type="checkbox" value="">Genetic differences (albinism)</label>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
-                                                                Specify</label> -->
                                             </td>
                                         </tr>
 
@@ -1272,30 +803,7 @@
                                                     <div class="col-md-6">
                                                         <p>If Yes</p>
                                                         {{form.WB_HEL_16_2}}
-                                                        <!--                                 <div class="checkbox">
-                                                                                    <label><input type="checkbox" value="">Cancer</label>
-                                                                                </div>
-                                                                                <div class="checkbox">
-                                                                                    <label><input type="checkbox" value="">Epilepsy</label>
-                                                                                </div>
 
-                                                                                <div class="checkbox">
-                                                                                    <label><input type="checkbox" value="">Diabetes</label>
-                                                                                </div>
-
-                                                                                <div class="checkbox">
-                                                                                    <label><input type="checkbox" value="">Hypertension</label>
-                                                                                </div>
-                                                                                <div class="input">
-                                                                                    <label><input type="text" value="">Who</label>
-
-                                                                                </div>
-
-                                                                                <div class="input">
-                                                                                    <label><input type="text" value="">What is the long-term illness that you
-                                                                                        have?</label>
-
-                                                                                </div> -->
 
                                                     </div>
 
@@ -1313,10 +821,6 @@
                                                         {{form.WB_HEL_16_5}}
                                                     </div>
                                                 </div>
-
-
-                                                <!-- <textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other
-                                        Specify</label> -->
                                             </td>
 
                                         </tr>
@@ -1402,29 +906,8 @@
                                             </td>
                                             <td>
 
-
                                                 {{form.WB_HEL_22_1}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">High (above 1,000 copies/ml) </label>
-                                                </div>
 
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Undetectable</label>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Low (less than 1,000 copies/ml) </label>
-                                                    <p>If yes:</p>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Dont know </label>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1434,17 +917,7 @@
                                             <td>What is the name of the health facility you<span class="asteriskField">*
                                             </td>
                                             <td>
-
                                                 {{form.WB_HEL_23_1}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <input type="text" value="">
-                                                </div>
-
-                                            </div>
-
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1458,30 +931,6 @@
                                                 {{form.WB_HEL_24_1}}
                                                 <p>If
                                                     answer in() Go to Q26</p>
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Yes</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Undetectable</label>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                (
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">No </label>
-                                                    <p>If yes:</p>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Refused to answer</label>
-                                                </div>
-                                                )
-                                                <p>answer in() Go to Q26</p>
-                                            </div>
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1490,46 +939,8 @@
                                             <td>To whom have you disclosed your status?
                                             </td>
                                             <td>
-
                                                 {{form.WB_HEL_25_1}}
                                                 {{form.WB_HEL_25_2}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">My child</label>
-                                                </div>
-
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">My spouse</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Pastor or priest </label>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">A friend/neighbour </label>
-                                                    <p>If yes:</p>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Boyfriend/ girlfriend</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Member of the family</label>
-                                                    <p>If yes:</p>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Boyfriend/ girlfriend</label>
-                                                </div>
-
-                                                <textarea rows="3" cols="30"
-                                                          style="margin-top: 5px;margin-right: 2px;"></textarea><label>
-                                                Other
-                                                Specify</label>
-
-                                            </div>
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1539,26 +950,7 @@
                                                 positive?
                                             </td>
                                             <td>
-
                                                 {{form.WB_HEL_26_1}}
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Yes</label>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">No</label>
-
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">I refuse to answer</label>
-                                                </div>
-
-                                            </div>
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1568,49 +960,8 @@
                                             <td>How have you coped with HIV-related stigma?
                                             </td>
                                             <td>
-
                                                 {{form.WB_HEL_27_1}}
                                                 {{form.WB_HEL_27_2}}
-
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">am part of a support group </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">I speak with people who I am close with or my
-                                                        family</label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">I speak with my doctor </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">I speak with my pastor or priest</label>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">I face it all alone </label>
-
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">I avoid thinking about it because its too
-                                                        difficult
-                                                    </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value=""> I do not face stigma </label>
-                                                </div>
-
-                                                <textarea rows="3" cols="30"
-                                                          style="margin-top: 5px;margin-right: 2px;"></textarea><label>
-                                                Other
-                                                Specify</label>
-
-
-                                            </div>
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1626,22 +977,6 @@
                                                 {{form.WB_HEL_28_1}}
                                                 {{form.WB_HEL_28_2}}
 
-                                                <!-- <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Yes </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">No
-                                                    </label>
-                                                </div>
-                                                <div class="checkbox">
-                                                    <label><input type="checkbox" value="">Refuse to answer</label>
-                                                </div>
-
-
-                                            </div>
-                                        </div> -->
                                             </td>
                                         </tr>
 
@@ -1678,51 +1013,6 @@
                                                 {{form.WB_SAF_31_2}}
 
 
-                                                <!--<div class="row">-->
-
-                                                <!--<div class="col-sm-6">-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Womens group</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Church/Religious-->
-                                                <!--group</label>-->
-                                                <!--</div>-->
-
-
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Parents/Caregivers-->
-                                                <!--group</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div style="" class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">HIV-->
-                                                <!--support group</label>-->
-                                                <!--</div>-->
-
-                                                <!--</div>-->
-
-                                                <!--<div class="col-sm-6">-->
-
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Community savings-->
-                                                <!--group</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Trade association or-->
-                                                <!--business group</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Political group</label>-->
-                                                <!--</div>-->
-
-
-                                                <!--</div>-->
-                                                <!--</div>-->
-
-                                                <!--<textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other-->
-                                                <!--Specify</label>-->
-
                                             </td>
                                         </tr>
 
@@ -1740,29 +1030,7 @@
                                             </td>
                                             <td>
 
-
                                                 {{form.WB_SAF_32_1}}
-
-
-                                                <!--<div class="row">-->
-
-                                                <!--<div class="col-sm-12">-->
-
-                                                <!--<div class="radio">-->
-                                                <!--<label><input type="radio" name="opt-community" value="">Yes</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div class="radio">-->
-                                                <!--<label><input type="radio" name="opt-community"  value="">No</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div style="" class="radio">-->
-                                                <!--<label><input type="radio" name="opt-community"  value="">Refuse to respond</label>-->
-                                                <!--</div>-->
-
-                                                <!--</div>-->
-
-                                                <!--</div>-->
 
                                             </td>
                                         </tr>
@@ -1781,29 +1049,7 @@
                                             </td>
                                             <td>
 
-
                                                 {{form.WB_SAF_33_1}}
-
-                                                <!--<div class="row">-->
-
-                                                <!--<div class="col-sm-12">-->
-
-                                                <!--<div class="radio">-->
-                                                <!--<label><input type="radio" name="opt-parenting">Yes</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div class="radio">-->
-                                                <!--<label><input type="radio" name="opt-parenting">No</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div style="" class="radio">-->
-                                                <!--<label><input type="radio" name="opt-parenting">Refuse to respond</label>-->
-                                                <!--</div>-->
-
-                                                <!--</div>-->
-
-                                                <!--</div>-->
-
                                             </td>
                                         </tr>
 
@@ -1819,59 +1065,10 @@
 
 
                                             <td>
-
-
                                                 {{form.WB_SAF_34_1}}
                                                 {{form.WB_SAF_34_2}}
 
-                                                <!--<div class="row">-->
-
-                                                <!--<div class="col-sm-6">-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Radio</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Counseling</label>-->
-                                                <!--</div>-->
-
-
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Mentoring from-->
-                                                <!--Caseworkers</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div style="" class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Care group</label>-->
-                                                <!--</div>-->
-
-                                                <!--</div>-->
-
-
-                                                <!--<div class="col-sm-6">-->
-
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Community Meeting</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Health care facility</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Schools</label>-->
-                                                <!--</div>-->
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Under five clinic</label>-->
-                                                <!--</div>-->
-
-
-                                                <!--</div>-->
-                                                <!--</div>-->
-
-                                                <!--<textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label> Other-->
-                                                <!--Specify</label>-->
-
                                             </td>
-
-
                                         </tr>
 
 
@@ -1894,26 +1091,6 @@
 
                                                 {{form.WB_SAF_35_1}}
 
-                                                <!--<div class="row">-->
-
-                                                <!--<div class="col-sm-12">-->
-
-                                                <!--<div class="radio">-->
-                                                <!--<label><input type="radio" name="opt-violence">Yes</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div class="radio">-->
-                                                <!--<label><input type="radio" name="opt-violence">No</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div style="" class="radio">-->
-                                                <!--<label><input type="radio" name="opt-violence">Refuse to respond</label>-->
-                                                <!--</div>-->
-
-                                                <!--</div>-->
-
-                                                <!--</div>-->
-
                                             </td>
                                         </tr>
 
@@ -1934,33 +1111,6 @@
                                                 {{form.WB_SAF_36_1}}
                                                 {{form.WB_SAF_36_2}}
 
-
-                                                <!--<div class="row">-->
-
-                                                <!--<div class="col-sm-12">-->
-
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Legal Assistance</label>-->
-                                                <!--</div>-->
-
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Psychosocial Support</label>-->
-                                                <!--</div>-->
-
-
-                                                <!--<div class="checkbox">-->
-                                                <!--<label><input type="checkbox" value="">Medical services</label>-->
-                                                <!--</div>-->
-
-
-                                                <!--</div>-->
-
-                                                <!--<textarea rows="3" cols="30" style="margin-top: 5px;margin-right: 2px;"></textarea><label>-->
-                                                <!--Other-->
-                                                <!--Specify</label>-->
-
-                                                <!--</div>-->
-
                                             </td>
                                         </tr>
 
@@ -1968,7 +1118,7 @@
                                     </tbody>
                                 </table>
 
-                                <!-- Tablist for OVCs-->
+
                                 <div>
                                     <h3>List of Children</h3>
                                     <div class="panel-group" id="accordion-wellbeing" role="tablist"
@@ -2086,9 +1236,6 @@
                                                                         data-parsley-required="false"
                                                                         data-parsley-id="549">
 
-
-                                                                    <!-- {{form.WB_SAF_37_1}}
-                                                                        {{form.WB_SAF_37_2}} -->
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -2177,8 +1324,6 @@
                                                                         data-parsley-required="false"
                                                                         data-parsley-id="570">
                                                                 </td>
-                                                                <!-- {{form.WB_SAF_38_1}}
-                                                                        {{form.WB_SAF_38_2}} -->
 
                                                             </tr>
                                                             <tr>
@@ -2195,8 +1340,9 @@
                                                                             id="id_WB_SAF_39_1_0_{{hhmember.person_id}}"
                                                                             name="WB_SAF_39_1_{{hhmember.person_id}}"
                                                                             type="radio" value="ELSEWHERE"
-                                                                            data-parsley-multiple="WB_SAF_39_1"> Live-work elsewhere </label> <label
-                                                                            for="id_WB_SAF_39_1_1_{{hhmember.person_id}}"><input
+                                                                            data-parsley-multiple="WB_SAF_39_1">
+                                                                        Live-work elsewhere </label> <label
+                                                                        for="id_WB_SAF_39_1_1_{{hhmember.person_id}}"><input
                                                                             data-parsley-required="False"
                                                                             id="id_WB_SAF_39_1_1_{{hhmember.person_id}}"
                                                                             name="WB_SAF_39_1_{{hhmember.person_id}}"
@@ -2219,9 +1365,9 @@
                                                                 </td>
                                                                 <!-- <td>
 
-                                                                        {{form.WB_SAF_39_1}}
-                                                                        {{form.WB_SAF_39_2}}
-                                                                    </td> -->
+                                                                    {{form.WB_SAF_39_1}}
+                                                                    {{form.WB_SAF_39_2}}
+                                                                </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -2267,9 +1413,9 @@
                                                                     <!-- <div class="row">
 
 
-                                                                            {{form.WB_SAF_40_1}}
-                                                                            {{form.WB_SAF_40_2}}
-                                                                        </div> -->
+                                                                        {{form.WB_SAF_40_1}}
+                                                                        {{form.WB_SAF_40_2}}
+                                                                    </div> -->
                                                                 </td>
                                                             </tr>
 
@@ -2283,7 +1429,6 @@
                                     </div>
 
                                 </div>
-
                             </div>
                             <!--end wizard step-4      -->
                             <!-- begin wizard step-5 -->
@@ -2348,9 +1493,9 @@
                                                                         No</label>
                                                                 </td>
                                                                 <!-- <td>
-          
-                                                                          {{form.WB_SCH_39_1}}
-                                                                      </td> -->
+      
+                                                                      {{form.WB_SCH_39_1}}
+                                                                  </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -2378,9 +1523,9 @@
                                                                         No</label>
                                                                 </td>
                                                                 <!-- <td>
-          
-                                                                          {{form.WB_SCH_40_1}}
-                                                                      </td> -->
+      
+                                                                      {{form.WB_SCH_40_1}}
+                                                                  </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -2457,11 +1602,11 @@
 
                                                                 </td>
                                                                 <!-- <td>
-          
-                                                                          {{form.WB_SCH_41_1}}
-                                                                          {{form.WB_SCH_41_2}}
-                                                                          
-                                                                      </td> -->
+      
+                                                                      {{form.WB_SCH_41_1}}
+                                                                      {{form.WB_SCH_41_2}}
+                                                                      
+                                                                  </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -2506,14 +1651,14 @@
                                                                     </div>
                                                                 </td>
                                                                 <!-- <td>
-                                                                          <div class="col-md-6">
-          
-                                                                              {{form.WB_SCH_42_2}}
-                                                                          </div>
-                                                                          <div class="col-md-6">
-                                                                              {{form.WB_SCH_42_1}}
-                                                                          </div>
-                                                                      </td> -->
+                                                                      <div class="col-md-6">
+      
+                                                                          {{form.WB_SCH_42_2}}
+                                                                      </div>
+                                                                      <div class="col-md-6">
+                                                                          {{form.WB_SCH_42_1}}
+                                                                      </div>
+                                                                  </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -2558,13 +1703,13 @@
                                                                     </div>
                                                                 </td>
                                                                 <!-- <td>
-                                                                          <div class="col-md-6">
-                                                                              {{form.WB_SCH_43_2}}
-                                                                          </div>
-                                                                          <div class="col-md-6">
-                                                                              {{form.WB_SCH_43_1}}
-                                                                          </div>
-                                                                      </td> -->
+                                                                      <div class="col-md-6">
+                                                                          {{form.WB_SCH_43_2}}
+                                                                      </div>
+                                                                      <div class="col-md-6">
+                                                                          {{form.WB_SCH_43_1}}
+                                                                      </div>
+                                                                  </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -2593,9 +1738,9 @@
                                                                         No</label>
                                                                 </td>
                                                                 <!-- <td>
-          
-                                                                          {{form.WB_SCH_44_1}} 
-                                                                      </td> -->
+      
+                                                                      {{form.WB_SCH_44_1}} 
+                                                                  </td> -->
                                                             </tr>
                                                             <tr>
                                                                 <td>
@@ -2621,9 +1766,9 @@
                                                                         No</label>
                                                                 </td>
                                                                 <!-- <td>
-          
-                                                                          {{form.WB_SCH_45_1}}  
-                                                                      </td> -->
+      
+                                                                      {{form.WB_SCH_45_1}}  
+                                                                  </td> -->
 
                                                             </tr>
                                                         </tbody>
@@ -2827,6 +1972,7 @@
 
         $(function () {
             $(".wellbeing_dates").datepicker({ format: 'yyyy-mm-dd' }).val();
+            $("input[name=WB_HEL_17_2]").datepicker({ format: 'yyyy-mm-dd' }).val();
         });
 
 
