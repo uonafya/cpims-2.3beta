@@ -56,14 +56,14 @@ function barChart(elementId,the_title,the_x_axis,the_series){
             enabled: false
         },
         colors: [
-            '#4d79ff',
-            '#1BA39C',
-            '#00ffff',
-            '#F2784B',
-            '#ff8000',
-            '#ff4000',
-            '#80ff00',
-            '#913D88',
+           '#F2784B',
+           '#1BA39C',
+           '#913D88',
+           '#4d79ff',
+           '#80ff00',
+           '#ff8000',
+           '#00ffff',
+           '#ff4000'
         ],
         series: the_series
     });

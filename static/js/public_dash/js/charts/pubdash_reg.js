@@ -14,7 +14,7 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 
 
     //fetchActiveOVCs(levl,ouid,months_array,fcc,fcc_val);
-    fetchTotalOVCsEver('national',"0");
+
 
     //fetchExitedOVCRegs(levl,ouid,months_array,fcc,fcc_val);
     fetchExitedHseld(levl,ouid,months_array,fcc,fcc_val);
@@ -37,6 +37,9 @@ $(document).ready(function () {
     fetchNewOVCRegs('national',"none","none","none","annual");
     fetchExitedAndActiveOVCRegs('national',"none","none","none","annual");
     fetchExitedHseld('national',"none","none","none","annual");
+
+
+    fetchTotalOVCsEver('national',"none","none","none","annual");
 });
 
 
@@ -102,10 +105,11 @@ $(document).ready(function () {
 
     // -----------------fetches-----------------
     //--1--
-    function fetchTotalOVCsEver(org_level,area_id){
+    function fetchTotalOVCsEver(org_level,area_id,funding_partner,funding_part_id,period_type){
+        var the_url = '/get_total_ovc_ever/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
          $.ajax({
             type: 'GET',
-            url: '/get_total_ovc_ever/'+org_level+'/'+area_id+'/',
+            url: the_url,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             encode: true,
@@ -308,10 +312,11 @@ $(document).ready(function () {
     // -----------------display-----------------
     //--1--
     function displayTotalOVCsEver(data){
+    cboactive
         var val = data;
         var elementId="all_ovc_reg";
          $.each(data, function (index, objValue) {
-            val = objValue;
+            val = objValue['count'];
          });
         $('#'+elementId).html(val);
     }
