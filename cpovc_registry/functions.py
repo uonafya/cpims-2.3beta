@@ -42,7 +42,7 @@ def _fetch_total_ovc_ever(request, level,area_id,funding_partner,funding_part_id
     currentYear = datetime.now().year
 
     base_sql = '''
-            Select count(*) as OVCCOUNT from  public.ovc_registration 
+            Select count(*) as OVCCOUNT from  public.vw_cpims_registration 
             
         '''
 
@@ -71,21 +71,21 @@ def _fetch_total_ovc_ever(request, level,area_id,funding_partner,funding_part_id
         pass
     elif (level == 'county'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and countyid={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            where countyid={0}
+                                        '''.format(area_id)
     elif (level == 'subcounty'):
         pass
 
-        # base_sql = base_sql + '''
-        #                                     and
-        #                                     ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            where
+                                            ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        '''.format(area_id)
     elif (level == 'ward'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and ward_id={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            where ward_id={0}
+                                        '''.format(area_id)
 
     elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
         print "not 10th month 0"
@@ -93,18 +93,18 @@ def _fetch_total_ovc_ever(request, level,area_id,funding_partner,funding_part_id
             if (funding_part_id == '0'):  # usaid
 
                 base_sql = base_sql + '''
-                                 where child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                 where cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                                in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                    'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                                    )) '''
 
         if (funding_partner == 'cluster'):
             base_sql = base_sql + '''
-                                             where child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                             where cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                                    )  '''.format(funding_part_id)
         if (funding_partner == 'cbo_unit'):
             base_sql = base_sql + '''
-                                                         where child_cbo_id = '{}' '''.format(
+                                                         where cbo_id = '{}' '''.format(
                 funding_part_id)
     else:
         base_sql = "select 1"
@@ -136,8 +136,7 @@ def fetch_total_ovc_ever_exited(request, level,area_id,funding_partner,funding_p
     currentYear = datetime.now().year
 
     base_sql = '''
-                Select count(*) as OVCCOUNT from  public.ovc_registration  where is_active=false
-
+                Select count(*) as OVCCOUNT from  public.vw_cpims_registration where exit_status='EXITED'
             '''
 
     if (currentMonth == 10 and period_typ == 'annual'):  # start of a new period (october)
@@ -165,21 +164,21 @@ def fetch_total_ovc_ever_exited(request, level,area_id,funding_partner,funding_p
         pass
     elif (level == 'county'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and countyid={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and countyid={0}
+                                        '''.format(area_id)
     elif (level == 'subcounty'):
         pass
 
-        # base_sql = base_sql + '''
-        #                                     and
-        #                                     ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and
+                                            ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        '''.format(area_id)
     elif (level == 'ward'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and ward_id={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and ward_id={0}
+                                        '''.format(area_id)
 
     elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
         print "not 10th month 0"
@@ -187,18 +186,18 @@ def fetch_total_ovc_ever_exited(request, level,area_id,funding_partner,funding_p
             if (funding_part_id == '0'):  # usaid
 
                 base_sql = base_sql + '''
-                                     and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                     and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                                    in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                        'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                                        )) '''
 
         if (funding_partner == 'cluster'):
             base_sql = base_sql + '''
-                                                 and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                                 and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                                        )  '''.format(funding_part_id)
         if (funding_partner == 'cbo_unit'):
             base_sql = base_sql + '''
-                                                             and child_cbo_id = '{}' '''.format(
+                                                             and cbo_id = '{}' '''.format(
                 funding_part_id)
     else:
         base_sql = "select 1"
@@ -229,7 +228,7 @@ def fetch_total_wout_bcert_at_enrol(request, level,area_id,funding_partner,fundi
     currentYear = datetime.now().year
 
     base_sql = '''
-                    Select count(*) as OVCCOUNT from  public.ovc_registration  where has_bcert=false
+                    Select count(*) as OVCCOUNT from  public.vw_cpims_registration where birthcert='NO BIRTHCERT'
     
                 '''
 
@@ -258,21 +257,21 @@ def fetch_total_wout_bcert_at_enrol(request, level,area_id,funding_partner,fundi
         pass
     elif (level == 'county'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and countyid={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and countyid={0}
+                                        '''.format(area_id)
     elif (level == 'subcounty'):
         pass
 
-        # base_sql = base_sql + '''
-        #                                     and
-        #                                     ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and
+                                            ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        '''.format(area_id)
     elif (level == 'ward'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and ward_id={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and ward_id={0}
+                                        '''.format(area_id)
 
     elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
         print "not 10th month 0"
@@ -280,18 +279,18 @@ def fetch_total_wout_bcert_at_enrol(request, level,area_id,funding_partner,fundi
             if (funding_part_id == '0'):  # usaid
 
                 base_sql = base_sql + '''
-                                         and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                         and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                                        in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                            'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                                            )) '''
 
         if (funding_partner == 'cluster'):
             base_sql = base_sql + '''
-                                                     and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                                     and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                                            )  '''.format(funding_part_id)
         if (funding_partner == 'cbo_unit'):
             base_sql = base_sql + '''
-                                                                 and child_cbo_id = '{}' '''.format(
+                                                                 and cbo_id = '{}' '''.format(
                 funding_part_id)
     else:
         base_sql = "select 1"
@@ -323,7 +322,7 @@ def fetch_total_w_bcert_2date(request, level,area_id,funding_partner,funding_par
     currentYear = datetime.now().year
 
     base_sql = '''
-                        Select count(*) as OVCCOUNT from  public.ovc_registration  where has_bcert=true
+                        Select count(*) as OVCCOUNT from  public.vw_cpims_registration  where birthcert='HAS BIRTHCERT'
 
                     '''
 
@@ -352,21 +351,21 @@ def fetch_total_w_bcert_2date(request, level,area_id,funding_partner,funding_par
         pass
     elif (level == 'county'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and countyid={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and countyid={0}
+                                        '''.format(area_id)
     elif (level == 'subcounty'):
         pass
 
-        # base_sql = base_sql + '''
-        #                                     and
-        #                                     ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and
+                                            ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        '''.format(area_id)
     elif (level == 'ward'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and ward_id={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and ward_id={0}
+                                        '''.format(area_id)
 
     elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
         print "not 10th month 0"
@@ -374,18 +373,18 @@ def fetch_total_w_bcert_2date(request, level,area_id,funding_partner,funding_par
             if (funding_part_id == '0'):  # usaid
 
                 base_sql = base_sql + '''
-                                             and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                             and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                                            in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                                'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                                                )) '''
 
         if (funding_partner == 'cluster'):
             base_sql = base_sql + '''
-                                                         and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                                         and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                                                )  '''.format(funding_part_id)
         if (funding_partner == 'cbo_unit'):
             base_sql = base_sql + '''
-                                                                     and child_cbo_id = '{}' '''.format(
+                                                                     and cbo_id = '{}' '''.format(
                 funding_part_id)
     else:
         base_sql = "select 1"
@@ -417,7 +416,7 @@ def fetch_total_s_bcert_aft_enrol(request, level,area_id,funding_partner,funding
     currentYear = datetime.now().year
 
     base_sql = '''
-                            Select count(*) as OVCCOUNT from  public.ovc_registration  where has_bcert=true
+                            Select count(*) as OVCCOUNT from  public.vw_cpims_registration  where birthcert='HAS BIRTHCERT'
 
                         '''
 
@@ -446,21 +445,21 @@ def fetch_total_s_bcert_aft_enrol(request, level,area_id,funding_partner,funding
         pass
     elif (level == 'county'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and countyid={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and countyid={0}
+                                        '''.format(area_id)
     elif (level == 'subcounty'):
         pass
 
-        # base_sql = base_sql + '''
-        #                                     and
-        #                                     ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and
+                                            ward_id in (select area_id as ward_ids from list_geo where parent_area_id ='{}')
+                                        '''.format(area_id)
     elif (level == 'ward'):
         pass
-        # base_sql = base_sql + '''
-        #                                     and ward_id={0}
-        #                                 '''.format(area_id)
+        base_sql = base_sql + '''
+                                            and ward_id={0}
+                                        '''.format(area_id)
 
     elif (funding_partner == 'funding_mechanism' or funding_partner == 'cluster' or funding_partner == 'cbo_unit'):
         print "not 10th month 0"
@@ -468,18 +467,18 @@ def fetch_total_s_bcert_aft_enrol(request, level,area_id,funding_partner,funding
             if (funding_part_id == '0'):  # usaid
 
                 base_sql = base_sql + '''
-                                                 and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                                                 and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                                                in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                                    'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                                                    )) '''
 
         if (funding_partner == 'cluster'):
             base_sql = base_sql + '''
-                                                             and child_cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                                             and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                                                    )  '''.format(funding_part_id)
         if (funding_partner == 'cbo_unit'):
             base_sql = base_sql + '''
-                                                                         and child_cbo_id = '{}' '''.format(
+                                                                         and cbo_id = '{}' '''.format(
                 funding_part_id)
     else:
         base_sql = "select 1"
