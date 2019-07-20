@@ -1,4 +1,5 @@
 """OVC common methods."""
+import requests
 from datetime import datetime
 from django.utils import timezone
 from django.shortcuts import get_object_or_404
@@ -631,3 +632,8 @@ def save_viral_load(request):
         raise e
     else:
         pass
+
+
+class KHMFLFacilities(object):
+    '''Auto-update the list of facilities from KHMFL'''
+    pass
