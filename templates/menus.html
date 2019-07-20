@@ -1,14 +1,14 @@
 {% load app_class %}
 <ul class="nav">
 	<li class="nav-header">Navigation</li>
-	<li class="has-sub {{ request.path|get_class:'/' }}">
+	<li class="has-sub {{ request.path|get_class:'/' }} online_mode">
 		<a href="{% url 'home' %}">
 		    <i class="fa fa-laptop"></i>
 		    <span>Home</span>
 	    </a>
 	</li>
 	
-	<li class="has-sub {{ request.path|get_class:'registry' }}">
+	<li class="has-sub {{ request.path|get_class:'registry' }} online_mode">
 		<a href="#">
 		    <b class="caret pull-right"></b>
 		    <i class="fa fa-suitcase"></i>
@@ -27,18 +27,19 @@
 		    <span>Forms</span>
 		</a>
 	    <ul class="sub-menu">
-			<li><a href="{% url 'case_record_sheet' %}">Case Record Sheet</a></li>
-			<li><a href="{% url 'residential_placement' %}">Institutional Placement</a></li>
-			<li><a href="{% url 'alternative_family_care' %}">Alternative Family Care</a></li>
-			<li><a href="{% url 'background_details' %}">School and Bursary</a></li>
-			<li><a href="{% url 'forms_registry' %}">Follow-ups</a></li>
-			<li><a href="{% url 'documents_manager' %}">Documents Manager</a></li>
-			<li><a href="{% url 'ovc_home' %}">OVC Care</a></li>
+			<li class="online_mode"><a href="{% url 'case_record_sheet' %}">Case Record Sheet</a></li>
+			<li class="online_mode"><a href="{% url 'residential_placement' %}">Institutional Placement</a></li>
+			<li class="online_mode"><a href="{% url 'alternative_family_care' %}">Alternative Family Care</a></li>
+			<li class="online_mode"><a href="{% url 'background_details' %}">School and Bursary</a></li>
+			<li class="online_mode"><a href="{% url 'forms_registry' %}">Follow-ups</a></li>
+			<li class="online_mode"><a href="{% url 'documents_manager' %}">Documents Manager</a></li>
+			<li class="online_mode"><a href="{% url 'ovc_home' %}">OVC Care</a></li>
+			<li><a href="#ovc_home" class="btn_ovc_home_offline">OVC Care Offline</a></li>
 		</ul>
 		
 	</li>					
 	
-	<li class="has-sub {{ request.path|get_class:'reports' }}">
+	<li class="has-sub {{ request.path|get_class:'reports' }} online_mode">
 	    <a href="#">
 		    <b class="caret pull-right"></b>
 	        <i class="fa fa-area-chart"></i>
@@ -98,7 +99,7 @@
 		</ul>
 	</li>
 
-	<li class="has-sub {{ request.path|get_class:'settings' }}">
+	<li class="has-sub {{ request.path|get_class:'settings' }} online_mode">
 	    <a href="#">
 		    <b class="caret pull-right"></b>
 	        <i class="fa fa-cogs"></i>
@@ -113,7 +114,7 @@
 		</ul>
 	</li>
 	
-	<li class="has-sub {{ request.path|get_class:'gis' }}">
+	<li class="has-sub {{ request.path|get_class:'gis' }} online_mode">
 	    <a href="#">
 	        <b class="caret pull-right"></b>
 	        <i class="fa fa-map-marker"></i>
@@ -123,7 +124,7 @@
 			<li><a href="{% url 'gis_home' %}" >Map</a></li>
 		</ul>
 	</li>
-	<li class="has-sub">
+	<li class="has-sub online_mode">
 	    <a href="#">
 		    <b class="caret pull-right"></b>
 		    <i class="fa fa-camera"></i>
@@ -133,7 +134,7 @@
 	        <li><a href="#">Gallery One</a></li>
 	        <li><a href="#">Gallery Two</a></li>
 	    </ul>
-	</li>			
+	</li>		
 	<!-- Data Cleanup Link -->
 	<li class="has-sub">
 			<a href="#">
@@ -149,6 +150,8 @@
 		</li>
 		<!-- End Data Cleanup Link -->
 	<li class="has-sub">
+	
+	<li class="has-sub online_mode">
 	    <a href="#">
 	    	<b class="caret pull-right"></b>
 	        <i class="fa fa-medkit"></i>
