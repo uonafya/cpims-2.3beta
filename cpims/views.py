@@ -141,9 +141,9 @@ def get_total_ovc_ever(request, org_level,area_id,funding_partner,funding_part_i
     total_ovc_ever=_fetch_total_ovc_ever(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(total_ovc_ever, content_type='application/json', safe=False)
 
-def get_total_ovc_ever_exited(request,org_level,area_id):
+def get_total_ovc_ever_exited(request, org_level,area_id,funding_partner,funding_part_id,period_type):
     print "total ovc ever exited"
-    total_ovc_ever_exited=fetch_total_ovc_ever_exited(request,None,org_level,area_id)
+    total_ovc_ever_exited=fetch_total_ovc_ever_exited(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(total_ovc_ever_exited, content_type='application/json', safe=False)
 
 def get_total_wout_bcert_at_enrol(request,org_level,area_id):
