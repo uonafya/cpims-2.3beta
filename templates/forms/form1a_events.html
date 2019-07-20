@@ -121,9 +121,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-default" onclick="deleteForm1aEntry()" data-dismiss="modal">Yes</button>
-          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'ovc_view' id=form.person.value %}">
+          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Cancel</button></a>
         </div>
-      </div>
+      </div> 
 
     </div>
   </div>
@@ -239,7 +240,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="saveForm1A(1)">Submit Assessment</button>
-                                        <a href="#" onClick="resetForm1A(1)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(1)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -280,7 +281,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="saveForm1A(2)">Submit Critical Event(s)</button>
-                                        <a href="#" onClick="resetForm1A(2)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(2)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -355,7 +356,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="saveForm1A(3)">Submit Priority(s)</button>
-                                        <a href="#" onClick="resetForm1A(3)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(3)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -447,7 +448,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="saveForm1A(4)">Submit Service(s)</button>
-                                        <a href="#" onClick="resetForm1A(4)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(4)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -526,7 +527,8 @@
 jQuery(document).ready(function() 
 {
 	 //multi selects
-    $('#olmis_assessment_domain, #olmis_assessment_coreservice, #olmis_assessment_coreservice_status, #olmis_domain, #olmis_service_provider, #olmis_service, #olmis_priority_service, #olmis_priority_domain, #olmis_priority_health, #olmis_priority_education, #olmis_priority_shelter, #olmis_priority_protection, #olmis_priority_pss, #olmis_priority_hes, #olmis_critical_event').multiselect({
+    $('#olmis_assessment_domain, #olmis_assessment_coreservice, #olmis_assessment_coreservice_status, #olmis_domain, #olmis_service_provider, #olmis_service, #olmis_priority_service, #olmis_priority_domain, #olmis_priority_health, #olmis_priority_education, #olmis_priority_shelter, #olmis_priority_protection, #olmis_priority_pss, #olmis_priority_hes, #olmis_critical_event')
+        .multiselect({
         selectAllValue: 'multiselect-all',
         includeSelectAllOption: true,
         enableCaseInsensitiveFiltering: true,

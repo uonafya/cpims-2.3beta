@@ -5470,7 +5470,15 @@ class Wellbeing(forms.Form):
             })
     )
     WB_HEL_17_2 = forms.DateField(
-      widget=forms.DateInput(format='%m/%d/%Y', attrs={'class': 'datepicker','placeholder': 'MMDDYYYY','data-parsley-required': "False"}),
+        widget=forms.widgets.DateInput(
+          format='%m/%d/%Y',
+          attrs={'class': 'datepicker',
+          'placeholder': 'Date of HIV test',
+          'class': 'form-control',
+          'autocomplete': "off",
+          'data-parsley-required': "False"
+          }
+        ),
       input_formats=('%m/%d/%Y', )
       )
 
