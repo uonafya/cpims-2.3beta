@@ -4381,8 +4381,8 @@ class CasePlanTemplate(forms.Form):
         attrs={'placeholder': _('Actual date of completion'),
                'class': 'form-control',
                'id': 'CPT_ACTUAL_DATE_COMPLETION',
-               'style': 'width: 200px;',
-               'required': 'true'
+            #    'required': 'true',
+               'style': 'width: 200px;'
                }))
     CPT_RESULTS = forms.ChoiceField(
         choices=CPT_RESULTS,
