@@ -113,7 +113,7 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('td').not('.skyp').addClass('hidden');
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").append('<td colspan="3" class="skyp text-center"><i style="color: grey;">Skipped question</i></td>');
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").find('input, select, textarea').attr('data-parsley-required', false).removeAttr('required');
-            $('input[name="'+toQnID+'"]').closest("td").css('outline', 'thick double #32a1ce');
+            $('input[name="'+toQnID+'"]').closest("td").css('outline', '1px solid #32a1ce');
             console.log("skipping to Qn: "+toQnID+" on Tab: "+toTabID);
         }
         if(unDo){
@@ -124,9 +124,42 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $('input[name="'+inputToCheck+'"]').closest("td").attr("tabindex", "1");
             $('input[name="'+inputToCheck+'"]').closest("td").focus();
             $('input[name="'+inputToCheck+'"]').closest("tr").nextUntil(destinationT, "tr").removeClass('hidden');
-            $('input[name="'+inputToCheck+'"]').closest("td").css('outline', 'thick double #32a1ce');
+            $('input[name="'+inputToCheck+'"]').closest("td").css('outline', '1px solid #32a1ce');
             console.log("UNDO skipping to Qn: "+toQnID+" on Tab: "+toTabID);
         }
     //hideQnsBtwn
 }
 // ------------------------endCORE-------------------------
+
+
+
+
+
+//raw
+// Tab 1 Qn 9
+$('input[name=WB_GEN_05]').change(function (e) { 
+    var this_val = $(this).val();
+    if(this_val == 'ANNO'){
+        $('input[name=WB_GEN_06], input[name=WB_GEN_07]').attr('disabled', true).val(0);
+    }else{
+        $('input[name=WB_GEN_06], input[name=WB_GEN_07]').removeAttr('disabled').val('');
+    }
+});
+// Tab 1 Qn 9
+
+// Tab 3 Qn 18
+
+$('input[name=WB_HEL_18_2]').attr('disabled', true);
+$('input[name=WB_HEL_18_2][value="Unknown"]').prop('checked', true);
+$('input[name=WB_HEL_18_1]').change(function () {
+    var the_val = $(this).val();
+    if(the_val == 'AYES'){
+        $('input[name=WB_HEL_18_2]').removeAttr('disabled');
+        $('input[name=WB_HEL_18_2]').prop('checked', false);
+    }else{
+        $('input[name=WB_HEL_18_2][value="Unknown"]').prop('checked', true);
+        $('input[name=WB_HEL_18_2]').attr('disabled', true);
+    }
+});
+// Tab 3 Qn 18
+//raw
