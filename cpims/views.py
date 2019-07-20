@@ -146,9 +146,9 @@ def get_total_ovc_ever_exited(request, org_level,area_id,funding_partner,funding
     total_ovc_ever_exited=fetch_total_ovc_ever_exited(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(total_ovc_ever_exited, content_type='application/json', safe=False)
 
-def get_total_wout_bcert_at_enrol(request,org_level,area_id):
+def get_total_wout_bcert_at_enrol(request, org_level,area_id,funding_partner,funding_part_id,period_type):
     print "without birthcert at enrolment"
-    total_wout_bcert_at_enrol=fetch_total_wout_bcert_at_enrol(request,None,org_level,area_id)
+    total_wout_bcert_at_enrol=fetch_total_wout_bcert_at_enrol(request, org_level,area_id,funding_partner,funding_part_id,period_type)
     return JsonResponse(total_wout_bcert_at_enrol, content_type='application/json', safe=False)
 
 def get_total_w_bcert_2date(request,org_level,area_id):

@@ -22,7 +22,7 @@ function ouChange(levl,ouid,fcc,fcc_val) {
 //
 //    fetchServedBCert(levl,ouid,months_array);
 //    fetchU5ServedBcert(levl,ouid,months_array);
-//    fetchWoBCertAtEnrol('national',"0")
+
 //    fetchServedBCert('national',"0",months_array)
 //    fetchWithBCertToDate('national',"0")
 //    fetchServedBCertAftEnrol('national',"0")
@@ -38,6 +38,7 @@ $(document).ready(function () {
 //    fetchExitedAndActiveOVCRegs('national',"none","none","none","annual");
 //    fetchExitedHseld('national',"none","none","none","annual");
 
+    fetchWoBCertAtEnrol('national',"none","none","none","annual");
     fetchTotalOVCsEverExited('national',"none","none","none","annual");
     fetchTotalOVCsEver('national',"none","none","none","annual");
 });
@@ -204,10 +205,12 @@ $(document).ready(function () {
    //--2--
 
    //--3--
-   function fetchWoBCertAtEnrol(org_level,area_id){
+   function fetchWoBCertAtEnrol(org_level,area_id,funding_partner,funding_part_id,period_type){
+        var the_url = '/get_total_wout_bcert_at_enrol/'+org_level+'/'+area_id+'/'+funding_partner+'/'+funding_part_id+'/'+period_type+'/';
+
         $.ajax({
             type: 'GET',
-            url: '/get_total_wout_bcert_at_enrol/'+org_level+'/'+area_id+'/',
+            url: the_url,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             encode: true,
@@ -430,7 +433,7 @@ $(document).ready(function () {
         var val = data;
         var elementId="all_ovc_wout_bcert";
          $.each(data, function (index, objValue) {
-            val = objValue;
+            val = objValue['cboactive'];
          });
         $('#'+elementId).html(val);
     }

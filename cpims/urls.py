@@ -43,7 +43,8 @@ urlpatterns = [
     url(
         r'^get_total_ovc_ever_exited/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/',
         'cpims.views.get_total_ovc_ever_exited', name='get_total_ovc_ever_exited'),
-    url(r'^get_total_wout_bcert_at_enrol/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_wout_bcert_at_enrol', name='get_total_wout_bcert_at_enrol'),
+    url(r'^get_total_wout_bcert_at_enrol/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/'
+        , 'cpims.views.get_total_wout_bcert_at_enrol', name='get_total_wout_bcert_at_enrol'),
     url(r'^get_total_w_bcert_2date/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_w_bcert_2date', name='get_total_w_bcert_2date'),
     url(r'^get_total_s_bcert_aft_enrol/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_s_bcert_aft_enrol', name='get_total_s_bcert_aft_enrol'),
     url(r'^fetch_cbo_list/', 'cpims.views.fetch_cbo_list', name='fetch_cbo_list'),
