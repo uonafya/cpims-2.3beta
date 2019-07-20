@@ -636,4 +636,67 @@ def save_viral_load(request):
 
 class KHMFLFacilities(object):
     '''Auto-update the list of facilities from KHMFL'''
-    pass
+    username = settings.KMHFL_USERNAME
+    password = settings.KMHFL_PASSWORD
+    scope = settings.KMHFL_SCOPE
+    client_id = settings.KMHFL_CLIENTID
+    client_secret = settings.KMHFL_CLIENT_SECRET
+    base_url = settings.KMHFL_API_BASE_URL
+    facility_base_url = settings.KMHFL_FACILITY_BASE_URL
+    login_url = settings.KMHFL_LOGIN_URL
+    api_token = self.generate_token()
+    facilities_data = self.get_facilities()
+
+
+    def generate_token():
+        # generate token.
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        response = requests.post(login_url, headers=headers, data=credentials, auth=auth)
+        if response.status_code == 200:
+            json_token = json.loads(response.content)
+            print(json.loads(response.content.decode('utf-8')))
+            api_token = json_token.get('access_token')
+            print(api_token)
+            return api_token
+        else:
+            print(response)
+    
+    def get_facilities():
+        # request for facilities
+        api_token = generate_token()
+        headers = {'Authorization': 'Bearer {0}'.format(api_token)}
+        api_url = '{0}'.format(api_url_base)
+        response = requests.get(api_url, headers=headers)
+        
+        if response.status_code == 200:
+            json_object = json.loads(response.content)
+            print(json_object)
+            return json_object
+        else:
+            print(response, api_url)
+
+    def get_subcounty_id(sub_county_id):
+        # request facility and get sub-county id.
+        headers = {'Authorization': 'Bearer {0}'.format(api_token)}
+        api_url = '{0}{1}'.format(facility_base_url, sub_county_id)
+        response = requests.get(api_url, headers=headers)
+        if response.status_code == 200:
+            json_object = json.loads(response.content)
+            cpims_subcounty_id = json_object["constituency_code"]
+            print(json_object)
+            return cpims_subcounty_id
+        else:
+            print(response, api_url)
+
+    def get_newest_facilities():
+        # loop for newer facilities.
+        data = get_facilities()
+        results = data["results"]
+        for facility in results:
+        	facility_name = facility["official_name"]
+        	sub_county_id = facility["sub_county_id"]
+        	cpims_subcounty_id = get_subcounty_id(sub_county_id)
+        	facility_code = facility["code"]
+        	a_facility = (facility_code, facility_name, is_void, cpims_subcounty_id)
+        	print(count, a_facility)
+        	single_insert(a_facility)
