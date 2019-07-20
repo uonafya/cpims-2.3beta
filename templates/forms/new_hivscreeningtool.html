@@ -574,7 +574,8 @@
             console.log('switchTab to '+tab_id);
 
             if(tab_id == 3){
-                $('#submit_section').prepend('<div class="alert alert-info"><h5>Form completed</h5>You have completed the form. Please click <b>Submit</b> below</div>');
+                $('.complete_error').html('').remove();
+                $('#submit_section').prepend('<div class="alert alert-info complete_error"><h5>Form completed</h5>You have completed the form. Please click <b>Submit</b> below</div>');
                 window.scrollBy(0,380)
             }
         }
