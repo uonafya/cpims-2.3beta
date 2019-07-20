@@ -37,7 +37,9 @@ urlpatterns = [
     url(r'^hiv_stats_ovc_active/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_ovc_active_hiv_status', name='ovc_active_hiv_status'),
     url(r'^get_hiv_suppression_data/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_hiv_suppression_data', name='get_hiv_suppression_data'),
     # ####
-    url(r'^get_total_ovc_ever/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_ovc_ever', name='get_total_ovc_ever'),
+    url(
+        r'^get_total_ovc_ever/(?P<org_level>\w+)/(?P<area_id>.*)/(?P<funding_partner>.*)/(?P<funding_part_id>.*)/(?P<period_type>.*)/',
+        'cpims.views.get_total_ovc_ever', name='get_total_ovc_ever'),
     url(r'^get_total_ovc_ever_exited/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_ovc_ever_exited', name='get_total_ovc_ever_exited'),
     url(r'^get_total_wout_bcert_at_enrol/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_wout_bcert_at_enrol', name='get_total_wout_bcert_at_enrol'),
     url(r'^get_total_w_bcert_2date/(?P<org_level>\w+)/(?P<area_id>.*)/', 'cpims.views.get_total_w_bcert_2date', name='get_total_w_bcert_2date'),
