@@ -25,7 +25,7 @@
                     <option value='<'{% if view_filter_values.less_than %}selected='selected'{% endif %}>Less Than</option>
                     <option value='-'{% if view_filter_values.between %}selected='selected'{% endif %}>Between</option>
                 </select>
-            Age
+            Age (if the operator is between set age range e.g 18-200)
             <input type='text' name='age' class="form-control" id='age' value="{{ view_filter_values.age }}">
 
             School Level
@@ -87,7 +87,7 @@
 </br>
 <div class='pull-right'>
 <button type='submit' class='btn btn-primary'>Filter</button>
-<a class='btn btn-success' onclick=export_data()><i class="fa fa-download"></i> &nbsp Export</a>
+<a class='btn btn-success' onclick="export_data()" hidden="true"><i class="fa fa-download"></i> &nbsp Export</a>
 </div>
 </form>
 </br>
