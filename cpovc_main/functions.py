@@ -525,7 +525,7 @@ def search_parent_orgs(regpersons_queryset, search_string, as_of_date=None):
     parent_orgs_matched = RegOrgUnit.objects.filter(q_filter)
     orgs_param = parent_orgs_matched.values_list("id")
     parent_orgs_matches = RegPersonsOrgUnits.objects.filter(
-        org_unit_id__in=orgs_param)
+        org_unit_id__in=orgs_param, is_void=False)
     p_param = parent_orgs_matches.values_list("person_id")
     parent_org_unit_match_persons = regpersons_queryset.filter(id__in=p_param)
 
