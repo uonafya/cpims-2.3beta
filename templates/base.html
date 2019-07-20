@@ -20,6 +20,11 @@
 	<link href="{% static 'css/style-responsive.min.css' %}" rel="stylesheet" />
 	<link href="{% static 'css/theme/default.css' %}" rel="stylesheet" id="theme" />
 	<link href="{% static 'plugins/jquery-countdown/css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+    <link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
 	{% block style_code %}{% endblock %}
 	{% block extra_styling %}
     {% endblock extra_styling %}
@@ -79,11 +84,11 @@
 							{% if request.user.is_staff %}
 							    <li><a href="/admin/">Administration</a></li>
 							{% endif %}
-							<li><a href="{% url 'logout' %}">Log Out</a></li>
+							<li><a href="{% url 'logout' %}" id="logout_button">Log Out</a></li>
 						</ul>
 					</li>
 					{% else %}
-					<li class="dropdown navbar-user">
+					<li class="dropdown navbar-user online_mode">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="{% static 'img/user-2.jpg' %}" alt="" /> 
 							<span class="hidden-xs">CPMIS Guest</span> <b class="caret"></b>
@@ -117,8 +122,17 @@
 		
 		<!-- begin #content -->
 		<div id="content" class="content">
+            <div id ="internet_check" class="alert-info">You are now online</div>
 		    {% if user.is_authenticated %}
-			    {% block primary %} {% endblock %}
+                <div id="online_block">
+                    {% block primary %} {% endblock %}
+                </div>
+
+                <div class="offline_page" id ="ovc_home"></div>
+
+                <div class="offline_page" id="ovc_view"></div>
+
+                <div class="offline_page" id="ovc_form1a"></div>
 			{% else %}
 			    {% if request.path == '/login/' or request.path == '/cpims/login/' %}
                     {% block secondary %} {% endblock %}
@@ -172,6 +186,13 @@
 	<script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
 	<script src="{% static 'plugins/jquery-idletimer/dist/idle-timer.1.1.0.js' %}"></script>
 	<script src="{% static 'plugins/jquery-countdown/jquery.simple.timer.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+
+    <script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
+    <script src="{% static 'js/form-wizards.js' %}"></script>
+    <script src="{% static 'js/tag-it.js' %}"></script>
 	<!-- ================== END LAZY BASE JS ================== -->
 	
 	<!-- ================== BEGIN LAZY PAGE LEVEL JS ================== -->
@@ -224,11 +245,49 @@
 
 	  })(jQuery);
 	  
-
-
 	//   $('select#chv_unit_id').multiselect({'multiple': false});
 	//   $('select#cbo_unit_id').multiselect({'multiple': false});
-      </script>
-	<!-- ================== END LAZY PAGE LEVEL JS ================== -->
+    </script>
+    <script src="{% static 'js/base64.js' %}"></script>
+    <script src="{% static 'js/offline_mode/service.js' %}"></script>
+    <script src="{% static 'js/offline_mode/templates_events.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            // Todo - handle hard reloaded
+            let userId = "{{ request.user.reg_person_id | escapejs }}";
+
+            let offlineModeCapabilityEnabled = "{{ OFFLINE_MODE_CAPABILITY_ENABLED }}" === "True";
+
+            console.log("is offlineModeCapabilityEnabled: ", offlineModeCapabilityEnabled);
+
+            if (!offlineModeCapabilityEnabled) {
+                $(".btn_ovc_home_offline").hide();
+                $("#internet_check").hide();
+                return;
+            }
+
+            // Implement it as a singleton
+            let offlineModeService = OfflineModeService(
+                userId,
+                offlineModeCapabilityEnabled,
+                "/offline_mode/data/",
+                "/offline_mode/templates/",
+                "/offline_mode/services",
+                TemplatesEventsFactory());
+
+            offlineModeService.client("internet_check", "online_mode", 5000);
+
+            $(".btn_ovc_home_offline").on("click", (event) => {
+                event.preventDefault();
+                TemplateUtils.showPage(TemplateUtils.ovcHomePage);
+            });
+
+            $(".btn_ovc_view_offline").on("click", (event) => {
+                event.preventDefault();
+                TemplateUtils.showPage(TemplateUtils.viewOvcPage);
+            });
+        });
+    </script>
+    <!-- ================== END LAZY PAGE LEVEL JS ================== -->
 </body>
 </html>
