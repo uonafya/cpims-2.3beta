@@ -4,6 +4,8 @@ cpims URL Configuration.
 Other urls are import
 Put here only urls not specific to app
 """
+import logging
+
 from django.conf.urls import include, url
 from django.contrib import admin
 from cpovc_auth import urls as auth_urls
@@ -14,13 +16,13 @@ from cpovc_gis import urls as gis_urls
 from cpovc_api import urls as api_urls
 from cpovc_ovc import urls as ovc_urls
 from cpovc_settings import urls as settings_urls
+from cpovc_offline_mode import urls as offline_mode_urls
 from django.contrib.auth.views import (
     password_reset_done, password_change, password_change_done)
 from cpovc_auth.views import password_reset
 from django.views.generic import TemplateView
 
 from cpovc_access.forms import StrictPasswordChangeForm
-
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls), name='admin'),
@@ -93,7 +95,10 @@ urlpatterns = [
         TemplateView.as_view(template_name='comodo.txt',
                              content_type='text/plain')),
     url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt',
-                                               content_type='text/plain'))]
+                                               content_type='text/plain')),
+
+    url(r'^offline_mode/', include(offline_mode_urls)),
+]
 
 handler400 = 'cpims.views.handler_400'
 handler404 = 'cpims.views.handler_404'

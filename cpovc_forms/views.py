@@ -8775,10 +8775,29 @@ def new_cpara(request, id):
     if cpara_events:
         for one_cpara_event in cpara_events:
             event_detail = ""
+            total_benchmark_score = 0
             # cpara_data = OVCCareCpara.objects.filter(event=one_cpara_event)
             cpara_data = OVCCareBenchmarkScore.objects.filter(event_id=one_cpara_event.event)
+            bm_array = []
             if cpara_data:
                 for one_cpara_bench in cpara_data:
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_1 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_2 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_3 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_4 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_5 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_6 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_7 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_8 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_9 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_10 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_11 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_12 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_13 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_14 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_15 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_16 == 1 else "No")
+                    bm_array.append("Yes" if one_cpara_bench.bench_mark_17 == 1 else "No")
                     benchmark_1 = "Benchmark 1: (Yes)" if one_cpara_bench.bench_mark_1 == 1 else "Benchmark 1: (No)"
                     benchmark_2 = "Benchmark 2: (Yes)" if one_cpara_bench.bench_mark_2 == 1 else "Benchmark 2: (No)"
                     benchmark_3 = "Benchmark 3: (Yes)" if one_cpara_bench.bench_mark_3 == 1 else "Benchmark 3: (No)"
@@ -8797,21 +8816,27 @@ def new_cpara(request, id):
                     benchmark_16 = "Benchmark 16: (Yes)" if one_cpara_bench.bench_mark_16 == 1 else "Benchmark 16: (No)"
                     benchmark_17 = "Benchmark 17: (Yes)" if one_cpara_bench.bench_mark_17 == 1 else "Benchmark 17: (No)"
 
-                    str_1 = benchmark_1 + ", " + benchmark_2 + ", " + benchmark_3 + ", " + benchmark_4 + ", " + benchmark_5
-                    str_2 = benchmark_6 + ", " + benchmark_7 + ", " + benchmark_8 + ", " + benchmark_9
-                    str_3 = benchmark_10 + ", " + benchmark_11 + ", " + benchmark_12 + ", " + benchmark_13
+                    str_1 = benchmark_1 + ", " + benchmark_2 + ", " + benchmark_3 + ", " + benchmark_4 + ", " + benchmark_5 + ", "
+                    str_2 = benchmark_6 + ", " + benchmark_7 + ", " + benchmark_8 + ", " + benchmark_9 + ", "
+                    str_3 = benchmark_10 + ", " + benchmark_11 + ", " + benchmark_12 + ", " + benchmark_13 + ", "
                     str_4 = benchmark_14 + ", " + benchmark_15 + ", " + benchmark_16 + ", " + benchmark_17
+
+                    total_benchmark_score = int(one_cpara_bench.bench_mark_1) + int(one_cpara_bench.bench_mark_2) + int(one_cpara_bench.bench_mark_3) + int(one_cpara_bench.bench_mark_4) + int(one_cpara_bench.bench_mark_5) + int(one_cpara_bench.bench_mark_6) + int(one_cpara_bench.bench_mark_7) + int(one_cpara_bench.bench_mark_8) + int(one_cpara_bench.bench_mark_9) + int(one_cpara_bench.bench_mark_10) + int(one_cpara_bench.bench_mark_11) + int(one_cpara_bench.bench_mark_12) + int(one_cpara_bench.bench_mark_13) + int(one_cpara_bench.bench_mark_14) + int(one_cpara_bench.bench_mark_15) + int(one_cpara_bench.bench_mark_16) + int(one_cpara_bench.bench_mark_17)
                     full_str = str_1 + str_2 + str_3 + str_4
                     # qn_string = str(one_cpara_bench.question_code) + " (" + str(one_cpara_bench.answer) + "), "
                     event_detail = event_detail + full_str
             else:
                 event_detail = "No answered questions found"
+                total_benchmark_score = 0
+                bm_array = []
             past_cpara.append({
                 'ev_date': one_cpara_event.date_of_event,
                 'ev_person': child.id,
                 'ev_type': 'CPARA',
                 'ev_id': str(one_cpara_event.pk),
-                'ev_detail': str(event_detail)
+                'ev_detail': str(event_detail),
+                'ev_score': total_benchmark_score,
+                'bm_array': bm_array
             })
 
     return render(request,
@@ -9165,11 +9190,13 @@ def fetch_question(answer_item_code):
     return question_code
 
 
-def persist_wellbeing_data(kvals, value, person, house_hold, new_pk, date_of_wellbeing_event, request):
+def persist_wellbeing_data(kvals, value, person, house_hold, new_pk, date_of_wellbeing_event, request, id):
+
     question_code_to_ui_item_mapping = {
         'WB_GEN_07': 'WB_GEN_06', "WB_GEN_08": "WB_GEN_07", "WB_GEN_09": "WB_GEN_07",
         "WB_SAF_32_1": "WB_SAF_31", "WB_SAF_33_1": "WB_SAF_32", "WB_SAF_34_2": "WB_SAF_33", "WB_SAF_34_1": "WB_SAF_33",
         "WB_SAF_35_1": "WB_SAF_34", "WB_SAF_36_1": "WB_SAF_35", "WB_SAF_36_2": "WB_SAF_35",
+         "WB_GEN_02":"WB_GEN_02","WB_GEN_03":"WB_GEN_03", "WB_GEN_01":"WB_GEN_01",
         "WB_SAF_37_1": "WB_SAF_36", "WB_SAF_37_2": "WB_SAF_36", "WB_SAF_39_1": "WB_SAF_37", "WB_SAF_39_2": "WB_SAF_37",
         "WB_SAF_40_1": "WB_SAF_38", "WB_SAF_40_2": "WB_SAF_38", "WB_SCH_39_1": "WB_SCH_39", "WB_SCH_39_1": "WB_SCH_39",
         "WB_SCH_40_1": "WB_SCH_40", "WB_SCH_41_1": "WB_SCH_41", "WB_SCH_41_2": "WB_SCH_41",
@@ -9205,36 +9232,37 @@ def persist_wellbeing_data(kvals, value, person, house_hold, new_pk, date_of_wel
     entity = kvals["entity"]
     question_code = kvals["question_code"]
     demographics_items = ['WB_GEN_12', 'WB_GEN_13', 'WB_GEN_15', 'WB_GEN_06', 'WB_GEN_08']
-    try:
-        question_code = question_code_to_ui_item_mapping[question_code]
-        ovc_qst = OVCCareQuestions.objects.get(question=question_code)
+    # try:
+    question_code = question_code_to_ui_item_mapping[question_code]
+    ovc_qst = OVCCareQuestions.objects.get(question=question_code)
 
-        if (entity == 'wellbeing' and kvals["question_code"] not in demographics_items):
-            OVCCareWellbeing(
-                question_code=ovc_qst.code,
-                person=person,
-                question=ovc_qst,
-                answer=value,
-                household=house_hold,
-                question_type='CG',
-                domain=ovc_qst.domain,
-                date_of_event=date_of_wellbeing_event,
-                event=OVCCareEvents.objects.get(pk=new_pk)
-            ).save()
+    if (entity == 'wellbeing' and kvals["question_code"] not in demographics_items):
+        OVCCareWellbeing(
+            question_code=ovc_qst.code,
+            person=person,
+            question=ovc_qst,
+            answer=value,
+            household=house_hold,
+            question_type='CG',
+            domain=ovc_qst.domain,
+            date_of_event=date_of_wellbeing_event,
+            event=OVCCareEvents.objects.get(pk=new_pk)
+            # caregiver=id
+        ).save()
 
-        if (entity == 'comment' or kvals["question_code"] in other_list):
-            explanation_uuid = uuid.UUID('3249b14e-3e83-11e9-b210-d663bd873d93')
-            ovc_Care_forms_obj = OVCCareForms.objects.get(pk=explanation_uuid)
-            OVCExplanations(
-                question=ovc_qst,
-                comment=value,
-                form=ovc_Care_forms_obj,
-                event=OVCCareEvents.objects.get(pk=new_pk)
-            ).save()
+    if (entity == 'comment' or kvals["question_code"] in other_list):
+        explanation_uuid = uuid.UUID('3249b14e-3e83-11e9-b210-d663bd873d93')
+        ovc_Care_forms_obj = OVCCareForms.objects.get(pk=explanation_uuid)
+        OVCExplanations(
+            question=ovc_qst,
+            comment=value,
+            form=ovc_Care_forms_obj,
+            event=OVCCareEvents.objects.get(pk=new_pk)
+        ).save()
 
-    except Exception, e:
-        print "error saving wellbeing data"
-        print e
+    # except Exception, e:
+    #     print "error saving wellbeing data"
+    #     print e
 
     if (kvals["question_code"] in demographics_items):
         m_value = 0
@@ -9275,6 +9303,11 @@ def persist_wellbeing_data(kvals, value, person, house_hold, new_pk, date_of_wel
             female=f_value,
             event=OVCCareEvents.objects.get(pk=new_pk)
         ).save()
+        msg = 'wellbeing saved successful'
+        messages.add_message(request, messages.INFO, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
+
 
 
 def persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk):
@@ -9288,7 +9321,7 @@ def persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk
             for element_id, answer in individual_person_answers.iteritems():
                 kvals = {"entity": "wellbeing", "value": answer, "question_code": element_id}
                 persist_wellbeing_data(kvals, answer, person, house_hold, new_events_pk, date_of_wellbeing_event,
-                                       request)
+                                       request, id)
 
     if (key == 'schooledanswer'):
         answer_obj = request.POST.get(key)
@@ -9303,7 +9336,7 @@ def persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk
                     for vall in answer:
                         kvals['value'] = vall
                         persist_wellbeing_data(kvals, vall, person, house_hold, new_events_pk, date_of_wellbeing_event,
-                                               request)
+                                               request, id)
                 else:
                     persist_wellbeing_data(kvals, answer, person, house_hold, new_events_pk, date_of_wellbeing_event,
                                            request)
@@ -9312,67 +9345,71 @@ def persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_wellbeing(request, id):
-    try:
+    # try:
 
-        if request.method == 'POST':
-            comments = ['WB_STA_13_2', 'WB_STA_12_3', 'WB_STA_11_2', 'WB_STA_10_2', 'WB_STA_5_3', 'WB_STA_4_3',
-                        'WB_STA_3_3', 'WB_STA_2_3', 'WB_STA_1_3']
+    if request.method == 'POST':
+        comments = ['WB_STA_13_2', 'WB_STA_12_3', 'WB_STA_11_2', 'WB_STA_10_2', 'WB_STA_5_3', 'WB_STA_4_3',
+                    'WB_STA_3_3', 'WB_STA_2_3', 'WB_STA_1_3']
 
-            ignore_request_values = ['household_id', 'csrfmiddlewaretoken']
+        ignore_request_values = ['household_id', 'csrfmiddlewaretoken']
 
-            household_id = request.POST.get('household_id')
-            caretker_id = request.POST.get('caretaker_id')
+        household_id = request.POST.get('household_id')
+        caretker_id = request.POST.get('caretaker_id')
 
-            hse_uuid = uuid.UUID(household_id)
-            house_hold = OVCHouseHold.objects.get(pk=hse_uuid)
-            person = RegPerson.objects.get(pk=int(caretker_id))
-            event_type_id = 'WBG'
-            date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'), fmt='%Y-%m-%d')
+        hse_uuid = uuid.UUID(household_id)
+        house_hold = OVCHouseHold.objects.get(pk=hse_uuid)
+        person = RegPerson.objects.get(pk=int(caretker_id))
+        event_type_id = 'WBG'
+        date_of_wellbeing_event = convert_date(request.POST.get('WB_GEN_01'), fmt='%Y-%m-%d')
 
-            """ Save Wellbeing-event """
-            event_counter = OVCCareEvents.objects.filter(
-                event_type_id=event_type_id, person=id, is_void=False).count()
-            print "save event"
-            ovccareevent = OVCCareEvents(
-                event_type_id=event_type_id,
-                event_counter=event_counter,
-                event_score=0,
-                date_of_event=date_of_wellbeing_event,
-                created_by=request.user.id,
-                person=RegPerson.objects.get(pk=int(id)),
-                house_hold=house_hold
-            )
-            ovccareevent.save()
-            new_events_pk = ovccareevent.pk
+        """ Save Wellbeing-event """
+        event_counter = OVCCareEvents.objects.filter(
+            event_type_id=event_type_id, person=id, is_void=False).count()
+        print "save event"
+        ovccareevent = OVCCareEvents(
+            event_type_id=event_type_id,
+            event_counter=event_counter,
+            event_score=0,
+            date_of_event=date_of_wellbeing_event,
+            created_by=request.user.id,
+            person=RegPerson.objects.get(pk=int(id)),
+            house_hold=house_hold
+        )
+        ovccareevent.save()
+        new_events_pk = ovccareevent.pk
+        ovc_id = int(id)
+        child = RegPerson.objects.get(is_void=False, id=ovc_id)
+        care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+        print('ssssssssss', care_giver)
+        
 
-            entity_values = []
-            for key in request.POST:
-                if (str(key) != "safeanswer" and str(key) != "schooledanswer"):
+        entity_values = []
+        for key in request.POST:
+            if (str(key) != "safeanswer" and str(key) != "schooledanswer" and "WB_SCH_39" not in str(key)  and "WB_SCH_40" not in str(key) and "WB_SCH_41" not in str(key)  and "WB_SCH_42" not in str(key) and "WB_SCH_43" not in str(key) and "WB_SCH_44" not in str(key) and "WB_SCH_45" not in str(key) and "WB_SAF_37" not in str(key) and "WB_SAF_38" not in str(key) and "WB_SAF_39" not in str(key) and "WB_SAF_40" not in str(key) and "WB_HEL_17_2" not in str(key) and "WB_GEN_11" not in str(key) and "WB_GEN_13" not in str(key) and "WB_GEN_15" not in str(key) and "WB_GEN_14" not in str(key) and "WB_GEN_16" not in str(key) and "caretaker_id" not in str(key)):
 
-                    if (key in ignore_request_values):
-                        continue
-                    val = request.POST.getlist(key)
-                    for i, value in enumerate(val):
-                        entity_type = 'wellbeing'
-                        if (key in comments):
-                            entity_type = 'comment'
-                        kvals = {"entity": entity_type, "value": val, "question_code": key,
-                                 'domain': 1}
-                        persist_wellbeing_data(kvals, value, person, house_hold, new_events_pk, date_of_wellbeing_event,
-                                               request)
-                else:
-                    persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk)
-            url = reverse('ovc_view', kwargs={'id': id})
-            print url
-            print id
-            # return HttpResponseRedirect(reverse(forms_registry))
-            return HttpResponseRedirect(url)
-    except Exception, e:
-        msg = 'wellbeing save error: (%s)' % (str(e))
-        messages.add_message(request, messages.ERROR, msg)
-        print 'Error saving wellbeing : %s' % str(e)
-        print e
-        return HttpResponseRedirect(reverse(forms_registry))
+                if (key in ignore_request_values):
+                    continue
+                val = request.POST.getlist(key)
+                for i, value in enumerate(val):
+                    entity_type = 'wellbeing'
+                    if (key in comments):
+                        entity_type = 'comment'
+                    kvals = {"entity": entity_type, "value": val, "question_code": key,
+                                'domain': 1}
+                    persist_wellbeing_data(kvals, value, person, house_hold, new_events_pk, date_of_wellbeing_event,
+                                            request, id)
+            else:
+                persist_per_child_wellbeing_question(request, key, house_hold, new_events_pk)
+        url = reverse('ovc_view', kwargs={'id': id})
+
+        # return HttpResponseRedirect(reverse(forms_registry))
+        return HttpResponseRedirect(url)
+    # except Exception, e:
+    #     msg = 'wellbeing save error: (%s)' % (str(e))
+    #     messages.add_message(request, messages.ERROR, msg)
+    #     print 'Error saving wellbeing : %s' % str(e)
+    #     print e
+    #     return HttpResponseRedirect(reverse(forms_registry))
 
     # get household members/ caretaker/ household_id
     household_id = None
@@ -9510,6 +9547,9 @@ def new_wellbeingadolescent(request, id):
             ovccareevent.save()
             # get questions for adolescent
             questions = OVCCareQuestions.objects.filter(code__startswith='wba')
+            ovc_id = int(id)
+            child = RegPerson.objects.get(is_void=False, id=ovc_id)
+            care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
             for question in questions:
                 answer = request.POST.get(question.question)
                 if answer is None:
@@ -9522,11 +9562,16 @@ def new_wellbeingadolescent(request, id):
                     event=ovccareevent,
                     date_of_event=timezone.now(),
                     domain=question.domain,
-                    question_type=question.question_type
+                    question_type=question.question_type,
+                    caregiver=care_giver
                 )
+            msg = 'wellbeing adolesent saved successful'
+            messages.add_message(request, messages.INFO, msg)
             url = reverse('ovc_view', kwargs={'id': id})
-            # return HttpResponseRedirect(reverse(forms_registry))
             return HttpResponseRedirect(url)
+            # url = reverse('ovc_view', kwargs={'id': id})
+            # # return HttpResponseRedirect(reverse(forms_registry))
+            # return HttpResponseRedirect(url)
     except Exception, e:
         msg = 'wellbeing adolescent save error : (%s)' % (str(e))
         messages.add_message(request, messages.ERROR, msg)
@@ -9539,7 +9584,7 @@ def new_wellbeingadolescent(request, id):
         ovcreg = get_object_or_404(OVCRegistration, person_id=id, is_void=False)
         caretaker_id = ovcreg.caretaker_id if ovcreg else None
         ovchh = get_object_or_404(OVCHouseHold, head_person=caretaker_id, is_void=False)
-        household_id = ovchh.id if ovchh else None
+        household_id = ovchh.id if ovchh else None        
     except Exception, e:
         print str(e)
         msg = 'Error getting household identifier: (%s)' % (str(e))
@@ -9554,6 +9599,8 @@ def new_wellbeingadolescent(request, id):
 
     form = WellbeingAdolescentForm(initial={'household_id': household_id})
     care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
+
+
 
     return render(request,
                   'forms/new_wellbeingadolescent.html',
