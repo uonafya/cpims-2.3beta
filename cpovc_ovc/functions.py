@@ -1,7 +1,9 @@
 """OVC common methods."""
 import requests
+import json
 from datetime import datetime
 from django.utils import timezone
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.db.models import Q
@@ -634,23 +636,41 @@ def save_viral_load(request):
         pass
 
 
-class KHMFLFacilities(object):
-    '''Auto-update the list of facilities from KHMFL'''
-    username = settings.KMHFL_USERNAME
-    password = settings.KMHFL_PASSWORD
-    scope = settings.KMHFL_SCOPE
-    client_id = settings.KMHFL_CLIENTID
-    client_secret = settings.KMHFL_CLIENT_SECRET
-    base_url = settings.KMHFL_API_BASE_URL
-    facility_base_url = settings.KMHFL_FACILITY_BASE_URL
-    login_url = settings.KMHFL_LOGIN_URL
-    api_token = self.generate_token()
-    facilities_data = self.get_facilities()
+class KMHFLFacilities(object):
+    '''
+        Auto-update the list of facilities from KMHFL
+    '''
+
+    def __init__(self):
+        self.username = settings.KMHFL_USERNAME
+        self.password = settings.KMHFL_PASSWORD
+        self.scope = settings.KMHFL_SCOPE
+        self.grant_type = settings.KMHFL_GRANT_TYPE
+        self.client_id = settings.KMHFL_CLIENTID
+        self.client_secret = settings.KMHFL_CLIENT_SECRET
+        self.api_base_url = settings.KMHFL_API_BASE_URL
+        self.facility_base_url = settings.KMHFL_FACILITY_BASE_URL
+        self.login_url = settings.KMHFL_LOGIN_URL
+        self.api_token = self.generate_token()
+        self.latest_facility = self.latest_facility()
+
+    def latest_facility():
+        # query latest facility from db
+        latest_mfl_code = OVCFacility.objects.values("facility_code")
+                            .exclude(facility_code__regex=r'[^0-9]')
+                            .order_by('facility_code').last()
+        return latest_mfl_code["facility_code"]
 
 
-    def generate_token():
+    def generate_token(self):
         # generate token.
+        login_url = self.login_url
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        auth = (self.client_id, self.client_secret)
+        credentials = { "grant_type": self.grant_type, 
+                        "username": self.username, 
+                        "password": self.password, 
+                        "scope": self.scope }
         response = requests.post(login_url, headers=headers, data=credentials, auth=auth)
         if response.status_code == 200:
             json_token = json.loads(response.content)
@@ -661,11 +681,11 @@ class KHMFLFacilities(object):
         else:
             print(response)
     
-    def get_facilities():
+
+    def get_facilities(self):
         # request for facilities
-        api_token = generate_token()
-        headers = {'Authorization': 'Bearer {0}'.format(api_token)}
-        api_url = '{0}'.format(api_url_base)
+        headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
+        api_url = '{0}facilities/facilities/?format=json'.format(self.api_base_url)
         response = requests.get(api_url, headers=headers)
         
         if response.status_code == 200:
@@ -673,13 +693,15 @@ class KHMFLFacilities(object):
             print(json_object)
             return json_object
         else:
-            print(response, api_url)
+            print(response.content, api_url)
 
-    def get_subcounty_id(sub_county_id):
+
+    def get_subcounty_id(self, facility_id):
         # request facility and get sub-county id.
-        headers = {'Authorization': 'Bearer {0}'.format(api_token)}
-        api_url = '{0}{1}'.format(facility_base_url, sub_county_id)
-        response = requests.get(api_url, headers=headers)
+        headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
+        payload = {'format': 'json'}
+        api_url = '{0}{1}'.format(self.facility_base_url, facility_id)
+        response = requests.get(api_url, headers=headers, params=payload)
         if response.status_code == 200:
             json_object = json.loads(response.content)
             cpims_subcounty_id = json_object["constituency_code"]
@@ -688,15 +710,22 @@ class KHMFLFacilities(object):
         else:
             print(response, api_url)
 
-    def get_newest_facilities():
-        # loop for newer facilities.
-        data = get_facilities()
+
+    def get_newest_facilities(self):
+        # loop for new facilities.
+        data = self.get_facilities()
         results = data["results"]
+        @transaction.atomic
         for facility in results:
-        	facility_name = facility["official_name"]
-        	sub_county_id = facility["sub_county_id"]
-        	cpims_subcounty_id = get_subcounty_id(sub_county_id)
-        	facility_code = facility["code"]
-        	a_facility = (facility_code, facility_name, is_void, cpims_subcounty_id)
-        	print(count, a_facility)
-        	single_insert(a_facility)
+            facility_code = facility["code"]
+            if facility_code > self.latest_facility:
+                facility_id = facility["id"]
+                cpims_subcounty_id = self.get_subcounty_id(facility_id)
+                facility_name = facility["official_name"]
+                sub_county_id = facility["sub_county_id"]
+                new_facility = OVCFacility(facility_code='Another post',
+                    facility_name='another-post',
+                    sub_county_id=cpims_subcounty_id)
+
+                new_facility.save()
+

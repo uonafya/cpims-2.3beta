@@ -191,3 +191,15 @@ OFFLINE_MODE_CAPABILITY_ENABLED = eval(os.environ.get('CAN_WORK_OFFLINE', 'False
 
 # import logging configs
 from .logging_config import *
+
+# kmhfl API
+KMHFL_USERNAME = os.environ.get('KMHFL_USERNAME')
+KMHFL_PASSWORD = os.environ.get('KMHFL_PASSWORD')
+KMHFL_SCOPE = os.environ.get('KMHFL_SCOPE')
+KMHFL_CLIENTID = os.environ.get('KMHFL_CLIENTID')
+KMHFL_CLIENT_SECRET = os.environ.get('KMHFL_CLIENT_SECRET')
+KMHFL_API_BASE_URL = os.environ.get('KMHFL_API_BASE_URL')
+KMHFL_FACILITY_BASE_URL = os.environ.get('KMHFL_FACILITY_BASE_URL')
+KMHFL_LOGIN_URL = os.environ.get('KMHFL_LOGIN_URL')
+KMHFL_GRANT_TYPE = os.environ.get('KMHFL_GRANT_TYPE')
+
