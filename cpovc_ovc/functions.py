@@ -1,6 +1,8 @@
 """OVC common methods."""
 import requests
 import json
+import schedule
+import time
 from datetime import datetime
 from django.utils import timezone
 from django.conf import settings
@@ -731,8 +733,8 @@ class KMHFLFacilities(object):
                     cpims_subcounty_id = self.get_subcounty_id(facility_id)
                     facility_name = facility["official_name"]
                     sub_county_id = facility["sub_county_id"]
-                    new_facility = OVCFacility(facility_code='Another post', 
-                        facility_name='another-post', 
+                    new_facility = OVCFacility(facility_code=facility_code, 
+                        facility_name=facility_name, 
                         sub_county_id=cpims_subcounty_id)
                     
                     new_facility.save()
@@ -743,4 +745,10 @@ class KMHFLFacilities(object):
             pass
 
 
-KMHFLFacilities().get_newest_facilities()
+# Update facilities every tuesday at 10:15 am
+schedule.every().tuesday.at("10:15").do(KMHFLFacilities().get_newest_facilities())
+
+# Check for pending schedules
+while True:
+    schedule.run_pending()
+    time.sleep(1)
