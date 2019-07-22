@@ -9563,7 +9563,7 @@ def new_wellbeingadolescent(request, id):
                     date_of_event=timezone.now(),
                     domain=question.domain,
                     question_type=question.question_type,
-                    caregiver=care_giver
+                    # caregiver=care_giver
                 )
             msg = 'wellbeing adolesent saved successful'
             messages.add_message(request, messages.INFO, msg)
