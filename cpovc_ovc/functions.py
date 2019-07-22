@@ -744,11 +744,14 @@ class KMHFLFacilities(object):
         else:
             pass
 
+    def schedule_update(self):
+        # Update facilities every tuesday at 10:15 am
+        schedule.every().tuesday.at("10:15").do(self.get_newest_facilities)
 
-# Update facilities every tuesday at 10:15 am
-schedule.every().tuesday.at("10:15").do(KMHFLFacilities().get_newest_facilities())
+        # Check for pending schedules
+        while True:
+            schedule.run_pending()
+            time.sleep(1)
 
-# Check for pending schedules
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+
+KMHFLFacilities().schedule_update()
