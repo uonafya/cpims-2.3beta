@@ -162,4 +162,20 @@ $('input[name=WB_HEL_18_1]').change(function () {
     }
 });
 // Tab 3 Qn 18
+
+// Tab 4 Qn 39
+$('input[data-parsley-multiple="WB_SCH_40_1"]').attr('disabled', true);
+$('input[data-parsley-multiple="WB_SCH_40_1"]').parent('label').css('color', '#acacac');
+$('input[data-parsley-multiple="WB_SCH_39_1"]').change(function (e) { 
+    var valu = $(this).val();
+    if(valu == 'ANNO'){
+        $('input[data-parsley-multiple="WB_SCH_40_1"]').removeAttr('disabled');
+        $('input[data-parsley-multiple="WB_SCH_40_1"]').parent('label').css('color', 'initial');
+    }else{
+        $('input[data-parsley-multiple="WB_SCH_40_1"]').attr('disabled', true);
+        $('input[data-parsley-multiple="WB_SCH_40_1"]').parent('label').css('color', '#acacac');
+    }
+        
+});
+// Tab 4 Qn 39
 //raw
