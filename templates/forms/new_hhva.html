@@ -73,10 +73,11 @@
                     <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
                 </div>
                 <h4 class="panel-title"> Household Vulnerability Assessment </h4>
-            </div>
-            <div class="panel-body">
-            	<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
-                name="form-wizard-hhva" id="new_hhva">
+			</div>
+			<div style="overflow-x: auto; min-height: 300px;">
+		  		<div class="panel-body">
+            		<form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+              		  name="form-wizard-hhva" id="new_hhva">
                 	{% csrf_token %}
 					<div id="wizard-hhva">
 						<ol>
@@ -117,9 +118,11 @@
 							    <small>Household details.</small>
 							</li>
 						</ol>
+						
 
 						{{ form.person }}
 						{{ form.household_id }}
+						
 
 						<!-- begin wizard step-1 -->
 						<div class="wizard-step-1">
@@ -192,7 +195,7 @@
 							            {% endif %}
 							        </div>
 							    </div>
-
+								
 							    <!-- add labels like HA1, HA2 .. -->
 							    
 								<div class="form-group">
@@ -305,9 +308,9 @@
 	                                    <thead>
 	                                        <tr id="id_inputHeaders">
 	                                        	<td width="2%"></td>
-	                                        	<th width="3%"><h6><b>Type</b></h6></th>
-	                                        	<th width="2%"><h6><b>Number</b></h6></th>
-	                                            <th width="3%"><h6><b>Condition</b></h6></th>
+	                                        	<th width="3%"><h6><b>Type<span class="asteriskField">*</b></h6></th>
+	                                        	<th width="2%"><h6><b>Number<span class="asteriskField">*</b></h6></th>
+	                                            <th width="3%"><h6><b>Condition<span class="asteriskField">*</b></h6></th>
 	                                            <th width="5%"><h6><b>Actions</b></h6></th>
 	                                        </tr>
 	                                    </thead>
@@ -409,10 +412,10 @@
                                         <thead>
                                             <tr id="id_inputHeaders">
                                                 <td width="2%"></td>
-                                                <th width="4%"><h6><b>Asset</b></h6></th>
-                                                <th width="2%"><h6><b>Number</b></h6></th>
-                                                <th width="2%"><h6><b>Size</b></h6></th>
-                                                <th width="4%"><h6><b>Actions</b></h6></th>
+                                                <th width="4%"><h6><b>Asset<span class="asteriskField">*</b></h6></th>
+                                                <th width="2%"><h6><b>Number<span class="asteriskField">*</b></h6></th>
+                                                <th width="2%"><h6><b>Size<span class="asteriskField">*</b></h6></th>
+                                                <th width="4%"><h6><b>Actions<span class="asteriskField">*</b></h6></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -634,7 +637,7 @@
 						</div> 
 						<!-- end wizard step-9 --> 
 					</div>
-
+				</div>	
 					<div class="form-group">
                         <label class="control-label col-md-4 col-sm-4" for="csi_qs">Date of HHVA : <span class="asteriskField">* </label>
 						<div class="col-md-4 col-sm-4">
@@ -688,7 +691,8 @@ jQuery(document).ready(function()
         numberDisplayed: 1,
         maxHeight: 300,
         buttonWidth: '100%',
-        buttonClass: 'btn btn-white'
+		buttonClass: 'btn btn-white',
+		nonSelectedText: 'Please Select'
     });
 
 	$('html,body').scrollTop(0);
@@ -1064,5 +1068,13 @@ $("#hhva_ha31").change(function(event)
 {
 	displayVals(1, 'hhva_ha31');
 });
+
+$('select option:selected').each(function (index, easelect) {
+	var sel_text = $(this).text();
+	if(sel_text == 'Please Select'){
+		$(this).attr('disabled', true);
+	}
+});
+$('#hhva_ha6 option:first').attr('disabled',true);
 </script>
 {% endblock %}

@@ -247,7 +247,7 @@
                                             <!-- begin row -->
                                             <div class="row">
                                                 <div id="des_phone_number_div" class="form-group">
-                                                    <label class="control-label col-md-4 col-sm-4" for="des_phone_number">Designated mobile Number :</label>
+                                                    <label class="control-label col-md-4 col-sm-4" for="des_phone_number">Designated mobile Number :<span class="asteriskField">*</span></label>
                                                     <div class="col-md-6 col-sm-6">
                                                        {{ form.des_phone_number }}
                                                     </div>
@@ -1348,6 +1348,9 @@ jQuery(document).ready(function() {
                       'county': county, 'action': 6,
                       'csrfmiddlewaretoken': csrftoken };
         $('#living_in_subcounty').empty();
+        $('#living_in_ward').empty();
+        $('#living_in_ward').html("<option value=''>Please Select</option>");
+        $('#living_in_ward').multiselect('rebuild');
         $.ajax({
             type: "POST",
             data: values,
@@ -1610,6 +1613,7 @@ function handle_child(){
     $('#working_in_subcounty').attr('data-parsley-required', 'false');
     $('#living_in_div').show();
     $('#living_in_subcounty').attr('data-parsley-required', 'true');
+    $('#living_in_ward').attr('data-parsley-required', 'true');
 
     $('#is_caregiver_div').show();
     $('#dob_div').show();
@@ -1632,20 +1636,25 @@ function handle_child(){
     $('#des_phone_number').attr('data-parsley-required', 'false');
 
     $('#date_of_birth').datepicker().on('changeDate', function (ev) {
-        var mdate = $('#date_of_birth').val();
-        var currentDate = new Date();
-        var selectedDate = new Date(ev.date.toString());
-        var age = currentDate.getFullYear() - selectedDate.getFullYear();
-        if (age > 18){
-            var msg = '<label>Warning</label><p>Child is above 18 ( ' + age + ' years).</p>'
-            $('#date_warning').show();
-            $('#date_warning').html(msg);
-            $("#date_warning").addClass( "alert alert-danger fade in" );
-         }else{
-            $('#date_warning').hide();
-            $('#date_warning').html('');
-            $("#date_warning").removeClass( "alert alert-danger fade in" );
-         }
+        var person_type_var = $("#person_type").val();
+        let person_type = (typeof person_type_var === 'undefined') ? 'default' : person_type_var;
+        if (person_type === 'TBVC' ) {
+            var mdate = $('#date_of_birth').val();
+            var currentDate = new Date();
+            var selectedDate = new Date(ev.date.toString());
+            var age = currentDate.getFullYear() - selectedDate.getFullYear();
+            if (age > 18){
+                var msg = '<label>Warning</label><p>Child is above 18 ( ' + age + ' years).</p>'
+                $('#date_warning').show();
+                $('#date_warning').html(msg);
+                $("#date_warning").addClass( "alert alert-danger fade in" );
+             }else{
+                $('#date_warning').hide();
+                $('#date_warning').html('');
+                $("#date_warning").removeClass( "alert alert-danger fade in" );
+             }
+        }
+
     });
 
     var child_ovc = $('#child_ovc').val();
@@ -1690,6 +1699,7 @@ function handle_caregiver(person_text){
     $('#working_in_subcounty').attr('data-parsley-required', 'false');
     $('#living_in_div').show();
     $('#living_in_subcounty').attr('data-parsley-required', 'true');
+    $('#living_in_ward').attr('data-parsley-required', 'true');
 
     $('#is_caregiver_div').hide();
     $('#id_is_caregiver').attr('checked', false);
@@ -2098,7 +2108,7 @@ function check_region(region_id){
         $('#subcounty_div').show();
         $('#working_in_subcounty').attr('data-parsley-required', 'true');
         $('#ward_div').show();
-        $('#working_in_ward').attr('data-parsley-required', 'false');
+        $('#working_in_ward').attr('data-parsley-required', 'true');
         //$('#sub_county').multiselect('rebuild');
     }
 }

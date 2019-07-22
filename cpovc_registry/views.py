@@ -513,7 +513,7 @@ def new_person(request):
             if 'TBGR' != person_type and is_caregiver:
                 person_types.append('TBGR')
             if person_type == 'TBGR':
-                designation = 'ICGV'
+                designation = 'CCGV'
             # Get the type of children
             if 'TBVC' in person_types:
                 designation = 'COVC' if child_ovc == 'AYES' else 'CGOC'
@@ -1350,7 +1350,7 @@ def edit_person(request, id):
             if living_in_subcounty:
                 list_subcounties.append(living_in_subcounty)
             living_in_county = counties_from_aids(list_subcounties)
-            if len(living_in_county) > 1:
+            if len(living_in_county) >= 1:
                 living_in_county = living_in_county[0]
             initial_vals = {
                 'person_type': person_type_id,
@@ -1631,6 +1631,7 @@ def person_actions(request):
                         relationship = attached_cg[ncg]['ctype']
                         child_headed = True if is_adult == 'No' else False
                         if edit_type == 3:
+                            # Add methods to update household in the case that the child has no household.
                             update_household(index_child=person_id, member=cpims_id)
                             add_household_members(index_child=person_id, member=cpims_id)
                             g_count = RegPersonsGuardians.objects.filter(
