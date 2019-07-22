@@ -170,9 +170,11 @@ $('input[data-parsley-multiple="WB_SCH_39_1"]').change(function (e) {
     var valu = $(this).val();
     if(valu == 'ANNO'){
         $('input[data-parsley-multiple="WB_SCH_40_1"]').removeAttr('disabled');
+        $('input[data-parsley-multiple="WB_SCH_40_1"]').attr('checked', false);
         $('input[data-parsley-multiple="WB_SCH_40_1"]').parent('label').css('color', 'initial');
     }else{
         $('input[data-parsley-multiple="WB_SCH_40_1"]').attr('disabled', true);
+        $('input[data-parsley-multiple="WB_SCH_40_1"][value="AYES"]').attr('checked', true);
         $('input[data-parsley-multiple="WB_SCH_40_1"]').parent('label').css('color', '#acacac');
     }
         
