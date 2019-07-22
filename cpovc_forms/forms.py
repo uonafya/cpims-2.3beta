@@ -5359,6 +5359,14 @@ class Wellbeing(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         choices=WB_HEL_26_1_CHOICES,
     )
+    WB_HEL_24_1 = forms.MultipleChoiceField(
+        required=True,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': "False"}
+        ),
+        choices=WB_HEL_26_1_CHOICES,
+    )
 
     WB_HEL_25_1 = forms.MultipleChoiceField(
         required=True,
@@ -5377,7 +5385,10 @@ class Wellbeing(forms.Form):
 
     WB_HEL_26_1 = forms.MultipleChoiceField(
         required=True,
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': "False"}
+        ),
         choices=WB_HEL_26_1_CHOICES,)
 
     WB_HEL_27_1 = forms.MultipleChoiceField(
@@ -5395,7 +5406,10 @@ class Wellbeing(forms.Form):
 
     WB_HEL_28_1 = forms.MultipleChoiceField(
         required=True,
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': "False"}
+        ),
         choices=WB_HEL_28_1_CHOICES,)
 
     WB_HEL_28_2 = forms.CharField(widget=forms.TextInput(
