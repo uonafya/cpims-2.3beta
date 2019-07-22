@@ -115,6 +115,8 @@ $(document).ready(function () {
             success: function (data, textStatus, jqXHR) {
                 var score_is_17 = 0;
                 var score_not = 0;
+                var period;
+
                 $.each(data, function (indexx, one_res) {
                     // alert(one_res);
                     if(one_res.cpara_score == 17){
@@ -122,10 +124,12 @@ $(document).ready(function () {
                     }else{
                         score_not += one_res.cboactive
                     }
+                    period=one_res.period
                 })
                 var data_p = [];
                 data_p['x'] = score_is_17;
                 data_p['y'] = score_not;
+                data_p['period']=period;
                 displayCPARAResults(data_p);
                 console.log('score_is_17='+score_is_17 + ' ||| && score_not=' + score_not);
             },
@@ -171,8 +175,7 @@ $(document).ready(function () {
             encode: true,
             success: function (data, textStatus, jqXHR) {
             displayPerBenchmarkDomainPerformance(data);
-            console.log("the data is: ========>");
-            console.log(data);
+
             },
             error: function (response, request) {
                 console.log(response.responseText);
@@ -355,11 +358,10 @@ $(document).ready(function () {
     function displayCPARAResults(data, months_arr){
 
             var elementId="cpara_results";
-            var the_title = 'Case Plan Achievement Assessment Results';
+            var the_title = 'Case Plan Achievement Assessment Results '+data['period'];
             var on_path = data['y'];
             var achieved_cp = data['x'];
             var the_data = { name: 'Result', data: [{name: 'On path to CPA',y: on_path}, {name: 'Caseplan achieved',y: achieved_cp}] };
-
             var the_series = [the_data];
             pieChart(elementId,the_title,the_series)
 
@@ -367,12 +369,14 @@ $(document).ready(function () {
     function displayHHScoringCat(data, months_arr){
 
             var elementId="hh_scoring_categorization";
-            var the_title = 'Categorization of HHs scoring 0-16';
+            var the_title = 'Categorization of HHs scoring 0-16 ';
 
             var score_8_16;
             var score_0_7;
 
+            var period;
             for(let i = 0; i < data.length; i++){
+                period = data[i].period;
 
                let value = data[i].graduationpath;
                 console.log(data[i].count);
@@ -383,7 +387,7 @@ $(document).ready(function () {
                }
 
             }
-
+           the_title=the_title+period;
             var total=score_8_16+score_0_7;
             score_8_16=(score_8_16*100)/total;
             score_0_7=(score_0_7*100)/total;
@@ -397,7 +401,7 @@ $(document).ready(function () {
     function displayPerBenchmarkDomainPerformance(data){
 
         var elementId_overall="dmn_perf_overall";
-        var the_title_overall = 'Overall domains performance';
+        var the_title_overall = 'Overall domains performance '+data[0].period;
         var o_healthy_data=data[0].HEALTHY;
         var o_stable_data=data[0].SAFE;
         var o_safe_data=data[0].SCHOOLED;
@@ -414,7 +418,7 @@ $(document).ready(function () {
 
         //healthy
         var elementId_healthy="dmn_perf_Healthy";
-        var the_title_healthy = 'Healthy domain performance';
+        var the_title_healthy = 'Healthy domain performance '+data[0].period;
         var health_x_axis = [
             "BM1: HIV Risk assessment done and HIV testing referrals completed",
             "BM2: Caregivers know the HIV+ status of the children they care as well as their own",
@@ -435,7 +439,7 @@ $(document).ready(function () {
         
         //stable
         var elementId_stable="dmn_perf_Stable";
-        var the_title_stable = 'Stable domain performance';
+        var the_title_stable = 'Stable domain performance '+data[0].period;
         var stable_x_axis = [
             "BM7: HH able to provide a minimum of two meals/day",
             "BM8: HH able to pay for child(ren)’s basic needs",
@@ -449,7 +453,7 @@ $(document).ready(function () {
 
         //safe
         var elementId_safe="dmn_perf_Safe";
-        var the_title_safe = 'Safe domain performance';
+        var the_title_safe = 'Safe domain performance '+data[0].period;
         var safe_x_axis = [
             "BM11: Child-headed HHs have received child and social protection services",
             "BM12: All children in the HH able to participate in daily activities and engage with others",
@@ -465,7 +469,7 @@ $(document).ready(function () {
         
         //schooled
         var elementId_schooled="dmn_perf_Schooled";
-        var the_title_schooled = 'Schooled domain performance';
+        var the_title_schooled = 'Schooled domain performance '+data[0].period;
         var schooled_x_axis = [
             "BM16: All 6-17 children enrolled and attend school regularly",
             "BM17: Adolescents enrolled in vocational attend regularly"

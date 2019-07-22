@@ -333,17 +333,18 @@ $(document).ready(function () {
 
            var elementId="new_ovc_registrations";
            var the_x_axis= []
-           var the_title = 'New OVCs within period';
+           var the_title = 'New OVCs within period ';
 
             var female={name: 'female',data: []};
             var male={name: 'male',data: []};
+            var period;
             $.each(data, function (index, objValue) {
-                console.log(objValue);
+                period = objValue['period'];
                 the_x_axis.push(objValue['period']);
                 if(objValue['gender']=='Male') male['data'].push(objValue['count']);
                 else female['data'].push(objValue['count']);
             });
-
+           the_title=the_title+period;
            var the_series = [
                                 female,
                                 male
@@ -356,20 +357,23 @@ $(document).ready(function () {
 
            var elementId="active_ovc";
            var the_x_axis= []
-           var the_title = 'Active OVCs within period';
+           var the_title = 'Active OVCs within period ';
 
             var female={name: 'female',data: []};
             var male={name: 'male',data: []};
+            var period;
             $.each(data, function (index, objValue) {
                 console.log("The service =====>");
                 console.log(objValue);
                 the_x_axis.push(objValue['period']);
+                period = objValue['period'];
                 if(objValue['active']==true){
+
                     if(objValue['gender']=='Male') male['data'].push(objValue['count']);
                     else female['data'].push(objValue['count']);
                 }
             });
-
+            the_title=the_title+period;
            var the_series = [
                                 female,
                                 male
@@ -392,20 +396,22 @@ $(document).ready(function () {
     function displayExitedOVCRegs(data, months_arr){
            var elementId="ovc_exits";
            var the_x_axis= []
-           var the_title = 'OVC Exited from the program within period';
+           var the_title = 'OVC Exited from the program within period ';
 
             var female={name: 'female',data: []};
             var male={name: 'male',data: []};
+            var period;
             $.each(data, function (index, objValue) {
                 console.log(objValue);
                 the_x_axis.push(objValue['period']);
+                period = objValue['period'];
                 if(objValue['active']==false){
                     if(objValue['gender']=='Male') male['data'].push(objValue['count']);
                     else female['data'].push(objValue['count']);
                 }
 
             });
-
+            the_title=the_title+period;
            var the_series = [
                                 female,
                                 male
@@ -416,14 +422,15 @@ $(document).ready(function () {
     function displayExitedHseld(data, months_arr){
        var elementId="hsehld_exits";
        var the_x_axis= []
-       var the_title = 'HouseHolds Exited from the program within period';
+       var the_title = 'HouseHolds Exited from the program within period ';
 
         var graph_data={name: 'House Hold',data: []};
+        var period ;
         $.each(data, function (index, objValue) {
-            //the_x_axis.push(objValue['period']);
+                period = objValue['period'];
                 graph_data['data'].push(objValue['cboactive']);
         });
-
+        the_title=the_title+period;
        var the_series = [
                             graph_data
                         ];
@@ -445,7 +452,7 @@ $(document).ready(function () {
         // $.each(data, function (index, objValue) {
            var elementId="ovc_s_bcert";
            var the_x_axis= months_arr
-           var the_title = 'OVC served with Birth Certificate within period';
+           var the_title = 'OVC served with Birth Certificate within period ';
            var the_series = [
                                 // { name: 'Female', data: [1196, 979, 3791, 3680, 3565] },
                                 // { name: 'Male', data: [2396, 3979, 7798, 2767, 7565] }
@@ -475,7 +482,7 @@ $(document).ready(function () {
         // $.each(data, function (index, objValue) {
            var elementId="ovc_u5_s_bcert";
            var the_x_axis= months_arr
-           var the_title = 'OVC 5yrs and below served with Birth Certificate within period';
+           var the_title = 'OVC 5yrs and below served with Birth Certificate within period ';
            var the_series = [
                                 // { name: 'Female', data: [1987, 2500, 2687, 1230, 4021] },
                                 // { name: 'Male', data: [4570, 2000, 6798, 3290, 5675] }

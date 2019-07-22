@@ -122,7 +122,7 @@ def _fetch_total_ovc_ever(request, level,area_id,funding_partner,funding_part_id
 
         all_ovc_obj['cboactive'] = data['OVCCOUNT']
         # ovc_served_obj['period'] = data['TIME_PERIOD']
-
+        all_ovc_obj['period'] = period_span
         all_ovc_served_list_envelop.append(all_ovc_obj)
 
     return all_ovc_served_list_envelop
@@ -214,7 +214,7 @@ def fetch_total_ovc_ever_exited(request, level,area_id,funding_partner,funding_p
 
         all_ovc_obj['cboactive'] = data['OVCCOUNT']
         # ovc_served_obj['period'] = data['TIME_PERIOD']
-
+        all_ovc_obj['period'] = period_span
         all_ovc_served_list_envelop.append(all_ovc_obj)
 
     return all_ovc_served_list_envelop
@@ -307,7 +307,7 @@ def fetch_total_wout_bcert_at_enrol(request, level,area_id,funding_partner,fundi
 
         all_ovc_obj['cboactive'] = data['OVCCOUNT']
         # ovc_served_obj['period'] = data['TIME_PERIOD']
-
+        all_ovc_obj['period'] = period_span
         all_ovc_served_list_envelop.append(all_ovc_obj)
 
     return all_ovc_served_list_envelop
@@ -401,7 +401,7 @@ def fetch_total_w_bcert_2date(request, level,area_id,funding_partner,funding_par
 
         all_ovc_obj['cboactive'] = data['OVCCOUNT']
         # ovc_served_obj['period'] = data['TIME_PERIOD']
-
+        all_ovc_obj['period'] = period_span
         all_ovc_served_list_envelop.append(all_ovc_obj)
 
     return all_ovc_served_list_envelop
@@ -495,7 +495,7 @@ def fetch_total_s_bcert_aft_enrol(request, level,area_id,funding_partner,funding
 
         all_ovc_obj['cboactive'] = data['OVCCOUNT']
         # ovc_served_obj['period'] = data['TIME_PERIOD']
-
+        all_ovc_obj['period'] = period_span
         all_ovc_served_list_envelop.append(all_ovc_obj)
 
     return all_ovc_served_list_envelop
@@ -634,7 +634,7 @@ def fetch_new_ovcregs_by_period(request, level,area_id,funding_partner,funding_p
         ovc_registered = {}
 
         ovc_registered['gender'] = data['GENDER']
-        ovc_registered['period'] = data['TIME_PERIOD']
+        ovc_registered['period'] = period_span
         ovc_registered['count'] = data['COUNT']
 
         ovc_registration_within_period.append(ovc_registered)
@@ -781,7 +781,7 @@ def fetch_exited_ovcs_by_period(request, level,area_id,funding_partner,funding_p
         ovc_active = {}
 
         ovc_active['gender'] = data['GENDER']
-        ovc_active['period'] = data['TIME_PERIOD']
+        ovc_active['period'] = period_span
         ovc_active['count'] = data['COUNT']
         ovc_active['active'] = data['ACTIVE']
 
@@ -919,7 +919,7 @@ def fetch_exited_hsehlds_by_period(request, level,area_id,funding_partner,fundin
 
         hlsd_exited = {}
 
-        hlsd_exited['period'] = data['TIME_PERIOD']
+        hlsd_exited['period'] = period_span
         hlsd_exited['count'] = data['COUNT']
 
         hsld_exited_within_period.append(hlsd_exited)
@@ -1620,7 +1620,7 @@ def _get_all_ovcs(level='national', area_id='', funding_partner='', funding_part
         all_ovc_obj['gender'] = data['GENDER']
         all_ovc_obj['cboactive'] = data['OVCCOUNT']
         # ovc_served_obj['period'] = data['TIME_PERIOD']
-
+        all_ovc_obj['period'] = period_span
         all_ovc_served_list_envelop.append(all_ovc_obj)
 
     return all_ovc_served_list_envelop
@@ -1711,6 +1711,7 @@ def _get_household_exits(level='national', area_id='', funding_partner='', fundi
 
         #household_exits_obj['gender'] = data['GENDER']
         household_exits_obj['cboactive'] = data['OVCCOUNT']
+        household_exits_obj['period']=period_span
         # ovc_served_obj['period'] = data['TIME_PERIOD']
         household_exits_list_envelop.append(household_exits_obj)
 
@@ -1846,7 +1847,7 @@ def _get_cpara_results(level='national', area_id='',funding_partner='',funding_p
         cpara_result_obj = {}
 
         cpara_result_obj['gender']=data['GENDER']
-        cpara_result_obj['period']=data['TIME_PERIOD']
+        cpara_result_obj['period']=period_span
         cpara_result_obj['cboactive']=data['CBOACTIVE']
         cpara_result_obj['cpara_score']=data['CPARA_SCORE']
         
@@ -1992,6 +1993,7 @@ def _get_benchmark_results(level='national', area_id='', funding_partner='', fun
         per_bechmark_result_obj={}
         x=1
         while x<=17:
+            per_bechmark_result_obj['period']=period_span
             per_bechmark_result_obj['BMRK%s'%(x)] = data['BMRK%s'%(x)]
             x = x + 1
         per_bechmark_results_envelop.append(per_bechmark_result_obj)
@@ -2214,6 +2216,7 @@ def _get_per_domain_results(level='national', area_id='', funding_partner='', fu
         per_bechmark_result_obj['STABLE'] = data['COUNT2']
         per_bechmark_result_obj['SAFE'] = data['COUNT3']
         per_bechmark_result_obj['SCHOOLED'] = data['COUNT4']
+        per_bechmark_result_obj['period'] = period_span
         per_bechmark_results_envelop.append(per_bechmark_result_obj)
     return per_bechmark_results_envelop
 
