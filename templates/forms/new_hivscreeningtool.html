@@ -562,6 +562,7 @@
             console.log('disableSection '+section_class+' done');
         }
         function enableSection(section_class) {
+            $('.complete_error').html('').remove();
             $('.'+section_class).find('td').css({'cursor':'default'});
             $('.'+section_class).find('td','label','input','select').not('.skip_this').css({'color':'initial'});
             $('.'+section_class).find('label').not('.skip_this_label').css({'color':'initial'});
