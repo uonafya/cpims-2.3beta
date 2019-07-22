@@ -748,10 +748,10 @@ class KMHFLFacilities(object):
         # Update facilities every tuesday at 10:15 am
         schedule.every().tuesday.at("10:15").do(self.get_newest_facilities)
 
-        # Check for pending schedules
-        while True:
-            schedule.run_pending()
-            time.sleep(1)
+        # # Check for pending schedules
+        # while True:
+        #     schedule.run_pending()
+        #     time.sleep(1)
 
 
 KMHFLFacilities().schedule_update()
