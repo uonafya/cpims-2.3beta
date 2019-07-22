@@ -56,12 +56,13 @@ function displayAllOvc(data){
         // $.each(data, function (index, objValue) {
        var elementId="all_ovc";
        var the_x_axis= []
-       var the_title = 'CBO Active';
+       var the_title = 'CBO Active ';
 
         var female={name: 'female',data: []};
         var male={name: 'male',data: []};
+        var period;
         $.each(data, function (index, objValue) {
-
+            period=objValue['period'];
             //the_x_axis.push(objValue['period']);
             if(objValue['gender']=='Male'){
                 male['data'].push(objValue['cboactive']);
@@ -72,6 +73,7 @@ function displayAllOvc(data){
             }
 
         });
+        the_title=the_title+period;
        displayNotServed();
        var the_series = [
                             female,
@@ -91,8 +93,9 @@ function displayOvcServedWith1or2Services(data){
 
             var female={name: 'female',data: []};
             var male={name: 'male',data: []};
+            var period;
             $.each(data, function (index, objValue) {
-
+                period=objValue['period'];
                 if(objValue['service']=='1or2 Services'){
                     the_x_axis.push(objValue['period']);
                     if(objValue['gender']=='Male'){
@@ -108,7 +111,7 @@ function displayOvcServedWith1or2Services(data){
                 }
 
             });
-
+            the_title=the_title+period;
            displayNotServed()
            var the_series = [
                                 female,
@@ -117,18 +120,19 @@ function displayOvcServedWith1or2Services(data){
             barChart(elementId,the_title,the_x_axis,the_series)
         // });
     }
-
+    var period;
     function displayOvcServedWith3orMoreServices(data){
 
         // $.each(data, function (index, objValue) {
            var elementId="ovc_served_with_3_services";
            var the_x_axis= []
-           var the_title = 'OVC served with 3 or more services';
+           var the_title = 'OVC served with 3 or more services ';
 
             var female={name: 'female',data: []};
             var male={name: 'male',data: []};
-            $.each(data, function (index, objValue) {
 
+            $.each(data, function (index, objValue) {
+                period=objValue['period'];
                 if(objValue['service']=='3orMore Services'){
                     the_x_axis.push(objValue['period']);
                     if(objValue['gender']=='Male'){
@@ -142,6 +146,7 @@ function displayOvcServedWith1or2Services(data){
                 }
 
             });
+            the_title=the_title+period;
            displayNotServed();
            var the_series = [
                                 female,
@@ -166,7 +171,7 @@ function displayOvcServedWith1or2Services(data){
 
                var elementId="not_served";
                var the_x_axis= []
-               var the_title = 'Ovc Not Served';
+               var the_title = 'Ovc Not Served '+period;
 
                 var female={name: 'female',data: []};
                 var male={name: 'male',data: []};
