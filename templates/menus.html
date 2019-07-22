@@ -81,6 +81,7 @@
 					<li><a href="{% url 'reports_ovc' id=10 %}">Needs vs Served by domain</a></li>
 					<li><a href="{% url 'reports_ovc' id=15 %}">OVC Overall View</a></li>
                     <li><a href="{% url 'reports_ovc' id=17 %}">CPARA</a></li>
+                    <li><a href="{% url 'reports_ovc' id=17 %}">CPARA Monitoring</a></li>
                     <li><a href="{% url 'reports_ovc' id=18 %}">Case Plans</a></li>
                     <li><a href="{% url 'reports_ovc' id=15 %}">Case Plan Monitoring</a></li>
                     <li><a href="{% url 'reports_ovc' id=19 %}">Serverd two quaters</a></li>
@@ -93,6 +94,8 @@
                     <li><a href="{% url 'reports_ovc' id=25 %}">Eligibility Criteria</a></li>
                     <li><a href="{% url 'reports_ovc' id=26 %}">Caregivers Served</a></li>
                     <li><a href="{% url 'reports_ovc' id=27 %}">KPIs</a></li>
+                    <li><a href="{% url 'reports_ovc' id=17 %}">HIV Risk Screening</a></li>
+                    <li><a href="{% url 'reports_ovc' id=17 %}">HIV Management</a></li>
 
 				</ul>
 			</li>
@@ -134,7 +137,22 @@
 	        <li><a href="#">Gallery One</a></li>
 	        <li><a href="#">Gallery Two</a></li>
 	    </ul>
-	</li>			
+	</li>		
+	<!-- Data Cleanup Link -->
+	<li class="has-sub">
+			<a href="#">
+				<b class="caret pull-right"></b>
+				<i class="fa fa-check"></i>
+				<span>Data Quality</span>
+			</a>
+			<ul class="sub-menu">
+				<li><a href="{% url 'data_cleanup' %}">Age & Services</a></li>
+				<li><a href="{% url 'data_cleanup' %}">Linked Facility</a></li>
+				<li><a href="#">Possible duplicate records</a></li>
+			</ul>
+		</li>
+		<!-- End Data Cleanup Link -->
+	<li class="has-sub">
 	
 	<li class="has-sub online_mode">
 	    <a href="#">
@@ -147,9 +165,14 @@
 	        <li><a href="https://cpims-docs.readthedocs.io/en/latest/" target="_blank">Documentation</a></li>
 	    </ul>
 	</li>
+
+	
+
     <!-- begin sidebar minify button -->
 	<li><a href="#" class="sidebar-minify-btn" data-click="sidebar-minify">
 	    <i class="fa fa-angle-double-left"></i></a>
 	</li>
-    <!-- end sidebar minify button -->
+	<!-- end sidebar minify button -->
+	
+	
 </ul>
