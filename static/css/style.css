@@ -6506,6 +6506,13 @@ td:focus{
 .bcclear{
     background: transparent;
 }
+.parsley-errors-list,.parsley-success{
+    display: inline-block !important;
+}
+.parsley-errors-list.filled,
+.parsley-error{
+    bottom: -8px !important;
+}
 /*DanChanges*/
 
 
