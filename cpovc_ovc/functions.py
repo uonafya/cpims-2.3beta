@@ -745,8 +745,8 @@ class KMHFLFacilities(object):
             pass
 
     def schedule_update(self):
-        # Update facilities every tuesday at 0:15 am
-        schedule.every().tuesday.at("0:15").do(self.get_newest_facilities)
+        # Update facilities every tuesday at 00:15 am
+        schedule.every().tuesday.at("00:15").do(self.get_newest_facilities)
 
         # # Check for pending schedules
         # while True:
