@@ -1,10 +1,16 @@
 """OVC common methods."""
+import requests
+import json
+import schedule
+import time
 from datetime import datetime
 from django.utils import timezone
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.db.models import Q
 from django.db import connection
+from django.db import IntegrityError, transaction
 from .models import (
     OVCRegistration, OVCHouseHold, OVCHHMembers, OVCHealth, OVCEligibility,
     OVCFacility, OVCSchool, OVCEducation, OVCExit, OVCViralload)
@@ -631,3 +637,121 @@ def save_viral_load(request):
         raise e
     else:
         pass
+
+
+def method_once(method):
+    "A decorator that runs a method only once."
+    attrname = "_%s_once_result" % id(method)
+    def decorated(self, *args, **kwargs):
+        try:
+            return getattr(self, attrname)
+        except AttributeError:
+            setattr(self, attrname, method(self, *args, **kwargs))
+            return getattr(self, attrname)
+    return decorated
+    
+
+class KMHFLFacilities(object):
+    '''
+        Auto-update the list of facilities from KMHFL
+    '''
+
+    def __init__(self):
+        self.username = settings.KMHFL_USERNAME
+        self.password = settings.KMHFL_PASSWORD
+        self.scope = settings.KMHFL_SCOPE
+        self.grant_type = settings.KMHFL_GRANT_TYPE
+        self.client_id = settings.KMHFL_CLIENTID
+        self.client_secret = settings.KMHFL_CLIENT_SECRET
+        self.api_base_url = settings.KMHFL_API_BASE_URL
+        self.facility_base_url = settings.KMHFL_FACILITY_BASE_URL
+        self.login_url = settings.KMHFL_LOGIN_URL
+        self.api_token = self.generate_token()
+        self.latest_facility = self.latest_facility()
+
+    @method_once
+    def latest_facility(self):
+        # query latest facility from db
+        latest_mfl_code = OVCFacility.objects.values("facility_code").exclude(facility_code__regex=r'[^0-9]').order_by('facility_code').last()
+        return latest_mfl_code["facility_code"]
+
+    @method_once
+    def generate_token(self):
+        # generate token.
+        login_url = self.login_url
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        auth = (self.client_id, self.client_secret)
+        credentials = { "grant_type": self.grant_type, 
+                        "username": self.username, 
+                        "password": self.password, 
+                        "scope": self.scope }
+        response = requests.post(login_url, headers=headers, data=credentials, auth=auth)
+        if response.status_code == 200:
+            json_token = json.loads(response.content)
+            api_token = json_token.get('access_token')
+            return api_token
+        else:
+            print(response.content)
+    
+
+    def get_facilities(self):
+        # request for facilities
+        headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
+        api_url = '{0}facilities/facilities/?format=json'.format(self.api_base_url)
+        response = requests.get(api_url, headers=headers)
+        
+        if response.status_code == 200:
+            json_object = json.loads(response.content)
+            return json_object
+        else:
+            print(response.content, api_url)
+
+
+    def get_subcounty_id(self, facility_id):
+        # request facility and get sub-county id.
+        headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
+        payload = {'format': 'json'}
+        api_url = '{0}{1}'.format(self.facility_base_url, facility_id)
+        response = requests.get(api_url, headers=headers, params=payload)
+        if response.status_code == 200:
+            json_object = json.loads(response.content)
+            cpims_subcounty_id = json_object["constituency_code"]
+            return cpims_subcounty_id
+        else:
+            print(response, api_url)
+
+    @transaction.atomic
+    def get_newest_facilities(self):
+        # loop for new facilities.
+        try:
+            data = self.get_facilities()
+            results = data["results"]
+            for facility in results:
+                facility_code = facility["code"]
+                if facility_code > self.latest_facility:
+                    facility_id = facility["id"]
+                    cpims_subcounty_id = self.get_subcounty_id(facility_id)
+                    facility_name = facility["official_name"]
+                    sub_county_id = facility["sub_county_id"]
+                    new_facility = OVCFacility(facility_code=facility_code, 
+                        facility_name=facility_name, 
+                        sub_county_id=cpims_subcounty_id)
+                    
+                    new_facility.save()
+        
+        except Exception as e:
+            raise e
+        else:
+            pass
+
+    def schedule_update(self):
+        # Update facilities every tuesday at 0:15 am
+        schedule.every().tuesday.at("0:15").do(self.get_newest_facilities)
+
+        # # Check for pending schedules
+        # while True:
+        #     schedule.run_pending()
+        #     time.sleep(1)
+
+
+KMHFLFacilities().schedule_update()

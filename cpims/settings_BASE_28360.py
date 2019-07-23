@@ -186,3 +186,11 @@ CACHES = {
 }
 CSRF_FAILURE_VIEW = 'cpims.views.csrf_failure'
 
+# kmhfl API
+KMHFL_USERNAME = os.environ.get('KMHFL_USERNAME')
+KMHFL_PASSWORD = os.environ.get('KMHFL_PASSWORD')
+KMHFL_SCOPE = os.environ.get('KMHFL_SCOPE')
+KMHFL_CLIENTID = os.environ.get('KMHFL_CLIENTID')
+KMHFL_CLIENT_SECRET = os.environ.get('KMHFL_CLIENT_SECRET')
+KMHFL_API_BASE_URL = os.environ.get('KMHFL_API_BASE_URL')
+KMHFL_FACILITY_BASE_URL = os.environ.get('KMHFL_FACILITY_BASE_URL')
