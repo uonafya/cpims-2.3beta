@@ -9527,7 +9527,7 @@ def new_wellbeingadolescent(request, id):
             hse_uuid = uuid.UUID(household_id)
             house_holds = OVCHouseHold.objects.get(pk=hse_uuid)
             person = RegPerson.objects.get(pk=int(id))
-            event_type_id = 'FHSA'
+            event_type_id = 'WBGA'
             date_of_wellbeing_event = timezone.now()
 
             """ Save Wellbeing-event """
@@ -9563,7 +9563,7 @@ def new_wellbeingadolescent(request, id):
                     date_of_event=timezone.now(),
                     domain=question.domain,
                     question_type=question.question_type,
-                    caregiver=care_giver
+                    # caregiver=care_giver
                 )
             msg = 'wellbeing adolesent saved successful'
             messages.add_message(request, messages.INFO, msg)

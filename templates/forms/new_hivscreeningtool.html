@@ -59,7 +59,7 @@
                     <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i
                             class="fa fa-times"></i></a>
                 </div>
-                <h4 class="panel-title"> HIV Screening Tool </h4>
+                <h4 class="panel-title"> HIV Risk Assessment </h4>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
@@ -562,6 +562,7 @@
             console.log('disableSection '+section_class+' done');
         }
         function enableSection(section_class) {
+            $('.complete_error').html('').remove();
             $('.'+section_class).find('td').css({'cursor':'default'});
             $('.'+section_class).find('td','label','input','select').not('.skip_this').css({'color':'initial'});
             $('.'+section_class).find('label').not('.skip_this_label').css({'color':'initial'});
