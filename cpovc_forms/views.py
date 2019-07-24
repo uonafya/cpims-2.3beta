@@ -9035,7 +9035,7 @@ def update_caseplan(request, event_id, ovcid):
         print 'check delta'
         print delta
 
-        if delta < 30:
+        if delta < 90:
             try:
                 my_request = request.POST.get('final_submission')
 
