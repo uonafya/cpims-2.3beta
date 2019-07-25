@@ -2,7 +2,7 @@
 import os
 from django.db import models, migrations
 
-with open(os.path.dirname()+'../sql/data_quality.sql') as f:
+with open(os.path.dirname(os.path.realpath(__file__))+'/../sql/data_quality.sql') as f:
    sql = f.read()
 
 class Migration(migrations.Migration):
