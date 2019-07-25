@@ -175,15 +175,15 @@ class DataQualityView(TemplateView):
         operator = query_dict.get('operator')
         art_status = query_dict.get('art_status')
         hiv_status = query_dict.get('hiv_status')
-        sql = "WHERE 1=1 "
+        sql = "WHERE 1=1 AND "
         if school_level != '0':
-            sql += 'school_level={} AND '.format(school_level)
+            sql += "school_level='{}' AND ".format(school_level)
         if age:
-            sql += 'age={} AND '.format(age)
+            sql += "age='{}' AND ".format(age)
         if art_status != '0':
-            sql += 'art_status={} AND '.format(art_status)
+            sql += "art_status='{}' AND ".format(art_status)
         if hiv_status != '0':
-            sql += 'hiv_status={} AND '.format(hiv_status)
+            sql += "hiv_status='{}' AND ".format(hiv_status)
         sql += '1=1'
         return sql
 
@@ -195,9 +195,18 @@ class DataQualityView(TemplateView):
         db_name = db.get('NAME')
         where_sql = self.generate_where_clause()
         path_to_file = '/tmp/{}file.csv'.format(self.request.user)
-        call('bin/export_data.sh {} {} {} {} {}'.format(
-            db_host, db_user, db_name, path_to_file, where_sql),
-            shell=True
+        if os.path.exists(path_to_file):
+            os.remove(path_to_file)
+
+        with open(path_to_file, 'w') as data_file:
+            pass
+        sql ='select first_name,other_names, surname, sex_id, school_level, designation, is_disabled,has_bcert, age, hiv_status, art_status from data_quality_view {};'
+        import pdb; pdb.set_trace()
+        call(
+            [
+                'pqsl', '-h', db_host, '-U', db_user, '-d', db_name, '-o', path_to_file,
+                '-c', sql.format(where_sql)
+            ]
         )
         file_name = '/tmp/file.csv'
         with open(path_to_file, 'rb') as fh:
