@@ -105,6 +105,7 @@ ENV/
 .mypy_cache/
 .idea/
 cpims/settings.py
+<<<<<<< HEAD
 local_settings.py
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -222,3 +223,10 @@ cpovc_reports/migrations/
 cpovc_settings/migrations/
 cpims/settings.py
 reports/xlsx/*
+=======
+reports/xlsx/*
+reports/*.csv
+
+#sql
+/docker/postgres/dbsql/*.sql
+>>>>>>> d2c30d73996c534131c265015784e5e47d9a4c8e

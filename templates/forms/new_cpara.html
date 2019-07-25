@@ -28,6 +28,9 @@ print(blu.sing("'Happy'"))
   /*color: #000000;*/
   color: #0057e7;
 }
+.parsley-error{
+    bottom: -8px !important;
+}
 
 
 </style>
@@ -178,7 +181,7 @@ print(blu.sing("'Happy'"))
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label class="control-label formlabel">Is this the first Case Plan Readiness Assessment?:</label><br/>
+                                                    <label class="control-label formlabel">Is this the first Case Plan Readiness Assessment?:<span class="asteriskField">*  </label><br/>
                                                     {{ form.cp1d }}
                                                 </div>
                                             </div>
@@ -260,7 +263,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Is this Household child headed (i.e Household head age is less than 18 years)?</label>
+                                                        <label class="control-label formlabel">Is this Household child headed (i.e Household head age is less than 18 years)?<span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp3d }}
@@ -270,7 +273,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Does this Household currently have a pregnant woman or pregnant adolescent girl?</label>
+                                                        <label class="control-label formlabel">Does this Household currently have a pregnant woman or pregnant adolescent girl?<span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp4d }}
@@ -281,7 +284,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="form-group">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Does this Household have a child living with disability or has chronic illness?
-                                                        <i class="semi-bold">(Chronic illness includes Asthma, Cancer, Diabetes, Epileplsy)</i></label>
+                                                        <i class="semi-bold">(Chronic illness includes Asthma, Cancer, Diabetes, Epileplsy)</i><span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp5d }}
@@ -291,7 +294,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Does this Household have an adolescent enrolled in secondary school or vocational training? </label>
+                                                        <label class="control-label formlabel">Does this Household have an adolescent enrolled in secondary school or vocational training? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp6d  }}
@@ -331,7 +334,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp1q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">1.1 Have the children at high risk of HIV been identified through the HIV risk assessment? </label>
+                                                        <label class="control-label formlabel">1.1 Have the children at high risk of HIV been identified through the HIV risk assessment? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp1q }}
@@ -350,7 +353,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12"  id="cp2q_Qn">
                                                 <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label class="control-label formlabel">1.2 If yes in 1.1 above,indicate the date when this was done </label>
+                                                        <label class="control-label formlabel">1.2 If yes in 1.1 above,indicate the date when this was done<span class="asteriskField">* </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -364,7 +367,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group"  id="cp3q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">1.3 Have the child(ren)  identified as high risk of HIV been referred for HIV testing services? </label>
+                                                        <label class="control-label formlabel">1.3 Have the child(ren)  identified as high risk of HIV been referred for HIV testing services? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp3q }}
@@ -375,7 +378,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group"  id="cp4q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">1.4 For the child(ren) identified at high risk of HIV, has documentation of all children's completed referrals for HIV testing services been documented  in their case file? </label>
+                                                        <label class="control-label formlabel">1.4 For the child(ren) identified at high risk of HIV, has documentation of all children's completed referrals for HIV testing services been documented  in their case file? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp4q }}
@@ -406,7 +409,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp5q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">2.1 Has the HIV status of all children in the household (positive, negative, or unknown) been documented in their case file? </label>
+                                                        <label class="control-label formlabel">2.1 Has the HIV status of all children in the household (positive, negative, or unknown) been documented in their case file? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp5q }}
@@ -417,7 +420,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group"  id="cp6q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">2.2 Is the HIV status of the caregiver (positive, negative or unknown) documented in the case file? </label>
+                                                        <label class="control-label formlabel">2.2 Is the HIV status of the caregiver (positive, negative or unknown) documented in the case file? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp6q }}
@@ -437,7 +440,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp7q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">2.3 If there is a child or children in the household older than the age of five and   living with HIV (as  documented in the case file), do they know their HIV status?  (Partial/ complete)?</label>
+                                                        <label class="control-label formlabel">2.3 Is there a child/children in the household older than the age of five who are living with HIV (as  documented in the case file), and if yes, do they know their HIV status?  (Partial/ complete)? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp7q }}
@@ -463,7 +466,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group leadqn note note-default" id="u10_know_status_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Is child under ten and/or doesn't know their status? </label>
+                                                        <label class="control-label formlabel">Is there a child under ten in the household and/or doesn't know their status? </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         <label class="radio-inline">
@@ -480,7 +483,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp8q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">3.1 Do you know how many pills (amount of syrup) your child(ren) should take each day? </label>
+                                                        <label class="control-label formlabel">3.1 Do you know how many pills (amount of syrup) your child(ren) should take each day? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp8q}}
@@ -491,7 +494,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp9q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">3.2 Can you name/identify the medication that your child(ren) take each day? </label>
+                                                        <label class="control-label formlabel">3.2 Can you name/identify the medication that your child(ren) take each day?<span class="asteriskField">* </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp9q}}
@@ -502,7 +505,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp10q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">3.3 Do you remember when your child(ren) last visited the health clinic? </label>
+                                                        <label class="control-label formlabel">3.3 Do you remember when your child(ren) last visited the health clinic? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp10q}}
@@ -513,7 +516,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp11q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">3.4 Do you know when your child(ren) next have an appointment at the health clinic? </label>
+                                                        <label class="control-label formlabel">3.4 Do you know when your child(ren) next have an appointment at the health clinic? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp11q}}
@@ -524,7 +527,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp12q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">3.5 Do you know if your child or adolescent viral load is high or low (from the last viral load test)? Ask and document date of last test and probe to ensure the caregiver understands what low or high VL means</label>
+                                                        <label class="control-label formlabel">3.5 Do you know if your child or adolescent viral load is high or low (from the last viral load test)? Ask and document date of last test and probe to ensure the caregiver understands what low or high VL means <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp12q}}
@@ -694,7 +697,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group leadqn note note-default" id="adole_preg_hiv_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Is there an adolescent or woman in the household who is pregnant or has been tested for HIV?</label>
+                                                        <label class="control-label formlabel">Is there an adolescent or woman in the household who is pregnant or has been tested for HIV?<span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         <label class="radio-inline">
@@ -712,7 +715,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp19q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">4.1 Is there evidence* that an adolescent or woman in the household is pregnant and has been tested for HIV? </label>
+                                                        <label class="control-label formlabel">4.1 Is there evidence* that an adolescent or woman in the household is pregnant and has been tested for HIV? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp19q}}
@@ -741,7 +744,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp20q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">4.2 Have you (the pregnant HIV+ adolescent / woman) been enrolled in PMTCT? </label>
+                                                        <label class="control-label formlabel">4.2 Have you (the pregnant HIV+ adolescent / woman) been enrolled in PMTCT? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp20q}}
@@ -752,7 +755,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp21q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">4.3 Have you or are you currently attending ANC services? </label>
+                                                        <label class="control-label formlabel">4.3 Have you or are you currently attending ANC services? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp21q}}
@@ -781,7 +784,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp22q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">4.4 Have you adhered to ART after delivery? </label>
+                                                        <label class="control-label formlabel">4.4 Have you adhered to ART after delivery? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp22q}}
@@ -792,7 +795,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp23q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">If the infant was exposed to HIV during delivery, has the infant been tested for HIV?</label>
+                                                        <label class="control-label formlabel">If the infant was exposed to HIV during delivery, has the infant been tested for HIV?<span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp23q}}
@@ -809,22 +812,22 @@ print(blu.sing("'Happy'"))
                                                         <div class="row">
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                                 <div id="cp23qa_Qn">
-                                                                    <label class="control-label formlabel">Six Weeks |</label>
+                                                                    <label class="control-label formlabel">Six Weeks | <span class="asteriskField">*</label>
                                                                     {{ form.cp23qa }}
                                                                 </div>
                                                                 <div id="cp23qb_Qn">
-                                                                    <label class="control-label formlabel">Six Months |</label>
+                                                                    <label class="control-label formlabel">Six Months | <span class="asteriskField">*</label>
                                                                     {{ form.cp23qb }}
                                                                 </div>
                                                                 <br/>
                                                             </div>
                                                             <div class="col-md-6 col-sm-6 col-xs-6">
                                                                 <div id="cp23qc_Qn">
-                                                                    <label class="control-label formlabel">Twelve Months |</label>
+                                                                    <label class="control-label formlabel">Twelve Months | <span class="asteriskField">*</label>
                                                                     {{ form.cp23qc }}
                                                                 </div>
                                                                 <div id="cp23qd_Qn">
-                                                                    <label class="control-label formlabel">Eighteen Months |</label>
+                                                                    <label class="control-label formlabel">Eighteen Months | <span class="asteriskField">*</label>
                                                                     {{ form.cp23qd }}
                                                                 </div>
                                                                 <br/>
@@ -838,7 +841,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group note note-info" id="cp4b_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Has the household achieved this benchmarks?</label>
+                                                        <label class="control-label formlabel">Has the household achieved this benchmarks? </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp4b }}
@@ -870,7 +873,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp24q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">5.1 Has the caregiver completed Positive parental skills training (with HIV/sexual and reproductive health modules)? </label>
+                                                        <label class="control-label formlabel">5.1 Has the caregiver completed Positive parental skills training (with HIV/sexual and reproductive health modules)?<span class="asteriskField">* </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp24q}}
@@ -881,7 +884,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp25q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">5.2 Has the adolescent completed a life skills course or received (by other means) information on positive communication, protection and self-care and sexual and reproductive health? </label>
+                                                        <label class="control-label formlabel">5.2 Has the adolescent completed a life skills course or received (by other means) information on positive communication, protection and self-care and sexual and reproductive health?<span class="asteriskField">* </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp25q}}
@@ -900,7 +903,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp26q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">5.3 Please tell me at least two behaviors that increase the risk of HIV? </label>
+                                                        <label class="control-label formlabel">5.3 Please tell me at least two behaviors that increase the risk of HIV? <span class="asteriskField">* </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp26q}}
@@ -911,7 +914,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp27q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">5.4 Please tell me at least two behaviors that can help  keep you safe from HIV or from infecting another person with HIV? </label>
+                                                        <label class="control-label formlabel">5.4 Please tell me at least two behaviors that can help  keep you safe from HIV or from infecting another person with HIV? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp27q}}
@@ -954,7 +957,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group note note-info" id="cp5b_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Has the household achieved this benchmarks?</label>
+                                                        <label class="control-label formlabel">Has the household achieved this benchmarks? </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp5b }}
@@ -983,7 +986,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp30q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">6.1 Has the child in the household with long term illness or disability been referred for health services and  has accessed the service (e.g. returned referral slips?) </label>
+                                                        <label class="control-label formlabel">6.1 Has the child in the household with long term illness or disability been referred for health services and  has accessed the service (e.g. returned referral slips?) <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp30q}}
@@ -1002,7 +1005,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp31q_Qn">
                                                     <div class="col-md-9">
-                                                    <label class="control-label formlabel">6.2 Can you describe the services you are receiving for the illness or disability? </label>
+                                                    <label class="control-label formlabel">6.2 Can you describe the services you are receiving for the illness or disability?<span class="asteriskField">* </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp31q}}
@@ -1013,7 +1016,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group note note-info" id="cp6b_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Has the household achieved this benchmarks?</label>
+                                                        <label class="control-label formlabel">Has the household achieved this benchmarks? </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp6b }}
@@ -1042,7 +1045,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp32q_Qn">
                                                 <div class="col-md-9">
-                                                    <label class="control-label formlabel">7.1	Have all the children in the household eaten at least two cooked meals per day for at least the past six months? </label>
+                                                    <label class="control-label formlabel">7.1	Have all the children in the household eaten at least two cooked meals per day for at least the past six months?<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp32q}}
@@ -1053,7 +1056,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp33q_Qn">
                                                 <div class="col-md-9 text-left">
-                                                    <label class="control-label formlabel">7.2 Are you able to provide your child with a balance diet (a range of nutritious foods) on a  regular basis? If yes, please describe [Carbohydrates such as: Ugali, Rice, Bread, potatoes, cassava, etc. []; Proteins such as: Beef, Fish, Chicken, Lentils, Beans, Nuts, etc. []; Vegetables such as: Sukuma wiki, cabbage, spinach, etc. []; Fruits such as: Orange, pineapple, mangoes, etc [] </label>
+                                                    <label class="control-label formlabel">7.2 Are you able to provide your child with a balance diet (a range of nutritious foods) on a  regular basis? If yes, please describe [Carbohydrates such as: Ugali, Rice, Bread, potatoes, cassava, etc. []; Proteins such as: Beef, Fish, Chicken, Lentils, Beans, Nuts, etc. []; Vegetables such as: Sukuma wiki, cabbage, spinach, etc. []; Fruits such as: Orange, pineapple, mangoes, etc []<span class="asteriskField">* </label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp33q}}
@@ -1102,7 +1105,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp35q_Qn">
                                                 <div class="col-md-9">
-                                                    <label class="control-label formlabel">7.3 Have you had at least two cooked meals per day in the past two months? </label>
+                                                    <label class="control-label formlabel">7.3 Have you had at least two cooked meals per day in the past two months?<span class="asteriskField">* </label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp35q}}
@@ -1134,7 +1137,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp36q_Qn">
                                                 <div class="col-md-9">
-                                                    <label class="control-label formlabel">8.1 Does the household have a  regular source of income that meets their basic needs (this can include informal and formal income)? Probe if the family feels confident of the  improved ability to meet basic over the past year. </label>
+                                                    <label class="control-label formlabel">8.1 Does the household have a  regular source of income that meets their basic needs (this can include informal and formal income)? Probe if the family feels confident of the  improved ability to meet basic over the past year.<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp36q}}
@@ -1145,7 +1148,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp37q_Qn">
                                                 <div class="col-md-9">
-                                                    <label class="control-label formlabel">8.2 Does the caregiver demonstrate  confidence and capacity to retain children in school (by paying school fees, school uniforms, books, medical bills, etc.), where applicable:</label>
+                                                    <label class="control-label formlabel">8.2 Does the caregiver demonstrate  confidence and capacity to retain children in school (by paying school fees, school uniforms, books, medical bills, etc.), where applicable:<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp37q}}
@@ -1156,7 +1159,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp38q_Qn">
                                                 <div class="col-md-9">
-                                                    <label class="control-label formlabel">8.3 Is the house safe and has a place for the child(ren) to sleep? (dry, ventilated, lockable); (based on local standards)</label>
+                                                    <label class="control-label formlabel">8.3 Is the house safe and has a place for the child(ren) to sleep? (dry, ventilated, lockable); (based on local standards)<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp38q}}
@@ -1190,7 +1193,7 @@ print(blu.sing("'Happy'"))
                                             <div class="form-group" id="cp39q_Qn">
                                                 <div class="col-md-9">
                                                     <label class="control-label formlabel">9.1 Was the household able to meet basic expenses such as medical treatment, house repair, etc.
-                                                    in the last six months?</label>
+                                                    in the last six months?<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp39q}}
@@ -1201,7 +1204,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp40q_Qn">
                                                 <div class="col-md-9">
-                                                    <label class="control-label formlabel">9.2 In reviewing the case file and or other documentation, is there evidence that the caregiver is actively participating in an economic activity such as SILC, VSLA, and have productive assets and can demonstrate savings.</label>
+                                                    <label class="control-label formlabel">9.2 In reviewing the case file and or other documentation, is there evidence that the caregiver is actively participating in an economic activity such as SILC, VSLA, and have productive assets and can demonstrate savings.<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp40q}}
@@ -1235,7 +1238,7 @@ print(blu.sing("'Happy'"))
                                         <div class="col-md-12">
                                             <div class="form-group" id="cp41q_Qn">
                                                 <div class="col-md-9">
-                                                    <label class="control-label formlabel">10.1 Do you know the types of critical services that exist in your community? e.g., treatments, psychosocial support, legal assistance, financial services or other protection services?</label>
+                                                    <label class="control-label formlabel">10.1 Do you know the types of critical services that exist in your community? e.g., treatments, psychosocial support, legal assistance, financial services or other protection services?<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp41q}}
@@ -1264,7 +1267,7 @@ print(blu.sing("'Happy'"))
                                             <div class="form-group" id="cp42q_Qn">
                                                 <div class="col-md-9">
                                                     <label class="control-label formlabel">10.2 Have you or someone in your family ever accessed any critical service that exists in
-                                                    your community when you or someone in your family needed help in the last six months? </label>
+                                                    your community when you or someone in your family needed help in the last six months? <span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp42q}}
@@ -1303,7 +1306,7 @@ print(blu.sing("'Happy'"))
                                             <div class="form-group" id="cp43q_Qn">
                                                 <div class="col-md-9">
                                                     <label class="control-label formlabel">10.3 Have you or someone in your family been supported to access services if you or someone
-                                                    in your family was sick, hurt or needed help?</label>
+                                                    in your family was sick, hurt or needed help?<span class="asteriskField">*</label>
                                                 </div>
                                                 <div class="col-md-3 text-left">
                                                     {{form.cp43q}}
@@ -1359,7 +1362,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp44q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">11.1 If the household is child-headed, is there documentation in the case file that the household was referred for child protection services?</label>
+                                                            <label class="control-label formlabel">11.1 If the household is child-headed, is there documentation in the case file that the household was referred for child protection services?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp44q}}
@@ -1370,7 +1373,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp45q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">11.2 If the household  is child-headed, is there documentation in the case file that the household received child protection services? </label>
+                                                            <label class="control-label formlabel">11.2 If the household  is child-headed, is there documentation in the case file that the household received child protection services?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp45q}}
@@ -1381,7 +1384,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <div class="col-md-9" id="cp46q_Qn">
-                                                            <label class="control-label formlabel">11.3 If the household is child-headed, is there documentation in the case file that the household is linked to government sponsored social protection services e.g. CT-OVC, or from another non-governmental program?</label>
+                                                            <label class="control-label formlabel">11.3 If the household is child-headed, is there documentation in the case file that the household is linked to government sponsored social protection services e.g. CT-OVC, or from another non-governmental program?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp46q}}
@@ -1391,26 +1394,19 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp47q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">11.4 Is the household linked to an adult caregiver nearby who can give support when required? </label>
+                                                            <label class="control-label formlabel">11.4 Is the household linked to an adult caregiver nearby who can give support when required?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp47q}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
-                                            </div>
-
-                                            <div class="row">
+                                                
                                                 <div class="col-md-12">
-                                                    <br/>
-                                                    <h4><u>Questions for child(ren) ten years and over.</u></h4>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group leadqn note note-default" id="chd_ovr_10y_Qn">
+                                                    <div class="form-group" id="chd_ovr_10y_Qn">
+                                                        <div class="col-md-12">
+                                                            <h4><u>Questions for child(ren) ten years and over.</u></h4>
+                                                        </div>
                                                         <div class="col-md-9">
                                                             <label class="control-label formlabel">Are there children of 10 years and above in this household? </label>
                                                         </div>
@@ -1429,7 +1425,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp48q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">11.5 Can you name at least one adult to whom you could go to for help or support? </label>
+                                                            <label class="control-label formlabel">11.5 Can you name at least one adult to whom you could go to for help or support? <span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp48q}}
@@ -1462,7 +1458,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp49q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">12.1 Are all children in the household able to participate in daily activities such as eating, playing or talking with other family members or friends? </label>
+                                                            <label class="control-label formlabel">12.1 Are all children in the household able to participate in daily activities such as eating, playing or talking with other family members or friends?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp49q}}
@@ -1473,7 +1469,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp50q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">12.2 If there is a child with signs of depression or mental health issues such as being withdrawn, not eating, or not playing, have they been referred for services?</label>
+                                                            <label class="control-label formlabel">12.2 If there is a child with signs of depression or mental health issues such as being withdrawn, not eating, or not playing, have they been referred for services?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp50q}}
@@ -1484,7 +1480,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp51q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">12.3 If the child has been referred for services, did they receive the service? </label>
+                                                            <label class="control-label formlabel">12.3 If the child has been referred for services, did they receive the service?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp51q}}
@@ -1492,9 +1488,10 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                 </div>
                                                 <hr>
-                                            <!-- </div>
+                                            </div>
 
-                                            <div class="row"> -->
+                                            <!-- <div class="row"> -->
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>12.4 Question for all child(ren) five years and over.</u></h4>
@@ -1504,9 +1501,9 @@ print(blu.sing("'Happy'"))
 
                                             <div class="row"> -->
                                                 <div class="col-md-12">
-                                                    <div class="form-group" id="o5y_cd_hse_Qn">
+                                                        <div class="form-group leadqn note note-default" id="o5y_cd_hse_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">Is there a child(ren) five years and over in the household? </label>
+                                                            <label class="control-label formlabel">Is there a child /children five years and over in the household? <span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             <label class="radio-inline">
@@ -1657,7 +1654,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp55q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">13.1 If a child has been exposed to violence, abuse (sexual, physical or emotional), neglect, or exploitation, is there any evidence that the case has been referred for child protection services (DCS)?</label>
+                                                            <label class="control-label formlabel">13.1 If a child has been exposed to violence, abuse (sexual, physical or emotional), neglect, or exploitation, is there any evidence that the case has been referred for child protection services (DCS)? <span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp55q}}
@@ -1668,7 +1665,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp56q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">13.2 If YES to the question above, is there documentation that they received child protection services (for example, counseling, psychosocial, legal or health services)?</label>
+                                                            <label class="control-label formlabel">13.2 If YES to the question above, is there documentation that they received child protection services (for example, counseling, psychosocial, legal or health services)?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp56q}}
@@ -1681,6 +1678,24 @@ print(blu.sing("'Happy'"))
                                                     <br/>
                                                     <h4><u>Question for child(ren) over 10 years.</u></h4>
                                                     <hr>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                        <div class="form-group leadqn note note-default" id="o10y_cd_hse_Qn">
+                                                        <div class="col-md-9">
+                                                            <label class="control-label formlabel">Is there a child /children ten years and over in the household? <span class="asteriskField">*</label>
+                                                        </div>
+                                                        <div class="col-md-3 text-left">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" value="AYES" name="o5y_cd_hse">
+                                                                Yes
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" value="ANNO" name="o5y_cd_hse">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <div class="col-md-12 containsTable">
@@ -1798,7 +1813,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp60q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">14. 1 Is there someone or a group of people that you speak with when you are stressed or sad or want to share good news? </label>
+                                                            <label class="control-label formlabel">14. 1 Is there someone or a group of people that you speak with when you are stressed or sad or want to share good news?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp60q}}
@@ -1836,7 +1851,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp61q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">14.2 Is there at least one person or place besides your family you can go to when you need help?</label>
+                                                            <label class="control-label formlabel">14.2 Is there at least one person or place besides your family you can go to when you need help?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp61q}}
@@ -1869,7 +1884,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp62q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">15.1 Has the caregiver attended or been engaged in any positive parenting sessions? :</label>
+                                                            <label class="control-label formlabel">15.1 Has the caregiver attended or been engaged in any positive parenting sessions?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp62q}}
@@ -1880,7 +1895,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp63q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">15.2 Could you please describe various ways of disciplining children? Probe; which ones do you use frequently? </label>
+                                                            <label class="control-label formlabel">15.2 Could you please describe various ways of disciplining children? Probe; which ones do you use frequently?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp63q}}
@@ -1891,7 +1906,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp64q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">15.3 Do you feel that you can positively communicate with your child or adolescent and could you please give me an example?</label>
+                                                            <label class="control-label formlabel">15.3 Do you feel that you can positively communicate with your child or adolescent and could you please give me an example?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp64q}}
@@ -1902,7 +1917,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp65q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">15.4 Does the caregiver demonstrate positive parenting techniques? (e.g. positive communication, positive discipline affectionate  behavior and engaging in age and stage appropriate activities with their children).</label>
+                                                            <label class="control-label formlabel">15.4 Does the caregiver demonstrate positive parenting techniques? (e.g. positive communication, positive discipline affectionate  behavior and engaging in age and stage appropriate activities with their children).<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp65q}}
@@ -1942,7 +1957,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp66q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">16.1 Are all children between ages 6 and 17 enrolled in school? </label>
+                                                            <label class="control-label formlabel">16.1 Are all children between ages 6 and 17 enrolled in school<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp66q}}
@@ -1955,7 +1970,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp67q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">16.2 Are the enrolled children attending school regularly? (i.e. have not missed school for more than 3 weeks in total in a term). Probe the trend of  absence). Verify with the school attendance tracking tool. </label>
+                                                            <label class="control-label formlabel">16.2 Are the enrolled children attending school regularly? (i.e. have not missed school for more than 3 weeks in total in a term). Probe the trend of  absence). Verify with the school attendance tracking tool.<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             <!-- <label class="radio-inline"> -->
@@ -1969,7 +1984,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp68q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">16.3 Are all children between ages 6-17 years progressing from one level to the other in school? Note: if possible, please ask to see report card. </label>
+                                                            <label class="control-label formlabel">16.3 Are all children between ages 6-17 years progressing from one level to the other in school? Note: if possible, please ask to see report card.<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp68q}}
@@ -1980,15 +1995,27 @@ print(blu.sing("'Happy'"))
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <br/>
-                                                    <h4><u>Adolescents enrolled in vocational training program are demonstrating that they are progressing.</u></h4>
-                                                    <hr>
+                                                    <div class="form-group leadqn note note-default" id="child_bwn_4t5y_Qn">
+                                                        <div class="col-md-9">
+                                                            <label class="control-label formlabel">Is there a child between 4-5 years in this household and is there an ECDE center in the area? </label>
+                                                        </div>
+                                                        <div class="col-md-3 text-left">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="child_bwn_4t5y_Qn" value="AYES">
+                                                                Yes
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="child_bwn_4t5y_Qn" value="ANNO">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
-
+                                                
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp69q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">16.4	Is your child attending ECDE?</label>
+                                                            <label class="control-label formlabel">16.4	Is your child attending ECDE?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp69q}}
@@ -2009,7 +2036,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp70q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">16.5 Could you tell me what you like about school? What is one example of something that you learned this week? </label>
+                                                            <label class="control-label formlabel">16.5 Could you tell me what you like about school? What is one example of something that you learned this week?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp70q}}
@@ -2054,49 +2081,41 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <br/>
-                                                    <h4><u>Questions to caregiver.</u></h4>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
+                                            <!-- </div>
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp71q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">17.1 Is your adolescent regularly attending or completed vocational training? </label>
+                                                            <label class="control-label formlabel">17.1 Is your adolescent regularly attending or completed vocational training?<span class="asteriskField">* </label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp71q}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <!-- </div>
                                             <hr>
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp72q_Qn">
                                                         <div class="col-md-9">
-                                                            <label class="control-label formlabel">17.2 Does the household have capacity to support the adolescent to complete their vocational training? </label>
+                                                            <label class="control-label formlabel">17.2 Does the household have capacity to support the adolescent to complete their vocational training?<span class="asteriskField">*</label>
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp72q}}
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <!-- </div>
                                             <hr>
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>Questions to adolescent in vocational training</u></h4>
                                                 </div>                      
-                                            </div>
+                                            <!-- </div>
                                             <hr>
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% if siblings or osiblings %}
@@ -2249,11 +2268,12 @@ print(blu.sing("'Happy'"))
                 <div class="bcwhite br5 p-20">
                     <table class="table table-striped table-condensed">
                         <thead>
-                            <tr>
+                            <tr class="text-center">
                                 <th>#</th>
                                 <th>Event date</th>
-                                <th>Event type</th>
+                                <!-- <th>Event type</th> -->
                                 <th>Details</th>
+                                <th>Benchmark score</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -2263,8 +2283,35 @@ print(blu.sing("'Happy'"))
                                 <tr>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">{{forloop.counter}}</td>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_date}}</td>
-                                    <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_type}}</td>
-                                    <td valign="center" style="text-align: center;vertical-align: middle;" width="40%"><small>{{one_past_event.ev_detail}}</small></td>
+                                    <!-- <td valign="center" style="text-align: center;vertical-align: middle;">{{one_past_event.ev_type}}</td> -->
+                                    <td valign="center" style="text-align: left;vertical-align: middle;" width="40%">
+                                        <!-- <small>{{one_past_event.ev_detail}}</small> -->
+                                        {% if one_past_event.bm_array %}
+                                            <small>Benchmark 1 (<b>{{one_past_event.bm_array.0}}</b>), </small>
+                                            <small>Benchmark 2 (<b>{{one_past_event.bm_array.1}}</b>), </small>
+                                            <small>Benchmark 3 (<b>{{one_past_event.bm_array.2}}</b>), </small>
+                                            <small>Benchmark 4 (<b>{{one_past_event.bm_array.3}}</b>), </small>
+                                            <small>Benchmark 5 (<b>{{one_past_event.bm_array.4}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 6 (<b>{{one_past_event.bm_array.5}}</b>), </small>
+                                            <small>Benchmark 7 (<b>{{one_past_event.bm_array.6}}</b>), </small>
+                                            <small>Benchmark 8 (<b>{{one_past_event.bm_array.7}}</b>), </small>
+                                            <small>Benchmark 9 (<b>{{one_past_event.bm_array.8}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 10 (<b>{{one_past_event.bm_array.9}}</b>), </small>
+                                            <small>Benchmark 11 (<b>{{one_past_event.bm_array.10}}</b>), </small>
+                                            <small>Benchmark 12 (<b>{{one_past_event.bm_array.11}}</b>), </small>
+                                            <small>Benchmark 13 (<b>{{one_past_event.bm_array.12}}</b>), </small>
+                                            <br/>
+                                            <small>Benchmark 14 (<b>{{one_past_event.bm_array.13}}</b>), </small>
+                                            <small>Benchmark 15 (<b>{{one_past_event.bm_array.14}}</b>), </small>
+                                            <small>Benchmark 16 (<b>{{one_past_event.bm_array.15}}</b>), </small>
+                                            <small>Benchmark 17 (<b>{{one_past_event.bm_array.16}}</b>), </small>
+                                        {% else %}
+                                            <small> No data found </small>
+                                        {% endif %}
+                                    </td>
+                                    <td  style="text-align: center;vertical-align: middle;">{{one_past_event.ev_score}} <hr/> </td>
                                     <td valign="center" style="text-align: center;vertical-align: middle;">
                                             <a class="btn btn-danger" data-toggle="modal" href='#del_cpara_e'> <i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
                                             <div class="modal fade" id="del_cpara_e">

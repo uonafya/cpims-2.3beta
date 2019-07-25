@@ -59,7 +59,7 @@
                     <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i
                             class="fa fa-times"></i></a>
                 </div>
-                <h4 class="panel-title"> HIV Screening Tool </h4>
+                <h4 class="panel-title"> HIV Risk Assessment </h4>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
@@ -158,7 +158,7 @@
                                         <tr>
                                            <td colspan="3"> <strong>Child Assessment(&lt 15years)</strong> </td> 
                                         </tr>
-                                        <tr class="section_a q1">
+                                        <tr class="section_a q1 under_15">
                                             <td>Q1</td>
                                             <td>Is the biological father/mother of the child living/ lived with HIV?  
                                             </td>
@@ -167,7 +167,7 @@
 
                                             </td>
                                         </tr>
-                                        <tr class="section_a q2">
+                                        <tr class="section_a q2 under_15">
                                             <td>Q2</td>
                                             <td>Has the child been persistently sick/malnurished in the past 3 months without improvement?
                                                 </td>
@@ -177,7 +177,7 @@
                                             </td>
                                         </tr>
                                     
-                                        <tr class="section_a q3">
+                                        <tr class="section_a q3 under_15">
                                             <td>Q3</td>
                                             <td>
                                             Is the child exposed to sexual abuse (defiled/raped) or has been physically forced to have sexual intercouse?
@@ -192,7 +192,7 @@
                                             <td colspan="3"> <strong>Adolescent Assessment(&gt 15years)</strong> </td> 
                                         </tr>
                                         
-                                        <tr class="section_b q4">
+                                        <tr class="section_b q4 over_15">
                                             <td>Q4</td>
                                             <td>
                                                     Have you been persistently sick in the past 3 months without improvement?
@@ -202,7 +202,7 @@
 
                                             </td>
                                         </tr>
-                                        <tr class="section_b q5">
+                                        <tr class="section_b q5 over_15">
                                             <td>Q5</td>
                                             <td>
                                                     Have you been sexually abuse (defiled) or been physically forced to have sexual intercourse?
@@ -213,14 +213,14 @@
 
                                             </td>
                                         </tr>
-                                        <tr class="section_b q6">
+                                        <tr class="section_b q6 over_15">
                                             <td>Q6</td>
                                             <td>Have you had sexual intercourse in the past 6 months?                                                </td>
                                             <td>
                                                     {{ form.HIV_RS_09 }}
                                             </td>
                                         </tr>
-                                        <tr class="section_b q7">
+                                        <tr class="section_b q7 over_15">
                                             <td>Q7</td>
                                             <td>
                                             Do you have any Symptoms of sexually transmitted infections? {Penial/Vaginal sores, unusual discharge or Pain)
@@ -429,7 +429,7 @@
                                   </tr>
                                   
                                   <tr>
-                                        <th>Q 1a</th>
+                                        <!-- <th>Q 1a</th> -->
                                         <th>Q 1b</th>
                                         <th>Q 1c</th>
                                         <th>Q 1</th>
@@ -456,24 +456,24 @@
                    
                         
                         <tr>
-                          <td>{{one_screening_data.test_donewhen_result | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.caregiver_know_status | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.caregiver_knowledge_yes | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.parent_PLWH | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.child_sick_malnourished | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.child_sexual_abuse | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.adol_sick | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.adol_sexual_abuse | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.sex | yesno:"Yes, No"}}</td>
+                          <!-- <td>{{one_screening_data.date_of_event}}</td> -->
+                          <td>{{one_screening_data.caregiver_know_status | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.caregiver_knowledge_yes | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.parent_PLWH | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.child_sick_malnourished | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.child_sexual_abuse | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.adol_sick | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.adol_sexual_abuse | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.sex | yesno:"Yes, No, Null"}}</td>
                           <td>{{one_screening_data.sti | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.hiv_test_required  | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.parent_consent_testing | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.referral_made | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.referral_completed  | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.not_completed}}</td>
-                          <td>{{one_screening_data.test_result | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.art_referral | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No"}}</td>
+                          <td>{{one_screening_data.hiv_test_required  | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.parent_consent_testing | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.referral_made | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.referral_completed  | yesno:"Yes, No, Null"}}</td>
+                          <!-- <td>{{one_screening_data.not_completed}}</td> -->
+                          <td>{{one_screening_data.test_result | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.art_referral | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No, Null"}}</td>
                           <td>{{one_screening_data.date_of_event}}</td>
                         </tr>
                     {% endfor %}
@@ -507,6 +507,34 @@
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 
+
+<!-- Skip logic -->
+{% if data.date_of_birth|gen_age > 15 %}
+    <script>
+        $(document).ready(function () {
+            $('.under_15').find('input').addClass('skip_this').attr('disabled', true);
+            $('.under_15').find('label').addClass('skip_this_label');
+            disableSection('section_a');
+            var t_age = $('#the_age').val();
+            if(t_age > 15){
+                disableSection('section_a')
+            }else{
+                disableSection('section_b')
+            }
+        });
+    </script>
+{% else %}
+    <script>
+        $(document).ready(function () {
+            $('.over_15').find('input').addClass('skip_this').attr('disabled', true);
+            $('.over_15').find('label').addClass('skip_this_label');
+            disableSection('section_b');
+        });
+    </script>
+{% endif %}
+    <!-- Skip logic -->
+
+
 <script>
         $( function() {
 
@@ -526,16 +554,19 @@
 
         function disableSection(section_class) {
             $('.'+section_class).find('td').css({'cursor':'no-drop'});
-            $('.'+section_class).find('td','label','input','select').css({'color':'#afafaf'});
-            $('.'+section_class).find('label').css({'color':'#afafaf'});
-            $('.'+section_class).find('input','select').attr('disabled', true).removeAttr('required', true);
+            $('.'+section_class).find('td','label','input','select').not('.skip_this').css({'color':'#afafaf'});
+            $('.'+section_class).find('input[type=radio]').not('.skip_this').prop('checked', false);
+            $('.'+section_class).find('input[type="radio"]:checked').not('.skip_this').prop('checked', false);
+            $('.'+section_class).find('label').not('.skip_this_label').css({'color':'#afafaf'});
+            $('.'+section_class).find('input','select').not('.skip_this').attr('disabled', true).removeAttr('required', true);
             console.log('disableSection '+section_class+' done');
         }
         function enableSection(section_class) {
+            $('.complete_error').html('').remove();
             $('.'+section_class).find('td').css({'cursor':'default'});
-            $('.'+section_class).find('td','label','input','select').css({'color':'initial'});
-            $('.'+section_class).find('label').css({'color':'initial'});
-            $('.'+section_class).find('input','select').removeAttr('disabled', true);
+            $('.'+section_class).find('td','label','input','select').not('.skip_this').css({'color':'initial'});
+            $('.'+section_class).find('label').not('.skip_this_label').css({'color':'initial'});
+            $('.'+section_class).find('input','select').not('.skip_this').removeAttr('disabled', true);
             console.log('enableSection '+section_class+' done');
         }
         function switchTab(tab_id) {
@@ -544,7 +575,8 @@
             console.log('switchTab to '+tab_id);
 
             if(tab_id == 3){
-                $('#submit_section').prepend('<div class="alert alert-info"><h5>Form completed</h5>You have completed the form. Please click <b>Submit</b> below</div>');
+                $('.complete_error').html('').remove();
+                $('#submit_section').prepend('<div class="alert alert-info complete_error"><h5>Form completed</h5>You have completed the form. Please click <b>Submit</b> below</div>');
                 window.scrollBy(0,380)
             }
         }
@@ -575,6 +607,7 @@
 </script>
     <!-- Skip logic -->
     <script>
+        $('input[name="HIV_RS_01"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
         $('input[name="HIV_RS_01"]').change(function (e) { 
             var this_val = $(this).val();
 
@@ -584,6 +617,7 @@
                 switchTab("2");
                 $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'#afafaf','cursor':'no-drop'}).attr('disabled', true).removeAttr('required', true);
                 $('.section_prior.1b td:last-of-type').find('label').css({'color':'#afafaf'});
+                $('.section_prior.1b td:last-of-type').find('input:checked').prop({'checked':false});
             }else{
                 enableSection('section_prior.1c');
                 $('.section_prior.1b td:last-of-type').find('input','label').css({'color':'initial','cursor':'default'}).removeAttr('disabled', true);

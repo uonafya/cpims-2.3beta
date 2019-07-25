@@ -1,0 +1,325 @@
+<ol class="breadcrumb pull-right">
+    <li><a href="#" id="btn_ovc_home_offline">Home</a></li>
+    <li><a href="#" id="btn_ovc_view_offline">View Ovc</a></li>
+    <li class="active">Form 1A</li>
+</ol>
+<h1 class="page-header">Forms<small>Forms Service and Monitoring(Form 1A)
+    <b id="ovc_offline_form_1a_names"></b>
+</small>
+</h1>
+
+<div class="row">
+    <div class="row">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <h4 class="panel-title">Form 1A Details</h4>
+                </div>
+
+                <div class="panel-body">
+                    <form class="form-horizontal form-bordered" action="." data-parsley-validate="true"
+                          name="form-wizard-f1a-offline" id="new_f1a-offline">
+                        <div id="wizard-f1a-offline">
+                            <ol>
+                                <li>
+                                    Assessment
+                                    <small>Assessment details</small>
+                                </li>
+                                <li>
+                                    Critical Event(s)
+                                    <small>Critical events details</small>
+                                </li>
+                                <li>
+                                    Priority Need(s)
+                                    <small>Priority need details.</small>
+                                </li>
+                                <li>
+                                    Services
+                                    <small>Services details</small>
+                                </li>
+                            </ol>
+
+                            <div class="wizard-step-1">
+                                <fieldset>
+                                    <div id="error_assessment"></div>
+                                    <!-- begin col-6 -->
+                                    <table id="assessment_manager_table" class="table">
+                                        <thead>
+                                            <tr id="id_inputHeaders1">
+                                                <td width="5%"></td>
+                                                <th width="15%"><h6><b>Domain</b></h6></th>
+                                                <th width="20%"><h6><b>Core Service(s)</b></h6></th>
+                                                <th width="25%"><h6><b>Core Service(s) Status</b></h6></th>
+                                                <th width="5%"><h6><b>Actions</b></h6></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr id="id_inputElements1">
+                                                <td></td>
+                                                <td width="15%">
+                                                    {{ form.olmis_assessment_domain }}
+                                                    <div id="olmis_assessment_domain_errormsg" style="display:none;">
+                                                        <small><p class="dialog_paragraph">This value is required</p>></small>
+                                                    </div>
+                                                </td>
+                                                <td width="20%">
+                                                    {{ form.olmis_assessment_coreservice }}
+                                                    <div id="olmis_assessment_coreservice_errormsg" style="display:none;">
+                                                        <small><p class="dialog_paragraph">This value is required</p></small>
+                                                    </div>
+                                                </td>
+                                                <td width="15%">
+                                                    {{ form.olmis_assessment_coreservice_status }}
+                                                    <h6><span id="sel_olmis_assessment_coreservice_status"></span></h6>
+                                                    <!-- <input id='holmis_assessment_coreservice_status' type='hidden'> -->
+                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                        <small><p class="dialog_paragraph">This value is required</p></small>
+                                                    </div>
+                                                </td>
+                                                <td width="5%">
+                                                    <h6><b>
+                                                        <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.addOfflineOvcService('ASSESSMENT')">
+                                                            <i class="fa fa-plus"></i>  Add
+                                                        </button>
+                                                    </b></h6>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        {{ form.olmis_assessment_provided_list }}
+                                    </table>
+                                </fieldset>
+
+                                <div class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Date Assessment Recorded</label>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.date_of_assessment }}
+                                            <div id="date_errormsg0" style="display:none;">
+                                                <small><p class="dialog_paragraph">This value is required</p></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4"></label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('ASSESSMENT')">Submit Assessment</button>
+                                            <a href="#" onClick="window.resetForm1AOffline('ASSESSMENT')" class="btn btn-white">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- end wizard step-1 -->
+
+                            <!-- begin wizard step-2  Events-->
+                            <div class="wizard-step-2">
+                                <div id="error_cevts"></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2 col-sm-2" for="critical_events">Critical Event(s) : <span class="asteriskField">* </span></label>
+                                        <div class="col-md-8 col-sm-8">
+                                            {{ form.olmis_critical_event }}
+                                            <div id="olmis_critical_event_errormsg" style="display:none;">
+                                                <small><p class="dialog_paragraph">This value is required</p></small>
+                                            </div>
+                                            <h6><span id="sel_olmis_critical_event"></span></h6>
+                                        </div>
+                                        <a href="#" data-toggle="tooltip" title="Describe critical events"><i class="fa fa-info-circle fa-sm"></i></a>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Date Critical Event Recorded</label>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.date_of_cevent }}
+                                            <div id="date_errormsg1" style="display:none;">
+                                                <small><p class="dialog_paragraph">This value is required</p></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4"></label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('EVENTS')">Submit Critical Event(s)</button>
+                                            <a href="#" onClick="window.resetForm1AOffline('EVENTS')" class="btn btn-white">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end wizard step-2 -->
+
+                            <!-- begin wizard step-3 Priority needs form-->
+                            <div class="wizard-step-3">
+                                <div id="div-priority-need0" style="display: none" class="panel-body">
+                                    <legend><span>Priority Needs are not required. This is scheduled for January, May and November</span></legend>
+                                </div>
+
+                                <div id="div-priority-need1" style="display: none" class="panel-body">
+                                    <div id="error_priority"></div>
+                                    <table id="priority_manager_table" class="table">
+                                        <thead>
+                                        <tr id="id_inputHeaders">
+                                            <td width="2%"></td>
+                                            <td width="10%"><h6><b>Domain</b></h6></td>
+                                            <td width="15%"><h6><b>Priority Need(s)</b></h6></td>
+                                            <th width="5%"><h6><b>Actions</b></h6></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr id="id_inputElements14">
+                                            <td width="2%">#</td>
+                                            <td width="10%">
+                                                {{ form.olmis_priority_domain }}
+                                                <div id="olmis_priority_domain_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+                                            <td width="15%">
+                                                {{ form.olmis_priority_service }}
+                                                <h6><span id="sel_olmis_priority_service"></span></h6>
+                                                <div id="olmis_priority_service_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+                                            <td width="5%">
+                                                <h6><b>
+                                                    <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.addForm1ARowOffline('PRIORITY')">
+                                                        <i class="fa fa-plus"></i>  Add
+                                                    </button>
+                                                </b></h6>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    {{ form.olmis_priority_service_provided_list }}
+                                </div>
+
+                                <div align="right">
+                                    <button id="btnClearGrid" type="button" class="btn btn-sm btn-danger m-r-5" style="display:none;" onClick="window.removeForm1ARowOffline('PRIORITY')">
+                                        <i class="fa fa-trash"></i>  Clear Grid
+                                    </button>
+                                </div>
+
+                                <div id="div-priority-need1-date" class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Date Priority Recorded</label>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.date_of_priority }}
+                                            <div id="date_errormsg2" style="display:none;">
+                                                <small><p class="dialog_paragraph">This value is required</p></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div  id="div-priority-need1-controls" style="display: none" class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4"></label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('PRIORITY')">Submit Priority(s)</button>
+                                            <a href="#" onClick="window.resetForm1AOffline('PRIORITY')" class="btn btn-white">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end wizard step-3 -->
+
+                            <!-- begin wizard step-4 -->
+                            <div class="wizard-step-4">
+                                <div class="panel-body">
+                                    <div id="error_service"></div>
+                                    <table id="services_manager_table" class="table">
+                                        <thead>
+                                            <tr id="id_inputHeaders">
+                                                <td width="2%"></td>
+                                                <th width="15%"><h6><b>Domain</b></h6></th>
+                                                <th width="20%"><h6><b>Service(s)</b></h6></th>
+                                                <th width="15%"><h6><b>Date Of Service</b></h6></th>
+                                                <th width="20%"><h6><b>Place Of Service</b></h6></th>
+                                                <th width="5%"><h6><b>Actions</b></h6></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr id="id_inputElements13">
+                                                <td width="2%"></td>
+                                                <td width="15%">
+                                                    {{ form.olmis_domain }}
+                                                    <div id="olmis_domain_errormsg" style="display:none;">
+                                                        <small><p class="dialog_paragraph">This value is required</p></small>
+                                                    </div>
+                                                </td>
+                                                <td width="20%">
+                                                    {{ form.olmis_service }}
+                                                    <h6><span id="sel_olmis_service"></span></h6>
+                                                    <div id="olmis_service_errormsg" style="display:none;">
+                                                        <small><p class="dialog_paragraph">This value is required</p></small>
+                                                    </div>
+                                                </td>
+
+                                                <td width="15%">
+                                                    {{ form.olmis_service_date }}
+                                                    <div id="olmis_service_date_errormsg" style="display:none;">
+                                                        <small><p class="dialog_paragraph">This value is required</p></small>
+                                                    </div>
+                                                </td>
+                                                <td width="5%">
+                                                    <h6><b>
+                                                        <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="window.addForm1ARowOffline('SERVICE')">
+                                                            <i class="fa fa-plus"></i>  Add
+                                                        </button>
+                                                    </b></h6>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                        {{ form.olmis_service_provided_list }}
+                                    </table>
+                                </div>
+
+                                <div class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4">Date Services Recorded</label>
+                                        <div class="col-md-2 col-sm-2">
+                                            {{ form.date_of_service }}
+                                            <div id="date_errormsg3" style="display:none;">
+                                                <small><p class="dialog_paragraph">This value is required</p></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body panel-form">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4 col-sm-4"></label>
+                                        <div class="col-md-6 col-sm-6">
+                                            <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="window.saveForm1AOffline('SERVICE')">Submit Service(s)</button>
+                                            <a href="#" onClick="window.resetForm1AOffline('SERVICE')" class="btn btn-white">Cancel</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end wizard step-4 -->
+                        </div>
+                    </form>
+                </div>
+
+                <button class="badge badge-primary m-4" onclick="window.goToOvcViewFromForm1aOffline()"> Back to OVC</button>
+                <div class="badge pull-right m-4">Revised: Oct 6th 2016</div>
+            </div>
+            <!-- end panel -->
+        </div>
+        <!-- end col-12 -->
+    </div>
+</div>
+<!-- end row -->
+

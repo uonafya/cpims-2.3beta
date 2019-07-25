@@ -46,7 +46,7 @@
 
 {% for data in init_data %}
 
-	<h1 class="page-header">Forms <small>Service and Monitoring(Form 1A) <b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
+	<h1 class="page-header">Forms <small>Service and Monitoring(Form 1A)<b>{{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
                             UNDER 1 YEAR
                         {% else %}
                             {{ data.date_of_birth|gen_age }} YRS 
@@ -121,9 +121,10 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default btn-default" onclick="deleteForm1aEntry()" data-dismiss="modal">Yes</button>
-          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Cancel</button>
+          <a href="{% url 'ovc_view' id=form.person.value %}">
+          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Cancel</button></a>
         </div>
-      </div>
+      </div> 
 
     </div>
   </div>
@@ -151,7 +152,8 @@
 					<div id="wizard-f1a">
 						<ol>
 							<li>
-							    Assessment
+                                Tracking
+							    <small>(Assessment)</small>
 							    <small>Assessment details</small>
 							</li>
                             <li>
@@ -178,9 +180,9 @@
                                     <thead>
                                         <tr id="id_inputHeaders1">
                                         	<td width="5%"></td>
-                                        	<th width="15%"><h6><b>Domain</b></h6></th>
-                                            <th width="20%"><h6><b>Core Service(s)</b></h6></th>
-                                            <th width="25%"><h6><b>Core Service(s) Status</b></h6></th>
+                                        	<th width="15%"><h6><b>Domain<span class="asteriskField">*</h6></b></th>
+                                            <th width="20%"><h6><b>Core Service(s)<span class="asteriskField">*</b></h6></th>
+                                            <th width="25%"><h6><b>Core Service(s) Status<span class="asteriskField">*</b></h6></th>
                                             <th width="5%"><h6><b>Actions</b></h6></th>
                                         </tr>
                                     </thead>
@@ -224,7 +226,7 @@
 
                             <div class="panel-body panel-form">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4">Date Assessment Recorded</label>
+                                    <label class="control-label col-md-4 col-sm-4">Date Assessment Recorded<span class="asteriskField">*</label>
                                     <div class="col-md-2 col-sm-2">
                                         {{ form.date_of_assessment }}
                                         <div id="date_errormsg0" style="display:none;">
@@ -239,7 +241,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="saveForm1A(1)">Submit Assessment</button>
-                                        <a href="#" onClick="resetForm1A(1)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(1)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -265,7 +267,7 @@
 
                             <div class="panel-body panel-form">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4">Date Critical Event Recorded</label>
+                                    <label class="control-label col-md-4 col-sm-4">Date Critical Event Recorded<span class="asteriskField">*</label>
                                     <div class="col-md-2 col-sm-2">
                                         {{ form.date_of_cevent }}
                                         <div id="date_errormsg1" style="display:none;">
@@ -280,7 +282,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="saveForm1A(2)">Submit Critical Event(s)</button>
-                                        <a href="#" onClick="resetForm1A(2)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(2)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -298,9 +300,9 @@
                                     <thead>
                                         <tr id="id_inputHeaders">
                                             <td width="2%"></td>
-                                            <td width="10%"><h6><b>Domain</b></h6></td>
-                                            <td width="15%"><h6><b>Priority Need(s)</b></h6></td>
-                                            <th width="5%"><h6><b>Actions</b></h6></th>
+                                            <td width="10%"><h6><b>Domain<span class="asteriskField">*</b></h6></td>
+                                            <td width="15%"><h6><b>Priority Need(s)<span class="asteriskField">*</b></h6></td>
+                                            <th width="5%"><h6><b>Actions<span class="asteriskField">*</b></h6></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -340,7 +342,7 @@
 
                             <div id="div-priority-need1-date" class="panel-body panel-form">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4">Date Priority Recorded</label>
+                                    <label class="control-label col-md-4 col-sm-4">Date Priority Recorded<span class="asteriskField">*</label>
                                     <div class="col-md-2 col-sm-2">
                                         {{ form.date_of_priority }}
                                         <div id="date_errormsg2" style="display:none;">
@@ -355,7 +357,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="saveForm1A(3)">Submit Priority(s)</button>
-                                        <a href="#" onClick="resetForm1A(3)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(3)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -371,12 +373,12 @@
                                     <thead>
                                         <tr id="id_inputHeaders">
                                             <td width="2%"></td>
-                                            <th width="15%"><h6><b>Domain</b></h6></th>
-                                            <th width="20%"><h6><b>Service(s)</b></h6></th>
-                                            <th width="15%"><h6><b>Date Of Service</b></h6></th>
+                                            <th width="15%"><h6><b>Domain<span class="asteriskField">*</b></h6></th>
+                                            <th width="20%"><h6><b>Service(s)<span class="asteriskField">*</b></h6></th>
+                                            <th width="15%"><h6><b>Date Of Service<span class="asteriskField">*</b></h6></th>
                                             <!-- <th width="20%"><h6><b>Service(s) Provider</b></h6></th> 
                                             <th width="20%"><h6><b>Place Of Service</b></h6></th>-->
-                                            <th width="5%"><h6><b>Actions</b></h6></th>
+                                            <th width="5%"><h6><b>Actions<span class="asteriskField">*</b></h6></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -432,7 +434,7 @@
 
                             <div class="panel-body panel-form">
                                 <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4">Date Services Recorded</label>
+                                    <label class="control-label col-md-4 col-sm-4">Date Services Recorded<span class="asteriskField">*</label>
                                     <div class="col-md-2 col-sm-2">
                                         {{ form.date_of_service }}
                                         <div id="date_errormsg3" style="display:none;">
@@ -447,7 +449,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="saveForm1A(4)">Submit Service(s)</button>
-                                        <a href="#" onClick="resetForm1A(4)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(4)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -526,7 +528,8 @@
 jQuery(document).ready(function() 
 {
 	 //multi selects
-    $('#olmis_assessment_domain, #olmis_assessment_coreservice, #olmis_assessment_coreservice_status, #olmis_domain, #olmis_service_provider, #olmis_service, #olmis_priority_service, #olmis_priority_domain, #olmis_priority_health, #olmis_priority_education, #olmis_priority_shelter, #olmis_priority_protection, #olmis_priority_pss, #olmis_priority_hes, #olmis_critical_event').multiselect({
+    $('#olmis_assessment_domain, #olmis_assessment_coreservice, #olmis_assessment_coreservice_status, #olmis_domain, #olmis_service_provider, #olmis_service, #olmis_priority_service, #olmis_priority_domain, #olmis_priority_health, #olmis_priority_education, #olmis_priority_shelter, #olmis_priority_protection, #olmis_priority_pss, #olmis_priority_hes, #olmis_critical_event')
+        .multiselect({
         selectAllValue: 'multiselect-all',
         includeSelectAllOption: true,
         enableCaseInsensitiveFiltering: true,
@@ -1063,11 +1066,11 @@ function AddRow(x)
         };
 
         // Validation and Ajax
-        if(olmis_assessment_domain)
+        if(olmis_assessment_domain || olmis_assessment_domain == '')
 		{
-			if(olmis_assessment_coreservice)
+			if(olmis_assessment_coreservice || olmis_assessment_coreservice == '')
 			{
-				if(olmis_assessment_coreservice_status)
+				if(olmis_assessment_coreservice_status || olmis_assessment_coreservice_status == '')
 				{
 					// Find a <table> element with id="myTable":
                     var table = $('#assessment_manager_table')[0]; 
@@ -1096,7 +1099,7 @@ function AddRow(x)
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_domain") + holmis_assessment_domain + '</h6>';
                     cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_coreservice") + holmis_assessment_coreservice + '</h6>';
                     cell3.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_coreservice_status") + holmis_assessment_coreservice_status + '</h6>';
-                    cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-sm btn-link m-r-5 href='#'>Remove</a>" + '</h6>';
+                    cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5 href='#'>Remove</a>" + '</h6>';
 
                     // AddClick Event To Remove Button
                     $("#" + btnRemoveSvcId + "").click(function(e)
@@ -1196,7 +1199,7 @@ function AddRow(x)
                 cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_domain") + holmis_domain + '</h6>';
                 cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_service") + holmis_service + '</h6>';
                 cell3.innerHTML = '<h6 class="td_style">' + olmis_service_date + '</h6>';
-                cell4.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-sm btn-link m-r-5 href='#'>Remove</a>" + '</h6>';
+                cell4.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5 href='#'>Remove</a>" + '</h6>';
 
                 // AddClick Event To Remove Button
                 $("#" + btnRemoveSvcId + "").click(function(e)
@@ -1435,7 +1438,7 @@ function AddRow(x)
                     cell0.innerHTML = '<h6 class="td_style"></h6>';        
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_domain") + holmis_priority_domain + '</h6>';
                     cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_service") + holmis_priority_service + '</h6>';
-                    cell3.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_priority_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-sm btn-link m-r-5 href='#'>Remove</a>" + '</h6>';
+                    cell3.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_priority_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5 href='#'>Remove</a>" + '</h6>';
 
                     // AddClick Event To Remove Button
                     $("#" + btnRemoveSvcId + "").click(function(e)

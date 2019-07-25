@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'cpovc_main.context_processors.global_settings'
             ],
         },
     },
@@ -187,6 +188,7 @@ CACHES = {
 }
 CSRF_FAILURE_VIEW = 'cpims.views.csrf_failure'
 
-# import logging configs
+OFFLINE_MODE_CAPABILITY_ENABLED = eval(os.environ.get('CAN_WORK_OFFLINE', 'False'))
 
+# import logging configs
 from .logging_config import *
