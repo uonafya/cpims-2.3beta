@@ -1,6 +1,6 @@
 DROP MATERIALIZED VIEW IF EXISTS data_quality_view;
 
-create MATERIALIZED view data_quality_view as select 
+create MATERIALIZED view data_quality_view as select
  ovc_registration.id as ovc_registration_id,
  ovc_registration.registration_date,
  ovc_registration.has_bcert,

@@ -16,7 +16,6 @@ from .models import DataQuality
 
 class DataQualityView(TemplateView):
     template_name = 'data_cleanup/filter.html'
-    paginate_by =  10
     context_object_name = "data"
 
     def get_context_data(self, **kwargs):
@@ -186,35 +185,3 @@ class DataQualityView(TemplateView):
             sql += "hiv_status='{}' AND ".format(hiv_status)
         sql += '1=1'
         return sql
-
-    def export_data(self, *args, **kwargs):
-        db = settings.DATABASES.get('default')
-        db_host = db.get('HOST')
-        db_user = db.get('USER')
-        db_pass = db.get('PASSWORD')
-        db_name = db.get('NAME')
-        where_sql = self.generate_where_clause()
-        path_to_file = '/tmp/{}file.csv'.format(self.request.user)
-        if os.path.exists(path_to_file):
-            os.remove(path_to_file)
-
-        with open(path_to_file, 'w') as data_file:
-            pass
-        sql ='select first_name,other_names, surname, sex_id, school_level, designation, is_disabled,has_bcert, age, hiv_status, art_status from data_quality_view {};'
-        import pdb; pdb.set_trace()
-        call(
-            [
-                'pqsl', '-h', db_host, '-U', db_user, '-d', db_name, '-o', path_to_file,
-                '-c', sql.format(where_sql)
-            ]
-        )
-        file_name = '/tmp/file.csv'
-        with open(path_to_file, 'rb') as fh:
-            response = HttpResponse(
-                fh.read(), content_type="application/csv")
-            content_disposition = 'inline; filename=' + os.path.basename(
-                path_to_file)
-            response['Content-Disposition'] = content_disposition
-            return response
-        context['error'] = "Error exporting data"
-        return TemplateResponse(self.request, self.template_name, context)

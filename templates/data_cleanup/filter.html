@@ -136,19 +136,6 @@
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 <script>
-
-    function export_data(){
-        var age = document.getElementById('age').value;
-        var operator = document.getElementById('operator').value;
-        var school_level = document.getElementById('school_level').value;
-        var hiv_status = document.getElementById('hiv_status').value;
-        var art_status = document.getElementById('art_status').value;
-        var url = "{% url 'data_cleanup' %}"+ '?export=True'+'&age='+age+
-                  '&operator='+operator+'&school_level='+school_level+
-                  '&hiv_status='+hiv_status+'&art_status='+art_status;
-        window.location.href = url;
-    }
-
     $(document).ready(function(){
       $('#age-data-table').bootstrapTable({
             toggle: 'table',
@@ -156,7 +143,8 @@
             locale: 'en-US',
             pagination: 'true',
             pageNumber: 1,
-            pageSize: 10,
+            pageSize: 50,
+            buttons: ['excel', 'csv']
         });
     });
   </script>
