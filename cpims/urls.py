@@ -17,10 +17,15 @@ from cpovc_api import urls as api_urls
 from cpovc_ovc import urls as ovc_urls
 from cpovc_settings import urls as settings_urls
 <<<<<<< HEAD
+<<<<<<< HEAD
 from data_cleanup import urls as data_cleanup_urls
 =======
 from cpovc_offline_mode import urls as offline_mode_urls
 >>>>>>> d2c30d73996c534131c265015784e5e47d9a4c8e
+=======
+from data_cleanup import urls as data_cleanup_urls
+from cpovc_offline_mode import urls as offline_mode_urls
+>>>>>>> c2b2e708634151770d3f0d3c93404e2f210dffac
 from django.contrib.auth.views import (
     password_reset_done, password_change, password_change_done)
 from cpovc_auth.views import password_reset
