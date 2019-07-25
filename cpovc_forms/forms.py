@@ -4381,8 +4381,8 @@ class CasePlanTemplate(forms.Form):
         attrs={'placeholder': _('Actual date of completion'),
                'class': 'form-control',
                'id': 'CPT_ACTUAL_DATE_COMPLETION',
-               'style': 'width: 200px;',
-               'required': 'true'
+            #    'required': 'true',
+               'style': 'width: 200px;'
                }))
     CPT_RESULTS = forms.ChoiceField(
         choices=CPT_RESULTS,
@@ -5359,6 +5359,14 @@ class Wellbeing(forms.Form):
         widget=forms.CheckboxSelectMultiple,
         choices=WB_HEL_26_1_CHOICES,
     )
+    WB_HEL_24_1 = forms.MultipleChoiceField(
+        required=True,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': "False"}
+        ),
+        choices=WB_HEL_26_1_CHOICES,
+    )
 
     WB_HEL_25_1 = forms.MultipleChoiceField(
         required=True,
@@ -5377,7 +5385,10 @@ class Wellbeing(forms.Form):
 
     WB_HEL_26_1 = forms.MultipleChoiceField(
         required=True,
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': "False"}
+        ),
         choices=WB_HEL_26_1_CHOICES,)
 
     WB_HEL_27_1 = forms.MultipleChoiceField(
@@ -5395,7 +5406,10 @@ class Wellbeing(forms.Form):
 
     WB_HEL_28_1 = forms.MultipleChoiceField(
         required=True,
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': "False"}
+        ),
         choices=WB_HEL_28_1_CHOICES,)
 
     WB_HEL_28_2 = forms.CharField(widget=forms.TextInput(
@@ -5470,7 +5484,15 @@ class Wellbeing(forms.Form):
             })
     )
     WB_HEL_17_2 = forms.DateField(
-      widget=forms.DateInput(format='%m/%d/%Y', attrs={'class': 'datepicker','placeholder': 'MMDDYYYY','data-parsley-required': "False"}),
+        widget=forms.widgets.DateInput(
+          format='%m/%d/%Y',
+          attrs={'class': 'datepicker',
+          'placeholder': 'Date of HIV test',
+          'class': 'form-control',
+          'autocomplete': "off",
+          'data-parsley-required': "False"
+          }
+        ),
       input_formats=('%m/%d/%Y', )
       )
 

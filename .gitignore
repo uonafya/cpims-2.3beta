@@ -106,6 +106,7 @@ ENV/
 .idea/
 cpims/settings.py
 reports/xlsx/*
+reports/*.csv
 
 #sql
 /docker/postgres/dbsql/*.sql

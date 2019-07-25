@@ -214,7 +214,7 @@ $('input[type=radio]').change(function (e) {
 
 
 // ----------------CORE----------------
-function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn) {
+function validBenchOLD(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn) {
     // $('input[name='+idOfBenchmarkQn+']').attr('disabled', true);
 
     // prevent manual benchmark ticking
@@ -279,6 +279,41 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
 
 }
 
+
+function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn) {
+    $('input').change(function () {
+        markBenchmark(idOfBenchmarkQn, false);
+        var proceed = 0;
+
+        $.each(arrayOfInputsToCheck, function (inx, inpt) { 
+            var thisval = $('input[name='+inpt+']:checked').val();
+            if(thisval == arrayOfExpectedValues[inx]){
+                proceed += 1;
+                return proceed
+            }
+        });
+        
+        if(proceed == arrayOfInputsToCheck.length){
+            markBenchmark(idOfBenchmarkQn, true);
+        }else{
+            markBenchmark(idOfBenchmarkQn, false);
+        }
+    })
+}
+
+function markBenchmark(benchmarkId, passOrFail) {
+    console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmarking benchmarkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+    if(passOrFail){
+        // $('input[name="'+benchmarkId+'"][value="AYES"]').attr('checked', true);
+        $('input[name='+benchmarkId+']').removeAttr('disabled');
+        $('input[name='+benchmarkId+'][value=AYES]').prop("checked", true);
+        $('input[name='+benchmarkId+']').attr('disabled', true);
+    }else{
+        $('input[name='+benchmarkId+']').removeAttr('disabled');
+        $('input[name='+benchmarkId+'][value=ANNO]').prop("checked", true);
+        $('input[name='+benchmarkId+']').attr('disabled', true);
+    }
+}
 
 function validDate(dateFieldName, radioToCheck, rightValue, wrongValue) {
     $('input[name='+dateFieldName+']').attr('disabled', true);
