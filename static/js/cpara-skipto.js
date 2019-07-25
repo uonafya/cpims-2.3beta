@@ -23,6 +23,7 @@
     // triggerSkip('cp49q','AYES','q12p4','4');
     triggerSkip('cp49q','AYES','o5y_cd_hse','4');
     triggerSkip('cp50q','ANNO','q12p4','4');
+    triggerSkip('child_bwn_4t5y_Qn','ANNO','cp70q','5');
 // endQuestionSkipLogic
 
 
@@ -112,7 +113,6 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12:not(.containsTable)").nextUntil(destinationT, ".col-md-12:not(.containsTable)").find('.form-group').not('.note-info').addClass('hidden').after('<span id="skyp"><br><i style="color: grey;">Skipped question</i><br/></span>');
             
             //tick Benchmark
-            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.note-info').find('input[type="radio"]').checkboxradio("refresh");
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.note-info').find('input[value=AYES]').prop('checked', true).trigger('click');
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.form-group.note-info input[value="AYES"]').prop('checked',true);
             //tick Benchmark
