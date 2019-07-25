@@ -33,11 +33,12 @@ let TemplateUtils = (function () {
             }
             let dataToSubmit = {
                 'person': window.offlineModeClient.currentSelectedOvc.person_id,
-                'form_type': 'Form1A',
+                'form_type': form_type,
                 'form_data': data
             };
             window.offlineModeClient.saveFormData(dataToSubmit, '/offline_mode/submit/');
             this.alertDialog('Form saved and will be submitted once the internet is back');
+            window.goToOvcViewFromForm1aOffline()
         },
 
         validateFormValues: function (formValues) {
@@ -91,8 +92,8 @@ let TemplateUtils = (function () {
         },
 
         alertDialog: function (alertMessage) {
-            $('#csi-warning-dialog').modal('show');
-            $('#span_csi_alert').html(alertMessage);
+            $('#csi-warning-dialog-offline').modal('show');
+            $('#span_csi_alert-offline').html(alertMessage);
         },
 
         initFormWizard: function (wizardId, wizardStepsCount) {
@@ -350,7 +351,7 @@ let Form1ATemplate = (function (){
     return {
         init: function () {
             console.log("Form 1A");
-            TemplateUtils.initFormWizard("wizard-f1a", 4);
+            TemplateUtils.initFormWizard("wizard-f1a-offline", 4);
             this._setupMultiSelects();
             this._setupFormEvents();
         },
@@ -1123,7 +1124,7 @@ let Form1BTemplate = (function () {
     return {
         init: function () {
             console.log("Form 1B");
-            TemplateUtils.initFormWizard("wizard-f1a-offline", 6);
+            TemplateUtils.initFormWizard("wizard-f1b-offline", 6);
             TemplateUtils.formatDateFields([$("#olmis_service_date_form1b_offline")]);
             this._setupOnSubmitEvent();
         },
@@ -1148,12 +1149,15 @@ let Form1BTemplate = (function () {
             $("#submit_form1b_offline").on("click", function (event) {
                 console.log("Form 1b submit clicked");
                 event.preventDefault();
+                event.stopImmediatePropagation();
                 if (me.isFormValid(form1B)) {
                     me._submitForm(form1B)
                 } else {
-                    $("#messages").show();
-                    $("#messages").html('Make sure the month is correct and there is data.');
-                    $("#messages").attr("tabindex",-1).focus();
+                    console.log("Form1b has errors");
+                    let errorBox = $("#messages_form1b_offline");
+                    errorBox.show();
+                    errorBox.html('Make sure the month is correct and there is data.');
+                    errorBox.attr("tabindex",-1).focus();
                 }
             });
         },
@@ -1170,7 +1174,34 @@ let Form1BTemplate = (function () {
         },
 
         _submitForm: function (form) {
+            let data = form.serializeArray();
             console.log("About to submit form1B");
+            let toSubmit = {
+                'caretaker_id': null,
+                'person_id': null,
+                'services': [],
+                'olmis_service_date':  undefined
+            };
+            data.forEach( item => {
+                if (item.name === "caretaker_id_form1b_offline") {
+                    toSubmit['caretaker_id'] = item.value;
+                }
+
+                if (item.name === "person_id_form1b_offline") {
+                    toSubmit['person_id'] = item.value;
+                }
+
+                if (item.name === "f1b[]") {
+                    toSubmit['services'].push(item.value);
+                }
+
+                if (item.name === "olmis_service_date_form1b_offline") {
+                    toSubmit['olmis_service_date'] = item.value;
+                }
+            });
+
+            TemplateUtils.saveFormData("Form1B", toSubmit);
+            form.trigger("reset");
         }
     }
 })();

@@ -15,11 +15,11 @@
 
 <!-- end page-header -->
 
-<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+<div id="messages_form1b_offline" class="alert alert-danger fade in" style="display: none;" tabindex="1">
     <!-- <span class="close" data-dismiss="alert">×</span> -->
     <i class="fa fa-info pull-left"></i>
     <p></p>
-    <span class="invalid-form-message" id="invalid-form-message"></span>
+    <span class="invalid-form-message"></span>
 </div>
 
 <!-- begin row -->
@@ -44,7 +44,7 @@
                         {% csrf_token %}
                         <input id="caretaker_id_form1b_offline" name="caretaker_id_form1b_offline" type="hidden">
                         <input type="hidden" id="person_id_form1b_offline" name ="person_id_form1b_offline" value="{{ovc.child_chv.id}}">
-                        <div id="wizard-f1a-offline">
+                        <div id="wizard-f1b-offline">
                             <ol>
                                 <li>
                                     Health and Nutrition
