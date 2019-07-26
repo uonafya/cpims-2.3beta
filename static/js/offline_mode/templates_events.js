@@ -9,6 +9,8 @@ let TemplateUtils = (function () {
 
         form1bPage: $("#ovc_form1b"),
 
+        casePlanTemplate: $("#case_plan_template"),
+
         showPage: function (page) {
             $(".offline_page").hide();
             page.show();
@@ -318,7 +320,8 @@ let OvcViewTemplate = (function (){
             console.log("OvcViewTemplate");
             let formEventHandlers = {
                 '#ovc_offline_form_1a': [Form1ATemplate, TemplateUtils.form1aPage],
-                '#ovc_offline_form_1b': [Form1BTemplate, TemplateUtils.form1bPage]
+                '#ovc_offline_form_1b': [Form1BTemplate, TemplateUtils.form1bPage],
+                '#ovc_offline_form_case_plan_template': [CasePlanTemplate, TemplateUtils.casePlanTemplate]
             };
 
             Object.entries(formEventHandlers).forEach(entry => {
@@ -1206,6 +1209,18 @@ let Form1BTemplate = (function () {
     }
 })();
 
+// Handle all events on CasePlanTemplate template
+let CasePlanTemplate = (function () {
+
+    // hook events too case_plan_template_offline_add_row -> AddRow
+    // cancel_case_plan_template_offline and submit_case_plan_template_offline -> form actions
+    return {
+        init: function () {
+            console.log("CasePlanTemplate");
+        },
+    }
+})();
+
 let TemplatesEventsFactory = function () {
     'use strict';
 
@@ -1215,7 +1230,8 @@ let TemplatesEventsFactory = function () {
         'ovc_home': OvcHomeTemplate,
         'ovc_view': OvcViewTemplate,
         'ovc_form1a': Form1ATemplate,
-        'ovc_form1b': Form1BTemplate
+        'ovc_form1b': Form1BTemplate,
+        'case_plan_template': CasePlanTemplate
     };
 
     return {

@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from cpovc_forms.forms import OVCF1AForm
+from cpovc_forms.forms import OVCF1AForm, CasePlanTemplate
 from cpovc_forms.functions import create_fields, create_form_fields
 from cpovc_main.functions import get_dict
 from cpovc_offline_mode.helpers import get_ovc_school_details, get_ovc_facility_details, get_ovc_household_members, \
@@ -33,6 +33,10 @@ def templates(request):
             'form': form_1a,
             'domains': domains,
             'form1b_allowed': True
+        }).content,
+        'case_plan_template': render(request, 'forms/case_plan_template_offline.html', {
+            'form': CasePlanTemplate(),
+            'vals': get_dict(field_name=['sex_id', 'relationship_type_id'])
         }).content
     }
     return JsonResponse({'data': json.dumps(tpls)})
