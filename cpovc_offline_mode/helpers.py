@@ -1,14 +1,18 @@
 import base64
 import json
+import logging
 
 from django.core.cache import cache
 
-from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV, OVCCarePriority, OVCCareServices
+from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV, OVCCarePriority, OVCCareServices, \
+    OVCCareF1B
 from cpovc_main.functions import new_guid_32, convert_date
 from cpovc_main.models import SetupList
+from cpovc_ovc.functions import get_house_hold
 from cpovc_ovc.models import OVCEducation, OVCHealth, OVCHHMembers
 from cpovc_registry.models import RegPerson
 
+logger = logging.getLogger(__name__)
 
 def get_ovc_school_details(ovc):
     if ovc.school_level == "SLNS":
@@ -389,3 +393,42 @@ def _add_service_to_cache(cache_key, domain, service_list, service_date, date_of
     _add_list_items_to_cache(cache_key, services_from_cache)
 
     return services_to_to_add
+
+
+def save_submitted_form1b(user_id, ovc_id, form_data):
+    caretaker_id = form_data.get('caretaker_id')
+    person_id = form_data.get('person_id')
+    service_date = form_data.get('olmis_service_date')
+    services = form_data.get('services')
+
+    cache_key = "form1b_offline_{}_{}".format(ovc_id, service_date)
+
+    is_form1b_submitted = cache.get(cache_key, False)
+
+    if not is_form1b_submitted:
+        logger.info("About to save Form1b for ovc_id: {} | Cache Key: {}".format(ovc_id, cache_key))
+        domains = {'SC': 'DSHC', 'PS': 'DPSS', 'PG': 'DPRO',
+                   'HE': 'DHES', 'HG': 'DHNU', 'EG': 'DEDU'}
+        household = get_house_hold(caretaker_id)
+        household_id = household.id if household else None
+        event_date = convert_date(service_date)
+        new_event = OVCCareEvents(
+            event_type_id='FM1B', created_by=user_id,
+            person_id=caretaker_id, house_hold_id=household_id,
+            date_of_event=event_date)
+        new_event.save()
+
+        # Attach services
+        for service in services:
+            service = str(service)
+            domain_id = service[:2]
+            domain = domains[domain_id]
+            OVCCareF1B(
+                event_id=new_event.pk,
+                domain=domain,
+                entity=service).save()
+
+        cache.set(cache_key, True)
+    else:
+        logger.info("Form1B already submitted for ovc_id: {} on date: {} | Cache Key: {}".format(
+            ovc_id, service_date, cache_key))
