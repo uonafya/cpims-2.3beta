@@ -649,7 +649,150 @@ def method_once(method):
             setattr(self, attrname, method(self, *args, **kwargs))
             return getattr(self, attrname)
     return decorated
-    
+
+
+class UpdateViralLoad(object):
+	"""docstring for UpdateViralLoad"""
+	def __init__(self):
+		self.api_url_base = settings.NASCOP_API_BASE_URL
+		self.login_url = settings.NASCOP_LOGIN_URL
+		self.email = settings.NASCOP_EMAIL
+		self.password = settings.NASCOP_PASSWORD
+		self.empty_viral_loads_list = self.query_ccc_number_facility()
+		self.api_token = self.generate_token()  # Holds the api token
+
+		# def check_for_viral_load():
+		# # filter empty viral loads
+		# empty_viral_loads = OVCViralload.objects.filter(viral_load__isnull=True).count()
+		# viral_load_record = 
+		# pass
+
+
+	def get_date_n_patient_id(self):
+		# get date n patient_id(ccc_number)
+		empty_viral_loads = OVCViralload.objects.values("viral_date","person_id").filter(viral_load__isnull=True)
+		for record in empty_viral_loads:
+			viral_date = record["viral_date"]
+			person_id = record["person_id"]
+			personid_vldate = (person_id, viral_date)
+			empty_viral_loads_list.append(personid_vldate)
+
+			# return empty_viral_loads_list
+
+
+	def query_ccc_number_facility(self):
+		cursor = connection.cursor()
+		cursor.execute("SELECT ccc_number, facility_code, ovc_viral_load.person_id FROM eid, ovc_viral_load WHERE eid.person_id = ovc_viral_load.person_id AND ovc_viral_load.viral_load IS NULL;")
+		empty_viral_load_list = cursor.fetchall()
+
+		return empty_viral_load_list
+
+    @method_once
+	def generate_token(self):
+		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+		credentials = { "email": self.email, "password": self.password }
+		response = requests.post(self.login_url, headers=headers, data=credentials)
+
+		if response.status_code == 200:
+			json_token = json.loads(response.content)
+			print(json.loads(response.content.decode('utf-8')))
+			api_token = json_token.get('token')
+			return api_token
+		else:
+			print(response)
+
+
+	def get_viral_load(self, facility, patientID):
+		headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
+		api_url = '{0}{1}/{2}'.format(self.api_url_base, facility, patientID)
+		response = requests.get(api_url, headers=headers)
+
+		if response.status_code == 200:
+			json_object = json.loads(response.content)
+			data_list = []
+			for test in json_object:
+				patient = test.get('PatientID')
+				date_tested = test.get('DateTested')
+				result = test.get('Result')
+				data = (patient, date_tested, result)
+				print("The details are: {0}, {1}, {2}".format(patient, date_tested, result))
+				data_list.append(data)
+			print(data_list)
+			return data_list
+		elif response.status_code == 404:
+			print('[!] [{0}] URL not found: [{1}]'.format(response.status_code,api_url))
+			return None
+		elif response.status_code == 401:
+			print('[!] [{0}] Authentication Failed'.format(response.status_code), response.content)
+			return None
+		elif response.status_code == 400:
+			print('[!] [{0}] Bad Request'.format(response.status_code), response.content)
+			return None
+		elif response.status_code >= 300:
+			print('[!] [{0}] Unexpected Redirect'.format(response.status_code), response.content)
+			return None
+		elif response.status_code >= 500:
+			print('[!] [{0}] Server Error'.format(response.status_code), response.content)
+			return None
+		else:
+			print('[?] Unexpected Error: [HTTP {0}]: Content: {1}'.format(response.status_code, response.content))
+			return None
+
+	def loop_through_data(self):
+		try:
+			data=self.empty_viral_loads_list
+			for row in data:
+				facility_code = row[1]
+				ccc_number = row[0]
+				person_id = row[2]
+				facility_code_ccc = (facility_code, ccc_number)
+				print(facility_code_ccc)
+				viral_load_records = self.get_viral_load(facility_code, ccc_number)
+				if viral_load_records:
+					for record in viral_load_records:
+						date_tested = record[1]
+						result = record[2]
+						person_id_date_tested = str(person_id) + '-' + str(date_tested)
+						# if person_id_date_tested == concat_personid_date(person_id):
+						# 	update
+						self.update_table(result, person_id_date_tested)
+
+					# viral_load_list.append(viral_load_records)
+					# return viral_load_list
+		except Exception as e:
+			print 'error exiting - %s' % (str(e))
+			raise e
+		else:
+			pass
+
+	# def concat_personid_date(self, person_id):
+	# 	from django.db.models import CharField, Value as V
+	# 	from django.db.models.functions import Concat
+	# 	person_date = OVCViralload.objects.annotate(personid_date=Concat('person_id', V('-'), 'viral_date',output_field=CharField())).get(person_id=410373)
+	# 	return person_date.personid_date
+
+	def update_table(self, new_viral_load, id_n_date):
+	    try:
+	        cursor = connection.cursor()
+	        print("Table Before updating record ")
+	        sql_select_query = """SELECT * FROM ovc_viral_load_view WHERE id_n_date = %s"""
+	        cursor.execute(sql_select_query, (id_n_date, ))
+	        record = cursor.fetchone()
+	        print(record)
+	        # Update single record now
+	        sql_update_query = """UPDATE ovc_viral_load_view SET viral_load_2 = %s WHERE id_n_date = %s"""
+	        cursor.execute(sql_update_query, (new_viral_load, id_n_date))
+	        connection.commit()
+	        count = cursor.rowcount
+	        print(count, "Record Updated successfully ")
+	        print("Table After updating record ")
+	        sql_select_query = """SELECT * FROM ovc_viral_load_view WHERE id_n_date = %s"""
+	        cursor.execute(sql_select_query, (id_n_date,))
+	        record = cursor.fetchone()
+	        print(record)
+	    except (Exception, psycopg2.Error) as error:
+	        print("Error in update operation", error)
+
 
 class KMHFLFacilities(object):
     '''
@@ -745,8 +888,8 @@ class KMHFLFacilities(object):
             pass
 
     def schedule_update(self):
-        # Update facilities every tuesday at 0:15 am
-        schedule.every().tuesday.at("0:15").do(self.get_newest_facilities)
+        # Update facilities every tuesday at 00:15 am
+        schedule.every().tuesday.at("00:15").do(self.get_newest_facilities)
 
         # # Check for pending schedules
         # while True:
