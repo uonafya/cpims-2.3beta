@@ -2565,8 +2565,6 @@ def get_pivot_ovc(request, params={}):
             for one_datas in datas:
                 try:
                     name = get_description_for_item_id(one_datas['DOMAIN'])
-                    print("['DOMAIN ==> ", one_datas['DOMAIN'])
-                    print("NAME ==> ", str(name[0]))
                     one_datas['DOMAIN'] = str(name[0])
                 except Exception, exe:
                     print 'Error translating domain to full description - %s' % (str(exe))
