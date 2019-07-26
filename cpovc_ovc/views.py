@@ -448,8 +448,6 @@ def ovc_view(request, id):
                        'care_giver' :care_giver,
                        'services': services, 'allow_edit': allow_edit,
                        'suppression': vl_sup,
-                       'cpara_count': services['cpr'],
-                       'case_plan_count': services['CPAR'],
                        'well_being_count': wellbeing_services
                        })
     except Exception, e:
