@@ -116,13 +116,18 @@
                                             </tr>
                                             <tr>
                                                 <td class="field">Date Of Birth : </td>
+                                                {% if person_details.age > '116 years'%}
+                                                <td>Not Provided</td>
+                                                {% else %}
                                                 <td>{{ person_details.date_of_birth }} (
                                                 {% if person_details.age == '116 years' or person_details.date_of_birth == None %}
                                                 Not Provided
                                                 {% else %}
                                                 {{ person_details.age }}
                                                 {% endif %}
-                                                )</td>
+                                                )
+                                                {% endif %}
+                                            </td>
                                             </tr>
                                             <tr class="highlight">
                                                 <td class="field">Contact and Location Details</td>
