@@ -9,9 +9,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from cpovc_forms.forms import OVCF1AForm
+from cpovc_forms.functions import create_fields, create_form_fields
 from cpovc_main.functions import get_dict
 from cpovc_offline_mode.helpers import get_ovc_school_details, get_ovc_facility_details, get_ovc_household_members, \
-    get_services, save_submitted_form1a
+    get_services, save_submitted_form1a, save_submitted_form1b
 from cpovc_ovc.models import OVCRegistration
 from cpovc_registry.templatetags.app_filters import gen_value, vals, check_fields
 
@@ -22,10 +23,17 @@ logger = logging.getLogger(__name__)
 def templates(request):
     values = get_dict(field_name=check_fields)
     form_1a = OVCF1AForm()
+    ffs = create_fields(['form1b_items'])
+    domains = create_form_fields(ffs)
     tpls = {
         'ovc_home': render(request, 'ovc/home_offline.html').content,
         'ovc_view': render(request, 'ovc/view_child_offline.html').content,
-        'ovc_form1a': render(request, 'forms/form1a_offline.html', {'form': form_1a, 'vals': values}).content
+        'ovc_form1a': render(request, 'forms/form1a_offline.html', {'form': form_1a, 'vals': values}).content,
+        'ovc_form1b': render(request, 'forms/form1b_offline.html', {
+            'form': form_1a,
+            'domains': domains,
+            'form1b_allowed': True
+        }).content
     }
     return JsonResponse({'data': json.dumps(tpls)})
 
@@ -73,7 +81,9 @@ def fetch_data(request):
             'has_bcert': "Yes" if ovc.has_bcert else "No",
             'is_disabled': "Yes" if ovc.is_disabled else "No",
             'child_chv_full_name': ovc.child_chv.full_name if ovc.child_chv else "",
+            'chv_id': ovc.child_chv_id,
             'caretake_full_name': ovc.caretaker.full_name if ovc.caretaker else "",
+            'caretaker_id': ovc.caretaker_id,
             'org_unit_name': ovc.child_cbo.org_unit_name if ovc.child_cbo else "",
             'is_active': 'Active' if ovc.is_active else 'Exited',
             'immunization_status': gen_value(ovc.immunization_status, vals),
@@ -115,13 +125,16 @@ def submit_form(request):
     ovc_id = payload['person']
 
     try:
-        if payload['form_type'] == 'Form1A':
+        if payload['form_type'].lower() == 'form1a':
             save_submitted_form1a(
                 user_id,
                 ovc_id,
                 payload['form_data'],
                 request.session.get('ou_primary'),
                 request.session.get('ou_attached').split(","))
+
+        if payload['form_type'].lower() == 'form1b':
+            save_submitted_form1b(user_id, ovc_id, payload['form_data'])
     except Exception as ex:
         # catch and log, for it to go to logs for manual reviewing
         type_, value_, traceback_ = sys.exc_info()

@@ -28,6 +28,9 @@ print(blu.sing("'Happy'"))
   /*color: #000000;*/
   color: #0057e7;
 }
+.parsley-error{
+    bottom: -8px !important;
+}
 
 
 </style>
@@ -437,7 +440,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp7q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">2.3 If there is a child or children in the household older than the age of five and   living with HIV (as  documented in the case file), do they know their HIV status?  (Partial/ complete)? <span class="asteriskField">*</label>
+                                                        <label class="control-label formlabel">2.3 Is there a child/children in the household older than the age of five who are living with HIV (as  documented in the case file), and if yes, do they know their HIV status?  (Partial/ complete)? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp7q }}
@@ -1398,19 +1401,12 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
-                                            </div>
-
-                                            <div class="row">
+                                                
                                                 <div class="col-md-12">
-                                                    <br/>
-                                                    <h4><u>Questions for child(ren) ten years and over.</u></h4>
-                                                    <hr>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group leadqn note note-default" id="chd_ovr_10y_Qn">
+                                                    <div class="form-group" id="chd_ovr_10y_Qn">
+                                                        <div class="col-md-12">
+                                                            <h4><u>Questions for child(ren) ten years and over.</u></h4>
+                                                        </div>
                                                         <div class="col-md-9">
                                                             <label class="control-label formlabel">Are there children of 10 years and above in this household? </label>
                                                         </div>
@@ -1492,9 +1488,10 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                 </div>
                                                 <hr>
-                                            <!-- </div>
+                                            </div>
 
-                                            <div class="row"> -->
+                                            <!-- <div class="row"> -->
+                                            <div class="row">
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>12.4 Question for all child(ren) five years and over.</u></h4>
@@ -1998,11 +1995,23 @@ print(blu.sing("'Happy'"))
                                             <hr>
                                             <div class="row">
                                                 <div class="col-md-12">
-                                                    <br/>
-                                                    <h4><u>Adolescents enrolled in vocational training program are demonstrating that they are progressing.</u></h4>
-                                                    <hr>
+                                                    <div class="form-group leadqn note note-default" id="child_bwn_4t5y_Qn">
+                                                        <div class="col-md-9">
+                                                            <label class="control-label formlabel">Is there a child between 4-5 years in this household and is there an ECDE center in the area? </label>
+                                                        </div>
+                                                        <div class="col-md-3 text-left">
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="child_bwn_4t5y_Qn" value="AYES">
+                                                                Yes
+                                                            </label>
+                                                            <label class="radio-inline">
+                                                                <input type="radio" name="child_bwn_4t5y_Qn" value="ANNO">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </div>
                                                 </div>
-
+                                                
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp69q_Qn">
                                                         <div class="col-md-9">
@@ -2072,16 +2081,8 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <br/>
-                                                    <h4><u>Questions to caregiver.</u></h4>
-                                                </div>
-                                            </div>
-                                            <hr>
-                                            <div class="row">
+                                            <!-- </div>
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp71q_Qn">
                                                         <div class="col-md-9">
@@ -2092,9 +2093,9 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <!-- </div>
                                             <hr>
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <div class="form-group" id="cp72q_Qn">
                                                         <div class="col-md-9">
@@ -2105,16 +2106,16 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            <!-- </div>
                                             <hr>
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>Questions to adolescent in vocational training</u></h4>
                                                 </div>                      
-                                            </div>
+                                            <!-- </div>
                                             <hr>
-                                            <div class="row">
+                                            <div class="row"> -->
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% if siblings or osiblings %}

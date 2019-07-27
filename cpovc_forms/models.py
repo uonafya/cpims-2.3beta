@@ -913,13 +913,12 @@ class OVCCareCpara(models.Model):
 class OVCCareWellbeing(models.Model):
     well_being_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
-    caregiver = models.ForeignKey(RegPerson, on_delete=models.CASCADE, related_name='wellbeing_caregiver')
     question_code = models.CharField(max_length=10, null=False, blank=True)
     question = models.ForeignKey('OVCCareQuestions')
     answer = models.CharField(max_length=250)
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     question_type = models.CharField(max_length=5)
-    domain = models.CharField(max_length=10)
+    domain = models.CharField(max_length=100)
     is_void = models.BooleanField(default=False)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
     date_of_event = models.DateField()
@@ -1054,7 +1053,7 @@ class OVCReferrals(models.Model):
 
 
 class OVCMonitoring(models.Model):
-    monitoring_id = models.AutoField(primary_key=True)
+    monitoring_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     hiv_status_knowledge = models.CharField(max_length=5)
     viral_suppression = models.CharField(max_length=5)

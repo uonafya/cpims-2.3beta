@@ -192,152 +192,153 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <table id="assessment_manager_table" class="table">
-                                        <thead>
-                                            <tr id="id_inputHeaders1">
-                                                <th colspan="1"><h6><b>Domain</b></h6></th>
-                                                <th colspan="3"><h6><b>Goal</b></h6></th>
-                                                <th colspan="2"><h6><b>Needs/Gaps</b></h6></th>
-                                                <th colspan="2"><h6><b>Priority Actions</b></h6></th>
-                                            </tr>
-                                        </thead>
-                                        <br>
-                                            <tr id="id_inputElements1">
+                                    <div style="overflow: inherit !important; overflow-x: auto; min-height: 300px;">
+                                        <table id="assessment_manager_table" class="table">
+                                            <thead>
+                                                <tr id="id_inputHeaders1">
+                                                    <th colspan="1"><h6><b>Domain</b></h6></th>
+                                                    <th colspan="3"><h6><b>Goal</b></h6></th>
+                                                    <th colspan="2"><h6><b>Needs/Gaps</b></h6></th>
+                                                    <th colspan="2"><h6><b>Priority Actions</b></h6></th>
+                                                </tr>
+                                            </thead>
+                                            <br>
+                                                <tr id="id_inputElements1">
 
-                                                <td colspan="1" class="domain_cell">
-                                                    {{ form.CPT_DOMAIN }}
-                                                    <div id="olmis_assessment_coreservice_errormsg" style="display:none;" class="col-md-10 control-label">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
+                                                    <td colspan="1" class="domain_cell">
+                                                        {{ form.CPT_DOMAIN }}
+                                                        <div id="olmis_assessment_coreservice_errormsg" style="display:none;" class="col-md-10 control-label">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
 
-                                                <td colspan="3" class="goals_cell" style="min-width: 300px;">
-                                                    <div class="healthy_form hidden">
-                                                    {{ form.CPT_GOAL_HEALTHY }}
-                                                    </div>
-                                                    <div class="stable_form hidden">
-                                                    {{ form.CPT_GOAL_STABLE }}
-                                                    </div>
-                                                    <div class="safe_form hidden">
-                                                    {{ form.CPT_GOAL_SAFE }}
-                                                    </div>
-                                                    <div class="school_form">
-                                                    {{ form.CPT_GOAL_SCHOOL }}
-                                                    </div>
-                                                    <div id="olmis_assessment_coreservice_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
+                                                    <td colspan="3" class="goals_cell" style="min-width: 300px;">
+                                                        <div class="healthy_form hidden">
+                                                        {{ form.CPT_GOAL_HEALTHY }}
+                                                        </div>
+                                                        <div class="stable_form hidden">
+                                                        {{ form.CPT_GOAL_STABLE }}
+                                                        </div>
+                                                        <div class="safe_form hidden">
+                                                        {{ form.CPT_GOAL_SAFE }}
+                                                        </div>
+                                                        <div class="school_form">
+                                                        {{ form.CPT_GOAL_SCHOOL }}
+                                                        </div>
+                                                        <div id="olmis_assessment_coreservice_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
 
-                                                <td colspan="2" class="gaps_cell">
-                                                    <div class="healthy_form hidden">
-                                                    {{ form.CPT_GAPS_HEALTHY }}
-                                                    </div>
-                                                    <div class="stable_form hidden">
-                                                    {{ form.CPT_GAPS_STABLE }}
-                                                    </div>
-                                                    <div class="safe_form hidden">
-                                                    {{ form.CPT_GAPS_SAFE }}
-                                                    </div>
-                                                    <div class="school_form">
-                                                    {{ form.CPT_GAPS_SCHOOL }}
-                                                    </div>
-                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
+                                                    <td colspan="2" class="gaps_cell">
+                                                        <div class="healthy_form hidden">
+                                                        {{ form.CPT_GAPS_HEALTHY }}
+                                                        </div>
+                                                        <div class="stable_form hidden">
+                                                        {{ form.CPT_GAPS_STABLE }}
+                                                        </div>
+                                                        <div class="safe_form hidden">
+                                                        {{ form.CPT_GAPS_SAFE }}
+                                                        </div>
+                                                        <div class="school_form">
+                                                        {{ form.CPT_GAPS_SCHOOL }}
+                                                        </div>
+                                                        <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
 
-                                                <td colspan="2" class="actions_cell">
-                                                    <div class="healthy_form hidden">
-                                                    {{ form.CPT_ACTIONS_HEALTHY }}
-                                                    </div>
-                                                    <div class="stable_form hidden">
-                                                    {{ form.CPT_ACTIONS_STABLE }}
-                                                    </div>
-                                                    <div class="safe_form hidden">
-                                                    {{ form.CPT_ACTIONS_SAFE }}
-                                                    </div>
-                                                    <div class="school_form">
-                                                    {{ form.CPT_ACTIONS_SCHOOL }}
-                                                    </div>
-                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2"><h6><b>Services</b></h6></th>
-                                                <th colspan="2"><h6><b>Person Responsible</b></h6></th>
-                                                <th colspan="1"><h6><b>Date Completed</b></h6></th>
-                                                <th colspan="1"><h6><b>Results</b></h6></th>
-                                                <th colspan="2"><h6><b>Reasons</b></h6></th>
-                                                <th colspan="1"></th>
-                                            </tr>
+                                                    <td colspan="2" class="actions_cell">
+                                                        <div class="healthy_form hidden">
+                                                        {{ form.CPT_ACTIONS_HEALTHY }}
+                                                        </div>
+                                                        <div class="stable_form hidden">
+                                                        {{ form.CPT_ACTIONS_STABLE }}
+                                                        </div>
+                                                        <div class="safe_form hidden">
+                                                        {{ form.CPT_ACTIONS_SAFE }}
+                                                        </div>
+                                                        <div class="school_form">
+                                                        {{ form.CPT_ACTIONS_SCHOOL }}
+                                                        </div>
+                                                        <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th colspan="2"><h6><b>Services</b></h6></th>
+                                                    <th colspan="2"><h6><b>Person Responsible</b></h6></th>
+                                                    <th colspan="1"><h6><b>Date Completed</b></h6></th>
+                                                    <th colspan="1"><h6><b>Results</b></h6></th>
+                                                    <th colspan="2"><h6><b>Reasons</b></h6></th>
+                                                    <th colspan="1"></th>
+                                                </tr>
 
-                                            <tr>
-                                                <td colspan="2" class="services_cell">
-                                                    <div class="healthy_form hidden">
-                                                    {{ form.CPT_SERVICES_HEALTHY }}
-                                                    </div>
-                                                    <div class="stable_form hidden">
-                                                    {{ form.CPT_SERVICES_STABLE }}
-                                                    </div>
-                                                    <div class="safe_form hidden">
-                                                    {{ form.CPT_SERVICES_SAFE }}
-                                                    </div>
-                                                    <div class="school_form">
-                                                    {{ form.CPT_SERVICES_SCHOOL }}
-                                                    </div>
-                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
+                                                <tr>
+                                                    <td colspan="2" class="services_cell">
+                                                        <div class="healthy_form hidden">
+                                                        {{ form.CPT_SERVICES_HEALTHY }}
+                                                        </div>
+                                                        <div class="stable_form hidden">
+                                                        {{ form.CPT_SERVICES_STABLE }}
+                                                        </div>
+                                                        <div class="safe_form hidden">
+                                                        {{ form.CPT_SERVICES_SAFE }}
+                                                        </div>
+                                                        <div class="school_form">
+                                                        {{ form.CPT_SERVICES_SCHOOL }}
+                                                        </div>
+                                                        <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
 
-                                                <td colspan="2" class="responsible_cell">
-                                                    {{ form.CPT_RESPONSIBLE }}
-                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
+                                                    <td colspan="2" class="responsible_cell">
+                                                        {{ form.CPT_RESPONSIBLE }}
+                                                        <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
 
-                                                <td colspan="1">
-                                                    {{ form.CPT_DATE }}
-                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
-                                                    
-                                                <td colspan="1">
-                                                    {{ form.CPT_RESULTS }}
-                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
+                                                    <td colspan="1">
+                                                        {{ form.CPT_DATE }}
+                                                        <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
+                                                        
+                                                    <td colspan="1">
+                                                        {{ form.CPT_RESULTS }}
+                                                        <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
 
-                                                <td colspan="2">
-                                                    <div style="max-width: 290px; font-size: 0.95em;">
-                                                        {{ form.CPT_REASONS }}
-                                                    </div>
-                                                    <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
-                                                        <small><p class="dialog_paragraph">This value is required</p></small>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td colspan="1">
-                                                    <button type="button" class="btn btn-sm btn-inverse btn-block" onClick="AddRow()">
-                                                        <i class="fa fa-plus"></i>  Add
-                                                    </button>
-                                                </td>
-                                                <td></td>
-                                            <tr>
-                                            </tr>
-                                        </tbody>
+                                                    <td colspan="2">
+                                                        <div style="max-width: 290px; font-size: 0.95em;">
+                                                            {{ form.CPT_REASONS }}
+                                                        </div>
+                                                        <div id="olmis_assessment_coreservice_status_errormsg" style="display:none;">
+                                                            <small><p class="dialog_paragraph">This value is required</p></small>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td colspan="1">
+                                                        <button type="button" class="btn btn-sm btn-inverse btn-block" onClick="AddRow()">
+                                                            <i class="fa fa-plus"></i>  Add
+                                                        </button>
+                                                    </td>
+                                                    <td></td>
+                                                <tr>
+                                                </tr>
+                                            </tbody>
 
-                                    </table>
-                                    <!-- end col-6 -->
-                                    
+                                        </table>
+                                        <!-- end col-6 -->
+                                    </div>                                    
                                 </fieldset>
                                 {# Submissions #}
                         
