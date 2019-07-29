@@ -651,24 +651,36 @@ def method_once(method):
     return decorated
 
 
-# class UpdateViralLoad(object):
+class UpdateViralLoad(object):
 	"""docstring for UpdateViralLoad"""
 	def __init__(self):
 		self.api_url_base = settings.NASCOP_API_BASE_URL
 		self.login_url = settings.NASCOP_LOGIN_URL
 		self.email = settings.NASCOP_EMAIL
 		self.password = settings.NASCOP_PASSWORD
-		self.empty_viral_loads_list = self.query_ccc_number_facility()
-		self.api_token = self.generate_token()
+		self.numbers_to_facilities_list = self.query_ccc_numbers_to_facilities()
+        # divide the data into 5 chunks.
+        self.five_chunks = self.chunk_it(numbers_to_facilities_list, 5)
 
 	
-	def query_ccc_number_facility(self):
+	def query_ccc_numbers_to_facilities(self):
 		cursor = connection.cursor()
 		cursor.execute("SELECT ccc_number, facility_code, ovc_viral_load.person_id FROM eid, ovc_viral_load WHERE eid.person_id = ovc_viral_load.person_id AND ovc_viral_load.viral_load IS NULL;")
-		empty_viral_load_list = cursor.fetchall()
-
-		return empty_viral_load_list
+		ccc_numbers_to_facilities = cursor.fetchall()
+		return ccc_numbers_to_facilities
         
+    def chunk_it(self, seq, num):
+        # divide ccc_numbers-to-facilities list into manageable chunks
+    	avg = len(seq) / float(num)
+    	out = []
+    	last = 0.0
+
+    	while last < len(seq):
+    		out.append(seq[int(last):int(last + avg)])
+    		last += avg
+
+    	return out
+
     def generate_token(self):
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         credentials = { "email": self.email, "password": self.password }
@@ -683,8 +695,8 @@ def method_once(method):
 			print(response)
 
 
-	def get_viral_load(self, facility, patientID):
-		headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
+	def get_viral_load(self, token, facility, patientID):
+		headers = {'Authorization': 'Bearer {0}'.format(token)}
 		api_url = '{0}{1}/{2}'.format(self.api_url_base, facility, patientID)
 		response = requests.get(api_url, headers=headers)
 
@@ -729,30 +741,32 @@ def method_once(method):
 		elif "ollect" in string:
 			return int(-997)
 		else:
-			return int(''.join([i for i in string if i.isdigit()]))
+			return ''.join([i for i in string if i.isdigit()])
 
-	def loop_through_data(self):
+	def loop_through_data(self, chunks):
 		try:
-			data=self.empty_viral_loads_list
-			for row in data:
-				facility_code = row[1]
-				ccc_number = row[0]
-				person_id = row[2]
-				facility_code_ccc = (facility_code, ccc_number)
-				print(facility_code_ccc)
-				viral_load_records = self.get_viral_load(facility_code, ccc_number)
-				if viral_load_records:
-					for record in viral_load_records:
-						date_tested = record[1]
-						result = record[2]
-                        result_to_int = self.vl_to_int(result)
-						
-						if OVCViralload.objects.filter(person_id=person_id, viral_date=viral_date, viral_load__isnull=True).exists():
-							print("Entry contained in queryset")
-							OVCViralload.objects.filter(person_id=person_id, viral_date=viral_date, viral_load__isnull=True).update(viral_load=result_to_int)
-						else:
-							vl = OVCViralload(viral_load=result_to_int, date=date_tested)
-							vl.save()
+            for chunk in chunks:
+                api_token = self.generate_token()
+                
+                for row in chunk:
+                    facility_code = row[1]
+                    ccc_number = row[0]
+                    person_id = row[2]
+                    facility_code_ccc = (facility_code, ccc_number)
+                    print(facility_code_ccc)
+                    viral_load_records = self.get_viral_load(api_token, facility_code, ccc_number)
+                    if viral_load_records:
+                        for record in viral_load_records:
+                            date_tested = record[1]
+                            result = record[2]
+                            result_to_int = self.vl_to_int(result)
+                            
+                            if OVCViralload.objects.filter(person_id=person_id, viral_date=viral_date, viral_load__isnull=True).exists():
+                                print("Entry contained in queryset")
+                                OVCViralload.objects.filter(person_id=person_id, viral_date=viral_date, viral_load__isnull=True).update(viral_load=result_to_int)
+                            else:
+                                vl = OVCViralload(person_id=person_id, viral_load=result_to_int, date=date_tested)
+                                vl.save()
 
 		except Exception as e:
 			print 'error exiting - %s' % (str(e))
