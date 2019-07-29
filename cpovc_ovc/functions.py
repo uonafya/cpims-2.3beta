@@ -651,7 +651,7 @@ def method_once(method):
     return decorated
 
 
-class UpdateViralLoad(object):
+# class UpdateViralLoad(object):
 	"""docstring for UpdateViralLoad"""
 	def __init__(self):
 		self.api_url_base = settings.NASCOP_API_BASE_URL
@@ -659,39 +659,20 @@ class UpdateViralLoad(object):
 		self.email = settings.NASCOP_EMAIL
 		self.password = settings.NASCOP_PASSWORD
 		self.empty_viral_loads_list = self.query_ccc_number_facility()
-		self.api_token = self.generate_token()  # Holds the api token
+		self.api_token = self.generate_token()
 
-		# def check_for_viral_load():
-		# # filter empty viral loads
-		# empty_viral_loads = OVCViralload.objects.filter(viral_load__isnull=True).count()
-		# viral_load_record = 
-		# pass
-
-
-	def get_date_n_patient_id(self):
-		# get date n patient_id(ccc_number)
-		empty_viral_loads = OVCViralload.objects.values("viral_date","person_id").filter(viral_load__isnull=True)
-		for record in empty_viral_loads:
-			viral_date = record["viral_date"]
-			person_id = record["person_id"]
-			personid_vldate = (person_id, viral_date)
-			empty_viral_loads_list.append(personid_vldate)
-
-			# return empty_viral_loads_list
-
-
+	
 	def query_ccc_number_facility(self):
 		cursor = connection.cursor()
 		cursor.execute("SELECT ccc_number, facility_code, ovc_viral_load.person_id FROM eid, ovc_viral_load WHERE eid.person_id = ovc_viral_load.person_id AND ovc_viral_load.viral_load IS NULL;")
 		empty_viral_load_list = cursor.fetchall()
 
 		return empty_viral_load_list
-
-    @method_once
-	def generate_token(self):
-		headers = {'Content-Type': 'application/x-www-form-urlencoded'}
-		credentials = { "email": self.email, "password": self.password }
-		response = requests.post(self.login_url, headers=headers, data=credentials)
+        
+    def generate_token(self):
+        headers = {'Content-Type': 'application/x-www-form-urlencoded'}
+        credentials = { "email": self.email, "password": self.password }
+        response = requests.post(self.login_url, headers=headers, data=credentials)
 
 		if response.status_code == 200:
 			json_token = json.loads(response.content)
@@ -738,6 +719,18 @@ class UpdateViralLoad(object):
 			print('[?] Unexpected Error: [HTTP {0}]: Content: {1}'.format(response.status_code, response.content))
 			return None
 
+    def vl_to_int(self,string):
+		if "< LDL" in string:
+			return int(0)
+		elif "nvalid" in string:
+			return int(-998)
+		elif "ailed" in string:
+			return int(-999)
+		elif "ollect" in string:
+			return int(-997)
+		else:
+			return int(''.join([i for i in string if i.isdigit()]))
+
 	def loop_through_data(self):
 		try:
 			data=self.empty_viral_loads_list
@@ -752,47 +745,22 @@ class UpdateViralLoad(object):
 					for record in viral_load_records:
 						date_tested = record[1]
 						result = record[2]
-						person_id_date_tested = str(person_id) + '-' + str(date_tested)
-						# if person_id_date_tested == concat_personid_date(person_id):
-						# 	update
-						self.update_table(result, person_id_date_tested)
+                        result_to_int = self.vl_to_int(result)
+						
+						if OVCViralload.objects.filter(person_id=person_id, viral_date=viral_date, viral_load__isnull=True).exists():
+							print("Entry contained in queryset")
+							OVCViralload.objects.filter(person_id=person_id, viral_date=viral_date, viral_load__isnull=True).update(viral_load=result_to_int)
+						else:
+							vl = OVCViralload(viral_load=result_to_int, date=date_tested)
+							vl.save()
 
-					# viral_load_list.append(viral_load_records)
-					# return viral_load_list
 		except Exception as e:
 			print 'error exiting - %s' % (str(e))
 			raise e
 		else:
 			pass
 
-	# def concat_personid_date(self, person_id):
-	# 	from django.db.models import CharField, Value as V
-	# 	from django.db.models.functions import Concat
-	# 	person_date = OVCViralload.objects.annotate(personid_date=Concat('person_id', V('-'), 'viral_date',output_field=CharField())).get(person_id=410373)
-	# 	return person_date.personid_date
-
-	def update_table(self, new_viral_load, id_n_date):
-	    try:
-	        cursor = connection.cursor()
-	        print("Table Before updating record ")
-	        sql_select_query = """SELECT * FROM ovc_viral_load_view WHERE id_n_date = %s"""
-	        cursor.execute(sql_select_query, (id_n_date, ))
-	        record = cursor.fetchone()
-	        print(record)
-	        # Update single record now
-	        sql_update_query = """UPDATE ovc_viral_load_view SET viral_load_2 = %s WHERE id_n_date = %s"""
-	        cursor.execute(sql_update_query, (new_viral_load, id_n_date))
-	        connection.commit()
-	        count = cursor.rowcount
-	        print(count, "Record Updated successfully ")
-	        print("Table After updating record ")
-	        sql_select_query = """SELECT * FROM ovc_viral_load_view WHERE id_n_date = %s"""
-	        cursor.execute(sql_select_query, (id_n_date,))
-	        record = cursor.fetchone()
-	        print(record)
-	    except (Exception, psycopg2.Error) as error:
-	        print("Error in update operation", error)
-
+	
 
 class KMHFLFacilities(object):
     '''
