@@ -6,6 +6,7 @@
 
 {% block style_code %}
 <link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block primary %}
@@ -87,7 +88,6 @@
 </br>
 <div class='pull-right'>
 <button type='submit' class='btn btn-primary'>Filter</button>
-<a class='btn btn-success' onclick="export_data()" hidden="true"><i class="fa fa-download"></i> &nbsp Export</a>
 </div>
 </form>
 </br>
@@ -144,7 +144,9 @@
             pagination: 'true',
             pageNumber: 1,
             pageSize: 50,
-            buttons: ['excel', 'csv']
+            buttons: [
+              'excel'
+            ]
         });
     });
   </script>

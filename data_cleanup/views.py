@@ -24,17 +24,18 @@ class DataQualityView(TemplateView):
         context['data'] = self.get_queryset()
         return context
 
-    def get_final_query_set(self, queryset):
-        allowed_org_units = [
-            obj.id for obj in RegPersonsOrgUnits.objects.filter(
-                person=self.request.user.reg_person)
-        ]
-        if self.request.user.is_superuser:
-            return queryset
-        return queryset.filter(org_unique_id__in=allowed_org_units)
+    def get_final_query_set(self):
+        user_orgs = self.request.user.reg_person.regpersonsorgunits_set.values()
+        org_units = []
+
+        for org in user_orgs:
+            if not org['is_void']:
+                org_units.append(org['org_unit_id'])
+
+        return DataQuality.objects.filter(is_void=False, child_cbo_id__in=org_units)
 
     def get_queryset(self, *args, **kwargs):
-        return []
+        return self.get_final_query_set()
 
     def get(self, *args, **kwargs):
         if self.request.GET.dict().get('export', False):

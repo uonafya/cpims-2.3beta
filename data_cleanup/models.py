@@ -2,6 +2,9 @@ from django.db import models
 
 
 class DataQuality(models.Model):
+    """
+    Demographic data data quality.
+    """
     ovc_registration_id = models.IntegerField(primary_key=True)
     registration_date = models.DateTimeField()
     has_bcert = models.BooleanField()
@@ -38,6 +41,16 @@ class DataQuality(models.Model):
     class Meta:
         managed= False
         db_table = 'data_quality_view'
-    
+
     def __str__(self):
         return self.first_name
+
+
+
+class Form1BServicesDataQuality(DataQuality):
+    """
+    Combining demography data together with the other form 1b services.
+    """
+    class Meta:
+        managed= False
+        db_table = 'data_quality_form1b'
