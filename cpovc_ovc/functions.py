@@ -665,6 +665,7 @@ class KMHFLFacilities(object):
         self.client_secret = settings.KMHFL_CLIENT_SECRET
         self.api_base_url = settings.KMHFL_API_BASE_URL
         self.facility_base_url = settings.KMHFL_FACILITY_BASE_URL
+        self.sub_county_base_url = settings.KMHFL_SUBCOUNTY_BASE_URL
         self.login_url = settings.KMHFL_LOGIN_URL
         self.api_token = self.generate_token()
         self.latest_facility = self.latest_facility()
@@ -697,8 +698,10 @@ class KMHFLFacilities(object):
     def get_facilities(self):
         # request for facilities
         headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
-        api_url = '{0}facilities/facilities/?format=json'.format(self.api_base_url)
-        response = requests.get(api_url, headers=headers)
+        api_url = '{0}facilities/facilities/'.format(self.api_base_url)
+        params = {'fields':'id,code,official_name,sub_county_id,subcounty_name', 
+                  'format':'json', 'page_size':'50'}
+        response = requests.get(api_url, headers=headers, params=params)
         
         if response.status_code == 200:
             json_object = json.loads(response.content)
@@ -707,15 +710,15 @@ class KMHFLFacilities(object):
             print(response.content, api_url)
 
 
-    def get_subcounty_id(self, facility_id):
+    def get_subcounty_code(self, sub_county_id):
         # request facility and get sub-county id.
         headers = {'Authorization': 'Bearer {0}'.format(self.api_token)}
-        payload = {'format': 'json'}
-        api_url = '{0}{1}'.format(self.facility_base_url, facility_id)
-        response = requests.get(api_url, headers=headers, params=payload)
+        params = {'format': 'json', 'fields':'code,name,county_name'}
+        api_url = '{0}{1}'.format(self.sub_county_base_url, sub_county_id)
+        response = requests.get(api_url, headers=headers, params=params)
         if response.status_code == 200:
             json_object = json.loads(response.content)
-            cpims_subcounty_id = json_object["constituency_code"]
+            cpims_subcounty_id = json_object["code"]
             return cpims_subcounty_id
         else:
             print(response, api_url)
@@ -730,9 +733,9 @@ class KMHFLFacilities(object):
                 facility_code = facility["code"]
                 if facility_code > self.latest_facility:
                     facility_id = facility["id"]
-                    cpims_subcounty_id = self.get_subcounty_id(facility_id)
-                    facility_name = facility["official_name"]
                     sub_county_id = facility["sub_county_id"]
+                    cpims_subcounty_id = self.get_subcounty_code(sub_county_id)
+                    facility_name = facility["official_name"]
                     new_facility = OVCFacility(facility_code=facility_code, 
                         facility_name=facility_name, 
                         sub_county_id=cpims_subcounty_id)
