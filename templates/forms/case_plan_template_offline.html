@@ -24,6 +24,7 @@
                     <div id="wizard-case-plan-offline">
                         <!-- begin wizard step-1 -->
                         <div class="wizard-step-1">
+                            <form id="case_plan_offline_form">
                             <fieldset>
 
                                 <div id="error_assessment_offline"></div>
@@ -35,24 +36,24 @@
 
                                         </div>
                                         <label class="radio-inline">
-                                            <input type="radio" name="if_first_cpara" value="AYES">
+                                            <input type="radio" name="if_first_cpara_offline" value="AYES">
                                             Yes
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="if_first_cpara" value="ANNO">
+                                            <input type="radio" name="if_first_cpara_offline" value="ANNO">
                                             No
                                         </label>
                                     </div>
                                     <div class="col-md-2 hidden">
                                         <div class="form-group">
                                             <label class="control-label formlabel">If No, give date of Previous Case Plan Readiness Assessment:</label><br/>
-                                            <input type="text" class="form-control" style="max-width: 200px;" name="date_first_cpara"/>
+                                            <input type="text" class="form-control" style="max-width: 200px;" name="date_first_cpara_offline"/>
                                         </div>
                                     </div>
                                     <div class="col-md-2">
                                         <div class="form-group">
                                             <label class="control-label formlabel">Date of caseplan:</label><br/>
-                                            <input type="text" class="form-control" style="max-width: 200px;" name="CPT_DATE_CASEPLAN"/>
+                                            <input type="text" class="form-control" style="max-width: 200px;" name="cpt_date_caseplan_offline"/>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -75,24 +76,24 @@
                                         <br>
                                         <tr id="id_inputElements1">
 
-                                            <td colspan="1" class="domain_cell">
+                                            <td colspan="1" class="domain_cell_offline">
                                                 {{ form.CPT_DOMAIN }}
                                                 <div id="olmis_assessment_coreservice_errormsg_offline" style="display:none;" class="col-md-10 control-label">
                                                     <small><p class="dialog_paragraph">This value is required</p></small>
                                                 </div>
                                             </td>
 
-                                            <td colspan="3" class="goals_cell" style="min-width: 300px;">
-                                                <div class="healthy_form hidden">
+                                            <td colspan="3" class="goals_cell_offline" style="min-width: 300px;">
+                                                <div class="healthy_form_offline hidden">
                                                     {{ form.CPT_GOAL_HEALTHY }}
                                                 </div>
-                                                <div class="stable_form hidden">
+                                                <div class="stable_form_offline hidden">
                                                     {{ form.CPT_GOAL_STABLE }}
                                                 </div>
-                                                <div class="safe_form hidden">
+                                                <div class="safe_form_offline hidden">
                                                     {{ form.CPT_GOAL_SAFE }}
                                                 </div>
-                                                <div class="school_form">
+                                                <div class="school_form_offline">
                                                     {{ form.CPT_GOAL_SCHOOL }}
                                                 </div>
                                                 <div id="olmis_assessment_coreservice_errormsg_offline" style="display:none;">
@@ -100,17 +101,17 @@
                                                 </div>
                                             </td>
 
-                                            <td colspan="2" class="gaps_cell">
-                                                <div class="healthy_form hidden">
+                                            <td colspan="2" class="gaps_cell_offline">
+                                                <div class="healthy_form_offline hidden">
                                                     {{ form.CPT_GAPS_HEALTHY }}
                                                 </div>
-                                                <div class="stable_form hidden">
+                                                <div class="stable_form_offline hidden">
                                                     {{ form.CPT_GAPS_STABLE }}
                                                 </div>
-                                                <div class="safe_form hidden">
+                                                <div class="safe_form_offline hidden">
                                                     {{ form.CPT_GAPS_SAFE }}
                                                 </div>
-                                                <div class="school_form">
+                                                <div class="school_form_offline">
                                                     {{ form.CPT_GAPS_SCHOOL }}
                                                 </div>
                                                 <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
@@ -118,17 +119,17 @@
                                                 </div>
                                             </td>
 
-                                            <td colspan="2" class="actions_cell">
-                                                <div class="healthy_form hidden">
+                                            <td colspan="2" class="actions_cell_offline">
+                                                <div class="healthy_form_offline hidden">
                                                     {{ form.CPT_ACTIONS_HEALTHY }}
                                                 </div>
-                                                <div class="stable_form hidden">
+                                                <div class="stable_form_offline hidden">
                                                     {{ form.CPT_ACTIONS_STABLE }}
                                                 </div>
-                                                <div class="safe_form hidden">
+                                                <div class="safe_form_offline hidden">
                                                     {{ form.CPT_ACTIONS_SAFE }}
                                                 </div>
-                                                <div class="school_form">
+                                                <div class="school_form_offline">
                                                     {{ form.CPT_ACTIONS_SCHOOL }}
                                                 </div>
                                                 <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
@@ -146,17 +147,17 @@
                                         </tr>
 
                                         <tr>
-                                            <td colspan="2" class="services_cell">
-                                                <div class="healthy_form hidden">
+                                            <td colspan="2" class="services_cell_offline">
+                                                <div class="healthy_form_offline hidden">
                                                     {{ form.CPT_SERVICES_HEALTHY }}
                                                 </div>
-                                                <div class="stable_form hidden">
+                                                <div class="stable_form_offline hidden">
                                                     {{ form.CPT_SERVICES_STABLE }}
                                                 </div>
-                                                <div class="safe_form hidden">
+                                                <div class="safe_form_offline hidden">
                                                     {{ form.CPT_SERVICES_SAFE }}
                                                 </div>
-                                                <div class="school_form">
+                                                <div class="school_form_offline">
                                                     {{ form.CPT_SERVICES_SCHOOL }}
                                                 </div>
                                                 <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
@@ -219,7 +220,7 @@
                                         <th>Needs/Gaps</th>
                                         <th>Priority Actions</th>
                                         <th>Services</th>
-                                        <th>Repsonsible</th>
+                                        <th>Responsible</th>
                                         <th>Completed</th>
                                         <th>Results</th>
                                         <th>Reasons</th>
@@ -233,18 +234,6 @@
                             </div>
                             <div class="panel-body panel-form">
                                 <div class="form-group">
-
-                                    <div class="col-md-2 col-sm-2">
-                                        <div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-body panel-form">
-                                <div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button class="btn btn-primary" type="button" id="submit_case_plan_template_offline">Submit Assessment</button>
@@ -252,13 +241,10 @@
                                     </div>
                                 </div>
                             </div>
+                            </form>
                         </div>
                         <!-- end wizard step-1 -->
                     </div>
-                    <form class="hidden" action="../ovc" method="POST" data-parsley-validate="true" name="form-wizard-f1a" id="new_f1a">
-                        {% csrf_token %}
-                        <input type="hidden" name="final_submission"/>
-                    </form>
                 </div>
                 <a class="badge badge-primary m-4" onclick="window.goToOvcViewFromForm1aOffline()"> Back to OVC</a>
                 <div class="badge pull-right m-4">Revised: Oct 6th 2016</div>

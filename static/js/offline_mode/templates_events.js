@@ -121,6 +121,13 @@ let TemplateUtils = (function () {
                 field.attr('data-parsley-required', 'true');
                 field.datepicker({format: 'dd-M-yyyy'});
             });
+        },
+        randomNumber: function () {
+            let min=101;
+            let max=1999;
+            let random = Math.random() * (+max - +min) + +min;
+            random = random.toFixed(0);
+            return random;
         }
     }
 })();
@@ -162,6 +169,7 @@ let OvcHomeTemplate = (function (){
                         me._fillOvcDetailsPage(ovcData);
                         TemplateUtils.showPage(TemplateUtils.viewOvcPage);
                         Form1BTemplate.setOvc(ovcData);
+                        CasePlanTemplate.setOvc(ovcData);
                         return true;
                     }
                 });
@@ -1212,12 +1220,305 @@ let Form1BTemplate = (function () {
 // Handle all events on CasePlanTemplate template
 let CasePlanTemplate = (function () {
 
-    // hook events too case_plan_template_offline_add_row -> AddRow
-    // cancel_case_plan_template_offline and submit_case_plan_template_offline -> form actions
+    let ovc = undefined;
+
+    let getFormInput = () => {
+        return {
+            'domain': [],
+            'goal': [],
+            'gaps': [],
+            'actions': [],
+            'services': [],
+            'responsible': [],
+            'date': [],
+            'actual_completion_date': [],
+            'results': [],
+            'reasons': [],
+            'if_first_cpara': [],
+            'date_first_cpara': [],
+            'cpt_date_caseplan': []
+        };
+    };
+
+    let formInput = getFormInput();
+
+    let deletedIndexes = [
+
+    ];
+
     return {
         init: function () {
             console.log("CasePlanTemplate");
+            this._setupFormInputs();
+            this._setupEvents();
         },
+
+        setOvc: function (selectedOvc) {
+            console.log("Setting ovc data on CasePlanTemplate");
+            ovc = selectedOvc;
+
+            if (ovc === undefined) {
+                return;
+            }
+        },
+
+        _setupFormInputs: function () {
+
+            let dateFirstCpara = $('input[name=date_first_cpara_offline]');
+            $('input[name=if_first_cpara_offline],input[name=date_first_cpara_offline]').removeAttr('required');
+            dateFirstCpara.attr('disabled', true);
+
+            $('input[name=if_first_cpara_offline]').change(function(){
+                let value = $(this).val();
+                if(value === 'AYES') {
+                    dateFirstCpara.val('');
+                    dateFirstCpara.attr('disabled', true);
+                } else if(value === 'ANNO'){
+                    dateFirstCpara.val('');
+                    dateFirstCpara.removeAttr('disabled');
+                }
+            });
+
+            $('.services_cell_offline > div > select').multiselect({
+                selectAllValue: 'multiselect-all',
+                includeSelectAllOption: true,
+                enableCaseInsensitiveFiltering: true,
+                numberDisplayed: 1,
+                maxHeight: 300,
+                buttonWidth: '100%',
+                buttonClass: 'btn btn-white'
+            });
+
+            $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').attr('required', true)
+
+            $('.goals_cell_offline > div > select, .gaps_cell_offline > div > select, .actions_cell_offline > div > select, .domain_cell_offline > select').prepend('<option value="" disabled selected>Pick an item</option>');
+
+            [
+                $('#CPT_DATE'),
+                $('#CPT_ACTUAL_DATE_COMPLETION'),
+                $('input[name=cpt_date_caseplan_offline]'),
+                $('input[name=date_first_cpara_offline_offline]')
+            ].forEach(element => element.datepicker({ format: 'yyyy-mm-dd' }));
+
+            let domainElementsMap = {
+                'DEDU': 'school_form',
+                'DHES': 'stable_form',
+                'DPRO': 'safe_form',
+                'DHNU': 'healthy_form'
+            };
+
+            let domainElements = Object.values(domainElementsMap);
+
+            // onDomain change
+            $('select[name=CPT_DOMAIN]').change(function (e) {
+                let selectedDomain = $('select[name=CPT_DOMAIN] option:selected').val();
+                let domainInput = domainElementsMap[selectedDomain];
+                if (domainInput === undefined) {
+                    return;
+                }
+                let createOfflineInput = (input) => $('.' + input + '_offline' );
+
+                createOfflineInput(domainInput).removeClass('hidden');
+
+                domainElements
+                    .filter(element => element !== domainInput)
+                    .forEach(element => {
+                        createOfflineInput(element).addClass('hidden');
+                    });
+            });
+
+            $('input[name="cpt_date_caseplan_offline"]').click(function (e) {
+                $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select, #wizard-case-plan-offline > .multiselect.dropdown-toggle.btn.btn-white').css({'border-color':'#ccd0d4'});
+            });
+        },
+
+        _setupEvents: function() {
+            let me = this;
+            let eventsHandlers = {
+                '#cancel_case_plan_template_offline': this._cancel,
+                '#case_plan_template_offline_add_row': this._addRow,
+                '#submit_case_plan_template_offline': this._submit
+            };
+
+            Object.entries(eventsHandlers).forEach(entry => {
+                let element = entry[0];
+                let eventHandler = entry[1];
+
+                $(element).on("click", function (event) {
+                    event.preventDefault();
+                    event.stopImmediatePropagation();
+                    eventHandler(me);
+                });
+          })
+        },
+
+        _addRow: function (me) {
+            console.log("Add Row CasePlan Template offline");
+            let domain = $('#id_CPT_DOMAIN option:selected').val();
+
+            let getSelectedValues = (input) => $('.' + input + "_offline > div:not(.hidden) > select > option:selected").val();
+
+            let goals = getSelectedValues('goals_cell');
+            let gaps = getSelectedValues('gaps_cell');
+            let actions = getSelectedValues('actions_cell');
+            let services = [];
+            $('.services_cell_offline > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
+                let value = $(this).val();
+                if(value !== 'multiselect-all'){
+                    services.push(value);
+                }
+            });
+
+            if (services.length < 1) {
+                services = undefined;
+            }
+
+            let responsible = $('#id_CPT_RESPONSIBLE option:selected').val();
+            let date = $('#CPT_DATE').val();
+            let actual_completion_date = $('#CPT_ACTUAL_DATE_COMPLETION').val();
+            let if_first_cpara = $('input[name=if_first_cpara_offline]:checked').val();
+            let date_first_cpara = $('input[name=date_first_cpara_offline]').val();
+            let cpt_date_caseplan_offline = $('input[name=cpt_date_caseplan_offline]').val();
+            let results = $('#id_CPT_RESULTS').val();
+            let reasons = $('#id_CPT_REASONS').val();
+
+            $('.waleert').remove();
+
+
+
+            $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').change(function (e) {
+                $(this).addClass('d-c-1')
+            });
+
+            $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').focus(function (e) {
+                $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select, #wizard-case-plan-offline > .multiselect.dropdown-toggle.btn.btn-white').css('border', '1px solid #9fa2a5');
+                $('.waleert').remove();
+            });
+
+            let createContainerElement = (strWithHTML) => {
+                let container = document.createElement('div');
+                let text = document.createTextNode(strWithHTML);
+                container.appendChild(text);
+                return container.innerHTML;
+            };
+
+            let servicesDisplay = [];
+
+            $('.services_cell_offline > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
+                let text = createContainerElement($(this).text());
+                if(text !== 'Select all') {
+                    servicesDisplay.push('<li>'+ text +'</li>')
+                }
+            });
+
+            let inputValues = {
+                'domain': [domain, $('select[name=CPT_DOMAIN] option[value='+domain+']').text()],
+                'goals': [goals, $('.goals_cell_offline> div:not(.hidden) > select option:selected').text()],
+                'gaps': [gaps, $('.gaps_cell_offline > div:not(.hidden) > select option:selected').text()],
+                'actions': [actions, $('.actions_cell_offline > div:not(.hidden) > select option[value=' + actions + ']').text()],
+                'services': [services, servicesDisplay],
+                'responsible': [responsible,  $('select[name=CPT_RESPONSIBLE] option[value=' + responsible + ']').text()],
+                'date': [date, date],
+                'actual_completion_date': [actual_completion_date, actual_completion_date],
+                'results': [results, $('select[name=CPT_RESULTS] option[value='+results+']').text()],
+                'reasons': [reasons, reasons]
+            };
+
+            let notToShowOnGrid = ['date', 'date_first_cpara', 'cpt_date_caseplan_offline'];
+
+            let validInputs = Object.values(inputValues).filter(inputValue => inputValue[0] !== null || inputValue[0] !== '');
+
+            if (Object.values(inputValues).length !== validInputs.length) {
+               $('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid red');
+               $('input:not(.d-c-1), select:not(.d-c-1)').not('a[tabindex] label.checkbox input[type=checkbox]').before("<small id='CPT_DATE_CASEPLAN_state_offline' class='waleert' style='color: red'>This field is required</small>");
+               return;
+            }
+            formInput.domain.push(domain);
+            formInput.goal.push(goals);
+            formInput.gaps.push(gaps);
+            formInput.actions.push(actions);
+            formInput.services.push(services);
+            formInput.responsible.push(responsible);
+            formInput.date.push(date);
+            formInput.actual_completion_date.push(actual_completion_date);
+            formInput.if_first_cpara.push(if_first_cpara);
+            formInput.date_first_cpara.push(date_first_cpara);
+            formInput.results.push(results);
+            formInput.reasons.push(reasons);
+            formInput.cpt_date_caseplan.push(cpt_date_caseplan_offline);
+
+            let tableCells = Object
+                .entries(inputValues)
+                .filter(entry => !notToShowOnGrid.includes(entry[0]))
+                .map(entry => {
+                    let entryKey = entry[0];
+                    let entryDisplayValue = entry[1][1];
+                    let value = entryDisplayValue;
+
+                    if (entryKey === 'services') {
+                        entryDisplayValue.forEach(item => {
+                            if (item !== '' || item === null) {
+                                value += "<li>" + item + "</li>";
+                            }
+                        });
+                    }
+
+                    return "<td id='tbl_offline_{td_id}'><ul class='ui-flow'>{display_value}</ul></td>"
+                        .replace('{td_id}', entryKey)
+                        .replace('{display_value}', value);
+                });
+
+            let rowId = TemplateUtils.randomNumber();
+            let currentIndex = formInput.domain.length - 1;
+            let rowElementId = 'row_offline_' + rowId + "_" + currentIndex;
+            let btnId = 'remove_row_caseplan_offline_' + rowElementId;
+
+            tableCells.push('<td><a href="#" id="{btn_id}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Remove</a></td>'.replace('{btn_id}', btnId));
+            let tableRow = '<tr id = {row_id} >'.replace('{row_id}', rowElementId) + tableCells.join(" ") + '</tr>';
+
+            $("#submissions_table_offline tbody").append(tableRow);
+
+            $("#" + btnId).click(function (event) {
+                event.preventDefault();
+                $("#" + rowElementId).empty();
+                $("#" + rowElementId).remove();
+
+                deletedIndexes.push(currentIndex);
+            });
+
+            $("#case_plan_offline_form").trigger("reset");
+        },
+
+        _submit: function (me) {
+            console.log('Submit case plan template offline');
+            let formInputMinusDeleted = {};
+
+            if (deletedIndexes.length > 0)  {
+                Object.entries(formInput).forEach(entry => {
+                    let inputValues = entry[1];
+                    formInputMinusDeleted[entry[0]] = [];
+
+                    inputValues.forEach((value, index) => {
+                        if (!deletedIndexes.includes(index)) {
+                            formInputMinusDeleted[entry[0]].push(value);
+                        }
+                    });
+                })
+            } else {
+                formInputMinusDeleted = formInput;
+            }
+
+            TemplateUtils.saveFormData("CasePlanTemplate", formInputMinusDeleted);
+            me._cancel();
+        },
+
+        _cancel: function (me) {
+            console.log("Cancelling case plan template offline");
+            $("#case_plan_offline_form").trigger("reset");
+            $("#submissions_table_offline tbody").html("");
+            formInput = getFormInput();
+            deletedIndexes = [];
+        }
     }
 })();
 

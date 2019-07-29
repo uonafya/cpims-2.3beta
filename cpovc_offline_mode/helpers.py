@@ -432,3 +432,7 @@ def save_submitted_form1b(user_id, ovc_id, form_data):
     else:
         logger.info("Form1B already submitted for ovc_id: {} on date: {} | Cache Key: {}".format(
             ovc_id, service_date, cache_key))
+
+
+def save_submitted_case_plan_template(user_id, ovc_id, form_data):
+    logger.info("Caseplan template {}".format(form_data))
