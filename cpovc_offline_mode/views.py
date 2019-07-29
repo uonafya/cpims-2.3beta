@@ -117,7 +117,6 @@ def fetch_services(request):
     })
 
 
-@login_required(login_url='/')
 def submit_form(request):
 
     logger.info("Submitted data is : {}".format(request.body))

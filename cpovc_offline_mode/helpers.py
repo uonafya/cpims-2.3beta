@@ -3,13 +3,14 @@ import json
 import logging
 
 from django.core.cache import cache
+from django.utils import timezone
 
 from cpovc_forms.models import OVCCareEvents, OVCCareAssessment, OVCCareEAV, OVCCarePriority, OVCCareServices, \
-    OVCCareF1B
+    OVCCareF1B, OVCCareCasePlan, OVCCareForms
 from cpovc_main.functions import new_guid_32, convert_date
 from cpovc_main.models import SetupList
 from cpovc_ovc.functions import get_house_hold
-from cpovc_ovc.models import OVCEducation, OVCHealth, OVCHHMembers
+from cpovc_ovc.models import OVCEducation, OVCHealth, OVCHHMembers, OVCHouseHold, OVCRegistration
 from cpovc_registry.models import RegPerson
 
 logger = logging.getLogger(__name__)
@@ -435,4 +436,79 @@ def save_submitted_form1b(user_id, ovc_id, form_data):
 
 
 def save_submitted_case_plan_template(user_id, ovc_id, form_data):
-    logger.info("Caseplan template {}".format(form_data))
+    for i in range(0, len(form_data['domain'])):
+        domain = form_data['domain'][i]
+        goal = form_data['goal'][i]
+        gaps = form_data['gaps'][i]
+        actions = form_data['actions'][i]
+        services = form_data['services'][i]
+        responsible = form_data['responsible'][i]
+        date = form_data['date'][i]
+        actual_completion_date = form_data['actual_completion_date'][i]
+        results = form_data['results'][i]
+        reasons = form_data['reasons'][i]
+        cpt_date_caseplan = form_data['cpt_date_caseplan'][i]
+
+        cache_key = "_".join([str(ovc_id), domain, goal, gaps, actions, responsible, date, actual_completion_date, results, reasons,
+                              cpt_date_caseplan]).replace(' ', '=')
+        data_from_cache = json.loads(cache.get(cache_key, json.dumps({'services': [], 'ovc_care_event_id': None})))
+        services_from_cache = data_from_cache['services']
+        ovc_care_event_id = data_from_cache['ovc_care_event_id']
+        services_to_add = []
+
+        child = RegPerson.objects.get(id=ovc_id)
+        house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+        event_type_id = 'CPAR'
+        caregiver_id = OVCRegistration.objects.get(person=child).caretaker_id
+
+        if services_from_cache:
+            for service in services:
+                if service not in services_from_cache:
+                    services_to_add.append(service)
+        else:
+            services_to_add = services
+
+        if not ovc_care_event_id:
+            event_counter = OVCCareEvents.objects.filter(
+                event_type_id=event_type_id, person=ovc_id, is_void=False).count()
+            ovc_care_event = OVCCareEvents.objects.create(
+                event_type_id=event_type_id,
+                event_counter=event_counter,
+                event_score=0,
+                created_by=user_id,
+                person=child,
+                house_hold=house_hold)
+        else:
+            ovc_care_event = OVCCareEvents.objects.get(event=ovc_care_event_id)
+
+        for service in services_to_add:
+            services_from_cache.append(service)
+
+            OVCCareCasePlan(
+                domain=domain,
+                goal=goal,
+                person_id=id,
+                caregiver=RegPerson.objects.get(id=caregiver_id),
+                household=house_hold,
+                need=gaps,
+                priority=actions,
+                cp_service=service,
+                responsible=responsible,
+                date_of_previous_event=timezone.now(),
+                date_of_event=convert_date(cpt_date_caseplan, fmt='%Y-%m-%d'),
+                form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
+                completion_date=convert_date(cpt_date_caseplan, fmt='%Y-%m-%d'),
+                actual_completion_date=convert_date(actual_completion_date, fmt='%Y-%m-%d'),
+                results=results,
+                reasons=reasons,
+                case_plan_status='D',
+                event=ovc_care_event
+            ).save()
+
+        cache.set(
+            cache_key,
+            json.dumps({'services': services_from_cache, 'ovc_care_event_id': ovc_care_event.event}))
+
+        logger.info("Successfully saved Case Plan Template, cache_key: {}".format(cache_key))
+
+
