@@ -1263,10 +1263,6 @@ let CasePlanTemplate = (function () {
         setOvc: function (selectedOvc) {
             console.log("Setting ovc data on CasePlanTemplate");
             ovc = selectedOvc;
-
-            if (ovc === undefined) {
-                return;
-            }
         },
 
         _setupFormInputs: function () {
