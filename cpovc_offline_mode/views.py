@@ -8,11 +8,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from cpovc_forms.forms import OVCF1AForm
+from cpovc_forms.forms import OVCF1AForm, CasePlanTemplate
 from cpovc_forms.functions import create_fields, create_form_fields
 from cpovc_main.functions import get_dict
 from cpovc_offline_mode.helpers import get_ovc_school_details, get_ovc_facility_details, get_ovc_household_members, \
-    get_services, save_submitted_form1a, save_submitted_form1b
+    get_services, save_submitted_form1a, save_submitted_form1b, save_submitted_case_plan_template
 from cpovc_ovc.models import OVCRegistration
 from cpovc_registry.templatetags.app_filters import gen_value, vals, check_fields
 
@@ -33,6 +33,10 @@ def templates(request):
             'form': form_1a,
             'domains': domains,
             'form1b_allowed': True
+        }).content,
+        'case_plan_template': render(request, 'forms/case_plan_template_offline.html', {
+            'form': CasePlanTemplate(),
+            'vals': get_dict(field_name=['sex_id', 'relationship_type_id'])
         }).content
     }
     return JsonResponse({'data': json.dumps(tpls)})
@@ -113,7 +117,6 @@ def fetch_services(request):
     })
 
 
-@login_required(login_url='/')
 def submit_form(request):
 
     logger.info("Submitted data is : {}".format(request.body))
@@ -135,6 +138,8 @@ def submit_form(request):
 
         if payload['form_type'].lower() == 'form1b':
             save_submitted_form1b(user_id, ovc_id, payload['form_data'])
+        if payload['form_type'].lower() == 'CasePlanTemplate'.lower():
+            save_submitted_case_plan_template(user_id, ovc_id, payload['form_data'])
     except Exception as ex:
         # catch and log, for it to go to logs for manual reviewing
         type_, value_, traceback_ = sys.exc_info()

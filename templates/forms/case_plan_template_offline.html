@@ -1,0 +1,258 @@
+<ol class="breadcrumb pull-right">
+    <li><a href="#">Home</a></li>
+    <li class="active">OVC Care</li>
+</ol>
+<h1 class="page-header">
+    <i class="fa fa-child"></i> OVC Care <small>Caregiver details</small>
+</h1>
+
+<div class="row">
+    <div class="row" id="case_details_offline">
+        <!-- begin col-12 -->
+        <div class="col-md-12">
+            <!-- begin panel -->
+            <div class="panel panel-inverse">
+                <div class="panel-heading">
+                    <div class="panel-heading-btn">
+                        <a href="#" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-expand"><i class="fa fa-minus"></i></a>
+                        <a href="#" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-collapse"><i class="fa fa-times"></i></a>
+                    </div>
+                    <h4 class="panel-title"> Case Plan </h4>
+                </div>
+                <div class="panel-body">
+                    <div id="form1_info_offline"></div>
+                    <div id="wizard-case-plan-offline">
+                        <!-- begin wizard step-1 -->
+                        <div class="wizard-step-1">
+                            <form id="case_plan_offline_form">
+                            <fieldset>
+
+                                <div id="error_assessment_offline"></div>
+                                <!-- begin col-6 -->
+                                <div class="row">
+                                    <div class="col-md-3 hidden">
+                                        <div class="form-group">
+                                            <label class="control-label formlabel">Is this the first Case Plan Readiness Assessment?:</label><br/>
+
+                                        </div>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="if_first_cpara_offline" value="AYES">
+                                            Yes
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="if_first_cpara_offline" value="ANNO">
+                                            No
+                                        </label>
+                                    </div>
+                                    <div class="col-md-2 hidden">
+                                        <div class="form-group">
+                                            <label class="control-label formlabel">If No, give date of Previous Case Plan Readiness Assessment:</label><br/>
+                                            <input type="text" class="form-control" style="max-width: 200px;" name="date_first_cpara_offline"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <label class="control-label formlabel">Date of caseplan:</label><br/>
+                                            <input type="text" class="form-control" style="max-width: 200px;" name="cpt_date_caseplan_offline"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label class="control-label formlabel">Actual date of caseplan completion*:</label><br/>
+                                            {{form.CPT_ACTUAL_DATE_COMPLETION}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="overflow: inherit !important; overflow-x: auto; min-height: 300px;">
+                                    <table id="assessment_manager_table_offline" class="table">
+                                        <thead>
+                                        <tr id="id_inputHeaders1">
+                                            <th colspan="1"><h6><b>Domain<span class="asteriskField">* </span> </b></h6></th>
+                                            <th colspan="3"><h6><b>Goal<span class="asteriskField">* </span></b></h6></th>
+                                            <th colspan="2"><h6><b>Needs/Gaps<span class="asteriskField">* </span></b></h6></th>
+                                            <th colspan="2"><h6><b>Priority Actions<span class="asteriskField">* </span></b></h6></th>
+                                        </tr>
+                                        </thead>
+                                        <br>
+                                        <tr id="id_inputElements1">
+
+                                            <td colspan="1" class="domain_cell_offline">
+                                                {{ form.CPT_DOMAIN }}
+                                                <div id="olmis_assessment_coreservice_errormsg_offline" style="display:none;" class="col-md-10 control-label">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="3" class="goals_cell_offline" style="min-width: 300px;">
+                                                <div class="healthy_form_offline hidden">
+                                                    {{ form.CPT_GOAL_HEALTHY }}
+                                                </div>
+                                                <div class="stable_form_offline hidden">
+                                                    {{ form.CPT_GOAL_STABLE }}
+                                                </div>
+                                                <div class="safe_form_offline hidden">
+                                                    {{ form.CPT_GOAL_SAFE }}
+                                                </div>
+                                                <div class="school_form_offline">
+                                                    {{ form.CPT_GOAL_SCHOOL }}
+                                                </div>
+                                                <div id="olmis_assessment_coreservice_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="2" class="gaps_cell_offline">
+                                                <div class="healthy_form_offline hidden">
+                                                    {{ form.CPT_GAPS_HEALTHY }}
+                                                </div>
+                                                <div class="stable_form_offline hidden">
+                                                    {{ form.CPT_GAPS_STABLE }}
+                                                </div>
+                                                <div class="safe_form_offline hidden">
+                                                    {{ form.CPT_GAPS_SAFE }}
+                                                </div>
+                                                <div class="school_form_offline">
+                                                    {{ form.CPT_GAPS_SCHOOL }}
+                                                </div>
+                                                <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="2" class="actions_cell_offline">
+                                                <div class="healthy_form_offline hidden">
+                                                    {{ form.CPT_ACTIONS_HEALTHY }}
+                                                </div>
+                                                <div class="stable_form_offline hidden">
+                                                    {{ form.CPT_ACTIONS_STABLE }}
+                                                </div>
+                                                <div class="safe_form_offline hidden">
+                                                    {{ form.CPT_ACTIONS_SAFE }}
+                                                </div>
+                                                <div class="school_form_offline">
+                                                    {{ form.CPT_ACTIONS_SCHOOL }}
+                                                </div>
+                                                <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2"><h6><b>Services<span class="asteriskField">* </span></b></h6></th>
+                                            <th colspan="2"><h6><b>Person Responsible<span class="asteriskField">* </span></b></h6></th>
+                                            <th colspan="1"><h6><b>Date to be completed<span class="asteriskField">* </span></b></h6></th>
+                                            <th colspan="1"><h6><b>Results<span class="asteriskField">* </span></b></h6></th>
+                                            <th colspan="2"><h6><b>Reasons<span class="asteriskField">* </span></b></h6></th>
+                                            <th colspan="1"></th>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2" class="services_cell_offline">
+                                                <div class="healthy_form_offline hidden">
+                                                    {{ form.CPT_SERVICES_HEALTHY }}
+                                                </div>
+                                                <div class="stable_form_offline hidden">
+                                                    {{ form.CPT_SERVICES_STABLE }}
+                                                </div>
+                                                <div class="safe_form_offline hidden">
+                                                    {{ form.CPT_SERVICES_SAFE }}
+                                                </div>
+                                                <div class="school_form_offline">
+                                                    {{ form.CPT_SERVICES_SCHOOL }}
+                                                </div>
+                                                <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="2" class="responsible_cell">
+                                                {{ form.CPT_RESPONSIBLE }}
+                                                <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="1">
+                                                {{ form.CPT_DATE }}
+                                                <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="1">
+                                                {{ form.CPT_RESULTS }}
+                                                <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+
+                                            <td colspan="2">
+                                                <div style="max-width: 290px; font-size: 0.95em;">
+                                                    {{ form.CPT_REASONS }}
+                                                </div>
+                                                <div id="olmis_assessment_coreservice_status_errormsg_offline" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></small>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td colspan="1">
+                                            <button type="button" class="btn btn-sm btn-inverse btn-block" id="case_plan_template_offline_add_row">
+                                                <i class="fa fa-plus"></i>  Add
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                        <tr>
+                                        </tr>
+                                        </tbody>
+
+                                    </table>
+                                    <!-- end col-6 -->
+                                </div>
+                            </fieldset>
+                            <div class="table-responsive">
+                                <table class="table table-condensed slimtable" id="submissions_table_offline">
+                                    <thead>
+                                    <tr>
+                                        <th>Domain</th>
+                                        <th>Goal</th>
+                                        <th>Needs/Gaps</th>
+                                        <th>Priority Actions</th>
+                                        <th>Services</th>
+                                        <th>Responsible</th>
+                                        <th>Completed</th>
+                                        <th>Results</th>
+                                        <th>Reasons</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-body panel-form">
+                                <div class="form-group">
+                                    <label class="control-label col-md-4 col-sm-4"></label>
+                                    <div class="col-md-6 col-sm-6">
+                                        <button class="btn btn-primary" type="button" id="submit_case_plan_template_offline">Submit Assessment</button>
+                                        <a href="#"  id="cancel_case_plan_template_offline" class="btn btn-white">Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                            </form>
+                        </div>
+                        <!-- end wizard step-1 -->
+                    </div>
+                </div>
+                <a class="badge badge-primary m-4" onclick="window.goToOvcViewFromForm1aOffline()"> Back to OVC</a>
+                <div class="badge pull-right m-4">Revised: Oct 6th 2016</div>
+            </div>
+            <!-- end panel -->
+
+        </div>
+        <!-- end col-12 -->
+
+    </div>
+</div>
