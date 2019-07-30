@@ -1300,7 +1300,10 @@ let CasePlanTemplate = (function () {
 
             selectElement('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').attr('required', true);
 
-            selectElement('.goals_cell_offline > div > select, .gaps_cell_offline > div > select, .actions_cell_offline > div > select, .domain_cell_offline > select').prepend('<option value="" disabled selected>Pick an item</option>');
+            let selectElements = selectElement('.goals_cell_offline > div > select').children();
+            if (selectElements.length > 0 && selectElements[0].text !== 'Pick an item') {
+                selectElement('.goals_cell_offline > div > select, .gaps_cell_offline > div > select, .actions_cell_offline > div > select, .domain_cell_offline > select').prepend('<option value="" disabled selected>Pick an item</option>');
+            }
 
             [
                 selectElement('#CPT_DATE'),
@@ -1379,7 +1382,7 @@ let CasePlanTemplate = (function () {
             });
 
             if (services.length < 1) {
-                services = undefined;
+                services = null;
             }
 
             let responsible = selectElement('#id_CPT_RESPONSIBLE option:selected').val();
@@ -1435,13 +1438,16 @@ let CasePlanTemplate = (function () {
 
             let notToShowOnGrid = ['date', 'date_first_cpara', 'cpt_date_caseplan_offline'];
 
-            let validInputs = Object.values(inputValues).filter(inputValue => inputValue[0] !== null || inputValue[0] !== '');
+            let validInputs = Object.values(inputValues)
+                .filter(inputValue => inputValue[0] !== null && inputValue[0] !== '');
 
             if (Object.values(inputValues).length !== validInputs.length) {
                selectElement('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid red');
                selectElement('input:not(.d-c-1), select:not(.d-c-1)').not('a[tabindex] label.checkbox input[type=checkbox]').before("<small id='CPT_DATE_CASEPLAN_state_offline' class='waleert' style='color: red'>This field is required</small>");
                return;
             }
+            selectElement('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid #ccd0d4');
+
             formInput.domain.push(domain);
             formInput.goal.push(goals);
             formInput.gaps.push(gaps);

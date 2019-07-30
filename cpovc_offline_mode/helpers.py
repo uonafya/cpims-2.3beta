@@ -460,6 +460,7 @@ def save_submitted_case_plan_template(user_id, ovc_id, form_data):
         house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
         event_type_id = 'CPAR'
         caregiver_id = OVCRegistration.objects.get(person=child).caretaker_id
+        date_format = '%Y-%m-%d'
 
         if services_from_cache:
             for service in services:
@@ -467,6 +468,10 @@ def save_submitted_case_plan_template(user_id, ovc_id, form_data):
                     services_to_add.append(service)
         else:
             services_to_add = services
+
+        if not services_to_add:
+            logger.info("No case plan services to add")
+            return
 
         if not ovc_care_event_id:
             event_counter = OVCCareEvents.objects.filter(
@@ -487,7 +492,7 @@ def save_submitted_case_plan_template(user_id, ovc_id, form_data):
             OVCCareCasePlan(
                 domain=domain,
                 goal=goal,
-                person_id=id,
+                person_id=child.id,
                 caregiver=RegPerson.objects.get(id=caregiver_id),
                 household=house_hold,
                 need=gaps,
@@ -495,10 +500,10 @@ def save_submitted_case_plan_template(user_id, ovc_id, form_data):
                 cp_service=service,
                 responsible=responsible,
                 date_of_previous_event=timezone.now(),
-                date_of_event=convert_date(cpt_date_caseplan, fmt='%Y-%m-%d'),
+                date_of_event=convert_date(cpt_date_caseplan, fmt=date_format),
                 form=OVCCareForms.objects.get(name='OVCCareCasePlan'),
-                completion_date=convert_date(cpt_date_caseplan, fmt='%Y-%m-%d'),
-                actual_completion_date=convert_date(actual_completion_date, fmt='%Y-%m-%d'),
+                completion_date=convert_date(cpt_date_caseplan, fmt=date_format),
+                actual_completion_date=convert_date(actual_completion_date, fmt=date_format),
                 results=results,
                 reasons=reasons,
                 case_plan_status='D',
@@ -507,7 +512,7 @@ def save_submitted_case_plan_template(user_id, ovc_id, form_data):
 
         cache.set(
             cache_key,
-            json.dumps({'services': services_from_cache, 'ovc_care_event_id': ovc_care_event.event}))
+            json.dumps({'services': services_from_cache, 'ovc_care_event_id': str(ovc_care_event.event)}))
 
         logger.info("Successfully saved Case Plan Template, cache_key: {}".format(cache_key))
 
