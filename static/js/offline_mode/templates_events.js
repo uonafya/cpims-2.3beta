@@ -128,6 +128,11 @@ let TemplateUtils = (function () {
             let random = Math.random() * (+max - +min) + +min;
             random = random.toFixed(0);
             return random;
+        },
+        selectElement: function (parentDiv, elements) {
+            return $(elements.split(",")
+                .map( element => parentDiv + ' ' + element)
+                .join(", "));
         }
     }
 })();
@@ -1240,6 +1245,10 @@ let CasePlanTemplate = (function () {
         };
     };
 
+    let selectElement = (elements) => {
+        return TemplateUtils.selectElement('#case_plan_template ', elements);
+    };
+
     let formInput = getFormInput();
 
     let deletedIndexes = [
@@ -1264,11 +1273,11 @@ let CasePlanTemplate = (function () {
 
         _setupFormInputs: function () {
 
-            let dateFirstCpara = $('input[name=date_first_cpara_offline]');
-            $('input[name=if_first_cpara_offline],input[name=date_first_cpara_offline]').removeAttr('required');
+            let dateFirstCpara = selectElement('input[name=date_first_cpara_offline]');
+            selectElement('input[name=if_first_cpara_offline], input[name=date_first_cpara_offline]').removeAttr('required');
             dateFirstCpara.attr('disabled', true);
 
-            $('input[name=if_first_cpara_offline]').change(function(){
+            selectElement('input[name=if_first_cpara_offline]').change(function(){
                 let value = $(this).val();
                 if(value === 'AYES') {
                     dateFirstCpara.val('');
@@ -1279,7 +1288,7 @@ let CasePlanTemplate = (function () {
                 }
             });
 
-            $('.services_cell_offline > div > select').multiselect({
+            selectElement('.services_cell_offline > div > select').multiselect({
                 selectAllValue: 'multiselect-all',
                 includeSelectAllOption: true,
                 enableCaseInsensitiveFiltering: true,
@@ -1289,15 +1298,15 @@ let CasePlanTemplate = (function () {
                 buttonClass: 'btn btn-white'
             });
 
-            $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').attr('required', true)
+            selectElement('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').attr('required', true);
 
-            $('.goals_cell_offline > div > select, .gaps_cell_offline > div > select, .actions_cell_offline > div > select, .domain_cell_offline > select').prepend('<option value="" disabled selected>Pick an item</option>');
+            selectElement('.goals_cell_offline > div > select, .gaps_cell_offline > div > select, .actions_cell_offline > div > select, .domain_cell_offline > select').prepend('<option value="" disabled selected>Pick an item</option>');
 
             [
-                $('#CPT_DATE'),
-                $('#CPT_ACTUAL_DATE_COMPLETION'),
-                $('input[name=cpt_date_caseplan_offline]'),
-                $('input[name=date_first_cpara_offline_offline]')
+                selectElement('#CPT_DATE'),
+                selectElement('#CPT_ACTUAL_DATE_COMPLETION'),
+                selectElement('input[name=cpt_date_caseplan_offline]'),
+                selectElement('input[name=date_first_cpara_offline_offline]')
             ].forEach(element => element.datepicker({ format: 'yyyy-mm-dd' }));
 
             let domainElementsMap = {
@@ -1310,8 +1319,8 @@ let CasePlanTemplate = (function () {
             let domainElements = Object.values(domainElementsMap);
 
             // onDomain change
-            $('select[name=CPT_DOMAIN]').change(function (e) {
-                let selectedDomain = $('select[name=CPT_DOMAIN] option:selected').val();
+            selectElement('select[name=CPT_DOMAIN]').change(function (e) {
+                let selectedDomain = selectElement('select[name=CPT_DOMAIN] option:selected').val();
                 let domainInput = domainElementsMap[selectedDomain];
                 if (domainInput === undefined) {
                     return;
@@ -1327,8 +1336,8 @@ let CasePlanTemplate = (function () {
                     });
             });
 
-            $('input[name="cpt_date_caseplan_offline"]').click(function (e) {
-                $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select, #wizard-case-plan-offline > .multiselect.dropdown-toggle.btn.btn-white').css({'border-color':'#ccd0d4'});
+            selectElement('input[name="cpt_date_caseplan_offline"]').click(function (e) {
+                selectElement('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select, #wizard-case-plan-offline > .multiselect.dropdown-toggle.btn.btn-white').css({'border-color':'#ccd0d4'});
             });
         },
 
@@ -1344,7 +1353,7 @@ let CasePlanTemplate = (function () {
                 let element = entry[0];
                 let eventHandler = entry[1];
 
-                $(element).on("click", function (event) {
+                selectElement(element).on("click", function (event) {
                     event.preventDefault();
                     event.stopImmediatePropagation();
                     eventHandler(me);
@@ -1354,15 +1363,15 @@ let CasePlanTemplate = (function () {
 
         _addRow: function (me) {
             console.log("Add Row CasePlan Template offline");
-            let domain = $('#id_CPT_DOMAIN option:selected').val();
+            let domain = selectElement('#id_CPT_DOMAIN option:selected').val();
 
-            let getSelectedValues = (input) => $('.' + input + "_offline > div:not(.hidden) > select > option:selected").val();
+            let getSelectedValues = (input) => selectElement('.' + input + "_offline > div:not(.hidden) > select > option:selected").val();
 
             let goals = getSelectedValues('goals_cell');
             let gaps = getSelectedValues('gaps_cell');
             let actions = getSelectedValues('actions_cell');
             let services = [];
-            $('.services_cell_offline > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
+            selectElement('.services_cell_offline > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active input[type=checkbox]').each(function () {
                 let value = $(this).val();
                 if(value !== 'multiselect-all'){
                     services.push(value);
@@ -1373,25 +1382,25 @@ let CasePlanTemplate = (function () {
                 services = undefined;
             }
 
-            let responsible = $('#id_CPT_RESPONSIBLE option:selected').val();
-            let date = $('#CPT_DATE').val();
-            let actual_completion_date = $('#CPT_ACTUAL_DATE_COMPLETION').val();
-            let if_first_cpara = $('input[name=if_first_cpara_offline]:checked').val();
-            let date_first_cpara = $('input[name=date_first_cpara_offline]').val();
-            let cpt_date_caseplan_offline = $('input[name=cpt_date_caseplan_offline]').val();
-            let results = $('#id_CPT_RESULTS').val();
-            let reasons = $('#id_CPT_REASONS').val();
+            let responsible = selectElement('#id_CPT_RESPONSIBLE option:selected').val();
+            let date = selectElement('#CPT_DATE').val();
+            let actual_completion_date = selectElement('#CPT_ACTUAL_DATE_COMPLETION').val();
+            let if_first_cpara = selectElement('input[name=if_first_cpara_offline]:checked').val();
+            let date_first_cpara = selectElement('input[name=date_first_cpara_offline]').val();
+            let cpt_date_caseplan_offline = selectElement('input[name=cpt_date_caseplan_offline]').val();
+            let results = selectElement('#id_CPT_RESULTS').val();
+            let reasons = selectElement('#id_CPT_REASONS').val();
 
             $('.waleert').remove();
 
 
 
-            $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').change(function (e) {
+            selectElement('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').change(function (e) {
                 $(this).addClass('d-c-1')
             });
 
-            $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').focus(function (e) {
-                $('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select, #wizard-case-plan-offline > .multiselect.dropdown-toggle.btn.btn-white').css('border', '1px solid #9fa2a5');
+            selectElement('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').focus(function (e) {
+                selectElement('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select, #wizard-case-plan-offline > .multiselect.dropdown-toggle.btn.btn-white').css('border', '1px solid #9fa2a5');
                 $('.waleert').remove();
             });
 
@@ -1404,7 +1413,7 @@ let CasePlanTemplate = (function () {
 
             let servicesDisplay = [];
 
-            $('.services_cell_offline > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
+            selectElement('.services_cell_offline > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
                 let text = createContainerElement($(this).text());
                 if(text !== 'Select all') {
                     servicesDisplay.push('<li>'+ text +'</li>')
@@ -1412,15 +1421,15 @@ let CasePlanTemplate = (function () {
             });
 
             let inputValues = {
-                'domain': [domain, $('select[name=CPT_DOMAIN] option[value='+domain+']').text()],
-                'goals': [goals, $('.goals_cell_offline> div:not(.hidden) > select option:selected').text()],
-                'gaps': [gaps, $('.gaps_cell_offline > div:not(.hidden) > select option:selected').text()],
-                'actions': [actions, $('.actions_cell_offline > div:not(.hidden) > select option[value=' + actions + ']').text()],
+                'domain': [domain, selectElement('select[name=CPT_DOMAIN] option[value='+domain+']').text()],
+                'goals': [goals, selectElement('.goals_cell_offline> div:not(.hidden) > select option:selected').text()],
+                'gaps': [gaps, selectElement('.gaps_cell_offline > div:not(.hidden) > select option:selected').text()],
+                'actions': [actions, selectElement('.actions_cell_offline > div:not(.hidden) > select option[value=' + actions + ']').text()],
                 'services': [services, servicesDisplay],
-                'responsible': [responsible,  $('select[name=CPT_RESPONSIBLE] option[value=' + responsible + ']').text()],
+                'responsible': [responsible,  selectElement('select[name=CPT_RESPONSIBLE] option[value=' + responsible + ']').text()],
                 'date': [date, date],
                 'actual_completion_date': [actual_completion_date, actual_completion_date],
-                'results': [results, $('select[name=CPT_RESULTS] option[value='+results+']').text()],
+                'results': [results, selectElement('select[name=CPT_RESULTS] option[value='+results+']').text()],
                 'reasons': [reasons, reasons]
             };
 
@@ -1429,8 +1438,8 @@ let CasePlanTemplate = (function () {
             let validInputs = Object.values(inputValues).filter(inputValue => inputValue[0] !== null || inputValue[0] !== '');
 
             if (Object.values(inputValues).length !== validInputs.length) {
-               $('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid red');
-               $('input:not(.d-c-1), select:not(.d-c-1)').not('a[tabindex] label.checkbox input[type=checkbox]').before("<small id='CPT_DATE_CASEPLAN_state_offline' class='waleert' style='color: red'>This field is required</small>");
+               selectElement('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid red');
+               selectElement('input:not(.d-c-1), select:not(.d-c-1)').not('a[tabindex] label.checkbox input[type=checkbox]').before("<small id='CPT_DATE_CASEPLAN_state_offline' class='waleert' style='color: red'>This field is required</small>");
                return;
             }
             formInput.domain.push(domain);
@@ -1476,9 +1485,9 @@ let CasePlanTemplate = (function () {
             tableCells.push('<td><a href="#" id="{btn_id}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Remove</a></td>'.replace('{btn_id}', btnId));
             let tableRow = '<tr id = {row_id} >'.replace('{row_id}', rowElementId) + tableCells.join(" ") + '</tr>';
 
-            $("#submissions_table_offline tbody").append(tableRow);
+            selectElement("#submissions_table_offline tbody").append(tableRow);
 
-            $("#" + btnId).click(function (event) {
+            selectElement("#" + btnId).click(function (event) {
                 event.preventDefault();
                 $("#" + rowElementId).empty();
                 $("#" + rowElementId).remove();
@@ -1486,7 +1495,7 @@ let CasePlanTemplate = (function () {
                 deletedIndexes.push(currentIndex);
             });
 
-            $("#case_plan_offline_form").trigger("reset");
+            selectElement("#case_plan_offline_form").trigger("reset");
         },
 
         _submit: function (me) {
@@ -1514,8 +1523,8 @@ let CasePlanTemplate = (function () {
 
         _cancel: function (me) {
             console.log("Cancelling case plan template offline");
-            $("#case_plan_offline_form").trigger("reset");
-            $("#submissions_table_offline tbody").html("");
+            selectElement("#case_plan_offline_form").trigger("reset");
+            selectElement("#submissions_table_offline tbody").html("");
             formInput = getFormInput();
             deletedIndexes = [];
         }
