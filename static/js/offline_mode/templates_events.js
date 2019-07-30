@@ -1251,9 +1251,7 @@ let CasePlanTemplate = (function () {
 
     let formInput = getFormInput();
 
-    let deletedIndexes = [
-
-    ];
+    let deletedIndexes = [];
 
     return {
         init: function () {
@@ -1272,7 +1270,6 @@ let CasePlanTemplate = (function () {
         },
 
         _setupFormInputs: function () {
-
             let dateFirstCpara = selectElement('input[name=date_first_cpara_offline]');
             selectElement('input[name=if_first_cpara_offline], input[name=date_first_cpara_offline]').removeAttr('required');
             dateFirstCpara.attr('disabled', true);
@@ -1395,8 +1392,6 @@ let CasePlanTemplate = (function () {
             let reasons = selectElement('#id_CPT_REASONS').val();
 
             $('.waleert').remove();
-
-
 
             selectElement('#wizard-case-plan-offline > input, #wizard-case-plan-offline > select').change(function (e) {
                 $(this).addClass('d-c-1')
