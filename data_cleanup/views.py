@@ -10,13 +10,13 @@ from django.views.generic import TemplateView
 
 
 from cpovc_registry.models import RegPerson, RegPersonsOrgUnits
-from cpovc_auth.functions import get_allowed_units_county
-from .models import DataQuality
+from .models import DataQuality, Form1BServicesDataQuality
 
 
 class DataQualityView(TemplateView):
     template_name = 'data_cleanup/filter.html'
     context_object_name = "data"
+    filters = {}
 
     def get_context_data(self, **kwargs):
         context = super(
@@ -24,29 +24,42 @@ class DataQualityView(TemplateView):
         context['data'] = self.get_queryset()
         return context
 
-    def get_final_query_set(self):
+    def get_final_query_set(self, model):
         user_orgs = self.request.user.reg_person.regpersonsorgunits_set.values()
         org_units = []
 
         for org in user_orgs:
             if not org['is_void']:
                 org_units.append(org['org_unit_id'])
+        return model.objects.filter(child_cbo_id__in=org_units)
 
-        return DataQuality.objects.filter(is_void=False, child_cbo_id__in=org_units)
+    def get_queryset(self, model=DataQuality):
+        return self.get_final_query_set(model)
 
-    def get_queryset(self, *args, **kwargs):
-        return self.get_final_query_set()
+    def set_view_filters_for_form_1b_domains(self, *args, **kwargs):
+        form_1b_domain = self.request.POST.get('form_1b_domain')
+        domain_filers = {}
 
-    def get(self, *args, **kwargs):
-        if self.request.GET.dict().get('export', False):
-            return self.export_data(*args, **kwargs)
-        else:
-            return super(DataQualityView, self).get(*args, **kwargs)
+        if form_1b_domain == '0':
+            return domain_filers
+
+        domains_map = {
+            'DPSS': 'dpss',
+            'DSHC': 'dshc',
+            'DHES': 'dhes',
+            'DEDU': 'dedu',
+            'DPRO': 'dpro',
+            'DHNU': 'dhnu'
+        }
+
+        for key, value in domains_map.items():
+            if form_1b_domain == key:
+                domain_filers[value] = True
+        return domain_filers
 
     def post(self, *args, **kwargs):
-        objs = get_allowed_units_county(self.request.user.id)
         context = {}
-        queryset =  DataQuality.objects.all()
+
         age = self.request.POST.get('age')
         age_operator = self.request.POST.get('operator')
         school_level = self.request.POST.get('school_level')
@@ -56,13 +69,18 @@ class DataQualityView(TemplateView):
         is_disabled = self.request.POST.get('is_disabled')
         is_ovc = self.request.POST.get('is_ovc')
         has_bcert = self.request.POST.get('has_bcert')
+        form_1b_domain = self.request.POST.get('form_1b_domain')
+        filters = {}
+        if form_1b_domain:
+            queryset = self.get_queryset(Form1BServicesDataQuality)
+        else:
+            queryset = self.get_queryset(DataQuality)
 
         # Maintain selected options in the views
         view_filter_values = {
             'age': age
         }
 
-        filters = {}
         if age:
             if  age_operator == '-' and age_operator != '0':
                 ages =  age.split('-')
@@ -94,6 +112,9 @@ class DataQualityView(TemplateView):
             elif  age_operator == '<':
                 view_filter_values['less_than'] = True
                 queryset = queryset.filter(age__lt=age)
+
+        if form_1b_domain and form_1b_domain != '0':
+            filters['domain'] = form_1b_domain
 
         if school_level and school_level != '0':
             filters['school_level'] = school_level
@@ -162,27 +183,9 @@ class DataQualityView(TemplateView):
         if has_bcert and has_bcert == 'False':
             filters['has_bcert'] = False
             view_filter_values['has_bcert_no'] = True
-
         queryset = queryset.filter(**filters)
         context['data']= queryset
+
+        view_filter_values.update(self.set_view_filters_for_form_1b_domains())
         context['view_filter_values'] = view_filter_values
         return TemplateResponse(self.request, self.template_name, context)
-
-    def generate_where_clause(self):
-        query_dict = self.request.GET.dict()
-        school_level = query_dict.get('school_level')
-        age = query_dict.get('age')
-        operator = query_dict.get('operator')
-        art_status = query_dict.get('art_status')
-        hiv_status = query_dict.get('hiv_status')
-        sql = "WHERE 1=1 AND "
-        if school_level != '0':
-            sql += "school_level='{}' AND ".format(school_level)
-        if age:
-            sql += "age='{}' AND ".format(age)
-        if art_status != '0':
-            sql += "art_status='{}' AND ".format(art_status)
-        if hiv_status != '0':
-            sql += "hiv_status='{}' AND ".format(hiv_status)
-        sql += '1=1'
-        return sql
