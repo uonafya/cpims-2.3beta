@@ -2,6 +2,9 @@ from django.db import models
 
 
 class DataQuality(models.Model):
+    """
+    Demographic data data quality.
+    """
     ovc_registration_id = models.IntegerField(primary_key=True)
     registration_date = models.DateTimeField()
     has_bcert = models.BooleanField()
@@ -38,6 +41,34 @@ class DataQuality(models.Model):
     class Meta:
         managed= False
         db_table = 'data_quality_view'
-    
+
     def __str__(self):
         return self.first_name
+
+
+
+class Form1BServicesDataQuality(models.Model):
+    """
+    Combining demography data together with the other form 1b services.
+    """
+    id = models.CharField(max_length=255, primary_key=True)
+    domain = models.CharField(max_length=255)
+    entity = models.CharField(max_length=255)
+    value = models.CharField(max_length=255)
+    event_id = models.CharField(max_length=255) # Same as event on the ovc_care_events
+    person_id = models.CharField(max_length=255)
+    has_bcert = models.BooleanField()
+    is_disabled = models.BooleanField()
+    hiv_status = models.CharField(max_length=255)
+    school_level = models.CharField(max_length=255)
+    child_cbo_id = models.CharField(max_length=255)
+    art_status =  models.CharField(max_length=255)
+    designation = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    other_names = models.CharField(max_length=255)
+    surname = models.CharField(max_length=255)
+    age = models.IntegerField()
+
+    class Meta:
+        managed= False
+        db_table = 'data_quality_form1b'
