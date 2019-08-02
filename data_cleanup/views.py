@@ -10,7 +10,10 @@ from django.views.generic import TemplateView
 
 
 from cpovc_registry.models import RegPerson, RegPersonsOrgUnits
-from .models import DataQuality, Form1BServicesDataQuality
+from .models import (
+    DataQuality, Form1BServicesDataQuality, OVCCareServicesDataQuality,
+    OVCCarePriorityDataQuality
+)
 
 
 class DataQualityView(TemplateView):
@@ -57,8 +60,183 @@ class DataQualityView(TemplateView):
                 domain_filers[value] = True
         return domain_filers
 
+    def set_view_filters_for_services(self):
+        service = self.request.POST.get('service')
+        service_filers = {}
+
+        if service == '0':
+            return service_filers
+
+        services_map = {
+            'HC2S': 'hc2s',
+            'PT2S': 'pt2s',
+            'HC6S': 'hc6s',
+            'CP 4s': 'cp4s',
+            'SCSP': 'scsp',
+            'HN 15s': 'hn15s',
+            'HE1S': 'he1s',
+            'HG2S': 'hg2s',
+            'HN 16s': 'hn16s',
+            'CP 8s': 'cp8s',
+            'CE 8s': 'ce8s',
+            'CP 10s': 'cp10s',
+            'ES 5s': 'es5s',
+            'HN 10s': 'hn10s',
+            'HE3S': 'he3s',
+            'CP 7s': 'cp7s',
+            'HN 12s': 'hn12s',
+            'HHKG': 'hhkg',
+            'PS4S': 'ps4s',
+            'PT3S': 'pt3s',
+            'ES 3s': 'es3s',
+            'HHHL': 'hhhl',
+            'HC4S': 'hc4s',
+            'HN 3s': 'hn3s',
+            'PT1S': 'pt1s',
+            'SE8S': 'se8s',
+            'PS5s': 'ss5s',
+            'SC3S': 'sc3s',
+            'MSLG': 'mslg',
+            'SC2S': 'sc25',
+            'CE 11s': 'ce11s',
+            'CE10s': 'ce10s',
+            'MSLU': 'mslu',
+            'MSNE': 'msne',
+            'HAMN': 'hamn',
+            'PSG4': 'psg4',
+            'HE7s': 'h37s',
+            'PS3S': 'ps3s',
+            'HC8S': 'hc8s',
+            'HN 11s': 'hn11s',
+            'HN 6s': 'hn6s',
+            'PS2S': 'ps2s',
+            'SC6S': 'sc6s',
+            'HE2S': 'he2s',
+            'CP 9s': 'cp9s',
+            'ES 2s': 'es2s',
+            'HEG3': 'heg3',
+            'HC1S': 'hc1s',
+            'HN 2s': 'hn2s',
+            'PS1S': 'ps1s',
+            'HN 5s': 'hn5s',
+            'HC7S': 'hc7s',
+            'HE8s': 'h38s',
+            'HC5S': 'hc5s',
+            'ES 6s': 'es6s',
+            'SE1S': 'se1s',
+            'HN 13s': 'hn13s',
+            'CP 1s': 'cp1s',
+            'ES 1s': 'es1s',
+            'MSLF': 'mslf',
+            'CP 11s': 'cp11s',
+            'HN 4s': 'hn4s',
+            'PSG1': 'psg1',
+            'HE5S': 'he5s',
+            'SC7S': 'sc7s',
+            'HC3S': 'hc3s',
+            'CE9s': 'ce9s',
+            'SE5S': 'se5s',
+            'MSVT': 'msvt',
+            'SC5S': 'sc5s',
+            'PT6s': 'pt6s',
+            'SE4S': 'se4s',
+            'SE6S': 'se6s',
+            'CE 10s': 'ce10s',
+            'HNHE': 'hnhe',
+            'HHHP': 'hhhp',
+            'SCMM': 'scmm',
+            'CE 3s': 'ce3s',
+            'PPHP': 'pphp',
+            'HRHC': 'hrhc',
+            'PT5S': 'pt5s',
+            'HCLE': 'hcle',
+            'CP 5s': 'cp5s',
+            'ES 7s': 'es7s',
+            'CE 7s': 'ce7s',
+            'HN 9s': 'hn9s',
+            'MSLB': 'mslb',
+            'HC10': 'hc10',
+            'CE 4s': 'ce4s',
+            'PT7s': 'pt7s',
+            'SC1S': 'sc1s',
+            'CE12s': 'ce12s',
+            'MSCW': 'mscw',
+            'PT4S': 'pt4s',
+            'SE3S': 'se3s',
+            'CE 2s': 'ce2s',
+            'HG3S': 'hg3s',
+            'SG1S': 'sg1s',
+            'ES 4s': 'es4s',
+            'CP 6s': 'cp6s',
+            'CE11s': 'ce11s',
+            'HRTS': 'hrts',
+            'HHSU': 'hhsu',
+            'MSSP': 'mssp',
+            'HISF': 'hisf',
+            'PHPA': 'phpa',
+            'HC9S': 'hc9s',
+            'HEG2': 'hegs',
+            'CE 1s': 'ce1s',
+            'CE 5s': 'ce5s',
+            'HE6s': 'he6s',
+            'PANS': 'pans',
+            'SCBB': 'scbb',
+            'HN 1s': 'hn1s',
+            'SE9S': 'se9s',
+            'PSBO': 'psbo',
+            'HN 7s': 'hn7s',
+            'HE4S': 'he4s',
+            'HG8S': 'h58s',
+            'CP12s': 'cp12s',
+            'MSSL': 'mssl',
+            'PHEW': 'phew',
+            'HN 14s': 'hn14s',
+            'CP 2s': 'cp2s',
+            'CE 9s': 'ce9s',
+            'HSEK': 'hsek',
+            'SE2S': 'se2s',
+            'SNNB': 'snnb',
+            'SE7S': 'se7s',
+            'HN 17s': 'hn17s',
+            'SC4S': 'sc4s',
+            'SNHC': 'snhc',
+            'HN 8s':'hn8s',
+            'CP 3s': 'cp3s',
+        }
+
+        for key, value in services_map.items():
+            if service == key:
+                service_filers[value] = True
+        return service_filers
+
+    def set_view_filters_for_prorities(self):
+        priority = self.request.POST.get('priority')
+        priority_filters = {}
+
+        if priority == '0':
+            return priority_filters
+
+        priorities_map = {
+            'SE4S': 'priotity_se4s',
+            'SE6S': 'priotity_se6s',
+            'HC2S': 'priotity_hc2s',
+            'PT6s': 'priotity_pt6s',
+            'HNHE': 'priotity_hnhe',
+            'SCMM': 'priotity_scmm',
+            'HC6S': 'priotity_hc6s',
+            'HE1S': 'priotity_he1s',
+            'PT2S': 'priotity_pt2s',
+            'SC5S': 'priotity_sc5s'
+        }
+
+        for key, value in priorities_map.items():
+            if priority == key:
+                priority_filters[value] = True
+        return priority_filters
+
     def post(self, *args, **kwargs):
         context = {}
+
 
         age = self.request.POST.get('age')
         age_operator = self.request.POST.get('operator')
@@ -70,11 +248,18 @@ class DataQualityView(TemplateView):
         is_ovc = self.request.POST.get('is_ovc')
         has_bcert = self.request.POST.get('has_bcert')
         form_1b_domain = self.request.POST.get('form_1b_domain')
+        service = self.request.POST.get('service')
+        priority = self.request.POST.get('priority')
         filters = {}
-        if form_1b_domain:
+
+        if form_1b_domain and form_1b_domain != '0':
             queryset = self.get_queryset(Form1BServicesDataQuality)
+        elif service and service != '0':
+            queryset = self.get_queryset(OVCCareServicesDataQuality)
+        elif priority and priority != '0':
+            queryset = self.get_final_query_set(OVCCarePriorityDataQuality)
         else:
-            queryset = self.get_queryset(DataQuality)
+            queryset = self.get_final_query_set(DataQuality)
 
         # Maintain selected options in the views
         view_filter_values = {
@@ -115,6 +300,12 @@ class DataQualityView(TemplateView):
 
         if form_1b_domain and form_1b_domain != '0':
             filters['domain'] = form_1b_domain
+
+        if service and service != '0':
+            filters['service_provided'] = service
+
+        if priority and priority != '0':
+            filters['service'] = priority
 
         if school_level and school_level != '0':
             filters['school_level'] = school_level
@@ -187,5 +378,7 @@ class DataQualityView(TemplateView):
         context['data']= queryset
 
         view_filter_values.update(self.set_view_filters_for_form_1b_domains())
+        view_filter_values.update(self.set_view_filters_for_services())
+        view_filter_values.update(self.set_view_filters_for_prorities())
         context['view_filter_values'] = view_filter_values
         return TemplateResponse(self.request, self.template_name, context)
