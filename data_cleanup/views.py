@@ -11,7 +11,8 @@ from django.views.generic import TemplateView
 
 from cpovc_registry.models import RegPerson, RegPersonsOrgUnits
 from .models import (
-    DataQuality, Form1BServicesDataQuality, OVCCareServicesDataQuality
+    DataQuality, Form1BServicesDataQuality, OVCCareServicesDataQuality,
+    OVCCarePriorityDataQuality
 )
 
 
@@ -208,10 +209,35 @@ class DataQualityView(TemplateView):
                 service_filers[value] = True
         return service_filers
 
+    def set_view_filters_for_prorities(self):
+        priority = self.request.POST.get('priority')
+        priority_filters = {}
+
+        if priority == '0':
+            return priority_filters
+
+        priorities_map = {
+            'SE4S': 'priotity_se4s',
+            'SE6S': 'priotity_se6s',
+            'HC2S': 'priotity_hc2s',
+            'PT6s': 'priotity_pt6s',
+            'HNHE': 'priotity_hnhe',
+            'SCMM': 'priotity_scmm',
+            'HC6S': 'priotity_hc6s',
+            'HE1S': 'priotity_he1s',
+            'PT2S': 'priotity_pt2s',
+            'SC5S': 'priotity_sc5s'
+        }
+
+        for key, value in priorities_map.items():
+            if priority == key:
+                priority_filters[value] = True
+        return priority_filters
+
     def post(self, *args, **kwargs):
         context = {}
 
-        queryset = self.get_final_query_set(DataQuality)
+
         age = self.request.POST.get('age')
         age_operator = self.request.POST.get('operator')
         school_level = self.request.POST.get('school_level')
@@ -223,12 +249,17 @@ class DataQualityView(TemplateView):
         has_bcert = self.request.POST.get('has_bcert')
         form_1b_domain = self.request.POST.get('form_1b_domain')
         service = self.request.POST.get('service')
+        priority = self.request.POST.get('priority')
         filters = {}
 
-        if form_1b_domain and not service != '0':
+        if form_1b_domain and form_1b_domain != '0':
             queryset = self.get_queryset(Form1BServicesDataQuality)
-        if service and not form_1b_domain != '0':
+        elif service and service != '0':
             queryset = self.get_queryset(OVCCareServicesDataQuality)
+        elif priority and priority != '0':
+            queryset = self.get_final_query_set(OVCCarePriorityDataQuality)
+        else:
+            queryset = self.get_final_query_set(DataQuality)
 
         # Maintain selected options in the views
         view_filter_values = {
@@ -272,6 +303,9 @@ class DataQualityView(TemplateView):
 
         if service and service != '0':
             filters['service_provided'] = service
+
+        if priority and priority != '0':
+            filters['service'] = priority
 
         if school_level and school_level != '0':
             filters['school_level'] = school_level
@@ -345,5 +379,6 @@ class DataQualityView(TemplateView):
 
         view_filter_values.update(self.set_view_filters_for_form_1b_domains())
         view_filter_values.update(self.set_view_filters_for_services())
+        view_filter_values.update(self.set_view_filters_for_prorities())
         context['view_filter_values'] = view_filter_values
         return TemplateResponse(self.request, self.template_name, context)
