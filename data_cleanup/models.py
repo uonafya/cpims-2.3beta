@@ -126,3 +126,48 @@ class OVCCarePriorityDataQuality(models.Model):
     class Meta:
         managed= False
         db_table = 'data_quality_priority'
+
+
+class CasePlanDataQuality(models.Model):
+    """
+    Demographic data plus case plan data
+    """
+    domain = models.CharField(max_length=255)
+    goal = models.CharField(max_length=255)
+    need = models.CharField(max_length=255)
+    priority = models.CharField(max_length=255)
+    cp_service = models.CharField(max_length=255)
+    responsible = models.CharField(max_length=255)
+    completion_date = models.DateField()
+    results = models.CharField(max_length=255)
+    reasons = models.CharField(max_length=255)
+    date_of_event = models.DateField()
+    date_of_previous_event = models.DateField()
+    case_plan_status = models.CharField(max_length=255)
+    initial_caseplan = models.BooleanField()
+    is_void = models.BooleanField()
+    timestamp_created = models.DateTimeField()
+    timestamp_updated = models.DateTimeField()
+    event_id = models.CharField(max_length=255)
+    form_id = models.CharField(max_length=255)
+    household_id = models.CharField(max_length=255)
+    case_plan_person_id = models.IntegerField()
+    caregiver_id = models.IntegerField()
+    actual_completion_date = models.DateField()
+    has_bcert = models.BooleanField()
+    is_disabled = models.BooleanField()
+    hiv_status = models.BooleanField()
+    school_level = models.CharField(max_length=255)
+    child_cbo_id = models.CharField(max_length=255)
+    person_id = models.IntegerField()
+    art_status = models.CharField(max_length=255)
+    designation = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    other_names = models.CharField(max_length=255)
+    surname = models.CharField(max_length=255)
+    age = models.IntegerField()
+    sex_id = models.CharField(max_length=255)
+
+    class Meta:
+        managed= False
+        db_table = 'data_quality_case_plan'

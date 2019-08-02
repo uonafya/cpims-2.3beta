@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from cpovc_registry.models import RegPerson, RegPersonsOrgUnits
 from .models import (
     DataQuality, Form1BServicesDataQuality, OVCCareServicesDataQuality,
-    OVCCarePriorityDataQuality
+    OVCCarePriorityDataQuality, CasePlanDataQuality
 )
 
 
@@ -234,9 +234,63 @@ class DataQualityView(TemplateView):
                 priority_filters[value] = True
         return priority_filters
 
+    def set_view_filters_for_case_plan(self):
+        cp_service = self.request.POST.get('cp_service')
+        cp_filters = {}
+
+        if cp_service == '0':
+            return cp_filters
+        cp_service_map = {
+            'CPTS7h':'cpt57h',
+            'CPTS10p':'cpts10p',
+            'CPTS5e':'cpts5e',
+            'CPTS1p':'cpts1p',
+            'CPTS6h':'cpts6h',
+            'CPTS2e':'cpts2e',
+            'CPTS6p':'cpts6p',
+            'CPTS7e':'cpts7e',
+            'CPTS5s':'cpts5s',
+            'CPTS4p':'cpt54p',
+            'CPTS7s':'cpt57s',
+            'CPTS8s':'cpts8s',
+            'CPTS3h':'cpts3h',
+            'CPTS9p':'cpts9p',
+            'CPTS10h':'cpts10h',
+            'CPTS12h':'cpts12h',
+            'CPTS1s':'.cpts1s',
+            'CPTS10e':'cpts10e',
+            'CPTS3p':'cpts3p',
+            'CPTS9h':'cpts9h',
+            'CPTS9e':'cpts9e',
+            'CPTS6s':'cpts6s',
+            'CPTS4e':'cpts4e',
+            'CPTS8e':'cpts8e',
+            'CPTS4s':'cpts4s',
+            'CPTS3e': 'cpts3e',
+            'CPTS7p': 'cpts7p',
+            'CPTS12p': 'cpts12p',
+            'CPTS11p': 'cpts11p',
+            'CPTS2s': 'cpts2s',
+            'CPTS5p': 'cpts5p',
+            'CPTS8p': 'cpts8p',
+            'CPTS2h': 'cpts2h',
+            'CPTS6e': 'cpts6e',
+            'CPTS1h': 'cpts1h',
+            'CPTS2p:': 'cpts2p',
+            'CPTS1e': 'cpts1e',
+            'CPTS4h': 'cpts4h',
+            'CPTS5h': 'cpts5h',
+            'CPTS11h': 'cpt511h',
+            'CPTS3s': 'cpts3s',
+            'CPTS8h': 'cpts8h'
+        }
+        for key, value in cp_service_map.items():
+            if cp_service == key:
+                cp_filters[value] = True
+        return cp_filters
+
     def post(self, *args, **kwargs):
         context = {}
-
 
         age = self.request.POST.get('age')
         age_operator = self.request.POST.get('operator')
@@ -250,6 +304,7 @@ class DataQualityView(TemplateView):
         form_1b_domain = self.request.POST.get('form_1b_domain')
         service = self.request.POST.get('service')
         priority = self.request.POST.get('priority')
+        cp_service = self.request.POST.get('cp_service')
         filters = {}
 
         if form_1b_domain and form_1b_domain != '0':
@@ -258,6 +313,8 @@ class DataQualityView(TemplateView):
             queryset = self.get_queryset(OVCCareServicesDataQuality)
         elif priority and priority != '0':
             queryset = self.get_final_query_set(OVCCarePriorityDataQuality)
+        elif cp_service and cp_service != '0':
+            queryset = self.get_final_query_set(CasePlanDataQuality)
         else:
             queryset = self.get_final_query_set(DataQuality)
 
@@ -306,6 +363,9 @@ class DataQualityView(TemplateView):
 
         if priority and priority != '0':
             filters['service'] = priority
+
+        if cp_service and cp_service != '0':
+            filters['cp_service'] = cp_service
 
         if school_level and school_level != '0':
             filters['school_level'] = school_level
@@ -380,5 +440,6 @@ class DataQualityView(TemplateView):
         view_filter_values.update(self.set_view_filters_for_form_1b_domains())
         view_filter_values.update(self.set_view_filters_for_services())
         view_filter_values.update(self.set_view_filters_for_prorities())
+        view_filter_values.update(self.set_view_filters_for_case_plan())
         context['view_filter_values'] = view_filter_values
         return TemplateResponse(self.request, self.template_name, context)
