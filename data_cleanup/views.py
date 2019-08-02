@@ -364,6 +364,9 @@ class DataQualityView(TemplateView):
         if priority and priority != '0':
             filters['service'] = priority
 
+        if cp_service and cp_service != '0':
+            filters['cp_service'] = cp_service
+
         if school_level and school_level != '0':
             filters['school_level'] = school_level
             if school_level == 'SLSE':

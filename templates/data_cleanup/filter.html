@@ -267,7 +267,7 @@
     </div>
     <div class='col-lg-6'>
     <label> Case Plan</label>
-    <select name='case_plan_services' class='form-control'>
+    <select name='cp_service' class='form-control' id='cp_service'>
         <option value="0">Select Case Plan Service</option>
         <option value='CPTS7h'  {% if view_filter_values.cpt57h %} selected='selected'{% endif %}>CPTS7h</option>
         <option value='CPTS10p'  {% if view_filter_values.cpts10p %} selected='selected'{% endif %}>CPTS10p</option>
@@ -296,8 +296,8 @@
         <option value='CPTS4s'{% if view_filter_values.cpts4s %} selected='selected'{% endif %}>CPTS4s</option>
         <option value='CPTS3e' {% if view_filter_values.cpts3e %} selected='selected'{% endif %}>CPTS3e</option>
         <option value='CPTS7p' {% if view_filter_values.cpts7p %} selected='selected'{% endif %}>CPTS7p</option>
-        <option value='CPTS12p' {% if view_filter_values.cpts12p[] %} selected='selected'{% endif %}>CPTS12p</option>
-      <option value='CPTS11p' {% if view_filter_values.cpts11p] %} selected='selected'{% endif %}>CPTS11p</option>
+        <option value='CPTS12p' {% if view_filter_values.cpts12p %} selected='selected'{% endif %}>CPTS12p</option>
+        <option value='CPTS11p' {% if view_filter_values.cpts11p %} selected='selected'{% endif %}>CPTS11p</option>
         <option value='CPTS2s' {% if view_filter_values.cpts2s %} selected='selected'{% endif %}>CPTS2s</option>
         <option value='CPTS5p'{% if view_filter_values.cpts5p %} selected='selected'{% endif %}>CPTS5p</option>
         <option value='CPTS8p' {% if view_filter_values.cpts8p %} selected='selected'{% endif %}>CPTS8p</option>
