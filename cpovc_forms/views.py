@@ -7844,11 +7844,11 @@ def new_hhva(request, id):
         # get relations
     guardians = RegPersonsGuardians.objects.select_related().filter(
         child_person=id, is_void=False, date_delinked=None)
-    siblings = RegPersonsSiblings.objects.select_related().filter(
-        child_person=id, is_void=False)
+    siblings = RegPersonsSiblings.objects.filter(
+        child_person_id=id, is_void=False)
     # Reverse relationship
-    osiblings = RegPersonsSiblings.objects.select_related().filter(
-        sibling_person=id, is_void=False)
+    osiblings = RegPersonsSiblings.objects.filter(
+        sibling_person_id=id, is_void=False)
     oguardians = RegPersonsGuardians.objects.select_related().filter(
         guardian_person=id, is_void=False, date_delinked=None)
 
@@ -8716,13 +8716,10 @@ def new_cpara(request, id):
     guardians = RegPersonsGuardians.objects.select_related().filter(
         child_person=id, is_void=False, date_delinked=None)
     siblings = RegPersonsSiblings.objects.filter(
-        child_person=id, is_void=False)
-    print("(((((((((((((((((((((((((((((((((((((((((((((")
-    print(siblings)
-    print(")))))))))))))))))))))))))))))))))))))))))))))")
+        child_person_id=id, is_void=False)
     # Reverse relationship
-    osiblings = RegPersonsSiblings.objects.select_related().filter(
-        sibling_person=id, is_void=False)
+    osiblings = RegPersonsSiblings.objects.filter(
+        sibling_person_id=id, is_void=False)
     oguardians = RegPersonsGuardians.objects.select_related().filter(
         guardian_person=id, is_void=False, date_delinked=None)
     child = RegPerson.objects.get(id=id)
@@ -9440,7 +9437,7 @@ def new_wellbeing(request, id):
     child = RegPerson.objects.get(is_void=False, id=ovc_id)
 
     siblings = RegPersonsSiblings.objects.filter(
-        is_void=False, child_person=child.id)
+        is_void=False, child_person_id=child.id)
 
     # Reverse relationship
     osiblings = RegPersonsSiblings.objects.select_related().filter(
