@@ -44,8 +44,8 @@ class TestHivScreenToolViews(TestCase):
     def test_new_hivscreeningtool_post_valid_choices(self):
         now = timezone.now()
         date_of_assessment = now - timedelta(days=300)
-        facility = mommy.make(
-            OVCFacility, facility_name='Kenyatta National Hospital',
+        facility = mommy.make(OVCFacility
+             , facility_name='Kenyatta National Hospital',
             facility_code=12000)
         mommy.make(OVCCareEvents, person=self.person, event_type_id='HRST')
         post_data = {
