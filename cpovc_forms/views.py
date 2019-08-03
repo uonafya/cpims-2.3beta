@@ -8715,8 +8715,11 @@ def new_cpara(request, id):
         # get relations
     guardians = RegPersonsGuardians.objects.select_related().filter(
         child_person=id, is_void=False, date_delinked=None)
-    siblings = RegPersonsSiblings.objects.select_related().filter(
+    siblings = RegPersonsSiblings.objects.filter(
         child_person=id, is_void=False)
+    print("(((((((((((((((((((((((((((((((((((((((((((((")
+    print(siblings.len)
+    print(")))))))))))))))))))))))))))))))))))))))))))))")
     # Reverse relationship
     osiblings = RegPersonsSiblings.objects.select_related().filter(
         sibling_person=id, is_void=False)
