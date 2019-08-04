@@ -5,16 +5,17 @@
 {% block page_title %} Data Clean Up{% endblock %}
 
 {% block style_code %}
-<link href="{% static 'css/bootstrap-table.min.css' %}" rel="stylesheet" />
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" rel="stylesheet"/>
 <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block primary %}
-<h1 class="page-header">Data Clean Up <small>Age Based</small></h1>
+<h1 class="page-header">Data quality <small></small></h1>
 {% if error %}
 <div class='alert alert-warning'>{{ error }}</div>
 {% endif %}
-<form class='form' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
+<div class='shadow-lg p-3 mb-5 bg-white rounded well'>
+<form class='form ' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
     {% csrf_token %}
     <div class='row'>
       <div class='col-lg-6'>
@@ -316,15 +317,15 @@
   </div>
 </br>
 
-<div class='pull-right'>
-    <a href='javascript:void(0)' class='btn btn-default' onclick="reset_filter_form()">Reset</a>
+<div class='pull-right btn-toolbar'>
+    <a href='javascript:void(0)' class='btn btn-warning' onclick="reset_filter_form()">Reset</a>
     <button type='submit' class='btn btn-primary'>Filter</button>
 </div>
 
 </form>
 </br>
 </br>
-{% if data %}
+</div>
 <table class="table" id='age-data-table'>
 <thead>
     <tr>
@@ -356,10 +357,6 @@
 
   </tbody>
 </table>
-{% else %}
-<div class='alert alert-info'> No Records </div>
-{% endif %}
-</div>
 
 {% endblock %}
 
@@ -367,24 +364,24 @@
 
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
-<script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/jszip.min.js' %}"></script>
+<script src="{% static 'js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'js/buttons.html5.min.js' %}"></script>
 
+<script>
     function reset_filter_form(){
         document.getElementById("filter_form").reset();
     }
+    $(document).ready(function() {
+      $('#age-data-table').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+              'excelHtml5',
+              'csvHtml5',
+          ]
+      } );
+  });
 
-    $(document).ready(function(){
-      $('#age-data-table').bootstrapTable({
-            toggle: 'table',
-            search: 'true',
-            locale: 'en-US',
-            pagination: 'true',
-            pageNumber: 1,
-            pageSize: 50,
-            buttons: [
-              'excelHtml5'
-            ]
-        });
-    });
   </script>
 {% endblock %}
