@@ -20,6 +20,8 @@ def validate_age(age):
     """
     Validate that the age provided is a number
     """
+    if isinstance(age, int):
+        return True
     age_okay = True
     age_range = age.split('-')
     for number in age_range:
