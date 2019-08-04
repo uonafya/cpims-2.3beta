@@ -16,6 +16,20 @@ from .models import (
 )
 
 
+def validate_age(age):
+    """
+    Validate that the age provided is a number
+    """
+    age_okay = True
+    age_range = age.split('-')
+    for number in age_range:
+        try:
+            int(number)
+        except ValueError:
+            return False
+    return age_okay
+
+
 class DataQualityView(TemplateView):
     template_name = 'data_cleanup/filter.html'
     context_object_name = "data"
@@ -324,6 +338,12 @@ class DataQualityView(TemplateView):
         }
 
         if age:
+            if not validate_age(age):
+                error = 'Please provide age as numbers'
+                context['error'] = error
+                return TemplateResponse(
+                    self.request, self.template_name, context)
+
             if  age_operator == '-' and age_operator != '0':
                 ages =  age.split('-')
                 if len(ages) != 2:
