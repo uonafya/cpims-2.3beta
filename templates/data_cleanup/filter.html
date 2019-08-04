@@ -14,7 +14,7 @@
 {% if error %}
 <div class='alert alert-warning'>{{ error }}</div>
 {% endif %}
-<form class='form' action="{% url 'data_cleanup' %}" method="POST">
+<form class='form' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
     {% csrf_token %}
     <div class='row'>
       <div class='col-lg-6'>
@@ -315,9 +315,12 @@
     </div>
   </div>
 </br>
+
 <div class='pull-right'>
-<button type='submit' class='btn btn-primary'>Filter</button>
+    <a href='javascript:void(0)' class='btn btn-default' onclick="reset_filter_form()">Reset</a>
+    <button type='submit' class='btn btn-primary'>Filter</button>
 </div>
+
 </form>
 </br>
 </br>
@@ -365,6 +368,11 @@
 <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 <script>
+
+    function reset_filter_form(){
+        document.getElementById("filter_form").reset();
+    }
+
     $(document).ready(function(){
       $('#age-data-table').bootstrapTable({
             toggle: 'table',
@@ -374,7 +382,7 @@
             pageNumber: 1,
             pageSize: 50,
             buttons: [
-              'excel'
+              'excelHtml5'
             ]
         });
     });
