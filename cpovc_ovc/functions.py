@@ -674,7 +674,10 @@ class KMHFLFacilities(object):
     def latest_facility(self):
         # query latest facility from db
         latest_mfl_code = OVCFacility.objects.values("facility_code").exclude(facility_code__regex=r'[^0-9]').order_by('facility_code').last()
-        return latest_mfl_code["facility_code"]
+        if latest_mfl_code is not None:
+            return latest_mfl_code["facility_code"]
+        else:
+            return 0
 
     @method_once
     def generate_token(self):
@@ -723,7 +726,6 @@ class KMHFLFacilities(object):
         else:
             print(response, api_url)
 
-    @transaction.atomic
     def get_newest_facilities(self):
         # loop for new facilities.
         try:
@@ -751,10 +753,9 @@ class KMHFLFacilities(object):
         # Update facilities every tuesday at 00:15 am
         schedule.every().tuesday.at("00:15").do(self.get_newest_facilities)
 
-        # # Check for pending schedules
-        # while True:
-        #     schedule.run_pending()
-        #     time.sleep(1)
+        # Check for pending schedules
+        while True:
+            schedule.run_pending()
 
 
 KMHFLFacilities().schedule_update()
