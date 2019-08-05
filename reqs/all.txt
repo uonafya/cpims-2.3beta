@@ -13,7 +13,7 @@ djappsettings==0.4.0
 ecdsa==0.13
 Fabric==1.10.2
 flake8==2.4.1
-Jinja2==2.8
+Jinja2==2.10.1
 kombu==3.0.28
 lxml==3.4.4
 MarkupSafe==0.23
