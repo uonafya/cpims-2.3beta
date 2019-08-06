@@ -1,0 +1,2705 @@
+[
+    {
+        "pk": 30670,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "DEDU",
+            "is_void": "F",
+            "item_sub_category": "cpara_education_service_id",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Education - (Schooled)",
+            "field_name": "cpara_domain_id",
+            "item_description": "Education - (Schooled)"
+        }
+    },
+    {
+        "pk": 30671,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "DHNU",
+            "is_void": "F",
+            "item_sub_category": "cpara_health_service_id",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Health and nutrition- (Healthy)",
+            "field_name": "cpara_domain_id",
+            "item_description": "Health and nutrition- (Healthy)"
+        }
+    },
+    {
+        "pk": 30672,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "DHES",
+            "is_void": "F",
+            "item_sub_category": "cpara_hes_service_id",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Economic Strengthening - (Stable)",
+            "field_name": "cpara_domain_id",
+            "item_description": "Economic Strengthening - (Stable)"
+        }
+    },
+    {
+        "pk": 30673,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "DPRO",
+            "is_void": "F",
+            "item_sub_category": "cpara_protection_service_id",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Protection- (Safe)",
+            "field_name": "cpara_domain_id",
+            "item_description": "Protection- (Safe)"
+        }
+    },
+    {
+        "pk": 30674,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG1he",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Goals_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "All members of enrolled household know their HIV status",
+            "field_name": "caseplan_items_2",
+            "item_description": "Goals - All members of enrolled household know their HIV status"
+        }
+    },
+    {
+        "pk": 30675,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG2he",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Goals_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "All HIV positive members of the household disclose their HIV status",
+            "field_name": "caseplan_items_2",
+            "item_description": "Goals - All HIV positive members of the household disclose their HIV status"
+        }
+    },
+    {
+        "pk": 30676,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG3he",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Goals_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "All HIV positive members of the household are virally suppressed",
+            "field_name": "caseplan_items_2",
+            "item_description": "Goals - All HIV positive members of the household are virally suppressed"
+        }
+    },
+    {
+        "pk": 30677,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG4he",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Goals_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Improve development of under five HIV-infected and exposed infants",
+            "field_name": "caseplan_items_2",
+            "item_description": "Goals - Improve development for children under five years, especially HIV-infected and exposed infants"
+        }
+    },
+    {
+        "pk": 30678,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG1st",
+            "is_void": "F",
+            "item_sub_category": "case_Plan_Goals_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household able to meet the basic and emergency needs of the members",
+            "field_name": "caseplan_items_3",
+            "item_description": "Goals - Household able to meet the basic and emergency needs of the members"
+        }
+    },
+    {
+        "pk": 30679,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG2st",
+            "is_void": "F",
+            "item_sub_category": "case_Plan_Goals_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Increase Households access to food and nutrition secuirty",
+            "field_name": "caseplan_items_3",
+            "item_description": "Goals - Increase Households access to food and nutrition secuirty"
+        }
+    },
+    {
+        "pk": 30680,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG1sa",
+            "is_void": "F",
+            "item_sub_category": "case_Plan_Goals_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household members have identified a social support network",
+            "field_name": "caseplan_items_4",
+            "item_description": "Goals - All household members have identified a social support network for psychosocial and emotional support"
+        }
+    },
+    {
+        "pk": 30681,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG2sa",
+            "is_void": "F",
+            "item_sub_category": "case_Plan_Goals_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "All household members articulate ways to seek support in case of abuse",
+            "field_name": "caseplan_items_4",
+            "item_description": "Goals - All household members articulate ways to seek support in case of abuse"
+        }
+    },
+    {
+        "pk": 30682,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG3sa",
+            "is_void": "F",
+            "item_sub_category": "case_Plan_Goals_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregivers demonstrate positive discipline",
+            "field_name": "caseplan_items_4",
+            "item_description": "Goals - Caregivers demonstrate positive discipline"
+        }
+    },
+    {
+        "pk": 30683,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "",
+            "timestamp_modified": "",
+            "item_id": "CPTG4sa",
+            "is_void": "F",
+            "item_sub_category": "case_Plan_Goals_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Reduce risk of physical, emotional, and psychological injury due to exposure to violence",
+            "field_name": "caseplan_items_4",
+            "item_description": "Goals - Reduce risk of physical, emotional, and psychological injury due to exposure to violence"
+        }
+    },
+    {
+        "pk": 30684,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG1sc",
+            "is_void": "F",
+            "item_sub_category": "case_Plan_Goals_School",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "All school going children attend, progress and transition to the next level",
+            "field_name": "caseplan_items_5",
+            "item_description": "Goals - All school going children transition to the next level"
+        }
+    },
+    {
+        "pk": 30685,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTD1d",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Domains",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Healthy",
+            "field_name": "caseplan_items_1",
+            "item_description": "Health and nutrition- (Healthy)"
+        }
+    },
+    {
+        "pk": 30686,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTD2d",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Domains",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Stable",
+            "field_name": "caseplan_items_1",
+            "item_description": "Economic Strengthening - (Stable)"
+        }
+    },
+    {
+        "pk": 30687,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTD3d",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Domains",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Safe",
+            "field_name": "caseplan_items_1",
+            "item_description": "Protection- (Safe)"
+        }
+    },
+    {
+        "pk": 30688,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTD4d",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Domains",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Schooled",
+            "field_name": "caseplan_items_1",
+            "item_description": "Education - (Schooled)"
+        }
+    },
+    {
+        "pk": 30689,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS1h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV testing",
+            "field_name": "caseplan_items_6",
+            "item_description": "HIV testing"
+        }
+    },
+    {
+        "pk": 30690,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS2h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "ART",
+            "field_name": "caseplan_items_6",
+            "item_description": "ART"
+        }
+    },
+    {
+        "pk": 30691,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS3h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Viral load testing",
+            "field_name": "caseplan_items_6",
+            "item_description": "Viral load testing"
+        }
+    },
+    {
+        "pk": 30692,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS4h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Other HIV and Care Treatment",
+            "field_name": "caseplan_items_6",
+            "item_description": "Other HIV and Care Treatment"
+        }
+    },
+    {
+        "pk": 30693,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS5h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "PMTCT/ ANC",
+            "field_name": "caseplan_items_6",
+            "item_description": "PMTCT/ ANC"
+        }
+    },
+    {
+        "pk": 30694,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS6h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV disclosure & counseling",
+            "field_name": "caseplan_items_6",
+            "item_description": "HIV disclosure & counseling"
+        }
+    },
+    {
+        "pk": 30695,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS7h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV Peer support group",
+            "field_name": "caseplan_items_6",
+            "item_description": "HIV Peer support group"
+        }
+    },
+    {
+        "pk": 30696,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS8h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Adolescent health counseling",
+            "field_name": "caseplan_items_6",
+            "item_description": "Adolescent health counseling"
+        }
+    },
+    {
+        "pk": 30697,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS9h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Defaulter tracing",
+            "field_name": "caseplan_items_6",
+            "item_description": "Defaulter tracing"
+        }
+    },
+    {
+        "pk": 30698,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS10h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Disability services",
+            "field_name": "caseplan_items_6",
+            "item_description": "Disability services"
+        }
+    },
+    {
+        "pk": 30699,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS11h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Immunization",
+            "field_name": "caseplan_items_6",
+            "item_description": "Immunization"
+        }
+    },
+    {
+        "pk": 30700,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS12h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Other HIV and Care Treatment",
+            "field_name": "caseplan_items_6",
+            "item_description": "Other  HIV and Care treatment"
+        }
+    },
+    {
+        "pk": 30701,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS13h",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Other health services, specify\u2026\u2026\u2026",
+            "field_name": "caseplan_items_6",
+            "item_description": "Other health services, specify"
+        }
+    },
+    {
+        "pk": 30702,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN1h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child immunization is not complete [under 5 yrs only]",
+            "field_name": "caseplan_items_10",
+            "item_description": "Child immunization is not complete [under 5 yrs only] - Check clinic card"
+        }
+    },
+    {
+        "pk": 30703,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN2h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Growth is not monitored  [under 5 years only]",
+            "field_name": "caseplan_items_10",
+            "item_description": "Growth is not monitored  [under 5 years only]  - Check clinic card"
+        }
+    },
+    {
+        "pk": 30704,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN3h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child living with disability, not linked to appropriate services",
+            "field_name": "caseplan_items_10",
+            "item_description": "Child living with disability, not linked to appropriate services e.g deaf, autistic'"
+        }
+    },
+    {
+        "pk": 30705,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN4h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child living with chronic condition not linked to healthy services",
+            "field_name": "caseplan_items_10",
+            "item_description": "Child living with chronic condition not linked to healthy services (diabetes, cancer)"
+        }
+    },
+    {
+        "pk": 30706,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN5h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child HIV status not known & risk screening done",
+            "field_name": "caseplan_items_10",
+            "item_description": "Child HIV status not known & risk screening done"
+        }
+    },
+    {
+        "pk": 30707,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN6h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child has a HIGH Risk to HIV infection",
+            "field_name": "caseplan_items_10",
+            "item_description": "Child has a HIGH Risk to HIV infection"
+        }
+    },
+    {
+        "pk": 30708,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN7h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Adolescent is pregnant NOT receiving PMTCT/ANC services",
+            "field_name": "caseplan_items_10",
+            "item_description": "Adolescent is pregnant NOT receiving PMTCT/ANC services"
+        }
+    },
+    {
+        "pk": 30709,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN8h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV test not done for a child under 18 months born to HIV +ve mother",
+            "field_name": "caseplan_items_10",
+            "item_description": "HIV test not done for a child under 18 months born to HIV +ve mother"
+        }
+    },
+    {
+        "pk": 30710,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN9h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV+ve child not linked to treatment",
+            "field_name": "caseplan_items_10",
+            "item_description": "HIV+ve child not linked to treatment"
+        }
+    },
+    {
+        "pk": 30711,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN10h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV+ child without current VL results",
+            "field_name": "caseplan_items_10",
+            "item_description": "HIV+ child without current VL results"
+        }
+    },
+    {
+        "pk": 30712,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN11h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child on HIV treatment with detectable viral loads",
+            "field_name": "caseplan_items_10",
+            "item_description": "Child on HIV treatment with detectable viral loads"
+        }
+    },
+    {
+        "pk": 30713,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN12h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV+ status disclosure not initiated (6 years and above)",
+            "field_name": "caseplan_items_10",
+            "item_description": "HIV+ status disclosure not initiated (6 years and above)"
+        }
+    },
+    {
+        "pk": 30714,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN13h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "MUAC assessment not performed [6 mths to 15 years only] after every 6 mnths",
+            "field_name": "caseplan_items_10",
+            "item_description": "MUAC assessment not performed [6 mths to 15 years only] after every 6 mnths"
+        }
+    },
+    {
+        "pk": 30715,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN14h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child is sick",
+            "field_name": "caseplan_items_10",
+            "item_description": "Child is sick"
+        }
+    },
+    {
+        "pk": 30716,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN15h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver Is unwell",
+            "field_name": "caseplan_items_10",
+            "item_description": "Caregiver Is unwell"
+        }
+    },
+    {
+        "pk": 30717,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN17h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver does not know her HIV status",
+            "field_name": "caseplan_items_10",
+            "item_description": "Caregiver does not know her HIV status"
+        }
+    },
+    {
+        "pk": 30718,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN18h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV Risk Screening Not Done",
+            "field_name": "caseplan_items_10",
+            "item_description": "Pregnant caregiver not receiving PMTCT services"
+        }
+    },
+    {
+        "pk": 30719,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN19h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Pregnant caregiver not receiving PMTCT services",
+            "field_name": "caseplan_items_10",
+            "item_description": "HIV+ caregiver not linked to treatment services"
+        }
+    },
+    {
+        "pk": 30720,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN20h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV+ caregiver not linked to treatment services",
+            "field_name": "caseplan_items_10",
+            "item_description": "HIV+ caregiver did not attend last CCC appointment"
+        }
+    },
+    {
+        "pk": 30721,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN21h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV+ caregiver did not attend last CCC appointment",
+            "field_name": "caseplan_items_10",
+            "item_description": "HIV+ caregiver not disclosed her status"
+        }
+    },
+    {
+        "pk": 30722,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN22h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "HIV+ caregiver not disclosed her status",
+            "field_name": "caseplan_items_10",
+            "item_description": "Caregiver does not know Viral Load status"
+        }
+    },
+    {
+        "pk": 30723,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN23h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver does not know Viral Load status",
+            "field_name": "caseplan_items_10",
+            "item_description": "Is not a member of a health insurance plan e.g. NHIF"
+        }
+    },
+    {
+        "pk": 30724,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN24h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Is not a member of a health insurance plan e.g. NHIF",
+            "field_name": "caseplan_items_10",
+            "item_description": "Household has no kitchen garden that is productive"
+        }
+    },
+    {
+        "pk": 30725,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN25h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household has no kitchen garden that is productive",
+            "field_name": "caseplan_items_10",
+            "item_description": ""
+        }
+    },
+    {
+        "pk": 30726,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP1h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Reffered for HIV testing(provide transport& accompany)",
+            "field_name": "caseplan_items_14",
+            "item_description": "Reffered for HIV testing(provide transport& accompany)"
+        }
+    },
+    {
+        "pk": 30727,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP2h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Esort for clinic appointment",
+            "field_name": "caseplan_items_14",
+            "item_description": "Esort for clinic appointment"
+        }
+    },
+    {
+        "pk": 30728,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP3h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Referred for ART re enrolment",
+            "field_name": "caseplan_items_14",
+            "item_description": "Referred for ART re enrolment"
+        }
+    },
+    {
+        "pk": 30729,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP4h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Support assisted disclosure.",
+            "field_name": "caseplan_items_14",
+            "item_description": "Support assisted disclosure."
+        }
+    },
+    {
+        "pk": 30730,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP5h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Enrol in a support group",
+            "field_name": "caseplan_items_14",
+            "item_description": "Enrol in a support group"
+        }
+    },
+    {
+        "pk": 30731,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP6h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Link to adolescent friendly centres/ support group",
+            "field_name": "caseplan_items_14",
+            "item_description": "Link to adolescent friendly centres/ support group"
+        }
+    },
+    {
+        "pk": 30732,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP7h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Reffered for nutrition support",
+            "field_name": "caseplan_items_14",
+            "item_description": "Reffered for nutrition support"
+        }
+    },
+    {
+        "pk": 30733,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP8h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Escort for treatment at health facility",
+            "field_name": "caseplan_items_14",
+            "item_description": "Escort for treatment at health facility"
+        }
+    },
+    {
+        "pk": 30734,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP9h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Support NHIF registration",
+            "field_name": "caseplan_items_14",
+            "item_description": "Support NHIF registration"
+        }
+    },
+    {
+        "pk": 30735,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Caseplan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP10h",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_health",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Other Priorities, specify.........",
+            "field_name": "caseplan_items_14",
+            "item_description": "Others, specify........."
+        }
+    },
+    {
+        "pk": 30736,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS1s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Cash transfer",
+            "field_name": "caseplan_items_7",
+            "item_description": "Cash transfer"
+        }
+    },
+    {
+        "pk": 30737,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS2s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "NHIF",
+            "field_name": "caseplan_items_7",
+            "item_description": "NHIF"
+        }
+    },
+    {
+        "pk": 30738,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS3s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Income generating activity (IGA)",
+            "field_name": "caseplan_items_7",
+            "item_description": "Income generating activity (IGA)"
+        }
+    },
+    {
+        "pk": 30739,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS4s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Saving group (SILCs, VSLAs)",
+            "field_name": "caseplan_items_7",
+            "item_description": "VSLA group (savings and loan facilities)"
+        }
+    },
+    {
+        "pk": 30740,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS5s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Food support",
+            "field_name": "caseplan_items_7",
+            "item_description": "Food support"
+        }
+    },
+    {
+        "pk": 30741,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS6s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Nutritional assessment & supplements",
+            "field_name": "caseplan_items_7",
+            "item_description": "Nutritional assessment & supplements"
+        }
+    },
+    {
+        "pk": 30742,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS7s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Financial literacy/skills",
+            "field_name": "caseplan_items_7",
+            "item_description": "Financial literacy/skills"
+        }
+    },
+    {
+        "pk": 30743,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS8s",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Others, specify",
+            "field_name": "caseplan_items_7",
+            "item_description": "Others, specify"
+        }
+    },
+    {
+        "pk": 30744,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN1s",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household not able to provide a minimum of 2 meals a day",
+            "field_name": "caseplan_items_11",
+            "item_description": "Household not able to provide a minimum of 2 meals a day (balanced diet and two cooked meals per day)"
+        }
+    },
+    {
+        "pk": 30745,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN2s",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household not able to meet basic needs",
+            "field_name": "caseplan_items_11",
+            "item_description": "Household not able to meet basic needs"
+        }
+    },
+    {
+        "pk": 30746,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN3s",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household not able to meet daily emergency needs",
+            "field_name": "caseplan_items_11",
+            "item_description": "Household not able to meet daily emergency needs"
+        }
+    },
+    {
+        "pk": 30747,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN4s",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household has no knowledge about how and where to access critical services",
+            "field_name": "caseplan_items_11",
+            "item_description": "Household has no knowledge about how and where to access critical services"
+        }
+    },
+    {
+        "pk": 30748,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN5s",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Does not have a transition plan [15-17yrs]",
+            "field_name": "caseplan_items_11",
+            "item_description": "Does not have a transition plan [15-17yrs]"
+        }
+    },
+    {
+        "pk": 30749,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN6s",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Others, specify...........",
+            "field_name": "caseplan_items_11",
+            "item_description": "Others, specify..........."
+        }
+    },
+    {
+        "pk": 30750,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP1s",
+            "is_void": "F",
+            "item_sub_category": "case_plan_priorities_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Refer or provide social assistance support",
+            "field_name": "caseplan_items_15",
+            "item_description": "Refer or provide social assistance support"
+        }
+    },
+    {
+        "pk": 30751,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP2s",
+            "is_void": "F",
+            "item_sub_category": "case_plan_priorities_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Refer for or provide support on asset growth and protection",
+            "field_name": "caseplan_items_15",
+            "item_description": "Refer for or provide support on asset growth and protection"
+        }
+    },
+    {
+        "pk": 30752,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP3s",
+            "is_void": "F",
+            "item_sub_category": "case_plan_priorities_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Refer for or support on Income growth services",
+            "field_name": "caseplan_items_15",
+            "item_description": "Refer for or support on Income growth services"
+        }
+    },
+    {
+        "pk": 30753,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP4s",
+            "is_void": "F",
+            "item_sub_category": "case_plan_priorities_stable",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Others Stable Priories specify..........",
+            "field_name": "caseplan_items_15",
+            "item_description": "Others, specify............"
+        }
+    },
+    {
+        "pk": 30754,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS1p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Positive Parenting training,",
+            "field_name": "caseplan_items_8",
+            "item_description": "Positive Parenting training,"
+        }
+    },
+    {
+        "pk": 30755,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS2p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Counseling,",
+            "field_name": "caseplan_items_8",
+            "item_description": "Counseling,"
+        }
+    },
+    {
+        "pk": 30756,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS3p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Psychosocial support to children living with HIV, caregiver support, children clubs, support groups for SGBV survivors,",
+            "field_name": "caseplan_items_8",
+            "item_description": "Psychosocial support to children living with HIV, caregiver support, children clubs, support groups for SGBV survivors,"
+        }
+    },
+    {
+        "pk": 30757,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS4p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Health services",
+            "field_name": "caseplan_items_8",
+            "item_description": "Health services,"
+        }
+    },
+    {
+        "pk": 30758,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS5p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Legal services",
+            "field_name": "caseplan_items_8",
+            "item_description": "Legal services,"
+        }
+    },
+    {
+        "pk": 30759,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS6p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Birth registration",
+            "field_name": "caseplan_items_8",
+            "item_description": "Birth registration"
+        }
+    },
+    {
+        "pk": 30760,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS7p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Succession planning support",
+            "field_name": "caseplan_items_8",
+            "item_description": "Succession planning support"
+        }
+    },
+    {
+        "pk": 30761,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS8p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child protection pathway (DCS, police, health facility)",
+            "field_name": "caseplan_items_8",
+            "item_description": "Child protection pathway (DCS, police, health facility)"
+        }
+    },
+    {
+        "pk": 30762,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS9p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Mentorship (e.g. DREAMS program),",
+            "field_name": "caseplan_items_8",
+            "item_description": "Mentorship (e.g. DREAMS program),"
+        }
+    },
+    {
+        "pk": 30763,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS10p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Life skills trainings",
+            "field_name": "caseplan_items_8",
+            "item_description": "Life skills trainings,"
+        }
+    },
+    {
+        "pk": 30764,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS11p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Others, specify",
+            "field_name": "caseplan_items_8",
+            "item_description": "Others, specify"
+        }
+    },
+    {
+        "pk": 30765,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS12p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Other health services, specify",
+            "field_name": "caseplan_items_8",
+            "item_description": "Other health services, specify"
+        }
+    },
+    {
+        "pk": 30766,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN1p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child headed household",
+            "field_name": "caseplan_items_12",
+            "item_description": "Child headed household"
+        }
+    },
+    {
+        "pk": 30767,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN2p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child/Adolescent reported or has signs of violence, abuse, neglect or exploitation",
+            "field_name": "caseplan_items_12",
+            "item_description": "Child/Adolescent reported or has signs of violence, abuse, neglect or exploitation"
+        }
+    },
+    {
+        "pk": 30768,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN3p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child/Adolescent not aware of where to get help when abused",
+            "field_name": "caseplan_items_12",
+            "item_description": "Child/Adolescent not aware of where to get help when abused"
+        }
+    },
+    {
+        "pk": 30769,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN4p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Household reported an incident of child abuse, violence or exploitation in the last 3 months",
+            "field_name": "caseplan_items_12",
+            "item_description": "Household reported an incident of child abuse, violence or exploitation in the last 3 months"
+        }
+    },
+    {
+        "pk": 30770,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN5p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child/HH lacks legal documents (e.g birth certificate and/or ID)",
+            "field_name": "caseplan_items_12",
+            "item_description": "Child/HH lacks legal documents (e.g birth certificate and/or ID)"
+        }
+    },
+    {
+        "pk": 30771,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN6p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child does not participate in daily activities",
+            "field_name": "caseplan_items_12",
+            "item_description": "Child does not participate in daily activities"
+        }
+    },
+    {
+        "pk": 30772,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN7p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child is sad, withdrawn or has unusual behavior",
+            "field_name": "caseplan_items_12",
+            "item_description": "Child is sad, withdrawn or has unusual behavior"
+        }
+    },
+    {
+        "pk": 30773,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN8p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child (above 10 years) NOT participating in life skills sessions",
+            "field_name": "caseplan_items_12",
+            "item_description": "Child (above 10 years) NOT participating in life skills sessions"
+        }
+    },
+    {
+        "pk": 30774,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN9p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver NOT able to to identify individual or group providing social and emetional support",
+            "field_name": "caseplan_items_12",
+            "item_description": "Caregiver NOT able to to identify individual or group providing social and emetional support"
+        }
+    },
+    {
+        "pk": 30775,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTN10p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_gap_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver lacks positive parenting skills or not practising it",
+            "field_name": "caseplan_items_12",
+            "item_description": "Caregiver lacks positive parenting skills or not practising it"
+        }
+    },
+    {
+        "pk": 30776,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP1p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver mentored on child care and positive parenting skills",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Caregiver mentored on child care and positive parenting skills"
+        }
+    },
+    {
+        "pk": 30777,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP2p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Link Child Headed Households to adult caregiver",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Link Child Headed Households to adult caregiver"
+        }
+    },
+    {
+        "pk": 30778,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP3p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Refer/ link child/adolescent for post violence care",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Refer/ link child/adolescent for post violence care"
+        }
+    },
+    {
+        "pk": 30779,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP4p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Place child in a safe environment",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Place child in a safe environment (e.g, with relatives, foster care, temporary care)"
+        }
+    },
+    {
+        "pk": 30780,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP5p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide information to OVC on how to protect themselves from HIV, abuse including GBV",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide information to OVC on how to protect themselves from HIV, abuse including GBV"
+        }
+    },
+    {
+        "pk": 30781,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP6p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide/refer for medical attention in cases of abuse",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide/refer for medical attention in cases of abuse"
+        }
+    },
+    {
+        "pk": 30782,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP7p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide/ refer for legal assistance in cases of abuse",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide/ refer for legal assistance in cases of abuse"
+        }
+    },
+    {
+        "pk": 30783,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP8p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide information on child rights and responsibilities",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide information on child rights and responsibilities"
+        }
+    },
+    {
+        "pk": 30784,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP9p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide/ refer for legal documents (e.g, birth certificate)",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide/ refer for legal documents (e.g, birth certificate)"
+        }
+    },
+    {
+        "pk": 30785,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP10p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide/ refer child (above 10 years) for life skills sessions",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide/ refer child (above 10 years) for life skills sessions"
+        }
+    },
+    {
+        "pk": 30786,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP11p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide/ refer OVC for basic counseling services",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide/ refer OVC for basic counseling services"
+        }
+    },
+    {
+        "pk": 30787,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP12p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Promote  stimulating activities  such as play for child [below 5 yrs]",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Promote  stimulating activities  such as play for child [below 5 yrs]"
+        }
+    },
+    {
+        "pk": 30788,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP13p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide caregiver  with information on importance of legal documents e.g. ID, title deed, death certificate",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Provide caregiver  with information on importance of legal documents e.g. ID, title deed, death certificate, will planning"
+        }
+    },
+    {
+        "pk": 30789,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP14p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Sensitize caregiver  on child protection issues",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Sensitize caregiver  on child protection issues (abuse, violence prevention, social safety nets)"
+        }
+    },
+    {
+        "pk": 30790,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTP15p",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_Priorities_Safe",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Sentitize caregiver on positive parenting skills",
+            "field_name": "Caseplan_items_16",
+            "item_description": "Sentitize caregiver on positive parenting skills"
+        }
+    },
+    {
+        "pk": 30791,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS1e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "School bursary (public & private programs)",
+            "field_name": "caseplan_items_9",
+            "item_description": "School bursary (public & private programs)"
+        }
+    },
+    {
+        "pk": 30792,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS2e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Scholastic materials",
+            "field_name": "caseplan_items_9",
+            "item_description": "Scholastic materials"
+        }
+    },
+    {
+        "pk": 30793,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS3e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Enrolment to school",
+            "field_name": "caseplan_items_9",
+            "item_description": "Enrolment to school"
+        }
+    },
+    {
+        "pk": 30794,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS4e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Enrolment to vocational training,",
+            "field_name": "caseplan_items_9",
+            "item_description": "Enrolment to vocational training,"
+        }
+    },
+    {
+        "pk": 30795,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS5e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "ECD",
+            "field_name": "caseplan_items_9",
+            "item_description": "ECD"
+        }
+    },
+    {
+        "pk": 30796,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS6e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Feeding program (where applicable)",
+            "field_name": "caseplan_items_9",
+            "item_description": "Feeding program (where applicable)"
+        }
+    },
+    {
+        "pk": 30797,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS7e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Mentorship",
+            "field_name": "caseplan_items_9",
+            "item_description": "Mentorship"
+        }
+    },
+    {
+        "pk": 30798,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS8e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Life skills trainings",
+            "field_name": "caseplan_items_9",
+            "item_description": "Life skills trainings"
+        }
+    },
+    {
+        "pk": 30799,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS9e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "School Monitoring (Enrolment, retention, performance, progression, completion)",
+            "field_name": "caseplan_items_9",
+            "item_description": "School Monitoring (Enrolment, retention, performance, progression, completion)"
+        }
+    },
+    {
+        "pk": 30800,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS10e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "12. School fees",
+            "field_name": "caseplan_items_9",
+            "item_description": "Others specify"
+        }
+    },
+    {
+        "pk": 30801,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS11e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "13.school levies",
+            "field_name": "caseplan_items_9",
+            "item_description": ""
+        }
+    },
+    {
+        "pk": 30802,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTS12e",
+            "is_void": "F",
+            "item_sub_category": "Case_Plan_services_Schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Others Specify",
+            "field_name": "caseplan_items_9",
+            "item_description": ""
+        }
+    },
+    {
+        "pk": 30803,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG1e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Not enrolled in school/pre-school",
+            "field_name": "caseplan_items_13",
+            "item_description": "Not enrolled in school/pre-school"
+        }
+    },
+    {
+        "pk": 30804,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG2e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Missed school for five or more days in past month",
+            "field_name": "caseplan_items_13",
+            "item_description": "Missed school for five or more days in past month"
+        }
+    },
+    {
+        "pk": 30805,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG3e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Has not progressed from one class to another (e.g grade 1 to 2)",
+            "field_name": "caseplan_items_13",
+            "item_description": "Has not progressed from one class to another (e.g grade 1 to 2)"
+        }
+    },
+    {
+        "pk": 30806,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG4e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Child dropped out of school",
+            "field_name": "caseplan_items_13",
+            "item_description": "Child dropped out of school"
+        }
+    },
+    {
+        "pk": 30807,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG5e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Has not transitioned from one level to another (e.g. primary to secondary)",
+            "field_name": "caseplan_items_13",
+            "item_description": "Has not transitioned from one level to another (e.g. primary to secondary)"
+        }
+    },
+    {
+        "pk": 30808,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG6e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Lacks scholastic materials (books, pens, geometrical set)",
+            "field_name": "caseplan_items_13",
+            "item_description": "Lacks scholastic materials (books, pens, geometrical set)"
+        }
+    },
+    {
+        "pk": 30809,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG7e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Lacks school uniform,  8. Lacks school fees/ levies",
+            "field_name": "caseplan_items_13",
+            "item_description": "Lacks school uniform,  8. Lacks school fees/ levies"
+        }
+    },
+    {
+        "pk": 30810,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG8e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Lack of parental follow up",
+            "field_name": "caseplan_items_13",
+            "item_description": "Lack of parental follow up"
+        }
+    },
+    {
+        "pk": 30811,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG9e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Taking care of sick household member",
+            "field_name": "caseplan_items_13",
+            "item_description": "Taking care of sick household member"
+        }
+    },
+    {
+        "pk": 30812,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG10e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Lacks sanitary towels",
+            "field_name": "caseplan_items_13",
+            "item_description": "Lacks sanitary towels"
+        }
+    },
+    {
+        "pk": 30813,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG11e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Engaged in child labour",
+            "field_name": "caseplan_items_13",
+            "item_description": "Engaged in child labour"
+        }
+    },
+    {
+        "pk": 30814,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG12e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Pregnancy",
+            "field_name": "caseplan_items_13",
+            "item_description": "Pregnancy"
+        }
+    },
+    {
+        "pk": 30815,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG13e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Apprentice graduate & require start-up kit",
+            "field_name": "caseplan_items_13",
+            "item_description": "Apprentice graduate & require start-up kit"
+        }
+    },
+    {
+        "pk": 30816,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG14e",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_gaps_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Others Specify............................",
+            "field_name": "caseplan_items_13",
+            "item_description": "Others Specify............................"
+        }
+    },
+    {
+        "pk": 30817,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG1p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Enrol back to school (including teenage mothers)",
+            "field_name": "caseplan_items_17",
+            "item_description": "Enrol back to school (including teenage mothers)"
+        }
+    },
+    {
+        "pk": 30818,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG2p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Monitor child to regularly attend school",
+            "field_name": "caseplan_items_17",
+            "item_description": "Monitor child to regularly attend school"
+        }
+    },
+    {
+        "pk": 30819,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG3p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Refer/ link child for education support (ie presidential bursary fund, CDF)",
+            "field_name": "caseplan_items_17",
+            "item_description": "Refer/ link child for education support (ie presidential bursary fund, CDF)"
+        }
+    },
+    {
+        "pk": 30820,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG4p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide child with counseling and enrol back to school",
+            "field_name": "caseplan_items_17",
+            "item_description": "Provide child with counseling and enrol back to school"
+        }
+    },
+    {
+        "pk": 30821,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG5p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide scholastic materials",
+            "field_name": "caseplan_items_17",
+            "item_description": "Provide scholastic materials"
+        }
+    },
+    {
+        "pk": 30822,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG6p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide/refer for sanitary pads",
+            "field_name": "caseplan_items_17",
+            "item_description": "Provide/refer for sanitary pads"
+        }
+    },
+    {
+        "pk": 30823,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG7p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide school uniform",
+            "field_name": "caseplan_items_17",
+            "item_description": "Provide school uniform"
+        }
+    },
+    {
+        "pk": 30824,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG8p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Vocational support for out of school OVC (<17 years)",
+            "field_name": "caseplan_items_17",
+            "item_description": "Vocational support for out of school OVC (<17 years)"
+        }
+    },
+    {
+        "pk": 30825,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG9p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Apprecnticeship support for out of school OVC (15-17yrs)",
+            "field_name": "caseplan_items_17",
+            "item_description": "Apprecnticeship support for out of school OVC (15-17yrs)"
+        }
+    },
+    {
+        "pk": 30826,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG10p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver supports children through assistance with homework",
+            "field_name": "caseplan_items_17",
+            "item_description": "Caregiver supports children through assistance with homework"
+        }
+    },
+    {
+        "pk": 30827,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG11p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Caregiver tracks child's school attendance and progress",
+            "field_name": "caseplan_items_17",
+            "item_description": "Caregiver tracks child's school attendance and progress"
+        }
+    },
+    {
+        "pk": 30828,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "CasePlan Items",
+            "user_configurable": "F",
+            "sms_keyword": "F",
+            "timestamp_modified": "",
+            "item_id": "CPTG12p",
+            "is_void": "F",
+            "item_sub_category": "Case_plan_priorities_schooled",
+            "model": "cpovc_main.SetupList",
+            "item_description_short": "Provide or refer for mentorship and life skills support",
+            "field_name": "caseplan_items_17",
+            "item_description": "Provide or refer for mentorship and life skills support"
+        }
+    }
+]
