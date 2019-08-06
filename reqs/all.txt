@@ -37,7 +37,7 @@ redis==2.10.3
 reportlab==3.1.8
 requests==2.8.1
 rpm-python==4.13.0rc1
-six==1.9.0
+six==1.12.0
 slip==0.6.4
 slip.dbus==0.6.4
 South==1.0.2
