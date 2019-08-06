@@ -25,7 +25,7 @@ paramiko==1.15.3
 pep8==1.5.7
 Pillow==3.0.0
 psutil==3.2.1
-psycopg2==2.6.1
+psycopg2==2.8.3
 pycrypto==2.6.1
 pyflakes==0.8.1
 pygobject==3.18.0
