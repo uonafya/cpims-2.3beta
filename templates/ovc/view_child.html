@@ -228,7 +228,6 @@ Caregiver details | {{care_giver}}
                             </thead>
                             <tbody>
                                 {% for hhmember in hhmembers %}
-                                {{hhmember.member_type}}
                                 <tr>                                    
                                     <td>{{ forloop.counter }}</td>
                                     <td>{% if hhmember.member_type == 'CCGV' %}
