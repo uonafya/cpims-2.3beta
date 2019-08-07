@@ -120,7 +120,15 @@ def ovc_register(request, id):
             url = reverse('ovc_view', kwargs={'id': ovc_id})
             return HttpResponseRedirect(url)
         else:
-            cbo_id = ovc.child_cbo_id
+            try:
+                cbo_id = ovc.child_cbo_id
+            except AttributeError as e:
+                print "error getting child_cbo_id - %s" % (str(e))
+                # raise e
+                msg = "Error occured during ovc view - Complete initial registration form"
+                messages.error(request, msg)
+                url = reverse('ovc_register', kwargs={'id': id})
+                return HttpResponseRedirect(url)
             cbo_uid = gen_cbo_id(cbo_id, ovc_id)
             initial['cbo_uid'] = cbo_uid
             initial['cbo_id'] = cbo_id
