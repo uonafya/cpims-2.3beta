@@ -10,7 +10,7 @@ django-fab-deploy==0.7.5
 django-selectable==0.9.0
 django-tables2==0.16.0
 djappsettings==0.4.0
-ecdsa==0.13
+ecdsa==0.13.2
 Fabric==1.10.2
 flake8==2.4.1
 Jinja2==2.8
