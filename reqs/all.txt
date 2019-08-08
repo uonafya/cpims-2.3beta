@@ -3,7 +3,7 @@ anyjson==0.3.3
 billiard==3.3.0.20
 celery==3.1.18
 cssselect==0.9.1
-decorator==3.4.2
+decorator==4.4.0
 Django==1.8.4
 django-celery==3.1.17
 django-fab-deploy==0.7.5
