@@ -7,19 +7,19 @@
 		    <span>Home</span>
 	    </a>
 	</li>
-	
+
 	<li class="has-sub {{ request.path|get_class:'registry' }} online_mode">
 		<a href="#">
 		    <b class="caret pull-right"></b>
 		    <i class="fa fa-suitcase"></i>
-		    <span>Registry</span> 
+		    <span>Registry</span>
 		</a>
 		<ul class="sub-menu">
 			<li><a href="{% url 'registry' %}">Organizational Units</a></li>
 			<li><a href="{% url 'search_persons' %}">Persons Registry</a></li>
 		</ul>
 	</li>
-	
+
 	<li class="has-sub {{ request.path|get_class:'forms' }}">
 		<a href="#">
 		    <b class="caret pull-right"></b>
@@ -36,9 +36,9 @@
 			<li class="online_mode"><a href="{% url 'ovc_home' %}">OVC Care</a></li>
 			<li><a href="#ovc_home" class="btn_ovc_home_offline">OVC Care Offline</a></li>
 		</ul>
-		
-	</li>					
-	
+
+	</li>
+
 	<li class="has-sub {{ request.path|get_class:'reports' }} online_mode">
 	    <a href="#">
 		    <b class="caret pull-right"></b>
@@ -57,7 +57,7 @@
 		    <li class="has-sub">
 				<a href="#">
 				    <b class="caret pull-right"></b>
-				    <i class="fa fa-align-left"></i> 
+				    <i class="fa fa-align-left"></i>
 				    <span>OVC Reports</span>
 				</a>
 				<ul class="sub-menu">
@@ -94,8 +94,8 @@
                     <li><a href="{% url 'reports_ovc' id=25 %}">Eligibility Criteria</a></li>
                     <li><a href="{% url 'reports_ovc' id=26 %}">Caregivers Served</a></li>
                     <li><a href="{% url 'reports_ovc' id=27 %}">KPIs</a></li>
-                    <li><a href="{% url 'reports_ovc' id=17 %}">HIV Risk Screening</a></li>
-                    <li><a href="{% url 'reports_ovc' id=17 %}">HIV Management</a></li>
+                    <li><a href="{% url 'reports_ovc' id=28 %}">HIV Risk Screening</a></li>
+                    <li><a href="{% url 'reports_ovc' id=29 %}">HIV Management</a></li>
 
 				</ul>
 			</li>
@@ -116,7 +116,7 @@
 		    <li><a href="#">System Settings</a></li>
 		</ul>
 	</li>
-	
+
 	<li class="has-sub {{ request.path|get_class:'gis' }} online_mode">
 	    <a href="#">
 	        <b class="caret pull-right"></b>
@@ -137,8 +137,19 @@
 	        <li><a href="#">Gallery One</a></li>
 	        <li><a href="#">Gallery Two</a></li>
 	    </ul>
-	</li>			
-	
+	</li>
+	<li class="has-sub online_mode">
+	    <a href="#">
+		    <b class="caret pull-right"></b>
+		    <i class="fa fa-camera"></i>
+		    <span>Data Quality</span>
+		</a>
+	    <ul class="sub-menu">
+	        <li><a href="{% url 'data_cleanup' %}" >Age Services</a></li>
+
+	    </ul>
+	</li>
+
 	<li class="has-sub online_mode">
 	    <a href="#">
 	    	<b class="caret pull-right"></b>

@@ -148,9 +148,9 @@ Caregiver details | {{care_giver}}
                         </tr>
                     <tr>
                             <td class="field">CPARA</td>
-                            <td>{{ cpara_count.cpr }}</td>
+                            <td>{{ services.cpr }}</td>
                             <td class="field">CPT</td>
-                            <td>{{ case_plan_count.CPAR }}</td>
+                            <td>{{ services.CPAR }}</td>
                             <td class="field">Well Being</td>
                             <td>{{ well_being_count.WBG|add:well_being_count.wba }}</td>
                         </tr>
@@ -228,9 +228,17 @@ Caregiver details | {{care_giver}}
                             </thead>
                             <tbody>
                                 {% for hhmember in hhmembers %}
-                                <tr>
+                                <tr>                                    
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ hhmember.person.first_name }}</td>
+                                    <td>{% if hhmember.member_type == 'CCGV' %}
+                                            {{ hhmember.person.first_name }}
+                                        
+                                        {% else %}
+                                        <a href="{% url 'ovc_view' hhmember.person_id%}" role="button">{{ hhmember.person.first_name }}</a>
+
+                                        {% endif %}
+                                    </td>
+
                                     <td>{{ hhmember.person.surname }}</td>
                                     <td>{{ hhmember.person.years }}</td>
                                     <td>
@@ -324,7 +332,7 @@ Caregiver details | {{care_giver}}
                         </a>
 
                         <a href="{% url 'new_hivscreeningtool' id=creg.person_id%}">
-                            <button type="button" class="btn btn-primary"> <i class="fa fa-paperclip"></i> HIV Risk Assessment </button>
+                            <button type="button" class="btn btn-primary"> <i class="fa fa-paperclip"></i> HIV Risk Screening </button>
                         </a>
 
                         <a href="{% url 'new_hivmanagementform' id=creg.person_id%}">

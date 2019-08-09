@@ -6889,7 +6889,7 @@ def new_form1b(request, id):
     domains = create_form_fields(ffs)
     # print ffsd
     form = OVCF1AForm(initial={'person': id, 'caretaker_id': cid})
-    f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid)
+    f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid, is_void=False)
 
     ev_data = []
     event_keywords = []
@@ -6898,7 +6898,7 @@ def new_form1b(request, id):
         assem = []
 
         # ovccareassems = OVCCareAssessment.objects.filter(event=ovc_evt)
-        ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt)
+        ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt, is_void=False)
 
         for ovccareassem in ovccareassems:
             full_f1b_qn_assess = SetupList.objects.filter(item_id=ovccareassem.entity, item_sub_category__icontains='a')

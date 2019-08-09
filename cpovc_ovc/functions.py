@@ -187,8 +187,7 @@ def search_master(request):
         school_level = request.GET.get('level')
         # Filters for external ids
         if query_id == 1:
-            agents = OVCFacility.objects.filter(
-                facility_name__icontains=query)
+            agents = OVCFacility.objects.filter(facility_name__icontains=query, is_void=False)
             for agent in agents:
                 name = agent.facility_name
                 agent_id = agent.id
@@ -198,7 +197,7 @@ def search_master(request):
         elif query_id == 2:
             agents = OVCSchool.objects.filter(
                 school_name__icontains=query,
-                school_level=school_level)
+                school_level=school_level, is_void=False)
             for agent in agents:
                 name = agent.school_name
                 agent_id = agent.id
@@ -879,4 +878,3 @@ class KMHFLFacilities(object):
         #     time.sleep(1)
 
 
-KMHFLFacilities().schedule_update()
