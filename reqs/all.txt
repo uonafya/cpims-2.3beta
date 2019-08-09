@@ -28,7 +28,7 @@ psutil==3.2.1
 psycopg2==2.6.1
 pycrypto==2.6.1
 pyflakes==0.8.1
-pygobject==3.18.0
+pygobject==3.32.2
 pymc==2.3.6
 python-systemd==230
 pytz==2015.6
