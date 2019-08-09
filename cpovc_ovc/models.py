@@ -94,7 +94,7 @@ class OVCRegistration(models.Model):
 
     def __unicode__(self):
         """To be returned by admin actions."""
-        return self.org_unique_id
+        return str(self.person_id)
 
 
 class OVCEligibility(models.Model):

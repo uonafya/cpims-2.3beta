@@ -31,6 +31,8 @@ REPORTS[24] = 'viral_load'
 REPORTS[25] = 'eligibility_criteria'
 REPORTS[26] = 'caregivers_served'
 REPORTS[27] = 'kpis'
+REPORTS[28] = 'hiv_risk_screening'
+REPORTS[29] = 'hiv_management'
 
 REPORTS[51] = 'datim'
 REPORTS[52] = 'pepfar'
