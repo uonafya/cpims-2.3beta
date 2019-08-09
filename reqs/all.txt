@@ -11,7 +11,7 @@ django-selectable==0.9.0
 django-tables2==0.16.0
 djappsettings==0.4.0
 ecdsa==0.13
-Fabric==1.10.2
+Fabric==2.5.0
 flake8==2.4.1
 Jinja2==2.8
 kombu==3.0.28
