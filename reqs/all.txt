@@ -1,6 +1,6 @@
 amqp==1.4.7
 anyjson==0.3.3
-billiard==3.3.0.20
+billiard==3.6.0.0
 celery==3.1.18
 cssselect==0.9.1
 decorator==3.4.2
