@@ -805,7 +805,7 @@
                     $('#messages').show();
                     // Redirect to view
                     $('#modal-viralload').modal('toggle');
-                    $(location).attr('href', '{% url 'ovc_view' id=child.id %}');
+                    // $(location).attr('href', '{% url 'ovc_view' id=child.id %}');
                 },
                 error: function(){
                     $('#messages').html("Error");

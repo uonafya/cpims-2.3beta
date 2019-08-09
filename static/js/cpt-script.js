@@ -14,6 +14,7 @@ jQuery(document).ready(function()
     $('input, select').attr('required', true);
     $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .domain_cell > select, #id_CPT_RESPONSIBLE').prepend('<option value="" disabled selected>Pick an item</option>');
     $('#CPT_DATE').datepicker({ format: 'yyyy-mm-dd' });
+    $('#CPT_ACTUAL_DATE_COMPLETION').removeAttr('required');
     $('#CPT_ACTUAL_DATE_COMPLETION').datepicker({ format: 'yyyy-mm-dd' });
     $('input[name=CPT_DATE_CASEPLAN]').datepicker({ format: 'yyyy-mm-dd' });
     $('input[name=date_first_cpara]').datepicker({ format: 'yyyy-mm-dd' });
