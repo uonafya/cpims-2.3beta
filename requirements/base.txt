@@ -9,7 +9,7 @@ openpyxl==2.4.0
 python-dateutil==2.4.2
 jellyfish==0.5.4
 python-memcached
-pandas==0.20.3
+pandas==0.25.0
 xlsxwriter==0.9.8
 django-import-export==1.2.0
 sentry-sdk==0.10.0
