@@ -333,7 +333,7 @@ class DataQualityView(TemplateView):
         filters = {}
 
         if form_1b_domain and form_1b_domain != '0':
-            queryset = self.get_queryset(Form1BServicesDataQuality)
+            queryset = self.get_queryset(OVCCareServicesDataQuality)
         elif service and service != '0':
             queryset = self.get_queryset(OVCCareServicesDataQuality)
         elif priority and priority != '0':
