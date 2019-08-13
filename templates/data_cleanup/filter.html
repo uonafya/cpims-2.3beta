@@ -84,6 +84,12 @@
               <option value='COVC'{% if view_filter_values.covc %}selected='selected'{% endif %}>COVC</option>
               <option value='CGOC'{% if view_filter_values.ccgv %}selected='selected'{% endif %}>CGOC</option>
             </select>
+            OVC Exited
+            <select name='ovc_exited' class="form-control" id='ovc_exited'>
+                <option value="0">Select If OVC Exited</option>
+                <option value='YES' {% if view_filter_values.ovc_exited_true %}selected='selected'{% endif %}> YES </option>
+                <option value='NO'{% if view_filter_values.ovc_exited_false %}selected='selected'{% endif %}>NO</option>
+              </select>
     </div>
   </div>
   <div class='row'>
@@ -314,6 +320,8 @@
         <option value='CPTS8h'{% if view_filter_values.cpts8h %} selected='selected'{% endif %}>CPTS3s</option>
      </select>
     </div>
+
+
   </div>
 </br>
 
@@ -338,6 +346,7 @@
       <th>School Level</th>
       <th>HIV Status</th>
       <th>ART Status</th>
+      <th>Exit Date</th>
     </tr>
   </thead>
   <tbody>
@@ -352,6 +361,7 @@
       <td>{{ obj.school_level |format_choice_fields }}</td>
       <td>{{ obj.hiv_status | format_choice_fields }}</td>
       <td>{{ obj.art_status | format_choice_fields}}</td>
+      <td>{{ obj.exit_date }}</td>
     </tr>
     {% endfor %}
 

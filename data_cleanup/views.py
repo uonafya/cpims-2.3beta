@@ -305,6 +305,24 @@ class DataQualityView(TemplateView):
                 cp_filters[value] = True
         return cp_filters
 
+
+    def set_view_filters_for_ovc_exited(self):
+        ovc_exited = self.request.POST.get('ovc_exited')
+        ovc_exited_filters = {}
+
+        if ovc_exited == '0':
+            return ovc_exited_filters
+
+        ovc_exited_filters_map = {
+            'YES': 'ovc_exited_true',
+            'NO': 'ovc_exited_false'
+        }
+
+        for key, value in ovc_exited_filters_map.items():
+            if ovc_exited == key:
+                ovc_exited_filters[value] = True
+        return ovc_exited_filters
+
     def post(self, *args, **kwargs):
         context = {}
 
@@ -321,6 +339,7 @@ class DataQualityView(TemplateView):
         service = self.request.POST.get('service')
         priority = self.request.POST.get('priority')
         cp_service = self.request.POST.get('cp_service')
+        ovc_exited = self.request.POST.get('ovc_exited')
         filters = {}
 
         if form_1b_domain and form_1b_domain != '0':
@@ -376,6 +395,11 @@ class DataQualityView(TemplateView):
             elif  age_operator == '<':
                 view_filter_values['less_than'] = True
                 queryset = queryset.filter(age__lt=age)
+
+        if ovc_exited == 'YES':
+            queryset = queryset.filter(exit_date__isnull=True)
+        elif ovc_exited == 'NO':
+            queryset = queryset.filter(exit_date__isnull=False)
 
         if form_1b_domain and form_1b_domain != '0':
             filters['domain'] = form_1b_domain
@@ -463,5 +487,6 @@ class DataQualityView(TemplateView):
         view_filter_values.update(self.set_view_filters_for_services())
         view_filter_values.update(self.set_view_filters_for_prorities())
         view_filter_values.update(self.set_view_filters_for_case_plan())
+        view_filter_values.update(self.set_view_filters_for_ovc_exited())
         context['view_filter_values'] = view_filter_values
         return TemplateResponse(self.request, self.template_name, context)
