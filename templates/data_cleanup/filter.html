@@ -56,13 +56,14 @@
         HIV Status
         <select name='hiv_status' class="form-control" id='hiv_status'>
           <option value="0">Select HIV Status</option>
-          <option value='HSTR' {% if view_filter_values.hstr %}selected='selected'{% endif %}>HSTR</option>
-          <option value='HSKN' {% if view_filter_values.hskn %}selected='selected'{% endif %}>HSKN</option>
-          <option value='HSTP' {% if view_filter_values.hstp %}selected='selected'{% endif %}>HSTP</option>
-          <option value='XXXX' {% if view_filter_values.xxxx %}selected='selected'{% endif %}>XXXX</option>
-          <option value='HSTN' {% if view_filter_values.hstn %}selected='selected'{% endif %}>HSTN</option>
-          <option value='HSRT' {% if view_filter_values.hsrt %}selected='selected'{% endif %}>HSRT</option>
+          <option value='HSTR' {% if view_filter_values.hstr %}selected='selected'{% endif %}>HIV Test Not Required</option>
+          <option value='HSKN' {% if view_filter_values.hskn %}selected='selected'{% endif %}>Not Known</option>
+          <option value='HSTP' {% if view_filter_values.hstp %}selected='selected'{% endif %}>Positive</option>
+          <option value='HSTN' {% if view_filter_values.hstn %}selected='selected'{% endif %}>Negative</option>
+          <option value='HSRT' {% if view_filter_values.hsrt %}selected='selected'{% endif %}>HIV Referred for Testing</option>
+
         </select>
+
         ART Status
         <select name='art_status' class="form-control" id='art_status'>
             <option value="0">Select Art Status</option>
