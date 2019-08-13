@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 {% load choice_fields_filter %}
-{% block page_title %} Data Clean Up{% endblock %}
+{% block page_title %} Data Quality Assessment{% endblock %}
 
 {% block style_code %}
 <link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet"/>
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block primary %}
-<h1 class="page-header">Data quality <small></small></h1>
+<h1 class="page-header">Data Quality Assessment <small></small></h1>
 {% if error %}
 <div class='alert alert-warning'>{{ error }}</div>
 {% endif %}
