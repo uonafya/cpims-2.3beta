@@ -44,6 +44,8 @@ class DataQualityView(TemplateView):
         return model.objects.filter(child_cbo_id__in=org_units)
 
     def get_queryset(self, model=DataQuality):
+        if self.request.method == 'GET':
+            return []
         return self.get_final_query_set(model)
 
     def set_view_filters_for_form_1b_domains(self, *args, **kwargs):
