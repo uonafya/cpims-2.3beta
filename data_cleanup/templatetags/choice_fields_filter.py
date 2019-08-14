@@ -19,7 +19,7 @@ def format_choice_fields(value):
         'HSTR': 'HSTR',
         'HSKN': 'HSKN',
         'HSTP': 'Positive',
-        'XXXX': 'XXXX',
+        'XXXX': '-',
         'HSTN': 'Negative',
         'HSRT': 'HSRT',
         'ART': 'ART',
