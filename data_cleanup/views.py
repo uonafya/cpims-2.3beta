@@ -1,15 +1,6 @@
-import os
-import pydoc
-from subprocess import call
-
-from django.conf import settings
-from django.core.paginator import Paginator
-from django.http import HttpResponse
 from django.template.response import TemplateResponse
 from django.views.generic import TemplateView
 
-
-from cpovc_registry.models import RegPerson, RegPersonsOrgUnits
 from .models import (
     DataQuality, Form1BServicesDataQuality, OVCCareServicesDataQuality,
     OVCCarePriorityDataQuality, CasePlanDataQuality
@@ -44,7 +35,7 @@ class DataQualityView(TemplateView):
         return context
 
     def get_final_query_set(self, model):
-        user_orgs = self.request.user.reg_person.regpersonsorgunits_set.values()
+        user_orgs = self.request.user.reg_person.regpersonsorgunits_set.values()  # noqa
         org_units = []
 
         for org in user_orgs:
@@ -53,6 +44,8 @@ class DataQualityView(TemplateView):
         return model.objects.filter(child_cbo_id__in=org_units)
 
     def get_queryset(self, model=DataQuality):
+        if self.request.method == 'GET':
+            return []
         return self.get_final_query_set(model)
 
     def set_view_filters_for_form_1b_domains(self, *args, **kwargs):
@@ -216,7 +209,7 @@ class DataQualityView(TemplateView):
             'HN 17s': 'hn17s',
             'SC4S': 'sc4s',
             'SNHC': 'snhc',
-            'HN 8s':'hn8s',
+            'HN 8s': 'hn8s',
             'CP 3s': 'cp3s',
         }
 
@@ -257,32 +250,32 @@ class DataQualityView(TemplateView):
         if cp_service == '0':
             return cp_filters
         cp_service_map = {
-            'CPTS7h':'cpt57h',
-            'CPTS10p':'cpts10p',
-            'CPTS5e':'cpts5e',
-            'CPTS1p':'cpts1p',
-            'CPTS6h':'cpts6h',
-            'CPTS2e':'cpts2e',
-            'CPTS6p':'cpts6p',
-            'CPTS7e':'cpts7e',
-            'CPTS5s':'cpts5s',
-            'CPTS4p':'cpt54p',
-            'CPTS7s':'cpt57s',
-            'CPTS8s':'cpts8s',
-            'CPTS3h':'cpts3h',
-            'CPTS9p':'cpts9p',
-            'CPTS10h':'cpts10h',
-            'CPTS12h':'cpts12h',
-            'CPTS1s':'.cpts1s',
-            'CPTS10e':'cpts10e',
-            'CPTS3p':'cpts3p',
-            'CPTS9h':'cpts9h',
-            'CPTS9e':'cpts9e',
-            'CPTS6s':'cpts6s',
-            'CPTS4e':'cpts4e',
-            'CPTS8e':'cpts8e',
-            'CPTS4s':'cpts4s',
-            'CPTS3e': 'cpts3e',
+            'CPTS7h': 'cpt57h',
+            'CPTS10p': 'cpts10p',
+            'CPTS5e': 'cpts5e',
+            'CPTS1p': 'cpts1p',
+            'CPTS6h': 'cpts6h',
+            'CPTS2e': 'cpts2e',
+            'CPTS6p': 'cpts6p',
+            'CPTS7e': 'cpts7e',
+            'CPTS5s': 'cpts5s',
+            'CPTS4p': 'cpt54p',
+            'CPTS7s': 'cpt57s',
+            'CPTS8s': 'cpts8s',
+            'CPTS3h': 'cpts3h',
+            'CPTS9p': 'cpts9p',
+            'CPTS10h': 'cpts10h',
+            'CPTS12h': 'cpts12h',
+            'CPTS1s': ' .cpts1s',
+            'CPTS10e': 'cpts10e',
+            'CPTS3p': 'cpts3p',
+            'CPTS9h': 'cpts9h',
+            'CPTS9e': 'cpts9e',
+            'CPTS6s': 'cpts6s',
+            'CPTS4e': 'cpts4e',
+            'CPTS8e': 'cpts8e',
+            'CPTS4s': 'cpts4s',
+            'CPTS3e':  'cpts3e',
             'CPTS7p': 'cpts7p',
             'CPTS12p': 'cpts12p',
             'CPTS11p': 'cpts11p',
@@ -305,6 +298,23 @@ class DataQualityView(TemplateView):
                 cp_filters[value] = True
         return cp_filters
 
+    def set_view_filters_for_ovc_exited(self):
+        ovc_exited = self.request.POST.get('ovc_exited')
+        ovc_exited_filters = {}
+
+        if ovc_exited == '0':
+            return ovc_exited_filters
+
+        ovc_exited_filters_map = {
+            'YES': 'ovc_exited_true',
+            'NO': 'ovc_exited_false'
+        }
+
+        for key, value in ovc_exited_filters_map.items():
+            if ovc_exited == key:
+                ovc_exited_filters[value] = True
+        return ovc_exited_filters
+
     def post(self, *args, **kwargs):
         context = {}
 
@@ -321,10 +331,13 @@ class DataQualityView(TemplateView):
         service = self.request.POST.get('service')
         priority = self.request.POST.get('priority')
         cp_service = self.request.POST.get('cp_service')
+        service_from_date = self.request.POST.get('sevice_from_date')
+        service_to_date = self.request.POST.get('sevice_to_date')
+        ovc_exited = self.request.POST.get('ovc_exited')
         filters = {}
 
         if form_1b_domain and form_1b_domain != '0':
-            queryset = self.get_queryset(Form1BServicesDataQuality)
+            queryset = self.get_queryset(OVCCareServicesDataQuality)
         elif service and service != '0':
             queryset = self.get_queryset(OVCCareServicesDataQuality)
         elif priority and priority != '0':
@@ -346,13 +359,13 @@ class DataQualityView(TemplateView):
                 return TemplateResponse(
                     self.request, self.template_name, context)
 
-            if  age_operator == '-' and age_operator != '0':
-                ages =  age.split('-')
+            if age_operator == '-' and age_operator != '0':
+                ages = age.split('-')
                 if len(ages) != 2:
                     error = 'Please supply the min and max age e.g 19-20'
                     context['error'] = error
                     return TemplateResponse(
-                    self.request, self.template_name, context)
+                        self.request, self.template_name, context)
                 else:
                     try:
                         min_age = int(ages[0])
@@ -368,20 +381,31 @@ class DataQualityView(TemplateView):
                             self.request, self.template_name, context)
 
             elif age_operator == '=':
-                queryset =  queryset.filter(age=age)
+                queryset = queryset.filter(age=age)
                 view_filter_values['equals'] = True
             elif age_operator == '>':
-                queryset =  queryset.filter(age__gt=age)
+                queryset = queryset.filter(age__gt=age)
                 view_filter_values['greater_than'] = True
-            elif  age_operator == '<':
+            elif age_operator == '<':
                 view_filter_values['less_than'] = True
                 queryset = queryset.filter(age__lt=age)
+
+        if ovc_exited == 'YES':
+            queryset = queryset.filter(exit_date__isnull=True)
+        elif ovc_exited == 'NO':
+            queryset = queryset.filter(exit_date__isnull=False)
 
         if form_1b_domain and form_1b_domain != '0':
             filters['domain'] = form_1b_domain
 
         if service and service != '0':
             filters['service_provided'] = service
+
+        if service_from_date:
+            filters['date_of_event__gte'] = service_from_date
+
+        if service_to_date:
+            filters['date_of_event__lte'] = service_to_date
 
         if priority and priority != '0':
             filters['service'] = priority
@@ -457,11 +481,12 @@ class DataQualityView(TemplateView):
             filters['has_bcert'] = False
             view_filter_values['has_bcert_no'] = True
         queryset = queryset.filter(**filters)
-        context['data']= queryset
+        context['data'] = queryset
 
         view_filter_values.update(self.set_view_filters_for_form_1b_domains())
         view_filter_values.update(self.set_view_filters_for_services())
         view_filter_values.update(self.set_view_filters_for_prorities())
         view_filter_values.update(self.set_view_filters_for_case_plan())
+        view_filter_values.update(self.set_view_filters_for_ovc_exited())
         context['view_filter_values'] = view_filter_values
         return TemplateResponse(self.request, self.template_name, context)

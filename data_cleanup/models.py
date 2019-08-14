@@ -92,9 +92,12 @@ class OVCCareServicesDataQuality(models.Model):
     first_name = models.CharField(max_length=255)
     other_names = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
+    domain = models.CharField(max_length=255)
     age = models.IntegerField()
     service_provided = models.CharField(max_length=255)
     sex_id = models.CharField(max_length=255)
+    date_of_event =  models.DateField(max_length=255)
+    exit_date = models.DateTimeField(default=None)
 
     class Meta:
         managed= False
