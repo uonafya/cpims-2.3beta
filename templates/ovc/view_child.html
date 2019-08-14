@@ -231,8 +231,8 @@ Caregiver details | {{care_giver}}
                                 <tr>                                    
                                     <td>{{ forloop.counter }}</td>
                                     <td>{% if hhmember.member_type == 'CCGV' or hhmember.member_type == 'CGPF'  %}
-                                            {{ hhmember.person.first_name }}
                                         
+                                            <a href="{% url 'view_person' id=hhmember.person_id%}" role="button">{{ hhmember.person.first_name }}</a>
                                         {% else %}
                                         <a href="{% url 'ovc_view' hhmember.person_id%}" role="button">{{ hhmember.person.first_name }}</a>
 
