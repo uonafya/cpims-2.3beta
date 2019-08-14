@@ -120,9 +120,9 @@
           <p style="color: #ff0000; font-size: 16px;">Delete selected entry?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default btn-default" onclick="deleteForm1aEntry()" data-dismiss="modal">Yes</button>
+          <button type="button" class="btn btn-danger" onclick="deleteForm1aEntry()" data-dismiss="modal">Yes, delete</button>
           <a href="{% url 'ovc_view' id=form.person.value %}">
-          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Cancel</button></a>
+          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">No, cancel</button></a>
         </div>
       </div> 
 
@@ -1099,7 +1099,7 @@ function AddRow(x)
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_domain") + holmis_assessment_domain + '</h6>';
                     cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_coreservice") + holmis_assessment_coreservice + '</h6>';
                     cell3.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_assessment_coreservice_status") + holmis_assessment_coreservice_status + '</h6>';
-                    cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5 href='#'>Remove</a>" + '</h6>';
+                    cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5' href='#'>Remove</a>" + '</h6>';
 
                     // AddClick Event To Remove Button
                     $("#" + btnRemoveSvcId + "").click(function(e)
@@ -1199,7 +1199,7 @@ function AddRow(x)
                 cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_domain") + holmis_domain + '</h6>';
                 cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_service") + holmis_service + '</h6>';
                 cell3.innerHTML = '<h6 class="td_style">' + olmis_service_date + '</h6>';
-                cell4.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5 href='#'>Remove</a>" + '</h6>';
+                cell4.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5' href='#'>Remove</a>" + '</h6>';
 
                 // AddClick Event To Remove Button
                 $("#" + btnRemoveSvcId + "").click(function(e)
@@ -1438,7 +1438,7 @@ function AddRow(x)
                     cell0.innerHTML = '<h6 class="td_style"></h6>';        
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_domain") + holmis_priority_domain + '</h6>';
                     cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "olmis_priority_service") + holmis_priority_service + '</h6>';
-                    cell3.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_priority_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5 href='#'>Remove</a>" + '</h6>';
+                    cell3.innerHTML  = '<h6 class="dialog_paragraph">' + holmis_priority_service_status + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5' href='#'>Remove</a>" + '</h6>';
 
                     // AddClick Event To Remove Button
                     $("#" + btnRemoveSvcId + "").click(function(e)

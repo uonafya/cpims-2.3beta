@@ -443,8 +443,7 @@
                                         <th>Q 1</th>
                                         <th>Q 2</th>
                                         <th>Q 3</th>
-                                        <th>Q 3a</th>
-                                        <th>Q 3b</th>
+                                        <!-- <th>Q 3b</th> -->
                                         <th>Q 4</th>
                                         <th>Q 5</th>
                                         <th>Date of Event</th>
@@ -457,23 +456,23 @@
                         
                         <tr>
                           <!-- <td>{{one_screening_data.date_of_event}}</td> -->
-                          <td>{{one_screening_data.caregiver_know_status | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.caregiver_knowledge_yes | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.parent_PLWH | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.child_sick_malnourished | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.child_sexual_abuse | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.adol_sick | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.adol_sexual_abuse | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.sex | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.caregiver_know_status | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.caregiver_knowledge_yes | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.parent_PLWH | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.child_sick_malnourished | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.child_sexual_abuse | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.adol_sick | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.adol_sexual_abuse | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.sex | yesno:"Yes, No, N/A"}}</td>
                           <td>{{one_screening_data.sti | yesno:"Yes, No"}}</td>
-                          <td>{{one_screening_data.hiv_test_required  | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.parent_consent_testing | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.referral_made | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.referral_completed  | yesno:"Yes, No, Null"}}</td>
+                          <td>{{one_screening_data.hiv_test_required  | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.parent_consent_testing | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.referral_made | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.referral_completed  | yesno:"Yes, No, N/A"}}</td>
                           <!-- <td>{{one_screening_data.not_completed}}</td> -->
-                          <td>{{one_screening_data.test_result | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.art_referral | yesno:"Yes, No, Null"}}</td>
-                          <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No, Null"}}</td>
+                          <!-- <td>{{one_screening_data.test_result | yesno:"Yes, No, Null"}}</td> -->
+                          <td>{{one_screening_data.art_referral | yesno:"Yes, No, N/A"}}</td>
+                          <td>{{one_screening_data.art_referral_completed  | yesno:"Yes, No, N/A"}}</td>
                           <td>{{one_screening_data.date_of_event}}</td>
                         </tr>
                     {% endfor %}

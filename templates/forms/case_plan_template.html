@@ -195,7 +195,7 @@
                                     </div>
 									<div class="col-md-3">
 										<div class="form-group">
-											<label class="control-label formlabel">Actual date of caseplan completion*:</label><br/>
+											<label class="control-label formlabel">Actual date of caseplan completion:</label><br/>
 											{{form.CPT_ACTUAL_DATE_COMPLETION}}
 										</div>
                                     </div>
@@ -706,7 +706,9 @@
 			$('input[name=date_first_cpara]').removeAttr('disabled');
 		}
 	});
-
+    $(document).ready(function () {
+    $('#CPT_ACTUAL_DATE_COMPLETION').removeAttr('required');
+    });
     $('*[name=CPT_RESULTS]').prepend('<option disabled selected value="null">Pick an item</option>').attr('required', true)
 </script>
 {% endblock %}
