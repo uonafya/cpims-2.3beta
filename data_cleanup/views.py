@@ -44,6 +44,8 @@ class DataQualityView(TemplateView):
         return model.objects.filter(child_cbo_id__in=org_units)
 
     def get_queryset(self, model=DataQuality):
+        if self.request.method == 'GET':
+            return []
         return self.get_final_query_set(model)
 
     def set_view_filters_for_form_1b_domains(self, *args, **kwargs):
@@ -329,6 +331,8 @@ class DataQualityView(TemplateView):
         service = self.request.POST.get('service')
         priority = self.request.POST.get('priority')
         cp_service = self.request.POST.get('cp_service')
+        service_from_date = self.request.POST.get('sevice_from_date')
+        service_to_date = self.request.POST.get('sevice_to_date')
         ovc_exited = self.request.POST.get('ovc_exited')
         filters = {}
 
@@ -396,6 +400,12 @@ class DataQualityView(TemplateView):
 
         if service and service != '0':
             filters['service_provided'] = service
+
+        if service_from_date:
+            filters['date_of_event__gte'] = service_from_date
+
+        if service_to_date:
+            filters['date_of_event__lte'] = service_to_date
 
         if priority and priority != '0':
             filters['service'] = priority

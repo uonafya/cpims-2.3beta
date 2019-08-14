@@ -6,6 +6,7 @@
  ovc_care_services.domain,
  ovc_care_services.service_id as id,
  ovc_care_events.event,
+ ovc_care_events.date_of_event,
  ovc_care_events.person_id as ovc_care_events_person_id,
  data_quality_view.has_bcert,
  data_quality_view.is_disabled,
