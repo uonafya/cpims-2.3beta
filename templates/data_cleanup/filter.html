@@ -2,7 +2,7 @@
 
 {% load staticfiles %}
 {% load choice_fields_filter %}
-{% block page_title %} Data Clean Up{% endblock %}
+{% block page_title %} Data Quality Assessment{% endblock %}
 
 {% block style_code %}
 <link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet"/>
@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block primary %}
-<h1 class="page-header">Data quality <small></small></h1>
+<h1 class="page-header">Data Quality Assessment <small></small></h1>
 {% if error %}
 <div class='alert alert-warning'>{{ error }}</div>
 {% endif %}
@@ -57,13 +57,14 @@
         HIV Status
         <select name='hiv_status' class="form-control" id='hiv_status'>
           <option value="0">Select HIV Status</option>
-          <option value='HSTR' {% if view_filter_values.hstr %}selected='selected'{% endif %}>HSTR</option>
-          <option value='HSKN' {% if view_filter_values.hskn %}selected='selected'{% endif %}>HSKN</option>
-          <option value='HSTP' {% if view_filter_values.hstp %}selected='selected'{% endif %}>HSTP</option>
-          <option value='XXXX' {% if view_filter_values.xxxx %}selected='selected'{% endif %}>XXXX</option>
-          <option value='HSTN' {% if view_filter_values.hstn %}selected='selected'{% endif %}>HSTN</option>
-          <option value='HSRT' {% if view_filter_values.hsrt %}selected='selected'{% endif %}>HSRT</option>
+          <option value='HSTR' {% if view_filter_values.hstr %}selected='selected'{% endif %}>HIV Test Not Required</option>
+          <option value='HSKN' {% if view_filter_values.hskn %}selected='selected'{% endif %}>Not Known</option>
+          <option value='HSTP' {% if view_filter_values.hstp %}selected='selected'{% endif %}>Positive</option>
+          <option value='HSTN' {% if view_filter_values.hstn %}selected='selected'{% endif %}>Negative</option>
+          <option value='HSRT' {% if view_filter_values.hsrt %}selected='selected'{% endif %}>HIV Referred for Testing</option>
+
         </select>
+
         ART Status
         <select name='art_status' class="form-control" id='art_status'>
             <option value="0">Select Art Status</option>
@@ -85,6 +86,12 @@
               <option value='COVC'{% if view_filter_values.covc %}selected='selected'{% endif %}>COVC</option>
               <option value='CGOC'{% if view_filter_values.ccgv %}selected='selected'{% endif %}>CGOC</option>
             </select>
+            OVC Exited
+            <select name='ovc_exited' class="form-control" id='ovc_exited'>
+                <option value='0'>Select If OVC Exited</option>
+                <option value='YES' {% if view_filter_values.ovc_exited_true %}selected='selected'{% endif %}> YES </option>
+                <option value='NO'{% if view_filter_values.ovc_exited_false %}selected='selected'{% endif %}>NO</option>
+              </select>
     </div>
   </div>
   <div class='row'>
@@ -96,7 +103,7 @@
           <option value='DPSS' {% if view_filter_values.dpss %} selected='selected'{% endif %}>Psychosocial Support</option>
           <option value='DSHC' {% if view_filter_values.dshc %} selected='selected'{% endif %}>Shelter and Care</option>
           <option value='DHES' {% if view_filter_values.dhes %} selected='selected'{% endif %}>HouseHold Economic Strengthening</option>
-          <option value='DEDU' {% if view_filter_values.debu %} selected='selected'{% endif %}>Education</option>
+          <option value='DEDU' {% if view_filter_values.dedu %} selected='selected'{% endif %}>Education</option>
           <option value='DPRO' {% if view_filter_values.dpro %} selected='selected'{% endif %}>Protection</option>
           <option value='DHNU' {% if view_filter_values.dhnu %} selected='selected'{% endif %}>Health and Nutrition</option>
       </select>
@@ -331,6 +338,8 @@
         <option value='CPTS8h'{% if view_filter_values.cpts8h %} selected='selected'{% endif %}>CPTS3s</option>
      </select>
     </div>
+
+
   </div>
 </br>
 
@@ -355,6 +364,7 @@
       <th>School Level</th>
       <th>HIV Status</th>
       <th>ART Status</th>
+      <th>Exit Date</th>
     </tr>
   </thead>
   <tbody>
@@ -369,6 +379,7 @@
       <td>{{ obj.school_level |format_choice_fields }}</td>
       <td>{{ obj.hiv_status | format_choice_fields }}</td>
       <td>{{ obj.art_status | format_choice_fields}}</td>
+      <td>{{ obj.exit_date }}</td>
     </tr>
     {% endfor %}
 

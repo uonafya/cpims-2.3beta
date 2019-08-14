@@ -3,6 +3,7 @@
 
  CREATE MATERIALIZED VIEW data_quality_ovc_care_services AS SELECT
  ovc_care_services.service_provided,
+ ovc_care_services.domain,
  ovc_care_services.service_id as id,
  ovc_care_events.event,
  ovc_care_events.date_of_event,
@@ -19,9 +20,9 @@
  data_quality_view.other_names,
  data_quality_view.surname,
  data_quality_view.age,
- data_quality_view.sex_id
+ data_quality_view.sex_id,
+ data_quality_view.exit_date
 
  FROM ovc_care_services
  LEFT JOIN ovc_care_events ON ovc_care_events.event=ovc_care_services.event_id
  LEFT JOIN data_quality_view ON data_quality_view.person_id=ovc_care_events.person_id;
-
