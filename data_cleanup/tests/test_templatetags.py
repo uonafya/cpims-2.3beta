@@ -1,3 +1,4 @@
+from datetime import datetime
 from unittest import TestCase
 
 from data_cleanup.templatetags.choice_fields_filter import format_choice_fields
@@ -23,6 +24,7 @@ class TestFormatChoiceFields(TestCase):
          None: '-',
         'None': '-'
     }
+
     def test_filtering_option_tags_value_recognized(self):
         for key, value in self.options.items():
             self.assertEqual(format_choice_fields(key), value)
@@ -32,3 +34,9 @@ class TestFormatChoiceFields(TestCase):
             'SOME_VALUE',
             format_choice_fields('SOME_VALUE')
         )
+
+    def test_filtering_datetime_with_date_objects(self):
+        """Checks that datetime objects are returned as is"""
+        date_object = datetime.now()
+        format_date_object_result = format_choice_fields(date_object)
+        self.assertEqual(date_object, format_date_object_result)
