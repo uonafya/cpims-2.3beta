@@ -391,9 +391,9 @@ class DataQualityView(TemplateView):
                 queryset = queryset.filter(age__lt=age)
 
         if ovc_exited == 'YES':
-            queryset = queryset.filter(exit_date__isnull=True)
-        elif ovc_exited == 'NO':
             queryset = queryset.filter(exit_date__isnull=False)
+        elif ovc_exited == 'NO':
+            queryset = queryset.filter(exit_date__isnull=True)
 
         if form_1b_domain and form_1b_domain != '0':
             filters['domain'] = form_1b_domain
