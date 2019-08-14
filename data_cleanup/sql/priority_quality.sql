@@ -19,7 +19,8 @@
  data_quality_view.other_names,
  data_quality_view.surname,
  data_quality_view.age,
- data_quality_view.sex_id
+ data_quality_view.sex_id,
+ data_quality_view.exit_date
 
  FROM ovc_care_priority
  INNER JOIN ovc_care_events ON ovc_care_events.event=ovc_care_priority.event_id
