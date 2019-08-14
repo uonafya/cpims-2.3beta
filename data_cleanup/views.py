@@ -321,6 +321,8 @@ class DataQualityView(TemplateView):
         service = self.request.POST.get('service')
         priority = self.request.POST.get('priority')
         cp_service = self.request.POST.get('cp_service')
+        service_from_date = self.request.POST.get('sevice_from_date')
+        service_to_date = self.request.POST.get('sevice_to_date')
         filters = {}
 
         if form_1b_domain and form_1b_domain != '0':
@@ -382,6 +384,12 @@ class DataQualityView(TemplateView):
 
         if service and service != '0':
             filters['service_provided'] = service
+
+        if service_from_date:
+            filters['date_of_event__gte'] = service_from_date
+
+        if service_to_date:
+            filters['date_of_event__lte'] = service_to_date
 
         if priority and priority != '0':
             filters['service'] = priority

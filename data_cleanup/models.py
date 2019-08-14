@@ -95,6 +95,7 @@ class OVCCareServicesDataQuality(models.Model):
     age = models.IntegerField()
     service_provided = models.CharField(max_length=255)
     sex_id = models.CharField(max_length=255)
+    date_of_event =  models.DateField(max_length=255)
 
     class Meta:
         managed= False
