@@ -20,7 +20,7 @@
     {% csrf_token %}
     <div class='row'>
       <div class='col-lg-6'>
-            Age Operator
+            <strong>Age Operator </strong>
             <select name='operator' class="form-control" id='operator'>
                     <option value="0">Select Operator</option>
                     <option value='=' {% if view_filter_values.equals %}selected='selected'{% endif %}>Equals</option>
@@ -31,21 +31,21 @@
             Age (if the operator is between set age range e.g 18-200)
             <input type='text' name='age' class="form-control" id='age' value="{{ view_filter_values.age }}">
 
-            School Level
+            <strong>School Level</strong>
             <select name='school_level' class="form-control" id='school_level'>
                 <option value="0">Select Shool Level</option>
                 <option value='SLSE' {% if view_filter_values.slse %}selected='selected'{% endif %}>Secondary</option>
                 <option value='SLPR' {% if view_filter_values.slpr %}selected='selected'{% endif %}>Primary</option>
                 <option value='SLNS' {% if view_filter_values.slns %}selected='selected'{% endif %}>NO School</option>
             </select>
-           Gender
+            <strong>Gender</strong>
           <select name='gender' class="form-control" id='gender'>
               <option value="0">Select Gender</option>
               <option value='SMAL' {% if view_filter_values.smal %}selected='selected'{% endif %}>Male</option>
               <option value='SFEM' {% if view_filter_values.sfem %}selected='selected'{% endif %}>Female</option>
           </select>
 
-          Has Birth Certificate
+          <strong>Has Birth Certificate</strong>
           <select name='has_bcert' class="form-control" id='has_bcert'>
               <option value="0">Has birth cert? </option>
               <option value='True' {% if view_filter_values.has_bcert_yes %}selected='selected'{% endif %}>Yes</option>
@@ -54,7 +54,7 @@
 
     </div>
                     <div class='col-lg-6'>
-        HIV Status
+        <strong>HIV Status</strong>
         <select name='hiv_status' class="form-control" id='hiv_status'>
           <option value="0">Select HIV Status</option>
           <option value='HSTR' {% if view_filter_values.hstr %}selected='selected'{% endif %}>HIV Test Not Required</option>
@@ -65,20 +65,20 @@
 
         </select>
 
-        ART Status
+        <strong>ART Status</strong>
         <select name='art_status' class="form-control" id='art_status'>
             <option value="0">Select Art Status</option>
             <option value='ART' {% if view_filter_values.art %}selected='selected'{% endif %}>ART</option>
             <option value='ARAR' {% if view_filter_values.arar %}selected='selected'{% endif %}>ARAR</option>
             <option value='ARV' {% if view_filter_values.arv %}selected='selected'{% endif %}>ARV</option>
           </select>
-         Is Disabled
+          <strong>Is Disabled</strong>
           <select name='is_disabled' class="form-control" id='is_disabled'>
               <option value="0">Select Disability Status</option>
               <option value='True' {% if view_filter_values.is_disabled_yes %}selected='selected'{% endif %}>Yes</option>
               <option value='False' {% if view_filter_values.is_disabled_no %}selected='selected'{% endif %}>No</option>
             </select>
-          Is OVC
+            <strong>Is OVC</strong>
           <select name='is_ovc' class="form-control" id='is_ovc'>
               <option value="0">Select Designation</option>
               <option value='CCGV' {% if view_filter_values.ccgv %}selected='selected'{% endif %}>Care Giver</option>
@@ -86,7 +86,7 @@
               <option value='COVC'{% if view_filter_values.covc %}selected='selected'{% endif %}>COVC</option>
               <option value='CGOC'{% if view_filter_values.ccgv %}selected='selected'{% endif %}>CGOC</option>
             </select>
-            OVC Exited
+            <strong>OVC Exited </strong>
             <select name='ovc_exited' class="form-control" id='ovc_exited'>
                 <option value='0'>Select If OVC Exited</option>
                 <option value='YES' {% if view_filter_values.ovc_exited_true %}selected='selected'{% endif %}> YES </option>
@@ -97,7 +97,7 @@
   <div class='row'>
 
     <div class='col-lg-6'>
-      <label>Domains </label>
+        <strong>Domains</strong>
       <select id='id_form_1b_domains' class='form-control' name='form_1b_domain'>
           <option value="0">Select Domain</option>
           <option value='DPSS' {% if view_filter_values.dpss %} selected='selected'{% endif %}>Psychosocial Support</option>
@@ -109,20 +109,22 @@
       </select>
     </div>
     <div class='col-lg-6'>
-      <div class='row col-lg-12'>
+      <div class='input-group col-lg-12'>
 
         <div class='col-lg-4'>
-            From
-            <input type='text' class='datepicker' name='service_from_date'>
+            <strong>From </strong>
+            <input type='text' class='datepicker' name='service_from_date' value>
+            <span> {{ view_filter_values.service_from_date }}</span>
         </div>
 
         <div class='col-lg-4'>
-            To
+            <strong>To</strong>
             <input type='text' class='datepicker' name='service_to_date'>
+            <span> {{ view_filter_values.service_to_date }}</span>
         </div>
 
         <div class='col-lg-4'>
-            Services
+            <strong>Service </strong>
             <select id='service' name='service'  class='form-control'>
                 <option value="0">Select Service</option>
                 <option value='MSLF'  {% if view_filter_values.mslf %} selected='selected'{% endif %}>E6a - Lack of fees</option>
@@ -273,9 +275,10 @@
       </div>
 
   </div>
+</div>
   <div class='row'>
     <div class='col-lg-6'>
-        <label>Priorities</label>
+        <strong>Priorities</strong>
         <select name='priority' id='priority' class='form-control'>
             <option value="0">Select Priority</option>
             <option value='SE4S' {% if view_filter_values.priotity_se4s %} selected='selected'{% endif %}>E4s - School fees </option>
@@ -291,52 +294,52 @@
         </select>
     </div>
     <div class='col-lg-6'>
-    <label> Case Plan</label>
-    <select name='cp_service' class='form-control' id='cp_service'>
-        <option value="0">Select Case Plan Service</option>
-        <option value='CPTS7h'  {% if view_filter_values.cpt57h %} selected='selected'{% endif %}>CPTS7h</option>
-        <option value='CPTS10p'  {% if view_filter_values.cpts10p %} selected='selected'{% endif %}>CPTS10p</option>
-        <option value='CPTS5e'  {% if view_filter_values.cpts5e %} selected='selected'{% endif %}>CPTS5e</option>
-        <option value='CPTS1p'  {% if view_filter_values.cpts1p %} selected='selected'{% endif %}>CPTS1p</option>
-        <option value='CPTS6h'  {% if view_filter_values.cpts6h %} selected='selected'{% endif %}>CPTS6h</option>
-        <option value='CPTS2e'  {% if view_filter_values.cpts2e %} selected='selected'{% endif %}>CPTS2e</option>
-        <option value='CPTS6p'  {% if view_filter_values.cpts6p %} selected='selected'{% endif %}>CPTS6p</option>
-        <option value='CPTS7e'  {% if view_filter_values.cpts7e %} selected='selected'{% endif %}>CPTS7e</option>
-        <option value='CPTS5s'  {% if view_filter_values.cpts5s %} selected='selected'{% endif %}>CPTS5s</option>
-        <option value='CPTS4p'  {% if view_filter_values.cpt54p %} selected='selected'{% endif %}>CPTS4p</option>
-        <option value='CPTS7s' {% if view_filter_values.cpt57s %} selected='selected'{% endif %}>CPTS7s</option>
-        <option value='CPTS8s' {% if view_filter_values.cpts8s %} selected='selected'{% endif %}>CPTS8s</option>
-        <option value='CPTS3h' {% if view_filter_values.cpts3h %} selected='selected'{% endif %}>CPTS3h</option>
-        <option value='CPTS9p' {% if view_filter_values.cpts9p %} selected='selected'{% endif %}>CPTS9p</option>
-        <option value='CPTS10h' {% if view_filter_values.cpts10h %} selected='selected'{% endif %}>CPTS10h</option>
-        <option value='CPTS12h' {% if view_filter_values.cpts12h %} selected='selected'{% endif %}>CPTS12h</option>
-        <option value='CPTS1s' {% if view_filter_values.cpts1s %} selected='selected'{% endif %}>CPTS1s</option>
-        <option value='CPTS10e' {% if view_filter_values.cpts10e %} selected='selected'{% endif %}>CPTS10e</option>
-        <option value='CPTS3p' {% if view_filter_values.cpts3p %} selected='selected'{% endif %}>CPTS3p</option>
-        <option value='CPTS9h' {% if view_filter_values.cpts9h %} selected='selected'{% endif %}>CPTS9h</option>
-        <option value='CPTS9e' {% if view_filter_values.cpts9e %} selected='selected'{% endif %}>CPTS9e</option>
-        <option value='CPTS6s' {% if view_filter_values.cpts6s %} selected='selected'{% endif %}>CPTS6s</option>
-        <option value='CPTS4e' {% if view_filter_values.cpts4e %} selected='selected'{% endif %}>CPTS4e</option>
-        <option value='CPTS8e' {% if view_filter_values.cpts8e %} selected='selected'{% endif %}>CPTS8e</option>
-        <option value='CPTS4s'{% if view_filter_values.cpts4s %} selected='selected'{% endif %}>CPTS4s</option>
-        <option value='CPTS3e' {% if view_filter_values.cpts3e %} selected='selected'{% endif %}>CPTS3e</option>
-        <option value='CPTS7p' {% if view_filter_values.cpts7p %} selected='selected'{% endif %}>CPTS7p</option>
-        <option value='CPTS12p' {% if view_filter_values.cpts12p %} selected='selected'{% endif %}>CPTS12p</option>
-        <option value='CPTS11p' {% if view_filter_values.cpts11p %} selected='selected'{% endif %}>CPTS11p</option>
-        <option value='CPTS2s' {% if view_filter_values.cpts2s %} selected='selected'{% endif %}>CPTS2s</option>
-        <option value='CPTS5p'{% if view_filter_values.cpts5p %} selected='selected'{% endif %}>CPTS5p</option>
-        <option value='CPTS8p' {% if view_filter_values.cpts8p %} selected='selected'{% endif %}>CPTS8p</option>
-        <option value='CPTS2h'{% if view_filter_values.cpts2h %} selected='selected'{% endif %}>CPTS2h</option>
-        <option value='CPTS6e' {% if view_filter_values.cpts6e %} selected='selected'{% endif %}>CPTS6e</option>
-        <option value='CPTS1h'{% if view_filter_values.cpts1h %} selected='selected'{% endif %} >CPTS1h</option>
-        <option value='CPTS2p' {% if view_filter_values.cpts2p %} selected='selected'{% endif %}>CPTS2p</option>
-        <option value= 'CPTS1e'{% if view_filter_values.cpts1e %} selected='selected'{% endif %}>CPTS1e</option>
-        <option value='CPTS4h'{% if view_filter_values.cpts4h %} selected='selected'{% endif %}>CPTS4h</option>
-        <option value='CPTS5h' {% if view_filter_values.cpts5h %} selected='selected'{% endif %}>CPTS5h</option>
-        <option value='CPTS11h'{% if view_filter_values.cpt511h %} selected='selected'{% endif %}>CPTS11h</option>
-        <option value='CPTS3s'{% if view_filter_values.cpts3s %} selected='selected'{% endif %}>CPTS3s</option>
-        <option value='CPTS8h'{% if view_filter_values.cpts8h %} selected='selected'{% endif %}>CPTS3s</option>
-     </select>
+      <strong> Case Plan</strong>
+      <select name='cp_service' class='form-control' id='cp_service'>
+          <option value="0">Select Case Plan Service</option>
+          <option value='CPTS7h'  {% if view_filter_values.cpt57h %} selected='selected'{% endif %}>CPTS7h</option>
+          <option value='CPTS10p'  {% if view_filter_values.cpts10p %} selected='selected'{% endif %}>CPTS10p</option>
+          <option value='CPTS5e'  {% if view_filter_values.cpts5e %} selected='selected'{% endif %}>CPTS5e</option>
+          <option value='CPTS1p'  {% if view_filter_values.cpts1p %} selected='selected'{% endif %}>CPTS1p</option>
+          <option value='CPTS6h'  {% if view_filter_values.cpts6h %} selected='selected'{% endif %}>CPTS6h</option>
+          <option value='CPTS2e'  {% if view_filter_values.cpts2e %} selected='selected'{% endif %}>CPTS2e</option>
+          <option value='CPTS6p'  {% if view_filter_values.cpts6p %} selected='selected'{% endif %}>CPTS6p</option>
+          <option value='CPTS7e'  {% if view_filter_values.cpts7e %} selected='selected'{% endif %}>CPTS7e</option>
+          <option value='CPTS5s'  {% if view_filter_values.cpts5s %} selected='selected'{% endif %}>CPTS5s</option>
+          <option value='CPTS4p'  {% if view_filter_values.cpt54p %} selected='selected'{% endif %}>CPTS4p</option>
+          <option value='CPTS7s' {% if view_filter_values.cpt57s %} selected='selected'{% endif %}>CPTS7s</option>
+          <option value='CPTS8s' {% if view_filter_values.cpts8s %} selected='selected'{% endif %}>CPTS8s</option>
+          <option value='CPTS3h' {% if view_filter_values.cpts3h %} selected='selected'{% endif %}>CPTS3h</option>
+          <option value='CPTS9p' {% if view_filter_values.cpts9p %} selected='selected'{% endif %}>CPTS9p</option>
+          <option value='CPTS10h' {% if view_filter_values.cpts10h %} selected='selected'{% endif %}>CPTS10h</option>
+          <option value='CPTS12h' {% if view_filter_values.cpts12h %} selected='selected'{% endif %}>CPTS12h</option>
+          <option value='CPTS1s' {% if view_filter_values.cpts1s %} selected='selected'{% endif %}>CPTS1s</option>
+          <option value='CPTS10e' {% if view_filter_values.cpts10e %} selected='selected'{% endif %}>CPTS10e</option>
+          <option value='CPTS3p' {% if view_filter_values.cpts3p %} selected='selected'{% endif %}>CPTS3p</option>
+          <option value='CPTS9h' {% if view_filter_values.cpts9h %} selected='selected'{% endif %}>CPTS9h</option>
+          <option value='CPTS9e' {% if view_filter_values.cpts9e %} selected='selected'{% endif %}>CPTS9e</option>
+          <option value='CPTS6s' {% if view_filter_values.cpts6s %} selected='selected'{% endif %}>CPTS6s</option>
+          <option value='CPTS4e' {% if view_filter_values.cpts4e %} selected='selected'{% endif %}>CPTS4e</option>
+          <option value='CPTS8e' {% if view_filter_values.cpts8e %} selected='selected'{% endif %}>CPTS8e</option>
+          <option value='CPTS4s'{% if view_filter_values.cpts4s %} selected='selected'{% endif %}>CPTS4s</option>
+          <option value='CPTS3e' {% if view_filter_values.cpts3e %} selected='selected'{% endif %}>CPTS3e</option>
+          <option value='CPTS7p' {% if view_filter_values.cpts7p %} selected='selected'{% endif %}>CPTS7p</option>
+          <option value='CPTS12p' {% if view_filter_values.cpts12p %} selected='selected'{% endif %}>CPTS12p</option>
+          <option value='CPTS11p' {% if view_filter_values.cpts11p %} selected='selected'{% endif %}>CPTS11p</option>
+          <option value='CPTS2s' {% if view_filter_values.cpts2s %} selected='selected'{% endif %}>CPTS2s</option>
+          <option value='CPTS5p'{% if view_filter_values.cpts5p %} selected='selected'{% endif %}>CPTS5p</option>
+          <option value='CPTS8p' {% if view_filter_values.cpts8p %} selected='selected'{% endif %}>CPTS8p</option>
+          <option value='CPTS2h'{% if view_filter_values.cpts2h %} selected='selected'{% endif %}>CPTS2h</option>
+          <option value='CPTS6e' {% if view_filter_values.cpts6e %} selected='selected'{% endif %}>CPTS6e</option>
+          <option value='CPTS1h'{% if view_filter_values.cpts1h %} selected='selected'{% endif %} >CPTS1h</option>
+          <option value='CPTS2p' {% if view_filter_values.cpts2p %} selected='selected'{% endif %}>CPTS2p</option>
+          <option value='CPTS1e'{% if view_filter_values.cpts1e %} selected='selected'{% endif %}>CPTS1e</option>
+          <option value='CPTS4h'{% if view_filter_values.cpts4h %} selected='selected'{% endif %}>CPTS4h</option>
+          <option value='CPTS5h' {% if view_filter_values.cpts5h %} selected='selected'{% endif %}>CPTS5h</option>
+          <option value='CPTS11h'{% if view_filter_values.cpt511h %} selected='selected'{% endif %}>CPTS11h</option>
+          <option value='CPTS3s'{% if view_filter_values.cpts3s %} selected='selected'{% endif %}>CPTS3s</option>
+          <option value='CPTS8h'{% if view_filter_values.cpts8h %} selected='selected'{% endif %}>CPTS3s</option>
+      </select>
     </div>
 
 
