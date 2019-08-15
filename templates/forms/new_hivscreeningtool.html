@@ -665,5 +665,94 @@
                 switchTab("1");
             }
         });
+
+        $("#HIV_RS_19").prop('disabled', true);
+        $("input[type='radio'][name='HIV_RS_18']").click(function() {
+            var value = $(this).val();
+            if(value=='ANNO') {
+                $("#HIV_RS_19").prop('disabled', true);
+                HIV_RS_19=true;
+            }
+            else {
+                $("#HIV_RS_19").prop('disabled', false);
+                HIV_RS_19=true;
+            }
+    
+        });
+
+        
+
+        $("#HIV_RS_18A").prop('disabled', true);
+        $("input[type='radio'][name='HIV_RS_18']").click(function() {
+            var value = $(this).val();
+            if(value=='ANNO') {
+                $("#HIV_RS_18A").prop('disabled', false);
+                HIV_RS_18A=true;
+            }
+            else {
+                $("#HIV_RS_18A").prop('disabled', true);
+                HIV_RS_18A=true;
+            }       
+        });
+
+        $('input[name=HIV_RS_21]').attr("disabled",true);
+        $("input[type='radio'][name='HIV_RS_18B']").click(function() {
+            var value = $(this).val();
+            if(value=='1') {
+                $('input[name=HIV_RS_21]').attr("disabled",false);
+                
+                HIV_RS_21=true;
+            }
+            else {
+                $('input[name=HIV_RS_21]').attr("disabled",true);
+                HIV_RS_21=true;
+            }       
+        });
+
+        $('input[name=HIV_RS_23]').attr("disabled",true);
+        $("input[type='radio'][name='HIV_RS_18B']").click(function() {
+            var value = $(this).val();
+            if(value=='1') {
+                $('input[name=HIV_RS_23]').attr("disabled",false);
+                
+                HIV_RS_23=true;
+            }
+            else {
+                $('input[name=HIV_RS_23]').attr("disabled",true);
+                HIV_RS_23=true;
+            }       
+        });
+
+        $("input[type='radio'][name='HIV_RS_21']").click(function() {
+            var value = $(this).val();
+            if(value=='ANNO') {
+                $('input[name=HIV_RS_23]').attr("disabled",true);
+                
+                HIV_RS_23=true;
+            }
+            else {
+                $('input[name=HIV_RS_23]').attr("disabled",false);
+                HIV_RS_23=true;
+            }       
+        });
+
+        $("input[type='radio'][name='HIV_RS_21']").click(function() {
+            var value = $(this).val();
+            if(value=='ANNO') {
+                $('input[name=HIV_RS_24]').attr("disabled",true);
+                
+                HIV_RS_24=true;
+            }
+            else {
+                $('input[name=HIV_RS_24]').attr("disabled",false);
+                HIV_RS_24=true;
+            }       
+        });
+
+        // $("input[type='radio'][name='HIV_RS_21']").prop('disabled', false);
+        // $("#HIV_RS_21").prop('disabled', true);
+        
+
+
     </script>
 {% endblock %}
