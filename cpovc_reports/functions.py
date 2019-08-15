@@ -2561,13 +2561,14 @@ def get_pivot_ovc(request, params={}):
             datas, titles = get_sql_data(request, params)
         
         #  translating domain to full description
-        if report_id == 6:
-            for one_datas in datas:
-                try:
-                    name = get_description_for_item_id(one_datas['DOMAIN'])
-                    one_datas['DOMAIN'] = str(name[0])
-                except Exception, exe:
-                    print 'Error translating domain to full description - %s' % (str(exe))
+        # if report_id == 6:
+        #     for one_datas in datas:
+        #         try:
+        #             name = get_description_for_item_id(one_datas['DOMAIN'])
+        #             print name
+        #             one_datas['DOMAIN'] = str(name[0])
+        #         except Exception, exe:
+        #             print 'Error translating domain to full description - %s' % (str(exe))
 
     except Exception, e:
         print 'Error getting OVC pivot data - %s' % (str(e))
