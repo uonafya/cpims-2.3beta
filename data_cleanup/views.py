@@ -336,12 +336,13 @@ class DataQualityView(TemplateView):
         ovc_exited = self.request.POST.get('ovc_exited')
         filters = {}
 
+        if priority and priority != '0':
+            service = priority
+
         if form_1b_domain and form_1b_domain != '0':
             queryset = self.get_queryset(OVCCareServicesDataQuality)
         elif service and service != '0':
             queryset = self.get_queryset(OVCCareServicesDataQuality)
-        elif priority and priority != '0':
-            queryset = self.get_final_query_set(OVCCarePriorityDataQuality)
         elif cp_service and cp_service != '0':
             queryset = self.get_final_query_set(CasePlanDataQuality)
         else:
@@ -391,9 +392,9 @@ class DataQualityView(TemplateView):
                 queryset = queryset.filter(age__lt=age)
 
         if ovc_exited == 'YES':
-            queryset = queryset.filter(exit_date__isnull=True)
-        elif ovc_exited == 'NO':
             queryset = queryset.filter(exit_date__isnull=False)
+        elif ovc_exited == 'NO':
+            queryset = queryset.filter(exit_date__isnull=True)
 
         if form_1b_domain and form_1b_domain != '0':
             filters['domain'] = form_1b_domain
@@ -406,9 +407,6 @@ class DataQualityView(TemplateView):
 
         if service_to_date:
             filters['date_of_event__lte'] = service_to_date
-
-        if priority and priority != '0':
-            filters['service'] = priority
 
         if cp_service and cp_service != '0':
             filters['cp_service'] = cp_service
@@ -490,3 +488,7 @@ class DataQualityView(TemplateView):
         view_filter_values.update(self.set_view_filters_for_ovc_exited())
         context['view_filter_values'] = view_filter_values
         return TemplateResponse(self.request, self.template_name, context)
+
+
+class CasePlanDataQualityView(DataQualityView):
+        template_name = 'data_cleanup/case_plan_filter.html'
