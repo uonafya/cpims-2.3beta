@@ -1,4 +1,9 @@
 {% extends 'data_cleanup/filter.html' %}
+{%block dqa_subdomain %}Case Plan{%endblock%}
+
+{% block form_post_url %}
+    <form class='form ' action="{% url 'data_cleanup_case_plan' %}" method="POST" id='filter_form'>
+  {% endblock %}
 
 {% block priorities %}
 {% endblock %}

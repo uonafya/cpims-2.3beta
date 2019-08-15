@@ -4,6 +4,7 @@
 {% load choice_fields_filter %}
 {% block page_title %} Data Quality Assessment{% endblock %}
 
+
 {% block style_code %}
 <link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet"/>
 <link href="{% static 'css/buttons.dataTables.min.css' %}" rel="stylesheet" />
@@ -11,12 +12,15 @@
 {% endblock %}
 
 {% block primary %}
-<h1 class="page-header">Data Quality Assessment <small></small></h1>
+<h1 class="page-header">Data Quality Assessment <small>{%block dqa_subdomain %}Services{%endblock%}</small></h1>
 {% if error %}
 <div class='alert alert-warning'>{{ error }}</div>
 {% endif %}
 <div class='shadow-lg p-3 mb-5 bg-white rounded well'>
-<form class='form ' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
+
+  {% block form_post_url %}
+    <form class='form ' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
+  {% endblock %}
     {% csrf_token %}
 
     {% block demographic %}
