@@ -43,3 +43,5 @@ CREATE MATERIALIZED VIEW data_quality_case_plan AS SELECT
 
 FROM ovc_care_case_plan
 INNER JOIN data_quality_view ON ovc_care_case_plan.person_id=data_quality_view.person_id;
+
+CREATE INDEX IF NOT EXISTS cp_service_index on data_quality_case_plan USING btree (cp_service);

@@ -27,3 +27,6 @@
  FROM ovc_care_services
  LEFT JOIN ovc_care_events ON ovc_care_events.event=ovc_care_services.event_id
  LEFT JOIN data_quality_view ON data_quality_view.person_id=ovc_care_events.person_id;
+
+CREATE INDEX IF NOT EXISTS service_provided_index on data_quality_ovc_care_services USING btree (service_provided);
+CREATE INDEX IF NOT EXISTS service_domain_index on data_quality_ovc_care_services USING btree (domain);
