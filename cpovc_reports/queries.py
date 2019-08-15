@@ -610,7 +610,7 @@ WHEN CAST(COUNT(DISTINCT domain) AS integer) > 2 then '3orMore Services'
 ELSE '1or2 Services'
 END AS NumberofServices
 into TEMP temp_pepfarsummary
-	FROM	(SELECT person_id, CBO,vw_cpims_services.cboid as cbo_id, ward, item_description,
+	FROM	(SELECT person_id, CBO,vw_cpims_services.cbo_id as cbo_id, ward, item_description,
 		County,
 		sex_id,
 		CASE
@@ -622,9 +622,9 @@ into TEMP temp_pepfarsummary
 		WHEN  date_part('year', age(timestamp '{end_date}', date_of_birth)) BETWEEN 18 AND 20 THEN 'f.[18-20yrs]'
 		ELSE 'g.[21+yrs]' END AS AgeRange,cboid,Countyid,domain
 		FROM  vw_cpims_services
-		WHERE  vw_cpims_services.cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}')
+		WHERE  vw_cpims_services.cbo_id in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}')
 		GROUP BY person_id, CBO, ward, item_description,
-		County,sex_id,date_of_birth,vw_cpims_services.cboid,Countyid,domain
+		County,sex_id,date_of_birth,vw_cpims_services.cbo_id,Countyid,domain
 /*
 		UNION
 
@@ -851,7 +851,7 @@ GROUP BY ward_id;
 		ELSE 'g.[21+yrs]' END AS AgeRange,cboid,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id,domain
 		FROM  vw_cpims_services
 		inner join vw_cpims_Registration on vw_cpims_services.person_id = vw_cpims_Registration.cpims_ovc_id
-		WHERE vw_cpims_services.cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}')
+		WHERE vw_cpims_services.cbo_id in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}')
 	and ((exit_status = 'ACTIVE' and vw_cpims_Registration.registration_date <= '{end_date}')
 	or (exit_status = 'EXITED' and  (vw_cpims_Registration.registration_date between '{start_date}' and '{end_date}' ))
 	or (exit_status = 'EXITED' and vw_cpims_Registration.registration_date <= '{start_date}'  and exit_date > '{end_date}' )
@@ -3017,7 +3017,7 @@ GROUP BY ward_id;
       ELSE 'g.[25+yrs]' END AS AgeRange,cboid,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id,domain
       FROM  vw_cpims_services
       inner join vw_cpims_Registration on vw_cpims_services.person_id = vw_cpims_Registration.cpims_ovc_id
-      WHERE vw_cpims_services.cboid in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}')
+      WHERE vw_cpims_services.cbo_id in ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}')
    and ((exit_status = 'ACTIVE' and vw_cpims_Registration.registration_date <= '{end_date}')
    or (exit_status = 'EXITED' and  (vw_cpims_Registration.registration_date between '{start_date}' and '{end_date}' ))
    or (exit_status = 'EXITED' and vw_cpims_Registration.registration_date <= '{start_date}'  and exit_date > '{end_date}' )
