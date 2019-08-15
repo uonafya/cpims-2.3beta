@@ -98,6 +98,7 @@ class OVCCareServicesDataQuality(models.Model):
     sex_id = models.CharField(max_length=255)
     date_of_event =  models.DateField(max_length=255)
     exit_date = models.DateTimeField(default=None)
+    reg_person_id =  models.CharField(max_length=255)
 
     class Meta:
         managed= False
@@ -125,6 +126,7 @@ class OVCCarePriorityDataQuality(models.Model):
     surname = models.CharField(max_length=255)
     age = models.IntegerField()
     sex_id = models.CharField(max_length=255)
+    reg_person_id =  models.CharField(max_length=255)
 
     class Meta:
         managed= False
@@ -170,6 +172,7 @@ class CasePlanDataQuality(models.Model):
     surname = models.CharField(max_length=255)
     age = models.IntegerField()
     sex_id = models.CharField(max_length=255)
+    reg_person_id =  models.CharField(max_length=255)
 
     class Meta:
         managed= False

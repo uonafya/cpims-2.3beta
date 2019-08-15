@@ -7,6 +7,7 @@
  ovc_care_priority.service,
  ovc_care_priority.event_id,
  ovc_care_events.person_id as ovc_care_events_person_id,
+ data_quality_view.ovc_registration_id,
  data_quality_view.has_bcert,
  data_quality_view.is_disabled,
  data_quality_view.hiv_status,

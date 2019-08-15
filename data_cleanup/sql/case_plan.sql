@@ -25,6 +25,7 @@ CREATE MATERIALIZED VIEW data_quality_case_plan AS SELECT
     ovc_care_case_plan.person_id as case_plan_person_id,
     ovc_care_case_plan.caregiver_id,
     ovc_care_case_plan.actual_completion_date,
+    data_quality_view.reg_person_id,
     data_quality_view.has_bcert,
     data_quality_view.is_disabled,
     data_quality_view.hiv_status,
