@@ -33,7 +33,7 @@ pymc==2.3.6
 python-systemd==230
 pytz==2015.6
 RapidSMS==0.21.1
-redis==2.10.3
+redis==3.3.7
 reportlab==3.1.8
 requests==2.8.1
 rpm-python==4.13.0rc1
