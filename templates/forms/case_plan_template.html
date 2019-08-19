@@ -713,6 +713,7 @@
 	
     ///////
     $('#div_CPT_ACTUAL_DATE_COMPLETION').addClass('hidden');
+    $('#CPT_ACTUAL_DATE_COMPLETION').val('1900-01-01');
     $('*[name=CPT_RESULTS]').change(function(){
         var thisval=$('*[name=CPT_RESULTS] option:selected').val();
         if(thisval=='NA'){
