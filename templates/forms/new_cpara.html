@@ -220,9 +220,9 @@ print(blu.sing("'Happy'"))
                                                             {% for sibling in hhmembers %}
                                                             <tr>
                                                                 <td><a href="{% url 'ovc_view' sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a></td>
-                            {#                                                {% if sibling.sibling_person.age < 18 %}#}
+                                                                {#{% if sibling.sibling_person.age < 18 %}#}
                                                                 <td>{{ sibling.person.age }}</td>
-                                {#                                                {% endif %}#}
+                                                                {#{% endif %}#}
                                                                 <td>
                                                                     {% if sibling.person.sex_id == 'SFEM' %}
                                                                     F
@@ -253,7 +253,7 @@ print(blu.sing("'Happy'"))
                                                 {% else %}
                                                     <br>
                                                     <div class="alert alert-warning">
-                                                        <p>No relative details provided for this person.</p>  
+                                                        <p>No siblings provided for this person.</p>  
                                                     </div>
                                                 {% endif %}
                                             </div>
@@ -317,7 +317,7 @@ print(blu.sing("'Happy'"))
                                                 <div class="form-group leadqn note note-default" id="if_ovc_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Is there a child (including under 5 years) in the household that is at risk or vulnerable to HIV? </label>
-                                                        <small>(Chronic illness: Asthma, Cancer, Diabetes, Epileplsy)</small>
+                                                        <small>(Infants born from HIV +ve mothers, children living with HIV +ve caregiver(s)/parent(s), orphans &amp; adolescent girls at risk)</small>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         <label class="radio-inline">
@@ -439,9 +439,26 @@ print(blu.sing("'Happy'"))
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div class="form-group leadqn note note-default" id="u10_know_status_Qn">
+                                                    <div class="col-md-9">
+                                                        <label class="control-label formlabel">Is there a child/children in the household older than the age of five who are living with HIV? </label>
+                                                    </div>
+                                                    <div class="col-md-3 text-left">
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="clw_hiv_o5" value="AYES">
+                                                            Yes
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" name="clw_hiv_o5" value="ANNO">
+                                                            No
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
                                                 <div class="form-group" id="cp7q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">2.3 Is there a child/children in the household older than the age of five who are living with HIV (as  documented in the case file), and if yes, do they know their HIV status?  (Partial/ complete)? <span class="asteriskField">*</label>
+                                                        <label class="control-label formlabel">2.3 and if yes in the question above, do they know their HIV status? (Partial/ complete)? <span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp7q }}
@@ -467,7 +484,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group leadqn note note-default" id="u10_know_status_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Is there a child under ten in the household and/or doesn't know their status? </label>
+                                                        <label class="control-label formlabel">Is there a child under ten in the household living with HIV and/or doesn't know their status? </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         <label class="radio-inline">
@@ -535,11 +552,13 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <hr>
                                             <div class="col-md-12">
                                                 <div class="form-group leadqn note note-default" id="o10_know_status_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">Is child(ren) above ten and know their status? </label>
+                                                        <label class="control-label formlabel">Is there a HIV positive child/children above ten and know their status? </label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         <label class="radio-inline">
@@ -643,38 +662,55 @@ print(blu.sing("'Happy'"))
                                                                 <!-- <td>{{ osibling.child_person.age }}</td> -->
                                                             </tr>
                                                             {% endfor %} {% endcomment %}
-                                                        <tr>
-                                                            <td class="semi-bold">
-                                                                Tick <u>Yes</u> if <u>YES</u> for all children
-                                                            </td>
-                                                            <td id="cp13q_Qn">
-                                                                {{ form.cp13q }}
-                                                            </td>
-                                                            <td id="cp14q _Qn">
-                                                                {{ form.cp14q }}
-                                                            </td>
-                                                            <td id="cp15q_Qn">
-                                                                {{ form.cp15q }}
-                                                            </td>
-                                                            <td id="cp16q _Qn">
-                                                                {{ form.cp16q }}
-                                                            </td>
-                                                            <td id="cp17q_Qn">
-                                                                {{ form.cp17q }}
-                                                            </td>
-                                                        </tr>
+                                                            <tr>
+                                                                <td class="semi-bold">
+                                                                    Tick <u>Yes</u> if <u>YES</u> for all children
+                                                                </td>
+                                                                <td id="cp13q_Qn">
+                                                                    {{ form.cp13q }}
+                                                                </td>
+                                                                <td id="cp14q _Qn">
+                                                                    {{ form.cp14q }}
+                                                                </td>
+                                                                <td id="cp15q_Qn">
+                                                                    {{ form.cp15q }}
+                                                                </td>
+                                                                <td id="cp16q _Qn">
+                                                                    {{ form.cp16q }}
+                                                                </td>
+                                                                <td id="cp17q_Qn">
+                                                                    {{ form.cp17q }}
+                                                                </td>
+                                                            </tr>
                                                         </tbody>
-                                                        {% else %}
+                                                    {% else %}
                                                         <tbody>
+                                                            <tr class="hidden">
+                                                                <td class="semi-bold">
+                                                                    Hidden fields for no-OVC
+                                                                </td>
+                                                                <td id="cp13q_Qn">
+                                                                    {{ form.cp13q }}
+                                                                </td>
+                                                                <td id="cp14q _Qn">
+                                                                    {{ form.cp14q }}
+                                                                </td>
+                                                                <td id="cp15q_Qn">
+                                                                    {{ form.cp15q }}
+                                                                </td>
+                                                                <td id="cp16q _Qn">
+                                                                    {{ form.cp16q }}
+                                                                </td>
+                                                                <td id="cp17q_Qn">
+                                                                    {{ form.cp17q }}
+                                                                </td>
+                                                            </tr>
                                                             <tr>
                                                                 <td colspan="6">
-                                                                    <br>
-                                                                    <div class="alert alert-warning">
-                                                                        <p>&nbsp;No relative details provided for this person.</p>
-                                                                    </div>
-                                                                <td>
-                                                            <tr>
-                                                        <tbody>
+                                                                    <p class="custom-alert-warning">&nbsp;No relative details provided for this person.</p>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
                                                     {% endif %}
                                                     </table>
                                             </div>
@@ -2433,5 +2469,41 @@ jQuery(document).ready(function()
             });
         }
     
+    
     </script>
+    {% if hhmembers %}
+        <script>
+            $('input[type=radio]').on('change', function () {
+                if(
+                    $('input[name=cp8q]:checked').val() == 'AYES' &&
+                    $('input[name=cp9q]:checked').val() == 'AYES' &&
+                    $('input[name=cp10q]:checked').val() == 'AYES' &&
+                    $('input[name=cp11q]:checked').val() == 'AYES' &&
+                    $('input[name=cp12q]:checked').val() == 'AYES' &&
+                    $('input[name=cp13q]:checked').val() == 'AYES' &&
+                    $('input[name=cp14q]:checked').val() == 'AYES' &&
+                    $('input[name=cp15q]:checked').val() == 'AYES' &&
+                    $('input[name=cp16q]:checked').val() == 'AYES' &&
+                    $('input[name=cp17q]:checked').val() == 'AYES'
+                ){
+                    $('input[name=cp3b][value=AYES]').prop('checked', true);
+                    $('#id_cp3b_0').prop('checked', true);
+                    console.info( ' YESS 17q == ' + $('input[name=cp17q]:checked').val() )
+                }
+                else{
+                    console.info( 'NOO 17q == ' + $('input[name=cp17q]:checked').val() )
+                    $('input[name=cp3b][value=ANNO]').prop('checked', true);
+                }
+            })
+        </script>
+    {% else %}
+        <script>
+            $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true).attr('disabled', true);
+            $('input[name=o10_know_status]').on('change', function () {
+                $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true).attr('disabled', true);
+                $('#id_cp3b_0').prop('checked', true);
+            })
+        </script>
+    {% endif %}
+        
 {% endblock %}

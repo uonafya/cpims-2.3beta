@@ -2,8 +2,8 @@
 //format is:   triggerSkip(inputToCheck,rightValue,questionToGoTo,tabContainingDestinationQn);
     // Q1 -> Q2
     triggerSkip('if_ovc','ANNO','cp5q','2');
-    triggerSkip('u10_know_status','ANNO','q3p6','2');
-    triggerSkip('o10_know_status','ANNO','cp19q','2');
+    triggerSkip('u10_know_status','ANNO','o10_know_status','2');
+    triggerSkip('o10_know_status','ANNO','adole_preg_hiv','2');
     triggerSkip('adole_preg_hiv','ANNO','cp24q','2');
     triggerSkip('adole_preg_testpos','ANNO','cp24q','2');
     triggerSkip('adole_wo_deliv','ANNO','cp24q','2');
@@ -113,7 +113,7 @@ function skipToQn(inputToCheck,toQnID,toTabID,unDo) {
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12:not(.containsTable)").nextUntil(destinationT, ".col-md-12:not(.containsTable)").find('.form-group').not('.note-info').addClass('hidden').after('<span id="skyp"><br><i style="color: grey;">Skipped question</i><br/></span>');
             
             //tick Benchmark
-            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.note-info').find('input[value=AYES]').prop('checked', true).trigger('click');
+            $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.note-info').find('input[value=AYES]').prop('checked', true).trigger('click').css('color', 'green');
             $('input[name="'+inputToCheck+'"]').closest(".col-md-12").nextUntil(destinationT, ".col-md-12").find('.form-group.note-info input[value="AYES"]').prop('checked',true);
             //tick Benchmark
 
