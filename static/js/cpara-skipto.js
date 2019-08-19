@@ -9,6 +9,11 @@
     triggerSkip('adole_wo_deliv','ANNO','cp24q','2');
     triggerSkip('adole_gb_hse','ANNO','cp30q','2');
     triggerSkip('child_w_disab_hse','ANNO','cp32q','3');
+    //<TODOne just test
+    triggerSkip('cp5d','ANNO','cp32q','3');
+    triggerSkip('cp3d','ANNO','cp49q','4');
+    triggerSkip('adole_gb_hse2','ANNO','cp30q','2');
+    //>TODOne just test
     triggerSkip('child_abv_10y','ANNO','cp36q','3');
     triggerSkip('u_chd_sck','ANNO','cp43q','3');
     triggerSkip('chd_ovr_10','ANNO','child_hd_hse','4');
@@ -24,6 +29,9 @@
     triggerSkip('cp49q','AYES','o5y_cd_hse','4');
     triggerSkip('cp50q','ANNO','q12p4','4');
     triggerSkip('child_bwn_4t5y_Qn','ANNO','cp70q','5');
+    triggerSkip('clw_hiv_o5','ANNO','cp8q','2');
+    triggerSkip('cp23qa','ANNO','cp24q','2'); triggerSkip('cp23qb','ANNO','cp24q','2'); triggerSkip('cp23qc','ANNO','cp24q','2'); triggerSkip('cp23qd','ANNO','cp24q','2');
+
 // endQuestionSkipLogic
 
 

@@ -268,6 +268,7 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp3d }}
+                                                        <!-- TODOne if no handle q11 skips then score benchmark -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -286,6 +287,7 @@ print(blu.sing("'Happy'"))
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">Does this Household have a child living with disability or has chronic illness?
                                                         <i class="semi-bold">(Chronic illness includes Asthma, Cancer, Diabetes, Epileplsy)</i><span class="asteriskField">*</label>
+                                                        <!-- TODOne if no skip 6.1 & 6.2 then score benchmark -->
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{ form.cp5d }}
@@ -445,6 +447,7 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         <label class="radio-inline">
+                                                            <!-- TODOne apply this -->
                                                             <input type="radio" name="clw_hiv_o5" value="AYES">
                                                             Yes
                                                         </label>
@@ -832,10 +835,11 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group" id="cp23q_Qn">
                                                     <div class="col-md-9">
-                                                        <label class="control-label formlabel">If the infant was exposed to HIV during delivery, has the infant been tested for HIV?<span class="asteriskField">*</label>
+                                                        <label class="control-label formlabel">4.5 If the infant was exposed to HIV during delivery, has the infant been tested for HIV?<span class="asteriskField">*</label>
                                                     </div>
                                                     <div class="col-md-3 text-left">
                                                         {{form.cp23q}}
+                                                        <!-- TODOne if no skip 4.5b below -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -843,7 +847,7 @@ print(blu.sing("'Happy'"))
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div class="col-md-5">
-                                                        <label class="control-label formlabel">2 If yes in 1.1 above, indicate at what age the infant was tested (circle all that apply)
+                                                        <label class="control-label formlabel">4.5b If yes in 4.5 above, indicate at what age the infant was tested (circle all that apply)
                                                     </div>
                                                     <div class="col-md-7">
                                                         <div class="row">
@@ -970,6 +974,23 @@ print(blu.sing("'Happy'"))
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
+                                                <div class="form-group leadqn note note-default" id="adole_gb_hse2_Qn">
+                                                    <div class="col-md-9">
+                                                        <label class="control-label formlabel">Are there adolescent girls and boys in the household? </label>
+                                                    </div>
+                                                    <div class="col-md-3 text-left">
+                                                        <label class="radio-inline">
+                                                            <input name="adole_gb_hse2" type="radio" value="AYES">
+                                                            Yes
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input name="adole_gb_hse2" type="radio" value="ANNO">
+                                                            No
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
                                                 <div class="form-group" id="cp28q_Qn">
                                                     <div class="col-md-9">
                                                         <label class="control-label formlabel">5.5 Please tell me at least two behaviors that increase the risk of HIV? </label>
@@ -1001,6 +1022,8 @@ print(blu.sing("'Happy'"))
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <hr/>
                                             <div class="col-md-12">
                                                 <div class="form-group leadqn note note-default" id="child_w_disab_hse_Qn">
@@ -1440,7 +1463,7 @@ print(blu.sing("'Happy'"))
                                                 </div>
                                                 
                                                 <div class="col-md-12">
-                                                    <div class="form-group" id="chd_ovr_10y_Qn">
+                                                    <div class="form-group leadqn note note-default" id="chd_ovr_10y_Qn">
                                                         <div class="col-md-12">
                                                             <h4><u>Questions for child(ren) ten years and over.</u></h4>
                                                         </div>
@@ -1510,6 +1533,7 @@ print(blu.sing("'Happy'"))
                                                         </div>
                                                         <div class="col-md-3 text-left">
                                                             {{form.cp50q}}
+                                                            <!-- TODOne noprob jumps to header -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1551,6 +1575,7 @@ print(blu.sing("'Happy'"))
                                                                 <input type="radio" value="ANNO" name="o5y_cd_hse">
                                                                 No
                                                             </label>
+                                                            <!-- TODO benchmark scoring -->
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1558,7 +1583,6 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% comment %} {% if siblings or osiblings %} {% endcomment %}
-                                                        {% if hhmembers %}
                                                             <table class="table table-condensed table-responsive">
                                                                 <thead>
                                                                     <tr>
@@ -1570,6 +1594,7 @@ print(blu.sing("'Happy'"))
                                     
                                                                     </tr>
                                                                 </thead>
+                                                            {% if hhmembers %}
                                                                 <tbody>
                                                                     {% for sibling in hhmembers %}
                                                                     <tr>
@@ -1639,13 +1664,30 @@ print(blu.sing("'Happy'"))
                                                                     </td>
                                                                 </tr>
                                                                 </tbody>
-                                                            </table>
                                                             {% else %}
-                                                                <br>
-                                                                <div class="alert alert-warning">
-                                                                <p>&nbsp;No relative details provided for this person.</p>
-                                                                </div>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td colspan="4">
+                                                                            <p class="custom-alert-warning">&nbsp;No relative details provided for this person.</p>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr class="hidden">
+                                                                        <td class="semi-bold">
+                                                                            Hidden fields for no-OVC
+                                                                        </td>
+                                                                        <td id="cp52q_Qn">
+                                                                            {{ form.cp52q }}
+                                                                        </td>
+                                                                        <td id="cp53q_Qn">
+                                                                            {{ form.cp53q }}
+                                                                        </td>
+                                                                        <td id="cp54q_Qn">
+                                                                        {{ form.cp54q }}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
                                                             {% endif %}
+                                                            </table>
                                                     </div>
                                                 </div>
                                                 <hr>
@@ -1665,7 +1707,6 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12">
                                                     <br/>
                                                     <h4><u>All children in the household with a demonstrated and documented risk of abuse, violence, sexual violence, exploitation or neglect have been referred to and are  receiving appropriate services (i.e., statutory or other  recognized health and child protection services).</u></h4>
-                                                    <hr>
                                                 </div>
                                             </div>
 
@@ -2158,17 +2199,16 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% comment %} {% if siblings or osiblings %} {% endcomment %}
-                                                        {% if hhmembers %}
                                                             <div class="table-responsive">
                                                                 <table class="table table-condensed table-responsive">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Child Name</th>
                                                                             <th>17.3 Do you regularly attend your vocational training? Please tell me something that you liked learning the past month.<th>
-                                                                                
-                                                                                
+                                                                            <!-- TODOne benchmark scoring -->
                                                                         </tr>
                                                                     </thead>
+                                                                {% if hhmembers %}
                                                                     <tbody>
                                                                             {% for sibling in hhmembers %}
                                                                             <tr>
@@ -2214,14 +2254,29 @@ print(blu.sing("'Happy'"))
                                                                                 
                                                                             </tr>
                                                                     </tbody>
+                                                                    {% else %}
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td colspan="2">
+                                                                            <p class="custom-alert-warning">&nbsp;No relative details provided for this person.</p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr class="hidden">
+                                                                            <td class="semi-bold">
+                                                                                Hidden fields for no-OVC
+                                                                            </td>
+                                                                            <td id="cp73q_Qn">
+                                                                                <div class="col-md-3 text-left">
+                                                                                    {{ form.cp73q }}
+                                                                                </div>
+                                                                            </td>
+                                                                            
+                                                                        </tr>
+                                                                    </tbody>
+                                                                    {% endif %}
                                                                 </table>
                                                             </div>
-                                                        {% else %}
                                                         <br>
-                                                        <div class="alert alert-info">
-                                                            <p>&nbsp;No relative details provided for this person.</p>
-                                                        </div>
-                                                        {% endif %}
                                                     </div>     
                                                 </div>
                                             </div>
@@ -2474,6 +2529,7 @@ jQuery(document).ready(function()
     {% if hhmembers %}
         <script>
             $('input[type=radio]').on('change', function () {
+                // 3.1 - 3.6
                 if(
                     $('input[name=cp8q]:checked').val() == 'AYES' &&
                     $('input[name=cp9q]:checked').val() == 'AYES' &&
@@ -2494,15 +2550,45 @@ jQuery(document).ready(function()
                     console.info( 'NOO 17q == ' + $('input[name=cp17q]:checked').val() )
                     $('input[name=cp3b][value=ANNO]').prop('checked', true);
                 }
+
+                
+                // 12.4 a-c
+                if(
+                    $('input[name=cp49q]:checked').val() == 'AYES' &&
+                    $('input[name=cp50q]:checked').val() == 'AYES' &&
+                    $('input[name=cp51q]:checked').val() == 'AYES' &&
+                    $('input[name=cp52q]:checked').val() == 'AYES' &&
+                    $('input[name=cp53q]:checked').val() == 'AYES' &&
+                    $('input[name=cp54q]:checked').val() == 'AYES'
+                ){
+                    $('input[name=cp12b][value=AYES]').prop('checked', true);
+                    $('#id_cp12b_0').prop('checked', true);
+                    console.info( ' YESS 54q == ' + $('input[name=cp54q]:checked').val() )
+                }
+                else{
+                    console.info( 'NOO 54q == ' + $('input[name=cp54q]:checked').val() )
+                    $('input[name=cp12b][value=ANNO]').prop('checked', true);
+                }
+
+
             })
         </script>
     {% else %}
         <script>
+            // 3.1 - 3.6
             $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true).attr('disabled', true);
             $('input[name=o10_know_status]').on('change', function () {
                 $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true).attr('disabled', true);
                 $('#id_cp3b_0').prop('checked', true);
             })
+
+            // 12.4 a-c
+            $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true).attr('disabled', true);
+            $('input[name=o5y_cd_hse]').on('change', function () {
+                $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true).attr('disabled', true);
+                $('#id_cp12b_0').prop('checked', true);
+            })
+            
         </script>
     {% endif %}
         
