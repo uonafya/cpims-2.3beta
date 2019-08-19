@@ -220,7 +220,8 @@ function AddRow() {
         $(this).addClass('d-c-1')
     });
 
-    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || actual_completion_date == null || actual_completion_date == '' || domain == null || domain == '' || goal == '' || goal == null || responsibl == '' || responsibl == null || actions == '' || actions == null || gaps == '' || gaps == null || services.length < 1 || results == '' || results2 == null || results2 == '' || reasons == '' ){
+    //if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || actual_completion_date == null || actual_completion_date == '' || domain == 
+    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || domain == null || domain == '' || goal == '' || goal == null || responsibl == '' || responsibl == null || actions == '' || actions == null || gaps == '' || gaps == null || services.length < 1 || results == '' || results2 == null || results2 == '' || reasons == '' ){
         // $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid red');
         $('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid red');
         console.error('ERROR: can\'t add rows with empty fields')
