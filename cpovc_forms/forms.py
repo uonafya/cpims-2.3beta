@@ -185,7 +185,7 @@ CPT_GOALS_SAFE_CHOICES = (
 )
 
 CPT_GOALS_SCHOOL_CHOICES = (
-    ('CPTG1sc', 'All school going children attend, progress and transition to the next level')
+    ('CPTG1sc', 'All school going children attend, progress and transition to the next level'),
     # ('CPTG1sc', 'All school going children transition to the next level')
 )
 
