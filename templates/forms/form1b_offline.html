@@ -1,0 +1,403 @@
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+    <li><a href="#" id="btn_ovc_home_offline">Home</a></li>
+    <li><a href="#" id="btn_ovc_view_offline">View Ovc</a></li>
+</ol>
+<!-- end breadcrumb -->
+
+<!-- begin page-header -->
+
+<h1 class="page-header">Forms
+    <small>Caregiver Status and Service Monitoring (Form 1B)
+    <b id="form_1b_offline_kyc"><span class="label label-primary">Active</span></b>
+    </small>
+</h1>
+
+<!-- end page-header -->
+
+<div id="messages_form1b_offline" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <!-- <span class="close" data-dismiss="alert">×</span> -->
+    <i class="fa fa-info pull-left"></i>
+    <p></p>
+    <span class="invalid-form-message"></span>
+</div>
+
+<!-- begin row -->
+<div id='case_details' class="row">
+
+    <!-- begin col-12 -->
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <h4 class="panel-title"> Form 1B Details </h4>
+            </div>
+        {% if form1b_allowed %}
+            <div class="alert alert-warning fade in m-b-15">
+                <strong>Warning!</strong>
+                This form should be filed only in the months of March, June, September &amp; December.
+                <span class="close" data-dismiss="alert">&times;</span>
+            </div>
+            <div class="panel-body">
+                    <form class="form-horizontal form-bordered" action="." method="POST" data-parsley-validate="true"
+                          name="form-wizard-f1b-offline" id="new_form1b_offline">
+                        {% csrf_token %}
+                        <input id="caretaker_id_form1b_offline" name="caretaker_id_form1b_offline" type="hidden">
+                        <input type="hidden" id="person_id_form1b_offline" name ="person_id_form1b_offline" value="{{ovc.child_chv.id}}">
+                        <div id="wizard-f1b-offline">
+                            <ol>
+                                <li>
+                                    Health and Nutrition
+                                    <small>Caregiver health and nutrition status</small>
+                                </li>
+                                <li>
+                                    Shelter and Care
+                                    <small>Caregiver shelter and care service</small>
+                                </li>
+                                <li>
+                                    Protection
+                                    <small>Caregiver protection service</small>
+                                </li>
+                                <li>
+                                    Psychosocial Support
+                                    <small>Caregiver psychosocial support service</small>
+                                </li>
+                                <li>
+                                    Education
+                                    <small>Caregiver Education status</small>
+                                </li>
+                                <li>
+                                    Household Economic Strengthening
+                                    <small>Caregiver household economic strengthening status</small>
+                                </li>
+                            </ol>
+                            <table width="100%" class="table table-profile">
+                                <tbody>
+                                <tr>
+                                    <td class="field" style="width: 150px">CHV</td>
+                                    <td class="field">Full Name</td>
+                                    <td id ="offline_form1b_chv_child_chv_full_name">{{ ovc.child_chv.first_name }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+
+                            <!-- begin wizard step-1 -->
+                            <div class="wizard-step-1">
+                                <fieldset>
+                                    <!-- begin col-6 -->
+                                    <legend class="pull-left width-full">
+                                        1. Caregiver health and nutrition status assessment and service provision</legend>
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.HG.a %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" id="f1b" name="f1b[]" data-parsley-mincheck="1" value="{{ itm.id }}" data-parsley-errors-container="#messages" data-parsley-required-message="Please check at least one" required/>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row sbody">
+                                        <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.HG.s %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- end col-6 -->
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-1 -->
+
+                            <!-- begin wizard step-2 -->
+                            <div class="wizard-step-2">
+                                <fieldset>
+                                    <legend class="pull-left width-full">
+                                        2. Caregiver shelter and care service provision</legend>
+                                    <div class="row"></div>
+                                    <div class="row sbody">
+                                        <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.SC.s %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-2 -->
+                            <!-- begin wizard step-3 -->
+                            <div class="wizard-step-3">
+                                <fieldset>
+                                    <legend class="pull-left width-full">
+                                        3. Caregiver protection service provision</legend>
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.PG.a %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row sbody">
+                                        <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.PG.s %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-3 -->
+
+                            <!-- begin wizard step-4 -->
+                            <div class="wizard-step-4">
+                                <fieldset>
+                                    <legend class="pull-left width-full">
+                                        4. Caregiver psychosocial support service provision</legend>
+                                    <div class="row"></div>
+                                    <div class="row sbody">
+                                        <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.PSG.s %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-4 -->
+
+                            <!-- begin wizard step-5 -->
+                            <div class="wizard-step-5">
+                                <fieldset>
+                                    <legend class="pull-left width-full">
+                                        5. Caregiver education status assessment and service provision</legend>
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.EG.a %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row sbody">
+                                        <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.EG.s %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-5 -->
+
+                            <!-- begin wizard step-6 -->
+                            <div class="wizard-step-6">
+                                <fieldset>
+                                    <legend class="pull-left width-full">
+                                        6. Caregiver household economic strengthening status assessment and service</legend>
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2"><b>Assessment</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.HE.a %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="row sbody">
+                                        <div class="col-md-2 col-sm-2"><b>Services</b></div>
+                                        <div class="col-md-10 col-sm-10">
+                                            <p></p>
+                                            <table class="table table-condensed">
+                                                <tbody>
+                                                {% for itm in domains.HE.s %}
+                                                    <tr>
+                                                        <td class="col-md-1 p-r-5">
+                                                            {{ itm.id }}
+                                                        </td>
+                                                        <td width="80%">
+                                                            <h5 class="m-t-0 m-b-5">{{ itm.name }}</h5>
+                                                        </td>
+                                                        <td>
+                                                            <input type="checkbox" value="{{ itm.id }}" name="f1b[]" />
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <!-- end wizard step-6 -->
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-md-4 col-sm-4" for="csi_qs">Date of Service(s)/Monitoring : <span class="asteriskField">* </span></label>
+                            <div class="col-md-4 col-sm-4">
+                                <input class="form-control" id="olmis_service_date_form1b_offline" name="olmis_service_date_form1b_offline" placeholder="Date Of Service" type="text">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label class="control-label col-md-4 col-sm-4"></label>
+                            <div class="col-md-6 col-sm-6">
+                                <input type="submit" class="btn btn-primary" value="Submit Service(s)" id="submit_form1b_offline"/>
+                                <button type="button" class="btn btn-default" onclick="window.goToOvcViewFromForm1aOffline()">Cancel</button>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        {% else %}
+            <div class="alert alert-danger fade in m-b-15">
+                <strong>Warning!</strong>
+                This form should be filed only in the months of March, June, September &amp; December.
+                <span class="close" data-dismiss="alert">&times;</span>
+            </div>
+            <div class="row m-5 p-5">
+                <button class="badge badge-primary m-4" onclick="window.goToOvcViewFromForm1aOffline()"> Back to OVC</button>
+            </div>
+        {% endif %}
+        <div class="badge pull-right m-4">Revised: October 6th 2016</div>
+        </div>
+        <!-- end panel -->
+    </div>
+    <!-- end col-12 -->
+</div>
+<!-- end row -->

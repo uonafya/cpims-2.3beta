@@ -1,0 +1,19 @@
+<div class='row'>
+    <div class='col-lg-6'>
+        <strong>Priorities</strong>
+        <select name='priority' id='priority' class='form-control'>
+            <option value="0">Select Priority</option>
+            <option value='SE4S' {% if view_filter_values.priotity_se4s %} selected='selected'{% endif %}>E4s - School fees </option>
+            <option value='SE6S'{% if view_filter_values.priotity_se6s %} selected='selected'{% endif %}> E6s - Sanitary pads </option>
+            <option value='HC2S' {% if view_filter_values.priotity_hc2s %} selected='selected'{% endif %}> HC2s - Mosquito net </option>
+            <option value='PT6s' {% if view_filter_values.priotity_pt6s %} selected='selected'{% endif %}> PT6s - Abuse case reported to helpline 116/other centers </option>
+            <option value='HNHE' {% if view_filter_values.priotity_hnhe %} selected='selected'{% endif %}> Health education </option>
+            <option value='SCMM' {% if view_filter_values.priotity_scmm %} selected='selected'{% endif %}> Mattress </option>
+            <option value='HC6S' {% if view_filter_values.priotity_hc6s %} selected='selected'{% endif %}> HC6s - Supplementary feeding </option>
+            <option value='HE1S' {% if view_filter_values.priotity_he1s %} selected='selected'{% endif %}> HE1s - Link to a job opportunity </option>
+            <option value='PT2S' {% if view_filter_values.priotity_pt2s %} selected='selected'{% endif %}> PT2s - Age appropriate information on rights/responsibilities </option>
+            <option value='SC5S' {% if view_filter_values.priotity_sc5s %} selected='selected'{% endif %}> SC5s - Mattress </option>
+        </select>
+    </div>
+
+</div>

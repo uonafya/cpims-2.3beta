@@ -6513,6 +6513,15 @@ td:focus{
 .parsley-error{
     bottom: -8px !important;
 }
+.custom-alert-warning{
+    background: #fec;
+    text-align: center;
+    padding: 7px;
+    color: #953;
+    border: 1px solid #fdb;
+    border-radius: 3px;
+    font-weight: bold;
+}
 /*DanChanges*/
 
 

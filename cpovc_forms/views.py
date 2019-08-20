@@ -6889,7 +6889,7 @@ def new_form1b(request, id):
     domains = create_form_fields(ffs)
     # print ffsd
     form = OVCF1AForm(initial={'person': id, 'caretaker_id': cid})
-    f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid)
+    f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid, is_void=False)
 
     ev_data = []
     event_keywords = []
@@ -6898,7 +6898,7 @@ def new_form1b(request, id):
         assem = []
 
         # ovccareassems = OVCCareAssessment.objects.filter(event=ovc_evt)
-        ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt)
+        ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt, is_void=False)
 
         for ovccareassem in ovccareassems:
             full_f1b_qn_assess = SetupList.objects.filter(item_id=ovccareassem.entity, item_sub_category__icontains='a')
@@ -8728,7 +8728,14 @@ def new_cpara(request, id):
     care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
 
     house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-
+    
+    # Get house hold
+    hhold = OVCHHMembers.objects.get(is_void=False, person_id=id)
+    # Get HH members
+    hhid = hhold.house_hold_id
+    hhmqs = OVCHHMembers.objects.filter(is_void=False, house_hold_id=hhid).order_by("-hh_head")
+    hhmembers2 = hhmqs.exclude(person_id=id)
+    hhmembers = hhmembers2.exclude(person=care_giver)
     # Get child geo
     child_geos = RegPersonsGeo.objects.select_related().filter(
         person=child, is_void=False, date_delinked=None)
@@ -8845,6 +8852,7 @@ def new_cpara(request, id):
                       'form': form,
                       'person': id,
                       'siblings': siblings,
+                      'hhmembers': hhmembers,
                       'osiblings': osiblings,
                       'oguardians': oguardians,
                       'child': child,
@@ -9035,7 +9043,7 @@ def update_caseplan(request, event_id, ovcid):
         print 'check delta'
         print delta
 
-        if delta < 30:
+        if delta < 90:
             try:
                 my_request = request.POST.get('final_submission')
 

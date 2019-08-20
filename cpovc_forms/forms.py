@@ -302,7 +302,9 @@ CPT_SERVICES_STABLE_CHOICES = (
                          ('CPTS1s', 'Cash transfer'),
                          ('CPTS2s', 'NHIF'),
                          ('CPTS3s', 'Income generating activity (IGA)'),
+
                          ('CPTS4s', 'Saving group (SILCs, VSLAs)'),                        
+                
                          ('CPTS5s', 'Food support'),
                          ('CPTS6s', 'Nutritional assessment & supplements'),
                          ('CPTS7s', 'Financial literacy/skills'),
@@ -6726,7 +6728,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     }))
 
     HIV_MGMT_2_I_1 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Viral Load Results'),
+        attrs={'placeholder': _('Viral Load Results (If LDL enter 1)'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
                'data-parsley-maxlength': "6"
@@ -6813,6 +6815,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_N = forms.ChoiceField(
         choices = (('Active', 'Active'),
         ('Dormant', 'Dormant'),
+        ('Not_Enrolled','Not Enrolled'),
         ),
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,

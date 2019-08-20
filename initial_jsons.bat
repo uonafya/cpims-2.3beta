@@ -18,7 +18,6 @@ python manage.py loaddata cpovc_main\fixtures\olmis_services.csv.json
 python manage.py loaddata cpovc_main\fixtures\ovc_form_type_id.json
 python manage.py createsuperuser
 
-
 python manage.py loaddata cpovc_main\fixtures\initial_org_unit.csv.json
 python manage.py loaddata cpovc_main\fixtures\initial_org_unit_contact.csv.json
 python manage.py loaddata cpovc_main\fixtures\initial_org_unit_geo.csv.json
@@ -28,10 +27,12 @@ python manage.py loaddata cpovc_main\fixtures\initial_persons_externalids.csv.js
 python manage.py loaddata cpovc_main\fixtures\initial_persons_geo.csv.json
 python manage.py loaddata cpovc_main\fixtures\initial_persons_org_units.csv.json
 
-
 python manage.py loaddata cpovc_forms\fixtures\ovc_care_forms.json
 python manage.py loaddata cpovc_forms\fixtures\ovc_care_questions.json
 python manage.py loaddata cpovc_forms\fixtures\form1b_revised.json
 python manage.py loaddata cpovc_forms\fixtures\form1a_revised_assessments.json
+python manage.py loaddata cpovc_forms\fixtures\olmis_assessment_revised.csv.json
+python manage.py loaddata cpovc_forms\fixtures\olmis_services_revised.csv.json
+python manage.py loaddata cpovc_forms\fixtures\case_plan_fixtures.csv.json
 
 
