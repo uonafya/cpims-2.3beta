@@ -217,6 +217,22 @@ print(blu.sing("'Happy'"))
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <tr>
+                                                                <td><a href="{% url 'ovc_view' child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small></td>
+                                                                {#{% if child.sibling_person.age < 18 %}#}
+                                                                <td>{{ child.age }}</td>
+                                                                {#{% endif %}#}
+                                                                <td>
+                                                                    {% if child.sex_id == 'SFEM' %}
+                                                                    F
+                                                                    {% else %}
+                                                                    M
+                                                                {% endif %}
+                                                                </td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
                                                             {% for sibling in hhmembers %}
                                                             <tr>
                                                                 <td><a href="{% url 'ovc_view' sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a></td>
@@ -594,6 +610,62 @@ print(blu.sing("'Happy'"))
                                                         </thead>
                                                     {% if hhmembers %}
                                                         <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <a href="{% url 'view_person' id=child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
+                                                                </td>
+                                                                <td id="{{ child.id }}_q3p6_Qn">
+                                                                    <label class="radio-inline">
+                                                                        
+                                                                        <input type="radio" name="{{ child.id }}_q3p6" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p6" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                </td>
+                                                                <td id="{{ child.id }}_q3p7_Qn">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p7" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p7" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                </td>
+                                                                <td id="{{ child.id }}_q3p8_Qn">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p8" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p8" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                </td>
+                                                                <td  id="{{ child.id }}_q3p9_Qn">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p9" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p9" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                </td>
+                                                                <td  id="{{ child.id }}_q3p10_Qn">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p10" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q3p10" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
                                                             {% for sibling in hhmembers %}
                                                             <tr>
                                                                 <td>
@@ -1596,6 +1668,42 @@ print(blu.sing("'Happy'"))
                                                                 </thead>
                                                             {% if hhmembers %}
                                                                 <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <a href="{% url 'view_person' id=child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
+                                                                            <input type="text" class="form-control" style="width: 0px !important; height: 0px !important; opacity: 0; font-size: 0px;" name="q12p4" value=""/>
+                                                                        </td>
+                                                                        <td id="{{ child.id }}_q12a_Qn" >
+                                                                            <label class="radio-inline">
+                                                                                <input type="radio" name="{{ child.id }}_q12a"  value="AYES">
+                                                                                Yes
+                                                                            </label>
+                                                                            <label class="radio-inline">
+                                                                                <input type="radio"  name="{{ child.id }}_q12a"  value="ANNO">
+                                                                                    No
+                                                                            </label>
+                                                                        </td>
+                                                                        <td id="{{ child.id }}_q12b_Qn">
+                                                                            <label class="radio-inline">
+                                                                            <input type="radio" name="{{ child.id }}_q12b" value="AYES">
+                                                                                Yes
+                                                                            </label>
+                                                                            <label class="radio-inline">
+                                                                                <input type="radio"  name="{{ child.id }}_q12b" value="ANNO">
+                                                                                No
+                                                                            </label>
+                                                                        </td>
+                                                                        <td id="{{ child.id }}_q12c_Qn">
+                                                                            <label class="radio-inline">
+                                                                                <input type="radio" name="{{ child.id }}_q12c" value="AYES">
+                                                                                    Yes
+                                                                            </label>
+                                                                            <label class="radio-inline">
+                                                                                <input type="radio"  name="{{ child.id }}_q12c" value="ANNO">
+                                                                                    No
+                                                                            </label>
+                                                                        </td>
+                                                                    </tr>
                                                                     {% for sibling in hhmembers %}
                                                                     <tr>
                                                                         <td>
@@ -2210,6 +2318,21 @@ print(blu.sing("'Happy'"))
                                                                     </thead>
                                                                 {% if hhmembers %}
                                                                     <tbody>
+                                                                        <tr>
+                                                                            <td>
+                                                                                <a href="{% url 'ovc_view' child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
+                                                                            </td>
+                                                                            <td id="{{ child.id }}_q17p3_Qn">
+                                                                                <label class="radio-inline">
+                                                                                    <input type="radio" name="{{ child.id }}_q17p3" value="AYES"/>
+                                                                                    Yes
+                                                                                </label>
+                                                                                <label class="radio-inline">
+                                                                                    <input type="radio" name="{{ child.id }}_q17p3" value="ANNO"/>
+                                                                                    No
+                                                                                </label>
+                                                                            </td> 
+                                                                        </tr>
                                                                             {% for sibling in hhmembers %}
                                                                             <tr>
                                                                                 <td>
