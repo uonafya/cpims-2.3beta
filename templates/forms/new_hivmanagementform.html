@@ -41,7 +41,16 @@
                     UNDER 1 YEAR
                 {% else %}
                     {{ data.date_of_birth|gen_age }} YRS 
-                {% endif %} | HIV STATUS: <span class="asteriskField"> Negative</b></small>
+                {% endif %}</b></small>
+                {% if child_hiv_status%}
+                {% if child_hiv_status == 'HSTN' %}
+                <h3 class="text-danger"> HIV Status: Negative</h3>
+                {% elif child_hiv_status == 'HSTP' %}
+                <h3 class="text-danger">HIV Status: Positive</h3>
+                {% else %}
+                <h3 class="text-danger">HIV Status: Unknown</h3>
+                {% endif %}
+                {% endif %}
                 
         </b>
 </h1>
