@@ -302,8 +302,9 @@ CPT_SERVICES_STABLE_CHOICES = (
                          ('CPTS1s', 'Cash transfer'),
                          ('CPTS2s', 'NHIF'),
                          ('CPTS3s', 'Income generating activity (IGA)'),
-                         ('CPTS4s', 'Saving group (SILCs, VSLAs)'),
-                         ('CPTS4s', 'VSLA group (savings and loan facilities)'),                         
+
+                         ('CPTS4s', 'Saving group (SILCs, VSLAs)'),                        
+                
                          ('CPTS5s', 'Food support'),
                          ('CPTS6s', 'Nutritional assessment & supplements'),
                          ('CPTS7s', 'Financial literacy/skills'),
@@ -6895,8 +6896,8 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_A',
                'id': 'HIV_MGMT_1_A',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
 
     HIV_MGMT_1_B = forms.DateField(
@@ -6907,15 +6908,15 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_B',
                'id': 'HIV_MGMT_1_B',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
 
     HIV_MGMT_1_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False",
-               'data-parsley-type': "number",
+            #    'data-parsley-required': "False",
+            #    'data-parsley-type': "number",
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6928,8 +6929,8 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_D',
                'id': 'HIV_MGMT_1_D',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
     
     HIV_MGMT_1_E = forms.ChoiceField(

@@ -9852,7 +9852,6 @@ def new_hivscreeningtool(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
-    print request.POST.get('HIV_MGMT_2_C')
     if request.method == 'POST':
         try:
             msg=''
@@ -9955,6 +9954,7 @@ def new_hivmanagementform(request, id):
             check_fields = ['sex_id']
             vals = get_dict(field_name=check_fields)
             form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            child_hiv_status=OVCRegistration.objects.get(person=id).hiv_status  
             form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
 
             return render(request,
@@ -9962,6 +9962,7 @@ def new_hivmanagementform(request, id):
                           {'form': form,
                            'form_arvtherapy': form_arvtherapy,
                            'init_data': init_data,
+                           'child_hiv_status': child_hiv_status,
                            'vals': vals})
         except Exception, e:
             print e
