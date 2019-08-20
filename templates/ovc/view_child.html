@@ -333,7 +333,7 @@ Caregiver details | {{care_giver}}
                         <a href="{% url 'new_hivscreeningtool' id=creg.person_id%}">
                             <button type="button" class="btn btn-primary"> <i class="fa fa-paperclip"></i> HIV Risk Screening </button>
                         </a>
-                        <a href="{% url 'new_hivmanagementform' id=creg.person_id%}">
+                        <a href="{% if child_hiv_status != 'HSTP' %}#{% else %}{% url 'new_hivmanagementform' id=creg.person_id%}{% endif %}">
                             <button type="button" class="btn btn-primary" {% if child_hiv_status != 'HSTP' %}disabled{% endif %}> <i class="fa fa-list-alt"></i> HIV Management Form</button>
                         </a>
 
