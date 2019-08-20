@@ -302,8 +302,9 @@ CPT_SERVICES_STABLE_CHOICES = (
                          ('CPTS1s', 'Cash transfer'),
                          ('CPTS2s', 'NHIF'),
                          ('CPTS3s', 'Income generating activity (IGA)'),
-                         ('CPTS4s', 'Saving group (SILCs, VSLAs)'),
-                         ('CPTS4s', 'VSLA group (savings and loan facilities)'),                         
+
+                         ('CPTS4s', 'Saving group (SILCs, VSLAs)'),                        
+                
                          ('CPTS5s', 'Food support'),
                          ('CPTS6s', 'Nutritional assessment & supplements'),
                          ('CPTS7s', 'Financial literacy/skills'),
