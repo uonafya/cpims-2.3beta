@@ -41,7 +41,8 @@
                     UNDER 1 YEAR
                 {% else %}
                     {{ data.date_of_birth|gen_age }} YRS 
-                {% endif %}</b></small>
+                {% endif %} | HIV STATUS: <span class="asteriskField"> Negative</b></small>
+                
         </b>
 </h1>
 {% endfor %}
@@ -105,7 +106,7 @@
                                     <tbody>
                                         <tr>
                                            <td>1</td>
-                                            <td>Date confirmed HIV Positive<span class="asteriskField">*</td>
+                                            <td>Date confirmed HIV Positive</td>
                                             <td>
                                                 {{ form_arvtherapy.HIV_MGMT_1_A }}
                                             </td>
@@ -113,7 +114,7 @@
                                         </tr>
                                         <tr>
                                             <td>2a</td>
-                                            <td>Date initiated on Treatment<span class="asteriskField">*</td>
+                                            <td>Date initiated on Treatment</td>
                                             <td> 
                                                     {{ form_arvtherapy.HIV_MGMT_1_B }}
                                             </td>
@@ -122,7 +123,7 @@
                                         </tr>
                                         <tr>
                                             <td>2b</td>
-                                            <td>Baseline viral load for HEI<span class="asteriskField">*</td>
+                                            <td>Baseline viral load for HEI</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_C }}
                                             </td>
@@ -133,7 +134,7 @@
 
                                         <tr>
                                                 <td>3</td>
-                                                <td>Date started on 1st Line<span class="asteriskField">*</td>
+                                                <td>Date started on 1st Line</td>
                                                 <td style="background-color: grey">
                                                     
                                                 </td>
@@ -617,7 +618,7 @@
                 HIV_MGMT_1_G_DATE=true;
             }
             else {
-                $("#HIV_MGMT_1_G_DATE").val('n/a');
+                $("#HIV_MGMT_1_G_DATE").val('Not Applicable');
                 $("#HIV_MGMT_1_G_DATE").prop('disabled', true);
                 HIV_MGMT_1_G_DATE=false;
             }
@@ -634,7 +635,7 @@
                 HIV_MGMT_1_F_DATE=true;
             }
             else {
-                $("#HIV_MGMT_1_F_DATE").val('n/a');
+                $("#HIV_MGMT_1_F_DATE").val('Not Applicable');
                 $("#HIV_MGMT_1_F_DATE").prop('disabled', true);
                 HIV_MGMT_1_F_DATE=false;
             }
@@ -652,7 +653,7 @@
             }
             else {
                 HIV_MGMT_1_E_DATE=false;
-                $("#HIV_MGMT_1_E_DATE").val('n/a');
+                $("#HIV_MGMT_1_E_DATE").val('Not Applicable');
                 $("#HIV_MGMT_1_E_DATE").prop('disabled', true);
                 HIV_MGMT_1_E_DATE=false;
             }
