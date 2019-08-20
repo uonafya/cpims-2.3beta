@@ -7,6 +7,7 @@
     triggerSkip('adole_preg_hiv','ANNO','cp24q','2');
     triggerSkip('adole_preg_testpos','ANNO','cp24q','2');
     triggerSkip('adole_wo_deliv','ANNO','cp24q','2');
+    triggerSkip('cp23q','ANNO','cp24q','2');
     triggerSkip('adole_gb_hse','ANNO','cp30q','2');
     triggerSkip('child_w_disab_hse','ANNO','cp32q','3');
     //<TODOne just test
