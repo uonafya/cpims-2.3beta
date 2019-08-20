@@ -2516,7 +2516,7 @@ jQuery(document).ready(function()
                     console.log("delered");
                 },
                 error: function(xhr, status, error){
-                    alert('not deleted ==> status: '+ JSON.stringify(status) + ' & error: '+JSON.stringify(error));
+                    console.error('not deleted ==> status: '+ JSON.stringify(status) + ' & error: '+JSON.stringify(error));
                     $('#messages').css({'display': 'block'}).removeClass('alert-success').addClass('alert-danger');
                     $('#messages p').html(result[0].msg);
                     console.log("errorr delering");

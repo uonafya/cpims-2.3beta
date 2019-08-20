@@ -11,8 +11,8 @@
     triggerSkip('adole_gb_hse','ANNO','cp30q','2');
     triggerSkip('child_w_disab_hse','ANNO','cp32q','3');
     //<TODOne just test
-    triggerSkip('cp5d','ANNO','cp32q','3');
-    triggerSkip('cp3d','ANNO','cp49q','4');
+    // triggerSkip('cp5d','ANNO','cp32q','1');
+    // triggerSkip('cp3d','ANNO','cp49q','1');
     triggerSkip('adole_gb_hse2','ANNO','cp30q','2');
     //>TODOne just test
     triggerSkip('child_abv_10y','ANNO','cp36q','3');
