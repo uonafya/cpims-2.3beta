@@ -610,6 +610,7 @@ print(blu.sing("'Happy'"))
                                                         </thead>
                                                     {% if hhmembers %}
                                                         <tbody>
+                                                            {% if child.years > 10 %}
                                                             <tr>
                                                                 <td>
                                                                     <a href="{% url 'view_person' id=child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
@@ -666,7 +667,9 @@ print(blu.sing("'Happy'"))
                                                                     </label>
                                                                 </td>
                                                             </tr>
+                                                            {% endif %}
                                                             {% for sibling in hhmembers %}
+                                                            {% if sibling.person.years > 10 %}
                                                             <tr>
                                                                 <td>
                                                                     <a href="{% url 'view_person' id=sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a>
@@ -723,6 +726,7 @@ print(blu.sing("'Happy'"))
                                                                     </label>
                                                                 </td>
                                                             </tr>
+                                                            {% endif %}
                                                             {% endfor %}
                                                             {% comment %} {% for osibling in osiblings %}
                                                             <tr>
@@ -1668,6 +1672,7 @@ print(blu.sing("'Happy'"))
                                                                 </thead>
                                                             {% if hhmembers %}
                                                                 <tbody>
+                                                                    {% if child.years > 5 %}
                                                                     <tr>
                                                                         <td>
                                                                             <a href="{% url 'view_person' id=child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
@@ -1704,7 +1709,9 @@ print(blu.sing("'Happy'"))
                                                                             </label>
                                                                         </td>
                                                                     </tr>
+                                                                    {% endif %}
                                                                     {% for sibling in hhmembers %}
+                                                                    {% if sibling.person.years > 5 %}
                                                                     <tr>
                                                                         <td>
                                                                             <a href="{% url 'view_person' id=sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a>
@@ -1743,6 +1750,7 @@ print(blu.sing("'Happy'"))
                                     
                                     
                                                                     </tr>
+                                                                    {% endif %}
                                                                     {% endfor %}
                                                                     {% comment %} {% for osibling in osiblings %}
                                                                     <tr>
@@ -1888,7 +1896,6 @@ print(blu.sing("'Happy'"))
                                                 <div class="col-md-12 containsTable">
                                                     <div class="form-group">
                                                         {% comment %} {% if siblings or osiblings %} {% endcomment %}
-                                                        {% if hhmembers %}
                                                             <table class="table table-condensed table-responsive">
                                                                 <thead>
                                                                     <tr>
@@ -1903,8 +1910,45 @@ print(blu.sing("'Happy'"))
                                     
                                                                     </tr>
                                                                 </thead>
+                                                            {% if hhmembers %}
                                                                 <tbody>
+                                                                    {% if child.years > 10 %}
+                                                                    <tr>
+                                                                        <td><a href="{% url 'view_person' id=child.id %}">{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</a> <small>(This OVC)</small></td>
+                                                                        <td id="{{ child.id }}_q13p3_Qn">
+                                                                            <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q13p3" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q13p3" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                        </td>
+                                                                        <td id="{{ child.id }}_q13p4_Qn">
+                                                                            <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q13p4" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q13p4" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                        </td>
+                                                                    <td id="{{ child.id }}_q13p5_Qn">
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q13p5" value="AYES">
+                                                                            Yes
+                                                                    </label>
+                                                                    <label class="radio-inline">
+                                                                        <input type="radio" name="{{ child.id }}_q13p5" value="ANNO">
+                                                                            No
+                                                                    </label>
+                                                                    </td>
+                                                                </tr>
+                                                                {% endif %}
                                                                     {% for sibling in hhmembers %}
+                                                                    {% if sibling.person.years > 10 %}
                                                                     <tr>
                                                                         <td><a href="{% url 'view_person' id=sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a></td>
                                                                         <td id="{{ sibling.person.id }}_q13p3_Qn">
@@ -1940,6 +1984,7 @@ print(blu.sing("'Happy'"))
                                     
                                     
                                                                     </tr>
+                                                                    {% endif %}
                                                                     {% endfor %}
                                                                     {% comment %} {% for osibling in osiblings %}
                                                                     <tr>
@@ -1968,13 +2013,17 @@ print(blu.sing("'Happy'"))
                                                                         {{ form.cp59q }}
                                                                     </td>
                                                                 </tr>
-                                                                </tbody>
-                                                            </table>
+                                                            </tbody>
                                                         {% else %}
-                                                            <div class="alert alert-warning">
-                                                                <p>&nbsp;No relative details provided for this person.</p>
-                                                            </div>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td colspan="4">
+                                                                    <p>&nbsp;No relative details provided for this person.</p>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
                                                         {% endif %}
+                                                        </table>
                                                     </div>
                                                     
                                                 <hr>
@@ -2312,32 +2361,38 @@ print(blu.sing("'Happy'"))
                                                                     <thead>
                                                                         <tr>
                                                                             <th>Child Name</th>
+                                                                            <th>Age</th>
                                                                             <th>17.3 Do you regularly attend your vocational training? Please tell me something that you liked learning the past month.<th>
                                                                             <!-- TODOne benchmark scoring -->
                                                                         </tr>
                                                                     </thead>
                                                                 {% if hhmembers %}
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <a href="{% url 'ovc_view' child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
-                                                                            </td>
-                                                                            <td id="{{ child.id }}_q17p3_Qn">
-                                                                                <label class="radio-inline">
-                                                                                    <input type="radio" name="{{ child.id }}_q17p3" value="AYES"/>
-                                                                                    Yes
-                                                                                </label>
-                                                                                <label class="radio-inline">
-                                                                                    <input type="radio" name="{{ child.id }}_q17p3" value="ANNO"/>
-                                                                                    No
-                                                                                </label>
-                                                                            </td> 
-                                                                        </tr>
+                                                                            {% if child.years >= 9 and child.years <= 17 %}
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <a href="{% url 'ovc_view' child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
+                                                                                </td>
+                                                                                <td>{{ child.age }}</td>
+                                                                                <td id="{{ child.id }}_q17p3_Qn">
+                                                                                    <label class="radio-inline">
+                                                                                        <input type="radio" name="{{ child.id }}_q17p3" value="AYES"/>
+                                                                                        Yes
+                                                                                    </label>
+                                                                                    <label class="radio-inline">
+                                                                                        <input type="radio" name="{{ child.id }}_q17p3" value="ANNO"/>
+                                                                                        No
+                                                                                    </label>
+                                                                                </td> 
+                                                                            </tr>
+                                                                            {% endif %}
                                                                             {% for sibling in hhmembers %}
+                                                                            {% if sibling.person.years >= 9 and sibling.person.years <= 17 %}
                                                                             <tr>
                                                                                 <td>
                                                                                     <a href="{% url 'ovc_view' sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a>
                                                                                 </td>
+                                                                                <td>{{sibling.person.age}}</td>
                                                                                 <td id="{{ sibling.person.id }}_q17p3_Qn">
                                                                                     <label class="radio-inline">
                                                                                         <input type="radio" name="{{ sibling.person.id }}_q17p3" value="AYES"/>
@@ -2349,6 +2404,7 @@ print(blu.sing("'Happy'"))
                                                                                     </label>
                                                                                 </td> 
                                                                             </tr>
+                                                                            {% endif %}
                                                                             {% endfor %}
                                                                             {% comment %} {% for osibling in osiblings %}
                                                                             <tr>
@@ -2369,6 +2425,7 @@ print(blu.sing("'Happy'"))
                                                                                 <td class="semi-bold">
                                                                                     Tick <u>Yes</u> if <u>YES</u> for all children
                                                                                 </td>
+                                                                                <td></td>
                                                                                 <td id="cp73q_Qn">
                                                                                     <div class="col-md-3 text-left">
                                                                                         {{ form.cp73q }}
@@ -2699,16 +2756,16 @@ jQuery(document).ready(function()
     {% else %}
         <script>
             // 3.1 - 3.6
-            $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true).attr('disabled', true);
+            $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true);
             $('input[name=o10_know_status]').on('change', function () {
-                $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true).attr('disabled', true);
+                $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true);
                 $('#id_cp3b_0').prop('checked', true);
             })
 
             // 12.4 a-c
-            $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true).attr('disabled', true);
+            $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true)
             $('input[name=o5y_cd_hse]').on('change', function () {
-                $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true).attr('disabled', true);
+                $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true);
                 $('#id_cp12b_0').prop('checked', true);
             })
             
