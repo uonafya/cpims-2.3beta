@@ -39,7 +39,8 @@ CREATE MATERIALIZED VIEW data_quality_case_plan AS SELECT
     data_quality_view.surname,
     data_quality_view.age,
     data_quality_view.sex_id,
-    data_quality_view.exit_date
+    data_quality_view.exit_date,
+    data_quality_view.org_unit_name
 
 FROM ovc_care_case_plan
 INNER JOIN data_quality_view ON ovc_care_case_plan.person_id=data_quality_view.person_id;
