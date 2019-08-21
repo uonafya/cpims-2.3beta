@@ -4370,9 +4370,11 @@ class CasePlanTemplate(forms.Form):
     )
     # ------endSERVICES------- #
 
-    CPT_RESPONSIBLE = forms.ChoiceField(
+    # CPT_RESPONSIBLE = forms.ChoiceField(
+    CPT_RESPONSIBLE = forms.MultipleChoiceField(
         choices=CPT_PERSON_RESPONSIBLE,
-        widget=forms.Select(
+        # widget=forms.Select(
+        widget=forms.SelectMultiple(
         attrs={
             'class': 'form-control'
         })

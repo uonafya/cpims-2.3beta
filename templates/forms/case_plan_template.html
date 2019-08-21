@@ -359,7 +359,7 @@
                                             <th>Needs/Gaps</th>
                                             <th>Priority Actions</th>
                                             <th>Services</th>
-                                            <th>Repsonsible</th>
+                                            <th>Responsible</th>
                                             <th>Completed</th>
                                             <th>Results</th>
                                             <th>Reasons</th>
@@ -709,7 +709,7 @@
     $(document).ready(function () {
         $('#CPT_ACTUAL_DATE_COMPLETION').removeAttr('required');
     });
-    $('*[name=CPT_RESULTS]').prepend('<option disabled selected value="null">Pick an item</option>').attr('required', true)
+    $('*[name=CPT_RESULTS]').prepend('<option selected value="">Pick an item</option>').attr('required', true)
 	
     ///////
     $('#div_CPT_ACTUAL_DATE_COMPLETION').addClass('hidden');
