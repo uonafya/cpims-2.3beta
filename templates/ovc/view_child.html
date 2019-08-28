@@ -120,7 +120,8 @@ Caregiver details | {{care_giver}}
                         </tr>
                         <tr>
                             <td class="field">Child ID</td>
-                            <td>{{ creg.org_unique_id }}</td>
+                            <!-- <td>{{ creg.org_unique_id }}</td> -->
+                            <td>{{ child.id }}</td>
                             <td class="field">Is Disabled</td>
                             <td>
                             {% if creg.is_disabled %}
