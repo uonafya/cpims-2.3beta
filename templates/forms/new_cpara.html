@@ -1929,7 +1929,7 @@ print(blu.sing("'Happy'"))
                                                                                         No
                                                                                 </label>
                                                                                     </td>
-                                                                                <td class="r13q1" id="{{ sibling.person.id }}_q13p5_Qn">
+                                                                                <td class="r13q3" id="{{ sibling.person.id }}_q13p5_Qn">
                                                                                 <label class="radio-inline">
                                                                                     <input type="radio" name="{{ sibling.person.id }}_q13p5" value="AYES">
                                                                                         Yes
@@ -2714,6 +2714,43 @@ jQuery(document).ready(function()
               }
           }
         //>>--------- Qn 12 ---------
+
+        //<<--------- Qn 13 ---------
+        var count_r13 = 0; $('tr.row13 td.r13q1 input[type=radio]').each( () => { count_r13 += 1 }); count_r13 /= 2
+          $('.row13 input[type=radio]').on('change', function () {
+            //R13Q1
+              var checkker13_q = null;
+              $('tr.row13 td.r13q1 input[type=radio]:checked').each( (inx, ele) => {
+                  var this_val = $(this).val(); if(this_val == 'AYES'){ checkker13_q += true; }else{ checkker13_q += false; }
+              });
+              if(checkker13_q == count_r13){ q13MainQn(true, 'a'); }else{ q13MainQn(false, 'a'); }
+            //R13Q2
+              var checkker13_q2 = false;
+              $('tr.row13 td.r13q2 input[type=radio]:checked').each( (inx, ele) => {
+                  var this_val = $(this).val(); if(this_val == 'AYES'){ checkker13_q2 += true; }else{ checkker13_q2 += false; }
+              });
+              if(checkker13_q2 == count_r13){ q13MainQn(true, 'b'); }else{ q13MainQn(false, 'b'); }
+            //R13Q3
+              var checkker13_q3 = false;
+              $('tr.row13 td.r13q3 input[type=radio]:checked').each( (inx, ele) => {
+                  var this_val = $(this).val(); if(this_val == 'AYES'){ checkker13_q3 += true; }else{ checkker13_q3 += false; }
+              });
+              if(checkker13_q3 == count_r13){ q13MainQn(true, 'c'); }else{ q13MainQn(false, 'c'); }
+          });
+  
+          //------tick main qn
+          function q13MainQn(pass, qn) {
+              if(pass){
+                  if(qn === 'a'){ $('.ro13_total td.r13_t_q1 label input[value=AYES]').prop('checked', true); } else 
+                  if(qn === 'b'){ $('.ro13_total td.r13_t_q2 label input[value=AYES]').prop('checked', true); } else 
+                  if(qn === 'c'){ $('.ro13_total td.r13_t_q3 label input[value=AYES]').prop('checked', true); }
+              }else{
+                  if(qn === 'a'){ $('.ro13_total td.r13_t_q1 label input[value=ANNO]').prop('checked', true); } else 
+                  if(qn === 'b'){ $('.ro13_total td.r13_t_q2 label input[value=ANNO]').prop('checked', true); } else 
+                  if(qn === 'c'){ $('.ro13_total td.r13_t_q3 label input[value=ANNO]').prop('checked', true); }
+              }
+          }
+        //>>--------- Qn 13 ---------
       </script>
 
     {% else %}
