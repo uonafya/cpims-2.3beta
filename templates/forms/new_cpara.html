@@ -1646,12 +1646,12 @@ print(blu.sing("'Happy'"))
                                                                 </thead>
                                                                 <tbody>
                                                                     {% if child.years > 5 %}
-                                                                    <tr>
+                                                                    <tr class="row12">
                                                                         <td>
                                                                             <a href="{% url 'view_person' id=child.id %}"><b>{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</b></a> <small>(This child)</small>
                                                                             <input type="text" class="form-control" style="width: 0px !important; height: 0px !important; opacity: 0; font-size: 0px;" name="q12p4" value=""/>
                                                                         </td>
-                                                                        <td id="{{ child.id }}_q12a_Qn" >
+                                                                        <td class="r12q1" id="{{ child.id }}_q12a_Qn" >
                                                                             <label class="radio-inline">
                                                                                 <input type="radio" name="{{ child.id }}_q12a"  value="AYES">
                                                                                 Yes
@@ -1661,7 +1661,7 @@ print(blu.sing("'Happy'"))
                                                                                     No
                                                                             </label>
                                                                         </td>
-                                                                        <td id="{{ child.id }}_q12b_Qn">
+                                                                        <td class="r12q2" id="{{ child.id }}_q12b_Qn">
                                                                             <label class="radio-inline">
                                                                             <input type="radio" name="{{ child.id }}_q12b" value="AYES">
                                                                                 Yes
@@ -1671,7 +1671,7 @@ print(blu.sing("'Happy'"))
                                                                                 No
                                                                             </label>
                                                                         </td>
-                                                                        <td id="{{ child.id }}_q12c_Qn">
+                                                                        <td class="r12q3" id="{{ child.id }}_q12c_Qn">
                                                                             <label class="radio-inline">
                                                                                 <input type="radio" name="{{ child.id }}_q12c" value="AYES">
                                                                                     Yes
@@ -1686,12 +1686,12 @@ print(blu.sing("'Happy'"))
                                                                     {% if hhmembers %}
                                                                         {% for sibling in hhmembers %}
                                                                             {% if sibling.person.years > 5 %}
-                                                                                <tr>
+                                                                                <tr class="row12">
                                                                                     <td>
                                                                                         <a href="{% url 'view_person' id=sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a>
                                                                                         <input type="text" class="form-control" style="width: 0px !important; height: 0px !important; opacity: 0; font-size: 0px;" name="q12p4" value=""/>
                                                                                     </td>
-                                                                                    <td id="{{ sibling.person.id }}_q12a_Qn" >
+                                                                                    <td class="r12q1" id="{{ sibling.person.id }}_q12a_Qn" >
                                                                                         <label class="radio-inline">
                                                                                             <input type="radio" name="{{ sibling.person.id }}_q12a"  value="AYES">
                                                                                             Yes
@@ -1701,7 +1701,7 @@ print(blu.sing("'Happy'"))
                                                                                                 No
                                                                                         </label>
                                                                                     </td>
-                                                                                    <td id="{{ sibling.person.id }}_q12b_Qn">
+                                                                                    <td class="r12q2" id="{{ sibling.person.id }}_q12b_Qn">
                                                                                         <label class="radio-inline">
                                                                                         <input type="radio" name={{ sibling.person.id }}_q12b value="AYES">
                                                                                             Yes
@@ -1711,7 +1711,7 @@ print(blu.sing("'Happy'"))
                                                                                             No
                                                                                         </label>
                                                                                     </td>
-                                                                                    <td id="{{ sibling.person.id }}_q12c_Qn">
+                                                                                    <td class="r12q3" id="{{ sibling.person.id }}_q12c_Qn">
                                                                                         <label class="radio-inline">
                                                                                             <input type="radio" name="{{ sibling.person.id }}_q12c" value="AYES">
                                                                                                 Yes
@@ -1724,17 +1724,17 @@ print(blu.sing("'Happy'"))
                                                                                 </tr>
                                                                             {% endif %}
                                                                         {% endfor %}
-                                                                        <tr>
+                                                                        <tr class="ro12_total">
                                                                             <td class="semi-bold">
                                                                                 Tick <u>Yes</u> if <u>YES</u> for all children
                                                                             </td>
-                                                                            <td id="cp52q_Qn">
+                                                                            <td class="r12_t_q1" id="cp52q_Qn">
                                                                                 {{ form.cp52q }}
                                                                             </td>
-                                                                            <td id="cp53q_Qn">
+                                                                            <td class="r12_t_q2" id="cp53q_Qn">
                                                                                 {{ form.cp53q }}
                                                                             </td>
-                                                                            <td id="cp54q_Qn">
+                                                                            <td class="r12_t_q3" id="cp54q_Qn">
                                                                             {{ form.cp54q }}
                                                                             </td>
                                                                         </tr>
@@ -1870,9 +1870,9 @@ print(blu.sing("'Happy'"))
                                                             </thead>
                                                             <tbody>
                                                                 {% if child.years > 10 %}
-                                                                    <tr>
+                                                                    <tr class="row13">
                                                                         <td><a href="{% url 'view_person' id=child.id %}">{{ child.first_name }} {{ child.surname }} {{ child.last_name }}</a> <small>(This OVC)</small></td>
-                                                                        <td id="{{ child.id }}_q13p3_Qn">
+                                                                        <td class="r13q1" id="{{ child.id }}_q13p3_Qn">
                                                                             <label class="radio-inline">
                                                                             <input type="radio" name="{{ child.id }}_q13p3" value="AYES">
                                                                                 Yes
@@ -1882,7 +1882,7 @@ print(blu.sing("'Happy'"))
                                                                                 No
                                                                         </label>
                                                                             </td>
-                                                                            <td id="{{ child.id }}_q13p4_Qn">
+                                                                            <td class="r13q2" id="{{ child.id }}_q13p4_Qn">
                                                                                 <label class="radio-inline">
                                                                             <input type="radio" name="{{ child.id }}_q13p4" value="AYES">
                                                                                 Yes
@@ -1892,7 +1892,7 @@ print(blu.sing("'Happy'"))
                                                                                 No
                                                                         </label>
                                                                             </td>
-                                                                        <td id="{{ child.id }}_q13p5_Qn">
+                                                                        <td class="r13q3" id="{{ child.id }}_q13p5_Qn">
                                                                         <label class="radio-inline">
                                                                             <input type="radio" name="{{ child.id }}_q13p5" value="AYES">
                                                                                 Yes
@@ -1907,9 +1907,9 @@ print(blu.sing("'Happy'"))
                                                                 {% if hhmembers %}
                                                                     {% for sibling in hhmembers %}
                                                                         {% if sibling.person.years > 10 %}
-                                                                            <tr>
+                                                                            <tr class="row13">
                                                                                 <td><a href="{% url 'view_person' id=sibling.person.id %}">{{ sibling.person.first_name }} {{ sibling.person.surname }} {{ sibling.person.last_name }}</a></td>
-                                                                                <td id="{{ sibling.person.id }}_q13p3_Qn">
+                                                                                <td class="r13q1" id="{{ sibling.person.id }}_q13p3_Qn">
                                                                                     <label class="radio-inline">
                                                                                     <input type="radio" name="{{ sibling.person.id }}_q13p3" value="AYES">
                                                                                         Yes
@@ -1919,7 +1919,7 @@ print(blu.sing("'Happy'"))
                                                                                         No
                                                                                 </label>
                                                                                     </td>
-                                                                                    <td id="{{ sibling.person.id }}_q13p4_Qn">
+                                                                                    <td class="r13q2" id="{{ sibling.person.id }}_q13p4_Qn">
                                                                                         <label class="radio-inline">
                                                                                     <input type="radio" name="{{ sibling.person.id }}_q13p4" value="AYES">
                                                                                         Yes
@@ -1929,7 +1929,7 @@ print(blu.sing("'Happy'"))
                                                                                         No
                                                                                 </label>
                                                                                     </td>
-                                                                                <td id="{{ sibling.person.id }}_q13p5_Qn">
+                                                                                <td class="r13q1" id="{{ sibling.person.id }}_q13p5_Qn">
                                                                                 <label class="radio-inline">
                                                                                     <input type="radio" name="{{ sibling.person.id }}_q13p5" value="AYES">
                                                                                         Yes
@@ -1942,17 +1942,17 @@ print(blu.sing("'Happy'"))
                                                                             </tr>
                                                                         {% endif %}
                                                                     {% endfor %}
-                                                                    <tr>
+                                                                    <tr class="ro13_total">
                                                                         <td class="semi-bold">
                                                                             Tick <u>Yes</u> if <u>YES</u> for all children
                                                                         </td>
-                                                                        <td id="cp57q_Qn">
+                                                                        <td class="r13_t_q1" id="cp57q_Qn">
                                                                             {{ form.cp57q }}
                                                                         </td>
-                                                                        <td id="cp58q_Qn">
+                                                                        <td class="r13_t_q2" id="cp58q_Qn">
                                                                             {{ form.cp58q }}
                                                                         </td>
-                                                                        <td id="cp59q_Qn">
+                                                                        <td class="r13_t_q3" id="cp59q_Qn">
                                                                             {{ form.cp59q }}
                                                                         </td>
                                                                     </tr>
@@ -2675,23 +2675,69 @@ jQuery(document).ready(function()
 
             })
         </script>
+
+
+<script>
+        //<<--------- Qn 12 ---------
+          var count_r12 = 0; $('tr.row12 td.r12q1 input[type=radio]').each( () => { count_r12 += 1 }); count_r12 /= 2
+          $('.row12 input[type=radio]').on('change', function () {
+            //R12Q1
+              var checkker = false;
+              $('tr.row12 td.r12q1 input[type=radio]:checked').each( (inx, ele) => {
+                  var this_val = $(this).val(); if(this_val == 'AYES'){ checkker += true; }else{ checkker += false; }
+              });
+              if(checkker == count_r12){ q12MainQn(true, 'a'); }else{ q12MainQn(false, 'a'); }
+            //R12Q2
+              var checkker2 = false;
+              $('tr.row12 td.r12q2 input[type=radio]:checked').each( (inx, ele) => {
+                  var this_val = $(this).val(); if(this_val == 'AYES'){ checkker2 += true; }else{ checkker2 += false; }
+              });
+              if(checkker2 == count_r12){ q12MainQn(true, 'b'); }else{ q12MainQn(false, 'b'); }
+            //R12Q3
+              var checkker3 = false;
+              $('tr.row12 td.r12q3 input[type=radio]:checked').each( (inx, ele) => {
+                  var this_val = $(this).val(); if(this_val == 'AYES'){ checkker3 += true; }else{ checkker3 += false; }
+              });
+              if(checkker3 == count_r12){ q12MainQn(true, 'c'); }else{ q12MainQn(false, 'c'); }
+          });
+  
+          //------tick main qn
+          function q12MainQn(pass, qn) {
+              if(pass){
+                  if(qn == 'a'){ $('.ro12_total td.r12_t_q1 label input[value=AYES]').prop('checked', true); }
+                  else if(qn == 'b'){ $('.ro12_total td.r12_t_q2 label input[value=AYES]').prop('checked', true); }
+                  else if(qn == 'c'){ $('.ro12_total td.r12_t_q3 label input[value=AYES]').prop('checked', true); }
+              }else{
+                  if(qn == 'a'){ $('.ro12_total td.r12_t_q1 label input[value=ANNO]').prop('checked', true); }
+                  else if(qn == 'b'){ $('.ro12_total td.r12_t_q2 label input[value=ANNO]').prop('checked', true); }
+                  else if(qn == 'c'){ $('.ro12_total td.r12_t_q3 label input[value=ANNO]').prop('checked', true); }
+              }
+          }
+        //>>--------- Qn 12 ---------
+      </script>
+
     {% else %}
         <script>
             // 3.1 - 3.6
-            //$('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true);
-            $('input[name=o10_know_status]').on('change', function () {
-                $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true);
-                $('#id_cp3b_0').prop('checked', true);
-            })
+                //$('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true);
+                $('input[name=o10_know_status]').on('change', function () {
+                    $('input[name=cp13q][value=AYES], input[name=cp14q][value=AYES], input[name=cp15q][value=AYES], input[name=cp16q][value=AYES], input[name=cp17q][value=AYES]').prop('checked',true);
+                    $('#id_cp3b_0').prop('checked', true);
+                })
 
             // 12.4 a-c
-            //$('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true)
-            $('input[name=o5y_cd_hse]').on('change', function () {
-                $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true);
-                $('#id_cp12b_0').prop('checked', true);
-            })
+                //$('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true)
+                $('input[name=o5y_cd_hse]').on('change', function () {
+                    $('input[name=cp52q][value=AYES], input[name=cp53q][value=AYES], input[name=cp54q][value=AYES]').prop('checked',true);
+                    $('#id_cp12b_0').prop('checked', true);
+                })
+                
+
+
+
             
         </script>
     {% endif %}
+    
         
 {% endblock %}

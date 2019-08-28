@@ -304,7 +304,7 @@ function validBench(arrayOfInputsToCheck, arrayOfExpectedValues, idOfBenchmarkQn
 }
 
 function markBenchmark(benchmarkId, passOrFail) {
-    console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmarking benchmarkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk')
+    console.log('marking benchmark')
     if(passOrFail){
         // $('input[name="'+benchmarkId+'"][value="AYES"]').attr('checked', true);
         $('input[name='+benchmarkId+']').removeAttr('disabled');
