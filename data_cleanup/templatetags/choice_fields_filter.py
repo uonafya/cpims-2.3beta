@@ -1,10 +1,17 @@
+from datetime import datetime
+
 from django import template
 
 register = template.Library()
 
 
 def format_choice_fields(value):
-    """Convert the choice fields into human readable formats"""
+    """Convert the choice fields into human readable formats.
+
+    Note:
+    This will work with Datetime objects by returning them as is
+    or "-" where they are None
+    """
     options = {
         'SLSE': 'Secondary School',
         'SLPR': 'Primary School',
@@ -12,7 +19,7 @@ def format_choice_fields(value):
         'HSTR': 'HSTR',
         'HSKN': 'HSKN',
         'HSTP': 'Positive',
-        'XXXX': 'XXXX',
+        'XXXX': '-',
         'HSTN': 'Negative',
         'HSRT': 'HSRT',
         'ART': 'ART',

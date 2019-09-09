@@ -8728,7 +8728,14 @@ def new_cpara(request, id):
     care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
 
     house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-
+    
+    # Get house hold
+    hhold = OVCHHMembers.objects.get(is_void=False, person_id=id)
+    # Get HH members
+    hhid = hhold.house_hold_id
+    hhmqs = OVCHHMembers.objects.filter(is_void=False, house_hold_id=hhid).order_by("-hh_head")
+    hhmembers2 = hhmqs.exclude(person_id=id)
+    hhmembers = hhmembers2.exclude(person=care_giver)
     # Get child geo
     child_geos = RegPersonsGeo.objects.select_related().filter(
         person=child, is_void=False, date_delinked=None)
@@ -8845,6 +8852,7 @@ def new_cpara(request, id):
                       'form': form,
                       'person': id,
                       'siblings': siblings,
+                      'hhmembers': hhmembers,
                       'osiblings': osiblings,
                       'oguardians': oguardians,
                       'child': child,
@@ -9844,7 +9852,6 @@ def new_hivscreeningtool(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
-    print request.POST.get('HIV_MGMT_2_C')
     if request.method == 'POST':
         try:
             msg=''
@@ -9947,6 +9954,7 @@ def new_hivmanagementform(request, id):
             check_fields = ['sex_id']
             vals = get_dict(field_name=check_fields)
             form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            child_hiv_status=OVCRegistration.objects.get(person=id).hiv_status  
             form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
 
             return render(request,
@@ -9954,6 +9962,7 @@ def new_hivmanagementform(request, id):
                           {'form': form,
                            'form_arvtherapy': form_arvtherapy,
                            'init_data': init_data,
+                           'child_hiv_status': child_hiv_status,
                            'vals': vals})
         except Exception, e:
             print e

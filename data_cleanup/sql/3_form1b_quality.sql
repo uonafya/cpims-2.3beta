@@ -8,6 +8,7 @@ ovc_care_f1b.value,
 ovc_care_f1b.event_id,
 ovc_care_events.event,
 ovc_care_events.person_id as ovc_care_events_person_id,
+data_quality_view.ovc_registration_id,
 data_quality_view.has_bcert,
 data_quality_view.is_disabled,
 data_quality_view.hiv_status,
@@ -20,7 +21,8 @@ data_quality_view.first_name,
 data_quality_view.other_names,
 data_quality_view.surname,
 data_quality_view.age,
-data_quality_view.sex_id
+data_quality_view.sex_id,
+data_quality_view.exit_date
 
 FROM ovc_care_f1b
 LEFT JOIN ovc_care_events ON ovc_care_events.event=ovc_care_f1b.event_id

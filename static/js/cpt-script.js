@@ -1,8 +1,8 @@
 jQuery(document).ready(function()
 {
 	 //multi selects
-    // $('.responsible_cell > select, .services_cell > div > select').multiselect({
-    $('.services_cell > div > select').multiselect({
+    $('.responsible_cell > select, .services_cell > div > select').multiselect({
+    // $('.services_cell > div > select').multiselect({
         selectAllValue: 'multiselect-all',
         includeSelectAllOption: true,
         enableCaseInsensitiveFiltering: true,
@@ -12,7 +12,7 @@ jQuery(document).ready(function()
         buttonClass: 'btn btn-white'
     });
     $('input, select').attr('required', true);
-    $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .domain_cell > select, #id_CPT_RESPONSIBLE').prepend('<option value="" disabled selected>Pick an item</option>');
+    $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .domain_cell > select, #id_CPT_RESPONSIBLE').prepend('<option value="" selected>Pick an item</option>');
     $('#CPT_DATE').datepicker({ format: 'yyyy-mm-dd' });
     $('#CPT_ACTUAL_DATE_COMPLETION').removeAttr('required');
     $('#CPT_ACTUAL_DATE_COMPLETION').datepicker({ format: 'yyyy-mm-dd' });
@@ -23,7 +23,7 @@ jQuery(document).ready(function()
     
     // onDomainChange
     $('select[name=CPT_DOMAIN]').change(function (e) { 
-        // e.preventDefault();
+        e.preventDefault();
         var domain_val = $('select[name=CPT_DOMAIN] option:selected').val();
         if(domain_val === 'DEDU'){
             $('.school_form').each(function () {
@@ -202,11 +202,19 @@ function AddRow() {
         }
     })
 
+    let responsibl = []
+    $('.responsible_cell div.btn-group ul.multiselect-container.dropdown-menu li.active a label.checkbox input[type=checkbox]').each(function () {
+        var vlue = $(this).val();
+        if(vlue !== 'multiselect-all'){
+            responsibl.push(vlue);
+        }
+    })
+
     let results = $('#id_CPT_RESULTS option:selected').val();
     let results2 = $('#id_CPT_RESULTS').val();
     let reasons = $('#id_CPT_REASONS').val();
     
-    let responsibl = $('#id_CPT_RESPONSIBLE option:selected').val();
+    // let responsibl = $('#id_CPT_RESPONSIBLE option:selected').val();
 
     let date = $('#CPT_DATE').val();
     let actual_completion_date = $('#CPT_ACTUAL_DATE_COMPLETION').val();
@@ -220,7 +228,8 @@ function AddRow() {
         $(this).addClass('d-c-1')
     });
 
-    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || actual_completion_date == null || actual_completion_date == '' || domain == null || domain == '' || goal == '' || goal == null || responsibl == '' || responsibl == null || actions == '' || actions == null || gaps == '' || gaps == null || services.length < 1 || results == '' || results2 == null || results2 == '' || reasons == '' ){
+    //if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || actual_completion_date == null || actual_completion_date == '' || domain == 
+    if (CPT_DATE_CASEPLAN == null || CPT_DATE_CASEPLAN == '' || domain == null || domain == '' || goal == '' || goal == null || actions == '' || actions == null || gaps == '' || gaps == null || services.length < 1 || results == '' || results2 == null || results2 == '' || reasons == '' ){
         // $('input[name=CPT_DATE_CASEPLAN]').css('border', '1px solid red');
         $('input:not(.d-c-1), select:not(.d-c-1), .multiselect.dropdown-toggle.btn.btn-white').not('a[tabindex] label.checkbox input[type=checkbox]').css('border', '1px solid red');
         console.error('ERROR: can\'t add rows with empty fields')
@@ -240,7 +249,7 @@ function AddRow() {
     
 
     if(proceed){
-        $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_repsonsible"></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
+        $('#submissions_table tbody').append('<tr id="row_'+randomID+'"> <td id="tbl_domain"></td> <td id="tbl_goal"><ul class="ul-flow"></ul></td> <td id="tbl_needs"><ul class="ul-flow"></ul></td> <td id="tbl_actions"><ul class="ul-flow"></ul></td> <td id="tbl_services"><ul class="ul-flow"></ul></td> <td id="tbl_responsible"><ul class="ul-flow"></ul></td> <td id="tbl_datecompleted"></td> <td id="tbl_results"></td> <td id="tbl_reasons"></td> <td id="tbl_acts"></td></tr>');
         // domain
         $('#row_'+randomID+' > td#tbl_domain').html( $('select[name=CPT_DOMAIN] option[value='+domain+']').text() + '<input type="hidden" name="h_CPT_DOMAIN" value="'+domain+'" />');
         // -domain
@@ -260,15 +269,28 @@ function AddRow() {
         // services
         $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').empty();
         $('.services_cell > div:not(.hidden) > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
-            var txt4 = stripHTML($(this).text());
-            if(txt4 === 'Select all'){}else{
-                $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').append( '<li>'+txt4+'</li>' );
+            var txt5 = stripHTML($(this).text());
+            if(txt5 === 'Select all'){}else{
+                $('#row_'+randomID+' > td#tbl_services > ul.ul-flow').append( '<li>'+txt5+'</li>' );
             }
         });
         $('#row_'+randomID+' > td#tbl_services').append('<input type="hidden" name="h_CPT_SERVICES" value="'+services+'" />');
         // -services
 
-        $('#row_'+randomID+' > td#tbl_repsonsible').html( $('select[name=CPT_RESPONSIBLE] option[value='+responsibl+']').text() + '<input type="hidden" name="h_CPT_RESPONSIBLE" value="'+responsibl+'" />');
+        // responsible
+        $('#row_'+randomID+' > td#tbl_responsible > ul.ul-flow').empty();
+        // $('.responsible_cell > div.btn-group > ul.multiselect-container > li.active label[class=checkbox]').each(function () {
+        $('.responsible_cell div.btn-group ul.multiselect-container.dropdown-menu li.active a label.checkbox').each(function () {
+            var txt4 = stripHTML($(this).text());
+            if(txt4 === 'Select all'){}else{
+                $('#row_'+randomID+' > td#tbl_responsible > ul.ul-flow').append( '<li>'+txt4+'</li>' );
+            }
+        });
+        $('#row_'+randomID+' > td#tbl_responsible').append('<input type="hidden" name="h_CPT_RESPONSIBLE" value="'+responsibl+'" />');
+        // -responsible
+
+        // $('#row_'+randomID+' > td#tbl_responsible').html( $('select[name=CPT_RESPONSIBLE] option[value='+responsibl+']').text() + '<input type="hidden" name="h_CPT_RESPONSIBLE" value="'+responsibl+'" />');
+
         $('#row_'+randomID+' > td#tbl_datecompleted').html(date + '<input type="hidden" name="h_CPT_DATE" value="'+date+'" />');
         $('#row_'+randomID+' > td#tbl_results').html( $('select[name=CPT_RESULTS] option[value='+results+']').text() + '<input type="hidden" name="h_CPT_RESULTS" value="'+results+'" />');
         $('#row_'+randomID+' td#tbl_reasons').html('<div>'+reasons+'</div>' + '<input type="hidden" name="h_CPT_REASONS" value="'+reasons+'" />');

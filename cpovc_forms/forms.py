@@ -167,22 +167,25 @@ CPT_GOALS_CHOICES = (
 CPT_GOALS_HEALTHY_CHOICES = (
     ('CPTG1he', 'All members of enrolled household know their HIV status'),
     ('CPTG2he', 'All HIV positive members of the household disclose their HIV status'),
-    ('CPTG3he', 'All HIV positive members of the household are virally suppressed')
+    ('CPTG3he', 'All HIV positive members of the household are virally suppressed'),
+    ('CPTG4he', 'Improve development of under five HIV-infected and exposed infants')
 )
 
 CPT_GOALS_STABLE_CHOICES = (
     ('CPTG1st', 'Household able to meet the basic and emergency needs of the members'),
-    ('CPTG1sa', 'All household members have identified a social support network for psychosocial and emotional support.')
+    ('CPTG1sa', 'All household members have identified a social support network for psychosocial and emotional support.'),
+    ('CPTG2st', 'Increase Households access to food and nutrition secuirty')
 )
 
 CPT_GOALS_SAFE_CHOICES = (
     ('CPTG2sa', 'All household members articulate ways to seek support in case of abuse'),
     ('CPTG3sa', 'Caregivers demonstrate positive discipline'),
-    ('CPTG1sa', ' Household members have identified a social support network')
+    ('CPTG1sa', ' Household members have identified a social support network'),
+    ('CPTG4sa', 'Reduce risk of physical, emotional, and psychological injury due to exposure to violence')
 )
 
 CPT_GOALS_SCHOOL_CHOICES = (
-    ('CPTG1sc', 'All school going children transition to the next level'),
+    ('CPTG1sc', 'All school going children attend, progress and transition to the next level'),
     # ('CPTG1sc', 'All school going children transition to the next level')
 )
 
@@ -213,13 +216,13 @@ CPT_GAPS_HEALTHY_CHOICES = (
     ('CPTN25h', 'Household has no kitchen garden that is productive')
 )
 CPT_GAPS_STABLE_CHOICES = (
-    ('CPTN5s', 'Does not have a transition plan [above 17yrs and out of school]'),
+    ('CPTN5s', 'Does not have a transition plan [15-17yrs]'),
     ('ES 2t', 'Vocational skills graduate and requires a start-up kit '),
     ('ES 3t', 'Received a business start-up kit'),
     ('ES 4t', 'Youth eligible for linkage to savings groups [above 17yrs and out of school]'),
     ('ES 5t', 'Youth engaged in IGA e.g small business, farming, artisan, casual employment, hawking  [above 17yrs and out of school]'),
     ('ES 6t', 'Youth accessing formal financial services (bank, MFI, GOK grants) [above 17yrs]'),
-    ('CPTN2s', 'Household not able to meet basis needs'),
+    ('CPTN2s', 'Household not able to meet basic needs'),
     ('CPTN3s', 'Household not able to meet daily emergency needs'),
     ('HE 3t', 'Household NOT enrolled in any cash transfer scheme?'),
     ('HE 4t', 'Household enrolled in cash transfer for elderly'),
@@ -293,13 +296,15 @@ CPT_SERVICES_HEALTHY_CHOICES = (
     ('CPTP9h', 'Support NHIF registration'),
     ('CPTP7h', 'Reffered for nutrition support '),
     ('CPTS12h', ' Other HIV and Care Treatment'),
-    ('CPTS13h', ' Other health services specify')
+    ('CPTS13h', ' Other health services specify......')
      )
 CPT_SERVICES_STABLE_CHOICES = (
                          ('CPTS1s', 'Cash transfer'),
                          ('CPTS2s', 'NHIF'),
                          ('CPTS3s', 'Income generating activity (IGA)'),
-                         ('CPTS4s', 'VSLA group (savings and loan facilities)'),
+
+                         ('CPTS4s', 'Saving group (SILCs, VSLAs)'),                        
+                
                          ('CPTS5s', 'Food support'),
                          ('CPTS6s', 'Nutritional assessment & supplements'),
                          ('CPTS7s', 'Financial literacy/skills'),
@@ -319,7 +324,7 @@ CPT_SERVICES_SAFE_CHOICES = (
                        ('CPTP8p', 'Provide information on child rights and responsibilities'),
                        ('CPTS2p', 'Provide/ refer OVC for basic counseling services '),
                        ('CPTS3p', 'Psychosocial support to children living with HIV, caregiver support, children clubs, support groups for SGBV survivors'),
-                    #    ('CPTS4p', 'Health services'),
+                       ('CPTS4p', 'Health services'),                    
                     #    ('CPTS5p', 'Legal services'),
                        ('CPTP9p', 'Provide/ refer for legal documents (e.g, birth certificate)'),
                        ('CPTS7p', 'Succession planning support'),
@@ -4365,9 +4370,11 @@ class CasePlanTemplate(forms.Form):
     )
     # ------endSERVICES------- #
 
-    CPT_RESPONSIBLE = forms.ChoiceField(
+    # CPT_RESPONSIBLE = forms.ChoiceField(
+    CPT_RESPONSIBLE = forms.MultipleChoiceField(
         choices=CPT_PERSON_RESPONSIBLE,
-        widget=forms.Select(
+        # widget=forms.Select(
+        widget=forms.SelectMultiple(
         attrs={
             'class': 'form-control'
         })
@@ -6723,7 +6730,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     }))
 
     HIV_MGMT_2_I_1 = forms.CharField(widget=forms.TextInput(
-        attrs={'placeholder': _('Viral Load Results'),
+        attrs={'placeholder': _('Viral Load Results (If LDL enter 1)'),
                'class': 'form-control' ,
                'data-parsley-type': "number",
                'data-parsley-maxlength': "6"
@@ -6810,6 +6817,7 @@ class HIV_MANAGEMENT_VISITATION_FORM(forms.Form):
     HIV_MGMT_2_N = forms.ChoiceField(
         choices = (('Active', 'Active'),
         ('Dormant', 'Dormant'),
+        ('Not_Enrolled','Not Enrolled'),
         ),
         widget = forms.RadioSelect(
         renderer=RadioCustomRenderer,
@@ -6890,8 +6898,8 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_A',
                'id': 'HIV_MGMT_1_A',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
 
     HIV_MGMT_1_B = forms.DateField(
@@ -6902,15 +6910,15 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_B',
                'id': 'HIV_MGMT_1_B',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
 
     HIV_MGMT_1_C = forms.CharField(widget=forms.TextInput(
         attrs={'placeholder': _('Viral Load Value'),
                'class': 'form-control' ,
-               'data-parsley-required': "False",
-               'data-parsley-type': "number",
+            #    'data-parsley-required': "False",
+            #    'data-parsley-type': "number",
                # ,
                #    'data-parsley-required': "False"
                }))
@@ -6923,8 +6931,8 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_D',
                'id': 'HIV_MGMT_1_D',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
     
     HIV_MGMT_1_E = forms.ChoiceField(

@@ -37,6 +37,7 @@ class DataQuality(models.Model):
     reg_person_created_at = models.DateTimeField()
     created_by_id= models.IntegerField()
     age =  models.IntegerField()
+    org_unit_name = models.CharField(max_length=255)
 
     class Meta:
         managed= False
@@ -92,9 +93,14 @@ class OVCCareServicesDataQuality(models.Model):
     first_name = models.CharField(max_length=255)
     other_names = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
+    domain = models.CharField(max_length=255)
     age = models.IntegerField()
     service_provided = models.CharField(max_length=255)
     sex_id = models.CharField(max_length=255)
+    date_of_event =  models.DateField(max_length=255)
+    exit_date = models.DateTimeField(default=None)
+    reg_person_id =  models.CharField(max_length=255)
+    org_unit_name = models.CharField(max_length=255)
 
     class Meta:
         managed= False
@@ -122,6 +128,8 @@ class OVCCarePriorityDataQuality(models.Model):
     surname = models.CharField(max_length=255)
     age = models.IntegerField()
     sex_id = models.CharField(max_length=255)
+    reg_person_id =  models.CharField(max_length=255)
+    org_unit_name = models.CharField(max_length=255)
 
     class Meta:
         managed= False
@@ -167,6 +175,8 @@ class CasePlanDataQuality(models.Model):
     surname = models.CharField(max_length=255)
     age = models.IntegerField()
     sex_id = models.CharField(max_length=255)
+    reg_person_id =  models.CharField(max_length=255)
+    org_unit_name = models.CharField(max_length=255)
 
     class Meta:
         managed= False

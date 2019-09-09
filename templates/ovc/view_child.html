@@ -120,7 +120,8 @@ Caregiver details | {{care_giver}}
                         </tr>
                         <tr>
                             <td class="field">Child ID</td>
-                            <td>{{ creg.org_unique_id }}</td>
+                            <!-- <td>{{ creg.org_unique_id }}</td> -->
+                            <td>{{ child.id }}</td>
                             <td class="field">Is Disabled</td>
                             <td>
                             {% if creg.is_disabled %}
@@ -230,9 +231,9 @@ Caregiver details | {{care_giver}}
                                 {% for hhmember in hhmembers %}
                                 <tr>                                    
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{% if hhmember.member_type == 'CCGV' %}
-                                            {{ hhmember.person.first_name }}
+                                    <td>{% if hhmember.member_type == 'CCGV' or hhmember.member_type == 'CGPF'  %}
                                         
+                                            <a href="{% url 'view_person' id=hhmember.person_id%}" role="button">{{ hhmember.person.first_name }}</a>
                                         {% else %}
                                         <a href="{% url 'ovc_view' hhmember.person_id%}" role="button">{{ hhmember.person.first_name }}</a>
 
@@ -330,13 +331,11 @@ Caregiver details | {{care_giver}}
                         <a href="{% url 'new_wellbeingadolescent' id=creg.person_id%}">
                         <button type="button" class="btn btn-primary"> <i class="fa fa-users"></i> Wellbeing Adolescent</button>
                         </a>
-
                         <a href="{% url 'new_hivscreeningtool' id=creg.person_id%}">
                             <button type="button" class="btn btn-primary"> <i class="fa fa-paperclip"></i> HIV Risk Screening </button>
                         </a>
-
                         <a href="{% url 'new_hivmanagementform' id=creg.person_id%}">
-                                <button type="button" class="btn btn-primary"> <i class="fa fa-list-alt"></i> HIV Management Form</button>
+                            <button type="button" class="btn btn-primary" {% if child_hiv_status != 'HSTP' %}disabled{% endif %}> <i class="fa fa-list-alt"></i> HIV Management Form</button>
                         </a>
 
                         <a href="{% url 'new_dreamsform' id=creg.person_id%}">

@@ -2,319 +2,46 @@
 
 {% load staticfiles %}
 {% load choice_fields_filter %}
-{% block page_title %} Data Clean Up{% endblock %}
+{% block page_title %} Data Quality Assessment{% endblock %}
+
 
 {% block style_code %}
 <link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet"/>
 <link href="{% static 'css/buttons.dataTables.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel='stylesheet'>
 {% endblock %}
 
 {% block primary %}
-<h1 class="page-header">Data quality <small></small></h1>
+<h1 class="page-header">Data Quality Assessment <small>{%block dqa_subdomain %}Services{%endblock%}</small></h1>
 {% if error %}
 <div class='alert alert-warning'>{{ error }}</div>
 {% endif %}
 <div class='shadow-lg p-3 mb-5 bg-white rounded well'>
-<form class='form ' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
+
+  {% block form_post_url %}
+    <form class='form ' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
+  {% endblock %}
     {% csrf_token %}
-    <div class='row'>
-      <div class='col-lg-6'>
-            Age Operator
-            <select name='operator' class="form-control" id='operator'>
-                    <option value="0">Select Operator</option>
-                    <option value='=' {% if view_filter_values.equals %}selected='selected'{% endif %}>Equals</option>
-                    <option value='>' {% if view_filter_values.greater_than %}selected='selected'{% endif %}>Greater Than</option>
-                    <option value='<'{% if view_filter_values.less_than %}selected='selected'{% endif %}>Less Than</option>
-                    <option value='-'{% if view_filter_values.between %}selected='selected'{% endif %}>Between</option>
-                </select>
-            Age (if the operator is between set age range e.g 18-200)
-            <input type='text' name='age' class="form-control" id='age' value="{{ view_filter_values.age }}">
 
-            School Level
-            <select name='school_level' class="form-control" id='school_level'>
-                <option value="0">Select Shool Level</option>
-                <option value='SLSE' {% if view_filter_values.slse %}selected='selected'{% endif %}>Secondary</option>
-                <option value='SLPR' {% if view_filter_values.slpr %}selected='selected'{% endif %}>Primary</option>
-                <option value='SLNS' {% if view_filter_values.slns %}selected='selected'{% endif %}>NO School</option>
-            </select>
-           Gender
-          <select name='gender' class="form-control" id='gender'>
-              <option value="0">Select Gender</option>
-              <option value='SMAL' {% if view_filter_values.smal %}selected='selected'{% endif %}>Male</option>
-              <option value='SFEM' {% if view_filter_values.sfem %}selected='selected'{% endif %}>Female</option>
-          </select>
+    {% block demographic %}
+      <!-- Demographic Data-->
+      {% include "data_cleanup/demographic.html" %}
+    {% endblock %}
 
-          Has Birth Certificate
-          <select name='has_bcert' class="form-control" id='has_bcert'>
-              <option value="0">Has birth cert? </option>
-              <option value='True' {% if view_filter_values.has_bcert_yes %}selected='selected'{% endif %}>Yes</option>
-              <option value='False' {% if view_filter_values.has_bcert_no%}selected='selected'{% endif %}>No</option>
-          </select>
+    {% block priorities %}
+      <!-- Priorities Data-->
+      {% include "data_cleanup/priorities.html" %}
+    {% endblock %}
 
-    </div>
-                    <div class='col-lg-6'>
-        HIV Status
-        <select name='hiv_status' class="form-control" id='hiv_status'>
-          <option value="0">Select HIV Status</option>
-          <option value='HSTR' {% if view_filter_values.hstr %}selected='selected'{% endif %}>HSTR</option>
-          <option value='HSKN' {% if view_filter_values.hskn %}selected='selected'{% endif %}>HSKN</option>
-          <option value='HSTP' {% if view_filter_values.hstp %}selected='selected'{% endif %}>HSTP</option>
-          <option value='XXXX' {% if view_filter_values.xxxx %}selected='selected'{% endif %}>XXXX</option>
-          <option value='HSTN' {% if view_filter_values.hstn %}selected='selected'{% endif %}>HSTN</option>
-          <option value='HSRT' {% if view_filter_values.hsrt %}selected='selected'{% endif %}>HSRT</option>
-        </select>
-        ART Status
-        <select name='art_status' class="form-control" id='art_status'>
-            <option value="0">Select Art Status</option>
-            <option value='ART' {% if view_filter_values.art %}selected='selected'{% endif %}>ART</option>
-            <option value='ARAR' {% if view_filter_values.arar %}selected='selected'{% endif %}>ARAR</option>
-            <option value='ARV' {% if view_filter_values.arv %}selected='selected'{% endif %}>ARV</option>
-          </select>
-         Is Disabled
-          <select name='is_disabled' class="form-control" id='is_disabled'>
-              <option value="0">Select Disability Status</option>
-              <option value='True' {% if view_filter_values.is_disabled_yes %}selected='selected'{% endif %}>Yes</option>
-              <option value='False' {% if view_filter_values.is_disabled_no %}selected='selected'{% endif %}>No</option>
-            </select>
-          Is OVC
-          <select name='is_ovc' class="form-control" id='is_ovc'>
-              <option value="0">Select Designation</option>
-              <option value='CCGV' {% if view_filter_values.ccgv %}selected='selected'{% endif %}>Care Giver</option>
-              <option value='COSI'{% if view_filter_values.cosi %}selected='selected'{% endif %}>Sibling</option>
-              <option value='COVC'{% if view_filter_values.covc %}selected='selected'{% endif %}>COVC</option>
-              <option value='CGOC'{% if view_filter_values.ccgv %}selected='selected'{% endif %}>CGOC</option>
-            </select>
-    </div>
-  </div>
-  <div class='row'>
+    {% block services %}
+      <!-- Services Data-->
+      {% include "data_cleanup/services.html" %}
+    {% endblock %}
 
-    <div class='col-lg-6'>
-      <label>Domains </label>
-      <select id='id_form_1b_domains' class='form-control' name='form_1b_domain'>
-          <option value="0">Select Domain</option>
-          <option value='DPSS' {% if view_filter_values.dpss %} selected='selected'{% endif %}>Psychosocial Support</option>
-          <option value='DSHC' {% if view_filter_values.dshc %} selected='selected'{% endif %}>Shelter and Care</option>
-          <option value='DHES' {% if view_filter_values.dhes %} selected='selected'{% endif %}>HouseHold Economic Strengthening</option>
-          <option value='DEDU' {% if view_filter_values.debu %} selected='selected'{% endif %}>Education</option>
-          <option value='DPRO' {% if view_filter_values.dpro %} selected='selected'{% endif %}>Protection</option>
-          <option value='DHNU' {% if view_filter_values.dhnu %} selected='selected'{% endif %}>Health and Nutrition</option>
-      </select>
-    </div>
-    <div class='col-lg-6'>
-      <label>Services</label>
-      <select id='service' name='service'  class='form-control'>
-          <option value="0">Select Service</option>
-          <option value='MSLF'  {% if view_filter_values.mslf %} selected='selected'{% endif %}>E6a - Lack of fees</option>
-          <option value='MSSP' {% if view_filter_values.mssp %} selected='selected'{% endif %}>E11a - Lacks Sanitary pads</option>
-          <option value='SCBB' {% if view_filter_values.scbb %} selected='selected'{% endif %}>Bereavement counselling - basic</option>
-          <option value='PPHP' {% if view_filter_values.pphp %} selected='selected'{% endif %}>Child is happy, likes playing</option>
-          <option value='PHEW' {% if view_filter_values.phew %} selected='selected'{% endif %}>Emotionally Well (Happy)</option>
-          <option value='PHPA' {% if view_filter_values.phpa %} selected='selected'{% endif %}>Presence of adult</option>
-          <option value='PSBO' {% if view_filter_values.psbo %} selected='selected'{% endif %}>Social behavior (obedient)</option>
-          <option value='SNNB' {% if view_filter_values.snnb %} selected='selected'{% endif %}>SC3a - Child has no blanket</option>
-          <option value='SNHC' {% if view_filter_values.snhc %} selected='selected'{% endif %}>SC5a - Child has no home clothes</option>
-          <option value='HISF' {% if view_filter_values.h1sf %} selected='selected'{% endif %}>School fees</option>
-          <option value='SE1S' {% if view_filter_values.se1s %} selected='selected'{% endif %}>E1s - Enrolled back to school</option>
-          <option value='SE2S' {% if view_filter_values.se2s %} selected='selected'{% endif %}>E2s - School levies</option>
-          <option value='SE3S' {% if view_filter_values.se3s %} selected='selected'{% endif %}>E3s - Financial education and literacy training [LIFE POA]</option>
-          <option value='SE4S' {% if view_filter_values.se4s %} selected='selected'{% endif %}>E4s - School fees</option>
-          <option value='SE5S' {% if view_filter_values.se5s %} selected='selected'{% endif %}>E5s - Scholastic material</option>
-          <option value='SE6S' {% if view_filter_values.se6s %} selected='selected'{% endif %}>E6s - Sanitary pads</option>
-          <option value='SE7S' {% if view_filter_values.se7s %} selected='selected'{% endif %}>E7s - Vocational training</option>
-          <option value='SE8S' {% if view_filter_values.se8s %} selected='selected'{% endif %}>E8s - School uniform</option>
-          <option value='HC10' {% if view_filter_values.hc10 %} selected='selected'{% endif %}>HC10s - VitaminA</option>
-          <option value='HC1S' {% if view_filter_values.hc1s %} selected='selected'{% endif %}>HC1s - Treated for illness</option>
-          <option value='HC2S' {% if view_filter_values.hc2s %} selected='selected'{% endif %}>HC2s - Mosquito net</option>
-          <option value='HC3S' {% if view_filter_values.hc3s %} selected='selected'{% endif %}>HC3s - Escorted to care and treatment</option>
-          <option value='HC4S' {% if view_filter_values.hc4s %} selected='selected'{% endif %}>HC4s - Access care and treatment without transport/escort support</option>
-          <option value='HC5S' {% if view_filter_values.hc5s %} selected='selected'{% endif %}>HC5s - Health and nutrition education</option>
-          <option value='HE5S' {% if view_filter_values.he5s %} selected='selected'{% endif %}>HE5s - Linked to Market</option>
-          <option value='SE9S' {% if view_filter_values.se9s %} selected='selected'{% endif %}>E9s - Solar Lamp</option>
-          <option value='PS5s' {% if view_filter_values.ps5s %} selected='selected'{% endif %}>PS5s - Child [Below 5 yrs] provided with stimulating activities by person above 15yr</option>
-          <option value='PT7s' {% if view_filter_values.pt7s %} selected='selected'{% endif %}>PT7s - Provided with medical assistance in cases of abuse</option>
-          <option value='PT6s' {% if view_filter_values.pt6s %} selected='selected'{% endif %}>PT6s - Abuse case reported to helpline 116/other centers</option>
-          <option value='HE8s' {% if view_filter_values.he8s %} selected='selected'{% endif %}>HE8s - Youth trained on Technical and Vocational skills [above 17yrs]</option>
-          <option value='HE6s' {% if view_filter_values.he6s %} selected='selected'{% endif %}>HE6s - Youth trained on EYL  [above 17yrs]</option>
-          <option value='HE7s' {% if view_filter_values.he7s %} selected='selected'{% endif %}>HE7s - Youth trained in YSLA [above 17yrs]</option>
-          <option value='ES 5s' {% if view_filter_values.es5s %} selected='selected'{% endif %}> ES 5s  -  Youth trained on entrepreneurship skills</option>
-          <option value='ES 6s' {% if view_filter_values.es6s %} selected='selected'{% endif %}> ES 6s  -  Youth trained in savings group methodology e.g YSLA [above 17yrs and out of school]</option>
-          <option value='ES 7s' {% if view_filter_values.es7s %} selected='selected'{% endif %}> ES 7s  -  Youth trained on life skills and employability skills [above 17yrs and out of school]</option>
-          <option value='HN 1s' {% if view_filter_values.hn1s %} selected='selected'{% endif %}> HN 1s  -  Child immunization on schedule/complete [under 5 years only]</option>
-          <option value='HN 2s' {% if view_filter_values.hn2s %} selected='selected'{% endif %}> HN 2s  -  Referred and received growth monitoring services [under 5 years only]</option>
-          <option value='HN 3s' {% if view_filter_values.hn3s %} selected='selected'{% endif %}> HN 3s  -  Child living with disability referred and linked to appropriate services</option>
-          <option value='HN 4s' {% if view_filter_values.hn4s %} selected='selected'{% endif %}> HN 4s - Adolescent is pregnant and linked to PMTCT/ANC services(check Mother/child booklet)</option>
-          <option value='HN 5s' {% if view_filter_values.hn5s %} selected='selected'{% endif %}> HN 5s - Child under 18 months born to HIV +ve mother, referred for HEI services</option>
-          <option value='HN 6s' {% if view_filter_values.hn6s %} selected='selected'{% endif %}> HN 6s  -  HIV +ve child refered and linked to HIV treatment</option>
-          <option value='HN 7s' {% if view_filter_values.hn7s %} selected='selected'{% endif %}> HN 7s  - Viral load results received [child on HIV treatment for more than 3 mths</option>
-          <option value='HN 8s' {% if view_filter_values.hn8s %} selected='selected'{% endif %}> HN 8s  -  HIV status disclosure process initiated (6 years and above)</option>
-          <option value='HN 9s' {% if view_filter_values.hn9s %} selected='selected'{% endif %}> HN 9s  -  HIV disclosure complete (12 years and above)</option>
-          <option value='HN 10s' {% if view_filter_values.hn10s %} selected='selected'{% endif %}> HN 10s - Child with chronic condition referred to appropriate health services</option>
-          <option value='HN 11s' {% if view_filter_values.hn11s %} selected='selected'{% endif %}> HN 11s  -  HIV +ve child Escorted to care and treatment</option>
-          <option value='HN 12s' {% if view_filter_values.hn12s %} selected='selected'{% endif %}> HN 12s  -  Child provided with HIV prevention education [10 years and above]</option>
-          <option value='HN 13s' {% if view_filter_values.hn13s %} selected='selected'{% endif %}> HN 13s  -   Child at risk of HIV reffered and completed referral for HIV test</option>
-          <option value='HN 14s' {% if view_filter_values.hn14s %} selected='selected'{% endif %}> HN 14s  -  Child referred and treated for illness</option>
-          <option value='HN 16s' {% if view_filter_values.hn16s %} selected='selected'{% endif %}> HN 16s  -  Provided with health and nutrition education</option>
-          <option value='ES 1s' {% if view_filter_values.es1s %} selected='selected'{% endif %}> ES 1s  -  Transition plan developed</option>
-          <option value='ES 2s' {% if view_filter_values.es2s %} selected='selected'{% endif %}> ES 2s  -  Linked to a job opportunity</option>
-          <option value='ES 3s' {% if view_filter_values.es4s %} selected='selected'{% endif %}> ES 3s  -  Received business skills training</option>
-          <option value='ES 4s' {% if view_filter_values.es4s %} selected='selected'{% endif %}> ES 4s  -  Received Start up kit</option>
-          <option value='ES 5s' {% if view_filter_values.es5s %} selected='selected'{% endif %}> ES 5s  -  Youth trained on entrepreneurship skills</option>
-          <option value='ES 6s' {% if view_filter_values.es6s %} selected='selected'{% endif %}> ES 6s  -  Youth trained in savings group methodology e.g YSLA [above 17yrs and out of school]</option>
-          <option value='ES 7s' {% if view_filter_values.es7s %} selected='selected'{% endif %}> ES 7s  -  Youth trained on life skills and employability skills [above 17yrs and out of school]</option>
-          <option value='CP 1s' {% if view_filter_values.cp1s %} selected='selected'{% endif %}> CP 1s  -  Linked to adult caregiver</option>
-          <option value='CP 8s' {% if view_filter_values.cp8s %} selected='selected'{% endif %}> CP 7s</option>
-          <option value='HN 15s' {% if view_filter_values.hn15s %} selected='selected'{% endif %}> HN 15s  -  Child linked for nutritional support</option>
-          <option value='CP 2s' {% if view_filter_values.cp2s %} selected='selected'{% endif %}> CP 2s  -  Child placed in a safe environment (e.g, with relatives, foster care, temporary care)</option>
-          <option value='CP 3s' {% if view_filter_values.cp3s %} selected='selected'{% endif %}> CP 3s  -  Provided with information on how to protect themselves from HIV, abuse including GBV</option>
-          <option value='CP 4s' {% if view_filter_values.cp4s %} selected='selected'{% endif %}> CP 4s  -  Provided with medical attention in cases of abuse</option>
-          <option value='CP 5s' {% if view_filter_values.cp5s %} selected='selected'{% endif %}> CP 5s  -  Provided with legal assistance in cases of abuse</option>
-          <option value='CP 6s' {% if view_filter_values.cp6s %} selected='selected'{% endif %}> CP 6s  -  Provided with information on child rights and responsibilities</option>
-          <option value='CP 2s' {% if view_filter_values.cp2s %} selected='selected'{% endif %}> CP 2s  -  Child/Adolescent reffered and Linked for post violence care.</option>
-          <option value='CP 7s' {% if view_filter_values.cp7s %} selected='selected'{% endif %}> CP 7s  -  Child (above 10 years) participated in life skills sessions</option>
-          <option value='CP 8s' {% if view_filter_values.cp8s %} selected='selected'{% endif %}> CP 8s  -  Provided with basic counseling services</option>
-          <option value='CP 9s' {% if view_filter_values.cp9s %} selected='selected'{% endif %}> CP 9s - Child [Below 5 yrs] provided with stimulating activities by person above 15yr</option>
-          <option value='CE 1s' {% if view_filter_values.ce1s %} selected='selected'{% endif %}> CE 1s  -  Enrolled back to school (Including teenage mothers)</option>
-          <option value='CE 5s' {% if view_filter_values.ce5s %} selected='selected'{% endif %}> CE 5s  -  Sanitary pads provided</option>
-          <option value='CE 7s' {% if view_filter_values.ce7s %} selected='selected'{% endif %}> CE 7s  -  Adolescent received start up kit</option>
-          <option value='CE 8s' {% if view_filter_values.cs8s %} selected='selected'{% endif %}> CE 8s  -  School uniform provided</option>
-          <option value='MSLF' {% if view_filter_values.mslf %} selected='selected'{% endif %}> Child lacks fees</option>
-          <option value='MSLG' {% if view_filter_values.mslg %} selected='selected'{% endif %}>Child lacks geometrical</option>
-          <option value='MSLB' {% if view_filter_values.mslb %} selected='selected'{% endif %}>Child lacks school bag</option>
-          <option value='MSLU' {% if view_filter_values.mslu %} selected='selected'{% endif %}>Child lacks uniform</option>
-          <option value='MSCW' {% if view_filter_values.mscw %} selected='selected'{% endif %}>Child learning well</option>
-          <option value='MSNE' {% if view_filter_values.msne %} selected='selected'{% endif %}>Child not enrolled in school</option>
-          <option value='MSVT' {% if view_filter_values.msvt %} selected='selected'{% endif %}>E13a - Vocational training</option>
-          <option value='MSSL' {% if view_filter_values.mssl %} selected='selected'{% endif %}>E7a - School levies</option>
-          <option value='CE12s' {% if view_filter_values.ce12s %} selected='selected'{% endif %}> CE12s  -  Child provided with  counseling and enrolled back to school</option>
-          <option value='CE 3s' {% if view_filter_values.ce3s %} selected='selected'{% endif %}> CE 3s  -  Enrolled in vocational training</option>
-          <option value='CE 4s' {% if view_filter_values.ce4s %} selected='selected'{% endif %}> CE 4s  -  Child referred for education and received support</option>
-          <option value='CE 9s' {% if view_filter_values.ce9s %} selected='selected'{% endif %}> CE 9s  -  School levies paid</option>
-          <option value='CE 10s' {% if view_filter_values.ce10s %} selected='selected'{% endif %}> CE 10s  -  School fees paid</option>
-          <option value='CE 11s' {% if view_filter_values.ce11s %} selected='selected'{% endif %}> CE 11s  -  Scholastic materials provided</option>
-          <option value='HAMN' {% if view_filter_values.hamn %} selected='selected'{% endif %}>HC2a - Mosquito net</option>
-          <option value='HHSU' {% if view_filter_values.hhsu %} selected='selected'{% endif %}>Child HIV status unknown</option>
-          <option value='HRHC' {% if view_filter_values.hrhc %} selected='selected'{% endif %}>Child receives health care</option>
-          <option value='HNHE' {% if view_filter_values.hnhe %} selected='selected'{% endif %}>Health education</option>
-          <option value='HCLE' {% if view_filter_values.hcle %} selected='selected'{% endif %}>Child less energetic</option>
-          <option value='HHKG' {% if view_filter_values.hhkg %} selected='selected'{% endif %}>HH has kitchen garden</option>
-          <option value='HHHL' {% if view_filter_values.hhhl %} selected='selected'{% endif %}>HH has livestock</option>
-          <option value='HHHP' {% if view_filter_values.hhhp %} selected='selected'{% endif %}>HH has poultry</option>
-          <option value='HRTS' {% if view_filter_values.hrts %} selected='selected'{% endif %}>Referred to SILC</option>
-          <option value='HSEK' {% if view_filter_values.hsek %} selected='selected'{% endif %}>Support establish kitchen garden</option>
-          <option value='PANS' {% if view_filter_values.pans %} selected='selected'{% endif %}>Family in need of support</option>
-          <option value='SCSP' {% if view_filter_values.scsp %} selected='selected'{% endif %}>Child lives in safe place</option>
-          <option value='SCBB' {% if view_filter_values.scbb %} selected='selected'{% endif %}>Blanket</option>
-          <option value='SCMM' {% if view_filter_values.scmm %} selected='selected'{% endif %}>Mattress</option>
-          <option value='SNHC' {% if view_filter_values.snhc %} selected='selected'{% endif %}>Has no home clothes</option>
-          <option value='HC6S' {% if view_filter_values.hc6s %} selected='selected'{% endif %}>HC6s - Supplementary feeding</option>
-          <option value='HC7S' {% if view_filter_values.hc7s %} selected='selected'{% endif %}>HC7s - Transport to care and treatment services</option>
-          <option value='HC8S' {% if view_filter_values.hc8s %} selected='selected'{% endif %}>HC8s - Testing for HIV</option>
-          <option value='HC9S' {% if view_filter_values.hc9s %} selected='selected'{% endif %}>HC9s - Deworming tablets</option>
-          <option value='HG2S' {% if view_filter_values.hg2s %} selected='selected'{% endif %}>Register in a health insurance plan</option>
-          <option value='HG3S' {% if view_filter_values.hg3s %} selected='selected'{% endif %}>Water treatment kit</option>
-          <option value='HG8S' {% if view_filter_values.hg8s %} selected='selected'{% endif %}>Food aid</option>
-          <option value='HE1S' {% if view_filter_values.he1s %} selected='selected'{% endif %}>HE1s - Link to a job opportunity</option>
-          <option value='HE2S' {% if view_filter_values.he2s %} selected='selected'{% endif %}>HE2s - Business Skills Training</option>
-          <option value='HE3S' {% if view_filter_values.he3s %} selected='selected'{% endif %}>HE3s - Job Market Skill Training</option>
-          <option value='HE4S' {% if view_filter_values.he4s %} selected='selected'{% endif %}>HE4s - Start-up kit</option>
-          <option value='HEG2' {% if view_filter_values.heg2 %} selected='selected'{% endif %}>Engage in financial literacy and education training (JIFANIKISHE)</option>
-          <option value='HEG3' {% if view_filter_values.heg3 %} selected='selected'{% endif %}>Business skills training</option>
-          <option value='PT1S' {% if view_filter_values.pt1s %} selected='selected'{% endif %}>PT1s - Rescued from an abusive enviroment</option>
-          <option value='PT2S' {% if view_filter_values.pt2s %} selected='selected'{% endif %}>PT2s - Age appropriate information on rights/responsibilities</option>
-          <option value='PT3S' {% if view_filter_values.pt3s %} selected='selected'{% endif %}>PT3s - Legal assistance in case of abuse</option>
-          <option value='PT4S' {% if view_filter_values.pt4s %} selected='selected'{% endif %}>PT4s - Has been re-united with family</option>
-          <option value='PT5S' {% if view_filter_values.pt5s %} selected='selected'{% endif %}>PT5s - Birth certificate</option>
-          <option value='PS1S' {% if view_filter_values.ps1s %} selected='selected'{% endif %}>PS1s - Mentored by older or responsible person</option>
-          <option value='PS2S' {% if view_filter_values.ps2s %} selected='selected'{% endif %}>PS2s - Linked to support group or peer club</option>
-          <option value='PS3S' {% if view_filter_values.ps3s %} selected='selected'{% endif %}>PS3s - Life skills</option>
-          <option value='PS4S' {% if view_filter_values.ps4s %} selected='selected'{% endif %}>PS4s - Basic counseling to address needs</option>
-          <option value='PSG4' {% if view_filter_values.psg4 %} selected='selected'{% endif %}>Caregiver is an active member of a support group</option>
-          <option value='SC1S' {% if view_filter_values.sc1s %} selected='selected'{% endif %}>SC1s - Shelter Repaired</option>
-          <option value='SC2S' {% if view_filter_values.sc2s %} selected='selected'{% endif %}>SC2s - Linked to Adult Caregiver</option>
-          <option value='SC3S' {% if view_filter_values.sc3s %} selected='selected'{% endif %}>SC3s - Blanket</option>
-          <option value='SC4S' {% if view_filter_values.sc4s %} selected='selected'{% endif %}>SC4s - Household repair</option>
-          <option value='SC5S' {% if view_filter_values.sc5s %} selected='selected'{% endif %}>SC5s - Mattress</option>
-          <option value='SC6S' {% if view_filter_values.sc6s %} selected='selected'{% endif %}>SC6s - Shoes</option>
-          <option value='SC7S' {% if view_filter_values.sc7s %} selected='selected'{% endif %}>SC7s - Clothes</option>
-          <option value='SG1S' {% if view_filter_values.sg1s %} selected='selected'{% endif %}>Training on child care and parenting skills</option>
-          <option value='HE6s' {% if view_filter_values.he6s %} selected='selected'{% endif %}>HE 6s - Household provided with productive asset e.g small stock, small machines, tools</option>
-          <option value='HE7s' {% if view_filter_values.he7s %} selected='selected'{% endif %}>HE 7s - Household engaged in income generating activity e.g small business, casual labour, farming</option>
-          <option value='HE8s' {% if view_filter_values.he8s %} selected='selected'{% endif %}>HE 8s - Household member(s) trained on financial literacy</option>
-          <option value='PSG1' {% if view_filter_values.psg1 %} selected='selected'{% endif %}>Provided with counseling</option>
-          <option value='HE6s' {% if view_filter_values.he6s %} selected='selected'{% endif %}>Linked to UWEZO and other Enterprise Funds</option>
-          <option value='HE7s' {% if view_filter_values.he7s %} selected='selected'{% endif %}>Received economic strengthening assets (greenhouse, beehives)</option>
-          <option value='HN 17s' {% if view_filter_values.hn17s %} selected='selected'{% endif %}> HN 17s  -  HIV+ve child provided with transport money to clinic</option>
-          <option value='CE 2s' {% if view_filter_values.ce2s %} selected='selected'{% endif %}> CE 2s  -  Child monitoried to regularly attend school</option>
+    {% block case_plan %}
+    {% endblock %}
 
-      </select>
-      </div>
-  </div>
-  <div class='row'>
-    <div class='col-lg-6'>
-        <label>Priorities</label>
-        <select name='priority' id='priority' class='form-control'>
-            <option value="0">Select Priority</option>
-            <option value='SE4S' {% if view_filter_values.priotity_se4s %} selected='selected'{% endif %}>E4s - School fees </option>
-            <option value='SE6S'{% if view_filter_values.priotity_se6s %} selected='selected'{% endif %}> E6s - Sanitary pads </option>
-            <option value='HC2S' {% if view_filter_values.priotity_hc2s %} selected='selected'{% endif %}> HC2s - Mosquito net </option>
-            <option value='PT6s' {% if view_filter_values.priotity_pt6s %} selected='selected'{% endif %}> PT6s - Abuse case reported to helpline 116/other centers </option>
-            <option value='HNHE' {% if view_filter_values.priotity_hnhe %} selected='selected'{% endif %}> Health education </option>
-            <option value='SCMM' {% if view_filter_values.priotity_scmm %} selected='selected'{% endif %}> Mattress </option>
-            <option value='HC6S' {% if view_filter_values.priotity_hc6s %} selected='selected'{% endif %}> HC6s - Supplementary feeding </option>
-            <option value='HE1S' {% if view_filter_values.priotity_he1s %} selected='selected'{% endif %}> HE1s - Link to a job opportunity </option>
-            <option value='PT2S' {% if view_filter_values.priotity_pt2s %} selected='selected'{% endif %}> PT2s - Age appropriate information on rights/responsibilities </option>
-            <option value='SC5S' {% if view_filter_values.priotity_sc5s %} selected='selected'{% endif %}> SC5s - Mattress </option>
-        </select>
-    </div>
-    <div class='col-lg-6'>
-    <label> Case Plan</label>
-    <select name='cp_service' class='form-control' id='cp_service'>
-        <option value="0">Select Case Plan Service</option>
-        <option value='CPTS7h'  {% if view_filter_values.cpt57h %} selected='selected'{% endif %}>CPTS7h</option>
-        <option value='CPTS10p'  {% if view_filter_values.cpts10p %} selected='selected'{% endif %}>CPTS10p</option>
-        <option value='CPTS5e'  {% if view_filter_values.cpts5e %} selected='selected'{% endif %}>CPTS5e</option>
-        <option value='CPTS1p'  {% if view_filter_values.cpts1p %} selected='selected'{% endif %}>CPTS1p</option>
-        <option value='CPTS6h'  {% if view_filter_values.cpts6h %} selected='selected'{% endif %}>CPTS6h</option>
-        <option value='CPTS2e'  {% if view_filter_values.cpts2e %} selected='selected'{% endif %}>CPTS2e</option>
-        <option value='CPTS6p'  {% if view_filter_values.cpts6p %} selected='selected'{% endif %}>CPTS6p</option>
-        <option value='CPTS7e'  {% if view_filter_values.cpts7e %} selected='selected'{% endif %}>CPTS7e</option>
-        <option value='CPTS5s'  {% if view_filter_values.cpts5s %} selected='selected'{% endif %}>CPTS5s</option>
-        <option value='CPTS4p'  {% if view_filter_values.cpt54p %} selected='selected'{% endif %}>CPTS4p</option>
-        <option value='CPTS7s' {% if view_filter_values.cpt57s %} selected='selected'{% endif %}>CPTS7s</option>
-        <option value='CPTS8s' {% if view_filter_values.cpts8s %} selected='selected'{% endif %}>CPTS8s</option>
-        <option value='CPTS3h' {% if view_filter_values.cpts3h %} selected='selected'{% endif %}>CPTS3h</option>
-        <option value='CPTS9p' {% if view_filter_values.cpts9p %} selected='selected'{% endif %}>CPTS9p</option>
-        <option value='CPTS10h' {% if view_filter_values.cpts10h %} selected='selected'{% endif %}>CPTS10h</option>
-        <option value='CPTS12h' {% if view_filter_values.cpts12h %} selected='selected'{% endif %}>CPTS12h</option>
-        <option value='CPTS1s' {% if view_filter_values.cpts1s %} selected='selected'{% endif %}>CPTS1s</option>
-        <option value='CPTS10e' {% if view_filter_values.cpts10e %} selected='selected'{% endif %}>CPTS10e</option>
-        <option value='CPTS3p' {% if view_filter_values.cpts3p %} selected='selected'{% endif %}>CPTS3p</option>
-        <option value='CPTS9h' {% if view_filter_values.cpts9h %} selected='selected'{% endif %}>CPTS9h</option>
-        <option value='CPTS9e' {% if view_filter_values.cpts9e %} selected='selected'{% endif %}>CPTS9e</option>
-        <option value='CPTS6s' {% if view_filter_values.cpts6s %} selected='selected'{% endif %}>CPTS6s</option>
-        <option value='CPTS4e' {% if view_filter_values.cpts4e %} selected='selected'{% endif %}>CPTS4e</option>
-        <option value='CPTS8e' {% if view_filter_values.cpts8e %} selected='selected'{% endif %}>CPTS8e</option>
-        <option value='CPTS4s'{% if view_filter_values.cpts4s %} selected='selected'{% endif %}>CPTS4s</option>
-        <option value='CPTS3e' {% if view_filter_values.cpts3e %} selected='selected'{% endif %}>CPTS3e</option>
-        <option value='CPTS7p' {% if view_filter_values.cpts7p %} selected='selected'{% endif %}>CPTS7p</option>
-        <option value='CPTS12p' {% if view_filter_values.cpts12p %} selected='selected'{% endif %}>CPTS12p</option>
-        <option value='CPTS11p' {% if view_filter_values.cpts11p %} selected='selected'{% endif %}>CPTS11p</option>
-        <option value='CPTS2s' {% if view_filter_values.cpts2s %} selected='selected'{% endif %}>CPTS2s</option>
-        <option value='CPTS5p'{% if view_filter_values.cpts5p %} selected='selected'{% endif %}>CPTS5p</option>
-        <option value='CPTS8p' {% if view_filter_values.cpts8p %} selected='selected'{% endif %}>CPTS8p</option>
-        <option value='CPTS2h'{% if view_filter_values.cpts2h %} selected='selected'{% endif %}>CPTS2h</option>
-        <option value='CPTS6e' {% if view_filter_values.cpts6e %} selected='selected'{% endif %}>CPTS6e</option>
-        <option value='CPTS1h'{% if view_filter_values.cpts1h %} selected='selected'{% endif %} >CPTS1h</option>
-        <option value='CPTS2p' {% if view_filter_values.cpts2p %} selected='selected'{% endif %}>CPTS2p</option>
-        <option value= 'CPTS1e'{% if view_filter_values.cpts1e %} selected='selected'{% endif %}>CPTS1e</option>
-        <option value='CPTS4h'{% if view_filter_values.cpts4h %} selected='selected'{% endif %}>CPTS4h</option>
-        <option value='CPTS5h' {% if view_filter_values.cpts5h %} selected='selected'{% endif %}>CPTS5h</option>
-        <option value='CPTS11h'{% if view_filter_values.cpt511h %} selected='selected'{% endif %}>CPTS11h</option>
-        <option value='CPTS3s'{% if view_filter_values.cpts3s %} selected='selected'{% endif %}>CPTS3s</option>
-        <option value='CPTS8h'{% if view_filter_values.cpts8h %} selected='selected'{% endif %}>CPTS3s</option>
-     </select>
-    </div>
-  </div>
+
 </br>
 
 <div class='pull-right btn-toolbar'>
@@ -329,6 +56,7 @@
 <table class="table" id='age-data-table'>
 <thead>
     <tr>
+      <th>OVC ID</th>
       <th>Names</th>
       <th>Age</th>
       <th>Gender</th>
@@ -338,11 +66,17 @@
       <th>School Level</th>
       <th>HIV Status</th>
       <th>ART Status</th>
+      <th>Exit Date</th>
+      <th>CBO </th>
     </tr>
   </thead>
   <tbody>
       {% for obj in data %}
     <tr>
+
+      <td>
+          {{ obj.reg_person_id }}
+      </td>
       <td>{{ obj.first_name }} {{ obj.other_names }} {{ obj.surname }} </td>
       <td>{{ obj.age }} </td>
       <td>{{ obj.sex_id | format_choice_fields }} </td>
@@ -352,6 +86,8 @@
       <td>{{ obj.school_level |format_choice_fields }}</td>
       <td>{{ obj.hiv_status | format_choice_fields }}</td>
       <td>{{ obj.art_status | format_choice_fields}}</td>
+      <td>{{ obj.exit_date | format_choice_fields  }}</td>
+      <td>{{ obj.org_unit_name }}</td>
     </tr>
     {% endfor %}
 
@@ -368,6 +104,7 @@
 <script src="{% static 'js/jszip.min.js' %}"></script>
 <script src="{% static 'js/dataTables.buttons.min.js' %}"></script>
 <script src="{% static 'js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
 
 <script>
     function reset_filter_form(){
@@ -381,6 +118,9 @@
               'csvHtml5',
           ]
       } );
+  });
+  $('.datepicker').datepicker({
+    format: 'yyyy-mm-dd'
   });
 
   </script>

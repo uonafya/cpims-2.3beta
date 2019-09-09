@@ -25,6 +25,7 @@ CREATE MATERIALIZED VIEW data_quality_case_plan AS SELECT
     ovc_care_case_plan.person_id as case_plan_person_id,
     ovc_care_case_plan.caregiver_id,
     ovc_care_case_plan.actual_completion_date,
+    data_quality_view.reg_person_id,
     data_quality_view.has_bcert,
     data_quality_view.is_disabled,
     data_quality_view.hiv_status,
@@ -37,7 +38,11 @@ CREATE MATERIALIZED VIEW data_quality_case_plan AS SELECT
     data_quality_view.other_names,
     data_quality_view.surname,
     data_quality_view.age,
-    data_quality_view.sex_id
+    data_quality_view.sex_id,
+    data_quality_view.exit_date,
+    data_quality_view.org_unit_name
 
 FROM ovc_care_case_plan
 INNER JOIN data_quality_view ON ovc_care_case_plan.person_id=data_quality_view.person_id;
+
+CREATE INDEX IF NOT EXISTS cp_service_index on data_quality_case_plan USING btree (cp_service);
