@@ -17,7 +17,7 @@ class UpdateViralLoad(object):
 		self.password = settings.NASCOP_PASSWORD
 		self.numbers_to_facilities_list = self.query_ccc_numbers_to_facilities()
 		# divide the data into 5 chunks.
-		self.five_chunks = self.chunk_it(numbers_to_facilities_list, 5)
+		self.seven_chunks = self.chunk_it(numbers_to_facilities_list, 7)
 	
 	def query_ccc_numbers_to_facilities(self):
 		with connection.cursor() as c:
@@ -101,7 +101,7 @@ class UpdateViralLoad(object):
 			return ''.join([i for i in string if i.isdigit()])
 
 	def loop_through_data(self):
-		chunks = self.five_chunks
+		chunks = self.seven_chunks
 		try:
 			for chunk in chunks:
 				api_token = self.generate_token()
