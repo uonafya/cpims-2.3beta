@@ -9853,99 +9853,102 @@ def new_hivscreeningtool(request, id):
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
     if request.method == 'POST':
-        try:
-            msg=''
-            person = RegPerson.objects.get(id=id)
-            event_date = request.POST.get('HIV_MGMT_2_A')
-            event_type_id = 'HIV_MGMT'
-            child = RegPerson.objects.get(id=id)
-            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+        # try:
+        msg=''
+        person = RegPerson.objects.get(id=id)
+        event_date = request.POST.get('HIV_MGMT_2_A')
+        event_type_id = 'HIV_MGMT'
+        child = RegPerson.objects.get(id=id)
+        house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
 
-            event_counter = OVCCareEvents.objects.filter(
-                event_type_id=event_type_id, person=id, is_void=False).count()
-            # save event
-            ovccareevent = OVCCareEvents.objects.create(
-                event_type_id=event_type_id,
-                event_counter=event_counter,
-                event_score=0,
-                created_by=request.user.id,
-                person=RegPerson.objects.get(pk=int(id)),
-                house_hold=house_hold
-            )
+        event_counter = OVCCareEvents.objects.filter(
+            event_type_id=event_type_id, person=id, is_void=False).count()
+        # save event
+        ovccareevent = OVCCareEvents.objects.create(
+            event_type_id=event_type_id,
+            event_counter=event_counter,
+            event_score=0,
+            created_by=request.user.id,
+            person=RegPerson.objects.get(pk=int(id)),
+            house_hold=house_hold
+        )
 
-            _HIV_MGMT_1_E=False
-            _HIV_MGMT_1_F = False
-            _HIV_MGMT_1_G = False
-            if(request.POST.get('HIV_MGMT_1_E')):
-                _HIV_MGMT_1_E=request.POST.get('HIV_MGMT_1_E')
-            if (request.POST.get('HIV_MGMT_1_F')):
-                _HIV_MGMT_1_F = request.POST.get('HIV_MGMT_1_F')
-            if (request.POST.get('HIV_MGMT_1_G')):
-                _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
+        _HIV_MGMT_1_E=False
+        _HIV_MGMT_1_F = False
+        _HIV_MGMT_1_G = False
+        if(request.POST.get('HIV_MGMT_1_E')):
+            _HIV_MGMT_1_E=request.POST.get('HIV_MGMT_1_E')
+        if (request.POST.get('HIV_MGMT_1_F')):
+            _HIV_MGMT_1_F = request.POST.get('HIV_MGMT_1_F')
+        if (request.POST.get('HIV_MGMT_1_G')):
+            _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
 
-            _HIV_MGMT_2_O_1=False
-            if(request.POST.get('HIV_MGMT_2_O_1')):
-                _HIV_MGMT_2_O_1=request.POST.get('HIV_MGMT_2_O_1')
+        _HIV_MGMT_2_O_1=False
+        if(request.POST.get('HIV_MGMT_2_O_1')):
+            _HIV_MGMT_2_O_1=request.POST.get('HIV_MGMT_2_O_1')
 
-            _HIV_MGMT_1_E_DATE="1900-01-01"
-            _HIV_MGMT_1_F_DATE = "1900-01-01"
-            _HIV_MGMT_1_G_DATE = "1900-01-01"
-            if(request.POST.get('HIV_MGMT_1_E_DATE')):
-                _HIV_MGMT_1_E_DATE=request.POST.get('HIV_MGMT_1_E_DATE')
-            if (request.POST.get('HIV_MGMT_1_F_DATE')):
-                _HIV_MGMT_1_F_DATE = request.POST.get('HIV_MGMT_1_F_DATE')
-            if (request.POST.get('HIV_MGMT_1_G_DATE')):
-                _HIV_MGMT_1_G_DATE = request.POST.get('HIV_MGMT_1_G_DATE')
+        _HIV_MGMT_1_E_DATE ="1900-01-01"
+        _HIV_MGMT_1_F_DATE = "1900-01-01"
+        _HIV_MGMT_1_G_DATE = "1900-01-01"
 
-            new_pk = ovccareevent.pk
-            qry = OVCHIVManagement(
-                person=person,
-                hiv_confirmed_date=request.POST.get('HIV_MGMT_1_A'),
-                baseline_hei=request.POST.get('HIV_MGMT_1_C'), 
-                treatment_initiated_date=request.POST.get('HIV_MGMT_1_B'),
-                firstline_start_date=request.POST.get('HIV_MGMT_1_D'),  # date
-                substitution_firstline_arv=_HIV_MGMT_1_E,
-                substitution_firstline_date=_HIV_MGMT_1_E_DATE,
-                switch_secondline_arv=_HIV_MGMT_1_F,
-                switch_secondline_date=_HIV_MGMT_1_F_DATE,
-                switch_thirdline_arv=_HIV_MGMT_1_G,
-                switch_thirdline_date=_HIV_MGMT_1_G_DATE,
-                visit_date=request.POST.get('HIV_MGMT_2_A'),
-                duration_art=request.POST.get('HIV_MGMT_2_B'),
-                height=request.POST.get('HIV_MGMT_2_C'),
-                muac=request.POST.get('HIV_MGMT_2_D'),
-                adherence=request.POST.get('HIV_MGMT_2_E'),
-                adherence_drugs_duration=request.POST.get('HIV_MGMT_2_F'),
-                adherence_counselling=request.POST.get('HIV_MGMT_2_G'),
-                treatment_suppoter=request.POST.get('HIV_MGMT_2_H_2'),
-                treatment_supporter_relationship=request.POST.get('HIV_MGMT_2_H_1'),
-                treatment_supporter_gender=request.POST.get('HIV_MGMT_2_H_3'),
-                treament_supporter_hiv=request.POST.get('HIV_MGMT_2_H_5'),
-                viral_load_results=request.POST.get('HIV_MGMT_2_I_1'),
-                viral_load_date=request.POST.get('HIV_MGMT_2_I_DATE'),
-                treatment_supporter_age=request.POST.get('HIV_MGMT_2_H_4'),                        
-                detectable_viralload_interventions=request.POST.get('HIV_MGMT_2_J'),
-                disclosure=request.POST.get('HIV_MGMT_2_K'),
-                muac_score=request.POST.get('HIV_MGMT_2_L_1'),
-                bmi=request.POST.get('HIV_MGMT_2_L_2'),
-                nutritional_support=request.POST.get('HIV_MGMT_2_M'),
-                support_group_status=request.POST.get('HIV_MGMT_2_N'),
-                nhif_enrollment=_HIV_MGMT_2_O_1,
-                nhif_status=request.POST.get('_HIV_MGMT_2_O_2'),
-                referral_services=request.POST.get('HIV_MGMT_2_P'),              
-                nextappointment_date=request.POST.get('HIV_MGMT_2_Q'),
-                peer_educator_name=request.POST.get('HIV_MGMT_2_R'),
-                peer_educator_contact=request.POST.get('HIV_MGMT_2_S'),
-                event=ovccareevent,
-                date_of_event=request.POST.get('HIV_MGMT_2_A')
-            ).save()
+        if(request.POST.get('HIV_MGMT_1_E_DATE')):
+            _HIV_MGMT_1_E_DATE=request.POST.get('HIV_MGMT_1_E_DATE')
+        if (request.POST.get('HIV_MGMT_1_F_DATE')):
+            _HIV_MGMT_1_F_DATE= request.POST.get('HIV_MGMT_1_F_DATE')
+        if (request.POST.get('HIV_MGMT_1_G_DATE')):
+            _HIV_MGMT_1_G_DATE = request.POST.get('HIV_MGMT_1_G_DATE')
 
-            msg = 'HIV management saved successfully'
-            messages.add_message(request, messages.INFO, msg)
-        except Exception, e:
-            from django.db import connection
-            msg="failed to save data",e
-            messages.add_message(request, messages.ERROR, msg)
+        new_pk = ovccareevent.pk
+        
+
+        qry = OVCHIVManagement(
+            person=person,
+            hiv_confirmed_date=request.POST.get('HIV_MGMT_1_A'),
+            baseline_hei=request.POST.get('HIV_MGMT_1_C'), 
+            treatment_initiated_date=request.POST.get('HIV_MGMT_1_B'),
+            firstline_start_date=request.POST.get('HIV_MGMT_1_D'),  # date
+            substitution_firstline_arv=_HIV_MGMT_1_E,
+            substitution_firstline_date=_HIV_MGMT_1_E_DATE,
+            switch_secondline_arv=_HIV_MGMT_1_F,
+            switch_secondline_date=_HIV_MGMT_1_F_DATE,
+            switch_thirdline_arv=_HIV_MGMT_1_G,
+            switch_thirdline_date=_HIV_MGMT_1_G_DATE,
+            visit_date=request.POST.get('HIV_MGMT_2_A'),
+            duration_art=request.POST.get('HIV_MGMT_2_B'),
+            height=request.POST.get('HIV_MGMT_2_C'),
+            muac=request.POST.get('HIV_MGMT_2_D'),
+            adherence=request.POST.get('HIV_MGMT_2_E'),
+            adherence_drugs_duration=request.POST.get('HIV_MGMT_2_F'),
+            adherence_counselling=request.POST.get('HIV_MGMT_2_G'),
+            treatment_suppoter=request.POST.get('HIV_MGMT_2_H_2'),
+            treatment_supporter_relationship=request.POST.get('HIV_MGMT_2_H_1'),
+            treatment_supporter_gender=request.POST.get('HIV_MGMT_2_H_3'),
+            treament_supporter_hiv=request.POST.get('HIV_MGMT_2_H_5'),
+            viral_load_results=request.POST.get('HIV_MGMT_2_I_1'),
+            viral_load_date=request.POST.get('HIV_MGMT_2_I_DATE'),
+            treatment_supporter_age=request.POST.get('HIV_MGMT_2_H_4'),                        
+            detectable_viralload_interventions=request.POST.get('HIV_MGMT_2_J'),
+            disclosure=request.POST.get('HIV_MGMT_2_K'),
+            muac_score=request.POST.get('HIV_MGMT_2_L_1'),
+            bmi=request.POST.get('HIV_MGMT_2_L_2'),
+            nutritional_support=request.POST.get('HIV_MGMT_2_M'),
+            support_group_status=request.POST.get('HIV_MGMT_2_N'),
+            nhif_enrollment=_HIV_MGMT_2_O_1,
+            nhif_status=request.POST.get('_HIV_MGMT_2_O_2'),
+            referral_services=request.POST.get('HIV_MGMT_2_P'),              
+            nextappointment_date=request.POST.get('HIV_MGMT_2_Q'),
+            peer_educator_name=request.POST.get('HIV_MGMT_2_R'),
+            peer_educator_contact=request.POST.get('HIV_MGMT_2_S'),
+            event=ovccareevent,
+            date_of_event=request.POST.get('HIV_MGMT_2_A')
+        ).save()
+
+        msg = 'HIV management saved successfully'
+        messages.add_message(request, messages.INFO, msg)
+        # except Exception, e:
+        #     from django.db import connection
+        #     msg="failed to save data",e
+        #     messages.add_message(request, messages.ERROR, msg)
         url = reverse('ovc_view', kwargs={'id': id})
         return HttpResponseRedirect(url)
     else:
