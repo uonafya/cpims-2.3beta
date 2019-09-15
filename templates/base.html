@@ -30,6 +30,8 @@
     {% endblock extra_styling %}
 	<!-- ================== END BASE CSS STYLE ================== -->
 	<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
+	<!-- OFFLINE -->
+	<link rel="manifest" href="{% static 'js/offline_mode/manifest.json' %}">
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
 	{% block javascript_code %}{% endblock %}
@@ -312,8 +314,87 @@
             $(".btn_ovc_view_offline").on("click", (event) => {
                 event.preventDefault();
                 TemplateUtils.showPage(TemplateUtils.viewOvcPage);
-            });
-        });
+			});
+			
+			// data
+			let thisData = {};
+			// let data = {search_name: 'felix', 
+						// search_criteria: '1'};
+
+
+			// using jQuery
+				function getCookie(name) {
+					var cookieValue = null;
+					if (document.cookie && document.cookie != '') {
+						var cookies = document.cookie.split(';');
+						for (var i = 0; i < cookies.length; i++) {
+							var cookie = jQuery.trim(cookies[i]);
+							// Does this cookie string begin with the name we want?
+							if (cookie.substring(0, name.length + 1) == (name + '=')) {
+								cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+								break;
+							}
+						}
+					}
+					return cookieValue;
+				}
+
+
+
+			$(".header").click(function(){
+				// $.ajax({
+				// 	url: "127.0.0.1:8000/ovcare/",
+				// 	type: 'POST',
+				// 	data: data,
+				// 	dataType:  'json',
+				// 	// beforeSend: function (xhr) {
+                //     // xhr.setRequestHeader('X-CSRFToken', $.cookie('csrftoken'));
+				// 	// },
+				// 	success: function(data) {
+				// 		console.log(`this is the data: ${data.data}`);
+				// 		// console.log(Object.keys(data.data));
+				// 		Object.assign(thisData, data.data);
+				// 		console.log(thisData);
+				// 	},
+				// 	error: function(e){
+				// 		console.log(`Error: ${e}`);
+				// 	}
+				// });
+
+				// Build formData object.
+				let formData = new FormData();
+				formData.append('search_name', 'felix');
+				formData.append('search_criteria', '1');
+
+				// Example POST method implementation:
+
+					postData('/offline_mode/data/')
+					.then(data => console.log(data)) // JSON-string from `response.json()` call
+					.catch(error => console.error(error));
+
+					function postData(url = '') {
+					// Default options are marked with *
+						return fetch(url, {
+							method: 'GET', // *GET, POST, PUT, DELETE, etc.
+							mode: 'cors', // no-cors, cors, *same-origin
+							cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+							credentials: 'same-origin', // include, *same-origin, omit
+							headers: {
+        						"X-CSRFToken": getCookie("csrftoken"),
+        						// "Accept": "application/json",
+        						// "Content-Type": "multipart/form-data"
+    						},
+							redirect: 'follow', // manual, *follow, error
+							referrer: 'no-referrer', // no-referrer, *client
+							// body: data, // body data type must match "Content-Type" header
+						})
+						.then(response => response.json()); // parses JSON response into native JavaScript objects 
+					}
+
+
+			});
+			
+		});
     </script>
     <!-- ================== END LAZY PAGE LEVEL JS ================== -->
 </body>
