@@ -3672,13 +3672,13 @@ WHERE cbo_id in ({cbos}) AND (vw_cpims_cparamonitroing.date_of_event BETWEEN '{s
 
 
 QUERIES['hiv_risk_screening'] = '''
-Select * from vw_cpims_cparamonitroing
+Select * from vw_cpims_hiv_risk_screening
 WHERE cbo_id in ({cbos}) AND (vw_cpims_hiv_risk_screening.date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 
 
 QUERIES['hiv_management'] = '''
-Select * from vw_cpims_cparamonitroing
+Select * from vw_cpims_hiv_management
 WHERE cbo_id in ({cbos}) AND (vw_cpims_hiv_management.date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 
