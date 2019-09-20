@@ -8963,7 +8963,9 @@ def case_plan_template(request, id):
 
         if my_request:
             caseplandata = json.loads(my_request)
+            print("kkkkkkkkkkkk",caseplandata)
             for all_data in caseplandata:
+                print("my_reason",all_data)
                 my_domain = all_data['domain']
                 my_goal = all_data['goal']
                 my_gap = all_data['gaps']
@@ -8976,12 +8978,10 @@ def case_plan_template(request, id):
                 my_date_of_caseplan = all_data['CPT_DATE_CASEPLAN']
                 my_results = all_data['results']
                 my_reason = all_data['reasons']
-                # if my_initial_caseplan=='AYES':
-                #     my_date_of_prev_evnt=my_date_of_caseplan
+                print("my_reason",all_data)
 
-                # User.objects.filter(first_name__startswith='R').values('first_name', 'last_name')
                 xyz = RegPerson.objects.filter(id=caregiver_id).values('id')
-
+                
                 for service in my_service:
                     OVCCareCasePlan(
                         domain=my_domain,
@@ -9004,10 +9004,12 @@ def case_plan_template(request, id):
                         case_plan_status='D',
                         event=ovccareevent
                     ).save()
-                msg = 'Case Plan Template saved successful'
-                messages.add_message(request, messages.INFO, msg)
-                url = reverse('ovc_view', kwargs={'id': id})
-                return HttpResponseRedirect(url)
+  
+        msg = 'Case Plan saved successfully'
+        messages.add_message(request, messages.INFO, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
+
     # get child data
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id', 'relationship_type_id']
