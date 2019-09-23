@@ -8964,7 +8964,6 @@ def case_plan_template(request, id):
         if my_request:
             caseplandata = json.loads(my_request)
             for all_data in caseplandata:
-                print("my_reason",all_data)
                 my_domain = all_data['domain']
                 my_goal = all_data['goal']
                 my_gap = all_data['gaps']
