@@ -1050,7 +1050,7 @@ def reports_ovc_rawdata(request):
         if len(results) > 0:
             status = 0
             message = "Query executed successfully."
-            if len(results) > 100000 and report_id == 12:
+            if len(results) > 30000 and report_id == 12:
                 message += " File too big to render. Please download."
                 results = []
             '''
