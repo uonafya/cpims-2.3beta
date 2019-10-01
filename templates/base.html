@@ -25,6 +25,7 @@
     <link href="{% static 'plugins/bootstrap-wizard/css/bwizard.min.css' %}" rel="stylesheet" />
     <link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
     <link href="{% static 'css/jquery.tagit.css' %}" rel="stylesheet">
+	
 	{% block style_code %}{% endblock %}
 	{% block extra_styling %}
     {% endblock extra_styling %}
@@ -32,6 +33,8 @@
 	<link href="{% static 'plugins/bootstrap-multiselect/dist/css/bootstrap-multiselect.css' %}" rel="stylesheet">
 	<!-- ================== BEGIN BASE JS ================== -->
 	<script src="{% static 'plugins/pace/pace.min.js' %}"></script>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-149126746-1"></script>
 	{% block javascript_code %}{% endblock %}
 	<!-- ================== END BASE JS ================== -->
 </head>
@@ -215,7 +218,6 @@
 	<script src="{% static 'plugins/jquery-countdown/jquery.simple.timer.js' %}"></script>
     <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
     <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
-
     <script src="{% static 'plugins/bootstrap-wizard/js/bwizard.js' %}"></script>
     <script src="{% static 'plugins/bootstrap-multiselect/dist/js/bootstrap-multiselect.js' %}"></script>
     <script src="{% static 'js/form-wizards.js' %}"></script>
@@ -278,6 +280,14 @@
     <script src="{% static 'js/base64.js' %}"></script>
     <script src="{% static 'js/offline_mode/service.js' %}"></script>
     <script src="{% static 'js/offline_mode/templates_events.js' %}"></script>
+    <!-- Gtag script	 -->
+    <script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-149126746-1');
+    </script>
     <script>
         $(document).ready(function() {
             // Todo - handle hard reloaded
