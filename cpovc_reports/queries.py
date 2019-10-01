@@ -2898,7 +2898,7 @@ LEFT OUTER JOIN ovc_school ON ovc_care_education.school_id=ovc_school.id
 LEFT OUTER JOIN ovc_household_members ON ovc_registration.caretaker_id=ovc_household_members.person_id
 LEFT OUTER JOIN reg_persons_external_ids as exids on exids.person_id=ovc_registration.person_id and exids.identifier_type_id = 'ISOV'
 LEFT OUTER JOIN reg_persons_external_ids as exidd on exidd.person_id=ovc_registration.person_id and exidd.identifier_type_id = 'IPWD'
-WHERE reg_org_unit.id in ({cbos}) AND ovc_registration.person_id NOT IN
+WHERE reg_org_unit.id in ({cbos}) AND ovc_registraion.is_active= TRUE AND ovc_registration.person_id NOT IN
 (
 SELECT DISTINCT ovc_care_events.person_id
 FROM  (SELECT area_id, area_name, area_code, parent_area_id
