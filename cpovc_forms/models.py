@@ -1116,9 +1116,6 @@ class OVCCareQuestions(models.Model):
     class Meta:
         db_table = 'ovc_care_questions'
 
-    def __unicode__(self):
-        return str(self.question_id)
-
 
 class OVCHIVRiskScreening(models.Model):
     risk_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
