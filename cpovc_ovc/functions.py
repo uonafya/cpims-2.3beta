@@ -1,10 +1,16 @@
 """OVC common methods."""
+import requests
+import json
+import schedule
+import time
 from datetime import datetime
 from django.utils import timezone
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.db.models import Q
 from django.db import connection
+from django.db import IntegrityError, transaction
 from .models import (
     OVCRegistration, OVCHouseHold, OVCHHMembers, OVCHealth, OVCEligibility,
     OVCFacility, OVCSchool, OVCEducation, OVCExit, OVCViralload)
@@ -630,3 +636,16 @@ def save_viral_load(request):
         raise e
     else:
         pass
+
+
+def method_once(method):
+    "A decorator that runs a method only once."
+    attrname = "_%s_once_result" % id(method)
+    def decorated(self, *args, **kwargs):
+        try:
+            return getattr(self, attrname)
+        except AttributeError:
+            setattr(self, attrname, method(self, *args, **kwargs))
+            return getattr(self, attrname)
+    return decorated
+
