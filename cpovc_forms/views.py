@@ -9395,7 +9395,7 @@ def new_wellbeing(request, id):
 
         entity_values = []
         for key in request.POST:
-            if (str(key) != "safeanswer" and str(key) != "schooledanswer" and "WB_SCH_39" not in str(key)  and "WB_SCH_40" not in str(key) and "WB_SCH_41" not in str(key)  and "WB_SCH_42" not in str(key) and "WB_SCH_43" not in str(key) and "WB_SCH_44" not in str(key) and "WB_SCH_45" not in str(key) and "WB_SAF_37" not in str(key) and "WB_SAF_38" not in str(key) and "WB_SAF_39" not in str(key) and "WB_SAF_40" not in str(key) and "WB_HEL_17_2" not in str(key) and "WB_GEN_11" not in str(key) and "WB_GEN_13" not in str(key) and "WB_GEN_15" not in str(key) and "WB_GEN_14" not in str(key) and "WB_GEN_16" not in str(key) and "caretaker_id" not in str(key)):
+            if (str(key) != "safeanswer" and str(key) != "schooledanswer" and "WB_SCH_39" not in str(key)  and "WB_SCH_40" not in str(key) and "WB_SCH_41" not in str(key)  and "WB_SCH_42" not in str(key) and "WB_SAF_31_1" not in str(key) and "WB_SCH_43" not in str(key) and "WB_SCH_44" not in str(key) and "WB_SCH_45" not in str(key) and "WB_SAF_37" not in str(key) and "WB_SAF_38" not in str(key) and "WB_SAF_39" not in str(key) and "WB_SAF_40" not in str(key) and "WB_HEL_17_2" not in str(key) and "WB_GEN_11" not in str(key) and "WB_GEN_13" not in str(key) and "WB_GEN_15" not in str(key) and "WB_GEN_14" not in str(key) and "WB_GEN_16" not in str(key) and "caretaker_id" not in str(key)):
 
                 if (key in ignore_request_values):
                     continue
