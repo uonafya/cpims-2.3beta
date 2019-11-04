@@ -19,6 +19,7 @@ RPTS[52] = 'PEPFAR'
 RPTS[53] = 'KPI'
 RPTS[54] = 'DATIM MER V2.2'
 RPTS[55] = 'DATIM MER V2.3'
+RPTS[56] = 'DATIM MER V2.4'
 # Report Names
 ORPTS = {}
 ORPTS[1] = 'Registration list'
@@ -55,3 +56,4 @@ ORPTS[52] = 'PEPFAR'
 ORPTS[53] = 'KPI'
 ORPTS[54] = 'DATIM MER V2.2'
 ORPTS[55] = 'DATIM MER V2.3'
+ORPTS[56] = 'DATIM MER V2.4'
