@@ -232,30 +232,35 @@
                                                                     </td>
 
                                                                     <td>
-                                                                        Name:<label style="display: block"
+                                                                        <b>Name</b>: <label
                                                                             for="care-name">{{ovcreg.caretaker.first_name}}
                                                                             {{ovcreg.caretaker.other_names}}
                                                                             {{ovcreg.caretaker.surname}}
                                                                         </label>
-                                                                        Phone:<label style="display: block"
+                                                                    </br>
+                                                                        <b>Phone</b>: <label 
                                                                             for="care-name">{{ovcreg.caretaker.des_phone_number}}</label>
-                                                                        Physical:<label style="display: block"
+                                                                    </br>
+                                                                        <b> Address </b>: <label 
                                                                             for="care-name">slip
                                                                             road</label>
-                                                                        Date of Birth:<label style="display: block"
-                                                                            for="care-age">
-                                                                            {{ovcreg.caretaker.date_of_birth}}</label>
+                                                                
                                                                     </td>
                                                                     <td>
-                                                                        Age:<label style="display: block"
+                                                                            <b>Date of Birth </b>: <label
+                                                                            for="care-age">
+                                                                            {{ovcreg.caretaker.date_of_birth}}</label> </br>
+                                                                        <b>Age</b>: <label
                                                                             for="care-age">
                                                                             {{ovcreg.caretaker.date_of_birth|gen_age}}
 
                                                                         </label>
-                                                                        Gender:<label style="display: block"
+                                                                    </br>
+                                                                    <b>Gender</b>: <label
                                                                             for="care-name">{{person_sex_type}}</label>
-                                                                        What is your marital status:<label
-                                                                            style="display: block"
+                                                                </br>
+                                                                        <b>What is your marital status?</b>:<label
+                                                
                                                                             for="care-name">Single</label>
                                                                     </td>
                                                                 </tr>
@@ -266,19 +271,12 @@
 
                                                                     <td colspan="2">
                                                                         <table class="table table-bordered">
-                                                                            <th>County</th>
-                                                                            <th>Sub-county</th>
-                                                                            <th>Ward</th>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td><b>County:</b></td>
-                                                                                    <td>{{ county.area_name }}</td>
-                                                                                    <td><b>Sub County:</b></td>
-                                                                                    <td>{{subcounty.area_name}}</td>
-                                                                                    <td><b>Ward:</b></td>
-                                                                                    <td>{{ward.area_name}}</td>
-                                                                                </tr>
-                                                                            </tbody>
+                                                                          
+                                                                                   <b>County: </b>
+                                                                                   {{ county.area_name }}<br><b>Sub County:</b>
+                                                                                   {{subcounty.area_name}} <br>
+                                                                                    <b>Ward:</b>
+                                                                                    {{ward.area_name}}
                                                                         </table>
                                                                     </td>
 
