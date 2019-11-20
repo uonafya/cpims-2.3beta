@@ -21,7 +21,7 @@ cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER')
 
 cpims_debug = eval(os.environ.get('CPIMS_DEBUG')) if os.environ.get('CPIMS_DEBUG') else True
 
-DEBUG = True
+DEBUG = cpims_debug
 
 INSTALLED_APPS = (
     'django.contrib.admin',
