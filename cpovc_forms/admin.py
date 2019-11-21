@@ -1,11 +1,18 @@
 from django.contrib import admin
-from .models import OVCCareQuestions
+from .models import OVCCareQuestions, OVCCareForms
 
 
 # Register your models here.
-class OVCCareQuestionsAdmin(admin.ModelAdmin):
-    list_display = ('code', 'question', 'question_type', 'domain', 'question_text', 'is_void')
-    search_fields = ['code', 'question', 'domain', 'question_type']
+class OVCCareFormsInline(admin.TabularInline):
+    model = OVCCareQuestions
 
 
-admin.site.register(OVCCareQuestions, OVCCareQuestionsAdmin)
+class FormAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description', 'is_void', 'timestamp_created', 'timestamp_updated')
+    search_fields = ('name',)
+    inlines = [
+        OVCCareFormsInline
+    ]
+
+
+admin.site.register(OVCCareForms, FormAdmin)
