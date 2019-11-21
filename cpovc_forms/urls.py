@@ -270,5 +270,8 @@ urlpatterns = patterns(
     # Dreams SerivceUptake Form
     url(r'^dreamsform/new/(?P<id>\d+)/$',
         'new_dreamsform', name='new_dreamsform'),
+        
+    url(r'^dreamsformupdated/new/(?P<id>\d+)/$',
+        'new_dreamsformupdated', name='new_dreamsformupdated'),
 
 )
