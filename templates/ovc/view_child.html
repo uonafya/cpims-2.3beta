@@ -338,10 +338,12 @@ Caregiver details | {{care_giver}}
                             <button type="button" class="btn btn-primary" {% if child_hiv_status != 'HSTP' %}disabled{% endif %}> <i class="fa fa-list-alt"></i> HIV Management Form</button>
                         </a>
 
-                        <a href="{% url 'new_dreamsformupdated' id=creg.person_id%}">
+                        <a href="{% url 'new_dreamsform' id=creg.person_id%}">
                                 <button type="button" class="btn btn-primary"> <i class="fa .fa-th-list"></i> DREAMS Service Uptake Form</button>
                         </a>
-
+                        <a href="{% url 'new_dreamsformupdated' id=creg.person_id%}">
+                                <button type="button" class="btn btn-primary"> <i class="fa .fa-th-list"></i> DREAMS Update</button>
+                        </a>
                         {% endif %}
                     <p></p>
                     </center>
