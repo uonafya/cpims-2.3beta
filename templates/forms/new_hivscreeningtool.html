@@ -507,31 +507,46 @@
 <script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
 
 
-<!-- Skip logic -->
+<!-- Skip logic this doesn't work. working code below -->
 {% if data.date_of_birth|gen_age > 15 %}
     <script>
         $(document).ready(function () {
-            $('.under_15').find('input').addClass('skip_this').attr('disabled', true);
-            $('.under_15').find('label').addClass('skip_this_label');
-            disableSection('section_a');
-            var t_age = $('#the_age').val();
-            if(t_age > 15){
-                disableSection('section_a')
-            }else{
-                disableSection('section_b')
-            }
+            // $('.under_15').find('input').addClass('skip_this').attr('disabled', true);
+            // $('.under_15').find('label').addClass('skip_this_label');
+            // disableSection('section_a');
+            // if(t_age > 15){
+            //     disableSection('section_a')
+            // }else{
+            //     disableSection('section_b')
+            // }
         });
     </script>
 {% else %}
     <script>
         $(document).ready(function () {
-            $('.over_15').find('input').addClass('skip_this').attr('disabled', true);
-            $('.over_15').find('label').addClass('skip_this_label');
-            disableSection('section_b');
+            // $('.over_15').find('input').addClass('skip_this').attr('disabled', true);
+            // $('.over_15').find('label').addClass('skip_this_label');
+            // disableSection('section_b');
         });
     </script>
 {% endif %}
-    <!-- Skip logic -->
+    <!-- Skip logic this doesn't work. working code below -->
+
+
+<!-- Working skip logic code based on age (esp tab 2) -->
+<script>
+    $(document).ready(function () {
+        var t_age = $('#the_age').val();
+        if(t_age > 15){
+            // alert("over "+t_age)
+            disableSection('section_a')
+        }else{
+            // alert("under "+t_age)
+            disableSection('section_b')
+        }
+    });
+</script>
+<!-- Working skip logic code based on age (esp tab 2) -->
 
 
 <script>
