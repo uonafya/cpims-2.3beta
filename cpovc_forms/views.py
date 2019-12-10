@@ -9902,6 +9902,7 @@ def new_hivmanagementform(request, id):
 
         new_pk = ovccareevent.pk
         
+        print( 'Hey'+request.POST.get('HIV_MGMT_2_A'))
 
         qry = OVCHIVManagement(
             person=person,

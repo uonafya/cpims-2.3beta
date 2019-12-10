@@ -134,6 +134,9 @@ olmis_ha29_list = get_list('olmis_ha29_id', 'Please Select')
 olmis_ha30_list = get_list('olmis_ha30_id', 'Please Select')
 olmis_ha31_list = get_list('olmis_ha31_id', 'Please Select')
 
+#----------------------------------DreamsUpdated-------------------------------------~
+Dreams_domain_list = get_list('olmis_dreams_service_id_', 'Please Select')
+
 
 #wellbeing
 YESNO_CHOICES_REFUSE = (('AYES', 'Yes'), ('ANNO', 'No'), ('AREFUSE', 'Refuse'))
@@ -6910,6 +6913,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_B',
                'id': 'HIV_MGMT_1_B',
                'autocomplete': "off",
+               'data-parsley-required': "true"
             #    'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
         }))
