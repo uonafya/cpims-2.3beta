@@ -6910,7 +6910,7 @@ class HIV_MANAGEMENT_ARV_THERAPY_FORM(forms.Form):
                'name': 'HIV_MGMT_1_B',
                'id': 'HIV_MGMT_1_B',
                'autocomplete': "off",
-            #    'data-parsley-required': "true",
+              'data-parsley-required': "true",
             #    'data-parsley-group': 'group0'
         }))
 
