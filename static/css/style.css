@@ -6525,4 +6525,67 @@ td:focus{
 /*DanChanges*/
 
 
+/* <<custom didebar ui improvements */
+.page-container a{
+    font-weight: bold;
+    font-size: 1.15em;
+}
+.page-container .sidebar ul.nav li{
+    margin-bottom: 9px;
+}
+.page-container .sidebar .sub-menu > li{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+.page-container .sidebar .sub-menu > li > a{
+    font-size: 1.15em;
+    font-weight: bold;
+    color: #1f5688 !important;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.page-container .sidebar .sub-menu > li:hover > a{
+    background-color: #a9d3e4;
+}
+/* .sidebar-bg,
+.sidebar{
+    width: 240px;
+}
+.content{
+    margin-left: 240px;
+}
 
+@media (max-width: 767px){
+    .sidebar {
+        position:absolute;
+        left:-240px;
+        padding-top:0;
+    }
+    .sidebar-bg {
+        left:-240px;
+    }
+    .content{
+        padding: 14px !important;
+    }
+} */
+
+.page-with-light-sidebar .sidebar .nav > li.active > a, .page-with-light-sidebar .sidebar .nav > li.active > a:hover{
+    background-color: #1f5688;
+}
+.page-with-light-sidebar .sidebar .nav > li.active > a > i {
+    color: #a9d3e4 !important;
+}
+.content{
+    background: #e5eff9;
+}
+.page-header {
+    font-size: 26px;
+    font-weight: bolder;
+}
+h1#phead small{
+    color: #1f5688;
+    font-weight: lighter;
+}
+/* custom didebar ui improvements//>> */
