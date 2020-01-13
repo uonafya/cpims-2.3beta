@@ -128,8 +128,8 @@
 		
 		<!-- begin #content -->
 		<div id="content" class="content">
-				<div id ="internet_check" class="alert alert-info p-3">
-					<button type="button" class="close pull-right" data-dismiss="alert" aria-hidden="true">&times;</button>
+				<div id ="internet_check" class="alert alert-info p-5 fade in">
+					<span class="close pull-right" data-dismiss="alert">&times</span>
 					<p>You are now online</p >
 				</div>
 				
@@ -300,10 +300,13 @@
 
 			// hide online-offline indicator hide
 			$('#internet_check').addClass('animated fadeIn')
-			setTimeout( function() {
-				// $('#internet_check').addClass('animated fadeOutUp')
-				setTimeout( function() { $('#internet_check').hide() } , 1000) }
-			, 5000);
+			// setTimeout( 
+			// 	function() {
+			// 		$('#internet_check i.close').trigger('click')
+			// 		// $('#internet_check').addClass('animated fadeOutUp')
+			// 		// setTimeout( function() { $('#internet_check').hide() } , 1000)
+			// 	}
+			// , 5000);
 			// hide online-offline indicator hide
 
             // Todo - handle hard reloaded

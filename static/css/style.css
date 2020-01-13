@@ -6586,7 +6586,7 @@ td:focus{
     font-size: 26px;
     font-weight: bolder;
 }
-h1#phead small{
+.page-header small{
     color: #1f5688;
     font-weight: lighter;
 }
@@ -6638,14 +6638,6 @@ select:hover, select:focus{
     font-size: 0.9em !important;
     font-weight: bold !important;
 }
-/* .table thead tr,
-.table thead tr th:first-of-type{
-    border-top-left-radius: 5px !important;
-}
-.table thead tr,
-.table thead tr th:last-of-type{
-    border-top-right-radius: 5px !important;
-} */
 .table tr:first-of-type th:first-of-type,
 .table tr:first-of-type td:first-of-type{
     border-top-left-radius: 5px !important;
@@ -6664,5 +6656,39 @@ select:hover, select:focus{
 .table thead{
     background-color: #a9d3e4 !important;
 }
-
+.table:not(.table-profile):not(.table-hover) tbody tr td{
+    border-bottom: 1px solid #effaff !important;
+}
 /* Tables */
+
+
+/* OVC View improvements */
+.table:not(.table-profile){
+    -webkit-box-shadow: 0px 0px 7px 0px rgba(186,186,186,1);
+    -moz-box-shadow: 0px 0px 7px 0px rgba(186,186,186,1);
+    box-shadow: 0px 0px 7px 0px rgba(186,186,186,1);
+}
+.table.table-profile > tbody > tr > td.field:after{
+    content: ': ';
+}
+.table.table-profile > tbody > tr > td:not(.field){
+    font-weight: 600;
+    font-size: 15px;
+    color: #1f5688 !important;
+}
+.panel-inverse > .panel-heading {
+    color: #1f5688 !important;
+    background-color: #bcdce9;
+    /* color: #a9d3e4; */
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.panel-heading-btn{
+    display: none;
+}
+.bwizard-steps li.active, .bwizard-steps li.active:hover, .bwizard-steps li.active:focus{
+    background-color: #1f5688 !important;
+    color: #d3eaf3;
+}
+/* OVC View improvements */
