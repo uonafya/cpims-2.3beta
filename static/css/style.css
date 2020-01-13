@@ -7,19 +7,20 @@
 body {
     background: #d9e0e7;
     font-size: 12px;
-    font-family: 'Open Sans', "Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: #707478;
+    font-family: 'Public Sans','Open Sans',"Helvetica Neue",Helvetica,Arial,sans-serif;
+    /* color: #707478; */
+    color: #30303f;
 }
 .ie8 body {
     font-family: Arial,sans-serif;
 }
 h1, h2, h3, h4, h5, h6{
-    font-weight: 500;
+    font-weight: 600;
     color: #242a30;
 }
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
     font-size: 60%;
-    font-weight: 300;
+    font-weight: 400;
     color: #7c7f83;
 }
 a {
@@ -974,6 +975,7 @@ legend {
 .alert {
     /* border: none; */
     border: 1px solid;
+    font-size: 14px !important;
 }
 .alert.alert-success {
     /* background: #7cdda7; */
@@ -999,7 +1001,7 @@ legend {
     background-color: #fff3cd;
     border-color: #ffeeba;
 }
-.alert.alert-warning *:first-child:before{
+/* .alert.alert-warning *:first-child:before{
     content: '\26A0';
     font-size: 2em;
     color: #917010;
@@ -1030,7 +1032,7 @@ legend {
     display: inline-block;
     margin-right: 3px;
     vertical-align: middle;
-}
+} */
 
 
 /* 3.5 Component - Note Setting */
@@ -1975,7 +1977,7 @@ legend {
 .table > thead > tr > th {
     color: #242a30;
     font-weight: 600;
-    border-bottom: 2px solid #e2e7eb !important;
+    /* border-bottom: 2px solid #e2e7eb !important; */
 }
 .table > thead > tr > th, 
 .table > tbody > tr > th, 
@@ -6589,3 +6591,78 @@ h1#phead small{
     font-weight: lighter;
 }
 /* custom didebar ui improvements//>> */
+
+
+/* <Dashboard improvements */
+.widget-stats .stats-info p{
+    font-weight: bold;
+}
+/* Dashboard improvements/> */
+
+/* Forms & form element improvements */
+input, 
+textarea, 
+.form-control, 
+select{
+    color: #1f5688 !important;
+    font-weight: 500 !important;
+    font-size: 14px;
+}
+input:active, input:focus, 
+textarea:active, textarea:focus, 
+select:hover, select:focus{
+    color: #111 !important;
+    border: 1px solid #1f5688 !important;
+}
+.btn{
+    font-weight: 600;
+}
+/* Forms & form element improvements */
+
+
+/* Tables */
+.table{
+    background-color: #fff;
+    border-radius: 5px !important;
+    border-collapse: separate !important;
+    overflow: hidden !important;
+}
+.table, .table * {
+    border: 0px solid transparent !important;
+}
+.table tbody{
+    overflow: inherit !important;
+}
+.table thead tr th{
+    text-transform: uppercase !important;
+    font-size: 0.9em !important;
+    font-weight: bold !important;
+}
+/* .table thead tr,
+.table thead tr th:first-of-type{
+    border-top-left-radius: 5px !important;
+}
+.table thead tr,
+.table thead tr th:last-of-type{
+    border-top-right-radius: 5px !important;
+} */
+.table tr:first-of-type th:first-of-type,
+.table tr:first-of-type td:first-of-type{
+    border-top-left-radius: 5px !important;
+}
+.table tr:first-of-type th:last-of-type,
+.table tr:first-of-type td:last-of-type{
+    border-top-right-radius: 5px !important;
+}
+
+.table tr:last-of-type td:first-of-type{
+    border-bottom-left-radius: 5px !important;
+}
+.table tr:last-of-type td:last-of-type{
+    border-bottom-right-radius: 5px !important;
+}
+.table thead{
+    background-color: #a9d3e4 !important;
+}
+
+/* Tables */
