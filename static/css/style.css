@@ -6627,6 +6627,11 @@ select:hover, select:focus{
     border-collapse: separate !important;
     overflow: hidden !important;
 }
+@media(max-width: 767px){
+    .table{
+        overflow: auto !important;
+    }
+}
 .table, .table * {
     border: 0px solid transparent !important;
 }
@@ -6656,7 +6661,7 @@ select:hover, select:focus{
 .table thead{
     background-color: #a9d3e4 !important;
 }
-.table:not(.table-profile):not(.table-hover) tbody tr td{
+.table:not(.table-profile):not(.table-striped) tbody tr td{
     border-bottom: 1px solid #effaff !important;
 }
 /* Tables */
@@ -6692,3 +6697,74 @@ select:hover, select:focus{
     color: #d3eaf3;
 }
 /* OVC View improvements */
+
+
+/* Responsive Profile views improvements */
+@media screen and (max-width: 767px){
+    .table.table-profile {
+        overflow-x: hidden;
+    }
+    .table.table-profile thead{
+        visibility: hidden;
+    }
+    .table.table-profile tbody tr{
+        width: 100%;
+        display: block;
+        border-bottom: 1px solid #eef !important;
+    }
+    .table.table-profile tbody tr td.field{
+        max-width: 50% !important;
+        text-align: left;
+    }
+    .table.table-profile tbody tr td{
+        max-width: 50% !important;
+        width: 45%;
+        display: inline-block;
+    }
+
+    
+}
+/* Responsive Profile views improvements */
+
+
+/* other tables responsiveness improvements */
+    /* .table:not(.table-profile) {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    .table:not(.table-profile) tbody tr{
+        display: block;
+        max-width: 100%;
+    }
+    .table:not(.table-profile) tbody tr td {
+        display: block !important;
+        width: 45% !important;
+    } */
+/* other tables responsiveness improvements */
+
+
+/* Mobile Nav improvements */
+@media screen and (max-width: 767px){
+    .navbar-header{
+        width: 90% !important;
+        display: inline-block !important;
+    }
+    ul.nav.navbar-nav.navbar-right{
+        width: 10% !important;
+        display: inline-block !important;
+
+    }
+    .dropdown.navbar-user a.dropdown-toggle{
+        /* padding: 8px; */
+    }
+    .dropdown.navbar-user a.dropdown-toggle b.caret{
+        display: none;
+    }
+    .navbar-nav.navbar-right .open .dropdown-menu{
+        right: 10px !important;
+    }
+    .navbar-toggle{
+        margin-right: 0px !important;
+    }
+}
+/* Mobile Nav improvements */
