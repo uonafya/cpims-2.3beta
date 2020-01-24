@@ -1403,7 +1403,7 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
 
     inner_sql_suffix='''
         group by person_id,
-                cbo, ward, county, cboid, countyid,gender 
+                cbo, ward, county, cbo_id, countyid,gender 
     '''
 
     outer_sql_suffix='''
@@ -1416,7 +1416,7 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
         yr=currentYear+1
         period_span='APR '+str(currentYear)+'/'+str(yr)
         base_sql = '''    
-                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cbo_id, countyid from vw_cpims_services  
                 where date_of_event between 'oct-01-{}' and 'Sept-30-{}' 
                 '''.format(
             period_span,currentYear,yr)
@@ -1424,7 +1424,7 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
         yr=currentYear-1
         period_span = 'APR '+str(yr) + '/' + str(currentYear)
         base_sql = '''   
-                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cbo_id, countyid from vw_cpims_services  
                 where date_of_event between 'oct-01-{}' and 'Sept-30-{}' 
          '''.format(
             period_span, yr,currentYear)
@@ -1441,7 +1441,7 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
             end_year=currentYear+1
         period_span = str(start_year) + '/' + str(end_year)
         base_sql = '''    
-                        select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                        select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cbo_id, countyid from vw_cpims_services  
                 where date_of_event between 'oct-01-{}' and 'mar-31-{}' 
                         '''.format(
             period_span, start_year, end_year)
@@ -1449,7 +1449,7 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
     elif(period_typ=='semi' and (currentMonth>=3 and currentMonth<=9)):
         period_span = str(currentYear)
         base_sql = '''    
-                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cboid, countyid from vw_cpims_services  
+                select count(DISTINCT domain)::integer AS services,'{}' as time_period, person_id,gender,cbo, ward, county, cbo_id, countyid from vw_cpims_services  
                 where date_of_event between 'apr-01-{}' and 'sep-30-{}'
                         '''.format(
             period_span, currentYear, currentYear)
@@ -1483,7 +1483,7 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
             if (funding_part_id == '0'):  # usaid
 
                 base_sql=base_sql  + '''
-                             and cboid in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
+                             and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id  
                                                            in('9d40cb90-23ce-447c-969f-3888b96cdf16','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1','7f52a9eb-d528-4f69-9a7e-c3577dcf3ac1',
                                                'bcc9e119-388f-4840-93b3-1ee7e07d3ffa','bcc9e119-388f-4840-93b3-1ee7e07d3ffa','8949ab03-a430-44d0-a94c-4457118b9485'
                                                )) '''
@@ -1491,12 +1491,12 @@ def _get_ovc_served_stats(level='national', area_id='',funding_partner='',fundin
         if (funding_partner == 'cluster'):
 
             base_sql=base_sql + '''
-                                         and cboid in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
+                                         and cbo_id in (select cbo_id from  public.ovc_cluster_cbo  where cluster_id = '{}' 
                                                )  '''.format(funding_part_id)
         if (funding_partner == 'cbo_unit'):
 
             base_sql=base_sql + '''
-                                                     and cboid = '{}' '''.format(
+                                                     and cbo_id = '{}' '''.format(
                                             funding_part_id)
     else:
         base_sql="select 1"
@@ -2049,7 +2049,7 @@ def expand_benchmark_query(sql):
     while x <= 17:
         sql_internal = sql[:] # clone string to allow editing
         str1 = 'bmrk%s' % (x)
-        str2 = 'bench_mark_%s' % (x)
+        str2 = 'bench%s' % (x)
         benchmark_sum="%s" % (str2)
         household_benchmark='%s' % (str2)
         sql_internal=sql_internal% (benchmark_sum)
@@ -2207,6 +2207,8 @@ def _get_per_domain_results(level='national', area_id='', funding_partner='', fu
         sql="select 1"
 
     sql_to_run=expand_per_domain_query(sql)
+    print "the sql ====================>"
+    print sql_to_run
     rows2, desc2 = run_sql_data(None, sql_to_run)
 
     per_bechmark_results_envelop = []
@@ -2281,16 +2283,16 @@ def expand_per_domain_query(sql):
         str2 = ''
         if(x==1):#healthy
             str2=6
-            str1='''bench_mark_1+bench_mark_2+bench_mark_3+bench_mark_4+bench_mark_5+bench_mark_6'''
+            str1='''bench1+bench2+bench3+bench4+bench5+bench6'''
         elif(x==2):
             str2 = 4
-            str1='''bench_mark_7+bench_mark_8+bench_mark_9+bench_mark_10'''
+            str1='''bench7+bench8+bench8+bench10'''
         elif (x == 3):
             str2 = 5
-            str1='''bench_mark_11+bench_mark_12+bench_mark_13+bench_mark_14+bench_mark_15'''
+            str1='''bench11+bench12+bench13+bench14+bench15'''
         elif (x == 4):
             str2 = 2
-            str1='''bench_mark_16+bench_mark_17'''
+            str1='''bench16+bench17'''
 
         sql_internal=sql_internal% (str1, str2)
         sql_internal='(select count(*) as count%s from %s%s%s as t%s)'%(x,"(",sql_internal,")",x)
