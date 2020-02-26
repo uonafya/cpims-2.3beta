@@ -1704,7 +1704,7 @@ legend {
 }
 .panel-title {
     line-height: 20px;
-    font-size: 12px;
+    font-size: 13px;
 }
 .panel-title .accordion-toggle {
     margin: -10px -15px;
@@ -6543,7 +6543,7 @@ td:focus{
 }
 .page-container .sidebar .sub-menu > li > a{
     font-size: 1.15em;
-    font-weight: bold;
+    font-weight: 500;
     color: #1f5688 !important;
     margin-top: 0px;
     margin-bottom: 0px;
@@ -6640,8 +6640,10 @@ select:hover, select:focus{
 }
 .table thead tr th{
     text-transform: uppercase !important;
-    font-size: 0.9em !important;
-    font-weight: bold !important;
+    /* font-size: 0.9em !important; */
+    font-size: 13px !important;
+    color: #1f5688 !important;
+    /* font-weight: bold !important; */
 }
 .table tr:first-of-type th:first-of-type,
 .table tr:first-of-type td:first-of-type{
@@ -6693,7 +6695,8 @@ select:hover, select:focus{
     display: none;
 }
 .bwizard-steps li.active, .bwizard-steps li.active:hover, .bwizard-steps li.active:focus{
-    background-color: #1f5688 !important;
+    /* background-color: #1f5688 !important; */
+    background-color: #3a92ab !important;
     color: #d3eaf3;
 }
 /* OVC View improvements */
