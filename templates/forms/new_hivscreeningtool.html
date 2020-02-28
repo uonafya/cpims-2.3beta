@@ -558,6 +558,7 @@
 
 
 <script>
+ var t_age = $('#the_age').val();
         $( function() {
 
             $('#wizard-hivsct').bwizard();
@@ -573,7 +574,6 @@
             });
 
         } );
-
         function disableSection(section_class) {
             $('.'+section_class).find('td').css({'cursor':'no-drop'});
             $('.'+section_class).find('td','label','input','select').not('.skip_this').css({'color':'#afafaf'});
@@ -722,10 +722,16 @@
                 enableSection('section_prior');
                 enableSection('section_c');
                 $('input[name="HIV_RA_1A"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
-               
+                    if(t_age > 15){
+                        // alert("over "+t_age)
+                        disableSection('section_a')
+                    }else{
+                        // alert("under "+t_age)
+                        disableSection('section_b')
+                    }
             }
         });
-
+        
 
         
 
