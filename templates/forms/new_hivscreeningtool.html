@@ -714,13 +714,15 @@
                 disableSection('section_prior');
                 disableSection('section_c');
                 switchTab("3");
+                $('input[name="HIV_RS_01"]').attr({'required': false,'data-parsley-group': 'group0','data-parsley-required':false});
                
             }else{
-                disableSection('section_a');
-                disableSection('section_b');
-                disableSection('section_prior');
-                disableSection('section_c');
-              
+                enableSection('section_a');
+                enableSection('section_b');
+                enableSection('section_prior');
+                enableSection('section_c');
+                $('input[name="HIV_RA_1A"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
+               
             }
         });
 
