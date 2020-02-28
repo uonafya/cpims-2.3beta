@@ -629,7 +629,6 @@
 </script>
     <!-- Skip logic -->
     <script>
-        $('input[name="HIV_RS_01"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
         $('input[name="HIV_RS_01"]').change(function (e) { 
             var this_val = $(this).val();
 
@@ -714,7 +713,7 @@
                 disableSection('section_prior');
                 disableSection('section_c');
                 switchTab("3");
-                $('input[name="HIV_RS_01"]').attr({'required': false,'data-parsley-group': 'group0','data-parsley-required':false});
+                
                
             }else{
                 enableSection('section_a');
@@ -722,6 +721,7 @@
                 enableSection('section_prior');
                 enableSection('section_c');
                 $('input[name="HIV_RA_1A"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
+                $('input[name="HIV_RS_01"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
                     if(t_age > 15){
                         // alert("over "+t_age)
                         disableSection('section_a')
