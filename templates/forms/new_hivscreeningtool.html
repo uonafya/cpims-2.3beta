@@ -685,6 +685,14 @@
             }else {
                 enableSection("section_a"); enableSection("section_b"); enableSection("section_c");
                 switchTab("1");
+                if(t_age > 15){
+                        // alert("over "+t_age)
+                        disableSection('section_a')
+                    }else{
+                        // alert("under "+t_age)
+                        disableSection('section_b')
+                    }
+                
             }
         });
 
@@ -708,18 +716,12 @@
 
             // If the status is unknown administer question 1-3
             if(this_val == 'ANNO'){
-                disableSection('section_a');
-                disableSection('section_b');
-                disableSection('section_prior');
-                disableSection('section_c');
+                disableSection('section_a'); disableSection('section_b'); disableSection('section_prior'); disableSection('section_c');
                 switchTab("3");
                 
                
             }else{
-                enableSection('section_a');
-                enableSection('section_b');
-                enableSection('section_prior');
-                enableSection('section_c');
+                enableSection('section_a'); enableSection('section_b'); enableSection('section_prior'); enableSection('section_c');
                 $('input[name="HIV_RA_1A"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
                 $('input[name="HIV_RS_01"]').attr({'required': true,'data-parsley-group': 'group0','data-parsley-required':true});
                     if(t_age > 15){
