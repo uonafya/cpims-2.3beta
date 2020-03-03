@@ -4,7 +4,7 @@ import datetime
 import uuid
 from cpovc_registry.models import (RegPerson, RegOrgUnit, AppUser)
 from cpovc_main.models import (SchoolList)
-from cpovc_ovc.models import (OVCHouseHold, OVCFacility)
+from cpovc_ovc.models import (OVCHouseHold)
 
 # Create your models here.
 class OVCBursary(models.Model):
@@ -33,16 +33,16 @@ class OVCCaseRecord(models.Model):
     case_serial = models.CharField(max_length=50, default='XXXX')
     # place_of_event = models.CharField(max_length=50)
     perpetrator_status = models.CharField(max_length=20, default='PKNW')
-    perpetrator_first_name = models.CharField(max_length=50, null=True)
-    perpetrator_other_names = models.CharField(max_length=50, null=True)
-    perpetrator_surname = models.CharField(max_length=50, null=True)
+    perpetrator_first_name = models.CharField(max_length=100, null=True)
+    perpetrator_other_names = models.CharField(max_length=100, null=True)
+    perpetrator_surname = models.CharField(max_length=100, null=True)
     perpetrator_relationship_type = models.CharField(max_length=50, null=True)
     # case_nature = models.CharField(max_length=100)
     risk_level = models.CharField(max_length=50)
     date_case_opened = models.DateField(default=datetime.date.today)
-    case_reporter_first_name = models.CharField(max_length=50, null=True)
-    case_reporter_other_names = models.CharField(max_length=50, null=True)
-    case_reporter_surname = models.CharField(max_length=50, null=True)
+    case_reporter_first_name = models.CharField(max_length=100, null=True)
+    case_reporter_other_names = models.CharField(max_length=100, null=True)
+    case_reporter_surname = models.CharField(max_length=100, null=True)
     case_reporter_contacts = models.CharField(max_length=20, null=True)
     case_reporter = models.CharField(max_length=20, blank=True)
     court_name = models.CharField(max_length=200, null=True)
@@ -57,12 +57,19 @@ class OVCCaseRecord(models.Model):
     parent_case_id = models.UUIDField(null=True)
     created_by = models.IntegerField(null=True, default=404)
     person = models.ForeignKey(RegPerson)
-    case_remarks = models.CharField(max_length=1000, null=True)
+    case_remarks = models.TextField(null=True)
     date_of_summon = models.DateField(null=True)
     summon_status = models.NullBooleanField(null=True, default=None)
+    case_stage = models.IntegerField(default=0)
 
     class Meta:
         db_table = 'ovc_case_record'
+        verbose_name = 'Case Record'
+        verbose_name_plural = 'Case Records'
+
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s' % (self.case_serial)
 
 
 class OVCCaseGeo(models.Model):
@@ -85,6 +92,12 @@ class OVCCaseGeo(models.Model):
 
     class Meta:
         db_table = 'ovc_case_geo'
+        verbose_name = 'Case Geography'
+        verbose_name_plural = 'Case Geographies'
+
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s' % (str(self.case_id))
 
 
 class OVCEconomicStatus(models.Model):
@@ -186,6 +199,12 @@ class OVCCaseCategory(models.Model):
 
     class Meta:
         db_table = 'ovc_case_category'
+        verbose_name = 'Case Category'
+        verbose_name_plural = 'Case Categories'
+
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s' % (str(self.case_id))
 
 
 class OVCCaseSubCategory(models.Model):
@@ -293,24 +312,27 @@ class FormsAuditTrail(models.Model):
 class OVCPlacement(models.Model):
     placement_id = models.UUIDField(
         primary_key=True, default=uuid.uuid1, editable=False)
+    admission_number = models.CharField(max_length=50, default='XXXX/YYYY')
     residential_institution_name = models.CharField(max_length=100, blank=True)
+    residential_institution = models.ForeignKey(RegOrgUnit, blank=True)
     admission_date = models.DateField(default=timezone.now, null=True)
     admission_type = models.CharField(max_length=4, blank=True)
-    transfer_from = models.CharField(max_length=100, null=True)
+    transfer_from = models.CharField(max_length=100, null=True, blank=True)
+    transfer_from_institution = models.ForeignKey(RegOrgUnit, blank=True, related_name='ou_from', null=True)
     admission_reason = models.CharField(max_length=100, blank=True)
-    holding_period = models.IntegerField(null=True)
+    holding_period = models.IntegerField(null=True, blank=True)
     committing_period_units = models.CharField(max_length=4, null=True)
     committing_period = models.IntegerField(null=True)
-    current_residential_status = models.CharField(max_length=4)
+    current_residential_status = models.CharField(max_length=4, blank=True)
     has_court_committal_order = models.CharField(max_length=4)
-    free_for_adoption = models.CharField(null=True, max_length=4)
+    free_for_adoption = models.CharField(null=True, max_length=4, blank=True)
     court_order_number = models.CharField(null=True, max_length=20)
     court_order_issue_date = models.DateField(default=timezone.now, null=True)
     committing_court = models.CharField(max_length=100, null=True)
-    placement_notes = models.CharField(max_length=1000, null=True)
-    ob_number = models.CharField(null=True, max_length=20)
+    placement_notes = models.TextField(max_length=1000, null=True, blank=True)
+    ob_number = models.CharField(null=True, max_length=20, blank=True)
     placement_type = models.CharField(
-        max_length=10, default='Normal')  # Emergency/Normal
+        max_length=10, default='Normal', blank=True)  # Emergency/Normal
     person = models.ForeignKey(RegPerson)
     created_by = models.IntegerField(null=True, default=404)
     is_active = models.BooleanField(default=True)
@@ -510,10 +532,10 @@ class OVCDischargeFollowUp(models.Model):
         primary_key=True, default=uuid.uuid1, editable=False)
     type_of_discharge = models.CharField(max_length=20)
     date_of_discharge = models.DateField(default=timezone.now, null=True)
-    discharge_destination = models.CharField(max_length=20, null=True)
+    discharge_destination = models.CharField(max_length=20, null=True, blank=True)
     reason_of_discharge = models.CharField(max_length=1000, blank=True)
-    expected_return_date = models.DateField(null=True)
-    actual_return_date = models.DateField(null=True)
+    expected_return_date = models.DateField(null=True, blank=True)
+    actual_return_date = models.DateField(null=True, blank=True)
     discharge_comments = models.CharField(max_length=1000, blank=True)
     created_by = models.IntegerField(null=True, default=404)
     placement_id = models.ForeignKey(OVCPlacement)
@@ -620,11 +642,10 @@ class OVCFamilyCare(models.Model):
 
 class OVCCareEvents(models.Model):
     event = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
-    event_type_id = models.CharField(max_length=10)
+    event_type_id = models.CharField(max_length=4)
     event_counter = models.IntegerField(default=0)
     event_score = models.IntegerField(null=True, default=0)
     date_of_event = models.DateField(default=timezone.now)
-    date_of_previous_event = models.DateTimeField(null=True)
     created_by = models.IntegerField(null=True, default=404)
     timestamp_created = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
@@ -643,7 +664,7 @@ class OVCCareAssessment(models.Model):
     assessment_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
     domain = models.CharField(max_length=4)
     service = models.CharField(max_length=4)
-    service_status = models.CharField(max_length=7)
+    service_status = models.CharField(max_length=4)
     event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
     service_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
     is_void = models.BooleanField(default=False)
@@ -789,19 +810,19 @@ class OVCGokBursary(models.Model):
     school_type = models.CharField(max_length=5)
     school_category = models.CharField(max_length=5)
     school_enrolled = models.CharField(max_length=5)
-    school_bank = models.ForeignKey(ListBanks)
+    school_bank = models.ForeignKey(ListBanks, null=True)
     school_bank_branch = models.CharField(max_length=100)
     school_bank_account = models.CharField(max_length=50)
     school_recommend_by = models.CharField(max_length=5)
-    school_recommend_date = models.DateField()
+    school_recommend_date = models.DateField(null=True)
     chief_recommend_by = models.CharField(max_length=5)
     chief_recommend_date = models.DateField()
     chief_telephone = models.CharField(max_length=5)
     csac_approved = models.BooleanField(default=True)
-    approved_amount = models.IntegerField()
+    approved_amount = models.IntegerField(null=True)
     ssco_name = models.CharField(max_length=100)
     scco_signed = models.BooleanField(default=True)
-    scco_sign_date = models.DateField()
+    scco_sign_date = models.DateField(null=True)
     csac_chair_name = models.CharField(max_length=100)
     csac_signed = models.BooleanField(default=True)
     csac_sign_date = models.DateField()

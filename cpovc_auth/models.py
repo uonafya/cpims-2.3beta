@@ -8,6 +8,9 @@ from datetime import datetime
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
+from django.db.models.signals import post_save
+from notifications.signals import notify
+
 
 class CPOVCUserManager(BaseUserManager):
 
@@ -149,6 +152,16 @@ class CPOVCRole(Group):
 
     class Meta:
         db_table = 'auth_group_detail'
+
+
+class CPOVCProfile(models.Model):
+    user = models.ForeignKey(AppUser)
+    details = models.TextField(default="{}")
+    is_void = models.BooleanField(default=False)
+    timestamp_updated = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'auth_user_profile'
 
 
 class CPOVCUserRoleGeoOrg(models.Model):

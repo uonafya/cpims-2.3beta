@@ -25,8 +25,7 @@ class OVCAggregate(models.Model):
     county_active = models.IntegerField(null=False)
     subcounty_active = models.IntegerField(null=False)
     ward_active = models.IntegerField(null=False)
-    timestamp_created = models.DateTimeField(null=True)
-    timestamp_updated = models.DateTimeField(auto_now=True, null=True)
+    created_at = models.DateField(null=True, default=timezone.now)
 
     class Meta:
         """Override table details."""
@@ -71,7 +70,7 @@ class OVCRegistration(models.Model):
     has_bcert = models.BooleanField(null=False, default=False)
     is_disabled = models.BooleanField(null=False, default=False)
     hiv_status = models.CharField(max_length=4, null=True)
-    art_status = models.CharField(max_length=4, null=True)
+    # art_status = models.CharField(max_length=4, null=True)
     school_level = models.CharField(max_length=4, null=True)
     immunization_status = models.CharField(max_length=4, null=True)
     org_unique_id = models.CharField(max_length=15, null=True)
@@ -94,7 +93,7 @@ class OVCRegistration(models.Model):
 
     def __unicode__(self):
         """To be returned by admin actions."""
-        return str(self.person_id)
+        return self.org_unique_id
 
 
 class OVCEligibility(models.Model):
@@ -166,7 +165,7 @@ class OVCHHMembers(models.Model):
 
     def __unicode__(self):
         """To be returned by admin actions."""
-        return str(self.id)
+        return self.id
 
 
 class OVCFacility(models.Model):
@@ -200,7 +199,6 @@ class OVCHealth(models.Model):
     date_linked = models.DateField()
     ccc_number = models.CharField(max_length=20)
     created_at = models.DateTimeField(default=timezone.now)
-    timestamp_updated = models.DateTimeField(auto_now=True, null=True)
     is_void = models.BooleanField(default=False)
 
     class Meta:

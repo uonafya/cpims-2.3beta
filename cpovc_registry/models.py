@@ -284,8 +284,8 @@ class RegPersonsTypes(models.Model):
         """Override table details."""
 
         db_table = 'reg_persons_types'
-        verbose_name = 'Person Type Registry'
-        verbose_name_plural = 'Person Types Registries'
+        verbose_name = 'Person Type (Child, Caregiver, other)'
+        verbose_name_plural = 'Person Types (Child, Caregiver, other)'
 
 
 class RegPersonsGeo(models.Model):
@@ -484,7 +484,7 @@ class OVCHouseHold(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     index_child = models.ForeignKey(RegPerson, related_name='index_child')
-    members = models.CharField(max_length=200)
+    members = models.TextField()
     is_void = models.BooleanField(default=False)
     timestamp_created = models.DateTimeField(default=timezone.now)
 
