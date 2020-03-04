@@ -1,0 +1,15 @@
+<li class="media">
+<a href="{% url 'notifications:mark_as_read' notice.slug %}">
+    <div class="media-left"><i class="fa fa-envelope media-object bg-blue"></i></div>
+    <div class="media-body">
+        <h6 class="media-heading">
+        	{{ notice.actor }} 
+		    {{ notice.verb }}
+		    {% if notice.target %}
+		      of {{ notice.target }}
+		    {% endif %}
+		</h6>
+        <div class="text-muted f-s-11">{{ notice.timesince }} ago</div>
+    </div>
+</a>
+</li>
