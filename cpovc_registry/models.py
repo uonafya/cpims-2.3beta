@@ -116,11 +116,11 @@ class RegPerson(models.Model):
 
     designation = models.CharField(max_length=25, null=True)
     first_name = models.CharField(max_length=255)
-    other_names = models.CharField(max_length=255, null=True)
+    other_names = models.CharField(max_length=255, null=True, blank=True)
     surname = models.CharField(max_length=255, default=None)
     email = models.EmailField(blank=True, null=True)
     des_phone_number = models.IntegerField(null=True, blank=True, default=None)
-    date_of_birth = models.DateField(null=True)
+    date_of_birth = models.DateField(null=True, blank=True)
     date_of_death = models.DateField(null=True, blank=True, default=None)
     sex_id = models.CharField(max_length=4,
                               choices=[('SMAL', 'Male'), ('SFEM', 'Female')])
@@ -210,7 +210,7 @@ class RegBiometric(models.Model):
 
     def __unicode__(self):
         """To be returned by admin actions."""
-        return '%s %s %s' % (self.account)
+        return '%s' % (self.account)
 
 
 class RegPersonsGuardians(models.Model):
@@ -325,6 +325,10 @@ class RegPersonsExternalIds(models.Model):
         self.is_void = True
         super(RegPersonsExternalIds, self).save()
 
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s' % (self.identifier)
+
     class Meta:
         """Override table details."""
 
@@ -356,7 +360,7 @@ class RegPersonsOrgUnits(models.Model):
     person = models.ForeignKey(RegPerson)
     org_unit = models.ForeignKey(RegOrgUnit)
     date_linked = models.DateField(null=True)
-    date_delinked = models.DateField(null=True)
+    date_delinked = models.DateField(null=True, blank=True)
     primary_unit = models.BooleanField(default=False)
     reg_assistant = models.BooleanField(default=False)
     is_void = models.BooleanField(default=False)
