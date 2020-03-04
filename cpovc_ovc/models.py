@@ -66,7 +66,7 @@ class OVCRegistration(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(RegPerson, null=False)
+    person = models.ForeignKey(RegPerson, null=False, on_delete=models.CASCADE)
     registration_date = models.DateField(default=timezone.now)
     has_bcert = models.BooleanField(null=False, default=False)
     is_disabled = models.BooleanField(null=False, default=False)
@@ -75,9 +75,9 @@ class OVCRegistration(models.Model):
     school_level = models.CharField(max_length=4, null=True)
     immunization_status = models.CharField(max_length=4, null=True)
     org_unique_id = models.CharField(max_length=15, null=True)
-    caretaker = models.ForeignKey(RegPerson, null=True, related_name='ctaker')
-    child_cbo = models.ForeignKey(RegOrgUnit)
-    child_chv = models.ForeignKey(RegPerson, related_name='chv')
+    caretaker = models.ForeignKey(RegPerson, null=True, related_name='ctaker', on_delete=models.CASCADE)
+    child_cbo = models.ForeignKey(RegOrgUnit, on_delete=models.CASCADE)
+    child_chv = models.ForeignKey(RegPerson, related_name='chv', on_delete=models.CASCADE)
     exit_reason = models.CharField(max_length=4, null=True)
     # exit_org_name = models.CharField(max_length=100, null=True)
     exit_date = models.DateField(default=timezone.now, null=True)
@@ -102,7 +102,7 @@ class OVCEligibility(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(RegPerson)
+    person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
     criteria = models.CharField(max_length=5)
     created_at = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
@@ -124,7 +124,7 @@ class OVCHouseHold(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    head_person = models.ForeignKey(RegPerson)
+    head_person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
     head_identifier = models.CharField(max_length=255)
     created_at = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
@@ -146,8 +146,8 @@ class OVCHHMembers(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    house_hold = models.ForeignKey(OVCHouseHold, default=uuid.uuid4)
-    person = models.ForeignKey(RegPerson)
+    house_hold = models.ForeignKey(OVCHouseHold, default=uuid.uuid4, on_delete=models.CASCADE)
+    person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
     hh_head = models.BooleanField(default=False)
     member_type = models.CharField(max_length=4)
     member_alive = models.CharField(max_length=4, default='AYES')
@@ -172,7 +172,7 @@ class OVCHHMembers(models.Model):
 class OVCFacility(models.Model):
     """Model for OVC Care health details."""
 
-    sub_county = models.ForeignKey(SetupGeography, null=True)
+    sub_county = models.ForeignKey(SetupGeography, null=True, on_delete=models.CASCADE)
     facility_code = models.CharField(max_length=10, null=True)
     facility_name = models.CharField(max_length=200)
     is_void = models.BooleanField(default=False)
@@ -194,8 +194,8 @@ class OVCHealth(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(RegPerson)
-    facility = models.ForeignKey(OVCFacility)
+    person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
+    facility = models.ForeignKey(OVCFacility, on_delete=models.CASCADE)
     art_status = models.CharField(max_length=4)
     date_linked = models.DateField()
     ccc_number = models.CharField(max_length=20)
@@ -218,7 +218,7 @@ class OVCHealth(models.Model):
 class OVCSchool(models.Model):
     """Model for OVC Care health details."""
 
-    sub_county = models.ForeignKey(SetupGeography)
+    sub_county = models.ForeignKey(SetupGeography, on_delete=models.CASCADE)
     school_level = models.CharField(
         max_length=5, default='1',
         choices=[('SLEC', 'ECD'), ('SLPR', 'Primary'),
@@ -244,8 +244,8 @@ class OVCEducation(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(RegPerson)
-    school = models.ForeignKey(OVCSchool)
+    person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
+    school = models.ForeignKey(OVCSchool, on_delete=models.CASCADE)
     school_level = models.CharField(max_length=4)
     school_class = models.CharField(max_length=4)
     admission_type = models.CharField(max_length=4)
@@ -270,7 +270,7 @@ class OVCCluster(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     cluster_name = models.CharField(max_length=150)
-    created_by = models.ForeignKey(AppUser)
+    created_by = models.ForeignKey(AppUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
 
@@ -292,7 +292,7 @@ class OVCClusterCBO(models.Model):
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
     cluster = models.ForeignKey(OVCCluster, on_delete=models.CASCADE)
-    cbo = models.ForeignKey(RegOrgUnit)
+    cbo = models.ForeignKey(RegOrgUnit, on_delete=models.CASCADE)
     added_at = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
 
@@ -314,8 +314,8 @@ class OVCExit(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(RegPerson)
-    org_unit = models.ForeignKey(RegOrgUnit, null=True)
+    person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
+    org_unit = models.ForeignKey(RegOrgUnit, null=True, on_delete=models.CASCADE)
     org_unit_name = models.CharField(max_length=150, null=True)
     created_at = models.DateTimeField(default=timezone.now)
     is_void = models.BooleanField(default=False)
@@ -337,7 +337,7 @@ class OVCViralload(models.Model):
 
     id = models.UUIDField(
         primary_key=True, default=uuid.uuid4, editable=False)
-    person = models.ForeignKey(RegPerson)
+    person = models.ForeignKey(RegPerson, on_delete=models.CASCADE)
     viral_load = models.IntegerField(null=True)
     viral_date = models.DateField(null=True)
     created_at = models.DateTimeField(default=timezone.now)
