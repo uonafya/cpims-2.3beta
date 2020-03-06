@@ -15,3 +15,5 @@ django-import-export==1.2.0
 sentry-sdk==0.10.0
 schedule==0.6.0
 requests==2.22.0
+jsonfield==2.0.2
+django-model-utils==3.1.2
