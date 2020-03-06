@@ -1,1 +1,1 @@
-default_app_config = 'cpims.apps.RegHelpConfig'
+# default_app_config = 'cpims.apps.RegHelpConfig'
