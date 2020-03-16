@@ -1,0 +1,51 @@
+{% extends 'simple_forums/base.html' %}
+
+{% block page_title %}{{ topic.title }}{% endblock %}
+
+{% block content %}
+
+	{% if thread_list or sticky_thread_list %}
+
+		<div class="row">
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <h3 class="m-b-0">Forum Posts:</h3>
+                </div>
+                <div class="col-md-6 text-right">
+                    <div class="btn-group pull-right text-center m-t-10">
+                        {% for option in sort_options %}
+                            <a href="{{ request.url }}?sort={{ option }}{% if sort_current == option and not sort_reversed %}&rev=true{% endif %}" class="btn btn-link btn-sm m-r-10">
+                                {% if sort_current == option %}
+                                <i class="fa {% if sort_reversed %}fa-caret-down{% else %}fa-caret-up{% endif %}"></i> 
+                                {% endif %}{{ option|title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr/>
+		<table class="table">
+			<thead>
+				<tr>
+					<th colspan="8">Title</th>
+					<th colspan="2">Replies</th>
+					<th colspan="2">Last Activity</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for thread in sticky_thread_list %}
+					{% include 'simple_forums/snippets/render_thread_listing.html' %}
+				{% endfor %}
+
+				{% for thread in thread_list %}
+					{% include 'simple_forums/snippets/render_thread_listing.html' %}
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+        <div class="alert alert-warning">
+            <span>No threads found.</span>
+        </div>
+	{% endif %}
+{% endblock %}

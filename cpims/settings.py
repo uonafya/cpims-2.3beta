@@ -41,7 +41,10 @@ INSTALLED_APPS = (
     'cpovc_ovc',
     'import_export',
     'rest_framework',
-    'data_cleanup'
+    'data_cleanup',
+    # forums,
+    'adminsortable',
+    'simple_forums',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,7 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'cpovc_main.context_processors.global_settings'
+                'cpovc_main.context_processors.global_settings',
+                # forums,
+                'simple_forums.context_processors.installed_apps',
             ],
         },
     },
