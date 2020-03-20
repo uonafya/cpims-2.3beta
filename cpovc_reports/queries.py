@@ -2256,7 +2256,7 @@ County,Indicator
 QUERIES['form1a_summary'] = '''
 select count(distinct person_id), AgeRange,
 Gender,
-CBO,  Ward,County,
+CBO,  Ward,constituency,County,
 CASE domain       WHEN 'DEDU' THEN 'Schooled'
             WHEN 'DHNU' THEN 'Healthy'
             WHEN 'DPRO' THEN 'Safe'
@@ -2390,7 +2390,7 @@ vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.c
 ) AS tbl_F1ASummary
 GROUP BY AgeRange,
 Gender,
-CBO,  Ward, domain, item_description,
+CBO,  Ward,constituency, domain, item_description,
 County,Indicator;
 
 '''
