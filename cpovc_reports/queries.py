@@ -2153,11 +2153,11 @@ reg_person.sex_id, reg_org_unit.org_unit_name, reg_person.date_of_birth,
 list_geo.area_name, scc.area_name, cc.area_name, list_general.item_description
 '''
 # Form 1A summary
-QUERIES['form1a_summary'] = '''
+QUERIES['form1a_summary_b4_march20,2020'] = '''
+/*
 select count(distinct person_id), AgeRange, 
-CASE sex_id WHEN 'SMAL' THEN 'Female' ELSE 'Male' END AS Gender,
-CBO,  Ward, item_description,
-County,Indicator
+CASE sex_id WHEN 'SFEM' THEN 'Female' ELSE 'Male' END AS Gender,
+CBO,  Ward,County, item_description, Indicator
 FROM
 (--Assessments - F1A priority needs
 SELECT ovc_care_events.person_id, reg_org_unit.org_unit_name AS CBO, list_geo.area_name AS ward, list_general.item_description, 
@@ -2246,6 +2246,153 @@ GROUP BY AgeRange,
 Gender,
 CBO,  Ward, item_description,
 County,Indicator
+
+*/
+
+'''
+
+
+# Form 1A summary
+QUERIES['form1a_summary'] = '''
+select count(distinct person_id), AgeRange,
+Gender,
+CBO,  Ward,County,
+CASE domain       WHEN 'DEDU' THEN 'Schooled'
+            WHEN 'DHNU' THEN 'Healthy'
+            WHEN 'DPRO' THEN 'Safe'
+            WHEN 'DHES' THEN 'STABLE'
+            WHEN 'DSHC' THEN 'Shelter and Care' 
+            ELSE 'NULL' END, item_description, Indicator
+FROM
+(
+---Assessments
+SELECT ovc_care_events.person_id, vw_cpims_demographics.cbo AS CBO, vw_cpims_demographics.ward,vw_cpims_demographics.constituency,
+vw_cpims_demographics.County,
+ovc_care_assessment.domain,
+       list_general.item_description,
+vw_cpims_demographics.Agerange, vw_cpims_demographics.Gender,
+
+  'F1A Assessments ' || ' '  as Indicator
+FROM vw_cpims_demographics
+RIGHT OUTER JOIN ovc_care_events ON vw_cpims_demographics.person_id=ovc_care_events.person_id
+INNER JOIN ovc_care_assessment  ON ovc_care_events.event = ovc_care_assessment.event_id
+INNER JOIN reg_person ON ovc_care_events.person_id = reg_person.id
+INNER JOIN list_general ON ovc_care_assessment.service = list_general.item_id
+LEFT OUTER JOIN ovc_registration ON ovc_care_events.person_id = ovc_registration.person_id
+LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
+LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
+LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
+WHERE ovc_registration.child_cbo_id in ({cbos})
+                                        AND (ovc_care_assessment.is_void = 'False') AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '01-01-2018' AND '12-31-2019')
+GROUP BY ovc_care_events.person_id,ovc_care_assessment.domain,ovc_care_assessment.service, reg_person.date_of_birth, vw_cpims_demographics.gender,
+ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
+vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
+
+UNION
+
+---Case Plan Priorities
+SELECT ovc_care_events.person_id, vw_cpims_demographics.cbo AS CBO, vw_cpims_demographics.ward,vw_cpims_demographics.constituency,
+vw_cpims_demographics.County,
+ovc_care_case_plan.domain,
+       --list_general.item_description,
+CASE ovc_care_case_plan.priority
+
+          WHEN  'CPTP1h'  THEN  'Reffered for HIV testing(provide transport& accompany)'
+          WHEN  'CPTP2h'  THEN  'Esort for clinic appointment'
+          WHEN  'CPTP3h'  THEN  'Referred for ART re enrolment'
+          WHEN  'CPTP4h'  THEN  'Support assisted disclosure'
+          WHEN  'CPTP5h'  THEN  'Enrol in a support group'
+          WHEN  'CPTP6h'  THEN  'Link to adolescent friendly centres/ support group '
+          WHEN  'CPTP7h'  THEN  'Reffered for nutrition support '
+          WHEN  'CPTP8h'  THEN  'Escort for treatment at health facility'
+          WHEN  'CPTP9h'  THEN  'Support NHIF registration'
+          WHEN  'CPTP10h'  THEN  'Other Priorities, specify..'
+
+          WHEN  'CPTP1s'  THEN  'Refer or provide social assistance support'
+          WHEN  'CPTP2s'  THEN  'Refer for or provide support on asset growth and protection'
+          WHEN  'CPTP3s'  THEN  'Refer for or support on Income growth services'
+          WHEN  'CPTP4s'  THEN  'Others Stable Priories specify..'
+
+          WHEN  'CPTP1p'  THEN  'Caregiver mentored on child care and positive parenting skills'
+          WHEN  'CPTP2p'  THEN  'Link Child Headed Households to adult caregiver'
+          WHEN  'CPTP3p'  THEN  'Refer/ link child/adolescent for post violence care'
+          WHEN  'CPTP4p'  THEN  'Place child in a safe environment'
+          WHEN  'CPTP5p'  THEN  'Provide information to OVC on how to protect themselves from HIV, abuse including GBV'
+          WHEN  'CPTP6p'  THEN  'Provide/refer for medical attention in cases of abuse'
+          WHEN  'CPTP7p'  THEN  'Provide/ refer for legal assistance in cases of abuse'
+          WHEN  'CPTP8p'  THEN  'Provide information on child rights and responsibilities'
+          WHEN  'CPTP9p'  THEN  'Provide/ refer for legal documents (e.g, birth certificate)'
+          WHEN  'CPTP10p'  THEN  'Provide/ refer child (above 10 years) for life skills sessions'
+          WHEN  'CPTP11p'  THEN  'Provide/ refer OVC for basic counseling services '
+          WHEN  'CPTP12p'  THEN  'Promote  stimulating activities  such as play for child [below 5 yrs]'
+          WHEN  'CPTP13p'  THEN  'Provide caregiver  with information on importance of legal documents e.g. ID, title deed, death certificate'
+          WHEN  'CPTP14p'  THEN  'Sensitize caregiver  on child protection issues'
+          WHEN  'CPTP15p'  THEN  'Sentitize caregiver on positive parenting skills'
+
+          WHEN  'CPTG1p'  THEN  'Enrol back to school (including teenage mothers)'
+          WHEN  'CPTG2p'  THEN  'Monitor child to regularly attend school'
+          WHEN  'CPTG3p'  THEN  'Refer/ link child for education support (ie presidential bursary fund, CDF)'
+          WHEN  'CPTG4p'  THEN  'Provide child with counseling and enrol back to school'
+          WHEN  'CPTG5p'  THEN  'Provide scholastic materials'
+          WHEN  'CPTG6p'  THEN  'Provide/refer for sanitary pads'
+          WHEN  'CPTG7p'  THEN  'Provide school uniform'
+          WHEN  'CPTG8p'  THEN  'Vocational support for out of school OVC (<17 years)'
+          WHEN  'CPTG9p'  THEN  'Apprenticeship support for out of school OVC (15-17yrs)'
+          WHEN  'CPTG10p'  THEN  'Caregiver supports children through assistance with homework'
+          WHEN  'CPTG11p'  THEN  'Caregiver tracks childs school attendance and progress'
+          WHEN  'CPTG12p'  THEN  'Provide or refer for mentorship and life skills support'    END AS item_description,
+
+vw_cpims_demographics.Agerange, vw_cpims_demographics.Gender,
+
+  'Case Plan Priorities ' || ' '  as Indicator
+FROM vw_cpims_demographics
+RIGHT OUTER JOIN ovc_care_events ON vw_cpims_demographics.person_id=ovc_care_events.person_id
+INNER JOIN ovc_care_case_plan  ON ovc_care_events.event = ovc_care_case_plan.event_id
+INNER JOIN reg_person ON ovc_care_events.person_id = reg_person.id
+INNER JOIN list_general ON ovc_care_case_plan.domain = list_general.item_id
+LEFT OUTER JOIN ovc_registration ON ovc_care_events.person_id = ovc_registration.person_id
+LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
+LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
+LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
+WHERE ovc_registration.child_cbo_id in ({cbos})
+AND (ovc_care_case_plan.is_void = 'False') AND (ovc_care_events.event_type_id = 'CPAR') AND (ovc_care_events.date_of_event BETWEEN '01-01-2018' AND '12-31-2019')
+AND (ovc_care_case_plan.priority IS NOT NULL )
+GROUP BY ovc_care_events.person_id,ovc_care_case_plan.domain,ovc_care_case_plan.priority, reg_person.date_of_birth, vw_cpims_demographics.gender,
+ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
+vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
+
+UNION
+
+
+--- F1 A Services
+SELECT ovc_care_events.person_id, vw_cpims_demographics.cbo AS CBO, vw_cpims_demographics.ward,vw_cpims_demographics.constituency,
+vw_cpims_demographics.County,
+ovc_care_services.domain,
+       list_general.item_description,
+vw_cpims_demographics.Agerange, vw_cpims_demographics.Gender,
+
+  'F1A Services ' || ' '  as Indicator
+FROM vw_cpims_demographics
+RIGHT OUTER JOIN ovc_care_events ON vw_cpims_demographics.person_id=ovc_care_events.person_id
+INNER JOIN ovc_care_services  ON ovc_care_events.event = ovc_care_services.event_id
+INNER JOIN reg_person ON ovc_care_events.person_id = reg_person.id
+INNER JOIN list_general ON ovc_care_services.service_provided = list_general.item_id
+LEFT OUTER JOIN ovc_registration ON ovc_care_events.person_id = ovc_registration.person_id
+LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
+LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
+LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
+WHERE ovc_registration.child_cbo_id in ({cbos})
+                                        AND (ovc_care_services.is_void = 'False') AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '01-01-2018' AND '12-31-2019')
+GROUP BY ovc_care_events.person_id,ovc_care_services.domain,ovc_care_services.service_provided, reg_person.date_of_birth, vw_cpims_demographics.gender,
+ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
+vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
+
+) AS tbl_F1ASummary
+GROUP BY AgeRange,
+Gender,
+CBO,  Ward, domain, item_description,
+County,Indicator;
+
 '''
 # List of OVC Served
 QUERIES['ovc_served_list_bkup'] = '''
@@ -2932,7 +3079,7 @@ AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event 
 )
 '''
 QUERIES['cpara'] = '''
-Select * from vw_cpims_cpara
+Select * from vw_cpims_cpara_final
 WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara.date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['case_plan'] = '''
