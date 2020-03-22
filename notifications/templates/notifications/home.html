@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Notifications {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Notifications</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">System Notifications <small>Home</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin vertical-box -->
+            <div class="vertical-box">
+                <!-- begin vertical-box-column -->
+                <div class="vertical-box-column width-250">
+                    <!-- begin wrapper -->
+                    <div class="wrapper bg-silver text-center">
+                        <a href="#" class="btn btn-success p-l-40 p-r-40 btn-sm">
+                            Compose
+                        </a>
+                    </div>
+                    <!-- end wrapper -->
+                    <!-- begin wrapper -->
+                    <div class="wrapper">
+                        <p><b>FOLDERS</b></p>
+                        <ul class="nav nav-pills nav-stacked nav-sm">
+                            <li class="active"><a href="{% url 'notifications:home' %}"><i class="fa fa-inbox fa-fw m-r-5"></i> Inbox <span class="badge pull-right all_msgs">0</span></a></li>
+                            <li><a href="#"><i class="fa fa-flag fa-fw m-r-5"></i> Important</a></li>
+                            <li><a href="#"><i class="fa fa-send fa-fw m-r-5"></i> Sent</a></li>
+                            <li><a href="#"><i class="fa fa-pencil fa-fw m-r-5"></i> Drafts</a></li>
+                            <li><a href="#"><i class="fa fa-trash fa-fw m-r-5"></i> Trash</a></li>
+                        </ul>
+                        <p><b>LABEL</b></p>
+                        <ul class="nav nav-pills nav-stacked nav-sm m-b-0">
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-danger"></i> High Risk</a></li>
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-primary"></i> Medium Risk</a></li>
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-success"></i> Low Risk</a></li>
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-inverse"></i> System</a></li>                            
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-warning"></i> Other</a></li>
+                        </ul>
+                    </div>
+                    <!-- end wrapper -->
+                </div>
+                <!-- end vertical-box-column -->
+                <!-- begin vertical-box-column -->
+                <div class="vertical-box-column">
+                    <!-- begin wrapper -->
+                    <div class="wrapper bg-silver-lighter">
+                        <!-- begin btn-toolbar -->
+                        <div class="btn-toolbar">
+                            <!-- begin btn-group -->
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-white btn-sm">
+                                    <i class="fa fa-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-white btn-sm">
+                                    <i class="fa fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <!-- end btn-group -->
+                            <!-- begin btn-group -->
+                            <div class="btn-group dropdown">
+                                <button class="btn btn-white btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    View All <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu text-left text-sm">
+                                    <li class="active"><a href="#"><i class="fa fa-circle f-s-10 fa-fw m-r-5"></i> All</a></li>
+                                    <li><a href="javascript:;"><i class="fa f-s-10 fa-fw m-r-5"></i> Unread</a></li>
+                                </ul>
+                            </div>
+                            <!-- end btn-group -->
+                            <!-- begin btn-group -->
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-white" data-toggle="tooltip" data-placement="top" data-title="Refresh" data-original-title="" title=""><i class="fa fa-refresh"></i></button>
+                            </div>
+                            <!-- end btn-group -->
+                            <!-- begin btn-group -->
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-white hide" data-email-action="delete"><i class="fa fa-times m-r-3"></i> <span class="hidden-xs">Delete</span></button>
+                                <button class="btn btn-sm btn-white hide" data-email-action="archive"><i class="fa fa-folder m-r-3"></i> <span class="hidden-xs">Archive</span></button>
+                                <button class="btn btn-sm btn-white hide" data-email-action="archive"><i class="fa fa-trash m-r-3"></i> <span class="hidden-xs">Junk</span></button>
+                            </div>
+                            <!-- end btn-group -->
+                        </div>
+                        <!-- end btn-toolbar -->
+                    </div>
+                    <!-- end wrapper -->
+                    <!-- begin list-email -->
+                    <div id="email-details"></div>
+                    <!-- end list-email -->
+                    <!-- begin wrapper -->
+                    <div class="wrapper bg-silver-lighter clearfix">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-white btn-sm">
+                                <i class="fa fa-chevron-left"></i>
+                            </button>
+                            <button class="btn btn-white btn-sm">
+                                <i class="fa fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="m-t-5 total_msgs">0 messages</div>
+                    </div>
+                    <!-- end wrapper -->
+                </div>
+                <!-- end vertical-box-column -->
+            </div>
+            <!-- end vertical-box -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script type="text/javascript">
+    
+    $.get( "{% url 'notifications:live_all_notification_count' %}", function( data ) {
+      $( ".total_msgs" ).html( data.all_count + " message(s)" );
+      $( ".all_msgs" ).html( data.all_count );
+    });
+
+    $.get( "{% url 'notifications:live_all_notification_list' %}", function( data ) {
+      var vdt = '<ul class="list-group list-group-lg no-radius list-email">';
+      $.each( data.all_list, function( item, data ) {
+          vdt += '<li class="list-group-item inverse">';
+          vdt += '<div class="email-checkbox">';
+          vdt += '<label><i class="fa fa-square-o"></i><input type="checkbox" data-checked="email-checkbox" value="'+ data.slug +'"/></label>';
+          vdt += '</div>';
+          vdt += '<a href="#" class="email-user"><img src="{% static "img/user-2.jpg" %}" alt="" /></a>';
+          vdt += '<div class="email-info">';
+          vdt += '<span class="email-time">'+ data.timesince +' ago</span>';
+          vdt += '<h5 class="email-title">';
+          if (data.unread){
+               vdt += '<a href="/notifications/'+data.id+'/"><b>'+ data.verb +'</b></a>';
+          }else{
+               vdt += '<a href="/notifications/'+data.id+'/">'+ data.verb +'</a>';
+          }          
+          vdt += ' <span class="label label-inverse f-s-10"> '+ data.actor +'</span>';
+          vdt += '</h5><p class="email-desc">'+ data.description +'</p>';
+          vdt += '</div></li>';
+          //alert( data.actor );
+        });
+      vdt += '</ul>';
+      $( "#email-details" ).html( vdt );
+    });
+
+    var handleEmailActionButtonStatus = function() {
+        if ($('[data-checked=email-checkbox]:checked').length !== 0) {
+            $('[data-email-action]').removeClass('hide');
+        } else {
+            $('[data-email-action]').addClass('hide');
+        }
+    };
+
+    var handleEmailCheckboxChecked = function() {
+        $('[data-checked=email-checkbox]').live('click', function() {
+            var targetLabel = $(this).closest('label');
+            var targetEmailList = $(this).closest('li');
+            if ($(this).prop('checked')) {
+                $(targetLabel).addClass('active');
+                $(targetEmailList).addClass('selected');
+            } else {
+                $(targetLabel).removeClass('active');
+                $(targetEmailList).removeClass('selected');
+            }
+            handleEmailActionButtonStatus();
+        });
+    };
+
+    var handleEmailAction = function() {
+        $('[data-email-action]').live('click', function() {
+            var targetEmailList = '[data-checked=email-checkbox]:checked';
+            var email = $('[data-checked=email-checkbox]:checked').val();
+            
+            $.get( "/notifications/delete/"+email+"/", function( data ) {
+            });
+            if ($(targetEmailList).length !== 0) {
+                $(targetEmailList).closest('li').slideToggle(function() {
+                    $(this).remove();
+                    handleEmailActionButtonStatus();
+                });
+            }
+        });
+    };
+    handleEmailCheckboxChecked();
+    handleEmailAction();
+</script>
+
+{% endblock %}

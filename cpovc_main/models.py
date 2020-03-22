@@ -78,6 +78,20 @@ class SetupGeography(models.Model):
         return '%s - %s' % (self.area_type_id, self.area_name)
 
 
+class SetupLocation(models.Model):
+    area_id = models.IntegerField(unique=True)
+    area_name = models.CharField(max_length=100)
+    area_type_id = models.CharField(max_length=50)
+    area_code = models.CharField(max_length=10, null=True)
+    parent_id = models.IntegerField()
+
+    class Meta:
+        db_table = 'list_location'
+
+    def __unicode__(self):
+        return str(self.area_id) + '-' + self.area_name
+
+
 class SetupList(models.Model):
     """List used for drop downs and other selections."""
 

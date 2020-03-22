@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Notifications {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Notifications</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">System Notifications <small>Home</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin vertical-box -->
+        <div class="vertical-box">
+            <{% for notice in notifications %}
+			    {% include 'notifications/message.html' %}
+			{% endfor %}
+        </div>
+        <!-- end vertical-box -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script type="text/javascript">
+    
+    $.get( "{% url 'notifications:live_all_notification_count' %}", function( data ) {
+      $( ".total_msgs" ).html( data.all_count + " message(s)" );
+      $( ".all_msgs" ).html( data.all_count );
+    });
+
+    
+    $.get( "{% url 'notifications:mark_as_read' slug=notification.slug %}", function( data ) {});
+
+</script>
+
+{% endblock %}

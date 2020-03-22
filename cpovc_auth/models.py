@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
 from datetime import datetime
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+from notifications.signals import notify
 
 
 class CPOVCUserManager(BaseUserManager):
@@ -151,6 +152,16 @@ class CPOVCRole(Group):
         db_table = 'auth_group_detail'
 
 
+class CPOVCProfile(models.Model):
+    user = models.ForeignKey(AppUser)
+    details = models.TextField(default="{}")
+    is_void = models.BooleanField(default=False)
+    timestamp_updated = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        db_table = 'auth_user_profile'
+
+
 class CPOVCUserRoleGeoOrg(models.Model):
     # Put here to avoid cyclic imports because of User model
     # from cpovc_registry.models import RegPersonsGeo, RegOrgUnit
@@ -169,12 +180,32 @@ class CPOVCUserRoleGeoOrg(models.Model):
 def update_change(sender, instance, **kwargs):
     """Method to Update pwd change."""
     try:
-        obj = sender.objects.get(pk=instance.pk)
+        user = sender.objects.get(pk=instance.pk)
     except sender.DoesNotExist:
         print "User does not exist"
         pass
     else:
-        if obj.password != instance.password:
+        if user.password != instance.password:
             print "Password changed so update date."
+            import inspect
+            uname = 'Administrator'
+            for frame_record in inspect.stack():
+                if frame_record[3] == 'get_response':
+                    request = frame_record[0].f_locals['request']
+                    uname = request.user.username
+                    break
+            details = 'Your password was changed by %s' % uname
+            details += '<br/>Contact CPIMS office if you did make this'
+            details += ' request for password change.'
+            notify.send(instance, recipient=user, description=details,
+                        verb='User password changed')
         else:
             print "Password NOT changed so NO update."
+
+
+def my_handler(sender, instance, created, **kwargs):
+    user = sender.objects.get(pk=instance.pk)
+    # user = obj.reg_person
+    pwd = instance._password
+    print 'password change', pwd
+    notify.send(instance, recipient=user, verb='User account changed')

@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block page_title %} Notifications {% endblock %}
+
+{% load crispy_forms_tags %}
+
+{% block style_code %}
+
+{% endblock %}
+
+{% block primary %}
+<!-- begin breadcrumb -->
+<ol class="breadcrumb pull-right">
+	<li><a href="#">Home</a></li>
+	<li class="active">Notifications</li>
+</ol>
+<!-- end breadcrumb -->
+<!-- begin page-header -->
+<h1 class="page-header">System Notifications <small>Home</small></h1>
+<!-- end page-header -->
+<div id="messages" class="alert alert-danger fade in" style="display: none;" tabindex="1">
+    <span class="close" data-dismiss="alert">×</span>
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <span class="invalid-form-message" id="invalid-form-message"></span>
+</div>
+<!-- begin row -->
+<div class="row">
+  <!-- begin vertical-box -->
+            <div class="vertical-box">
+                <!-- begin vertical-box-column -->
+                <div class="vertical-box-column width-250">
+                    <!-- begin wrapper -->
+                    <div class="wrapper bg-silver text-center">
+                        <a href="#" class="btn btn-success p-l-40 p-r-40 btn-sm">
+                            Compose
+                        </a>
+                    </div>
+                    <!-- end wrapper -->
+                    <!-- begin wrapper -->
+                    <div class="wrapper">
+                        <p><b>FOLDERS</b></p>
+                        <ul class="nav nav-pills nav-stacked nav-sm">
+                            <li class="active"><a href="{% url 'notifications:home' %}"><i class="fa fa-inbox fa-fw m-r-5"></i> Inbox <span class="badge pull-right all_msgs">0</span></a></li>
+                            <li><a href="#"><i class="fa fa-flag fa-fw m-r-5"></i> Important</a></li>
+                            <li><a href="#"><i class="fa fa-send fa-fw m-r-5"></i> Sent</a></li>
+                            <li><a href="#"><i class="fa fa-pencil fa-fw m-r-5"></i> Drafts</a></li>
+                            <li><a href="#"><i class="fa fa-trash fa-fw m-r-5"></i> Trash</a></li>
+                        </ul>
+                        <p><b>LABEL</b></p>
+                        <ul class="nav nav-pills nav-stacked nav-sm m-b-0">
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-danger"></i> High Risk</a></li>
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-primary"></i> Medium Risk</a></li>
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-success"></i> Low Risk</a></li>
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-inverse"></i> System</a></li>                            
+                            <li><a href="#"><i class="fa fa-fw m-r-5 fa-circle text-warning"></i> Other</a></li>
+                        </ul>
+                    </div>
+                    <!-- end wrapper -->
+                </div>
+                <!-- end vertical-box-column -->
+                <!-- begin vertical-box-column -->
+                 <!-- begin vertical-box-column -->
+                <div class="vertical-box-column bg-white">
+                    <!-- begin wrapper -->
+                    <div class="wrapper bg-silver-lighter clearfix">
+                        <div class="btn-group m-r-5">
+                            <a href="{% url 'notifications:home' %}" class="btn btn-white btn-sm"><i class="fa fa-reply"></i></a>
+                        </div>
+                        <div class="btn-group m-r-5">
+                            <a href="#" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-trash"></i></a>
+                            <a href="#" class="btn btn-white btn-sm p-l-20 p-r-20"><i class="fa fa-file"></i></a>
+                        </div>
+                        <div class="pull-right">
+                            <div class="btn-group btn-toolbar">
+                                <a href="{% url 'notifications:home' %}" class="btn btn-white btn-sm disabled"><i class="fa fa-arrow-up"></i></a>
+                                <a href="#" class="btn btn-white btn-sm"><i class="fa fa-arrow-down"></i></a>
+                            </div>
+                            <div class="btn-group m-l-5">
+                                <a href="#" class="btn btn-white btn-sm"><i class="fa fa-times"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end wrapper -->
+                    <!-- begin wrapper -->
+                    <div class="wrapper">
+                        <h4 class="m-b-15 m-t-0 p-b-10 underline">{{ notification.verb }}</h4>
+                        <ul class="media-list underline m-b-20 p-b-15">
+                            <li class="media media-sm clearfix">
+                                <a href="javascript:;" class="pull-left">
+                                    <img class="media-object rounded-corner" alt="" src="{% static 'img/user-2.jpg' %}" />
+                                </a>
+                                <div class="media-body">
+                                    <span class="email-from text-inverse f-w-600">
+                                        from &lt;CPIMS&gt;
+                                        
+                                    </span><span class="text-muted m-l-5"><i class="fa fa-clock-o fa-fw"></i> {{ notification.timestamp }} ({{ notification.timesince }} ago)</span><br />
+                                    <span class="email-to">
+                                        To: {{ notification.actor }}
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                        
+                        <p class="f-s-12 text-inverse">{{ notification.description|safe }}</p>
+                        <br />
+                        <br />
+                        <p class="f-s-12 text-inverse">
+                            Best Regards,<br />
+                            Admin<br /><br />
+                            Child Protection Information Management System (CPIMS)<br />
+                        </p>
+                    </div>
+                    <!-- end wrapper -->
+                    <!-- begin wrapper -->
+                    <div class="wrapper bg-silver-lighter text-right clearfix">
+                        <div class="btn-group btn-toolbar">
+                            <a href="{% url 'notifications:home' %}" class="btn btn-white btn-sm disabled"><i class="fa fa-arrow-up"></i></a>
+                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-arrow-down"></i></a>
+                        </div>
+                        <div class="btn-group m-l-5">
+                            <a href="#" class="btn btn-white btn-sm"><i class="fa fa-times"></i></a>
+                        </div>
+                    </div>
+                    <!-- end wrapper -->
+                </div>
+                <!-- end vertical-box-column -->
+            </div>
+            <!-- end vertical-box -->
+</div>
+<!-- end row -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+<script type="text/javascript">
+    
+    $.get( "{% url 'notifications:live_all_notification_count' %}", function( data ) {
+      $( ".total_msgs" ).html( data.all_count + " message(s)" );
+      $( ".all_msgs" ).html( data.all_count );
+    });
+
+    
+    $.get( "{% url 'notifications:mark_as_read' slug=notification.slug %}", function( data ) {});
+
+</script>
+
+{% endblock %}
