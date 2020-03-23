@@ -1384,7 +1384,8 @@ legend {
 /* 3.14 Component - Button */
 
 .btn {
-    font-weight: 300;
+    /* font-weight: 300; */
+    font-weight: normal;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
