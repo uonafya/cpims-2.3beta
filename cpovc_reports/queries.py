@@ -2283,11 +2283,9 @@ LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
 LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
 LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
 WHERE ovc_registration.child_cbo_id in ({cbos})
-<<<<<<< HEAD
-                                        AND (ovc_care_assessment.is_void = 'False') AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
-=======
-                                        AND (ovc_care_assessment.is_void = 'False') AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '01-01-2018' AND '12-31-2019')
->>>>>>> 5ad69bb92aff745e11cfc88705bb0a847bd5b016
+
+AND (ovc_care_assessment.is_void = 'False') AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
+
 GROUP BY ovc_care_events.person_id,ovc_care_assessment.domain,ovc_care_assessment.service, reg_person.date_of_birth, vw_cpims_demographics.gender,
 ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
 vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
@@ -2359,11 +2357,9 @@ LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
 LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
 LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
 WHERE ovc_registration.child_cbo_id in ({cbos})
-<<<<<<< HEAD
+
 AND (ovc_care_case_plan.is_void = 'False') AND (ovc_care_events.event_type_id = 'CPAR') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
-=======
-AND (ovc_care_case_plan.is_void = 'False') AND (ovc_care_events.event_type_id = 'CPAR') AND (ovc_care_events.date_of_event BETWEEN '01-01-2018' AND '12-31-2019')
->>>>>>> 5ad69bb92aff745e11cfc88705bb0a847bd5b016
+
 AND (ovc_care_case_plan.priority IS NOT NULL )
 GROUP BY ovc_care_events.person_id,ovc_care_case_plan.domain,ovc_care_case_plan.priority, reg_person.date_of_birth, vw_cpims_demographics.gender,
 ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
@@ -2389,13 +2385,10 @@ LEFT OUTER JOIN ovc_registration ON ovc_care_events.person_id = ovc_registration
 LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
 LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
 LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
-<<<<<<< HEAD
+
 WHERE ovc_registration.child_cbo_id in ({cbos}) AND (ovc_care_services.is_void = 'False') 
 AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
-=======
-WHERE ovc_registration.child_cbo_id in ({cbos})
-                                        AND (ovc_care_services.is_void = 'False') AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '01-01-2018' AND '12-31-2019')
->>>>>>> 5ad69bb92aff745e11cfc88705bb0a847bd5b016
+
 GROUP BY ovc_care_events.person_id,ovc_care_services.domain,ovc_care_services.service_provided, reg_person.date_of_birth, vw_cpims_demographics.gender,
 ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
 vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
@@ -3092,11 +3085,9 @@ AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event 
 '''
 QUERIES['cpara'] = '''
 Select * from vw_cpims_cpara_final
-<<<<<<< HEAD
+
 WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara_final.date_of_event BETWEEN '{start_date}' AND '{end_date}');
-=======
-WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara.date_of_event BETWEEN '{start_date}' AND '{end_date}');
->>>>>>> 5ad69bb92aff745e11cfc88705bb0a847bd5b016
+
 '''
 QUERIES['case_plan'] = '''
 Select * from vw_cpims_case_plan
