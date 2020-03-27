@@ -3080,7 +3080,7 @@ AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event 
 '''
 QUERIES['cpara'] = '''
 Select * from vw_cpims_cpara_final
-WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara_final.date_of_event BETWEEN '{start_date}' AND '{end_date}');
 '''
 QUERIES['case_plan'] = '''
 Select * from vw_cpims_case_plan
