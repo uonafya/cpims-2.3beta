@@ -1384,7 +1384,8 @@ legend {
 /* 3.14 Component - Button */
 
 .btn {
-    font-weight: 300;
+    /* font-weight: 300; */
+    font-weight: normal;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -6769,5 +6770,13 @@ select:hover, select:focus{
     .navbar-toggle{
         margin-right: 0px !important;
     }
+}
+.multiselect.dropdown-toggle.btn {   
+    border: 1px solid #d7e3f3 !important;
+    background: #f4fdff;
+}
+.multiselect.dropdown-toggle.btn:hover,
+.multiselect.dropdown-toggle.btn:active { 
+    background: #ffffff;
 }
 /* Mobile Nav improvements */
