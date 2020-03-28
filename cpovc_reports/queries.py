@@ -3083,6 +3083,9 @@ WHERE reg_org_unit.id in ({cbos}) AND (ovc_care_assessment.domain in ('DHNU','DP
 AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
 )
 '''
+
+
+
 QUERIES['cpara'] = '''
 Select * from vw_cpims_cpara_final
 
