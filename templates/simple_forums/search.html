@@ -1,0 +1,40 @@
+{% extends 'simple_forums/base.html' %}
+
+{% block page_title %}Search{% endblock %}
+
+{% block content %}
+
+    <form id="search-form" action="" method="get">
+        <input type="text" name="q"{% if query %} class="form-control" value="{{ query }}"{% endif %} />
+        <button class="btn btn-primary btn-md" type="submit">Search</button>
+    </form>
+    <div class="row">
+        <div class="col-md-12 p-10">
+            {% if query %}
+                {% if results %}
+                    <h3><small class="text-muted">Search results for:</small> {{ query }}</h3>
+                {% endif %}
+                {% for result in results %}
+                    <div class="search-result">
+                        <a href="{{ result.get_absolute_url }}">{{ result.get_title }}</a>
+                        <p class="search-description">
+                            {{ result.get_search_description }}
+                        </p>
+                    </div>
+                {% empty %}
+                    <div class="alert alert-warning">
+                        <span>There were no results.</span>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+    <script>
+        $('input, select, textarea').addClass('form-control');
+        $('input.form-control').css({'max-width': '250px', 'display': 'inline-block'});
+    </script>
+{% endblock %}

@@ -13,8 +13,8 @@ SECRET_KEY = 'h34yo5l8c8!edb%^b@3j-i^gc$e)fcjnw_9jm4a^%jbq&*41+@'
 ALLOWED_HOSTS = ['*']
 
 cpims_db_host = os.environ.get('CPIMS_HOST') if os.environ.get('CPIMS_HOST') else 'localhost'
-cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else '5665'
-cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'cpimsbeta'
+cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else 'postgres'
+cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'cpims'
 cpims_db_port = os.environ.get('CPIMS_PORT') if os.environ.get('CPIMS_PORT') else '5432'
 cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else 'postgres'
 
@@ -41,7 +41,10 @@ INSTALLED_APPS = (
     'cpovc_ovc',
     'import_export',
     'rest_framework',
-    'data_cleanup'
+    'data_cleanup',
+    # forums,
+    'adminsortable',
+    'simple_forums',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,7 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'cpovc_main.context_processors.global_settings'
+                'cpovc_main.context_processors.global_settings',
+                # forums,
+                'simple_forums.context_processors.installed_apps',
             ],
         },
     },
