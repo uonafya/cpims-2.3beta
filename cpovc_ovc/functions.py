@@ -1,10 +1,16 @@
 """OVC common methods."""
+import requests
+import json
+import schedule
+import time
 from datetime import datetime
 from django.utils import timezone
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.shortcuts import get_list_or_404
 from django.db.models import Q
 from django.db import connection
+from django.db import IntegrityError, transaction
 from .models import (
     OVCRegistration, OVCHouseHold, OVCHHMembers, OVCHealth, OVCEligibility,
     OVCFacility, OVCSchool, OVCEducation, OVCExit, OVCViralload)
@@ -181,8 +187,7 @@ def search_master(request):
         school_level = request.GET.get('level')
         # Filters for external ids
         if query_id == 1:
-            agents = OVCFacility.objects.filter(
-                facility_name__icontains=query)
+            agents = OVCFacility.objects.filter(facility_name__icontains=query, is_void=False)
             for agent in agents:
                 name = agent.facility_name
                 agent_id = agent.id
@@ -192,7 +197,7 @@ def search_master(request):
         elif query_id == 2:
             agents = OVCSchool.objects.filter(
                 school_name__icontains=query,
-                school_level=school_level)
+                school_level=school_level, is_void=False)
             for agent in agents:
                 name = agent.school_name
                 agent_id = agent.id
@@ -631,3 +636,16 @@ def save_viral_load(request):
         raise e
     else:
         pass
+
+
+def method_once(method):
+    "A decorator that runs a method only once."
+    attrname = "_%s_once_result" % id(method)
+    def decorated(self, *args, **kwargs):
+        try:
+            return getattr(self, attrname)
+        except AttributeError:
+            setattr(self, attrname, method(self, *args, **kwargs))
+            return getattr(self, attrname)
+    return decorated
+

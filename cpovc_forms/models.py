@@ -1053,7 +1053,7 @@ class OVCReferrals(models.Model):
 
 
 class OVCMonitoring(models.Model):
-    monitoring_id = models.AutoField(primary_key=True)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     household = models.ForeignKey(OVCHouseHold, on_delete=models.CASCADE)
     hiv_status_knowledge = models.CharField(max_length=5)
     viral_suppression = models.CharField(max_length=5)
@@ -1078,7 +1078,7 @@ class OVCMonitoring(models.Model):
         db_table = 'ovc_monitoring'
 
     def __unicode__(self):
-        return str(self.monitoring_id)
+        return str(self.id)
 
 
 class OVCHivStatus(models.Model):
@@ -1116,9 +1116,6 @@ class OVCCareQuestions(models.Model):
     class Meta:
         db_table = 'ovc_care_questions'
 
-    def __unicode__(self):
-        return str(self.question_id)
-
 
 class OVCHIVRiskScreening(models.Model):
     risk_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -1138,19 +1135,19 @@ class OVCHIVRiskScreening(models.Model):
     parent_consent_testing= models.NullBooleanField()
     parent_consent_date=models.DateTimeField(default=timezone.now, null=True) ###date new 1
     referral_made= models.NullBooleanField()
-    referral_made_date=models.DateTimeField(default=datetime.datetime.now(), null=True)####
+    referral_made_date=models.DateTimeField(default=timezone.now, null=True)####
     referral_completed= models.NullBooleanField()
     referral_completed_date=models.DateTimeField(default=timezone.now, null=True)### date new 2
     not_completed=models.CharField(max_length=50)
     test_result=models.CharField(max_length=20, null=True)
     art_referral= models.NullBooleanField()
-    art_referral_date=models.DateTimeField(default=datetime.datetime.now(), null=True)#### date
+    art_referral_date=models.DateTimeField(default=timezone.now, null=True)#### date
     art_referral_completed= models.NullBooleanField()
-    art_referral_completed_date=models.DateTimeField(default=datetime.datetime.now(), null=True)#### date
+    art_referral_completed_date=models.DateTimeField(default=timezone.now, null=True)#### date
     facility_code = models.CharField(max_length=10, null=True)
     event = models.ForeignKey(OVCCareEvents)
     is_void = models.NullBooleanField()
-    date_of_event = models.DateField(default=datetime.datetime.now(), null=True)### date 
+    date_of_event = models.DateField(default=timezone.now, null=True)### date
     timestamp_created = models.DateTimeField(auto_now_add=True)
     timestamp_updated = models.DateTimeField(auto_now=True)
 

@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load choice_fields_filter %}
+{% block page_title %} Data Quality Assessment{% endblock %}
+
+
+{% block style_code %}
+<link href="{% static 'css/jquery.dataTables.min.css' %}" rel="stylesheet"/>
+<link href="{% static 'css/buttons.dataTables.min.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel='stylesheet'>
+{% endblock %}
+
+{% block primary %}
+<h1 class="page-header">Data Quality Assessment <small>{%block dqa_subdomain %}Services{%endblock%}</small></h1>
+{% if error %}
+<div class='alert alert-warning'>{{ error }}</div>
+{% endif %}
+<div class='shadow-lg p-3 mb-5 bg-white rounded well'>
+
+  {% block form_post_url %}
+    <form class='form ' action="{% url 'data_cleanup' %}" method="POST" id='filter_form'>
+  {% endblock %}
+    {% csrf_token %}
+
+    {% block demographic %}
+      <!-- Demographic Data-->
+      {% include "data_cleanup/demographic.html" %}
+    {% endblock %}
+
+    {% block priorities %}
+      <!-- Priorities Data-->
+      {% include "data_cleanup/priorities.html" %}
+    {% endblock %}
+
+    {% block services %}
+      <!-- Services Data-->
+      {% include "data_cleanup/services.html" %}
+    {% endblock %}
+
+    {% block case_plan %}
+    {% endblock %}
+
+
+</br>
+
+<div class='pull-right btn-toolbar'>
+    <a href='javascript:void(0)' class='btn btn-warning' onclick="reset_filter_form()">Reset</a>
+    <button type='submit' class='btn btn-primary'>Filter</button>
+</div>
+
+</form>
+</br>
+</br>
+</div>
+<table class="table" id='age-data-table'>
+<thead>
+    <tr>
+      <th>OVC ID</th>
+      <th>Names</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>Is OVC</th>
+      <th>Is Disabled</th>
+      <th>Has Birth Cert</th>
+      <th>School Level</th>
+      <th>HIV Status</th>
+      <th>ART Status</th>
+      <th>Exit Date</th>
+      <th>CBO </th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for obj in data %}
+    <tr>
+
+      <td>
+          {{ obj.reg_person_id }}
+      </td>
+      <td>{{ obj.first_name }} {{ obj.other_names }} {{ obj.surname }} </td>
+      <td>{{ obj.age }} </td>
+      <td>{{ obj.sex_id | format_choice_fields }} </td>
+      <td>{{ obj.designation  | format_choice_fields }} </td>
+      <td>{{ obj.is_disabled  |format_choice_fields }} </td>
+      <td>{{ obj.has_bcert  | format_choice_fields }} </td>
+      <td>{{ obj.school_level |format_choice_fields }}</td>
+      <td>{{ obj.hiv_status | format_choice_fields }}</td>
+      <td>{{ obj.art_status | format_choice_fields}}</td>
+      <td>{{ obj.exit_date | format_choice_fields  }}</td>
+      <td>{{ obj.org_unit_name }}</td>
+    </tr>
+    {% endfor %}
+
+  </tbody>
+</table>
+
+{% endblock %}
+
+{% block lazy_javascript_code %}
+
+<script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-table-locale-all.min.js' %}"></script>
+<script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'js/jszip.min.js' %}"></script>
+<script src="{% static 'js/dataTables.buttons.min.js' %}"></script>
+<script src="{% static 'js/buttons.html5.min.js' %}"></script>
+<script src="{% static 'plugins/bootstrap-datepicker/js/bootstrap-datepicker.js' %}"></script>
+
+<script>
+    function reset_filter_form(){
+        document.getElementById("filter_form").reset();
+    }
+    $(document).ready(function() {
+      $('#age-data-table').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+              'excelHtml5',
+              'csvHtml5',
+          ]
+      } );
+  });
+  $('.datepicker').datepicker({
+    format: 'yyyy-mm-dd'
+  });
+
+  </script>
+{% endblock %}

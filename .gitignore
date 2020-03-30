@@ -105,7 +105,9 @@ ENV/
 .mypy_cache/
 .idea/
 cpims/settings.py
-reports/xlsx/*
+reports/xlsx/*.xlsx
+reports/*.csv
 
 #sql
 /docker/postgres/dbsql/*.sql
+.vscode/settings.json

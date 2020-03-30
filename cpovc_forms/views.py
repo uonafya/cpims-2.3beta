@@ -6889,7 +6889,7 @@ def new_form1b(request, id):
     domains = create_form_fields(ffs)
     # print ffsd
     form = OVCF1AForm(initial={'person': id, 'caretaker_id': cid})
-    f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid)
+    f1bs = OVCCareEvents.objects.filter(event_type_id='FM1B', person_id=cid, is_void=False)
 
     ev_data = []
     event_keywords = []
@@ -6898,7 +6898,7 @@ def new_form1b(request, id):
         assem = []
 
         # ovccareassems = OVCCareAssessment.objects.filter(event=ovc_evt)
-        ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt)
+        ovccareassems = OVCCareF1B.objects.filter(event=ovc_evt, is_void=False)
 
         for ovccareassem in ovccareassems:
             full_f1b_qn_assess = SetupList.objects.filter(item_id=ovccareassem.entity, item_sub_category__icontains='a')
@@ -8728,7 +8728,14 @@ def new_cpara(request, id):
     care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
 
     house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
-
+    
+    # Get house hold
+    hhold = OVCHHMembers.objects.get(is_void=False, person_id=id)
+    # Get HH members
+    hhid = hhold.house_hold_id
+    hhmqs = OVCHHMembers.objects.filter(is_void=False, house_hold_id=hhid).order_by("-hh_head")
+    hhmembers2 = hhmqs.exclude(person_id=id)
+    hhmembers = hhmembers2.exclude(person=care_giver)
     # Get child geo
     child_geos = RegPersonsGeo.objects.select_related().filter(
         person=child, is_void=False, date_delinked=None)
@@ -8845,6 +8852,7 @@ def new_cpara(request, id):
                       'form': form,
                       'person': id,
                       'siblings': siblings,
+                      'hhmembers': hhmembers,
                       'osiblings': osiblings,
                       'oguardians': oguardians,
                       'child': child,
@@ -8955,7 +8963,9 @@ def case_plan_template(request, id):
 
         if my_request:
             caseplandata = json.loads(my_request)
+            print("kkkkkkkkkkkk",caseplandata)
             for all_data in caseplandata:
+                print("my_reason",all_data)
                 my_domain = all_data['domain']
                 my_goal = all_data['goal']
                 my_gap = all_data['gaps']
@@ -8968,12 +8978,10 @@ def case_plan_template(request, id):
                 my_date_of_caseplan = all_data['CPT_DATE_CASEPLAN']
                 my_results = all_data['results']
                 my_reason = all_data['reasons']
-                # if my_initial_caseplan=='AYES':
-                #     my_date_of_prev_evnt=my_date_of_caseplan
+                print("my_reason",all_data)
 
-                # User.objects.filter(first_name__startswith='R').values('first_name', 'last_name')
                 xyz = RegPerson.objects.filter(id=caregiver_id).values('id')
-
+                
                 for service in my_service:
                     OVCCareCasePlan(
                         domain=my_domain,
@@ -8996,10 +9004,12 @@ def case_plan_template(request, id):
                         case_plan_status='D',
                         event=ovccareevent
                     ).save()
-                msg = 'Case Plan Template saved successful'
-                messages.add_message(request, messages.INFO, msg)
-                url = reverse('ovc_view', kwargs={'id': id})
-                return HttpResponseRedirect(url)
+  
+        msg = 'Case Plan saved successfully'
+        messages.add_message(request, messages.INFO, msg)
+        url = reverse('ovc_view', kwargs={'id': id})
+        return HttpResponseRedirect(url)
+
     # get child data
     init_data = RegPerson.objects.filter(pk=id)
     check_fields = ['sex_id', 'relationship_type_id']
@@ -9035,7 +9045,7 @@ def update_caseplan(request, event_id, ovcid):
         print 'check delta'
         print delta
 
-        if delta < 30:
+        if delta < 90:
             try:
                 my_request = request.POST.get('final_submission')
 
@@ -9385,7 +9395,7 @@ def new_wellbeing(request, id):
 
         entity_values = []
         for key in request.POST:
-            if (str(key) != "safeanswer" and str(key) != "schooledanswer" and "WB_SCH_39" not in str(key)  and "WB_SCH_40" not in str(key) and "WB_SCH_41" not in str(key)  and "WB_SCH_42" not in str(key) and "WB_SCH_43" not in str(key) and "WB_SCH_44" not in str(key) and "WB_SCH_45" not in str(key) and "WB_SAF_37" not in str(key) and "WB_SAF_38" not in str(key) and "WB_SAF_39" not in str(key) and "WB_SAF_40" not in str(key) and "WB_HEL_17_2" not in str(key) and "WB_GEN_11" not in str(key) and "WB_GEN_13" not in str(key) and "WB_GEN_15" not in str(key) and "WB_GEN_14" not in str(key) and "WB_GEN_16" not in str(key) and "caretaker_id" not in str(key)):
+            if (str(key) != "safeanswer" and str(key) != "schooledanswer" and "WB_SCH_39" not in str(key)  and "WB_SCH_40" not in str(key) and "WB_SCH_41" not in str(key)  and "WB_SCH_42" not in str(key) and "WB_SAF_31_1" not in str(key) and "WB_SCH_43" not in str(key) and "WB_SCH_44" not in str(key) and "WB_SCH_45" not in str(key) and "WB_SAF_37" not in str(key) and "WB_SAF_38" not in str(key) and "WB_SAF_39" not in str(key) and "WB_SAF_40" not in str(key) and "WB_HEL_17_2" not in str(key) and "WB_GEN_11" not in str(key) and "WB_GEN_13" not in str(key) and "WB_GEN_15" not in str(key) and "WB_GEN_14" not in str(key) and "WB_GEN_16" not in str(key) and "caretaker_id" not in str(key)):
 
                 if (key in ignore_request_values):
                     continue
@@ -9527,7 +9537,7 @@ def new_wellbeingadolescent(request, id):
             hse_uuid = uuid.UUID(household_id)
             house_holds = OVCHouseHold.objects.get(pk=hse_uuid)
             person = RegPerson.objects.get(pk=int(id))
-            event_type_id = 'FHSA'
+            event_type_id = 'WBGA'
             date_of_wellbeing_event = timezone.now()
 
             """ Save Wellbeing-event """
@@ -9563,7 +9573,7 @@ def new_wellbeingadolescent(request, id):
                     date_of_event=timezone.now(),
                     domain=question.domain,
                     question_type=question.question_type,
-                    caregiver=care_giver
+                    # caregiver=care_giver
                 )
             msg = 'wellbeing adolesent saved successful'
             messages.add_message(request, messages.INFO, msg)
@@ -9844,101 +9854,103 @@ def new_hivscreeningtool(request, id):
 @login_required
 @cache_control(no_cache=True, must_revalidate=True, no_store=True)
 def new_hivmanagementform(request, id):
-    print request.POST.get('HIV_MGMT_2_C')
     if request.method == 'POST':
-        try:
-            msg=''
-            person = RegPerson.objects.get(id=id)
-            event_date = request.POST.get('HIV_MGMT_2_A')
-            event_type_id = 'HIV_MGMT'
-            child = RegPerson.objects.get(id=id)
-            house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
+        # try:
+        msg=''
+        person = RegPerson.objects.get(id=id)
+        event_date = request.POST.get('HIV_MGMT_2_A')
+        event_type_id = 'HIV_MGMT'
+        child = RegPerson.objects.get(id=id)
+        house_hold = OVCHouseHold.objects.get(id=OVCHHMembers.objects.get(person=child).house_hold_id)
 
-            event_counter = OVCCareEvents.objects.filter(
-                event_type_id=event_type_id, person=id, is_void=False).count()
-            # save event
-            ovccareevent = OVCCareEvents.objects.create(
-                event_type_id=event_type_id,
-                event_counter=event_counter,
-                event_score=0,
-                created_by=request.user.id,
-                person=RegPerson.objects.get(pk=int(id)),
-                house_hold=house_hold
-            )
+        event_counter = OVCCareEvents.objects.filter(
+            event_type_id=event_type_id, person=id, is_void=False).count()
+        # save event
+        ovccareevent = OVCCareEvents.objects.create(
+            event_type_id=event_type_id,
+            event_counter=event_counter,
+            event_score=0,
+            created_by=request.user.id,
+            person=RegPerson.objects.get(pk=int(id)),
+            house_hold=house_hold
+        )
 
-            _HIV_MGMT_1_E=False
-            _HIV_MGMT_1_F = False
-            _HIV_MGMT_1_G = False
-            if(request.POST.get('HIV_MGMT_1_E')):
-                _HIV_MGMT_1_E=request.POST.get('HIV_MGMT_1_E')
-            if (request.POST.get('HIV_MGMT_1_F')):
-                _HIV_MGMT_1_F = request.POST.get('HIV_MGMT_1_F')
-            if (request.POST.get('HIV_MGMT_1_G')):
-                _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
+        _HIV_MGMT_1_E=False
+        _HIV_MGMT_1_F = False
+        _HIV_MGMT_1_G = False
+        if(request.POST.get('HIV_MGMT_1_E')):
+            _HIV_MGMT_1_E=request.POST.get('HIV_MGMT_1_E')
+        if (request.POST.get('HIV_MGMT_1_F')):
+            _HIV_MGMT_1_F = request.POST.get('HIV_MGMT_1_F')
+        if (request.POST.get('HIV_MGMT_1_G')):
+            _HIV_MGMT_1_G = request.POST.get('HIV_MGMT_1_G')
 
-            _HIV_MGMT_2_O_1=False
-            if(request.POST.get('HIV_MGMT_2_O_1')):
-                _HIV_MGMT_2_O_1=request.POST.get('HIV_MGMT_2_O_1')
+        _HIV_MGMT_2_O_1=False
+        if(request.POST.get('HIV_MGMT_2_O_1')):
+            _HIV_MGMT_2_O_1=request.POST.get('HIV_MGMT_2_O_1')
 
-            _HIV_MGMT_1_E_DATE="1900-01-01"
-            _HIV_MGMT_1_F_DATE = "1900-01-01"
-            _HIV_MGMT_1_G_DATE = "1900-01-01"
-            if(request.POST.get('HIV_MGMT_1_E_DATE')):
-                _HIV_MGMT_1_E_DATE=request.POST.get('HIV_MGMT_1_E_DATE')
-            if (request.POST.get('HIV_MGMT_1_F_DATE')):
-                _HIV_MGMT_1_F_DATE = request.POST.get('HIV_MGMT_1_F_DATE')
-            if (request.POST.get('HIV_MGMT_1_G_DATE')):
-                _HIV_MGMT_1_G_DATE = request.POST.get('HIV_MGMT_1_G_DATE')
+        _HIV_MGMT_1_E_DATE ="1900-01-01"
+        _HIV_MGMT_1_F_DATE = "1900-01-01"
+        _HIV_MGMT_1_G_DATE = "1900-01-01"
 
-            new_pk = ovccareevent.pk
-            qry = OVCHIVManagement(
-                person=person,
-                hiv_confirmed_date=request.POST.get('HIV_MGMT_1_A'),
-                baseline_hei=request.POST.get('HIV_MGMT_1_C'), 
-                treatment_initiated_date=request.POST.get('HIV_MGMT_1_B'),
-                firstline_start_date=request.POST.get('HIV_MGMT_1_D'),  # date
-                substitution_firstline_arv=_HIV_MGMT_1_E,
-                substitution_firstline_date=_HIV_MGMT_1_E_DATE,
-                switch_secondline_arv=_HIV_MGMT_1_F,
-                switch_secondline_date=_HIV_MGMT_1_F_DATE,
-                switch_thirdline_arv=_HIV_MGMT_1_G,
-                switch_thirdline_date=_HIV_MGMT_1_G_DATE,
-                visit_date=request.POST.get('HIV_MGMT_2_A'),
-                duration_art=request.POST.get('HIV_MGMT_2_B'),
-                height=request.POST.get('HIV_MGMT_2_C'),
-                muac=request.POST.get('HIV_MGMT_2_D'),
-                adherence=request.POST.get('HIV_MGMT_2_E'),
-                adherence_drugs_duration=request.POST.get('HIV_MGMT_2_F'),
-                adherence_counselling=request.POST.get('HIV_MGMT_2_G'),
-                treatment_suppoter=request.POST.get('HIV_MGMT_2_H_2'),
-                treatment_supporter_relationship=request.POST.get('HIV_MGMT_2_H_1'),
-                treatment_supporter_gender=request.POST.get('HIV_MGMT_2_H_3'),
-                treament_supporter_hiv=request.POST.get('HIV_MGMT_2_H_5'),
-                viral_load_results=request.POST.get('HIV_MGMT_2_I_1'),
-                viral_load_date=request.POST.get('HIV_MGMT_2_I_DATE'),
-                treatment_supporter_age=request.POST.get('HIV_MGMT_2_H_4'),                        
-                detectable_viralload_interventions=request.POST.get('HIV_MGMT_2_J'),
-                disclosure=request.POST.get('HIV_MGMT_2_K'),
-                muac_score=request.POST.get('HIV_MGMT_2_L_1'),
-                bmi=request.POST.get('HIV_MGMT_2_L_2'),
-                nutritional_support=request.POST.get('HIV_MGMT_2_M'),
-                support_group_status=request.POST.get('HIV_MGMT_2_N'),
-                nhif_enrollment=_HIV_MGMT_2_O_1,
-                nhif_status=request.POST.get('_HIV_MGMT_2_O_2'),
-                referral_services=request.POST.get('HIV_MGMT_2_P'),              
-                nextappointment_date=request.POST.get('HIV_MGMT_2_Q'),
-                peer_educator_name=request.POST.get('HIV_MGMT_2_R'),
-                peer_educator_contact=request.POST.get('HIV_MGMT_2_S'),
-                event=ovccareevent,
-                date_of_event=request.POST.get('HIV_MGMT_2_A')
-            ).save()
+        if(request.POST.get('HIV_MGMT_1_E_DATE')):
+            _HIV_MGMT_1_E_DATE=request.POST.get('HIV_MGMT_1_E_DATE')
+        if (request.POST.get('HIV_MGMT_1_F_DATE')):
+            _HIV_MGMT_1_F_DATE= request.POST.get('HIV_MGMT_1_F_DATE')
+        if (request.POST.get('HIV_MGMT_1_G_DATE')):
+            _HIV_MGMT_1_G_DATE = request.POST.get('HIV_MGMT_1_G_DATE')
 
-            msg = 'HIV management saved successfully'
-            messages.add_message(request, messages.INFO, msg)
-        except Exception, e:
-            from django.db import connection
-            msg="failed to save data",e
-            messages.add_message(request, messages.ERROR, msg)
+        new_pk = ovccareevent.pk
+        
+
+        qry = OVCHIVManagement(
+            person=person,
+            hiv_confirmed_date=request.POST.get('HIV_MGMT_1_A'),
+            baseline_hei=request.POST.get('HIV_MGMT_1_C'), 
+            treatment_initiated_date=request.POST.get('HIV_MGMT_1_B'),
+            firstline_start_date=request.POST.get('HIV_MGMT_1_D'),  # date
+            substitution_firstline_arv=_HIV_MGMT_1_E,
+            substitution_firstline_date=_HIV_MGMT_1_E_DATE,
+            switch_secondline_arv=_HIV_MGMT_1_F,
+            switch_secondline_date=_HIV_MGMT_1_F_DATE,
+            switch_thirdline_arv=_HIV_MGMT_1_G,
+            switch_thirdline_date=_HIV_MGMT_1_G_DATE,
+            visit_date=request.POST.get('HIV_MGMT_2_A'),
+            duration_art=request.POST.get('HIV_MGMT_2_B'),
+            height=request.POST.get('HIV_MGMT_2_C'),
+            muac=request.POST.get('HIV_MGMT_2_D'),
+            adherence=request.POST.get('HIV_MGMT_2_E'),
+            adherence_drugs_duration=request.POST.get('HIV_MGMT_2_F'),
+            adherence_counselling=request.POST.get('HIV_MGMT_2_G'),
+            treatment_suppoter=request.POST.get('HIV_MGMT_2_H_2'),
+            treatment_supporter_relationship=request.POST.get('HIV_MGMT_2_H_1'),
+            treatment_supporter_gender=request.POST.get('HIV_MGMT_2_H_3'),
+            treament_supporter_hiv=request.POST.get('HIV_MGMT_2_H_5'),
+            viral_load_results=request.POST.get('HIV_MGMT_2_I_1'),
+            viral_load_date=request.POST.get('HIV_MGMT_2_I_DATE'),
+            treatment_supporter_age=request.POST.get('HIV_MGMT_2_H_4'),                        
+            detectable_viralload_interventions=request.POST.get('HIV_MGMT_2_J'),
+            disclosure=request.POST.get('HIV_MGMT_2_K'),
+            muac_score=request.POST.get('HIV_MGMT_2_L_1'),
+            bmi=request.POST.get('HIV_MGMT_2_L_2'),
+            nutritional_support=request.POST.get('HIV_MGMT_2_M'),
+            support_group_status=request.POST.get('HIV_MGMT_2_N'),
+            nhif_enrollment=_HIV_MGMT_2_O_1,
+            nhif_status=request.POST.get('_HIV_MGMT_2_O_2'),
+            referral_services=request.POST.get('HIV_MGMT_2_P'),              
+            nextappointment_date=request.POST.get('HIV_MGMT_2_Q'),
+            peer_educator_name=request.POST.get('HIV_MGMT_2_R'),
+            peer_educator_contact=request.POST.get('HIV_MGMT_2_S'),
+            event=ovccareevent,
+            date_of_event=request.POST.get('HIV_MGMT_2_A')
+        ).save()
+
+        msg = 'HIV management saved successfully'
+        messages.add_message(request, messages.INFO, msg)
+        # except Exception, e:
+        #     from django.db import connection
+        #     msg="failed to save data",e
+        #     messages.add_message(request, messages.ERROR, msg)
         url = reverse('ovc_view', kwargs={'id': id})
         return HttpResponseRedirect(url)
     else:
@@ -9947,6 +9959,7 @@ def new_hivmanagementform(request, id):
             check_fields = ['sex_id']
             vals = get_dict(field_name=check_fields)
             form_arvtherapy = HIV_MANAGEMENT_ARV_THERAPY_FORM(initial={'person': id})
+            child_hiv_status=OVCRegistration.objects.get(person=id).hiv_status  
             form = HIV_MANAGEMENT_VISITATION_FORM(initial={'person': id})
 
             return render(request,
@@ -9954,6 +9967,7 @@ def new_hivmanagementform(request, id):
                           {'form': form,
                            'form_arvtherapy': form_arvtherapy,
                            'init_data': init_data,
+                           'child_hiv_status': child_hiv_status,
                            'vals': vals})
         except Exception, e:
             print e

@@ -45,7 +45,7 @@
 <!-- begin page-header -->
 <!-- {% for data in init_data %} -->
 
-	<h1 class="page-header">Forms <small>Case Plan Template <b> {{care_giver}}
+	<h1 class="page-header">Forms <small>Case Plan Template <b> {% for cgvr in care_givers %} {{cgvr}} {% endfor %}
          <!-- | {{ data.first_name }} {{ data.surname }} | {{ data.sex_id|gen_value:vals }} | {% if data.date_of_birth|gen_age == 0 %}
                             UNDER 1 YEAR
                         {% else %}
@@ -193,9 +193,9 @@
 											<input type="text" class="form-control" style="max-width: 200px;" name="CPT_DATE_CASEPLAN"/>
 										</div>
                                     </div>
-									<div class="col-md-3">
+									<div class="col-md-3 div_CPT_ACTUAL_DATE_COMPLETION" id="div_CPT_ACTUAL_DATE_COMPLETION">
 										<div class="form-group">
-											<label class="control-label formlabel">Actual date of caseplan completion*:</label><br/>
+											<label class="control-label formlabel">Actual date of caseplan completion:</label><br/>
 											{{form.CPT_ACTUAL_DATE_COMPLETION}}
 										</div>
                                     </div>
@@ -359,7 +359,7 @@
                                             <th>Needs/Gaps</th>
                                             <th>Priority Actions</th>
                                             <th>Services</th>
-                                            <th>Repsonsible</th>
+                                            <th>Responsible</th>
                                             <th>Completed</th>
                                             <th>Results</th>
                                             <th>Reasons</th>
@@ -706,8 +706,22 @@
 			$('input[name=date_first_cpara]').removeAttr('disabled');
 		}
 	});
-
-    $('*[name=CPT_RESULTS]').prepend('<option disabled selected value="null">Pick an item</option>').attr('required', true)
+    $(document).ready(function () {
+        $('#CPT_ACTUAL_DATE_COMPLETION').removeAttr('required');
+    });
+    $('*[name=CPT_RESULTS]').prepend('<option selected value="">Pick an item</option>').attr('required', true)
+	
+    ///////
+    $('#div_CPT_ACTUAL_DATE_COMPLETION').addClass('hidden');
+    $('#CPT_ACTUAL_DATE_COMPLETION').val('1900-01-01');
+    $('*[name=CPT_RESULTS]').change(function(){
+        var thisval=$('*[name=CPT_RESULTS] option:selected').val();
+        if(thisval=='NA'){
+            $('#div_CPT_ACTUAL_DATE_COMPLETION').removeClass('hidden');
+        }else{
+            $('#div_CPT_ACTUAL_DATE_COMPLETION').addClass('hidden');
+        }
+    })
 </script>
 {% endblock %}
 	

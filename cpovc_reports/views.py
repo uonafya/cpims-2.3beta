@@ -928,6 +928,16 @@ def reports_ovc_datim_mer23_pivot(request):
     else:
         pass
 
+@login_required
+def reports_ovc_datim_mer24_pivot(request):
+    """Method to do pivot reports."""
+    try:
+        form = CaseLoad(request.user)
+        return render(request, 'reports/pivot_datim_mer24.html', {'form': form})
+    except Exception, e:
+        raise e
+    else:
+        pass
 
 @login_required
 def reports_ovc_pepfar(request):
@@ -1050,7 +1060,7 @@ def reports_ovc_rawdata(request):
         if len(results) > 0:
             status = 0
             message = "Query executed successfully."
-            if len(results) > 100000 and report_id == 12:
+            if len(results) > 30000:
                 message += " File too big to render. Please download."
                 results = []
             '''

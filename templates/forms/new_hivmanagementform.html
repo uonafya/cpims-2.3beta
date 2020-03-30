@@ -42,6 +42,16 @@
                 {% else %}
                     {{ data.date_of_birth|gen_age }} YRS 
                 {% endif %}</b></small>
+                {% if child_hiv_status%}
+                {% if child_hiv_status == 'HSTN' %}
+                <h3 class="text-danger"> HIV Status: Negative</h3>
+                {% elif child_hiv_status == 'HSTP' %}
+                <h3 class="text-danger">HIV Status: Positive</h3>
+                {% else %}
+                <h3 class="text-danger">HIV Status: Unknown</h3>
+                {% endif %}
+                {% endif %}
+                
         </b>
 </h1>
 {% endfor %}
@@ -105,7 +115,7 @@
                                     <tbody>
                                         <tr>
                                            <td>1</td>
-                                            <td>Date confirmed HIV Positive<span class="asteriskField">*</td>
+                                            <td>Date confirmed HIV Positive</td>
                                             <td>
                                                 {{ form_arvtherapy.HIV_MGMT_1_A }}
                                             </td>
@@ -113,7 +123,7 @@
                                         </tr>
                                         <tr>
                                             <td>2a</td>
-                                            <td>Date initiated on Treatment<span class="asteriskField">*</td>
+                                            <td>Date initiated on Treatment</td>
                                             <td> 
                                                     {{ form_arvtherapy.HIV_MGMT_1_B }}
                                             </td>
@@ -122,7 +132,7 @@
                                         </tr>
                                         <tr>
                                             <td>2b</td>
-                                            <td>Baseline viral load for HEI<span class="asteriskField">*</td>
+                                            <td>Baseline viral load for HEI</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_C }}
                                             </td>
@@ -133,7 +143,7 @@
 
                                         <tr>
                                                 <td>3</td>
-                                                <td>Date started on 1st Line<span class="asteriskField">*</td>
+                                                <td>Date started on 1st Line</td>
                                                 <td style="background-color: grey">
                                                     
                                                 </td>
@@ -144,7 +154,7 @@
 
                                         <tr>
                                             <td>4</td>
-                                            <td>Substitution of ARVs within 1st Line Regimen<span class="asteriskField">*</td>
+                                            <td>Substitution of ARVs within 1st Line Regimen</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_E }}
                                             </td>
@@ -156,7 +166,7 @@
 
                                         <tr>
                                             <td>5</td>
-                                            <td>Switch to 2nd Line (or Substitute within 2nd Line)<span class="asteriskField">*</td>
+                                            <td>Switch to 2nd Line (or Substitute within 2nd Line)</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_F }}
                                             </td>
@@ -167,7 +177,7 @@
 
                                         <tr>
                                             <td>6</td>
-                                            <td>Switch to 3rd Line (or Substitute within 3nd Line)<span class="asteriskField">*</td>
+                                            <td>Switch to 3rd Line (or Substitute within 3nd Line)</td>
                                             <td>
                                                     {{ form_arvtherapy.HIV_MGMT_1_G }}
                                             </td>
@@ -617,7 +627,7 @@
                 HIV_MGMT_1_G_DATE=true;
             }
             else {
-                $("#HIV_MGMT_1_G_DATE").val('n/a');
+                $("#HIV_MGMT_1_G_DATE").val('Not Applicable');
                 $("#HIV_MGMT_1_G_DATE").prop('disabled', true);
                 HIV_MGMT_1_G_DATE=false;
             }
@@ -634,7 +644,7 @@
                 HIV_MGMT_1_F_DATE=true;
             }
             else {
-                $("#HIV_MGMT_1_F_DATE").val('n/a');
+                $("#HIV_MGMT_1_F_DATE").val('Not Applicable');
                 $("#HIV_MGMT_1_F_DATE").prop('disabled', true);
                 HIV_MGMT_1_F_DATE=false;
             }
@@ -652,9 +662,26 @@
             }
             else {
                 HIV_MGMT_1_E_DATE=false;
-                $("#HIV_MGMT_1_E_DATE").val('n/a');
+                $("#HIV_MGMT_1_E_DATE").val('Not Applicable');
                 $("#HIV_MGMT_1_E_DATE").prop('disabled', true);
                 HIV_MGMT_1_E_DATE=false;
+            }
+        });
+
+        $("#HIV_MGMT_2_I_DATE").prop('disabled', true);
+        $("input[name='HIV_MGMT_2_I_1']").attr('type', 'number')
+        $("input[name='HIV_MGMT_2_I_1']").keydown(function() {
+            var value = $(this).val();
+            var val_len = value.length
+            if(value) {
+                $("#HIV_MGMT_2_I_DATE").prop('disabled', false);
+                // $("#HIV_MGMT_2_I_DATE").val('');
+                HIV_MGMT_2_I_DATE=true;
+            }
+            else {
+                // $("#HIV_MGMT_2_I_DATE").val();
+                $("#HIV_MGMT_2_I_DATE").prop('disabled', false);
+                HIV_MGMT_2_I_DATE=false;
             }
         });
 

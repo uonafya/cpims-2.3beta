@@ -1,0 +1,76 @@
+<div class='row'>
+    <div class='col-lg-6'>
+          <strong>Age Operator </strong>
+          <select name='operator' class="form-control" id='operator'>
+                  <option value="0">Select Operator</option>
+                  <option value='=' {% if view_filter_values.equals %}selected='selected'{% endif %}>Equals</option>
+                  <option value='>' {% if view_filter_values.greater_than %}selected='selected'{% endif %}>Greater Than</option>
+                  <option value='<'{% if view_filter_values.less_than %}selected='selected'{% endif %}>Less Than</option>
+                  <option value='-'{% if view_filter_values.between %}selected='selected'{% endif %}>Between</option>
+              </select>
+          Age (if the operator is between set age range e.g 18-200)
+          <input type='text' name='age' class="form-control" id='age' value="{{ view_filter_values.age }}">
+
+          <strong>School Level</strong>
+          <select name='school_level' class="form-control" id='school_level'>
+              <option value="0">Select Shool Level</option>
+              <option value='SLSE' {% if view_filter_values.slse %}selected='selected'{% endif %}>Secondary</option>
+              <option value='SLPR' {% if view_filter_values.slpr %}selected='selected'{% endif %}>Primary</option>
+              <option value='SLNS' {% if view_filter_values.slns %}selected='selected'{% endif %}>NO School</option>
+          </select>
+          <strong>Gender</strong>
+        <select name='gender' class="form-control" id='gender'>
+            <option value="0">Select Gender</option>
+            <option value='SMAL' {% if view_filter_values.smal %}selected='selected'{% endif %}>Male</option>
+            <option value='SFEM' {% if view_filter_values.sfem %}selected='selected'{% endif %}>Female</option>
+        </select>
+
+        <strong>Has Birth Certificate</strong>
+        <select name='has_bcert' class="form-control" id='has_bcert'>
+            <option value="0">Has birth cert? </option>
+            <option value='True' {% if view_filter_values.has_bcert_yes %}selected='selected'{% endif %}>Yes</option>
+            <option value='False' {% if view_filter_values.has_bcert_no%}selected='selected'{% endif %}>No</option>
+        </select>
+
+  </div>
+                  <div class='col-lg-6'>
+      <strong>HIV Status</strong>
+      <select name='hiv_status' class="form-control" id='hiv_status'>
+        <option value="0">Select HIV Status</option>
+        <option value='HSTR' {% if view_filter_values.hstr %}selected='selected'{% endif %}>HIV Test Not Required</option>
+        <option value='HSKN' {% if view_filter_values.hskn %}selected='selected'{% endif %}>Not Known</option>
+        <option value='HSTP' {% if view_filter_values.hstp %}selected='selected'{% endif %}>Positive</option>
+        <option value='HSTN' {% if view_filter_values.hstn %}selected='selected'{% endif %}>Negative</option>
+        <option value='HSRT' {% if view_filter_values.hsrt %}selected='selected'{% endif %}>HIV Referred for Testing</option>
+
+      </select>
+
+      <strong>ART Status</strong>
+      <select name='art_status' class="form-control" id='art_status'>
+          <option value="0">Select Art Status</option>
+          <option value='ART' {% if view_filter_values.art %}selected='selected'{% endif %}>ART</option>
+          <option value='ARAR' {% if view_filter_values.arar %}selected='selected'{% endif %}>ARV Treatment</option>
+          <option value='ARV' {% if view_filter_values.arv %}selected='selected'{% endif %}>ARV</option>
+        </select>
+        <strong>Is Disabled</strong>
+        <select name='is_disabled' class="form-control" id='is_disabled'>
+            <option value="0">Select Disability Status</option>
+            <option value='True' {% if view_filter_values.is_disabled_yes %}selected='selected'{% endif %}>Yes</option>
+            <option value='False' {% if view_filter_values.is_disabled_no %}selected='selected'{% endif %}>No</option>
+          </select>
+          <strong>Is OVC</strong>
+        <select name='is_ovc' class="form-control" id='is_ovc'>
+            <option value="0">Select Designation</option>
+            <option value='CCGV' {% if view_filter_values.ccgv %}selected='selected'{% endif %}>Care Giver</option>
+            <option value='COSI'{% if view_filter_values.cosi %}selected='selected'{% endif %}>Sibling</option>
+            <option value='COVC'{% if view_filter_values.covc %}selected='selected'{% endif %}>COVC</option>
+            <option value='CGOC'{% if view_filter_values.ccgv %}selected='selected'{% endif %}>CGOC</option>
+          </select>
+          <strong>OVC Exited </strong>
+          <select name='ovc_exited' class="form-control" id='ovc_exited'>
+              <option value='0'>Select If OVC Exited</option>
+              <option value='YES' {% if view_filter_values.ovc_exited_true %}selected='selected'{% endif %}> YES </option>
+              <option value='NO'{% if view_filter_values.ovc_exited_false %}selected='selected'{% endif %}>NO</option>
+            </select>
+  </div>
+</div>

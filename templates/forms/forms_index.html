@@ -21,7 +21,7 @@
     {% if 'error' in message.tags %}
         <div id="messages" class="alert alert-danger fade in">
         <span class="close" data-dismiss="alert">×</span>
-        <i class="fa fa-info fa-2x pull-left"></i>
+        <i class="fa fa-exclamation-triangle fa-2x pull-left"></i>
     {% else %}
         <div id="messages" class="alert alert-success fade in">
         <span class="close" data-dismiss="alert">×</span>
@@ -55,7 +55,7 @@
                         <button type="submit" class="btn btn-sm btn-primary m-r-5">
                             <i class="fa fa-search"></i>&nbsp;&nbsp;<b>Search</b>
                         </button>
-                        <a href="{% url 'new_person' %}" class="btn btn-sm btn-primary m-r-5">
+                        <a href="{% url 'new_person' %}" class="btn btn-sm btn-success m-r-5 pull-right">
                             <i class="fa fa-plus"></i>&nbsp;&nbsp;<b>Register New Child</b>
                         </a>
                     </form>        
