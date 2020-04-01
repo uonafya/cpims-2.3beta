@@ -94,7 +94,7 @@
                     <li><a href="{% url 'reports_ovc' id=24 %}">Viral Load</a></li>
                     <li><a href="{% url 'reports_ovc' id=25 %}">Eligibility Criteria</a></li>
                     <li><a href="{% url 'reports_ovc' id=26 %}">Caregivers Served</a></li>
-                    <li><a href="{% url 'reports_ovc' id=27 %}">KPIs</a></li>
+                    <!-- <li><a href="{% url 'reports_ovc' id=27 %}">KPIs</a></li> -->
                     <li><a href="{% url 'reports_ovc' id=28 %}">HIV Risk Screening</a></li>
                     <li><a href="{% url 'reports_ovc' id=29 %}">HIV Management</a></li>
 
@@ -162,6 +162,11 @@
 	        <li><a href="{% url 'change_notes' %}">Change Notes</a></li>
 	        <li><a href="https://cpims-docs.readthedocs.io/en/latest/" target="_blank">Documentation</a></li>
 	    </ul>
+	</li>
+	<li class="online_mode">
+	    <a href="{% url 'simple-forums:topic-list' %}">
+	        <i class="fa fa-users"></i> <span>CPIMS Forum</span>
+	    </a>
 	</li>
     <!-- begin sidebar minify button -->
 	<li><a href="#" class="sidebar-minify-btn" data-click="sidebar-minify">
