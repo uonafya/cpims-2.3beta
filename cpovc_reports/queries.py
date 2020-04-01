@@ -2129,9 +2129,23 @@ ELSE 'Education' END AS Domain,
 CASE right(entity, 1) WHEN 's' THEN 'Service' ELSE 'Assessment'
 END AS visittype,
 CASE reg_person.sex_id WHEN 'SFEM' THEN 'Female' ELSE 'Male' END AS Gender,
+/*
 CASE WHEN date_part('year', age(timestamp '{end_date}',
 reg_person.date_of_birth)) < 50 THEN 'a.Below 50'
 ELSE 'b.50+ years ' END AS AgeRange
+*/
+CASE
+WHEN date_part('year', age(timestamp '31-Mar-2020', reg_person.date_of_birth)) < 1 THEN 'a.[<1yrs]'
+WHEN  date_part('year', age(timestamp '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 1 AND 4 THEN 'b.[1-4yrs]'
+WHEN  date_part('year', age(timestamp '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 5 AND 9 THEN 'c.[5-9yrs]'
+WHEN  date_part('year', age(timestamp '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 10 AND 14 THEN 'd.[10-14yrs]'
+WHEN  date_part('year', age(timestamp '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 15 AND 17 THEN 'e.[15-17yrs]'
+WHEN  date_part('year', age(timestamp '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 18 AND 24 THEN 'f.[18-24yrs]'
+WHEN  date_part('year', age(timestamp '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 25 AND 40 THEN 'g. [25-40yrs]'
+WHEN date_part('year', age(timestamp  '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 40 AND 50 THEN 'h. [40-50yrs]'
+WHEN date_part('year', age(timestamp  '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 50 AND 60 THEN 'i. [50-60yrs]'
+WHEN date_part('year', age(timestamp  '31-Mar-2020', reg_person.date_of_birth)) BETWEEN 60 AND 65 THEN 'j. [60-65yrs]'
+ELSE 'k.[65+yrs]' END AS AgeRange
 from ovc_care_f1b
 inner join ovc_care_events on event_id=ovc_care_events.event
 left outer join reg_person on ovc_care_events.person_id=reg_person.id
@@ -2139,12 +2153,13 @@ LEFT OUTER JOIN ovc_registration ON
 ovc_care_events.person_id=ovc_registration.caretaker_id
 left outer join reg_org_unit on child_cbo_id=reg_org_unit.id
 LEFT OUTER JOIN reg_persons_geo ON
-reg_persons_geo.person_id=ovc_registration.person_id
-left outer join list_geo on list_geo.area_id=reg_persons_geo.area_id
+reg_persons_geo.person_id=ovc_registration.person_id and reg_persons_geo.area_id > 337
+left outer join list_geo on list_geo.area_id=reg_persons_geo.area_id and reg_persons_geo.area_id > 337
 left outer join list_geo as scc on scc.area_id=list_geo.parent_area_id
 left outer join list_geo as cc on cc.area_id=scc.parent_area_id
 left outer join list_general on entity=list_general.item_id
-where ovc_registration.is_active = True
+where reg_persons_geo.is_void=False
+--ovc_registration.is_active = True
 and ovc_registration.child_cbo_id in ({cbos})
 and ovc_care_events.date_of_event between '{start_date}' and '{end_date}'
 and list_general.field_name = 'form1b_items'
