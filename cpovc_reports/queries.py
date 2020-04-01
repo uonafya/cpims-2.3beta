@@ -2978,7 +2978,9 @@ list_general.item_description,derivedtbl_1.area_name,date_part('year', age(reg_p
 group by CBO, ward, item_description,County,AgeRange,OVCName,tbl_pepfar.person_id
 '''
 
-QUERIES['not_served'] = '''
+
+QUERIES['not_served_b403282020'] = '''
+/*
 SELECT 
 child_cbo_id AS cbo_id, reg_org_unit.org_unit_name AS cbo,
 list_geo.area_id AS ward_id, list_geo.area_name AS ward,
@@ -3082,9 +3084,19 @@ FROM  (SELECT area_id, area_name, area_code, parent_area_id
 WHERE reg_org_unit.id in ({cbos}) AND (ovc_care_assessment.domain in ('DHNU','DPSS')) and (ovc_care_assessment.is_void = 'False') 
 AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
 )
+
+*/
 '''
 
+QUERIES['not_served'] = '''
 
+Select * from vw_cpims_Not_Served
+
+WHERE cbo_id in ({cbos}) 
+--AND (vw_cpims_cpara_final.date_of_event BETWEEN '{start_date}' AND '{end_date}')
+;
+
+'''
 
 QUERIES['cpara'] = '''
 Select * from vw_cpims_cpara_final
