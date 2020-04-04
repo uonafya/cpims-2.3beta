@@ -33,6 +33,8 @@ REPORTS[26] = 'caregivers_served'
 REPORTS[27] = 'kpis'
 REPORTS[28] = 'hiv_risk_screening'
 REPORTS[29] = 'hiv_management'
+REPORTS[30] = 'datim_exit_without_graduation'
+REPORTS[31] = 'not_reported_in_datim'
 
 REPORTS[51] = 'datim'
 REPORTS[52] = 'pepfar'
@@ -4223,4 +4225,10 @@ WHERE
 AND (vw_cpims_treatment.exit_status = 'ACTIVE' 
  AND vw_cpims_treatment.registration_date <= '31-mar-2019')
 GROUP BY CBO, ward, County,AgeRange,ward_id,countyid,Gender,vw_cpims_treatment.linked
+'''
+
+QUERIES['datim_exit_without_graduation'] = '''
+'''
+
+QUERIES['not_reported_in_datim'] = '''
 '''
