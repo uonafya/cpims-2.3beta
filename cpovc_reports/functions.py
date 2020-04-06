@@ -46,13 +46,15 @@ from cpovc_registry.models import (
 from cpovc_forms.models import (
     OVCCaseCategory, OVCCaseGeo, OVCCaseEventServices,
     OVCPlacement, OVCAdverseEventsOtherFollowUp,
-    OVCDischargeFollowUp, OVCCaseRecord, OVCAdverseEventsFollowUp)
+    OVCDischargeFollowUp, OVCCaseRecord, OVCAdverseEventsFollowUp, 
+    OVCCareCasePlan)
 from cpovc_auth.models import AppUser
 
 from django.conf import settings
 from django.db.models import Count
 from .queries import QUERIES, REPORTS
 from .parameters import ORPTS, RPTS
+
 
 MEDIA_ROOT = settings.MEDIA_ROOT
 STATIC_ROOT = settings.STATICFILES_DIRS[0]
@@ -2325,7 +2327,7 @@ def get_registration_data(kpis, params):
     """Get OVC registration data."""
     try:
         datas = []
-        kpdts = [1, 2, 3, 4, 5, 7, 10, 11, 17, 24]
+        kpdts = [1, 2, 3, 4, 5, 7, 10, 11, 17, 24, 33,34,35]
         end_date = params['end_date']
         start_date = params['start_date']
         ou = params['org_unit']
@@ -2348,9 +2350,12 @@ def get_registration_data(kpis, params):
             cbo = reg.child_cbo.org_unit_name
             reg_date = reg.registration_date
             exit_date = reg.exit_date
+            cpe = OVCCareCasePlan.objects.filter(person_id=reg.person_id, is_void=False)
+            start_date_ = datetime.now() - timedelta(days=364)
             county = 1
             ward = 1
             kvar = 'Number of'
+            # kper = 'Percentage of'
             gender = 'Female' if sex == 'SFEM' else 'Male'
             for kp in kpdts:
                 if kp == 1:
@@ -2370,6 +2375,12 @@ def get_registration_data(kpis, params):
                 elif kp == 11 and reg.hiv_status == 'HSTN':
                     kpi = kpis[kp] % (kvar)
                 elif kp == 17 and reg.is_active and reg.hiv_status == 'HSTP':
+                    kpi = kpis[kp] % (kvar)
+                elif kp == 33 and len(cpe) > 0:
+                    kpi = kpis[kp] % (kvar)
+                elif kp == 34 and len(cpe) > 0 and timestamp_updated < start_date_:
+                    kpi = kpis[kp] % (kvar)
+                elif kp == 35 and len(cpe) > 0:
                     kpi = kpis[kp] % (kvar)
                 else:
                     kpi = None
@@ -2546,6 +2557,12 @@ def get_pivot_ovc(request, params={}):
         kpis[28] = '6.a %s OVC served with 1 or 2 services'
         kpis[29] = '6.b %s OVC served with 3 or more services'
         kpis[30] = '6.c %s OVC NOT served with any service'
+        
+        #new KPI indicators
+        kpis[33] = '7.a %s OVCs with caseplan'
+        kpis[34] = '7.b %s OVCs with caseplan updated within the last 1 year'
+        kpis[35] = '7.c %s OVCs on path to graduation'
+
         # served
         services = {}
         services[1] = 'a.OVC HIVSTAT'
