@@ -1,4 +1,4 @@
-Django==1.8.15
+Django==1.11.28
 django-crispy-forms==1.6.0
 jellyfish==0.5.4
 pillow==3.3.2
