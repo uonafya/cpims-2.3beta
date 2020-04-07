@@ -29,7 +29,7 @@ event_records_count = 0
 cpara_records_count = 0
 
 # try:
-with open('/home/fegati/py_projects/cpims_scripts/nilinde-cpara-data-entries.csv') as cpara_file:
+with open('/home/fegati/py_projects/cpims-2.3beta/data/case_ovc_cpara_2.csv') as cpara_file:
     file_reader = csv.DictReader(cpara_file)
     for row in file_reader:
         # create event based on assessment date and return event id
@@ -41,9 +41,9 @@ with open('/home/fegati/py_projects/cpims_scripts/nilinde-cpara-data-entries.csv
                                   date_of_event=convert_date(row['doa'], fmt='%d/%m/%Y'),
                                   date_of_previous_event=convert_date(row['doa'], fmt='%d/%m/%Y'),
                                   created_by=1, timestamp_created=datetime.datetime.now(), is_void=False,
-                                  person=RegPerson.objects.get(id=int(row['ovc-cpims-id'])),
+                                  person=RegPerson.objects.get(id=int(row['person_id'])),
                                   house_hold=OVCHouseHold.objects.get(
-                                      id=OVCHHMembers.objects.get(person_id=int(row['ovc-cpims-id'])).house_hold_id))
+                                      id=OVCHHMembers.objects.get(person_id=int(row['person_id'])).house_hold_id))
             # save the event instance
             event.save()
             answers = {k: row[k] for k in keys if row.get(k)}
@@ -54,19 +54,20 @@ with open('/home/fegati/py_projects/cpims_scripts/nilinde-cpara-data-entries.csv
                     'domain': OVCCareQuestions.objects.get(question=item).domain,
                     'event': event,
                     'household': OVCHouseHold.objects.get(
-                        id=OVCHHMembers.objects.get(person_id=int(row['ovc-cpims-id'])).house_hold_id),
+                        id=OVCHHMembers.objects.get(person_id=int(row['person_id'])).house_hold_id),
                     'question': OVCCareQuestions.objects.get(question=item),
                     'date_of_event': convert_date(row['doa'], fmt='%d/%m/%Y'),
                     'question_code': OVCCareQuestions.objects.get(question=item).code
                 })
                 # construct cpara instance for each each answer in each question
-                cpara = OVCCareCpara(person=RegPerson.objects.get(id=int(row['ovc-cpims-id'])),
+                cpara = OVCCareCpara(person=RegPerson.objects.get(id=int(row['person_id'])),
+                                     caregiver=RegPerson.objects.get(id=int(row['person_id'])),
                                      answer=answers[item],
                                      question_type=OVCCareQuestions.objects.get(question=item).question_type,
                                      domain=OVCCareQuestions.objects.get(question=item).domain,
                                      event=event,
                                      household=OVCHouseHold.objects.get(
-                                         id=OVCHHMembers.objects.get(person_id=int(row['ovc-cpims-id'])).house_hold_id),
+                                         id=OVCHHMembers.objects.get(person_id=int(row['person_id'])).house_hold_id),
                                      question=OVCCareQuestions.objects.get(question=item),
                                      date_of_event=convert_date(row['doa'], fmt='%d/%m/%Y')
                                      )
