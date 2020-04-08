@@ -2153,11 +2153,11 @@ reg_person.sex_id, reg_org_unit.org_unit_name, reg_person.date_of_birth,
 list_geo.area_name, scc.area_name, cc.area_name, list_general.item_description
 '''
 # Form 1A summary
-QUERIES['form1a_summary'] = '''
+QUERIES['form1a_summary_b4_march20,2020'] = '''
+/*
 select count(distinct person_id), AgeRange, 
-CASE sex_id WHEN 'SMAL' THEN 'Female' ELSE 'Male' END AS Gender,
-CBO,  Ward, item_description,
-County,Indicator
+CASE sex_id WHEN 'SFEM' THEN 'Female' ELSE 'Male' END AS Gender,
+CBO,  Ward,County, item_description, Indicator
 FROM
 (--Assessments - F1A priority needs
 SELECT ovc_care_events.person_id, reg_org_unit.org_unit_name AS CBO, list_geo.area_name AS ward, list_general.item_description, 
@@ -2246,6 +2246,159 @@ GROUP BY AgeRange,
 Gender,
 CBO,  Ward, item_description,
 County,Indicator
+
+*/
+
+'''
+
+
+# Form 1A summary
+QUERIES['form1a_summary'] = '''
+select count(distinct person_id), AgeRange,
+Gender,
+CBO,  Ward,constituency,County,
+CASE domain       WHEN 'DEDU' THEN 'Schooled'
+            WHEN 'DHNU' THEN 'Healthy'
+            WHEN 'DPRO' THEN 'Safe'
+            WHEN 'DHES' THEN 'STABLE'
+            WHEN 'DSHC' THEN 'Shelter and Care' 
+            ELSE 'NULL' END, item_description, Indicator
+FROM
+(
+---Assessments
+SELECT ovc_care_events.person_id, vw_cpims_demographics.cbo AS CBO, vw_cpims_demographics.ward,vw_cpims_demographics.constituency,
+vw_cpims_demographics.County,
+ovc_care_assessment.domain,
+       list_general.item_description,
+vw_cpims_demographics.Agerange, vw_cpims_demographics.Gender,
+
+  'F1A Assessments ' || ' '  as Indicator
+FROM vw_cpims_demographics
+RIGHT OUTER JOIN ovc_care_events ON vw_cpims_demographics.person_id=ovc_care_events.person_id
+INNER JOIN ovc_care_assessment  ON ovc_care_events.event = ovc_care_assessment.event_id
+INNER JOIN reg_person ON ovc_care_events.person_id = reg_person.id
+INNER JOIN list_general ON ovc_care_assessment.service = list_general.item_id
+LEFT OUTER JOIN ovc_registration ON ovc_care_events.person_id = ovc_registration.person_id
+LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
+LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
+LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
+WHERE ovc_registration.child_cbo_id in ({cbos})
+
+AND (ovc_care_assessment.is_void = 'False') AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
+
+GROUP BY ovc_care_events.person_id,ovc_care_assessment.domain,ovc_care_assessment.service, reg_person.date_of_birth, vw_cpims_demographics.gender,
+ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
+vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
+
+UNION
+
+---Case Plan Priorities
+SELECT ovc_care_events.person_id, vw_cpims_demographics.cbo AS CBO, vw_cpims_demographics.ward,vw_cpims_demographics.constituency,
+vw_cpims_demographics.County,
+ovc_care_case_plan.domain,
+       --list_general.item_description,
+CASE ovc_care_case_plan.priority
+
+          WHEN  'CPTP1h'  THEN  'Reffered for HIV testing(provide transport& accompany)'
+          WHEN  'CPTP2h'  THEN  'Esort for clinic appointment'
+          WHEN  'CPTP3h'  THEN  'Referred for ART re enrolment'
+          WHEN  'CPTP4h'  THEN  'Support assisted disclosure'
+          WHEN  'CPTP5h'  THEN  'Enrol in a support group'
+          WHEN  'CPTP6h'  THEN  'Link to adolescent friendly centres/ support group '
+          WHEN  'CPTP7h'  THEN  'Reffered for nutrition support '
+          WHEN  'CPTP8h'  THEN  'Escort for treatment at health facility'
+          WHEN  'CPTP9h'  THEN  'Support NHIF registration'
+          WHEN  'CPTP10h'  THEN  'Other Priorities, specify..'
+
+          WHEN  'CPTP1s'  THEN  'Refer or provide social assistance support'
+          WHEN  'CPTP2s'  THEN  'Refer for or provide support on asset growth and protection'
+          WHEN  'CPTP3s'  THEN  'Refer for or support on Income growth services'
+          WHEN  'CPTP4s'  THEN  'Others Stable Priories specify..'
+
+          WHEN  'CPTP1p'  THEN  'Caregiver mentored on child care and positive parenting skills'
+          WHEN  'CPTP2p'  THEN  'Link Child Headed Households to adult caregiver'
+          WHEN  'CPTP3p'  THEN  'Refer/ link child/adolescent for post violence care'
+          WHEN  'CPTP4p'  THEN  'Place child in a safe environment'
+          WHEN  'CPTP5p'  THEN  'Provide information to OVC on how to protect themselves from HIV, abuse including GBV'
+          WHEN  'CPTP6p'  THEN  'Provide/refer for medical attention in cases of abuse'
+          WHEN  'CPTP7p'  THEN  'Provide/ refer for legal assistance in cases of abuse'
+          WHEN  'CPTP8p'  THEN  'Provide information on child rights and responsibilities'
+          WHEN  'CPTP9p'  THEN  'Provide/ refer for legal documents (e.g, birth certificate)'
+          WHEN  'CPTP10p'  THEN  'Provide/ refer child (above 10 years) for life skills sessions'
+          WHEN  'CPTP11p'  THEN  'Provide/ refer OVC for basic counseling services '
+          WHEN  'CPTP12p'  THEN  'Promote  stimulating activities  such as play for child [below 5 yrs]'
+          WHEN  'CPTP13p'  THEN  'Provide caregiver  with information on importance of legal documents e.g. ID, title deed, death certificate'
+          WHEN  'CPTP14p'  THEN  'Sensitize caregiver  on child protection issues'
+          WHEN  'CPTP15p'  THEN  'Sentitize caregiver on positive parenting skills'
+
+          WHEN  'CPTG1p'  THEN  'Enrol back to school (including teenage mothers)'
+          WHEN  'CPTG2p'  THEN  'Monitor child to regularly attend school'
+          WHEN  'CPTG3p'  THEN  'Refer/ link child for education support (ie presidential bursary fund, CDF)'
+          WHEN  'CPTG4p'  THEN  'Provide child with counseling and enrol back to school'
+          WHEN  'CPTG5p'  THEN  'Provide scholastic materials'
+          WHEN  'CPTG6p'  THEN  'Provide/refer for sanitary pads'
+          WHEN  'CPTG7p'  THEN  'Provide school uniform'
+          WHEN  'CPTG8p'  THEN  'Vocational support for out of school OVC (<17 years)'
+          WHEN  'CPTG9p'  THEN  'Apprenticeship support for out of school OVC (15-17yrs)'
+          WHEN  'CPTG10p'  THEN  'Caregiver supports children through assistance with homework'
+          WHEN  'CPTG11p'  THEN  'Caregiver tracks childs school attendance and progress'
+          WHEN  'CPTG12p'  THEN  'Provide or refer for mentorship and life skills support'    END AS item_description,
+
+vw_cpims_demographics.Agerange, vw_cpims_demographics.Gender,
+
+  'Case Plan Priorities ' || ' '  as Indicator
+FROM vw_cpims_demographics
+RIGHT OUTER JOIN ovc_care_events ON vw_cpims_demographics.person_id=ovc_care_events.person_id
+INNER JOIN ovc_care_case_plan  ON ovc_care_events.event = ovc_care_case_plan.event_id
+INNER JOIN reg_person ON ovc_care_events.person_id = reg_person.id
+INNER JOIN list_general ON ovc_care_case_plan.domain = list_general.item_id
+LEFT OUTER JOIN ovc_registration ON ovc_care_events.person_id = ovc_registration.person_id
+LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
+LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
+LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
+WHERE ovc_registration.child_cbo_id in ({cbos})
+
+AND (ovc_care_case_plan.is_void = 'False') AND (ovc_care_events.event_type_id = 'CPAR') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
+
+AND (ovc_care_case_plan.priority IS NOT NULL )
+GROUP BY ovc_care_events.person_id,ovc_care_case_plan.domain,ovc_care_case_plan.priority, reg_person.date_of_birth, vw_cpims_demographics.gender,
+ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
+vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
+
+UNION
+
+
+--- F1 A Services
+SELECT ovc_care_events.person_id, vw_cpims_demographics.cbo AS CBO, vw_cpims_demographics.ward,vw_cpims_demographics.constituency,
+vw_cpims_demographics.County,
+ovc_care_services.domain,
+       list_general.item_description,
+vw_cpims_demographics.Agerange, vw_cpims_demographics.Gender,
+
+  'F1A Services ' || ' '  as Indicator
+FROM vw_cpims_demographics
+RIGHT OUTER JOIN ovc_care_events ON vw_cpims_demographics.person_id=ovc_care_events.person_id
+INNER JOIN ovc_care_services  ON ovc_care_events.event = ovc_care_services.event_id
+INNER JOIN reg_person ON ovc_care_events.person_id = reg_person.id
+INNER JOIN list_general ON ovc_care_services.service_provided = list_general.item_id
+LEFT OUTER JOIN ovc_registration ON ovc_care_events.person_id = ovc_registration.person_id
+LEFT OUTER JOIN reg_org_unit ON reg_org_unit.id = ovc_registration.child_cbo_id
+LEFT OUTER JOIN reg_persons_geo ON reg_persons_geo.person_id = ovc_registration.person_id
+LEFT OUTER JOIN list_geo ON list_geo.area_id = reg_persons_geo.area_id
+
+WHERE ovc_registration.child_cbo_id in ({cbos}) AND (ovc_care_services.is_void = 'False') 
+AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
+
+GROUP BY ovc_care_events.person_id,ovc_care_services.domain,ovc_care_services.service_provided, reg_person.date_of_birth, vw_cpims_demographics.gender,
+ovc_registration.child_cbo_id, reg_org_unit.org_unit_name, reg_persons_geo.area_id, list_geo.area_name, list_general.item_description,
+vw_cpims_demographics.cbo, vw_cpims_demographics.County, vw_cpims_demographics.constituency, vw_cpims_demographics.Ward,vw_cpims_demographics.agerange
+
+) AS tbl_F1ASummary
+GROUP BY AgeRange,
+Gender,
+CBO,  Ward,constituency, domain, item_description,
+County,Indicator;
+
 '''
 # List of OVC Served
 QUERIES['ovc_served_list_bkup'] = '''
@@ -2825,7 +2978,9 @@ list_general.item_description,derivedtbl_1.area_name,date_part('year', age(reg_p
 group by CBO, ward, item_description,County,AgeRange,OVCName,tbl_pepfar.person_id
 '''
 
-QUERIES['not_served'] = '''
+
+QUERIES['not_served_b403282020'] = '''
+/*
 SELECT 
 child_cbo_id AS cbo_id, reg_org_unit.org_unit_name AS cbo,
 list_geo.area_id AS ward_id, list_geo.area_name AS ward,
@@ -2929,10 +3084,25 @@ FROM  (SELECT area_id, area_name, area_code, parent_area_id
 WHERE reg_org_unit.id in ({cbos}) AND (ovc_care_assessment.domain in ('DHNU','DPSS')) and (ovc_care_assessment.is_void = 'False') 
 AND (ovc_care_events.event_type_id = 'FSAM') AND (ovc_care_events.date_of_event BETWEEN '{start_date}' AND '{end_date}')
 )
+
+*/
 '''
+
+QUERIES['not_served'] = '''
+
+Select * from vw_cpims_Not_Served
+
+WHERE cbo_id in ({cbos}) 
+--AND (vw_cpims_cpara_final.date_of_event BETWEEN '{start_date}' AND '{end_date}')
+;
+
+'''
+
 QUERIES['cpara'] = '''
-Select * from vw_cpims_cpara
-WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+Select * from vw_cpims_cpara_final
+
+WHERE cbo_id in ({cbos}) AND (vw_cpims_cpara_final.date_of_event BETWEEN '{start_date}' AND '{end_date}');
+
 '''
 QUERIES['case_plan'] = '''
 Select * from vw_cpims_case_plan
@@ -3528,9 +3698,9 @@ where  vw_cpims_active_beneficiary.cbo_id IN ({cbos}) AND
 
 
 --Datim Services
- SELECT DISTINCT person_id as ovcid, CBO, ward, County,AgeRange,tbl_pepfar.ward_id,tbl_pepfar.countyid,
+ SELECT DISTINCT person_id as ovcid, CBO, ward, constituency, County,AgeRange,tbl_pepfar.ward_id,tbl_pepfar.countyid,
 Gender INTO  TEMP temp_DatimServices FROM 
-   (SELECT person_id,vw_cpims_Registration.CBO, vw_cpims_Registration.ward, vw_cpims_Registration.County, vw_cpims_Registration.Gender,
+   (SELECT person_id,vw_cpims_Registration.CBO, vw_cpims_Registration.ward, vw_cpims_Registration.constituency, vw_cpims_Registration.County, vw_cpims_Registration.Gender,
     vw_cpims_Registration.AgeRange,vw_cpims_Registration.cbo_id,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
      FROM  vw_cpims_two_quarters INNER JOIN vw_cpims_Registration ON vw_cpims_two_quarters.person_id = vw_cpims_Registration.cpims_ovc_id
      WHERE vw_cpims_two_quarters.cbo_id IN ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}') AND vw_cpims_two_quarters.person_id IN(SELECT person_id from vw_cpims_active_beneficiary)
@@ -3544,27 +3714,27 @@ Gender INTO  TEMP temp_DatimServices FROM
     AND NOT
       (vw_cpims_Registration.schoollevel = ' Not in School' AND  vw_cpims_Registration.age > 17)
 
-     GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward, 
+     GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward, vw_cpims_Registration.constituency,
      vw_cpims_Registration.County,vw_cpims_Registration.gender,vw_cpims_Registration.AgeRange,vw_cpims_Registration.dob,vw_cpims_Registration.cbo_id,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
 
 UNION --Include Graduated 6(sapr)-12(apr)months because Active+Graduated=OVC_Serv
-      SELECT person_id,vw_cpims_Registration.cbo, vw_cpims_Registration.ward,  vw_cpims_Registration.County, vw_cpims_Registration.gender,
+      SELECT person_id,vw_cpims_Registration.cbo, vw_cpims_Registration.ward, vw_cpims_Registration.constituency, vw_cpims_Registration.County, vw_cpims_Registration.gender,
        vw_cpims_Registration.AgeRange,vw_cpims_Registration.cbo_id,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
       from vw_cpims_exits
          INNER JOIN vw_cpims_Registration ON vw_cpims_exits.person_id =     vw_cpims_Registration.cpims_ovc_id              
          where datimexitreason = 'GRADUATION'   AND   vw_cpims_exits.cbo_id in ({cbos})  AND (vw_cpims_exits.exit_status = 'EXITED' AND
       (vw_cpims_exits.registration_date <= '{end_date}' AND (vw_cpims_exits.exit_date BETWEEN '{start_date}' AND '{end_date}'))) 
-      GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward,
+      GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward,vw_cpims_Registration.constituency,
         vw_cpims_Registration.County,vw_cpims_Registration.gender,vw_cpims_Registration.AgeRange,vw_cpims_Registration.dob,vw_cpims_Registration.cbo_id,
       vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id                                                                                                                                
 )
 tbl_pepfar
-group by ovcid,CBO, ward, County,AgeRange,tbl_pepfar.ward_id,tbl_pepfar.countyid,Gender;
+group by ovcid,CBO, ward, constituency,County,AgeRange,tbl_pepfar.ward_id,tbl_pepfar.countyid,Gender;
 
 --Active OVCs, should be only OVCs Served
 select
 CAST(COUNT(DISTINCT cpims_ovc_id) AS integer) AS OVCCount,
-ward,County,ward_id as wardid
+ward,constituency,County,ward_id as wardid
 into TEMP temp_ActiveBeneficiaries
 from vw_cpims_Registration
 where vw_cpims_registration.cbo_id in ({cbos}) AND ((exit_status = 'ACTIVE' and registration_date <= '{end_date}')
@@ -3573,10 +3743,11 @@ where vw_cpims_registration.cbo_id in ({cbos}) AND ((exit_status = 'ACTIVE' and 
 AND NOT
       (vw_cpims_Registration.schoollevel = ' Not in School' AND  vw_cpims_Registration.age > 17)
  and cpims_ovc_id in (select ovcid from temp_datimservices)
- group by  ward,County,ward_id ;
+ group by  ward, constituency, County,ward_id ;
 
 --datim final output
-SELECT DISTINCT count(ovcid) as OVCCount  , temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+SELECT DISTINCT count(ovcid) as OVCCount  , temp_DatimServices.CBO, temp_DatimServices.ward, 
+temp_DatimServices.constituency, temp_DatimServices.County,temp_DatimServices.AgeRange,
  temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,
  temp_ActiveBeneficiaries.ovccount as WardActiveBeneficiaries,temp_ExitsGraduated.WardGraduated,
  temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
@@ -3600,7 +3771,7 @@ LEFT OUTER  JOIN temp_ExitsWITHOUT_GRADUATION
 LEFT OUTER JOIN temp_Attrition ON temp_Attrition.ward_id=temp_DatimServices.ward_id
 LEFT OUTER JOIN temp_Actives_Ben ON temp_Actives_Ben.ward_id=temp_DatimServices.ward_id
 LEFT OUTER JOIN temp_ExitsNO_CATEGORY ON temp_ExitsNO_CATEGORY.ward_id=temp_DatimServices.ward_id
-group by temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+group by temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.constituency, temp_DatimServices.County,temp_DatimServices.AgeRange,
  temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,temp_ActiveBeneficiaries.ovccount,temp_ExitsGraduated.WardGraduated,
  temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
  temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
@@ -3611,7 +3782,7 @@ temp_Attrition.ATTRITION, temp_Actives_Ben.OVCACTIVEBENEFICIARY, temp_ExitsNO_CA
 
   --HIV STATUS DISAGGREGATES
 
- SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, county,
+ SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, constituency, county,
   AgeRange,
   ward_id,countyid, gender,
        '0'  AS WardActiveBeneficiaries,
@@ -3629,13 +3800,13 @@ temp_Attrition.ATTRITION, temp_Actives_Ben.OVCACTIVEBENEFICIARY, temp_ExitsNO_CA
 FROM vw_cpims_Registration WHERE
 vw_cpims_registration.cbo_id IN ({cbos})
 AND vw_cpims_registration.cpims_ovc_id IN (SELECT DISTINCT ovcid FROM temp_DatimServices)
-GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward, vw_cpims_Registration.county,vw_cpims_Registration.AgeRange , dob, ward_id,countyid,
+GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward,   vw_cpims_Registration.constituency, vw_cpims_Registration.county,vw_cpims_Registration.AgeRange , dob, ward_id,countyid,
   gender,ovchivstatus
 
 UNION ALL
 
 --POSITIVE ON TREATMENT
- SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, county,
+ SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward,  constituency,county,
  AgeRange,
   ward_id,countyid, gender,
        '0'  AS WardActiveBeneficiaries,
@@ -3652,13 +3823,13 @@ WHERE
 vw_cpims_treatment.linked = 'TREATMENT'
 and vw_cpims_treatment.cbo_id IN ({cbos})
 AND vw_cpims_treatment.cpims_ovc_id IN (SELECT DISTINCT ovcid FROM temp_DatimServices)
-GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,agerange,dob, ward_id,countyid,
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.constituency, vw_cpims_treatment.county,agerange,dob, ward_id,countyid,
   gender,ovchivstatus
 
 union ALL
 
 --POSITIVE NOT ON TREATMENT
-  SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, county,
+  SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, constituency, county,
  AgeRange,
   ward_id,countyid, gender,
        '0'  AS WardActiveBeneficiaries,
@@ -3675,13 +3846,13 @@ WHERE
 vw_cpims_treatment.linked = 'NOTREATMENT'
 and vw_cpims_treatment.cbo_id IN ({cbos})
 AND vw_cpims_treatment.cpims_ovc_id IN (SELECT DISTINCT ovcid FROM temp_DatimServices)
-GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,dob,agerange, ward_id,countyid,
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.constituency , vw_cpims_treatment.county,dob,agerange, ward_id,countyid,
   gender,ovchivstatus
 
   UNION ALL
   ---=================ZERO PADDING ROWS TO MAINTAIN STRUCTURE====================
 
-SELECT DISTINCT 0 as OVCCount  , temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+SELECT DISTINCT 0 as OVCCount  , temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.constituency, temp_DatimServices.County,temp_DatimServices.AgeRange,
  temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,
  temp_ActiveBeneficiaries.ovccount as WardActiveBeneficiaries,temp_ExitsGraduated.WardGraduated,
  temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
@@ -3704,7 +3875,7 @@ LEFT OUTER  JOIN temp_ExitsWITHOUT_GRADUATION
  LEFT OUTER JOIN temp_Attrition ON temp_Attrition.ward_id=temp_DatimServices.ward_id
 LEFT OUTER JOIN temp_Actives_Ben ON temp_Actives_Ben.ward_id=temp_DatimServices.ward_id
 LEFT OUTER JOIN temp_ExitsNO_CATEGORY ON temp_ExitsNO_CATEGORY.ward_id=temp_DatimServices.ward_id
-group by temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.County,temp_DatimServices.AgeRange,
+group by temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.constituency, temp_DatimServices.County,temp_DatimServices.AgeRange,
  temp_DatimServices.ward_id,temp_DatimServices.countyid,temp_DatimServices.Gender,temp_ActiveBeneficiaries.ovccount,temp_ExitsGraduated.WardGraduated,
  temp_ExitsTRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
  temp_ExitsTRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER.TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
@@ -3717,7 +3888,7 @@ temp_ExitsNO_CATEGORY.NO_CATEGORY
 
   --HIV STATUS DISAGGREGATES
 
- SELECT DISTINCT 0 AS OVCCount  , cbo, ward, county,
+ SELECT DISTINCT 0 AS OVCCount  , cbo, ward, constituency, county,
   AgeRange,
   ward_id,countyid, gender,
         0  AS WardActiveBeneficiaries,
@@ -3734,13 +3905,13 @@ temp_ExitsNO_CATEGORY.NO_CATEGORY
        ELSE '2 c.OVC_HIVSTAT:HIV Status NOT Known' END AS domain
 FROM vw_cpims_Registration WHERE
 vw_cpims_registration.cbo_id IN ({cbos})
-GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward, vw_cpims_Registration.county,agerange,dob, ward_id,countyid,
+GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward, vw_cpims_Registration.constituency, vw_cpims_Registration.county,agerange,dob, ward_id,countyid,
   gender,ovchivstatus
 
 UNION ALL
 
 --POSITIVE ON TREATMENT
- SELECT DISTINCT 0 AS OVCCount  , cbo, ward, county,
+ SELECT DISTINCT 0 AS OVCCount  , cbo, ward, constituency,county,
   AgeRange,
   ward_id,countyid, gender,
         0  AS WardActiveBeneficiaries,
@@ -3756,13 +3927,13 @@ FROM vw_cpims_treatment
 WHERE
 vw_cpims_treatment.linked = 'TREATMENT'
 and vw_cpims_treatment.cbo_id IN ({cbos})
-GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,agerange,dob, ward_id,countyid,
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.constituency, vw_cpims_treatment.county,agerange,dob, ward_id,countyid,
   gender,ovchivstatus
 
 union ALL
 
 --POSITIVE NOT ON TREATMENT
-  SELECT DISTINCT 0 AS OVCCount  , cbo, ward, county,
+  SELECT DISTINCT 0 AS OVCCount  , cbo, ward, constituency, county,
   AgeRange,
   ward_id,countyid, gender,
        0  AS WardActiveBeneficiaries,
@@ -3778,7 +3949,7 @@ FROM vw_cpims_treatment
 WHERE
 vw_cpims_treatment.linked = 'NOTREATMENT'
 and vw_cpims_treatment.cbo_id IN ({cbos})
-GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward, vw_cpims_treatment.county,AgeRange,dob, ward_id,countyid,
+GROUP BY vw_cpims_treatment.cbo, vw_cpims_treatment.ward,  vw_cpims_treatment.constituency, vw_cpims_treatment.county,AgeRange,dob, ward_id,countyid,
   gender,vw_cpims_treatment.ovchivstatus;
 
  '''

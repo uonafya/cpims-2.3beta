@@ -6509,7 +6509,8 @@ td:focus{
 .bcclear{
     background: transparent;
 }
-.parsley-errors-list,.parsley-success{
+/* .parsley-errors-list,.parsley-success{ */
+.parsley-errors-list{
     display: inline-block !important;
 }
 .parsley-errors-list.filled,
@@ -6552,7 +6553,7 @@ td:focus{
 .page-container .sidebar .sub-menu > li:hover > a{
     background-color: #a9d3e4;
 }
-/* .sidebar-bg,
+.sidebar-bg,
 .sidebar{
     width: 240px;
 }
@@ -6560,19 +6561,26 @@ td:focus{
     margin-left: 240px;
 }
 
-@media (max-width: 767px){
+/* --</sidebar>-- */
+@media screen and (max-width: 767px){
     .sidebar {
         position:absolute;
-        left:-240px;
+        left:-240px !important;
         padding-top:0;
     }
     .sidebar-bg {
-        left:-240px;
+        left:-240px !important;
     }
     .content{
         padding: 14px !important;
     }
-} */
+    .page-sidebar-toggled .sidebar {
+        left: 0 !important;
+        animation: sidebarSlideInLeft .2s;
+        -webkit-animation: sidebarSlideInLeft .2s;
+    }
+}
+/* --</sidebar>-- */
 
 .page-with-light-sidebar .sidebar .nav > li.active > a, .page-with-light-sidebar .sidebar .nav > li.active > a:hover{
     background-color: #1f5688;

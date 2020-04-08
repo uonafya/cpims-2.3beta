@@ -58,7 +58,7 @@
             <div class="panel-body">
                 <form class="form-horizontal form-bordered" action="{% url 'caseload_reports' %}" method="POST" data-parsley-validate="true" id="case_load_report">
                    {% csrf_token %}
-                   <input type="hidden" value="55" name="report_ovc">
+                   <input type="hidden" value="56" name="report_ovc">
                     <div class="form-group">
                         <label class="control-label col-md-4 col-sm-4">Report Region :</label>
                         <div class="col-md-6 col-sm-6">
@@ -122,7 +122,7 @@
                                 <button type="button" id="rpt-download" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-download"></i> Download</button>
                                 <span  id="other_reports"></span>
                                 <input type="hidden" name="rpt_id" id="rpt_id">
-                                <input type="hidden" name="rpt_ovc_id" id="rpt_ovc_id" value="55">
+                                <input type="hidden" name="rpt_ovc_id" id="rpt_ovc_id" value="56">
                             </div>
                         </div>
                     </div>
@@ -453,7 +453,7 @@ function printReport() {
       var prnt = '<center><img src="{% static 'img/logo_private.png' %}" alt="" /></center>';
       var rname = $("#id_report_type option:selected").text();
       var ryear = $("#id_report_year option:selected").text();
-      var prnt = 'DATIM MER v2.3 Report '+ rname + ' ' + ryear;
+      var prnt = 'DATIM MER v2.4 Report '+ rname + ' ' + ryear;
       //$("#print_title").val();
 
       printContainer
