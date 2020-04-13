@@ -3795,6 +3795,33 @@ temp_Attrition.ATTRITION, temp_Actives_Ben.OVCACTIVEBENEFICIARY, temp_ExitsNO_CA
 
  UNION ALL
 
+  --Graduation DISAGGREGATES  --- Adding the graduation disaggregations by age renage and gender
+
+SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , vw_cpims_Registration.cbo, vw_cpims_Registration.ward,
+ vw_cpims_Registration.constituency, vw_cpims_Registration.county,
+  vw_cpims_Registration.AgeRange,
+  vw_cpims_graduation.ward_id,vw_cpims_Registration.countyid, vw_cpims_Registration.gender,
+       '0'  AS WardActiveBeneficiaries,
+       '0'  AS WardGraduated,
+       '0'  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS WITHOUT_GRADUATION,
+       '0'  AS ATTRITION,
+       '0'  AS OVCACTIVEBENEFICIARY,
+       '0'  AS NO_CATEGORY,
+       '1b. OVC_Serv - Ward Graduated' AS domain
+FROM vw_cpims_graduation
+LEFT OUTER JOIN vw_cpims_registration on vw_cpims_graduation.person_id=vw_cpims_registration.cpims_ovc_id
+WHERE vw_cpims_registration.cbo_id IN ({cbos})
+GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward,   vw_cpims_Registration.constituency, vw_cpims_Registration.county,vw_cpims_Registration.AgeRange ,
+         dob, vw_cpims_graduation.ward_id,countyid,
+  gender,ovchivstatus
+ 
+ 
+ 
+ 
+ UNION ALL
+
   --HIV STATUS DISAGGREGATES
 
  SELECT count(DISTINCT cpims_ovc_id) AS OVCCount  , cbo, ward, constituency, county,
@@ -3811,6 +3838,8 @@ temp_Attrition.ATTRITION, temp_Actives_Ben.OVCACTIVEBENEFICIARY, temp_ExitsNO_CA
        CASE ovchivstatus
        WHEN 'POSITIVE' THEN '2a.(i) OVC_HIVSTAT:HIV+'
        WHEN 'NEGATIVE' THEN '2b.OVC_HIVSTAT:HIV-'
+       WHEN 'HIV Test Not Required' THEN '2d. OVC_HIVSTAT:Test Not Not Required'
+       
        ELSE '2 c.OVC_HIVSTAT:HIV Status NOT Known' END AS domain
 FROM vw_cpims_Registration WHERE
 vw_cpims_registration.cbo_id IN ({cbos})
@@ -3899,6 +3928,33 @@ group by temp_DatimServices.CBO, temp_DatimServices.ward, temp_DatimServices.con
 temp_Actives_Ben.OVCACTIVEBENEFICIARY,
 temp_ExitsNO_CATEGORY.NO_CATEGORY
 
+ 
+ UNION ALL
+
+  --Graduation DISAGGREGATES padding
+  
+  SELECT 0 AS OVCCount  , vw_cpims_Registration.cbo, vw_cpims_Registration.ward,
+ vw_cpims_Registration.constituency, vw_cpims_Registration.county,
+  vw_cpims_Registration.AgeRange,
+  vw_cpims_graduation.ward_id,vw_cpims_Registration.countyid, vw_cpims_Registration.gender,
+       '0'  AS WardActiveBeneficiaries,
+       '0'  AS WardGraduated,
+       '0'  AS TRANSFERRED_TO_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS TRANSFERRED_TO_NON_PEPFAR_SUPPORTED_PARTNER,
+       '0'  AS WITHOUT_GRADUATION,
+       '0'  AS ATTRITION,
+       '0'  AS OVCACTIVEBENEFICIARY,
+       '0'  AS NO_CATEGORY,
+       '1b. OVC_Serv - Ward Graduated' AS domain
+FROM vw_cpims_graduation
+LEFT OUTER JOIN vw_cpims_registration on vw_cpims_graduation.person_id=vw_cpims_registration.cpims_ovc_id
+WHERE vw_cpims_registration.cbo_id IN ({cbos})
+GROUP BY vw_cpims_Registration.cbo, vw_cpims_Registration.ward,   vw_cpims_Registration.constituency, vw_cpims_Registration.county,vw_cpims_Registration.AgeRange ,
+         dob, vw_cpims_graduation.ward_id,countyid,
+  gender,ovchivstatus
+ 
+ 
+ 
  UNION ALL
 
   --HIV STATUS DISAGGREGATES
@@ -3917,6 +3973,7 @@ temp_ExitsNO_CATEGORY.NO_CATEGORY
        CASE ovchivstatus
        WHEN 'POSITIVE' THEN '2a.(i) OVC_HIVSTAT:HIV+'
        WHEN 'NEGATIVE' THEN '2b.OVC_HIVSTAT:HIV-'
+       WHEN 'HIV Test Not Required' THEN '2d. OVC_HIVSTAT:Test Not Not Required'
        ELSE '2 c.OVC_HIVSTAT:HIV Status NOT Known' END AS domain
 FROM vw_cpims_Registration WHERE
 vw_cpims_registration.cbo_id IN ({cbos})
