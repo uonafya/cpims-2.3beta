@@ -199,14 +199,14 @@ OFFLINE_MODE_CAPABILITY_ENABLED = eval(os.environ.get('CAN_WORK_OFFLINE', 'True'
 from .logging_config import *
 
 # kmhfl API
-KMHFL_USERNAME = os.environ.get('KMHFL_USERNAME')
-KMHFL_PASSWORD = os.environ.get('KMHFL_PASSWORD')
-KMHFL_SCOPE = os.environ.get('KMHFL_SCOPE')
-KMHFL_CLIENTID = os.environ.get('KMHFL_CLIENTID')
-KMHFL_CLIENT_SECRET = os.environ.get('KMHFL_CLIENT_SECRET')
-KMHFL_API_BASE_URL = os.environ.get('KMHFL_API_BASE_URL')
-KMHFL_FACILITY_BASE_URL = os.environ.get('KMHFL_FACILITY_BASE_URL')
-KMHFL_LOGIN_URL = os.environ.get('KMHFL_LOGIN_URL')
-KMHFL_GRANT_TYPE = os.environ.get('KMHFL_GRANT_TYPE')
-KMHFL_SUBCOUNTY_BASE_URL = os.environ.get('KMHFL_SUBCOUNTY_BASE_URL')
+KMHFL_USERNAME = '10004'
+KMHFL_PASSWORD = 'public'
+KMHFL_SCOPE = 'read'
+KMHFL_CLIENTID = 'qxblJCALzKXunUhNUQZpbeQLM9OTvscTYLbQ1oEY'
+KMHFL_CLIENT_SECRET = 'dkwLqoQytFd4zXmPRUXsy2Q4fyRKqy7TAov5OewC2S7iWL58fwCnHyTwYBUMu7fOG091LeADDUgsqeFX446GS2GCDZ5Y6KxlvC3RgRjdSE1sXJIkCpHHfMihPMnUOnU9'
+KMHFL_API_BASE_URL = 'http://api.kmhfl.health.go.ke/'
+KMHFL_FACILITY_BASE_URL = 'http://api.kmhfltest.health.go.ke/api/facilities/facilities/?format=json'
+KMHFL_LOGIN_URL = 'http://api.kmhfl.health.go.ke/accounts/login/'
+KMHFL_GRANT_TYPE = 'password'
+KMHFL_SUBCOUNTY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/common/sub_counties/'
 
