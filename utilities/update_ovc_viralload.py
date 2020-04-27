@@ -75,7 +75,7 @@ class UpdateViralLoad(object):
 			print('[!] [{0}] Authentication Failed'.format(response.status_code), response.content)
 			return None
 		elif response.status_code == 400:
-			print('[!] [{0}] Bad Request'.format(response.status_code), response.content)
+			print('[!] [{0}] Bad Request for PatientID: {1}'.format(response.status_code, patientID), response.content)
 			return None
 		elif response.status_code >= 300:
 			print('[!] [{0}] Unexpected Redirect'.format(response.status_code), response.content)
