@@ -1,1 +1,1 @@
-00 01 * * 6 /opt/cpims/vl/update_ovc_viral_load.sh
+01 23 * * 0 /opt/cpims/vl/update_ovc_viral_load.sh
