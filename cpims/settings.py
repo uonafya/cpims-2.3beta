@@ -210,3 +210,8 @@ KMHFL_LOGIN_URL = 'http://api.kmhfl.health.go.ke/accounts/login/'
 KMHFL_GRANT_TYPE = 'password'
 KMHFL_SUBCOUNTY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/common/sub_counties/'
 
+# nascop API
+NASCOP_API_BASE_URL = os.environ.get('NASCOP_API_BASE_URL') if os.environ.get('NASCOP_API_BASE_URL') else ''
+NASCOP_LOGIN_URL = os.environ.get('NASCOP_LOGIN_URL') if os.environ.get('NASCOP_LOGIN_URL') else ''
+NASCOP_EMAIL = os.environ.get('NASCOP_EMAIL') if os.environ.get('NASCOP_EMAIL') else ''
+NASCOP_PASSWORD = os.environ.get('NASCOP_PASSWORD') if os.environ.get('NASCOP_PASSWORD') else ''
