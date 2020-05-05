@@ -34,5 +34,5 @@ python manage.py loaddata cpovc_forms\fixtures\form1a_revised_assessments.json
 python manage.py loaddata cpovc_forms\fixtures\olmis_assessment_revised.csv.json
 python manage.py loaddata cpovc_forms\fixtures\olmis_services_revised.csv.json
 python manage.py loaddata cpovc_forms\fixtures\case_plan_fixtures.csv.json
-
+python manage.py loaddata cpovc_forms\fixtures\dreams_initial.json
 
