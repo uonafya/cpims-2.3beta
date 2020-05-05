@@ -135,7 +135,7 @@ olmis_ha30_list = get_list('olmis_ha30_id', 'Please Select')
 olmis_ha31_list = get_list('olmis_ha31_id', 'Please Select')
 #----------------------------------Dreams service uptake-------------------------------------~
 dreams_domain_list = get_list('olmis_dreams_service_id', 'Please Select')
-dreams_service_list = get_list('olmis_dreams_service_id', 'Please Select')
+dreams_service_list = get_list('olmis_d', 'Please Select')
 
 
 
