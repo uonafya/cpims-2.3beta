@@ -1,0 +1,1112 @@
+[
+    {
+        "pk": 3100,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Domain",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DSUF",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_id",
+            "item_description_short": "Dreams",
+            "field_name": "olmis_dreams_domain_id",
+            "item_description": "Dreams"
+        }
+    },
+    {
+        "pk": 3101,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 0S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bi_id",
+            "item_description_short": "Behavioural interventions",
+            "field_name": "olmis_dreams_service_id",
+            "item_description": "Behavioural interventions"
+        }
+    },
+    {
+        "pk": 3102,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 1S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id",
+            "item_description_short": "Bio-medical interventions",
+            "field_name": "olmis_dreams_service_id",
+            "item_description": "Bio-medical interventions"
+        }
+    },
+    {
+        "pk": 3103,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 2S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_0",
+            "item_description_short": "Bio-medical interventions - hts (client)",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Bio-medical interventions - hts (client)"
+        }
+    },
+    {
+        "pk": 3104,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 3S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_1",
+            "item_description_short": "Bio-medical interventions - hts (partner)",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Bio-medical interventions - hts (partner)"
+        }
+    },
+    {
+        "pk": 3105,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 4S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_2",
+            "item_description_short": "Bio-medical interventions - pregnancy",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Bio-medical interventions - pregnancy"
+        }
+    },
+    {
+        "pk": 3106,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 5S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "Bio-medical interventions - contraception method mix",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Bio-medical interventions - contraception method mix"
+        }
+    },
+    {
+        "pk": 3107,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 6S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "Bio-medical interventions - received contraception",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Bio-medical interventions - received contraception"
+        }
+    },
+    {
+        "pk": 3108,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 7S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id",
+            "item_description_short": "Post-gbv care",
+            "field_name": "olmis_dreams_service_id",
+            "item_description": "Post-gbv care"
+        }
+    },
+    {
+        "pk": 3109,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 8S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id",
+            "item_description_short": "Social protection",
+            "field_name": "olmis_dreams_service_id",
+            "item_description": "Social protection"
+        }
+    },
+    {
+        "pk": 3110,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 9S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_0",
+            "item_description_short": "Social protection - education support",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Social protection - education support"
+        }
+    },
+    {
+        "pk": 3111,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 10S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_1",
+            "item_description_short": "Social protection - parent/caregiver prog.",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Social protection - parent/caregiver prog."
+        }
+    },
+    {
+        "pk": 3112,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 11S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_2",
+            "item_description_short": "Social protection - economic strengthening",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Social protection - economic strengthening"
+        }
+    },
+    {
+        "pk": 3113,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Service_Id",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 12S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_oi_id",
+            "item_description_short": "Other interventions",
+            "field_name": "olmis_dreams_service_id",
+            "item_description": "Other interventions"
+        }
+    },
+    {
+        "pk": 3114,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 13S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bi_id_0",
+            "item_description_short": "MHMC",
+            "field_name": "olmis_dreams_service_bi_id",
+            "item_description": "MHMC"
+        }
+    },
+    {
+        "pk": 3115,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 14S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bi_id_0",
+            "item_description_short": "RESPECT-K",
+            "field_name": "olmis_dreams_service_bi_id",
+            "item_description": "RESPECT-K"
+        }
+    },
+    {
+        "pk": 3116,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 15S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bi_id_0",
+            "item_description_short": "SHUGA II",
+            "field_name": "olmis_dreams_service_bi_id",
+            "item_description": "SHUGA II"
+        }
+    },
+    {
+        "pk": 3117,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 16S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bi_id_0",
+            "item_description_short": "SISTER TO SISTER-K",
+            "field_name": "olmis_dreams_service_bi_id",
+            "item_description": "SISTER TO SISTER-K"
+        }
+    },
+    {
+        "pk": 3118,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 17S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bi_id_0",
+            "item_description_short": "MLRC",
+            "field_name": "olmis_dreams_service_bi_id",
+            "item_description": "MLRC"
+        }
+    },
+    {
+        "pk": 3119,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 18S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bi_id_0",
+            "item_description_short": "BI_Other",
+            "field_name": "olmis_dreams_service_bi_id",
+            "item_description": "BI_Other"
+        }
+    },
+    {
+        "pk": 3120,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 19S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_0",
+            "item_description_short": "HTS_Client_Negative",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Client_Negative"
+        }
+    },
+    {
+        "pk": 3121,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 20S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_0",
+            "item_description_short": "HTS_Client_Positive",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Client_Positive"
+        }
+    },
+    {
+        "pk": 3122,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 21S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_0",
+            "item_description_short": "HTS_Client_Known Positive",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Client_Known Positive"
+        }
+    },
+    {
+        "pk": 3123,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 22S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_0",
+            "item_description_short": "HTS_Client_Linked to HTS",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Client_Linked to HTS"
+        }
+    },
+    {
+        "pk": 3124,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 23S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_0",
+            "item_description_short": "Linkage_To_CCC_Client",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Linkage_To_CCC_Client"
+        }
+    },
+    {
+        "pk": 3125,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 24S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_1",
+            "item_description_short": "HTS_Partner_Negative",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Partner_Negative"
+        }
+    },
+    {
+        "pk": 3126,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 25S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_1",
+            "item_description_short": "HTS_Partner_Positive",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Partner_Positive"
+        }
+    },
+    {
+        "pk": 3127,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 26S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_1",
+            "item_description_short": "HTS_Partner_Known Positive",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Partner_Known Positive"
+        }
+    },
+    {
+        "pk": 3128,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 27S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_1",
+            "item_description_short": "HTS_Partner_Linked to HTS",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "HTS_Partner_Linked to HTS"
+        }
+    },
+    {
+        "pk": 3129,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 28S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_1",
+            "item_description_short": "Linked_to_CCC_Partner",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Linked_to_CCC_Partner"
+        }
+    },
+    {
+        "pk": 3130,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 29S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_2",
+            "item_description_short": "Pregnant",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Pregnant"
+        }
+    },
+    {
+        "pk": 3131,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 30S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_2",
+            "item_description_short": "Not Pregnant",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Not Pregnant"
+        }
+    },
+    {
+        "pk": 3132,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 31S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_2",
+            "item_description_short": "Confirmed_Linkage",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Confirmed_Linkage"
+        }
+    },
+    {
+        "pk": 3133,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 32S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "ANC/PMTCT",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "ANC/PMTCT"
+        }
+    },
+    {
+        "pk": 3134,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 33S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "STI Screening",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "STI Screening"
+        }
+    },
+    {
+        "pk": 3135,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 34S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "STI Treatment",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "STI Treatment"
+        }
+    },
+    {
+        "pk": 3136,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 35S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "STI Linkage",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "STI Linkage"
+        }
+    },
+    {
+        "pk": 3137,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 36S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "TB Screening",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "TB Screening"
+        }
+    },
+    {
+        "pk": 3138,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 37S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "Linked for TB Treatment",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Linked for TB Treatment"
+        }
+    },
+    {
+        "pk": 3139,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 38S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "Condom Educ. &  Demo",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Condom Educ. &  Demo"
+        }
+    },
+    {
+        "pk": 3140,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 39S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "Condom Provided",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Condom Provided"
+        }
+    },
+    {
+        "pk": 3141,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 40S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_3",
+            "item_description_short": "Partner VMMC",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Partner VMMC"
+        }
+    },
+    {
+        "pk": 3142,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 41S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "Education/Info",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Education/Info"
+        }
+    },
+    {
+        "pk": 3143,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 42S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "Individual Counselling",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Individual Counselling"
+        }
+    },
+    {
+        "pk": 3144,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 43S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "Pills/Oral",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Pills/Oral"
+        }
+    },
+    {
+        "pk": 3145,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 44S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "Injectable",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Injectable"
+        }
+    },
+    {
+        "pk": 3146,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 45S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "Implant",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Implant"
+        }
+    },
+    {
+        "pk": 3147,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 46S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "IUD/Coil",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "IUD/Coil"
+        }
+    },
+    {
+        "pk": 3148,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 47S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_bm_id_4",
+            "item_description_short": "Tubal Ligation",
+            "field_name": "olmis_dreams_service_bm_id",
+            "item_description": "Tubal Ligation"
+        }
+    },
+    {
+        "pk": 3149,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 48S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "PrEP",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "PrEP"
+        }
+    },
+    {
+        "pk": 3150,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 49S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "PEP",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "PEP"
+        }
+    },
+    {
+        "pk": 3151,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 50S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "PSS",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "PSS"
+        }
+    },
+    {
+        "pk": 3152,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 51S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "Rescue/Shelter",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "Rescue/Shelter"
+        }
+    },
+    {
+        "pk": 3153,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 52S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "Police",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "Police"
+        }
+    },
+    {
+        "pk": 3154,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 53S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "Trauma Counselling",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "Trauma Counselling"
+        }
+    },
+    {
+        "pk": 3155,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 54S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "Emergency Contraception",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "Emergency Contraception"
+        }
+    },
+    {
+        "pk": 3156,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 55S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "Examination/Treatment of injuries",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "Examination/Treatment of injuries"
+        }
+    },
+    {
+        "pk": 3157,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 56S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_gv_id_0",
+            "item_description_short": "Legal support",
+            "field_name": "olmis_dreams_service_gv_id",
+            "item_description": "Legal support"
+        }
+    },
+    {
+        "pk": 3158,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 57S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_0",
+            "item_description_short": "School Fees",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "School Fees"
+        }
+    },
+    {
+        "pk": 3159,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 58S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_0",
+            "item_description_short": "Stationery",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Stationery"
+        }
+    },
+    {
+        "pk": 3160,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 59S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_0",
+            "item_description_short": "Uniform",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Uniform"
+        }
+    },
+    {
+        "pk": 3161,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 60S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_0",
+            "item_description_short": "Education_Other",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Education_Other"
+        }
+    },
+    {
+        "pk": 3162,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 61S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_1",
+            "item_description_short": "FMP",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "FMP"
+        }
+    },
+    {
+        "pk": 3163,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 62S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_2",
+            "item_description_short": "Entrepreneur/ Financial Training",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Entrepreneur/ Financial Training"
+        }
+    },
+    {
+        "pk": 3164,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 63S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_2",
+            "item_description_short": "Vocational Training",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Vocational Training"
+        }
+    },
+    {
+        "pk": 3165,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 64S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_2",
+            "item_description_short": "Microfinance",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Microfinance"
+        }
+    },
+    {
+        "pk": 3166,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 65S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_2",
+            "item_description_short": "Internship/ Employment",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Internship/ Employment"
+        }
+    },
+    {
+        "pk": 3167,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 66S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_sp_id_2",
+            "item_description_short": "Business start up",
+            "field_name": "olmis_dreams_service_sp_id",
+            "item_description": "Business start up"
+        }
+    },
+    {
+        "pk": 3168,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 67S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_oi_id_0",
+            "item_description_short": "Cash Transfer",
+            "field_name": "olmis_dreams_service_oi_id",
+            "item_description": "Cash Transfer"
+        }
+    },
+    {
+        "pk": 3169,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 68S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_oi_id_0",
+            "item_description_short": "OVC for Children/",
+            "field_name": "olmis_dreams_service_oi_id",
+            "item_description": "OVC for Children/"
+        }
+    },
+    {
+        "pk": 3170,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 69S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_oi_id_0",
+            "item_description_short": "Siblings /Other",
+            "field_name": "olmis_dreams_service_oi_id",
+            "item_description": "Siblings /Other"
+        }
+    },
+    {
+        "pk": 3171,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 70S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_oi_id_0",
+            "item_description_short": "Nutritional Support",
+            "field_name": "olmis_dreams_service_oi_id",
+            "item_description": "Nutritional Support"
+        }
+    },
+    {
+        "pk": 3172,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 71S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_oi_id_0",
+            "item_description_short": "Drug and Alcohol Addiction Counselling",
+            "field_name": "olmis_dreams_service_oi_id",
+            "item_description": "Drug and Alcohol Addiction Counselling"
+        }
+    },
+    {
+        "pk": 3173,
+        "model": "cpovc_main.SetupList",
+        "fields": {
+            "item_category": "Dreams",
+            "user_configurable": "False",
+            "sms_keyword": "False",
+            "item_id": "DS 72S",
+            "is_void": "False",
+            "item_sub_category": "olmis_dreams_service_oi_id_0",
+            "item_description_short": "Social Assest Building",
+            "field_name": "olmis_dreams_service_oi_id",
+            "item_description": ""
+        }
+    }
+]
