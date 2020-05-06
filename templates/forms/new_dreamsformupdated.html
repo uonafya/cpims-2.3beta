@@ -177,7 +177,7 @@
                                 <table id="assessment_manager_table" class="table" style="min-height: 300px;">
                                     <thead>
                                         <tr id="id_inputHeaders1">
-                                        	<td width="5%"></td>
+                                        	<td width="5%"></td> 
                                         	<th width="15%"><h6><b>Domain<span class="asteriskField">*</h6></b></th>
                                             <th width="20%"><h6><b>Core Service(s)<span class="asteriskField">*</b></h6></th>
                                             <th width="25%"><h6><b>Date of service<span class="asteriskField">*</b></h6></th>
@@ -526,7 +526,7 @@
 jQuery(document).ready(function() 
 {
 	 //multi selects
-    $('#dreams_domain, #dreams_service, #olmis_assessment_coreservice_status, #olmis_domain, #olmis_service_provider, #olmis_service, #olmis_priority_service, #olmis_priority_domain, #olmis_priority_health, #olmis_priority_education, #olmis_priority_shelter, #olmis_priority_protection, #olmis_priority_pss, #olmis_priority_hes, #olmis_critical_event')
+    $('#dreams_domain, #dreams_service')
         .multiselect({
         selectAllValue: 'multiselect-all',
         includeSelectAllOption: true,
@@ -538,12 +538,12 @@ jQuery(document).ready(function()
     });
 
     // populate CSI Services Priority
-    getServices(4, 'DHNU')
-    getServices(4, 'DSHC')
-    getServices(4, 'DPRO')
-    getServices(4, 'DEDU')
-    getServices(4, 'DPSS')
-    getServices(4, 'DHES')
+    getServices(1, 'DS 0S')
+    getServices(1, 'DS 1S')
+    getServices(1, 'DS 1S')
+    getServices(1, 'DS 8S')
+    getServices(1, 'DS 12S')
+    
 
     // show/hide PriorityTab [Jan/May/Nov]
     // tabManager();
@@ -668,36 +668,7 @@ function resetForm1A(x)
         $('#sel_olmis_assessment_coreservice_status').html('');
         $('#olmis_assessment_provided_list').val('')
     }
-    if(x==2)
-    {
-        $('#date_of_cevent').val('');
-        $("#olmis_critical_event").multiselect("clearSelection");
-        $("#olmis_critical_event").multiselect("refresh");
-        $('#sel_olmis_critical_event').html('');
-    }
-    if(x==3)
-    {
-        $('#priority_manager_table').find("tr:gt(1)").remove();
-        $('#date_of_priority').val('');
-        $("#olmis_priority_domain").multiselect("clearSelection");
-        $("#olmis_priority_domain").multiselect("refresh");
-        $("#olmis_priority_service").multiselect("clearSelection");
-        $("#olmis_priority_service").multiselect("refresh");
-        $("#sel_olmis_priority_service").html('');
-        $('#olmis_priority_service_provided_list').val('');
-    }
-    if(x==4)
-    {
-        $('#services_manager_table').find("tr:gt(1)").remove();
-        $('#date_of_service').val('');
-        $("#olmis_domain").multiselect("clearSelection");
-        $("#olmis_domain").multiselect("refresh");
-        $("#olmis_service").multiselect("clearSelection");
-        $("#olmis_service").multiselect("refresh");
-        $("#sel_olmis_service").html('');
-        $('#olmis_service_date').val('');
-        $('#olmis_service_provided_list').val('');        
-    }
+
 }
 
 function saveForm1A(x)
@@ -771,178 +742,7 @@ function saveForm1A(x)
         }        
     } 
 
-    // Critical Events
-    if(x == 2){
-        values['args'] = 2; 
-        error_msg='Please provide required critical event(s)';
-        error_div = '#error_cevts';
-
-        var date_of_cevent = $('#date_of_cevent').val();
-        var olmis_critical_event = $('#olmis_critical_event').val();
-        if(olmis_critical_event) 
-        {
-            values['olmis_critical_event'] = olmis_critical_event.toString();
-
-            if(date_of_cevent)
-            {
-                values['date_of_cevent'] = date_of_cevent;
-                $.ajax({
-                    url: '{% url 'save_form1a' %}',
-                    dataType: 'json',
-                    method: 'POST',
-                    data: values,
-                    success: function(result)
-                    {
-                        $.each(result, function(i, val) 
-                        {
-                            $(".alert-danger").hide();
-                            $('#success_message').css({'display': 'block'});
-                            $('#success_message p').html(val.msg);
-                            $('#error-message-reuse').css({'display': 'none'});
-                        });
-                        loadForm1aEvents();
-                        resetForm1A(2);
-                    },
-                    error: function(xhr, status, error){
-                        $(".alert-danger").hide();
-                        $("" + error_div + "").addClass( "alert alert-danger fade in" );
-                        $("" + error_div + "").html(msg + error)
-                    }
-                });
-            }
-            else
-            {
-                $('#success_message').css({'display': 'none'});
-                $(".alert-danger").show();
-                $('.invalid-form-message').html('Please provide required date of event.');
-                $('#date_errormsg1').css({'display': 'block'});
-                return false;            
-            }
-        }
-        else
-        {
-            $('#success_message').css({'display': 'none'});
-            $(".alert-danger").show();
-            $('.invalid-form-message').html('Please provide required critical event(s).');
-            $('#olmis_critical_event_errormsg').css({'display': 'block'});
-            return false;            
-        }     
-    } 
-
-    // Priority(s)
-    if(x == 3){
-        values['args'] = 3; 
-        error_msg='Error saving priority(s)';
-        error_div = '#error_priority';
-
-        var date_of_priority = $('#date_of_priority').val();
-        var olmis_priority_service_provided_list = $('#olmis_priority_service_provided_list').val();
-        if(olmis_priority_service_provided_list) 
-        {
-            values['olmis_priority_service_provided_list'] = olmis_priority_service_provided_list;
-
-            if(date_of_priority)
-            {
-                values['date_of_priority'] = date_of_priority;
-                $.ajax({
-                    url: '{% url 'save_form1a' %}',
-                    dataType: 'json',
-                    method: 'POST',
-                    data: values,
-                    success: function(result)
-                    {
-                        $.each(result, function(i, val) 
-                        {
-                            $(".alert-danger").hide();
-                            $('#success_message').css({'display': 'block'});
-                            $('#success_message p').html(val.msg);
-                            $('#error-message-reuse').css({'display': 'none'});
-                        });
-                        loadForm1aEvents();
-                        resetForm1A(3);
-                    },
-                    error: function(xhr, status, error){
-                        $(".alert-danger").hide();
-                        $("" + error_div + "").addClass( "alert alert-danger fade in" );
-                        $("" + error_div + "").html(msg + error)
-                    }
-                });
-            }
-            else
-            {
-                $('#success_message').css({'display': 'none'});
-                $(".alert-danger").show();
-                $('.invalid-form-message').html('Please provide required date of event.');
-                $('#date_errormsg2').css({'display': 'block'});
-                return false;            
-            }
-        }
-        else
-        {
-            $('#success_message').css({'display': 'none'});
-            $(".alert-danger").show();
-            $('.invalid-form-message').html('Please provide required priority response(s).');
-            return false;            
-        } 
-    } 
-
-    // Services
-    if(x == 4){
-
-        values['args'] = 4; 
-        error_msg='Error saving service(s)';
-        error_div = '#error_service';
-
-        var date_of_service = $('#sel_date_of_service').val();
-        var olmis_service_provided_list = $('#olmis_service_provided_list').val();
-        if(olmis_service_provided_list) 
-        {
-            values['olmis_service_provided_list'] = olmis_service_provided_list;
-
-            if(date_of_service)
-            {
-                values['date_of_service'] = date_of_service;
-                $.ajax({
-                    url: '{% url 'save_form1a' %}',
-                    dataType: 'json',
-                    method: 'POST',
-                    data: values,
-                    success: function(result)
-                    {
-                        $.each(result, function(i, val) 
-                        {
-                            $(".alert-danger").hide();
-                            $('#success_message').css({'display': 'block'});
-                            $('#success_message p').html(val.msg);
-                            $('#error-message-reuse').css({'display': 'none'});
-                        });
-                        loadForm1aEvents();
-                        resetForm1A(4);
-                    },
-                    error: function(xhr, status, error){
-                        $(".alert-danger").hide();
-                        $("" + error_div + "").addClass( "alert alert-danger fade in" );
-                        $("" + error_div + "").html(msg + error)
-                    }
-                });
-            }
-            else
-            {
-                $('#success_message').css({'display': 'none'});
-                $(".alert-danger").show();
-                $('.invalid-form-message').html('Please provide required date of event.');
-                $('#date_errormsg3').css({'display': 'block'});
-                return false;            
-            }
-        }
-        else
-        {
-            $('#success_message').css({'display': 'none'});
-            $(".alert-danger").show();
-            $('.invalid-form-message').html('Please provide required service(s) response(s).');
-            return false;            
-        } 
-    }    
+  
 }
 function getServices(x, domain)
 {
@@ -964,11 +764,6 @@ function getServices(x, domain)
     	multiselect_id = '#olmis_assessment_coreservice_status'
     } 
 
-    if(x==3) 
-    { 
-    	index = 1;
-    	multiselect_id = '#olmis_service'
-    } 
 
     if(x == 4) 
     { 
