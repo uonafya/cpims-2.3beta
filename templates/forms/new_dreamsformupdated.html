@@ -200,13 +200,11 @@
                                                 </div>
                                             </td>
                                             <td width="15%">
-                                            	{{ form.date_of_service }}
-                                            	 <h6><span id="sel_date_of_service"></span></h6> -->
-                                            	<!-- <input id='holmis_assessment_coreservice_status' type='hidden'> -->
-                                            	<div id="date_errormsg3" style="display:none;">
+                                                {{ form.olmis_service_date }}
+                                                <div id="olmis_service_date_errormsg" style="display:none;">
                                                     <small><p class="dialog_paragraph">This value is required</p></span></small><span>
                                                 </div>
-                                            </td>                                         
+                                            </td>                         
                                             <td width="5%">
                                             <h6><b>
 	                                            <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(1)">
@@ -216,7 +214,7 @@
                                             </td>
                                         </tr>		                                        
                                     </tbody>
-                                    <!-- {{ form.olmis_assessment_provided_list }} -->
+                                    {{ form.dreams_assesment_provided_list }}
                                 </table>
                             </div>
 							    <!-- end col-6 -->                                
@@ -526,7 +524,7 @@
 jQuery(document).ready(function() 
 {
 	 //multi selects
-    $('#dreams_domain, #dreams_service')
+    $('#dreams_domain, #dreams_service','#dreams_other_interventions','#dreams_social_protection','#dreams_post_gbv','#dreams_bioMedical_inteventions','#dreams_behavioural_intervention')
         .multiselect({
         selectAllValue: 'multiselect-all',
         includeSelectAllOption: true,
@@ -538,11 +536,11 @@ jQuery(document).ready(function()
     });
 
     // populate CSI Services Priority
-    getServices(1, 'DS 0S')
-    getServices(1, 'DS 1S')
-    getServices(1, 'DS 1S')
-    getServices(1, 'DS 8S')
-    getServices(1, 'DS 12S')
+    getServices(4, 'DS 0S')
+    getServices(4, 'DS 1S')
+    getServices(4, 'DS 1S')
+    getServices(4, 'DS 8S')
+    getServices(4, 'DS 12S')
     
 
     // show/hide PriorityTab [Jan/May/Nov]
@@ -562,6 +560,7 @@ arr_DHES = new Array();
 arr_DHNU = new Array();
 arr_DEDU = new Array();
 domain_log = { "DSHC": arr_DSHC, "DPSS": arr_DPSS, "DPRO": arr_DPRO, "DHES": arr_DHES, "DHNU": arr_DHNU, "DEDU": arr_DEDU }
+
 
 function loadForm1aEvents()
 {
@@ -692,10 +691,10 @@ function saveForm1A(x)
         error_div = '#error_assessment';
 
         var date_of_assessment = $('#date_of_assessment').val();
-        var olmis_assessment_provided_list = $('#olmis_assessment_provided_list').val();
-        if(olmis_assessment_provided_list) 
+        var dreams_assesment_provided_list = $('#dreams_assesment_provided_list').val();
+        if(dreams_assesment_provided_list) 
         {
-            values['olmis_assessment_provided_list'] = olmis_assessment_provided_list;
+            values['dreams_assesment_provided_list'] = dreams_assesment_provided_list;
 
             if(date_of_assessment)
             {
@@ -768,13 +767,13 @@ function getServices(x, domain)
     if(x == 4) 
     { 
     	index = 1;
-    	if(domain=='DHNU') { multiselect_id = '#olmis_priority_health'; }
-    	if(domain=='DSHC') { multiselect_id = '#olmis_priority_shelter'; }
-    	if(domain=='DPRO') { multiselect_id = '#olmis_priority_protection'; }
-    	if(domain=='DEDU') { multiselect_id = '#olmis_priority_education'; }
-    	if(domain=='DPSS') { multiselect_id = '#olmis_priority_pss'; }
-    	if(domain=='DHES') { multiselect_id = '#olmis_priority_hes'; }
-    	 
+    	if(domain=='DS 12S') { multiselect_id = '#dreams_other_interventions'; }
+    	if(domain=='DS 8S') { multiselect_id = '#dreams_social_protection'; }
+    	if(domain=='DS 7S') { multiselect_id = '#dreams_post_gbv'; }
+    	if(domain=='DS 1S') { multiselect_id = '#dreams_bioMedical_inteventions'; }
+    	if(domain=='DS 0S') { multiselect_id = '#dreams_behavioural_intervention'; }
+    	//if(domain=='DHES') { multiselect_id = '#olmis_priority_hes'; }
+     
 	}
 
     if(x == 5) 
@@ -791,11 +790,11 @@ function getServices(x, domain)
 
     // do an ajax_call
     $.ajax({
-				url: '{% url 'manage_service_category' %}',
+				url: '{% url 'manage_dreams_service' %}',
 				dataType: 'json',
 				method: 'POST',
 				contentType: 'application/x-www-form-urlencoded',
-				data: values,
+                data: values,                
 				success: function(result)
 				{ 
 					var status;
@@ -810,7 +809,6 @@ function getServices(x, domain)
 		                item_sub_category_id = val.item_sub_category_id;
 		                item_sub_category = val.item_sub_category;
 		                status = val.status;
-
 		                var multiselect_dict = { label: item_sub_category, value: item_sub_category_id };
 		                multiselect_data.push(multiselect_dict);
 		            });		            
@@ -840,7 +838,8 @@ function getServices(x, domain)
 				},
 				error: function(xhr, status, error)
 				{
-					console.log(error);
+                    console.log(error);
+                    console.log('kenyattta')
 				}
 
             });        
@@ -850,10 +849,10 @@ function AddRow(x)
 {
 	if(x==1)
 	{
-		var OlmisAssessmentData = new Array();
+		var dreamsData = new Array();
         var dreams_domain = $("#dreams_domain").val();
         var dreams_service = $("#dreams_service").val();
-        var date_of_service = $("#sel_date_of_service").val();
+        var date_of_service = $("#olmis_service_date").val();
         var csrftoken = $.cookie('csrftoken');        
         var values = {  
             'csrfmiddlewaretoken': csrftoken
@@ -887,7 +886,7 @@ function AddRow(x)
                     var hdreams_domain= "<input id='hdreams_domain' type='hidden' value='"+dreams_domain+"'>"
                     var hdreams_service = "<input id='hdreams_service' type='hidden' value='"+dreams_service+"'>"
                     var hdate_of_service = "<input id='hdate_of_service' type='hidden' value='"+date_of_service+"'>"
-                    var holmis_assessment_status= "<input id='holmis_assessment_status' type='hidden' value='new'>"
+                    // var holmis_assessment_status= "<input id='holmis_assessment_status' type='hidden' value='new'>"
 
                     cell0.innerHTML = '<h6 class="td_style">#</h6>';        
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "dreams_domain") + hdreams_domain + '</h6>';
@@ -916,7 +915,7 @@ function AddRow(x)
                         var dreams_service = $(tr).find('input[id="hdreams_service"]').val();
                         var date_of_service = $(tr).find('input[id="hdate_of_service"]').val();
 
-                        OlmisAssessmentData[row]= {
+                        dreamsData[row]= {
                             "dreams_domain" : dreams_domain,
                             "dreams_service" : dreams_service,
                             "date_of_service" : date_of_service
@@ -924,14 +923,14 @@ function AddRow(x)
                         
                     });
                     
-                    OlmisAssessmentData.shift(); //remove first row(headers stuff)
-                    OlmisAssessmentData.shift(); //remove second row(controls stuff)
-                    OlmisAssessmentData = JSON.stringify(OlmisAssessmentData); 
+                    dreamsData.shift(); //remove first row(headers stuff)
+                    dreamsData.shift(); //remove second row(controls stuff)
+                    dreamsData = JSON.stringify(dreamsData); 
 
                     // Set olmis_assessment_provided_list
-                    $('#olmis_assessment_provided_list').val(OlmisAssessmentData);
+                    $('#dreams_assesment_provided_list').val(dreamsData);
 
-                    console.log(OlmisAssessmentData)
+                    
 				}
 				else
 				{
@@ -1295,22 +1294,23 @@ function RemoveRow(index, uuid, tr_id)
         {                            
             var dreams_domain = $(tr).find('input[id="hdreams_domain"]').val();
             var dreams_service = $(tr).find('input[id="hdreams_service"]').val();
-            var olmis_assessment_coreservice_status = $(tr).find('input[id="holmis_assessment_coreservice_status"]').val();
+            //var olmis_assessment_coreservice_status = $(tr).find('input[id="holmis_assessment_coreservice_status"]').val();
+            var date_of_service = $(tr).find('input[id="hdate_of_service"]').val();
 
-            OlmisAssessmentData[row]= {
+            dreamsData[row]= {
                 "dreams_domain" : dreams_domain,
                 "dreams_service" : dreams_service,
-                "olmis_assessment_coreservice_status" : olmis_assessment_coreservice_status
+                "date_of_service" : date_of_service
                 }                                
             
         });
         
-        OlmisAssessmentData.shift(); //remove first row(headers stuff)
-        OlmisAssessmentData.shift(); //remove second row(controls stuff)
-        OlmisAssessmentData = JSON.stringify(OlmisAssessmentData); 
+        dreamsData.shift(); //remove first row(headers stuff)
+        dreamsData.shift(); //remove second row(controls stuff)
+        dreamsData = JSON.stringify(dreamsData); 
 
         // Set olmis_assessment_provided_list
-        $('#olmis_assessment_provided_list').val(OlmisAssessmentData);
+        $('#dreams_assesment_provided_list').val(dreamsData);
     }
 
     if(index == 2)
@@ -1454,7 +1454,9 @@ function tabManager()
 
 $("#dreams_domain").change(function(event) 
 { 
-	var dreams_domain = $("#dreams_domain").val();
+    var dreams_domain = $("#dreams_domain").val();
+    
+    console.log('dreams_domain', dreams_domain)
 	
 	$("#dreams_domain_errormsg").css({ 'display': "none" });
 
@@ -1462,13 +1464,13 @@ $("#dreams_domain").change(function(event)
     $('#dreams_service').multiselect("refresh");
     $('#dreams_service').trigger("change");
     $("#olmis_assessment_coreservice_errormsg").css({ 'display': "none" });
-    getServices(1, dreams_domain);
+    getServices(4, dreams_domain); 
 });
 
 $("#dreams_service").change(function(event) 
 { 
 	var dreams_service = $("#dreams_service").val();
-	getServices(2, dreams_service);
+	getServices(4, dreams_service);
 
     $('#olmis_assessment_coreservice_status').multiselect("clearSelection");
     $('#olmis_assessment_coreservice_status').multiselect('refresh');
@@ -1591,35 +1593,35 @@ $('#date_of_service').datepicker().on('change.dp', function(e) {
 
 // -----------------------------------------------------------------------------------------
 
-$("#olmis_priority_health").change(function(event) 
+$("#dreams_other_interventions").change(function(event) 
 { 
-	displayVals(1, 'olmis_priority_health');	
+	displayVals(1, 'dreams_other_interventions');	
 });
 
-$("#olmis_priority_shelter").change(function(event) 
+$("#dreams_social_protection").change(function(event) 
 { 
-	displayVals(1, 'olmis_priority_shelter');	
+	displayVals(1, 'dreams_social_protection');	
 });
 
-$("#olmis_priority_protection").change(function(event) 
+$("#dreams_post_gbv").change(function(event) 
 { 
-	displayVals(1, 'olmis_priority_protection');	
+	displayVals(1, 'dreams_post_gbv');	
 });
 
-$("#olmis_priority_pss").change(function(event) 
+$("#dreams_behavioural_intervention").change(function(event) 
 { 
-	displayVals(1, 'olmis_priority_pss');	
+	displayVals(1, 'dreams_behavioural_intervention');	
 });
 
-$("#olmis_priority_education").change(function(event) 
+$("#dreams_bioMedical_inteventions").change(function(event) 
 {
-	displayVals(1, 'olmis_priority_education');	
+	displayVals(1, 'dreams_bioMedical_inteventions');	
 });
 
-$("#olmis_priority_hes").change(function(event) 
-{ 
-	displayVals(1, 'olmis_priority_hes');
-});
+// $("#olmis_priority_hes").change(function(event) 
+// { 
+// 	displayVals(1, 'olmis_priority_hes');
+// });
 
 function deleteForm1aEntry(){
     $('#delete-form1a-entry').modal('hide');

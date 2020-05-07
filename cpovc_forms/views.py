@@ -8399,7 +8399,7 @@ def manage_casecategory004(request):
 
 
 def manage_service_category(request):
-    try:
+    try: 
         if request.method == 'POST':
             jsonServiceCategoriesData = []
             domain_id = request.POST.get('domain_id')
@@ -8475,6 +8475,93 @@ def manage_service_category(request):
                         for _item_id in _item_ids:
                             setuplist = SetupList.objects.filter(
                                 item_id=_item_id, field_name__icontains='olmis', is_void=False)
+                            for s in setuplist:
+                                jsonServiceCategoriesData.append({'item_sub_category': s.item_description,
+                                                                  'item_sub_category_id': str(s.item_id),
+                                                                  'status': 1})
+    except Exception, e:
+        print 'Error >>  %s' % str(e)
+        raise e
+    return JsonResponse(jsonServiceCategoriesData, content_type='application/json',
+                        safe=False)
+
+def manage_dreams_service(request):
+    try: 
+        if request.method == 'POST':
+            jsonServiceCategoriesData = []
+            domain_id = request.POST.get('domain_id')
+            index = int(request.POST.get('index'))
+            console.log('kenyattta')
+            if domain_id:
+                if index == 1:
+                    # Get services
+                    servicecategory = SetupList.objects.get(
+                        field_name='olmis_dreams_service', item_id=domain_id, is_void=False)
+                    service_sub_category = servicecategory.item_sub_category
+
+                    if not service_sub_category:
+                        jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
+                                                          'item_sub_category_id': servicecategory.item_id,
+                                                          'status': 0})
+                    else:
+                        servicecategories = SetupList.objects.filter(
+                            field_name=service_sub_category, is_void=False)
+                        for servicecategory in servicecategories:
+                            jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
+                                                              'item_sub_category_id': servicecategory.item_id,
+                                                              'status': 1})
+
+                if index == 2:
+                    # Get assessments
+                    assessmentcategory = SetupList.objects.get(
+                        field_name='olmis_assessment_domain_id', item_id=domain_id, is_void=False)
+                    assessment_sub_category = assessmentcategory.item_sub_category
+                    print 'assessmentcategory.item_sub_category -- %s' % assessmentcategory.item_sub_category
+
+                    if not assessment_sub_category:
+                        jsonServiceCategoriesData.append({'item_sub_category': assessmentcategory.item_description,
+                                                          'item_sub_category_id': str(assessmentcategory.item_id),
+                                                          'status': 0})
+                    else:
+                        assessmentcategories = SetupList.objects.filter(
+                            field_name=assessment_sub_category, is_void=False)
+                        for assessmentcategory in assessmentcategories:
+                            jsonServiceCategoriesData.append({'item_sub_category': assessmentcategory.item_description,
+                                                              'item_sub_category_id': str(assessmentcategory.item_id),
+                                                              'status': 1})
+                if index == 3:
+                    # Get fieldname
+                    setuplist = SetupList.objects.filter(
+                        item_id=domain_id, field_name__icontains='olmis', is_void=False)
+
+                    for s in setuplist:
+                        # Get assessments service status
+                        assessmentstatuscategorys = SetupList.objects.filter(
+                            field_name='' + s.item_sub_category + '', is_void=False)
+                        if assessmentstatuscategorys:
+                            for assessmentstatuscategory in assessmentstatuscategorys:
+                                jsonServiceCategoriesData.append(
+                                    {'item_sub_category': assessmentstatuscategory.item_description,
+                                     'item_sub_category_id': str(assessmentstatuscategory.item_id),
+                                     'status': 1})
+                if index == 4:
+                    data_list = request.POST.get('domain_id')
+                    if data_list:
+                        _data = json.loads(data_list)
+                        _item_ids = []
+                        for _data_ in _data:
+                            _service = _data_['olmis_dreams_service']
+
+                            # . . . not comma separated
+                            if ',' not in _service:
+                                _item_ids.append(_service)
+                            else:
+                                _itemx = _service.split(",")
+                                for _itemx_ in _itemx:
+                                    _item_ids.append(_itemx_)
+                        for _item_id in _item_ids:
+                            setuplist = SetupList.objects.filter(
+                                item_id=_item_id, field_name__icontains='olmis_dreams_service_', is_void=False)
                             for s in setuplist:
                                 jsonServiceCategoriesData.append({'item_sub_category': s.item_description,
                                                                   'item_sub_category_id': str(s.item_id),

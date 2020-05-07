@@ -132,6 +132,8 @@ urlpatterns = patterns(
         name='manage_casehistory'),
     url(r'^manage_service_category/$', 'manage_service_category',
         name='manage_service_category'),
+    url(r'^manage_dreams_service/$', 'manage_dreams_service',
+        name='manage_dreams_service'),
     url(r'^manage_form_type/$', 'manage_form_type',
         name='manage_form_type'),
     # ---------------------------------------------------------------
