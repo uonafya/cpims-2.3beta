@@ -8411,7 +8411,6 @@ def manage_service_category(request):
                     servicecategory = SetupList.objects.get(
                         field_name='olmis_domain_id', item_id=domain_id, is_void=False)
                     service_sub_category = servicecategory.item_sub_category
-
                     if not service_sub_category:
                         jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
                                                           'item_sub_category_id': servicecategory.item_id,
@@ -8423,6 +8422,8 @@ def manage_service_category(request):
                             jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
                                                               'item_sub_category_id': servicecategory.item_id,
                                                               'status': 1})
+                        
+                        print 'kenyatta123>>>>',servicecategories
 
                 if index == 2:
                     # Get assessments
@@ -8491,13 +8492,13 @@ def manage_dreams_service(request):
             jsonServiceCategoriesData = []
             domain_id = request.POST.get('domain_id')
             index = int(request.POST.get('index'))
-            console.log('kenyattta')
             if domain_id:
                 if index == 1:
                     # Get services
                     servicecategory = SetupList.objects.get(
-                        field_name='olmis_dreams_service', item_id=domain_id, is_void=False)
+                        field_name='olmis_dreams_service_id', item_id=domain_id, is_void=False)
                     service_sub_category = servicecategory.item_sub_category
+                    
 
                     if not service_sub_category:
                         jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
@@ -8510,11 +8511,10 @@ def manage_dreams_service(request):
                             jsonServiceCategoriesData.append({'item_sub_category': servicecategory.item_description,
                                                               'item_sub_category_id': servicecategory.item_id,
                                                               'status': 1})
-
                 if index == 2:
                     # Get assessments
                     assessmentcategory = SetupList.objects.get(
-                        field_name='olmis_assessment_domain_id', item_id=domain_id, is_void=False)
+                        field_name='olmis_dreams_service', item_id=domain_id, is_void=False)
                     assessment_sub_category = assessmentcategory.item_sub_category
                     print 'assessmentcategory.item_sub_category -- %s' % assessmentcategory.item_sub_category
 

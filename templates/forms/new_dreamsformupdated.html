@@ -524,7 +524,7 @@
 jQuery(document).ready(function() 
 {
 	 //multi selects
-    $('#dreams_domain, #dreams_service','#dreams_other_interventions','#dreams_social_protection','#dreams_post_gbv','#dreams_bioMedical_inteventions','#dreams_behavioural_intervention')
+    $('#dreams_domain', '#dreams_service',)
         .multiselect({
         selectAllValue: 'multiselect-all',
         includeSelectAllOption: true,
@@ -536,11 +536,11 @@ jQuery(document).ready(function()
     });
 
     // populate CSI Services Priority
-    getServices(4, 'DS 0S')
-    getServices(4, 'DS 1S')
-    getServices(4, 'DS 1S')
-    getServices(4, 'DS 8S')
-    getServices(4, 'DS 12S')
+    getServices(4, 'DS0S')
+    getServices(4, 'DS1S')
+    getServices(4, 'DS7S')
+    getServices(4, 'DS8S')
+    getServices(4, 'DS12S')
     
 
     // show/hide PriorityTab [Jan/May/Nov]
@@ -767,11 +767,11 @@ function getServices(x, domain)
     if(x == 4) 
     { 
     	index = 1;
-    	if(domain=='DS 12S') { multiselect_id = '#dreams_other_interventions'; }
-    	if(domain=='DS 8S') { multiselect_id = '#dreams_social_protection'; }
-    	if(domain=='DS 7S') { multiselect_id = '#dreams_post_gbv'; }
-    	if(domain=='DS 1S') { multiselect_id = '#dreams_bioMedical_inteventions'; }
-    	if(domain=='DS 0S') { multiselect_id = '#dreams_behavioural_intervention'; }
+    	if(domain=='DS12S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS8S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS7S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS1S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS0S') { multiselect_id = '#dreams_service'; }
     	//if(domain=='DHES') { multiselect_id = '#olmis_priority_hes'; }
      
 	}
@@ -806,12 +806,14 @@ function getServices(x, domain)
 
 		            $.each(result, function(i, val) 
 		            {
+                        
 		                item_sub_category_id = val.item_sub_category_id;
 		                item_sub_category = val.item_sub_category;
 		                status = val.status;
 		                var multiselect_dict = { label: item_sub_category, value: item_sub_category_id };
 		                multiselect_data.push(multiselect_dict);
-		            });		            
+		            });	
+                    	            
 
 		            //add multi-select data
 		            $('' + multiselect_id + '').multiselect('destroy');
@@ -835,11 +837,11 @@ function getServices(x, domain)
 
 		            // refresh multiselect
 		            $('' + multiselect_id + '').multiselect("refresh");
+                    console.log('kenyatta11', multiselect_data)  
 				},
 				error: function(xhr, status, error)
 				{
                     console.log(error);
-                    console.log('kenyattta')
 				}
 
             });        
