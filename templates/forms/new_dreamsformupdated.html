@@ -536,11 +536,11 @@ jQuery(document).ready(function()
     });
 
     // populate CSI Services Priority
-    getServices(4, 'DS0S')
-    getServices(4, 'DS1S')
-    getServices(4, 'DS7S')
-    getServices(4, 'DS8S')
-    getServices(4, 'DS12S')
+    getServices(4, 'DS 0S')
+    getServices(4, 'DS 1S')
+    getServices(4, 'DS 7S')
+    getServices(4, 'DS 8S')
+    getServices(4, 'DS 12S')
     
 
     // show/hide PriorityTab [Jan/May/Nov]
@@ -767,11 +767,11 @@ function getServices(x, domain)
     if(x == 4) 
     { 
     	index = 1;
-    	if(domain=='DS12S') { multiselect_id = '#dreams_service'; }
-    	if(domain=='DS8S') { multiselect_id = '#dreams_service'; }
-    	if(domain=='DS7S') { multiselect_id = '#dreams_service'; }
-    	if(domain=='DS1S') { multiselect_id = '#dreams_service'; }
-    	if(domain=='DS0S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS 12S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS 8S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS 7S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS 1S') { multiselect_id = '#dreams_service'; }
+    	if(domain=='DS 0S') { multiselect_id = '#dreams_service'; }
     	//if(domain=='DHES') { multiselect_id = '#olmis_priority_hes'; }
      
 	}
@@ -802,7 +802,7 @@ function getServices(x, domain)
 					var item_sub_category;
 					var multiselect_dict = {};
 
-		            multiselect_data.push({label: 'Please Select', value: ''});
+		            multiselect_data.push({ nonSelectedText: 'Please Select'});
 
 		            $.each(result, function(i, val) 
 		            {
@@ -837,7 +837,7 @@ function getServices(x, domain)
 
 		            // refresh multiselect
 		            $('' + multiselect_id + '').multiselect("refresh");
-                    console.log('kenyatta11', multiselect_data)  
+                     
 				},
 				error: function(xhr, status, error)
 				{
