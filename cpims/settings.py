@@ -13,8 +13,8 @@ SECRET_KEY = 'h34yo5l8c8!edb%^b@3j-i^gc$e)fcjnw_9jm4a^%jbq&*41+@'
 ALLOWED_HOSTS = ['*']
 
 cpims_db_host = os.environ.get('CPIMS_HOST') if os.environ.get('CPIMS_HOST') else 'localhost'
-cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else '5665'
-cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'cpimsbeta'
+cpims_db_pass = os.environ.get('CPIMS_PASSWORD') if os.environ.get('CPIMS_PASSWORD') else 'postgres'
+cpims_db_instance = os.environ.get('CPIMS_DB') if os.environ.get('CPIMS_DB') else 'cpims'
 cpims_db_port = os.environ.get('CPIMS_PORT') if os.environ.get('CPIMS_PORT') else '5432'
 cpims_db_user = os.environ.get('CPIMS_DBUSER') if os.environ.get('CPIMS_DBUSER') else 'postgres'
 
@@ -41,7 +41,10 @@ INSTALLED_APPS = (
     'cpovc_ovc',
     'import_export',
     'rest_framework',
-    'data_cleanup'
+    'data_cleanup',
+    # forums,
+    'adminsortable',
+    'simple_forums',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,7 +75,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'cpovc_main.context_processors.global_settings'
+                'cpovc_main.context_processors.global_settings',
+                # forums,
+                'simple_forums.context_processors.installed_apps',
             ],
         },
     },
@@ -194,14 +199,19 @@ OFFLINE_MODE_CAPABILITY_ENABLED = eval(os.environ.get('CAN_WORK_OFFLINE', 'True'
 from .logging_config import *
 
 # kmhfl API
-KMHFL_USERNAME = os.environ.get('KMHFL_USERNAME')
-KMHFL_PASSWORD = os.environ.get('KMHFL_PASSWORD')
-KMHFL_SCOPE = os.environ.get('KMHFL_SCOPE')
-KMHFL_CLIENTID = os.environ.get('KMHFL_CLIENTID')
-KMHFL_CLIENT_SECRET = os.environ.get('KMHFL_CLIENT_SECRET')
-KMHFL_API_BASE_URL = os.environ.get('KMHFL_API_BASE_URL')
-KMHFL_FACILITY_BASE_URL = os.environ.get('KMHFL_FACILITY_BASE_URL')
-KMHFL_LOGIN_URL = os.environ.get('KMHFL_LOGIN_URL')
-KMHFL_GRANT_TYPE = os.environ.get('KMHFL_GRANT_TYPE')
-KMHFL_SUBCOUNTY_BASE_URL = os.environ.get('KMHFL_SUBCOUNTY_BASE_URL')
+KMHFL_USERNAME = '10004'
+KMHFL_PASSWORD = 'public'
+KMHFL_SCOPE = 'read'
+KMHFL_CLIENTID = 'qxblJCALzKXunUhNUQZpbeQLM9OTvscTYLbQ1oEY'
+KMHFL_CLIENT_SECRET = 'dkwLqoQytFd4zXmPRUXsy2Q4fyRKqy7TAov5OewC2S7iWL58fwCnHyTwYBUMu7fOG091LeADDUgsqeFX446GS2GCDZ5Y6KxlvC3RgRjdSE1sXJIkCpHHfMihPMnUOnU9'
+KMHFL_API_BASE_URL = 'http://api.kmhfl.health.go.ke/'
+KMHFL_FACILITY_BASE_URL = 'http://api.kmhfltest.health.go.ke/api/facilities/facilities/?format=json'
+KMHFL_LOGIN_URL = 'http://api.kmhfl.health.go.ke/accounts/login/'
+KMHFL_GRANT_TYPE = 'password'
+KMHFL_SUBCOUNTY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/common/sub_counties/'
 
+# nascop API
+NASCOP_API_BASE_URL = os.environ.get('NASCOP_API_BASE_URL') if os.environ.get('NASCOP_API_BASE_URL') else ''
+NASCOP_LOGIN_URL = os.environ.get('NASCOP_LOGIN_URL') if os.environ.get('NASCOP_LOGIN_URL') else ''
+NASCOP_EMAIL = os.environ.get('NASCOP_EMAIL') if os.environ.get('NASCOP_EMAIL') else ''
+NASCOP_PASSWORD = os.environ.get('NASCOP_PASSWORD') if os.environ.get('NASCOP_PASSWORD') else ''
