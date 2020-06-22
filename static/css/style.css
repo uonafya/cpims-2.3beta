@@ -6217,6 +6217,11 @@ body.flat-black {
     text-align: center;
     margin-right: 30px;
 }
+.promoleft{
+    /* width: 120px; */
+    text-align: center;
+    margin-left: 30px;
+}
 #footer .promo{
     float: right;
     border-left: 2px solid #ddd;
