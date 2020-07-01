@@ -1208,3 +1208,24 @@ class OVCHIVManagement(models.Model):
 
     def __unicode__(self):
             return str(self.adherence_id)
+
+class OVCDreams(models.Model):
+        """ This table will hold Dreams Services Data """
+
+        dreams_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+        person = models.ForeignKey(RegPerson)
+        service_provided = models.CharField(max_length=10)
+        service_provider = models.CharField(max_length=250, null=True)
+        domain = models.CharField(max_length=5, null=True)
+        place_of_service = models.CharField(max_length=250, null=True)
+        date_of_encounter_event = models.DateField(default=timezone.now)
+        event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
+        service_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
+        is_void = models.BooleanField(default=False)
+        sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
+
+        class Meta:
+            db_table = 'ovc_dreams'
+
+        def __unicode__(self):
+            return str(self.dreams_id)

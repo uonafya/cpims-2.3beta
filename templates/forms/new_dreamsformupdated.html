@@ -237,7 +237,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="saveForm1A(1)">Submit Assessment</button>
-                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(1)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(1)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -278,7 +278,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="saveForm1A(2)">Submit Critical Event(s)</button>
-                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(2)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(2)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -353,7 +353,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="saveForm1A(3)">Submit Priority(s)</button>
-                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(3)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(3)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -445,7 +445,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="saveForm1A(4)">Submit Service(s)</button>
-                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetForm1A(4)" class="btn btn-white">Cancel</a>
+                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(4)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
                             </div>
@@ -651,7 +651,7 @@ function loadForm1aEvents()
             });
 }
 
-function resetForm1A(x)
+function resetDreams(x)
 {
     if(x==1)
     {
@@ -700,7 +700,7 @@ function saveForm1A(x)
             {
                 values['date_of_assessment'] = date_of_assessment;
                 $.ajax({
-                    url: '{% url 'save_form1a' %}',
+                    url: '{% url 'save_dreams' %}',
                     dataType: 'json',
                     method: 'POST',
                     data: values,
@@ -714,7 +714,7 @@ function saveForm1A(x)
                             $('#error-message-reuse').css({'display': 'none'});
                         });
                         loadForm1aEvents();
-                        resetForm1A(1);
+                        resetDreams(1);
                     },
                     error: function(xhr, status, error){
                         $(".alert-danger").hide();
@@ -893,7 +893,7 @@ function AddRow(x)
                     cell0.innerHTML = '<h6 class="td_style">#</h6>';        
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "dreams_domain") + hdreams_domain + '</h6>';
                     cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "dreams_service") + hdreams_service + '</h6>';
-                    cell3.innerHTML = '<h6 class="td_style">' + displayVals(2, "date_of_service") + date_of_service + '</h6>';
+                    cell3.innerHTML = '<h6 class="td_style">' + displayVals(2, "date_of_service") + hdate_of_service + '</h6>';
                     cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5' href='#'>Remove</a>" + '</h6>';
 
                     // AddClick Event To Remove Button
@@ -909,7 +909,7 @@ function AddRow(x)
                     $("#dreams_service").multiselect("refresh");
                     // $("#olmis_assessment_coreservice_status").multiselect("clearSelection");
                     // $("#olmis_assessment_coreservice_status").multiselect("refresh");
-                    $('#sel_date_of_service').html('');                    
+                    $('#date_of_service').html('');                    
 
                     $('#assessment_manager_table tr').each(function(row, tr)
                     {                            
@@ -928,6 +928,7 @@ function AddRow(x)
                     dreamsData.shift(); //remove first row(headers stuff)
                     dreamsData.shift(); //remove second row(controls stuff)
                     dreamsData = JSON.stringify(dreamsData); 
+                    console.log('kenya122', dreamsData)
 
                     // Set olmis_assessment_provided_list
                     $('#dreams_assesment_provided_list').val(dreamsData);
