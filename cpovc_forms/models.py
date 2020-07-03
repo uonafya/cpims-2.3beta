@@ -1214,9 +1214,9 @@ class OVCDreams(models.Model):
 
         dreams_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
         person = models.ForeignKey(RegPerson)
-        service_provided = models.CharField(max_length=10)
+        service_provided = models.CharField(max_length=250)
         service_provider = models.CharField(max_length=250, null=True)
-        domain = models.CharField(max_length=5, null=True)
+        domain = models.CharField(max_length=10, null=True)
         place_of_service = models.CharField(max_length=250, null=True)
         date_of_encounter_event = models.DateField(default=timezone.now)
         event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)

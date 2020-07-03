@@ -236,7 +236,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="saveForm1A(1)">Submit Assessment</button>
+                                        <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="saveDreams(1)">Submit Assessment</button>
                                         <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(1)" class="btn btn-white">Cancel</a>
                                     </div>
                                 </div>
@@ -244,213 +244,6 @@
 						</div>
 						<!-- end wizard step-1 -->  
 
-                        <!-- begin wizard step-2 -->
-                        <!-- <div class="wizard-step-2">
-                            <div id="error_cevts"></div>
-                            <div class="panel-body"> 
-                                <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-2" for="critical_events">Critical Event(s) : <span class="asteriskField">* </label>
-                                    <div class="col-md-8 col-sm-8">
-                                        {{ form.olmis_critical_event }}
-                                        <div id="olmis_critical_event_errormsg" style="display:none;">
-                                            <small><p class="dialog_paragraph">This value is required</p></small>
-                                        </div>
-                                        <h6><span id="sel_olmis_critical_event"></span></h6>
-                                    </div>
-                                    <a href="#" data-toggle="tooltip" title="Describe critical events"><i class="fa fa-info-circle fa-sm"></i></a>
-                                </div>                              
-                            </div>
-
-                            <div class="panel-body panel-form">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4">Date Critical Event Recorded<span class="asteriskField">*</label>
-                                    <div class="col-md-2 col-sm-2">
-                                        {{ form.date_of_cevent }}
-                                        <div id="date_errormsg1" style="display:none;">
-                                            <small><p class="dialog_paragraph">This value is required</p></small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-body panel-form">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4"></label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="saveForm1A(2)">Submit Critical Event(s)</button>
-                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(2)" class="btn btn-white">Cancel</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  -->
-                        <!-- end wizard step-2 --> 						
-
-						<!-- begin wizard step-3 -->
-						<!-- <div class="wizard-step-3">
-                            <div id="div-priority-need0" style="display: none" class="panel-body">
-                                <legend><span>Priority Needs are not required. This is scheduled for January, May and November</span></legend>
-                            </div>
-                            <div id="div-priority-need1" style="display: none" class="panel-body">  
-                                <div id="error_priority"></div>
-                                <table id="priority_manager_table" class="table">
-                                    <thead>
-                                        <tr id="id_inputHeaders">
-                                            <td width="2%"></td>
-                                            <td width="10%"><h6><b>Domain<span class="asteriskField">*</b></h6></td>
-                                            <td width="15%"><h6><b>Priority Need(s)<span class="asteriskField">*</b></h6></td>
-                                            <th width="5%"><h6><b>Actions<span class="asteriskField">*</b></h6></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr id="id_inputElements14">
-                                            <td width="2%">#</td>
-                                            <td width="10%">
-                                                {{ form.olmis_priority_domain }}
-                                                <div id="olmis_priority_domain_errormsg" style="display:none;">
-                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
-                                                </div>
-                                            </td>
-                                            <td width="15%">
-                                                {{ form.olmis_priority_service }}
-                                                <h6><span id="sel_olmis_priority_service"></span></h6>
-                                                <div id="olmis_priority_service_errormsg" style="display:none;">
-                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
-                                                </div>                                              
-                                            </td>
-                                            <td width="5%">
-                                            <h6><b>
-                                                <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(3)">
-                                                    <i class="fa fa-plus"></i>  Add
-                                                </button>
-                                                </b></h6>
-                                            </td>
-                                            
-                                        </tr>                               
-                                    </tbody>                                            
-                                </table>
-                                {{ form.olmis_priority_service_provided_list }}
-                            </div>
-                            <div align="right">
-                                <button id="btnClearGrid" type="button" class="btn btn-sm btn-danger m-r-5" style="display:none;" onClick="RemoveRow(3)">
-                                    <i class="fa fa-trash"></i>  Clear Grid
-                                </button>                               
-                            </div>
-
-                            <div id="div-priority-need1-date" class="panel-body panel-form">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4">Date Priority Recorded<span class="asteriskField">*</label>
-                                    <div class="col-md-2 col-sm-2">
-                                        {{ form.date_of_priority }}
-                                        <div id="date_errormsg2" style="display:none;">
-                                            <small><p class="dialog_paragraph">This value is required</p></small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div  id="div-priority-need1-controls" style="display: none" class="panel-body panel-form">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4"></label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="saveForm1A(3)">Submit Priority(s)</button>
-                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(3)" class="btn btn-white">Cancel</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-						<!-- end wizard step-3 --> 
-
-                        <!-- begin wizard step-4
-                        <div class="wizard-step-4">
-                            <div class="panel-body">
-                                <div id="error_service"></div>
-                            <div style="overflow-x: auto; min-height: 300px;">
-                                <table id="services_manager_table" class="table">
-                                    <thead>
-                                        <tr id="id_inputHeaders">
-                                            <td width="2%"></td>
-                                            <th width="15%"><h6><b>Domain<span class="asteriskField">*</b></h6></th>
-                                            <th width="20%"><h6><b>Service(s)<span class="asteriskField">*</b></h6></th>
-                                            <th width="15%"><h6><b>Date Of Service<span class="asteriskField">*</b></h6></th>
-                                            <!-- <th width="20%"><h6><b>Service(s) Provider</b></h6></th> 
-                                            <th width="20%"><h6><b>Place Of Service</b></h6></th>-->
-                                            <!-- <th width="5%"><h6><b>Actions<span class="asteriskField">*</b></h6></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr id="id_inputElements13">
-                                            <td width="2%"></td>
-                                            <td width="15%">
-                                                {{ form.olmis_domain }}
-                                                <div id="olmis_domain_errormsg" style="display:none;">
-                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
-                                                </div>
-                                            </td>
-                                            <td width="20%">
-                                                {{ form.olmis_service }}
-                                                <h6><span id="sel_olmis_service"></span></h6>
-                                                <div id="olmis_service_errormsg" style="display:none;">
-                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
-                                                </div>
-                                            </td>
-                                            <td width="15%">
-                                                {{ form.olmis_service_date }}
-                                                <div id="olmis_service_date_errormsg" style="display:none;">
-                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
-                                                </div>
-                                            </td> --> 
-                                            <!--
-                                            <td width="20%">
-                                                {{ form.olmis_service_provider }}
-                                                <div id="olmis_service_provider_errormsg" style="display:none;">
-                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
-                                                </div>
-                                            </td>
-                                            
-                                            <td width="20%">
-                                                {{ form.olmis_place_of_service }}
-                                                <div id="olmis_place_of_service_errormsg" style="display:none;">
-                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
-                                                </div>
-                                            </td>
-                                            -->
-                                            <!-- <td width="5%">
-                                            <h6><b>
-                                                <button type="button" class="btn btn-sm btn-inverse m-r-5" onClick="AddRow(2)">
-                                                    <i class="fa fa-plus"></i>  Add
-                                                </button>
-                                                </b></h6>
-                                            </td>
-                                        </tr>                                               
-                                    </tbody>
-                                    {{ form.olmis_service_provided_list }}
-                                </table>  
-                            </div>                               
-                            </div>
-
-                            <div class="panel-body panel-form">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4">Date Services Recorded<span class="asteriskField">*</label>
-                                    <div class="col-md-2 col-sm-2">
-                                        {{ form.date_of_service }}
-                                        <div id="date_errormsg3" style="display:none;">
-                                            <small><p class="dialog_paragraph">This value is required</p></small>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="panel-body panel-form">
-                                <div class="form-group">
-                                    <label class="control-label col-md-4 col-sm-4"></label>
-                                    <div class="col-md-6 col-sm-6">
-                                        <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="saveForm1A(4)">Submit Service(s)</button>
-                                        <a href="{% url 'ovc_view' id=form.person.value %}" onClick="resetDreams(4)" class="btn btn-white">Cancel</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>  --> 
-                        <!-- end wizard step-4 -->
 
 						                         
 					</div>
@@ -484,11 +277,12 @@
             <div class="panel-body">
                 <div  class="panel panel-inverse">
                     <div id="case-events"  class="table-responsive">
-                        <table id="f1a_events_data_table" class="table table-striped table-bordered">
+                        <table id="dreams_events_data_table" class="table table-striped table-bordered">
                             <thead>
                                 <tr> 
                                     <th>Event Type</th>                                 
-                                    <th>Details</th> 
+                                    <th>Domain</th> 
+                                    <th>Services given</th>
                                     <th>Date Recorded</th>                
                                     <th>Actions</th>
                                 </tr>
@@ -573,20 +367,25 @@ function loadForm1aEvents()
                  }; 
 
     $.ajax({
-                url: '{% url 'manage_form1a_events' %}',
+                url: '{% url 'manage_dreams_events' %}',
                 dataType: 'json',
                 method: 'POST',
                 data: values,
                 success: function(result)
                 {
                     // Clear <tbody>
-                    $("#f1a_events_data_table tbody").html('');
+                    $("#dreams_events_data_table tbody").html('');
 
                     $.each(result, function(i, val) {
                         var event_pk = val.event_pk
                         var event_type = val.event_type;
                         var event_details = val.event_details;
                         var event_date = val.event_date;
+                        var event_keyword = val.event_keyword_group
+
+
+
+                        console.log('results', val)
 
                         if (event_details !==null){
 
@@ -601,10 +400,11 @@ function loadForm1aEvents()
                             var deleteItem = '<button id=' + btnDelete + ' data-event_type='+event_type+' data-event_pk='+event_pk+' type="submit" class="btn  btn-sm btn-danger m-r-5"><i class="fa fa-trash"></i></button>';
 
                             // Append to rows to table rows
-                            $("#f1a_events_data_table tbody").append('<tr id=' + tableRowId + '>' +
-                                '<td width="25%"><h6>' + event_type + '</h6></td>' +
-                                '<td width="25%"><h6>' + event_details + '</h6></td>' +
-                                '<td width="25%"><h6>' + event_date + '</h6></td>' +
+                            $("#dreams_events_data_table tbody").append('<tr id=' + tableRowId + '>' +
+                                '<td width="5%"><h6>' + event_type + '</h6></td>' +
+                                '<td width="40%"><h6>' + event_details+ '</h6></td>' +
+                                '<td width="40%"><h6>' + event_keyword+ '</h6></td>' +
+                                '<td width="10%"><h6>' + event_date + '</h6></td>' +
                                 '<td>' +
                                 /*' + viewItem + '' + **/
                                 '' + editItem + '' +
@@ -670,7 +470,7 @@ function resetDreams(x)
 
 }
 
-function saveForm1A(x)
+function saveDreams(x)
 {
     var args = 0;
     var msg = ''
@@ -888,6 +688,7 @@ function AddRow(x)
                     var hdreams_domain= "<input id='hdreams_domain' type='hidden' value='"+dreams_domain+"'>"
                     var hdreams_service = "<input id='hdreams_service' type='hidden' value='"+dreams_service+"'>"
                     var hdate_of_service = "<input id='hdate_of_service' type='hidden' value='"+date_of_service+"'>"
+
                     // var holmis_assessment_status= "<input id='holmis_assessment_status' type='hidden' value='new'>"
 
                     cell0.innerHTML = '<h6 class="td_style">#</h6>';        

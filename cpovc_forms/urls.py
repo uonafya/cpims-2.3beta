@@ -277,5 +277,7 @@ urlpatterns = patterns(
         'new_dreamsformupdated', name='new_dreamsformupdated'),
     url(r'^dreams/save/$',
         'save_dreams', name='save_dreams'),
+    url(r'^dreams/manage/$',
+        'manage_dreams_events', name='manage_dreams_events'),
 
 )
