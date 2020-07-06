@@ -11,4 +11,3 @@ class Command(BaseCommand):
 	def handle(self, *args, **options):
 		UpdateViralLoad().loop_through_data()
 		self.stdout.write('----- Updated viral loads -----')
-		# self.stdout.write('Sent {} reminders'.format(len(emails)))
