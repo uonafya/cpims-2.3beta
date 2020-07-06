@@ -21,7 +21,7 @@ class UpdateViralLoad(object):
 	
 	def query_ccc_numbers_to_facilities(self):
 		with connection.cursor() as c:
-			c.execute("SELECT ccc_number, facility_code, person_id FROM eid_updates_veiw;")
+			c.execute("SELECT ccc_number, facility_code, person_id FROM eid;")
 			ccc_numbers_to_facilities = c.fetchall()
 		return ccc_numbers_to_facilities
 	
@@ -70,7 +70,7 @@ class UpdateViralLoad(object):
 				data_list.append(data)
 			# record updated
 			with connection.cursor() as c:
-				c.execute("UPDATE eid_updates_veiw SET updated = TRUE WHERE ccc_number = %s AND facility_code = %s;", [patientID, facility])
+				c.execute("UPDATE eid SET updated = TRUE WHERE ccc_number = %s AND facility_code = %s;", [patientID, facility])
 			return data_list
 		elif response.status_code == 404:
 			print('[!] [{0}] URL not found: [{1}]'.format(response.status_code,api_url))
@@ -82,7 +82,7 @@ class UpdateViralLoad(object):
 			print('[!] [{0}] Bad Request for PatientID: {1}'.format(response.status_code, patientID), response.content)
 			# record not updated
 			with connection.cursor() as c:
-				c.execute("UPDATE eid_updates_veiw SET updated = FALSE WHERE ccc_number = %s AND facility_code = %s;", [patientID, facility])
+				c.execute("UPDATE eid SET updated = FALSE WHERE ccc_number = %s AND facility_code = %s;", [patientID, facility])
 			return None
 		elif response.status_code >= 300:
 			print('[!] [{0}] Unexpected Redirect'.format(response.status_code), response.content)
