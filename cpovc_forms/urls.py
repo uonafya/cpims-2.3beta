@@ -279,5 +279,13 @@ urlpatterns = patterns(
         'save_dreams', name='save_dreams'),
     url(r'^dreams/manage/$',
         'manage_dreams_events', name='manage_dreams_events'),
+    url(r'^dreams/edit/(?P<id>\d+)/(?P<btn_event_type>\w+)/(?P<btn_event_pk>.+)/$',
+        'edit_dreams', name='edit_dreams'),
+    url(r'^dreams/update/$',
+        'update_dreams', name='update_dreams'),    
+    url(r'^dreams/delete_previous_dreams_entry/(?P<btn_event_type>\w+)/(?P<entry_id>.+)/$',
+            'delete_previous_dreams_entry', name='delete_previous_dreams_entry'),
+    url(r'^dreams/delete/(?P<id>\d+)/(?P<btn_event_type>\w+)/(?P<btn_event_pk>.+)/$',
+        'delete_dreams', name='delete_dreams'),
 
 )
