@@ -6617,6 +6617,11 @@ select{
     font-weight: 500 !important;
     font-size: 14px;
 }
+textarea.form-control,
+input.form-control,
+select.form-control{
+    border: 1px solid #c3d2e2 !important;
+}
 input:active, input:focus, 
 textarea:active, textarea:focus, 
 select:hover, select:focus{
