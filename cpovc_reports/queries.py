@@ -3705,18 +3705,20 @@ Gender INTO  TEMP temp_DatimServices FROM
      FROM  vw_cpims_two_quarters INNER JOIN vw_cpims_Registration ON vw_cpims_two_quarters.person_id = vw_cpims_Registration.cpims_ovc_id
      WHERE vw_cpims_two_quarters.cbo_id IN ({cbos}) AND (date_of_event BETWEEN '{start_date}' AND '{end_date}') AND vw_cpims_two_quarters.person_id IN(SELECT person_id from vw_cpims_active_beneficiary)
       AND ((exit_status = 'ACTIVE' AND (vw_cpims_Registration.registration_date <= '{end_date}'))
-      OR person_id IN (SELECT DISTINCT person_id FROM vw_cpims_exits WHERE datimexitreason = 'GRADUATION'
+      AND person_id NOT IN (SELECT DISTINCT person_id FROM vw_cpims_exits WHERE datimexitreason = 'GRADUATION'
                   AND vw_cpims_exits.cbo_id IN ({cbos})  AND (exit_status = 'EXITED' AND (registration_date <= '{end_date}'
                   AND (exit_date BETWEEN '{start_date}' AND '{end_date}'))))
     -- OR (exit_status = 'EXITED' AND (registration_date <= '{end_date}' AND exit_date >= '{start_date}'))
      )
       -- AND NOT (more than 18 years and not in school)
     AND NOT
-      (vw_cpims_Registration.schoollevel = ' Not in School' AND  vw_cpims_Registration.age > 17)
+      ((vw_cpims_Registration.schoollevel = ' Not in School' AND  vw_cpims_Registration.age > 17)
+      OR (vw_cpims_Registration.schoollevel = '' AND  vw_cpims_Registration.age > 17))
 
      GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward, vw_cpims_Registration.constituency,
      vw_cpims_Registration.County,vw_cpims_Registration.gender,vw_cpims_Registration.AgeRange,vw_cpims_Registration.dob,vw_cpims_Registration.cbo_id,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
 
+/*
 UNION --Include Graduated 6(sapr)-12(apr)months because Active+Graduated=OVC_Serv
       SELECT person_id,vw_cpims_Registration.cbo, vw_cpims_Registration.ward, vw_cpims_Registration.constituency, vw_cpims_Registration.County, vw_cpims_Registration.gender,
        vw_cpims_Registration.AgeRange,vw_cpims_Registration.cbo_id,vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id
@@ -3727,6 +3729,7 @@ UNION --Include Graduated 6(sapr)-12(apr)months because Active+Graduated=OVC_Ser
       GROUP BY person_id, vw_cpims_Registration.CBO, vw_cpims_Registration.ward,vw_cpims_Registration.constituency,
         vw_cpims_Registration.County,vw_cpims_Registration.gender,vw_cpims_Registration.AgeRange,vw_cpims_Registration.dob,vw_cpims_Registration.cbo_id,
       vw_cpims_Registration.Countyid,vw_cpims_Registration.ward_id                                                                                                                                
+*/
 )
 tbl_pepfar
 group by ovcid,CBO, ward, constituency,County,AgeRange,tbl_pepfar.ward_id,tbl_pepfar.countyid,Gender;
