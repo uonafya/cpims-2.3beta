@@ -154,10 +154,9 @@
                              {% else %}
                              <a href="{% url 'ovc_view' id=ovc.person.id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-binoculars"></i>&nbsp;View</button></a>
 
-                             <a href="{% url 'ovc_edit' id=ovc.person.id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
-
-                             {% if ovc.is_active %}
-                                 <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="OpenForm({{ ovc.person.id }})"><i class="fa fa-check-square-o"></i>&nbsp;Fill Forms</button>
+                                 {% if ovc.is_active %}
+                                     <a href="{% url 'ovc_edit' id=ovc.person.id %}"><button type="button" class="btn btn-sm btn-primary m-r-5"><i class="fa fa-pencil"></i>&nbsp;Edit</button></a>
+                                     <button type="button" class="btn btn-sm btn-primary m-r-5" onClick="OpenForm({{ ovc.person.id }})"><i class="fa fa-check-square-o"></i>&nbsp;Fill Forms</button>
                              {% endif %}
                              {% endif %}
                              </td>
