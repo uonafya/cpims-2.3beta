@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+{% load simple_forum_tags %}
+{% load static %}
+{% block page_title %} CPIMS Forums {% endblock %}
+
+
+{% block style_code %}
+<!-- <link href="{% static 'plugins/bootstrap-datepicker/css/datepicker3.css' %}" rel='stylesheet'> -->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel='stylesheet'>
+{% endblock %}
+
+{% block primary %}
+    <div class="row">
+        <div class="col-md-7">
+            <h1 class="page-header">CPIMS Forums</h1>
+        </div>
+        <div class="col-md-5 text-right">
+            <div class="btn-group">
+                <a class="btn btn-primary m-r-10" href="{% url 'simple-forums:topic-list' %}">Forums Home</a>
+                <a class="btn btn-primary m-r-10" href="{% url 'simple-forums:search' %}"><i class="fa fa-search" aria-hidden="true"></i> Search</a>
+                <a class="btn btn-success"href="{% url 'simple-forums:thread-create' %}"><i class="fa fa-plus" aria-hidden="true"></i> New Post</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            {% if error %}
+                <div class='alert alert-warning'>{{ error }}</div>
+            {% endif %}
+        </div>
+        {% if messages %}
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                <strong>Messages:</strong> <br/>
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- ===========================forumStuff-------------------------------- -->
+    <div  class='shadow-lg p-10 mb-5 bg-white rounded well'>
+        {% block content %}{% endblock %}
+    </main>
+    <!-- ===========================forumStuff-------------------------------- -->
+{% endblock %}
+
+{% block lazy_javascript_code %}
+    <script src="{% static 'js/buttons.html5.min.js' %}"></script>
+{% endblock %}

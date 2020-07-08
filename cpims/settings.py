@@ -205,13 +205,15 @@ KMHFL_SCOPE = 'read'
 KMHFL_CLIENTID = 'qxblJCALzKXunUhNUQZpbeQLM9OTvscTYLbQ1oEY'
 KMHFL_CLIENT_SECRET = 'dkwLqoQytFd4zXmPRUXsy2Q4fyRKqy7TAov5OewC2S7iWL58fwCnHyTwYBUMu7fOG091LeADDUgsqeFX446GS2GCDZ5Y6KxlvC3RgRjdSE1sXJIkCpHHfMihPMnUOnU9'
 KMHFL_API_BASE_URL = 'http://api.kmhfl.health.go.ke/'
-KMHFL_FACILITY_BASE_URL = 'http://api.kmhfltest.health.go.ke/api/facilities/facilities/?format=json'
+KMHFL_FACILITY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/facilities/facilities/?format=json'
 KMHFL_LOGIN_URL = 'http://api.kmhfl.health.go.ke/accounts/login/'
 KMHFL_GRANT_TYPE = 'password'
 KMHFL_SUBCOUNTY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/common/sub_counties/'
 
 # nascop API
-NASCOP_API_BASE_URL = os.environ.get('NASCOP_API_BASE_URL') if os.environ.get('NASCOP_API_BASE_URL') else ''
-NASCOP_LOGIN_URL = os.environ.get('NASCOP_LOGIN_URL') if os.environ.get('NASCOP_LOGIN_URL') else ''
-NASCOP_EMAIL = os.environ.get('NASCOP_EMAIL') if os.environ.get('NASCOP_EMAIL') else ''
-NASCOP_PASSWORD = os.environ.get('NASCOP_PASSWORD') if os.environ.get('NASCOP_PASSWORD') else ''
+
+NASCOP_API_BASE_URL = 'https://api.nascop.org/vl/ver2.0/patient/results/'
+NASCOP_LOGIN_URL = 'https://api.nascop.org/auth/ver2.0/login'
+NASCOP_EMAIL = 'rpundo@healthit.uonbi.ac.ke'
+NASCOP_PASSWORD = 'UUwF3AlPaZ7z0uynDT'
+

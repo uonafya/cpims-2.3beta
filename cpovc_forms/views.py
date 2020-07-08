@@ -1,12 +1,15 @@
 from django.utils.datastructures import MultiValueDictKeyError
+#from django.utils.datastructures import MultiValueDictKeyError
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.contrib import messages
 from django.utils import timezone
+#from django.core import serializers
 from django.core import serializers
 from django.conf import settings
 from django.db.models import Q
+
 import json
 import random
 import ast

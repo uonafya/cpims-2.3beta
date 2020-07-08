@@ -110,3 +110,4 @@ reports/*.csv
 
 #sql
 /docker/postgres/dbsql/*.sql
+.vscode/settings.json

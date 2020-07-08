@@ -32,7 +32,7 @@ Caregiver details | {{care_giver}}
     {% if 'error' in message.tags %}
         <div id="messages" class="alert alert-danger fade in">
         <span class="close" data-dismiss="alert">×</span>
-        <i class="fa fa-info fa-2x pull-left"></i>
+        <i class="fa fa-exclamation-triangle fa-2x pull-left"></i>
     {% else %}
         <div id="messages" class="alert alert-success fade in">
         <span class="close" data-dismiss="alert">×</span>
@@ -81,7 +81,7 @@ Caregiver details | {{care_giver}}
                 <table width="100%" class="table table-profile">
                     <tbody>
                         <tr>
-                            <td class="field" style="width: 150px">First Name</td>
+                            <td class="field">First Name</td>
                             <td>{{ child.first_name }}</td>
                             <td class="field">Surname</td>
                             <td>{{ child.surname }}</td>

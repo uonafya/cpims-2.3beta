@@ -100,6 +100,9 @@ urlpatterns = [
                                                content_type='text/plain')),
 
     url(r'^offline_mode/', include(offline_mode_urls)),
+
+    # forums,
+    url(r'^forums/', include('simple_forums.urls', namespace='simple-forums')),
 ]
 
 handler400 = 'cpims.views.handler_400'

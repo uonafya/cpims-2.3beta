@@ -94,7 +94,7 @@
                     <li><a href="{% url 'reports_ovc' id=24 %}">Viral Load</a></li>
                     <li><a href="{% url 'reports_ovc' id=25 %}">Eligibility Criteria</a></li>
                     <li><a href="{% url 'reports_ovc' id=26 %}">Caregivers Served</a></li>
-                    <li><a href="{% url 'reports_ovc' id=27 %}">KPIs</a></li>
+                    <!-- <li><a href="{% url 'reports_ovc' id=27 %}">KPIs</a></li> -->
                     <li><a href="{% url 'reports_ovc' id=28 %}">HIV Risk Screening</a></li>
                     <li><a href="{% url 'reports_ovc' id=29 %}">HIV Management</a></li>
 
@@ -128,7 +128,7 @@
 			<li><a href="{% url 'gis_home' %}" >Map</a></li>
 		</ul>
 	</li>
-	<li class="has-sub online_mode">
+	<!-- <li class="has-sub online_mode">
 	    <a href="#">
 		    <b class="caret pull-right"></b>
 		    <i class="fa fa-camera"></i>
@@ -138,7 +138,7 @@
 	        <li><a href="#">Gallery One</a></li>
 	        <li><a href="#">Gallery Two</a></li>
 	    </ul>
-	</li>
+	</li> -->
 	<li class="has-sub online_mode">
 	    <a href="#">
 		    <b class="caret pull-right"></b>
@@ -162,6 +162,11 @@
 	        <li><a href="{% url 'change_notes' %}">Change Notes</a></li>
 	        <li><a href="https://cpims-docs.readthedocs.io/en/latest/" target="_blank">Documentation</a></li>
 	    </ul>
+	</li>
+	<li class="online_mode">
+	    <a href="{% url 'simple-forums:topic-list' %}">
+	        <i class="fa fa-users"></i> <span>CPIMS Forum</span>
+	    </a>
 	</li>
     <!-- begin sidebar minify button -->
 	<li><a href="#" class="sidebar-minify-btn" data-click="sidebar-minify">

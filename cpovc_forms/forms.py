@@ -135,7 +135,10 @@ olmis_ha30_list = get_list('olmis_ha30_id', 'Please Select')
 olmis_ha31_list = get_list('olmis_ha31_id', 'Please Select')
 #----------------------------------Dreams service uptake-------------------------------------~
 dreams_domain_list = get_list('olmis_dreams_service_id', 'Please Select')
+
 # dreams_service_list = get_list('olmis_dreams_service_oi_id')
+
+
 
 
 
@@ -2609,6 +2612,7 @@ class OVCF1AForm(forms.Form):
                                         )
 
     )
+
     dreams_service = forms.ChoiceField(choices = (),
                                         initial = '0',
                                         widget=forms.SelectMultiple(
@@ -6369,6 +6373,17 @@ class WellbeingAdolescentForm(forms.Form):
 # HIV Screening Form
 class HIV_SCREENING_FORM(forms.Form):
     org_units_list = [('', 'Please Select')] + list(OVCFacility.objects.filter().values_list('id', 'facility_name'))
+    HIV_RS_consent = forms.ChoiceField(
+        choices = YESNO_CHOICES,
+        widget = forms.RadioSelect(
+        renderer=RadioCustomRenderer,
+        attrs={
+        'data-parsley-required': 'true',
+        # 'data-parsley-errors-container': "#errorfield"
+    }))
+
+
+
     HIV_RA_1A = forms.DateField(
         widget = forms.widgets.DateInput(
         format="%m/%d/%Y",
@@ -6377,8 +6392,8 @@ class HIV_SCREENING_FORM(forms.Form):
                'name': 'HIV_RA_1A',
                'id': 'HIV_RA_1A',
                'autocomplete': "off",
-               'data-parsley-required': "true",
-               'data-parsley-group': 'group0'
+            #    'data-parsley-required': "true",
+            #    'data-parsley-group': 'group0'
         }))
 
     HIV_RS_01 = forms.ChoiceField(
