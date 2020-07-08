@@ -8589,54 +8589,13 @@ def save_dreams(request):
             person = request.POST.get('person')
 
             """Save dreams"""
-            # if args == 1:
-            #     date_of_assessment = request.POST.get('date_of_assessment')
-            #     if date_of_assessment:
-            #         date_of_assessment = convert_date(date_of_assessment)
-            #     # Save F1AEvent
-            #     event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=person,
-            #                                                  is_void=False).count()
-
-            #     ovccareevent = OVCCareEvents( #this saves the event into event table
-            #         event_type_id=event_type_id,
-            #         event_counter=event_counter,
-            #         event_score=0,
-            #         date_of_event=date_of_assessment,
-            #         created_by=request.user.id,
-            #         person=RegPerson.objects.get(pk=int(person))
-            #     )
-               
-            #     ovccareevent.save()
-            #     new_pk = ovccareevent.pk  
-
-            #     # dreams
-            #     dreams_assesment_provided_list = request.POST.get('dreams_assesment_provided_list')
-            #     if dreams_assesment_provided_list:
-            #         dreams_assessment_data = json.loads(dreams_assesment_provided_list)
-            #         for assessment_data in dreams_assessment_data:
-            #             service_grouping_id = new_guid_32()
-            #             dreams_domain = assessment_data['dreams_domain']
-            #             dreams_service = assessment_data['dreams_service']
-            #             # olmis_assessment_service_status = assessment_data['olmis_assessment_coreservice_status']
-            #             date_of_service = assessment_data['date_of_service']
-            #             date_of_assessment = convert_date(date_of_service)
-            #             services_status = dreams_service.split(',')
-
-            #             OVCDreams( # this changes to reflect the dreams model
-            #                     person = RegPerson.objects.get(pk=int(person)),
-            #                     service_provided = services_status,
-            #                     service_provider = ou_attached,
-            #                     domain = dreams_domain,
-            #                     date_of_encounter_event = date_of_assessment,
-            #                     event=OVCCareEvents.objects.get(pk=new_pk),
-            #                     service_grouping_id = service_grouping_id
-            #                     ).save()
+          
             if args == 1:
                     date_of_service = request.POST.get('date_of_assessment')
                     if date_of_service:
                         date_of_service = convert_date(date_of_service)
 
-                    # Save F1AEvent
+                    # Save dreams
                     event_counter = OVCCareEvents.objects.filter(event_type_id=event_type_id, person=person,
                                                                 is_void=False).count()
                     ovccareevent = OVCCareEvents(
@@ -10393,45 +10352,43 @@ def update_dreams(request):
             person = request.POST.get('person')
             print "Step one debug"
             event_obj = OVCCareEvents.objects.get(pk=request.POST.get('event_pk'))
-
-            # dreams
             if args == 4:
-                print "Step three debug"
+                print "Step two debug"
                 date_of_service = request.POST.get('date_of_service')
                 if date_of_service:
                     date_of_service = convert_date(date_of_service)
+                    # update_event_date(request.POST.get('event_pk'), date_of_assessment)
+                # update F1AEvent
+
                 dreams_services = OVCDreams.objects.filter(event=event_obj)[:1]
-                # Support/Services
+                # F1A Assessment
                 dreams_assesment_provided_list = request.POST.get('dreams_assesment_provided_list')
                 if dreams_assesment_provided_list:
+
                     dreams_service_data = json.loads(dreams_assesment_provided_list)
-                    # print 'olmis_service_data >> %s' %olmis_service_data
-                    org_unit = ou_primary if ou_primary else ou_attached[0]
-                    print "stop point 1"
-                    print('checkpoint richie', dreams_service_data)
-                    for service_data in dreams_service_data :
-                        print('checkpoint richie', service_data)
-                        
-                        if service_data is not None:
+
+                    for service_data in dreams_service_data:
+                        if len(service_data) is not 0:
+                            # service_grouping_id = new_guid_32()
                             dreams_domain = service_data['dreams_domain']
-                            dreams_service_date = service_data['date_of_service']
-                            print dreams_service_date
-                            dreams_service_date = convert_date(
-                                dreams_service_date) if dreams_service_date != 'None' else None
                             dreams_service = service_data['dreams_service']
-                            services = dreams_service.split(',')
-                           
-                            for service in services:
+                            # olmis_assessment_service_status = service_data['olmis_assessment_coreservice_status']
+                            dreams_service_date = date_of_service
+                            services_status = dreams_service.split(',')
+
+                            print('checkpoint ruchie', ou_attached )
+                            for service_status in services_status:
                                 OVCDreams(
-                                    person = RegPerson.objects.get(pk=int(person)),
-                                    service_provided=service,
-                                    service_provider=org_unit,
-                                    # place_of_service = olmis_place_of_service,
-                                    domain=dreams_domain,
-                                    date_of_encounter_event=dreams_service_date,
-                                    event=event_obj,
-                                    service_grouping_id=dreams_services[0].service_grouping_id
-                                ).save()
+                                        person = RegPerson.objects.get(pk=int(person)),
+                                        service_provided=service_status,
+                                        service_provider=ou_attached,
+                                        # place_of_service = olmis_place_of_service,
+                                        domain=dreams_domain,
+                                        date_of_encounter_event=dreams_service_date,
+                                        event=event_obj,
+                                        service_grouping_id=dreams_services[0].service_grouping_id
+                                        ).save()
+
 
             msg = 'Saved Successfully'
             jsonResponse.append({'msg': msg})

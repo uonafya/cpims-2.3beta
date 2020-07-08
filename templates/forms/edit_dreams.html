@@ -818,6 +818,8 @@ function updateForm1A(x)
         var date_of_service = $('#olmis_service_date').val();
 
         var dreams_assesment_provided_list = $('#dreams_assesment_provided_list').val();
+        console.log('kenys', dreams_assesment_provided_list)
+        
         if(dreams_assesment_provided_list)
         {
             values['dreams_assesment_provided_list'] = dreams_assesment_provided_list;
@@ -832,7 +834,6 @@ function updateForm1A(x)
                     data: values,
                     success: function(result)
                     {
-                        console.log('omera', results)
                         $.each(result, function(i, val)
                         {
                             $(".alert-danger").hide();
