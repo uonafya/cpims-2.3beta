@@ -23,7 +23,7 @@ class KMHFLFacilities(object):
         self.api_base_url = settings.KMHFL_API_BASE_URL
         self.facility_base_url = settings.KMHFL_FACILITY_BASE_URL
         self.sub_county_base_url = settings.KMHFL_SUBCOUNTY_BASE_URL
-        self.login_url = settings.KMHFL_LOGIN_URL
+        self.token_url = settings.KMHFL_TOKEN_URL
         self.api_token = self.generate_token()
         self.latest_facility = self.latest_facility()
 
@@ -39,14 +39,15 @@ class KMHFLFacilities(object):
     @method_once
     def generate_token(self):
         # generate token.
-        login_url = self.login_url
+        token_url = self.token_url
         headers = {'Content-Type': 'application/x-www-form-urlencoded'}
         auth = (self.client_id, self.client_secret)
         credentials = { "grant_type": self.grant_type, 
                         "username": self.username, 
                         "password": self.password, 
                         "scope": self.scope }
-        response = requests.post(login_url, headers=headers, data=credentials, auth=auth)
+        response = requests.post(token_url, headers=headers, data=credentials, auth=auth)
+        print(response.text)
         if response.status_code == 200:
             json_token = json.loads(response.content)
             api_token = json_token.get('access_token')
@@ -107,4 +108,3 @@ class KMHFLFacilities(object):
             pass
 
 
-KMHFLFacilities().get_newest_facilities()
