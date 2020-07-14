@@ -636,177 +636,177 @@ function updateForm1A(x)
 
     // Assessment
 
-    if(x == 1)
-    {
-        values['args'] = 1;
-        error_msg='Error saving assessment - ';
-        error_div = '#error_assessment';
+    // if(x == 1)
+    // {
+    //     values['args'] = 1;
+    //     error_msg='Error saving assessment - ';
+    //     error_div = '#error_assessment';
 
-        var date_of_assessment = $('#date_of_assessment').val();
-        console.log(date_of_assessment);
-        var olmis_assessment_provided_list = $('#olmis_assessment_provided_list').val();
-        if(olmis_assessment_provided_list)
-        //if(1)
-        {
-            values['olmis_assessment_provided_list'] = olmis_assessment_provided_list;
+    //     var date_of_assessment = $('#date_of_assessment').val();
+    //     console.log(date_of_assessment);
+    //     var olmis_assessment_provided_list = $('#olmis_assessment_provided_list').val();
+    //     if(olmis_assessment_provided_list)
+    //     //if(1)
+    //     {
+    //         values['olmis_assessment_provided_list'] = olmis_assessment_provided_list;
 
-            if(date_of_assessment)
-            {
-                values['date_of_assessment'] = date_of_assessment;
-                $.ajax({
-                    url: '{% url 'update_form1a' %}',
-                    dataType: 'json',
-                    method: 'POST',
-                    data: values,
-                    success: function(result)
-                    {
-                        $.each(result, function(i, val)
-                        {
-                            $(".alert-danger").hide();
-                            $('#success_message').css({'display': 'block'});
-                            $('#success_message p').html(val.msg);
-                        });
-                        //loadForm1aEvents();
-                        resetForm1A(1);
-                    },
-                    error: function(xhr, status, error){
-                        $(".alert-danger").hide();
-                        $("" + error_div + "").addClass( "alert alert-danger fade in" );
-                        $("" + error_div + "").html(msg + error)
-                    }
-                });
-            }
-            else
-            {
-                $('#success_message').css({'display': 'none'});
-                $(".alert-danger").show();
-                $('.invalid-form-message').html('Please provide required date of event.');
-                $('#date_errormsg0').css({'display': 'block'});
-                return false;
-            }
-        }
-        else
-        {
-            $('#success_message').css({'display': 'none'});
-            $(".alert-danger").show();
-            $('.invalid-form-message').html('Please provide required assessment response(s).');
-            return false;
-        }
-    }
-    // Critical Events
-    if(x == 2){
-        values['args'] = 2;
-        error_msg='Please provide required critical event(s)';
-        error_div = '#error_cevts';
+    //         if(date_of_assessment)
+    //         {
+    //             values['date_of_assessment'] = date_of_assessment;
+    //             $.ajax({
+    //                 url: '{% url 'update_form1a' %}',
+    //                 dataType: 'json',
+    //                 method: 'POST',
+    //                 data: values,
+    //                 success: function(result)
+    //                 {
+    //                     $.each(result, function(i, val)
+    //                     {
+    //                         $(".alert-danger").hide();
+    //                         $('#success_message').css({'display': 'block'});
+    //                         $('#success_message p').html(val.msg);
+    //                     });
+    //                     //loadForm1aEvents();
+    //                     resetForm1A(1);
+    //                 },
+    //                 error: function(xhr, status, error){
+    //                     $(".alert-danger").hide();
+    //                     $("" + error_div + "").addClass( "alert alert-danger fade in" );
+    //                     $("" + error_div + "").html(msg + error)
+    //                 }
+    //             });
+    //         }
+    //         else
+    //         {
+    //             $('#success_message').css({'display': 'none'});
+    //             $(".alert-danger").show();
+    //             $('.invalid-form-message').html('Please provide required date of event.');
+    //             $('#date_errormsg0').css({'display': 'block'});
+    //             return false;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         $('#success_message').css({'display': 'none'});
+    //         $(".alert-danger").show();
+    //         $('.invalid-form-message').html('Please provide required assessment response(s).');
+    //         return false;
+    //     }
+    // }
+    // // Critical Events
+    // if(x == 2){
+    //     values['args'] = 2;
+    //     error_msg='Please provide required critical event(s)';
+    //     error_div = '#error_cevts';
 
-        var date_of_cevent = $('#date_of_cevent').val();
-        var olmis_critical_event = $('#olmis_critical_event').val();
-        if(olmis_critical_event)
-        {
-            values['olmis_critical_event'] = olmis_critical_event.toString();
+    //     var date_of_cevent = $('#date_of_cevent').val();
+    //     var olmis_critical_event = $('#olmis_critical_event').val();
+    //     if(olmis_critical_event)
+    //     {
+    //         values['olmis_critical_event'] = olmis_critical_event.toString();
 
-            if(date_of_cevent)
-            {
-                values['date_of_cevent'] = date_of_cevent;
-                $.ajax({
-                    url: '{% url 'update_form1a' %}',
-                    dataType: 'json',
-                    method: 'POST',
-                    data: values,
-                    success: function(result)
-                    {
-                        $.each(result, function(i, val)
-                        {
-                            $(".alert-danger").hide();
-                            $('#success_message').css({'display': 'block'});
-                            $('#success_message p').html(val.msg);
-                        });
-                        //loadForm1aEvents();
-                        //resetForm1A(2);
-                    },
-                    error: function(xhr, status, error){
-                        $(".alert-danger").hide();
-                        $("" + error_div + "").addClass( "alert alert-danger fade in" );
-                        $("" + error_div + "").html(msg + error)
-                    }
-                });
-            }
-            else
-            {
-                $('#success_message').css({'display': 'none'});
-                $(".alert-danger").show();
-                $('.invalid-form-message').html('Please provide required date of event.');
-                $('#date_errormsg1').css({'display': 'block'});
-                return false;
-            }
-        }
-        else
-        {
-            $('#success_message').css({'display': 'none'});
-            $(".alert-danger").show();
-            $('.invalid-form-message').html('Please provide required critical event(s).');
-            $('#olmis_critical_event_errormsg').css({'display': 'block'});
-            return false;
-        }
-    }
+    //         if(date_of_cevent)
+    //         {
+    //             values['date_of_cevent'] = date_of_cevent;
+    //             $.ajax({
+    //                 url: '{% url 'update_form1a' %}',
+    //                 dataType: 'json',
+    //                 method: 'POST',
+    //                 data: values,
+    //                 success: function(result)
+    //                 {
+    //                     $.each(result, function(i, val)
+    //                     {
+    //                         $(".alert-danger").hide();
+    //                         $('#success_message').css({'display': 'block'});
+    //                         $('#success_message p').html(val.msg);
+    //                     });
+    //                     //loadForm1aEvents();
+    //                     //resetForm1A(2);
+    //                 },
+    //                 error: function(xhr, status, error){
+    //                     $(".alert-danger").hide();
+    //                     $("" + error_div + "").addClass( "alert alert-danger fade in" );
+    //                     $("" + error_div + "").html(msg + error)
+    //                 }
+    //             });
+    //         }
+    //         else
+    //         {
+    //             $('#success_message').css({'display': 'none'});
+    //             $(".alert-danger").show();
+    //             $('.invalid-form-message').html('Please provide required date of event.');
+    //             $('#date_errormsg1').css({'display': 'block'});
+    //             return false;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         $('#success_message').css({'display': 'none'});
+    //         $(".alert-danger").show();
+    //         $('.invalid-form-message').html('Please provide required critical event(s).');
+    //         $('#olmis_critical_event_errormsg').css({'display': 'block'});
+    //         return false;
+    //     }
+    // }
 
 
-    // Priority(s)
-    if(x == 3){
-        values['args'] = 3;
-        error_msg='Error saving priority(s)';
-        error_div = '#error_priority';
+    // // Priority(s)
+    // if(x == 3){
+    //     values['args'] = 3;
+    //     error_msg='Error saving priority(s)';
+    //     error_div = '#error_priority';
 
-        var date_of_priority = $('#date_of_priority').val();
-        var olmis_priority_service_provided_list = $('#olmis_priority_service_provided_list').val();
-        if(olmis_priority_service_provided_list)
-        {
-            values['olmis_priority_service_provided_list'] = olmis_priority_service_provided_list;
+    //     var date_of_priority = $('#date_of_priority').val();
+    //     var olmis_priority_service_provided_list = $('#olmis_priority_service_provided_list').val();
+    //     if(olmis_priority_service_provided_list)
+    //     {
+    //         values['olmis_priority_service_provided_list'] = olmis_priority_service_provided_list;
 
-            if(date_of_priority)
-            {
-                values['date_of_priority'] = date_of_priority;
-                $.ajax({
-                    url: '{% url 'update_form1a' %}',
-                    dataType: 'json',
-                    method: 'POST',
-                    data: values,
-                    success: function(result)
-                    {
-                        $.each(result, function(i, val)
-                        {
-                            $(".alert-danger").hide();
-                            $('#success_message').css({'display': 'block'});
-                            $('#success_message p').html(val.msg);
-                            $('#error-message-reuse').css({'display': 'none'});
-                        });
-                        loadForm1aEvents();
-                        resetForm1A(3);
-                    },
-                    error: function(xhr, status, error){
-                        $(".alert-danger").hide();
-                        $("" + error_div + "").addClass( "alert alert-danger fade in" );
-                        $("" + error_div + "").html(msg + error)
-                    }
-                });
-            }
-            else
-            {
-                $('#success_message').css({'display': 'none'});
-                $(".alert-danger").show();
-                $('.invalid-form-message').html('Please provide required date of event.');
-                $('#date_errormsg2').css({'display': 'block'});
-                return false;
-            }
-        }
-        else
-        {
-            $('#success_message').css({'display': 'none'});
-            $(".alert-danger").show();
-            $('.invalid-form-message').html('Please provide required priority response(s).');
-            return false;
-        }
-    }
+    //         if(date_of_priority)
+    //         {
+    //             values['date_of_priority'] = date_of_priority;
+    //             $.ajax({
+    //                 url: '{% url 'update_form1a' %}',
+    //                 dataType: 'json',
+    //                 method: 'POST',
+    //                 data: values,
+    //                 success: function(result)
+    //                 {
+    //                     $.each(result, function(i, val)
+    //                     {
+    //                         $(".alert-danger").hide();
+    //                         $('#success_message').css({'display': 'block'});
+    //                         $('#success_message p').html(val.msg);
+    //                         $('#error-message-reuse').css({'display': 'none'});
+    //                     });
+    //                     loadForm1aEvents();
+    //                     resetForm1A(3);
+    //                 },
+    //                 error: function(xhr, status, error){
+    //                     $(".alert-danger").hide();
+    //                     $("" + error_div + "").addClass( "alert alert-danger fade in" );
+    //                     $("" + error_div + "").html(msg + error)
+    //                 }
+    //             });
+    //         }
+    //         else
+    //         {
+    //             $('#success_message').css({'display': 'none'});
+    //             $(".alert-danger").show();
+    //             $('.invalid-form-message').html('Please provide required date of event.');
+    //             $('#date_errormsg2').css({'display': 'block'});
+    //             return false;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         $('#success_message').css({'display': 'none'});
+    //         $(".alert-danger").show();
+    //         $('.invalid-form-message').html('Please provide required priority response(s).');
+    //         return false;
+    //     }
+    // }
 
     // Dreams
     if(x == 4){
