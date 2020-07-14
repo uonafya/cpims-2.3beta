@@ -132,6 +132,8 @@ urlpatterns = patterns(
         name='manage_casehistory'),
     url(r'^manage_service_category/$', 'manage_service_category',
         name='manage_service_category'),
+    url(r'^manage_dreams_service/$', 'manage_dreams_service',
+        name='manage_dreams_service'),
     url(r'^manage_form_type/$', 'manage_form_type',
         name='manage_form_type'),
     # ---------------------------------------------------------------
@@ -270,5 +272,20 @@ urlpatterns = patterns(
     # Dreams SerivceUptake Form
     url(r'^dreamsform/new/(?P<id>\d+)/$',
         'new_dreamsform', name='new_dreamsform'),
+        
+    url(r'^dreamsformupdated/new/(?P<id>\d+)/$',
+        'new_dreamsformupdated', name='new_dreamsformupdated'),
+    url(r'^dreams/save/$',
+        'save_dreams', name='save_dreams'),
+    url(r'^dreams/manage/$',
+        'manage_dreams_events', name='manage_dreams_events'),
+    url(r'^dreams/edit/(?P<id>\d+)/(?P<btn_event_type>\w+)/(?P<btn_event_pk>.+)/$',
+        'edit_dreams', name='edit_dreams'),
+    url(r'^dreams/update/$',
+        'update_dreams', name='update_dreams'),    
+    url(r'^dreams/delete_previous_dreams_entry/(?P<btn_event_type>\w+)/(?P<entry_id>.+)/$',
+            'delete_previous_dreams_entry', name='delete_previous_dreams_entry'),
+    url(r'^dreams/delete/(?P<id>\d+)/(?P<btn_event_type>\w+)/(?P<btn_event_pk>.+)/$',
+        'delete_dreams', name='delete_dreams'),
 
 )

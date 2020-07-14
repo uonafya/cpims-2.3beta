@@ -211,7 +211,9 @@ KMHFL_GRANT_TYPE = 'password'
 KMHFL_SUBCOUNTY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/common/sub_counties/'
 
 # nascop API
+
 NASCOP_API_BASE_URL = 'https://api.nascop.org/vl/ver2.0/patient/results/'
 NASCOP_LOGIN_URL = 'https://api.nascop.org/auth/ver2.0/login'
 NASCOP_EMAIL = 'rpundo@healthit.uonbi.ac.ke'
 NASCOP_PASSWORD = 'UUwF3AlPaZ7z0uynDT'
+
