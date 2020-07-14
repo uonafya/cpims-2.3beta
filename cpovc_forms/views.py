@@ -10177,6 +10177,8 @@ def manage_dreams_events(request):
             event_keywords = []
             event_keyword_group = []
             assessments = []
+            prioritys = []
+            critical_events =[]
 
             event_date = None
 
@@ -10186,16 +10188,18 @@ def manage_dreams_events(request):
             ## get Dreams 
             OVCDreamsdomain = OVCDreams.objects.filter(event_id = ovccareevent.pk)
             
+            
             for OVCDream in OVCDreamsdomain:
-                assessments.append(translate(OVCDream.domain))
+                assessments.append(translate(OVCDream.service_provided))
+                
                 event_date = OVCDream.date_of_encounter_event
                 event_keywords.append(translate(OVCDream.service_provided))
          
 
-            ## get Services
-            ovccareservices = OVCCareServices.objects.filter(event=ovccareevent.pk)
-            for ovccareservice in ovccareservices:
-                services.append(translate(ovccareservice.service_provided))
+            # ## get Services
+            # ovccareservices = OVCCareServices.objects.filter(event=ovccareevent.pk)
+            # for ovccareservice in ovccareservices:
+            #     services.append(translate(ovccareservice.service_provided))
 
             if (services):
                 event_type = 'SERVICES'
@@ -10210,7 +10214,7 @@ def manage_dreams_events(request):
             elif (critical_events):
                 event_type = 'CRITICAL EVENT'
                 event_details = ', '.join(critical_events)
-
+            
             jsonForm1AEventsData.append({
                 'event_pk': str(ovccareevent.pk),
                 'event_type': event_type,
@@ -10375,8 +10379,6 @@ def update_dreams(request):
                             # olmis_assessment_service_status = service_data['olmis_assessment_coreservice_status']
                             dreams_service_date = date_of_service
                             services_status = dreams_service.split(',')
-
-                            print('checkpoint ruchie', ou_attached )
                             for service_status in services_status:
                                 OVCDreams(
                                         person = RegPerson.objects.get(pk=int(person)),
