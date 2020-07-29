@@ -10189,6 +10189,8 @@ def manage_dreams_events(request):
 
             ## get Dreams 
             OVCDreamsdomain = OVCDreams.objects.filter(event_id = ovccareevent.pk)
+            
+            
             for OVCDream in OVCDreamsdomain:
                 assessments.append(translate(OVCDream.service_provided))
                 
