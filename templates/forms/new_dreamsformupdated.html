@@ -172,9 +172,9 @@
 						<div class="wizard-step-1">
                             <fieldset> 
                                 <div id="error_assessment"></div>
-                            <div style="overflow-x: auto; min-height: 400px;">
+                            <div style="overflow-x: auto; min-height: 350px;">
                                 <!-- begin col-6 -->
-                                <table id="assessment_manager_table" class="table" style="min-height: 400px;">
+                                <table id="assessment_manager_table" class="table" style="overflow-y: auto !important;">
                                     <thead>
                                         <tr id="id_inputHeaders1">
                                         	<td width="5%"></td> 
@@ -323,24 +323,24 @@ jQuery(document).ready(function()
         includeSelectAllOption: true,
         enableCaseInsensitiveFiltering: true,
         numberDisplayed: 1,
-        maxHeight: 300,
+        maxHeight: 200,
         buttonWidth: '100%',
         buttonClass: 'btn btn-white'
     });
 
     // populate CSI Services Priority
-    getServices(4, 'DS 0S')
-    getServices(4, 'DS 1S')
-    getServices(4, 'DS 7S')
-    getServices(4, 'DS 8S')
-    getServices(4, 'DS 12S')
+    // getServices(4, 'DS 0S')
+    // getServices(4, 'DS 1S')
+    // getServices(4, 'DS 7S')
+    // getServices(4, 'DS 8S')
+    // getServices(4, 'DS 12S')
     
 
     // show/hide PriorityTab [Jan/May/Nov]
     // tabManager();
 
     // load form1a events
-    loadForm1aEvents();
+    loadDreamsEvents();
 
 	$('html,body').scrollTop(0);
 	FormWizardValidation.init();
@@ -355,7 +355,7 @@ arr_DEDU = new Array();
 domain_log = { "DSHC": arr_DSHC, "DPSS": arr_DPSS, "DPRO": arr_DPRO, "DHES": arr_DHES, "DHNU": arr_DHNU, "DEDU": arr_DEDU }
 
 
-function loadForm1aEvents()
+function loadDreamsEvents()
 {
     var data = new Array();
     var csrftoken = $.cookie('csrftoken');    
@@ -429,7 +429,7 @@ function loadForm1aEvents()
                                 var btn_event_pk=$(this).attr("data-event_pk");
 
                                 var url = "{% url 'delete_dreams' id=1234 btn_event_type=2345 btn_event_pk=3456 %}".replace(/1234/, personId.toString()).replace(/2345/, btn_event_type.toString()).replace(/3456/, btn_event_pk.toString());
-                                window.form1aUrlToDelete=url;
+                                window.dreamsURLToDelete=url;
                                 window.eventTypeToDelete=btn_event_type.toString();
                                 $("#delete-dreams-entry").modal();
 
@@ -453,8 +453,6 @@ function resetDreams(x)
     {
         $('#assessment_manager_table').find("tr:gt(1)").remove();
         $('#date_of_assessment').val('');
-        $("#dreams_domain").multiselect("clearSelection");
-        $("#dreams_domain").multiselect("refresh");
         $("#dreams_service").multiselect("clearSelection");
         $("#dreams_service").multiselect("refresh");
         $('#date_of_service').val('');
@@ -509,7 +507,7 @@ function saveDreams(x)
                             $('#success_message p').html(val.msg);
                             $('#error-message-reuse').css({'display': 'none'});
                         });
-                        loadForm1aEvents();
+                        loadDreamsEvents();
                         resetDreams(1);
                     },
                     error: function(xhr, status, error){
@@ -651,17 +649,18 @@ function AddRow(x)
         var dreams_domain = $("#dreams_domain").val();
         var dreams_service = $("#dreams_service").val();
         var date_of_service = $("#olmis_service_date").val();
+        
         var csrftoken = $.cookie('csrftoken');        
         var values = {  
             'csrfmiddlewaretoken': csrftoken
         };
 
         // Validation and Ajax
-        if(dreams_domain || dreams_domain == '')
+        if(!dreams_domain || dreams_domain != '')
 		{
-			if(dreams_service || dreams_service == '')
+			if(!dreams_service || dreams_service != '')
 			{
-				if( date_of_service || date_of_service == '')
+				if( !date_of_service || date_of_service != '')
 				{
 					// Find a <table> element with id="myTable":
                     var table = $('#assessment_manager_table')[0]; 
@@ -686,11 +685,10 @@ function AddRow(x)
                     var hdate_of_service = "<input id='hdate_of_service' type='hidden' value='"+date_of_service+"'>"
 
                     // var holmis_assessment_status= "<input id='holmis_assessment_status' type='hidden' value='new'>"
-
                     cell0.innerHTML = '<h6 class="td_style">#</h6>';        
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "dreams_domain") + hdreams_domain + '</h6>';
                     cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "dreams_service") + hdreams_service + '</h6>';
-                    cell3.innerHTML = '<h6 class="td_style">' + displayVals(2, "date_of_service") + hdate_of_service + '</h6>';
+                    cell3.innerHTML = '<h6 class="td_style">' + displayVals(4, "olmis_service_date") + hdate_of_service + '</h6>';
                     cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5' href='#'>Remove</a>" + '</h6>';
 
                     // AddClick Event To Remove Button
@@ -700,8 +698,6 @@ function AddRow(x)
                     });
 
                     // Reset Input Elements/Error Divs
-                    $("#dreams_domain").multiselect("clearSelection");
-                    $("#dreams_domain").multiselect("refresh");
                     $("#dreams_service").multiselect("clearSelection");
                     $("#dreams_service").multiselect("refresh");
                     // $("#olmis_assessment_coreservice_status").multiselect("clearSelection");
@@ -1228,7 +1224,13 @@ function displayVals(x, value)
 	    var selections = hselections.join( ", " );
 
 	    $("#holmis_assessment_coreservice_status").val(selections);		
-	}   
+	} 
+    if(x == 4 )
+    {
+	    return $("#" + value ).val()
+	} 
+        
+    
 }
 
 function tabManager()
@@ -1426,7 +1428,7 @@ function deleteDreamsEntry(){
     $('#delete-dreams-entry').modal('hide');
 
     $.ajax({
-                url: window.form1aUrlToDelete,
+                url: window.dreamsURLToDelete,
                 dataType: 'json',
                 method: 'GET',
                 success: function(result)
