@@ -8626,7 +8626,6 @@ def save_dreams(request):
                                 dreams_service = assessment_data['dreams_service']
                                 
                                 services = dreams_service.split(',')
-                                print 'dreams_service: %s' % services
                                 for service in services:
                                     OVCDreams( # this changes to reflect the dreams model
                                         person = RegPerson.objects.get(pk=int(person)),
@@ -10260,7 +10259,6 @@ def edit_dreams(request, id, btn_event_type, btn_event_pk):
             service_type_list = []
             olmis_assessment_domain_list = get_list(
                 'dreams_domain', 'Please Select')
-            print olmis_assessment_domain_list
             date_of_event_edit = event_obj.date_of_event
             for ovc_care_assessment in ovc_care_assessments:
 
