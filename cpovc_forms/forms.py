@@ -136,7 +136,7 @@ olmis_ha31_list = get_list('olmis_ha31_id', 'Please Select')
 #----------------------------------Dreams service uptake-------------------------------------~
 dreams_domain_list = get_list('olmis_dreams_service_id', 'Please Select')
 
-# dreams_service_list = get_list('olmis_dreams_service_oi_id')
+dreams_service_list = get_list('Please Select')
 
 
 
@@ -2613,7 +2613,7 @@ class OVCF1AForm(forms.Form):
 
     )
 
-    dreams_service = forms.ChoiceField(choices = (),
+    dreams_service = forms.ChoiceField(choices = dreams_service_list,
                                         initial = '0',
                                         widget=forms.SelectMultiple(
                                             attrs={'class': 'form-control',

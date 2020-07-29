@@ -230,7 +230,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                        <!-- <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="saveForm1A(1)">Update Assessment</button>-->
-                                        <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="updateForm1A(1)">Update Assessment</button>
+                                        <button id="mysubmit-f1a-0" class="btn btn-primary" type="button" onClick="updateDreams(1)">Update Assessment</button>
 
                                         <a href="{% url 'form1a_events'  id=form.person.value %}"  class="btn btn-white">Back</a>
                                     </div>
@@ -279,7 +279,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <!--<button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="saveForm1A(2)">Submit Critical Event(s)</button>-->
-                                        <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="updateForm1A(2)">Update Critical Event(s)</button>
+                                        <button id="mysubmit-f1a-1" class="btn btn-primary" type="button" onClick="updateDreams(2)">Update Critical Event(s)</button>
                                         <a href="{% url 'form1a_events'  id=form.person.value %}" onClick="back()" class="btn btn-white">Back</a>
                                     </div>
                                 </div>
@@ -360,7 +360,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
-                                        <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="updateForm1A(3)">Update Priority(s)</button>
+                                        <button id="mysubmit-f1a-2" class="btn btn-primary" type="button" onClick="updateDreams(3)">Update Priority(s)</button>
                                         <a href="{% url 'form1a_events'  id=form.person.value %}"  class="btn btn-white">Back</a>
                                     </div>
                                 </div>
@@ -493,7 +493,7 @@
                                     <label class="control-label col-md-4 col-sm-4"></label>
                                     <div class="col-md-6 col-sm-6">
                                         <!--<button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="saveForm1A(4)">Update Service(s)</button>-->
-                                        <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="updateForm1A(4)">Update Service(s)</button>
+                                        <button id="mysubmit-f1a-3" class="btn btn-primary" type="button" onClick="updateDreams(4)">Update Service(s)</button>
 
                                         <a href="{% url 'new_dreamsformupdated'  id=form.person.value %}" class="btn btn-white">Back</a>
                                     </div>
@@ -594,11 +594,7 @@ jQuery(document).ready(function()
     });
 
     // populate CSI Services Priority
-    getServices(4, 'DS 0S')
-    getServices(4, 'DS 1S')
-    getServices(4, 'DS 7S')
-    getServices(4, 'DS 8S')
-    getServices(4, 'DS 12S')
+ 
     
 
     // show/hide PriorityTab [Jan/May/Nov]
@@ -619,7 +615,7 @@ arr_DHNU = new Array();
 arr_DEDU = new Array();
 domain_log = { "DSHC": arr_DSHC, "DPSS": arr_DPSS, "DPRO": arr_DPRO, "DHES": arr_DHES, "DHNU": arr_DHNU, "DEDU": arr_DEDU }
 
-function updateForm1A(x)
+function updateDreams(x)
 {
     var args = 0;
     var msg = ''
@@ -634,180 +630,7 @@ function updateForm1A(x)
                     'event_pk':event_pk
                  };
 
-    // Assessment
-
-    // if(x == 1)
-    // {
-    //     values['args'] = 1;
-    //     error_msg='Error saving assessment - ';
-    //     error_div = '#error_assessment';
-
-    //     var date_of_assessment = $('#date_of_assessment').val();
-    //     console.log(date_of_assessment);
-    //     var olmis_assessment_provided_list = $('#olmis_assessment_provided_list').val();
-    //     if(olmis_assessment_provided_list)
-    //     //if(1)
-    //     {
-    //         values['olmis_assessment_provided_list'] = olmis_assessment_provided_list;
-
-    //         if(date_of_assessment)
-    //         {
-    //             values['date_of_assessment'] = date_of_assessment;
-    //             $.ajax({
-    //                 url: '{% url 'update_form1a' %}',
-    //                 dataType: 'json',
-    //                 method: 'POST',
-    //                 data: values,
-    //                 success: function(result)
-    //                 {
-    //                     $.each(result, function(i, val)
-    //                     {
-    //                         $(".alert-danger").hide();
-    //                         $('#success_message').css({'display': 'block'});
-    //                         $('#success_message p').html(val.msg);
-    //                     });
-    //                     //loadForm1aEvents();
-    //                     resetForm1A(1);
-    //                 },
-    //                 error: function(xhr, status, error){
-    //                     $(".alert-danger").hide();
-    //                     $("" + error_div + "").addClass( "alert alert-danger fade in" );
-    //                     $("" + error_div + "").html(msg + error)
-    //                 }
-    //             });
-    //         }
-    //         else
-    //         {
-    //             $('#success_message').css({'display': 'none'});
-    //             $(".alert-danger").show();
-    //             $('.invalid-form-message').html('Please provide required date of event.');
-    //             $('#date_errormsg0').css({'display': 'block'});
-    //             return false;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         $('#success_message').css({'display': 'none'});
-    //         $(".alert-danger").show();
-    //         $('.invalid-form-message').html('Please provide required assessment response(s).');
-    //         return false;
-    //     }
-    // }
-    // // Critical Events
-    // if(x == 2){
-    //     values['args'] = 2;
-    //     error_msg='Please provide required critical event(s)';
-    //     error_div = '#error_cevts';
-
-    //     var date_of_cevent = $('#date_of_cevent').val();
-    //     var olmis_critical_event = $('#olmis_critical_event').val();
-    //     if(olmis_critical_event)
-    //     {
-    //         values['olmis_critical_event'] = olmis_critical_event.toString();
-
-    //         if(date_of_cevent)
-    //         {
-    //             values['date_of_cevent'] = date_of_cevent;
-    //             $.ajax({
-    //                 url: '{% url 'update_form1a' %}',
-    //                 dataType: 'json',
-    //                 method: 'POST',
-    //                 data: values,
-    //                 success: function(result)
-    //                 {
-    //                     $.each(result, function(i, val)
-    //                     {
-    //                         $(".alert-danger").hide();
-    //                         $('#success_message').css({'display': 'block'});
-    //                         $('#success_message p').html(val.msg);
-    //                     });
-    //                     //loadForm1aEvents();
-    //                     //resetForm1A(2);
-    //                 },
-    //                 error: function(xhr, status, error){
-    //                     $(".alert-danger").hide();
-    //                     $("" + error_div + "").addClass( "alert alert-danger fade in" );
-    //                     $("" + error_div + "").html(msg + error)
-    //                 }
-    //             });
-    //         }
-    //         else
-    //         {
-    //             $('#success_message').css({'display': 'none'});
-    //             $(".alert-danger").show();
-    //             $('.invalid-form-message').html('Please provide required date of event.');
-    //             $('#date_errormsg1').css({'display': 'block'});
-    //             return false;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         $('#success_message').css({'display': 'none'});
-    //         $(".alert-danger").show();
-    //         $('.invalid-form-message').html('Please provide required critical event(s).');
-    //         $('#olmis_critical_event_errormsg').css({'display': 'block'});
-    //         return false;
-    //     }
-    // }
-
-
-    // // Priority(s)
-    // if(x == 3){
-    //     values['args'] = 3;
-    //     error_msg='Error saving priority(s)';
-    //     error_div = '#error_priority';
-
-    //     var date_of_priority = $('#date_of_priority').val();
-    //     var olmis_priority_service_provided_list = $('#olmis_priority_service_provided_list').val();
-    //     if(olmis_priority_service_provided_list)
-    //     {
-    //         values['olmis_priority_service_provided_list'] = olmis_priority_service_provided_list;
-
-    //         if(date_of_priority)
-    //         {
-    //             values['date_of_priority'] = date_of_priority;
-    //             $.ajax({
-    //                 url: '{% url 'update_form1a' %}',
-    //                 dataType: 'json',
-    //                 method: 'POST',
-    //                 data: values,
-    //                 success: function(result)
-    //                 {
-    //                     $.each(result, function(i, val)
-    //                     {
-    //                         $(".alert-danger").hide();
-    //                         $('#success_message').css({'display': 'block'});
-    //                         $('#success_message p').html(val.msg);
-    //                         $('#error-message-reuse').css({'display': 'none'});
-    //                     });
-    //                     loadForm1aEvents();
-    //                     resetForm1A(3);
-    //                 },
-    //                 error: function(xhr, status, error){
-    //                     $(".alert-danger").hide();
-    //                     $("" + error_div + "").addClass( "alert alert-danger fade in" );
-    //                     $("" + error_div + "").html(msg + error)
-    //                 }
-    //             });
-    //         }
-    //         else
-    //         {
-    //             $('#success_message').css({'display': 'none'});
-    //             $(".alert-danger").show();
-    //             $('.invalid-form-message').html('Please provide required date of event.');
-    //             $('#date_errormsg2').css({'display': 'block'});
-    //             return false;
-    //         }
-    //     }
-    //     else
-    //     {
-    //         $('#success_message').css({'display': 'none'});
-    //         $(".alert-danger").show();
-    //         $('.invalid-form-message').html('Please provide required priority response(s).');
-    //         return false;
-    //     }
-    // }
-
+    
     // Dreams
     if(x == 4){
 
@@ -909,8 +732,6 @@ function resetForm1A(x)
     {
         $('#services_manager_table').find("tr:gt(1)").remove();
         $('#date_of_service').val('');
-        $("#dreams_domain").multiselect("clearSelection");
-        $("#dreams_domain").multiselect("refresh");
         $("#dreams_service").multiselect("clearSelection");
         $("#dreams_service").multiselect("refresh");
         $("#sel_olmis_service").html('');
@@ -1077,7 +898,7 @@ function AddRow(x)
                     cell0.innerHTML = '<h6 class="td_style">#</h6>';        
                     cell1.innerHTML = '<h6 class="td_style">' + displayVals(2, "dreams_domain") + hdreams_domain + '</h6>';
                     cell2.innerHTML = '<h6 class="td_style">' + displayVals(2, "dreams_service") + hdreams_service + '</h6>';
-                    cell3.innerHTML = '<h6 class="td_style">' + displayVals(2, "date_of_service") + hdate_of_service + '</h6>';
+                    cell3.innerHTML = '<h6 class="td_style">' + displayVals(4, "olmis_service_date") + hdate_of_service + '</h6>';;
                     cell4.innerHTML  = '<h6 class="dialog_paragraph">' + "<a id=" + btnRemoveSvcId + " class='btn btn-xs btn-danger m-r-5' href='#'>Remove</a>" + '</h6>';
 
                     // AddClick Event To Remove Button
@@ -1087,8 +908,6 @@ function AddRow(x)
                     });
 
                     // Reset Input Elements/Error Divs
-                    $("#dreams_domain").multiselect("clearSelection");
-                    $("#dreams_domain").multiselect("refresh");
                     $("#dreams_service").multiselect("clearSelection");
                     $("#dreams_service").multiselect("refresh");
                     // $("#olmis_assessment_coreservice_status").multiselect("clearSelection");
@@ -1647,6 +1466,11 @@ function displayVals(x, value)
 
 	    $("#holmis_assessment_coreservice_status").val(selections);
 	}
+    if(x == 4 )
+    {
+	    return $("#" + value ).val()
+	} 
+        
 }
 
 function tabManager()

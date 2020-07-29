@@ -46,7 +46,7 @@ from cpovc_main.functions import (
     get_persons_list, get_list_of_persons, get_list, form_id_generator,
     case_event_id_generator, convert_date, new_guid_32,
     beneficiary_id_generator, translate_geo, translate, translate_case,
-    translate_reverse, translate_reverse_org, translate_school, get_days_difference)
+    translate_reverse, translate_reverse_org, translate_school, get_days_difference, uuid)
 from cpovc_forms.functions import (save_audit_trail, save_cpara_form_by_domain, get_past_cpt)
 from cpovc_main.country import (COUNTRIES)
 from cpovc_registry.models import (
@@ -8617,24 +8617,26 @@ def save_dreams(request):
                         org_unit = ou_primary if ou_primary else ou_attached[0]
 
                         for assessment_data in dreams_assessment_data:
-                            service_grouping_id = new_guid_32()
-                            dreams_domain = assessment_data['dreams_domain']
-                            date_of_service = assessment_data['date_of_service']
-                            dreams_service_date = convert_date(date_of_service) if assessment_data != 'None' else None
-                            dreams_service = assessment_data['dreams_service']
-                            
-                            services = dreams_service.split(',')
-                            print 'dreams_service: %s' % services
-                            for service in services:
-                                OVCDreams( # this changes to reflect the dreams model
-                                    person = RegPerson.objects.get(pk=int(person)),
-                                    service_provided = service,
-                                    service_provider = org_unit,
-                                    domain = dreams_domain,
-                                    date_of_encounter_event = dreams_service_date,
-                                    event=OVCCareEvents.objects.get(pk=new_pk),
-                                    service_grouping_id = service_grouping_id
-                                    ).save()
+                            if assessment_data:
+
+                                service_grouping_id = uuid.uuid1()
+                                dreams_domain = assessment_data['dreams_domain']
+                                date_of_service = assessment_data['date_of_service']
+                                dreams_service_date = convert_date(date_of_service) if assessment_data != 'None' else None
+                                dreams_service = assessment_data['dreams_service']
+                                
+                                services = dreams_service.split(',')
+                                print 'dreams_service: %s' % services
+                                for service in services:
+                                    OVCDreams( # this changes to reflect the dreams model
+                                        person = RegPerson.objects.get(pk=int(person)),
+                                        service_provided = service,
+                                        service_provider = org_unit,
+                                        domain = dreams_domain,
+                                        date_of_encounter_event = dreams_service_date,
+                                        event=OVCCareEvents.objects.get(pk=new_pk),
+                                        service_grouping_id = service_grouping_id
+                                        ).save()
                 
             msg = 'Save Successful'
             jsonResponse.append({'msg': msg})
@@ -10258,6 +10260,7 @@ def edit_dreams(request, id, btn_event_type, btn_event_pk):
             service_type_list = []
             olmis_assessment_domain_list = get_list(
                 'dreams_domain', 'Please Select')
+            print olmis_assessment_domain_list
             date_of_event_edit = event_obj.date_of_event
             for ovc_care_assessment in ovc_care_assessments:
 
@@ -10336,7 +10339,7 @@ def edit_dreams(request, id, btn_event_type, btn_event_pk):
         err_msgg = "Can't alter after 90 days"
         # return HttpResponseRedirect(reverse('form1a_events', args=(id,)))
         return render(request,
-                      'forms/form1a_events.html',
+                      'forms/new_dreamsformupdated.html',
                       {'form': form, 'init_data': init_data,
                        'vals': vals, 'event_pk': btn_event_pk, 'event_type': btn_event_type, 'err_msgg': err_msgg})
 
