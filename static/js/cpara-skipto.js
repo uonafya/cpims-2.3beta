@@ -30,7 +30,7 @@
     triggerSkip('cp49q','AYES','o5y_cd_hse','4');
     triggerSkip('cp50q','ANNO','q12p4','4');
 
-    triggerSkip('child_bwn_6t17y_Qn','ANNO','cp71q','5');
+    triggerSkip('child_bwn_6t17y_Qn','ANNO','cp69q','5');
 
     triggerSkip('child_bwn_4t5y_Qn','ANNO','cp70q','5');
     triggerSkip('clw_hiv_o5','ANNO','cp8q','2');
