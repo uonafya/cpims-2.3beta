@@ -287,5 +287,8 @@ urlpatterns = patterns(
             'delete_previous_dreams_entry', name='delete_previous_dreams_entry'),
     url(r'^dreams/delete/(?P<id>\d+)/(?P<btn_event_type>\w+)/(?P<btn_event_pk>.+)/$',
         'delete_dreams', name='delete_dreams'),
+    # Preventive SerivceUptake Form
+    url(r'^preventive/new/(?P<id>\d+)/$',
+        'new_preventive_form', name='new_preventive_form'),
 
 )

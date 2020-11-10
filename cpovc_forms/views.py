@@ -24,7 +24,7 @@ from cpovc_forms.forms import (
     OVCSearchForm, ResidentialSearchForm, ResidentialFollowupForm,
     ResidentialForm, OVC_FT3hForm, SearchForm, OVCCareSearchForm,
     OVC_CaseEventForm, DocumentsManager, OVCSchoolForm, OVCBursaryForm,
-    BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCHHVAForm, Wellbeing,
+    BackgroundDetailsForm, OVC_FTFCForm, OVCCsiForm, OVCF1AForm, OVCPreventive, OVCHHVAForm, Wellbeing,
     GOKBursaryForm, CparaAssessment, CparaMonitoring, CasePlanTemplate, WellbeingAdolescentForm, HIV_SCREENING_FORM,
     HIV_MANAGEMENT_ARV_THERAPY_FORM, HIV_MANAGEMENT_VISITATION_FORM, DREAMS_FORM)
 
@@ -10447,3 +10447,17 @@ def delete_dreams(request, id, btn_event_type, btn_event_pk):
     return JsonResponse(jsonForm1AData,
                         content_type='application/json',
                         safe=False)
+
+#ovc preventive form
+
+@login_required
+@cache_control(no_cache=True, must_revalidate=True, no_store=True)
+def new_preventive_form(request, id):
+    init_data = RegPerson.objects.filter(pk=id)
+    check_fields = ['sex_id']
+    vals = get_dict(field_name=check_fields)
+    form = OVCF1AForm(initial={'person': id})
+    return render(request,
+                  'forms/new_preventive_form.html',
+                  {'form': form, 'init_data': init_data,
+                   'vals': vals})

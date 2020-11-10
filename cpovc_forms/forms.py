@@ -11,6 +11,7 @@ from cpovc_ovc.models import OVCFacility
 # New lists
 WB_AD_GEN_5_ChoiceList=WB_AD_SAF_32_6_CHOICELIST=WB_AD_SAF_32_2_CHOICELIST=WB_AD_SAF_28_CHOICELIST=WB_AD_SAF_27_1_CHOICELIST=WB_AD_SAF_26_CHOICELIST=WB_AD_HEL_24_1_CHOICELIST=WB_AD_HEL_21_1_CHOICELIST=WB_AD_SCH_7_CHOICELIST=WB_AD_SCH_12_2_CHOICELIST=WB_AD_HEL_20_4_CHOICELIST=WB_AD_SCH_13_2_CHOICELIST = (('TBD1', 'TBD1'), ('TBD2', 'TBD2'),('TBD3', 'TBD3'))
 YESNO_CHOICES = (('AYES', 'Yes'), ('ANNO', 'No'))
+Refferred_Completed = (('AReffered', 'Reffered'), ('ACompleted', 'Completed'))
 CPARA_MONITORING_CASE_CHOICES = (('1', 'First'), ('2', 'Second'), ('3', 'Third'))
 bursary_school_type_list = (('STPR', 'Private'), ('STPU', 'Public'))
 bursary_school_category_list = (('SCNA', 'National'), ('SCCT', 'County'), ('SCSC', 'Sub-County'))
@@ -2595,6 +2596,13 @@ class OVCCsiForm(forms.Form):
                'data-parsley-required': "true",
                'data-parsley-group': 'group0'
                }))
+class RadioCustomRenderer(RadioFieldRenderer):
+    """Custom radio button renderer class."""
+
+    def render(self):
+        """Renderer override method."""
+        return mark_safe(u'%s' % u'\n'.join(
+            [u'%s' % force_unicode(w) for w in self]))
 
 
 class OVCF1AForm(forms.Form):
@@ -2624,6 +2632,20 @@ class OVCF1AForm(forms.Form):
     dreams_assesment_provided_list =  forms.CharField(widget=forms.TextInput(
         attrs={'type': 'hidden',
                'id': 'dreams_assesment_provided_list'}))
+
+    preventive_cas = forms.ChoiceField(
+        choices=YESNO_CHOICES,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': 'true',
+                   'data-parsley-errors-container': "#preventive_cas_error"}))
+    
+    preventive_refferal = forms.ChoiceField(
+        choices=Refferred_Completed,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'data-parsley-required': 'false  ',
+                   'data-parsley-errors-container': "#preventive_cas_error"}))
 
 
     olmis_assessment_coreservice = forms.ChoiceField(choices=(),
@@ -3183,7 +3205,6 @@ class RadioCustomRenderer(RadioFieldRenderer):
         """Renderer override method."""
         return mark_safe(u'%s' % u'\n'.join(
             [u'%s' % force_unicode(w) for w in self]))
-
 
 class GOKBursaryForm(forms.Form):
     # Household Individuals
@@ -8190,3 +8211,26 @@ class DREAMS_FORM(forms.Form):
                #'data-parsley-required': "true",
                #'data-parsley-group': 'group0',
                'rows': '3'}))
+
+
+#OVC Preventive
+class OVCPreventive(forms.Form):
+    olmis_assessment_domain = forms.ChoiceField(choices=olmis_assessment_domain_list,
+                                                initial='0',
+                                                widget=forms.Select(
+                                                    attrs={'class': 'form-control',
+                                                           'id': 'olmis_assessment_domain'}))
+                                                           
+    olmis_service_date = forms.DateField(widget=forms.TextInput(
+            attrs={'placeholder': _('Date Of Service'),
+                'class': 'form-control',
+                'id': 'olmis_service_date'
+                }))
+    olmis_domain = forms.ChoiceField(choices=olmis_domain_list,
+                                     initial='0',
+                                     required=True,
+                                     widget=forms.Select(
+                                             attrs={'class': 'form-control',
+                                                    'id': 'olmis_domain'}))
+   
+
