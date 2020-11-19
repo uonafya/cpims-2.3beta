@@ -179,7 +179,8 @@
                                     <thead>
                                         <tr id="id_inputHeaders1">
                                         	<td width="5%"></td>
-                                        	<th width="10%"><h6><b>Service <span class="asteriskField">*</h6></b></th>
+                                            <th width="10%"><h6><b>Service <span class="asteriskField">*</h6></b></th>
+                                            <th width="20%" colspan="2" align="center"><h6><b>Attendance <span class="asteriskField">*</h6></b></th>                                                
                                             <th width="15%"><h6><b>Date started<span class="asteriskField">*</b></h6></th>
                                             <th width="15%"><h6><b>Date Completed<span class="asteriskField">*</b></h6></th>
                                             <th width="15%"><h6><b>CAS<span class="asteriskField">*</b></h6></th>
@@ -194,7 +195,19 @@
                                         		<div id="olmis_assessment_domain_errormsg" style="display:none;">
                                                     <small><p class="dialog_paragraph">This value is required</p></span></small><span>
                                                 </div>
-                                        	</td>
+                                            </td>
+                                            <td width="10%">
+                                            	{{ form.olmis_assessment_domain }}
+                                            	<div id="olmis_assessment_coreservice_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
+                                            <td width="10%">
+                                            	{{ form.olmis_assessment_domain }}
+                                            	<div id="olmis_assessment_coreservice_errormsg" style="display:none;">
+                                                    <small><p class="dialog_paragraph">This value is required</p></span></small><span>
+                                                </div>
+                                            </td>
                                             <td width="15%">
                                             	{{ form.olmis_service_date }}
                                             	<div id="olmis_assessment_coreservice_errormsg" style="display:none;">
