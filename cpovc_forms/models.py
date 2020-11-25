@@ -1229,3 +1229,51 @@ class OVCDreams(models.Model):
 
         def __unicode__(self):
             return str(self.dreams_id)
+            
+class OVCCarePreventive(models.Model):
+    """ This table will hold Services Data for the OVC Preventive """
+
+    preventive_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    service_provided = models.CharField(max_length=250)
+    service_provider = models.CharField(max_length=250, null=True)
+    domain = models.CharField(max_length=8, null=True)
+    place_of_service = models.CharField(max_length=250, null=True)
+    date_of_encounter_event = models.DateField(default=timezone.now, null=True)
+    service_session = models.IntegerField(null=True)
+    service_session_type = models.CharField(max_length=100)
+    event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
+    service_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    is_void = models.BooleanField(default=False)
+    sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    timestamp_created = models.DateTimeField(default=timezone.now)
+    timestamp_updated = models.DateTimeField(default=timezone.now, null=True)
+
+    class Meta:
+        db_table = 'ovc_preventive_service'
+
+    def __unicode__(self):
+        return str(self.preventive_id_id)
+
+
+class OVCCareRefferal(models.Model):
+    """ This table will hold Referrals Data for the OVC Preventive """
+
+    preventive_id = models.UUIDField(primary_key=True, default=uuid.uuid1, editable=False)
+    service_provided = models.CharField(max_length=250)
+    service_provider = models.CharField(max_length=250, null=True)
+    domain = models.CharField(max_length=8, null=True)
+    place_of_service = models.CharField(max_length=250, null=True)
+    date_of_encounter_event = models.DateField(default=timezone.now, null=True)
+    referral_completed = models.CharField(max_length=10)
+    event = models.ForeignKey(OVCCareEvents, on_delete=models.CASCADE)
+    service_grouping_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    is_void = models.BooleanField(default=False)
+    sync_id = models.UUIDField(default=uuid.uuid1, editable=False)
+    timestamp_created = models.DateTimeField(default=timezone.now)
+    timestamp_updated = models.DateTimeField(default=timezone.now, null=True)
+
+    class Meta:
+        db_table = 'ovc_preventive_referral'
+
+    def __unicode__(self):
+        return str(self.preventive_id_id)
