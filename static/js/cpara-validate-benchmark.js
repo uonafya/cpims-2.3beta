@@ -3,8 +3,8 @@
 
 // validBench(['if_ovc', 'cp1q', 'cp3q', 'cp4q'], ['AYES','AYES','AYES','AYES'], 'cp1b');
 validBench(['cp1q', 'cp3q', 'cp4q'], ['AYES','AYES','AYES'], 'cp1b');
-// validBench(['cp5q', 'cp6q', 'cp7q'], ['AYES','AYES','AYES'], 'cp2b');
-validBench(['cp7q'], ['AYES'], 'cp2b');
+validBench(['cp5q', 'cp6q', 'cp7q'], ['AYES','AYES','AYES'], 'cp2b');
+// validBench(['cp7q'], ['AYES'], 'cp2b');
 // validBench(['u10_know_status', 'cp8q', 'cp9q', 'cp10q', 'cp11q', 'cp12q', 'o10_know_status', 'cp13q', 'cp14q', 'cp15q', 'cp16q', 'cp17q'], ['AYES','AYES','AYES', 'AYES','AYES','AYES', 'AYES','AYES','AYES', 'AYES','AYES','AYES'], 'cp3b');
 validBench(['cp8q', 'cp9q', 'cp10q', 'cp11q', 'cp12q', 'o10_know_status', 'cp13q', 'cp14q', 'cp15q', 'cp16q', 'cp17q'], ['AYES','AYES', 'AYES','AYES','AYES', 'AYES','AYES','AYES', 'AYES','AYES','AYES'], 'cp3b');
 // validBench(['adole_preg_hiv', 'cp19q', 'adole_preg_testpos', 'cp20q', 'cp21q', 'adole_wo_deliv','cp22q','cp23q','cp23qa','cp23qb','cp23qc','cp23qd'], ['AYES','AYES','AYES','AYES','AYES','AYES','AYES','AYES','AYES','AYES','AYES','AYES'], 'cp4b');
