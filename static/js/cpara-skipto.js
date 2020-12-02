@@ -29,6 +29,10 @@
     // triggerSkip('cp49q','AYES','q12p4','4');
     triggerSkip('cp49q','AYES','o5y_cd_hse','4');
     triggerSkip('cp50q','ANNO','q12p4','4');
+
+    triggerSkip('child_bwn_6t17y_Qn','ANNO','cp69q','5');
+    triggerSkip('child_bwn_6t17y_Qn2','ANNO','adole_in_vc_train_Qn','5');
+
     triggerSkip('child_bwn_4t5y_Qn','ANNO','cp70q','5');
     triggerSkip('clw_hiv_o5','ANNO','cp8q','2');
     triggerSkip('cp23qa','ANNO','cp24q','2'); triggerSkip('cp23qb','ANNO','cp24q','2'); triggerSkip('cp23qc','ANNO','cp24q','2'); triggerSkip('cp23qd','ANNO','cp24q','2');
