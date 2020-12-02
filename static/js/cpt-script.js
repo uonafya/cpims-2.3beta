@@ -12,7 +12,7 @@ jQuery(document).ready(function()
         buttonClass: 'btn btn-white'
     });
     $('input, select').attr('required', true);
-    $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .domain_cell > select, #id_CPT_RESPONSIBLE').prepend('<option value="" selected>Pick an item</option>');
+    $('.goals_cell > div > select, .gaps_cell > div > select, .actions_cell > div > select, .domain_cell > select, #id_CPT_RESPONSIBLE')//.prepend('<option value="" selected>Pick an item</option>');
     $('#CPT_DATE').datepicker({ format: 'yyyy-mm-dd' });
     $('#CPT_ACTUAL_DATE_COMPLETION').removeAttr('required');
     $('#CPT_ACTUAL_DATE_COMPLETION').datepicker({ format: 'yyyy-mm-dd' });
