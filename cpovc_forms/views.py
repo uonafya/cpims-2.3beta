@@ -9962,7 +9962,7 @@ def new_hivscreeningtool(request, id):
                     test_donewhen_result=data_to_save.get('HIV_RS_03A'),
                     caregiver_know_status=data_to_save.get('HIV_RS_01'),
                     caregiver_knowledge_yes=data_to_save.get('HIV_RS_02'),
-                    parent_PLWH=data_to_save.get('HIV_RS_04'),
+                    parent_plwh=data_to_save.get('HIV_RS_04'),
                     child_sick_malnourished=data_to_save.get('HIV_RS_05'),
                     child_sexual_abuse=data_to_save.get('HIV_RS_06'),
                     adol_sick=data_to_save.get('HIV_RS_07'),
