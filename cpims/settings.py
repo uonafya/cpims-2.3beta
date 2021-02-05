@@ -204,11 +204,12 @@ KMHFL_PASSWORD = 'public'
 KMHFL_SCOPE = 'read'
 KMHFL_CLIENTID = 'qxblJCALzKXunUhNUQZpbeQLM9OTvscTYLbQ1oEY'
 KMHFL_CLIENT_SECRET = 'dkwLqoQytFd4zXmPRUXsy2Q4fyRKqy7TAov5OewC2S7iWL58fwCnHyTwYBUMu7fOG091LeADDUgsqeFX446GS2GCDZ5Y6KxlvC3RgRjdSE1sXJIkCpHHfMihPMnUOnU9'
-KMHFL_API_BASE_URL = 'http://api.kmhfl.health.go.ke/'
+KMHFL_API_BASE_URL = 'http://api.kmhfl.health.go.ke/api/'
 KMHFL_FACILITY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/facilities/facilities/?format=json'
 KMHFL_LOGIN_URL = 'http://api.kmhfl.health.go.ke/accounts/login/'
 KMHFL_GRANT_TYPE = 'password'
 KMHFL_SUBCOUNTY_BASE_URL = 'http://api.kmhfl.health.go.ke/api/common/sub_counties/'
+KMHFL_TOKEN_URL = 'http://api.kmhfl.health.go.ke/o/token/'
 
 # nascop API
 
