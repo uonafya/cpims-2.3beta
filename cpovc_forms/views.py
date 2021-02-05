@@ -6989,19 +6989,20 @@ def save_form1a(request):
                 if olmis_assessment_provided_list:
                     olmis_assessment_data = json.loads(olmis_assessment_provided_list)
                     for assessment_data in olmis_assessment_data:
-                        service_grouping_id = new_guid_32()
-                        olmis_assessment_domain = assessment_data['olmis_assessment_domain']
-                        olmis_assessment_service = assessment_data['olmis_assessment_coreservice']
-                        olmis_assessment_service_status = assessment_data['olmis_assessment_coreservice_status']
-                        services_status = olmis_assessment_service_status.split(',')
-                        for service_status in services_status:
-                            OVCCareAssessment(
-                                domain=olmis_assessment_domain,
-                                service=olmis_assessment_service,
-                                service_status=service_status,
-                                event=OVCCareEvents.objects.get(pk=new_pk),
-                                service_grouping_id=service_grouping_id
-                            ).save()
+                        if assessment_data:
+                            service_grouping_id = new_guid_32()
+                            olmis_assessment_domain = assessment_data['olmis_assessment_domain']
+                            olmis_assessment_service = assessment_data['olmis_assessment_coreservice']
+                            olmis_assessment_service_status = assessment_data['olmis_assessment_coreservice_status']
+                            services_status = olmis_assessment_service_status.split(',')
+                            for service_status in services_status:
+                                OVCCareAssessment(
+                                    domain=olmis_assessment_domain,
+                                    service=olmis_assessment_service,
+                                    service_status=service_status,
+                                    event=OVCCareEvents.objects.get(pk=new_pk),
+                                    service_grouping_id=service_grouping_id
+                                ).save()
 
             if args == 2:
                 date_of_cevent = request.POST.get('date_of_cevent')
