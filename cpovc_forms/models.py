@@ -1124,7 +1124,7 @@ class OVCHIVRiskScreening(models.Model):
     test_donewhen_result=models.NullBooleanField()
     caregiver_know_status= models.NullBooleanField()
     caregiver_knowledge_yes=models.CharField(max_length=50, null=True)
-    parent_PLWH= models.NullBooleanField()
+    parent_plwh= models.NullBooleanField()
     child_sick_malnourished= models.NullBooleanField()
     child_sexual_abuse= models.NullBooleanField()
     adol_sick= models.NullBooleanField()
