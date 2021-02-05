@@ -148,6 +148,7 @@ class ListAnswers(models.Model):
     """List of all answers used by questions in forms."""
 
     answer_set_id = models.IntegerField(db_index=True, null=True)
+    answer_code = models.CharField(db_index=True, max_length=6, null=True, blank=True)
     answer = models.CharField(max_length=255, null=True, blank=True)
     the_order = models.IntegerField(db_index=True, null=True)
     timestamp_created = models.DateTimeField(null=True)
