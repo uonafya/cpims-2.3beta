@@ -161,8 +161,8 @@ def translate_geo(value):
 def translate(value):
     if value:
         item_value = SetupList.objects.filter(item_id=value, is_void=False)
-        item_value = item_value[0]
-        return item_value.item_description
+        item_value = item_value[0].item_description if item_value else value
+        return item_value
     else:
         return value
 
