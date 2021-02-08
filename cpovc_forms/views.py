@@ -7106,23 +7106,24 @@ def save_form1a(request):
                     org_unit = ou_primary if ou_primary else ou_attached[0]
 
                     for service_data in olmis_service_data:
-                        service_grouping_id = new_guid_32()
-                        olmis_domain = service_data['olmis_domain']
-                        olmis_service_date = service_data['olmis_service_date']
-                        olmis_service_date = convert_date(olmis_service_date) if olmis_service_date != 'None' else None
-                        olmis_service = service_data['olmis_service']
-                        print 'olmis_service: %s' % olmis_service
-                        services = olmis_service.split(',')
-                        for service in services:
-                            OVCCareServices(
-                                domain=olmis_domain,
-                                service_provided=service,
-                                service_provider=org_unit,
-                                # place_of_service = olmis_place_of_service,
-                                date_of_encounter_event=olmis_service_date,
-                                event=OVCCareEvents.objects.get(pk=new_pk),
-                                service_grouping_id=service_grouping_id
-                            ).save()
+                        if 'olmis_domain' in olmis_service_data:
+                            service_grouping_id = new_guid_32()
+                            olmis_domain = service_data['olmis_domain']
+                            olmis_service_date = service_data['olmis_service_date']
+                            olmis_service_date = convert_date(olmis_service_date) if olmis_service_date != 'None' else None
+                            olmis_service = service_data['olmis_service']
+                            print 'olmis_service: %s' % olmis_service
+                            services = olmis_service.split(',')
+                            for service in services:
+                                OVCCareServices(
+                                    domain=olmis_domain,
+                                    service_provided=service,
+                                    service_provider=org_unit,
+                                    # place_of_service = olmis_place_of_service,
+                                    date_of_encounter_event=olmis_service_date,
+                                    event=OVCCareEvents.objects.get(pk=new_pk),
+                                    service_grouping_id=service_grouping_id
+                                ).save()
 
             msg = 'Save Successful'
             jsonResponse.append({'msg': msg})
