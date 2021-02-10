@@ -148,6 +148,8 @@ def search_ovc(request):
                 cursor.execute(sql)
                 row = cursor.fetchall()
                 cids = [r[0] for r in row]
+        elif cid == 6:
+            pids = RegPerson.objects.filter(id=name, is_void=False).values_list('id', flat=True)
         else:
             for nm in names:
                 for field in field_names:

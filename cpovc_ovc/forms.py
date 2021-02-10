@@ -5,7 +5,7 @@ from cpovc_main.functions import get_list, get_org_units_list
 
 search_criteria_list = (('', 'Select Criteria'), ('1', 'Names'),
                         ('2', 'HouseHold'), ('3', 'CHV'), ('4', 'CBO'),
-                        ('5', 'Caregiver'))
+                        ('5', 'Caregiver'), ('6', 'CPIMS ID'))
 
 immunization_list = get_list('immunization_status_id', 'Please Select')
 
