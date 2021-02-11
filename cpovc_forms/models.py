@@ -1230,3 +1230,123 @@ class OVCDreams(models.Model):
 
         def __unicode__(self):
             return str(self.dreams_id)
+
+class OVCBasicCRS(models.Model):
+    # Make case_id primary key
+    case_id = models.UUIDField(
+        primary_key=True, default=uuid.uuid1, editable=False)
+    case_serial = models.CharField(max_length=50, default='XXXX')
+    case_reporter = models.CharField(max_length=5)
+    reporter_telephone = models.CharField(max_length=15, null=True)
+    reporter_county = models.CharField(max_length=3, null=True)
+    reporter_sub_county = models.CharField(max_length=3, null=True)
+    reporter_ward = models.CharField(max_length=100, null=True)
+    reporter_village = models.CharField(max_length=100, null=True)
+    case_date = models.DateField(default=timezone.now)
+    perpetrator = models.CharField(max_length=5, null=True)
+    county = models.CharField(max_length=3)
+    constituency = models.CharField(max_length=3)
+    organization_unit = models.CharField(max_length=100)
+    case_landmark = models.CharField(max_length=50, null=True)
+    hh_economic_status = models.CharField(max_length=5)
+    family_status = models.CharField(max_length=5)
+    mental_condition = models.CharField(max_length=5)
+    physical_condition = models.CharField(max_length=5)
+    other_condition = models.CharField(max_length=5)
+    risk_level = models.CharField(max_length=5)
+    referral = models.CharField(max_length=5, default='ANNO')
+    referral_detail = models.CharField(max_length=200, null=True)
+    summon = models.CharField(max_length=5, default='ANNO')
+    case_narration = models.TextField(null=True)
+    longitude = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    latitude = models.DecimalField(max_digits=10, decimal_places=7, null=True)
+    account = models.ForeignKey(AppUser, on_delete=models.CASCADE, default=1)
+    timestamp_created = models.DateTimeField(default=timezone.now)
+    is_void = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'ovc_basic_case_record'
+        verbose_name = 'Basic Case Record'
+        verbose_name_plural = 'Basic Case Records'
+
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s' % (self.case_serial)
+
+
+class OVCBasicPerson(models.Model):
+    # Make case_id primary key
+    person_id = models.UUIDField(
+        primary_key=True, default=uuid.uuid1, editable=False)
+    relationship = models.CharField(max_length=5, null=True)
+    person_type = models.CharField(
+        max_length=5, choices=(
+            ('PTRD', 'Reporter'), ('PTPD', 'Perpetrator'),
+            ('PTCH', 'Child'), ('PTCG', 'Guardian')))
+    first_name = models.CharField(max_length=50)
+    surname = models.CharField(max_length=50)
+    other_names = models.CharField(max_length=50, null=True)
+    dob = models.DateField(null=True)
+    sex = models.CharField(max_length=5, null=True)
+    case = models.ForeignKey(OVCBasicCRS, on_delete=models.CASCADE)
+    is_void = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'ovc_basic_person'
+        verbose_name = 'Basic Person'
+        verbose_name_plural = 'Basic Persons'
+
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s - %s %s' % (
+            self.get_person_type_display(), self.first_name, self.surname)
+
+
+class OVCBasicCategory(models.Model):
+    # Make case_id primary key
+    category_id = models.UUIDField(
+        primary_key=True, default=uuid.uuid1, editable=False)
+    case_category = models.CharField(max_length=5)
+    case_sub_category = models.CharField(max_length=5, null=True)
+    case_date_event = models.DateField(default=timezone.now)
+    case_nature = models.CharField(max_length=5)
+    case_place_of_event = models.CharField(max_length=5)
+    case = models.ForeignKey(OVCBasicCRS, on_delete=models.CASCADE)
+    is_void = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'ovc_basic_category'
+        verbose_name = 'Basic Category'
+        verbose_name_plural = 'Basic Category'
+
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s' % (self.case_category)
+
+
+class OvcCasePersons(models.Model):
+    pid = models.UUIDField(
+        primary_key=True, default=uuid.uuid1, editable=False)
+    # person_category = models.CharField(max_length=5, default='PERP')
+    person_relation = models.CharField(max_length=5, null=True)
+    person_first_name = models.CharField(max_length=100, null=True)
+    person_other_names = models.CharField(max_length=100, null=True)
+    person_surname = models.CharField(max_length=100, null=True)
+    person_type = models.CharField(max_length=5, default='PERP')
+    person_identifier = models.CharField(max_length=15, null=True)
+    person_dob = models.DateField(null=True)
+    person_sex = models.CharField(
+        max_length=4, null=True,
+        choices=[('SMAL', 'Male'), ('SFEM', 'Female')])
+    case = models.ForeignKey(
+        OVCCaseRecord, null=True, on_delete=models.CASCADE)
+    person = models.ForeignKey(RegPerson, null=True)
+
+    class Meta:
+        db_table = 'ovc_case_other_person'
+        verbose_name = 'Case Other Person'
+        verbose_name_plural = 'Case Other Persons'
+
+    def __unicode__(self):
+        """To be returned by admin actions."""
+        return '%s %s' % (self.person_first_name, self.person_surname)
