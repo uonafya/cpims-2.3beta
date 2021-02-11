@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     # forums,
     'adminsortable',
     'simple_forums',
+    'cpovc_manage'
 )
 
 MIDDLEWARE_CLASSES = (
