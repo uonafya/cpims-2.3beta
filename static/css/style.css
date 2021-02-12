@@ -6326,11 +6326,11 @@ body.flat-black {
 select,input,textarea{
     font-weight: 500;
     color: #000;
-    font-size: 13px;
+    font-size: 12px;
 }
 .table tr td{
     color: #000;
-    font-size: 13px;
+    font-size: 12px;
 }
 
 .pager li > a:hover, .pager li > a:focus, .pager li > span:hover, .pager li > span:focus, .pagination > li > a:hover, .pagination > li > a:focus {
@@ -6406,7 +6406,7 @@ select,input,textarea{
     font-weight: 600;
 }
 .form-control {
-    padding: 0px 12px !important;
+    padding: 2px 8px !important;
 }
 /* .form-group > label[for]{
     display: block;
@@ -6615,7 +6615,7 @@ textarea,
 select{
     color: #1f5688 !important;
     font-weight: 500 !important;
-    font-size: 14px;
+    font-size: 13px;
 }
 textarea.form-control,
 input.form-control,
@@ -6627,6 +6627,9 @@ textarea:active, textarea:focus,
 select:hover, select:focus{
     color: #111 !important;
     border: 1px solid #1f5688 !important;
+}
+.form-control:not(textarea){
+    height: 30px;
 }
 .btn{
     font-weight: 600;

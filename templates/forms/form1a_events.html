@@ -174,7 +174,7 @@
 						<div class="wizard-step-1">
                             <fieldset> 
                                 <div id="error_assessment"></div>
-                            <div style="overflow-x: auto; min-height: 350px;">
+                            <div style="overflow-x: auto; min-height: 450px;">
                                 <!-- begin col-6 -->
                                 <table id="assessment_manager_table" class="table" style="overflow-y: auto !important;">
                                     <thead>
@@ -368,7 +368,7 @@
                         <div class="wizard-step-4">
                             <div class="panel-body">
                                 <div id="error_service"></div>
-                            <div style="overflow-x: auto; min-height: 350px;">
+                            <div style="overflow-x: auto; min-height: 450px;">
                                 <table id="services_manager_table" class="table" style="overflow-y: auto !important;">
                                     <thead>
                                         <tr id="id_inputHeaders">
@@ -584,67 +584,72 @@ function loadForm1aEvents()
                 {
                     // Clear <tbody>
                     $("#f1a_events_data_table tbody").html('');
+                    
+                    if( result[0]?.msg && result[0]?.msg.includes('error') ){
+                        $("#f1a_events_data_table tbody").html('<tr><td style="text-align: center;" colspan="4">'+result[0]?.msg || ""+'</td></tr>');
+                    }else{
 
-                    $.each(result, function(i, val) {
-                        var event_pk = val.event_pk
-                        var event_type = val.event_type;
-                        var event_details = val.event_details;
-                        var event_date = val.event_date;
-
-                        if (event_details !==null){
-
-                            var btnView = 'btnView' + i;
-                            var btnEdit = 'btnEdit' + i;
-                            var btnDelete = 'btnDelete' + i;
-                            var tableRowId = 'tableRowId' + i;
-
-                            //Actions Item
-                            var viewItem = '<button id=' + btnView + ' type="submit" class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-binoculars"></i></button>';
-                            var editItem = '<button id=' + btnEdit + ' data-event_type='+event_type+' data-event_pk='+event_pk+' data-core_service="" data-core_service_status="" type="submit" class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-pencil"></i></button>';
-                            var deleteItem = '<button id=' + btnDelete + ' data-event_type='+event_type+' data-event_pk='+event_pk+' type="submit" class="btn  btn-sm btn-danger m-r-5"><i class="fa fa-trash"></i></button>';
-
-                            // Append to rows to table rows
-                            $("#f1a_events_data_table tbody").append('<tr id=' + tableRowId + '>' +
-                                '<td width="25%"><h6>' + event_type + '</h6></td>' +
-                                '<td width="25%"><h6>' + event_details + '</h6></td>' +
-                                '<td width="25%"><h6>' + event_date + '</h6></td>' +
-                                '<td>' +
-                                /*' + viewItem + '' + **/
-                                '' + editItem + '' +
-                                '' + deleteItem + '' +
-                                '</td></tr>');
-
-                            // Add Click Event To Buttons
-                            $("#" + btnView + "").click(function(e)
-                            {
-                            });
-
-                            $("#" + btnEdit + "").click(function(e)
-                            {   var personId=$('#person').val();
-                                var btn_event_type=$(this).attr("data-event_type");
-                                var btn_event_pk=$(this).attr("data-event_pk");
-
-                                var url = "{% url 'edit_form1a' id=1234 btn_event_type=2345 btn_event_pk=3456 %}".replace(/1234/, personId.toString()).replace(/2345/, btn_event_type.toString()).replace(/3456/, btn_event_pk.toString());
-
-                                window.open(url,"_self");
-                            });
-
-
-                            $("#" + btnDelete + "").click(function(e)
-                            {   var personId=$('#person').val();
-                                var btn_event_type=$(this).attr("data-event_type");
-                                var btn_event_pk=$(this).attr("data-event_pk");
-
-                                var url = "{% url 'delete_form1a' id=1234 btn_event_type=2345 btn_event_pk=3456 %}".replace(/1234/, personId.toString()).replace(/2345/, btn_event_type.toString()).replace(/3456/, btn_event_pk.toString());
-                                window.form1aUrlToDelete=url;
-                                window.eventTypeToDelete=btn_event_type.toString();
-                                $("#delete-form1a-entry").modal();
-
-                                //window.open(url,"_self");
-                            });
-
-                        }
-                    });
+                        $.each(result, function(i, val) {
+                            var event_pk = val.event_pk
+                            var event_type = val.event_type;
+                            var event_details = val.event_details;
+                            var event_date = val.event_date;
+    
+                            if (event_details !==null){
+    
+                                var btnView = 'btnView' + i;
+                                var btnEdit = 'btnEdit' + i;
+                                var btnDelete = 'btnDelete' + i;
+                                var tableRowId = 'tableRowId' + i;
+    
+                                //Actions Item
+                                var viewItem = '<button id=' + btnView + ' type="submit" class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-binoculars"></i></button>';
+                                var editItem = '<button id=' + btnEdit + ' data-event_type='+event_type+' data-event_pk='+event_pk+' data-core_service="" data-core_service_status="" type="submit" class="btn  btn-sm btn-primary m-r-5"><i class="fa fa-pencil"></i></button>';
+                                var deleteItem = '<button id=' + btnDelete + ' data-event_type='+event_type+' data-event_pk='+event_pk+' type="submit" class="btn  btn-sm btn-danger m-r-5"><i class="fa fa-trash"></i></button>';
+    
+                                // Append to rows to table rows
+                                $("#f1a_events_data_table tbody").append('<tr id=' + tableRowId + '>' +
+                                    '<td width="25%"><h6>' + event_type + '</h6></td>' +
+                                    '<td width="25%"><h6>' + event_details + '</h6></td>' +
+                                    '<td width="25%"><h6>' + event_date + '</h6></td>' +
+                                    '<td>' +
+                                    /*' + viewItem + '' + **/
+                                    '' + editItem + '' +
+                                    '' + deleteItem + '' +
+                                    '</td></tr>');
+    
+                                // Add Click Event To Buttons
+                                $("#" + btnView + "").click(function(e)
+                                {
+                                });
+    
+                                $("#" + btnEdit + "").click(function(e)
+                                {   var personId=$('#person').val();
+                                    var btn_event_type=$(this).attr("data-event_type");
+                                    var btn_event_pk=$(this).attr("data-event_pk");
+    
+                                    var url = "{% url 'edit_form1a' id=1234 btn_event_type=2345 btn_event_pk=3456 %}".replace(/1234/, personId.toString()).replace(/2345/, btn_event_type.toString()).replace(/3456/, btn_event_pk.toString());
+    
+                                    window.open(url,"_self");
+                                });
+    
+    
+                                $("#" + btnDelete + "").click(function(e)
+                                {   var personId=$('#person').val();
+                                    var btn_event_type=$(this).attr("data-event_type");
+                                    var btn_event_pk=$(this).attr("data-event_pk");
+    
+                                    var url = "{% url 'delete_form1a' id=1234 btn_event_type=2345 btn_event_pk=3456 %}".replace(/1234/, personId.toString()).replace(/2345/, btn_event_type.toString()).replace(/3456/, btn_event_pk.toString());
+                                    window.form1aUrlToDelete=url;
+                                    window.eventTypeToDelete=btn_event_type.toString();
+                                    $("#delete-form1a-entry").modal();
+    
+                                    //window.open(url,"_self");
+                                });
+    
+                            }
+                        });
+                    }
                     
                 },
                 error: function(xhr, status, error){
