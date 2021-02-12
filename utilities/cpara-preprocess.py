@@ -80,6 +80,6 @@ with open('/home/fegati/py_projects/cpims-2.3beta/data/case_ovc_cpara_2.csv') as
         # print(event.event)
         # filter answers from each row based on question codes
 
-print("Event Records:{}, CPARA Records:{}".format(event_records_count, cpara_records_count))
+# print("Event Records:{}, CPARA Records:{}".format(event_records_count, cpara_records_count))
 # except Exception as e:
 #     print("The following error occurred: ", e)
