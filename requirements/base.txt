@@ -17,3 +17,5 @@ requests==2.22.0
 django-admin-sortable
 django-simple-forums
 markdown==3.2.1
+python-dotenv
+typing
