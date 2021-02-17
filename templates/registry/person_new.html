@@ -83,12 +83,28 @@
                                 <!-- end col-4 -->
                                 {% if request.session.reg_ovc or request.user.is_superuser %}
                                 <!-- begin col-4 -->
-                                <div class="col-md-4">
+                                <div class="col-md-1">
                                     <div id="is_ovc" class="form-group">
                                         <label for="child_ovc">Child is OVC <span class="asteriskField">*</span></label>
                                         <br>                                        
                                         {{ form.child_ovc }}
                                         <span id="child_ovc_error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div id="is_dreams" class="form-group">
+                                        <label for="child_dreams">Child in Dreams <span class="asteriskField"></span></label>
+                                        <br>                                        
+                                        {{ form.child_dreams }}
+                                        <span id="child_dreams_error"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-1">
+                                    <div id="is_preventive" class="form-group">
+                                        <label for="child_preventive">Child Preventive Care<span class="asteriskField"></span></label>
+                                        <br>                                        
+                                        {{ form.child_preventive }}
+                                        <span id="child_preventive_error"></span>
                                     </div>
                                 </div>
                                 <!-- end col-4 -->
@@ -816,9 +832,37 @@ jQuery(document).ready(function() {
     $(':input[name="child_ovc"]').click(function(){
         var child_ovc = $('input[name=child_ovc]:checked').val();
         if (child_ovc == 'AYES'){
-            $('#other_names').attr('data-parsley-required', 'true');   
+            $('#other_names').attr('data-parsley-required', 'true');
+            $('#is_dreams').hide();
+            $('#is_preventive').hide();
+        }else{
+            $('#is_dreams').show();
+            $('#is_preventive').show();            
         }
     });
+    $(':input[name="child_dreams"]').click(function(){
+        var child_dreams = $('input[name=child_dreams]:checked').val();
+        if (child_dreams == 'AYES'){
+            $('#other_names').attr('data-parsley-required', 'true');   
+            $('#is_ovc').hide();
+            $('#is_preventive').hide();
+        }else{
+            $('#is_ovc').show();
+            $('#is_preventive').show();  
+        }
+    });
+    $(':input[name="child_preventive"]').click(function(){
+        var child_preventive = $('input[name=child_preventive]:checked').val();
+        if (child_preventive == 'AYES'){
+            $('#other_names').attr('data-parsley-required', 'true');   
+            $('#is_ovc').hide();
+            $('#is_dreams').hide();
+        }else{
+            $('#is_ovc').show();
+            $('#is_dreams').show();  
+        }
+    });
+    
 
     FormWizardValidation.init();
     $('#working_in_subcounty').empty();
@@ -1575,6 +1619,15 @@ function handle_default(){
     $('#is_ovc').hide(); 
     $('#child_ovc_0').attr('data-parsley-required', 'false');
     $('#child_ovc_1').attr('data-parsley-required', 'false');
+
+    $('#is_dreams').hide(); 
+    $('#child_dreams_0').attr('data-parsley-required', 'false');
+    $('#child_dreams_1').attr('data-parsley-required', 'false');
+
+    $('#is_preventive').hide(); 
+    $('#child_preventive_0').attr('data-parsley-required', 'false');
+    $('#child_preventive_1').attr('data-parsley-required', 'false');
+    
     
     $('#working_in_region_div').show();
     $('.working_region').attr('data-parsley-required', 'true');
@@ -1634,6 +1687,15 @@ function handle_child(){
     $('#child_ovc_0').attr('data-parsley-required', 'true');
     $('#child_ovc_1').attr('data-parsley-required', 'true');
 
+    $('#is_dreams').show(); 
+    $('#child_dreams_0').attr('data-parsley-required', 'false');
+    $('#child_dreams_1').attr('data-parsley-required', 'false');
+
+    $('#is_preventive').show(); 
+    $('#child_preventive_0').attr('data-parsley-required', 'false');
+    $('#child_preventive_1').attr('data-parsley-required', 'false');
+    
+
     $('#working_in_region_div').hide();
     $('.working_region').attr('data-parsley-required', 'false');
     $('#working_in_div').hide();
@@ -1688,6 +1750,16 @@ function handle_child(){
     if (child_ovc == 'AYES'){
         $('#other_names').attr('data-parsley-required', 'true');   
     }
+    
+    var child_dreams = $('#child_dreams').val();
+    if (child_dreams == 'AYES'){
+        $('#other_names').attr('data-parsley-required', 'true');   
+    }
+    
+    var child_preventive = $('#child_preventive').val();
+    if (child_preventive == 'AYES'){
+        $('#other_names').attr('data-parsley-required', 'true');   
+    }
 }
 
 function handle_caregiver(person_text){
@@ -1719,6 +1791,14 @@ function handle_caregiver(person_text){
     $('#is_ovc').hide(); 
     $('#child_ovc_0').attr('data-parsley-required', 'false');
     $('#child_ovc_1').attr('data-parsley-required', 'false');
+    
+    $('#is_dreams').hide(); 
+    $('#child_dreams_0').attr('data-parsley-required', 'false');
+    $('#child_dreams_1').attr('data-parsley-required', 'false');
+
+    $('#is_preventive').hide(); 
+    $('#child_preventive_0').attr('data-parsley-required', 'false');
+    $('#child_preventive_1').attr('data-parsley-required', 'false');
 
     $('#working_in_region_div').hide();
     $('.working_region').attr('data-parsley-required', 'false');
@@ -1786,6 +1866,14 @@ function handle_volunteer(person_text){
     $('#child_ovc_0').attr('data-parsley-required', 'false');
     $('#child_ovc_1').attr('data-parsley-required', 'false');
 
+    $('#is_dreams').hide(); 
+    $('#child_dreams_0').attr('data-parsley-required', 'false');
+    $('#child_dreams_1').attr('data-parsley-required', 'false');
+
+    $('#is_preventive').hide(); 
+    $('#child_preventive_0').attr('data-parsley-required', 'false');
+    $('#child_preventive_1').attr('data-parsley-required', 'false');
+
     $('#working_in_region_div').show();
     $('.working_region').attr('data-parsley-required', 'true');
     $('#working_in_div').show();
@@ -1849,6 +1937,14 @@ function handle_government(person_text){
     $('#child_ovc_0').attr('data-parsley-required', 'false');
     $('#child_ovc_1').attr('data-parsley-required', 'false');
 
+    $('#is_dreams').hide(); 
+    $('#child_dreams_0').attr('data-parsley-required', 'false');
+    $('#child_dreams_1').attr('data-parsley-required', 'false');
+
+    $('#is_preventive').hide(); 
+    $('#child_preventive_0').attr('data-parsley-required', 'false');
+    $('#child_preventive_1').attr('data-parsley-required', 'false');
+
     $('#working_in_region_div').show();
     $('.working_region').attr('data-parsley-required', 'true');
     $('#working_in_div').show();
@@ -1906,6 +2002,14 @@ function handle_ngo_private(person_text){
     $('#is_ovc').hide(); 
     $('#child_ovc_0').attr('data-parsley-required', 'false');
     $('#child_ovc_1').attr('data-parsley-required', 'false');
+
+    $('#is_dreams').hide(); 
+    $('#child_dreams_0').attr('data-parsley-required', 'false');
+    $('#child_dreams_1').attr('data-parsley-required', 'false');
+
+    $('#is_preventive').hide(); 
+    $('#child_preventive_0').attr('data-parsley-required', 'false');
+    $('#child_preventive_1').attr('data-parsley-required', 'false');
 
     $('#working_in_region_div').show();
     $('.working_region').attr('data-parsley-required', 'true');

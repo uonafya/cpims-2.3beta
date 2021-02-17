@@ -213,6 +213,20 @@ class RegistrationForm(forms.Form):
                    'data-parsley-required': 'true',
                    'data-parsley-errors-container': "#child_ovc_error"}))
 
+    child_dreams = forms.ChoiceField(
+        choices=YESNO_CHOICES,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'id': 'child_dreams',
+                'data-parsley-errors-container': "#child_dreams_error"}))
+
+    child_preventive = forms.ChoiceField(
+        choices=YESNO_CHOICES,
+        widget=forms.RadioSelect(
+            renderer=RadioCustomRenderer,
+            attrs={'id': 'child_preventive',
+                'data-parsley-errors-container': "#child_preventive_error"}))
+
     unit_parent = forms.ChoiceField(
         choices=YESNO_CHOICES,
         widget=forms.RadioSelect(
