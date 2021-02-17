@@ -370,10 +370,10 @@ def ovc_registration(request, ovc_id, edit=0):
             caretaker_id = int(caretaker)
             hhid = get_first_household(caretaker_id)
 
-            print("CareTaker ID--->", caretaker_id)
-            print("HouseHold ID-->", hhid)
+            # print("CareTaker ID--->", caretaker_id)
+            # print("HouseHold ID-->", hhid)
             if not hhid:
-                print("I don't have household ID.")
+                # print("I don't have household ID.")
                 new_hh=OVCHouseHold(
                     head_person_id=caretaker,
                     head_identifier=caretaker_id
@@ -388,9 +388,9 @@ def ovc_registration(request, ovc_id, edit=0):
                 # hh_id = new_hh.pk
 
             else:
-                print("I do have household ID.")
+                # print("I do have household ID.")
                 hh_id=hhid.id
-                print(hh_id)
+                # print(hh_id)
             # Add members to HH
             hh_members.append(ovc_id)
             for hh_m in hh_members:
@@ -499,12 +499,12 @@ def get_house_hold(person_id):
     try:
         hh_detail = get_object_or_404(
             OVCHouseHold, head_person_id=person_id)
-        print("Get HouseHold Function Detail->",hh_detail);
+        # print("Get HouseHold Function Detail->",hh_detail);
     except Exception as e:
         print 'error getting hh - %s' % (str(e))
         return None
     else:
-        print("Return GetHouseHold Func", hh_detail)
+        # print("Return GetHouseHold Func", hh_detail)
         return hh_detail
 
 def get_first_household(person_id):

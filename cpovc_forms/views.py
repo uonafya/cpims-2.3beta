@@ -9124,9 +9124,9 @@ def case_plan_template(request, id):
 
         if my_request:
             caseplandata = json.loads(my_request)
-            print("kkkkkkkkkkkk",caseplandata)
+            # print("kkkkkkkkkkkk",caseplandata)
             for all_data in caseplandata:
-                print("my_reason",all_data)
+                # print("my_reason",all_data)
                 my_domain = all_data['domain']
                 my_goal = all_data['goal']
                 my_gap = all_data['gaps']
@@ -9139,7 +9139,7 @@ def case_plan_template(request, id):
                 my_date_of_caseplan = all_data['CPT_DATE_CASEPLAN']
                 my_results = all_data['results']
                 my_reason = all_data['reasons']
-                print("my_reason",all_data)
+                # print("my_reason",all_data)
 
                 xyz = RegPerson.objects.filter(id=caregiver_id).values('id')
                 
@@ -9235,9 +9235,9 @@ def update_caseplan(request, event_id, ovcid):
                     xyz = RegPerson.objects.filter(id=caregiver_id).values('id')
 
                     for service in my_service:
-                        print('person_id', id)
-                        print('person_ovcid', ovcid)
-                        print('caregiver_id', caregiver_id)
+                        # print('person_id', id)
+                        # print('person_ovcid', ovcid)
+                        # print('caregiver_id', caregiver_id)
                         OVCCareCasePlan(
                             domain=my_domain,
                             goal=my_goal,
@@ -9551,7 +9551,7 @@ def new_wellbeing(request, id):
         ovc_id = int(id)
         child = RegPerson.objects.get(is_void=False, id=ovc_id)
         care_giver = RegPerson.objects.get(id=OVCRegistration.objects.get(person=child).caretaker_id)
-        print('ssssssssss', care_giver)
+        # print('ssssssssss', care_giver)
         
 
         entity_values = []
