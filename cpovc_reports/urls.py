@@ -33,6 +33,8 @@ urlpatterns = patterns(
         name='pivot_ovc_reports_mer23'),
     url(r'^datim_mer24/$', 'reports_ovc_datim_mer24_pivot',
         name='pivot_ovc_reports_mer24'),
+    url(r'^datim_mer25/$', 'reports_ovc_datim_mer25_pivot',
+        name='pivot_ovc_reports_mer24'),
     url(r'^pepfar/$', 'reports_ovc_pepfar',
         name='pivot_ovc_pepfar'),
     url(r'^kpi/$', 'reports_ovc_kpi',
