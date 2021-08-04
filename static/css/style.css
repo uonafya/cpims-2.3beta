@@ -1654,7 +1654,7 @@ legend {
     border-radius: 0 !important;
 }
 .panel-heading {
-    padding: 10px 15px;
+    padding: 8px 12px;
     border: none;
 }
 .panel-heading + .table,
@@ -1700,7 +1700,7 @@ legend {
     margin-right: -15px;
 }
 .panel-heading .nav-tabs > li > a {
-    padding: 10px 15px;
+    padding: 8px 12px;
     line-height: 20px;
 }
 .panel-title {
@@ -1708,8 +1708,8 @@ legend {
     font-size: 13px;
 }
 .panel-title .accordion-toggle {
-    margin: -10px -15px;
-    padding: 10px 15px;
+    margin: -8px -12px;
+    padding: 8px 12px;
 }
 .panel-title .accordion-toggle.accordion-toggle-styled .fa:before {
     content: '\f056';
@@ -1723,7 +1723,7 @@ legend {
 .panel-toolbar {
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
-    padding: 10px 15px;
+    padding: 8px 12px;
     background: #fff;
 }
 .panel-toolbar + .form-control {
@@ -1987,7 +1987,7 @@ legend {
 .table > tbody > tr > td, 
 .table > tfoot > tr > td {
     border-color: #e2e7eb;
-    padding: 10px 15px;
+    padding: 7px 11px;
 }
 .table-condensed > thead > tr > th, 
 .table-condensed > tbody > tr > th, 
@@ -1995,7 +1995,7 @@ legend {
 .table-condensed > thead > tr > td, 
 .table-condensed > tbody > tr > td, 
 .table-condensed > tfoot > tr > td {
-    padding: 7px 15px;
+    padding: 5px 10px;
 }
 .table-hover > tbody > tr:hover > td, 
 .table-hover > tbody > tr:hover > th {
