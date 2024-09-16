@@ -493,6 +493,8 @@ def new_person(request):
             given_name = request.POST.get('given_name')
 
             child_ovc = request.POST.get('child_ovc')
+            child_dreams = request.POST.get('child_dreams')
+            child_preventive = request.POST.get('child_preventive')
 
             audit_date = request.POST.get('audit_date')
             audit_workforce_id = request.POST.get('workforce_id')
@@ -514,9 +516,17 @@ def new_person(request):
                 person_types.append('TBGR')
             if person_type == 'TBGR':
                 designation = 'CCGV'
-            # Get the type of children
+            # Get the type of children 
             if 'TBVC' in person_types:
-                designation = 'COVC' if child_ovc == 'AYES' else 'CGOC'
+                if child_ovc == 'AYES' :
+                    designation = 'COVC'
+                elif child_dreams == 'AYES':
+                    designation = 'DOVC' 
+                elif child_preventive == 'AYES' :
+                    designation = 'POVC' 
+                else :
+                    designation = 'CGOC'
+            
             # Capture RegPerson Model
             person = RegPerson(
                 designation=designation,
@@ -534,7 +544,7 @@ def new_person(request):
             now = timezone.now()
 
             # Save child as OVC
-            if designation == 'COVC':
+            if designation == 'COVC' or designation == 'DOVC' or designation == 'POVC':
                 reg_date = '1900-01-01'
                 cbo_id = request.POST.get('cbo_unit_id')
                 chv_id = request.POST.get('chv_unit_id')
@@ -689,7 +699,7 @@ def new_person(request):
 
             operation_msg = 'Person (%s) save success.' % first_name.upper()
             messages.add_message(request, messages.INFO, operation_msg)
-            if child_ovc == 'AYES':
+            if child_ovc == 'AYES' or child_dreams == 'AYES' or child_preventive == 'AYES':
                 ovc_url = reverse(ovc_register, kwargs={'id': reg_person_pk})
                 return HttpResponseRedirect(ovc_url)
             elif 'TBVC' in person_types and child_ovc != 'AYES':
@@ -982,6 +992,8 @@ def edit_person(request, id):
             date_of_birth = request.POST.get('date_of_birth')
             child_services = request.POST.get('child_services')
             child_ovc = request.POST.get('child_ovc')
+            child_dreams = request.POST.get('child_dreams')
+            child_preventive = request.POST.get('child_preventive')
 
             # org_units = request.POST.getlist('org_unit_id')
             national_id = request.POST.get('national_id')
@@ -1005,8 +1017,16 @@ def edit_person(request, id):
             eperson_id = int(id)
             if edit_type == 1:
                 person_types = [str(person_type)]
+                
                 if 'TBVC' in person_types:
-                    designation = 'COVC' if child_ovc == 'AYES' else 'CGOC'
+                    if child_ovc == 'AYES' :
+                        designation = 'COVC'
+                    elif child_dreams == 'AYES':
+                        designation = 'DOVC' 
+                    elif child_preventive == 'AYES' :
+                        designation = 'POVC' 
+                    else :
+                        designation = 'CGOC'
                 if 'TBGR' != person_type and is_caregiver:
                     person_types.append('TBGR')
                 phone_number = des_phone_number if des_phone_number else None
@@ -1031,7 +1051,7 @@ def edit_person(request, id):
                     ovc.child_chv_id = chv_id
                     ovc.save(update_fields=['child_cbo_id', 'child_chv_id'])
                 else:
-                    if designation == 'COVC':
+                    if designation == 'COVC' or designation == 'DOVC' or designation == 'POVC':
                         reg_date = '1900-01-01'
                         cbo_id = request.POST.get('cbo_unit_id')
                         chv_id = request.POST.get('chv_unit_id')

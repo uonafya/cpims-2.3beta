@@ -77,7 +77,7 @@
                                 <!-- end col-4 -->
                                 {% if request.session.reg_ovc or request.user.is_superuser %}
                                 <!-- begin col-4 -->
-                                <div class="col-md-4" id="is_ovc">
+                                <div class="col-md-1" id="is_ovc">
                                     <div class="form-group">
                                         <label for="child_ovc">Child is OVC <span class="asteriskField">*</span></label>
                                         <br>                                        
@@ -85,6 +85,23 @@
                                         <span id="child_ovc_error"></span>
                                     </div>
                                 </div>
+                                <div class="col-md-1" id="is_dreams">
+                                    <div class="form-group">
+                                        <label for="child_dreams">Child in Dreams <span class="asteriskField">*</span></label>
+                                        <br>                                        
+                                        {{ form.child_dreams }}
+                                        <span id="child_dreams_error"></span>
+                                    </div>
+                                </div> 
+                                <div class="col-md-1" id="is_preventive">
+                                    <div class="form-group">
+                                        <label for="child_preventive">Child Preventive Care <span class="asteriskField">*</span></label>
+                                        <br>                                        
+                                        {{ form.child_preventive }}
+                                        <span id="child_preventive_error"></span>
+                                    </div>
+                                </div> 
+                                
                                 <!-- end col-4 -->
                                 {% endif %}                                
                             </div>
@@ -926,6 +943,18 @@ jQuery(document).ready(function() {
     $(':input[name="child_ovc"]').click(function(){
         var child_ovc = $('input[name=child_ovc]:checked').val();
         if (child_ovc == 'AYES'){
+            $('#other_names').attr('data-parsley-required', 'true');   
+        }
+    });
+    $(':input[name="child_dreams"]').click(function(){
+        var child_dreams = $('input[name=child_dreams]:checked').val();
+        if (child_dreams == 'AYES'){
+            $('#other_names').attr('data-parsley-required', 'true');   
+        }
+    });
+    $(':input[name="child_preventive"]').click(function(){
+        var child_preventive = $('input[name=child_preventive]:checked').val();
+        if (child_preventive == 'AYES'){
             $('#other_names').attr('data-parsley-required', 'true');   
         }
     });
@@ -1938,6 +1967,14 @@ function handle_child(){
     if (child_ovc == 'AYES'){
         $('#other_names').attr('data-parsley-required', 'true');   
     }
+    var child_dreams = $('#child_dreams').val();
+    if (child_dreams == 'AYES'){
+        $('#other_names').attr('data-parsley-required', 'true');   
+    }
+    var child_preventive = $('#child_preventive').val();
+    if (child_preventive == 'AYES'){
+        $('#other_names').attr('data-parsley-required', 'true');   
+    }
 }
 
 function handle_caregiver(person_text){
@@ -2175,6 +2212,8 @@ function handle_ovc(person_type){
             $("#cbo_chv_ndiv").hide();
             $('#ou_ovc').html('CBO / CHV details');
             $('#is_ovc').show();
+            $('#is_dreams').show();
+            $('#is_preventive').show();
         {% else %}
             $("#cbo_chv_add").hide();
             $('#add_org_info').html(' - Not required');
@@ -2185,6 +2224,11 @@ function handle_ovc(person_type){
             $("#cbo_chv_div").hide();
             $('#ou_ovc').html('Organizational unit details');
             $('#is_ovc').hide();
+            $('#child_ovc').attr('data-parsley-required', 'false');
+            $('#is_dreams').hide();
+            $('#child_dreams').attr('data-parsley-required', 'false');
+            $('#is_preventive').hide();
+            $('#child_preventive').attr('data-parsley-required', 'false');
         {% endif %}
             
     }else{
@@ -2197,6 +2241,11 @@ function handle_ovc(person_type){
         $("#cbo_chv_div").hide();
         $('#ou_ovc').html('Organizational unit details');
         $('#is_ovc').hide();
+        $('#child_ovc').attr('data-parsley-required', 'false');
+        $('#is_dreams').hide();
+        $('#child_dreams').attr('data-parsley-required', 'false');
+        $('#is_preventive').hide();
+        $('#child_preventive').attr('data-parsley-required', 'false');
     }
 
 }
