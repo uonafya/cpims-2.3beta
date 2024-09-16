@@ -376,7 +376,7 @@ def get_past_cpt(ovc_id):
                 'event_healthy': one_event_healthy,
                 'event_school': one_event_school
             })
-        print("get_past_cpt successful::::::::::::", caseplan_events)
+        # print("get_past_cpt successful::::::::::::", caseplan_events)
         return caseplan_events
     except Exception as e:
         caseplan_events = []
